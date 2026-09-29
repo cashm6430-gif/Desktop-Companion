@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
                      &controller, &PetController::turnStopped);
     QObject::connect(&codexSource, &CodexTurnSource::sessionEnded,
                      &controller, &PetController::sessionEnded);
-    codexSource.setStatusProvider([&controller, &desktopSource] {
+    codexSource.setStatusProvider([&controller, &desktopSource, &window] {
         QString state;
         switch (controller.state()) {
         case PetController::State::Idle: state = QStringLiteral("idle"); break;
@@ -34,7 +34,12 @@ int main(int argc, char** argv) {
         case PetController::State::Delete: state = QStringLiteral("delete"); break;
         case PetController::State::Grass: state = QStringLiteral("grass"); break;
         }
+        QJsonObject parameters;
+        for (auto it = window.motionParameters().cbegin(); it != window.motionParameters().cend(); ++it)
+            parameters.insert(it.key(), it.value());
         return QJsonObject{{QStringLiteral("state"), state},
+                           {QStringLiteral("render_backend"), QStringLiteral("image_preview")},
+                           {QStringLiteral("cubism_parameters"), parameters},
                            {QStringLiteral("active_turns"), controller.activeTurnCount()},
                            {QStringLiteral("desktop_watching"), desktopSource.isWatching()},
                            {QStringLiteral("desktop_error"), desktopSource.error()},

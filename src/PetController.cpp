@@ -44,13 +44,15 @@ void PetController::sessionEnded(const QString& sessionId) {
 void PetController::desktopItemDeleted() {
     if (deleteClock_.isValid() && deleteClock_.elapsed() < 450) return;
     deleteClock_.restart();
-    setState(State::Delete);
+    if (state_ == State::Delete) emit stateChanged(State::Delete);
+    else setState(State::Delete);
     actionTimer_.start(1400);
 }
 
 void PetController::playGrass() {
     if (state_ == State::Delete) return;
-    setState(State::Grass);
+    if (state_ == State::Grass) emit stateChanged(State::Grass);
+    else setState(State::Grass);
     actionTimer_.start(6900);
 }
 

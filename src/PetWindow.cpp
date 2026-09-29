@@ -37,7 +37,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     grassMovie_.setPaused(true);
 
     frameTimer_.setInterval(40);
-    connect(&frameTimer_, &QTimer::timeout, this, [this] { ++frame_; update(); });
+    frameClock_.start();
+    connect(&frameTimer_, &QTimer::timeout, this, [this] {
+        ++frame_;
+        motion_.advance(frameClock_.restart() / 1000.0);
+        update();
+    });
     frameTimer_.start();
     connect(controller_, &PetController::stateChanged, this, &PetWindow::setState);
     setState(PetController::State::Idle);
@@ -68,6 +73,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 }
 
 void PetWindow::setState(PetController::State state) {
+    motion_.setState(state);
     grassMovie_.setPaused(true);
     currentMovie_ = nullptr;
     frame_ = 0;

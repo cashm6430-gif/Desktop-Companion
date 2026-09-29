@@ -1,8 +1,10 @@
 #pragma once
 
 #include "PetController.h"
+#include "ParameterMotion.h"
 
 #include <QMovie>
+#include <QElapsedTimer>
 #include <QMenu>
 #include <QPoint>
 #include <QSystemTrayIcon>
@@ -13,6 +15,7 @@ class PetWindow final : public QWidget {
     Q_OBJECT
 public:
     explicit PetWindow(PetController* controller, QWidget* parent = nullptr);
+    const ParameterMotion::Parameters& motionParameters() const { return motion_.values(); }
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -33,6 +36,8 @@ private:
     QSystemTrayIcon tray_;
     QMenu trayMenu_;
     QTimer frameTimer_;
+    QElapsedTimer frameClock_;
+    ParameterMotion motion_;
     PetController* controller_;
     QPoint dragOffset_;
     bool dragging_ = false;
