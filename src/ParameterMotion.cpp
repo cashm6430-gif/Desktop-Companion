@@ -112,8 +112,8 @@ void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     grassBendVelocity_ = grassTipVelocity_ = 0.0;
     previousReach_ = parameters.value(QStringLiteral("ParamGrassReach"));
     previousGripAngle_ = -parameters.value(rightArm) + 55.0 * previousReach_;
-    values_[QStringLiteral("ParamEyeLVisible")] = values_.value(leftEye, 1.0);
-    values_[QStringLiteral("ParamEyeRVisible")] = values_.value(rightEye, 1.0);
+    leftEyeExpression_ = parameters.value(leftEye, 1.0);
+    rightEyeExpression_ = parameters.value(rightEye, 1.0);
     preview_ = true;
 }
 
@@ -148,8 +148,10 @@ void ParameterMotion::advance(double seconds) {
         {bodyZ, 0.0},
         {breath, 0.5 + 0.5 * qSin(clock_ * 2.1)},
         {leftArm, 0.0}, {rightArm, 0.0},
+        {leftEye, 1.0}, {rightEye, 1.0},
         {mouth, 0.0}, {cheek, 0.0},
         {QStringLiteral("ParamSmileOpen"), 0.0},
+        {QStringLiteral("ParamEyeSmile"), 0.0},
         {QStringLiteral("ParamEyeBallX"), 0.0},
         {QStringLiteral("ParamEyeBallY"), 0.0},
         {QStringLiteral("ParamGrassVisible"), 0.0},
@@ -185,19 +187,21 @@ void ParameterMotion::advance(double seconds) {
     // Short asymmetric blink. It stays procedural across action transitions.
     const double blinkPhase = std::fmod(blinkClock_, 4.3);
     const double eye = 1.0 - pulse(blinkPhase, 0.0, 0.075, 0.16);
-    // Blink modulates the authored expression, rather than overwriting winks
-    // and smiling closed eyes supplied by the action keyframes.
-    desired[leftEye] = desired.value(leftEye, 1.0) * eye;
-    desired[rightEye] = desired.value(rightEye, 1.0) * eye;
-    desired[QStringLiteral("ParamEyeLVisible")] = desired[leftEye];
-    desired[QStringLiteral("ParamEyeRVisible")] = desired[rightEye];
-
     // Time-based exponential blending is stable at both 30 and 60 Hz.
     const double alpha = 1.0 - qExp(-seconds / 0.12);
     for (auto it = desired.cbegin(); it != desired.cend(); ++it) {
-        const double previous = values_.contains(it.key()) ? values_.value(it.key()) : it.value();
-        values_[it.key()] = previous + (it.value() - previous) * alpha;
+        double previous = values_.contains(it.key()) ? values_.value(it.key()) : it.value();
+        if (it.key() == leftEye) previous = leftEyeExpression_;
+        if (it.key() == rightEye) previous = rightEyeExpression_;
+        const double blended = previous + (it.value() - previous) * alpha;
+        if (it.key() == leftEye) leftEyeExpression_ = blended;
+        if (it.key() == rightEye) rightEyeExpression_ = blended;
+        values_[it.key()] = blended;
     }
+    // Smooth the authored expression first, then apply the short blink. Feeding
+    // blink values through the general 120ms filter prevents full closure.
+    values_[leftEye] = leftEyeExpression_ * eye;
+    values_[rightEye] = rightEyeExpression_ * eye;
     const double reach = values_.value(QStringLiteral("ParamGrassReach"));
     const double gripAngle = -values_.value(rightArm) + 55.0 * reach;
     const double gripSpeed = (gripAngle - previousGripAngle_) / seconds;

@@ -96,6 +96,16 @@ def main() -> None:
     right_eye = np.asarray(Image.fromarray(right_eye.astype(np.uint8) * 255).filter(ImageFilter.MaxFilter(3))) > 0
     left_iris = ellipse(source.size, (506, 438, 576, 504)) & left_eye & (b > r + 15) & (b > g + 5)
     right_iris = ellipse(source.size, (683, 429, 753, 497)) & right_eye & (b > r + 15) & (b > g + 5)
+    # The upper lid keeps its painted thickness while its centreline moves.
+    # Eye white is an independent aperture mask; it must not contain lashes.
+    left_lash_edge = np.interp(xx, [468, 485, 497, 511, 532, 551, 574, 601],
+                             [470, 491, 477, 452, 442, 442, 449, 464])
+    right_lash_edge = np.interp(xx, [659, 676, 697, 720, 742, 762, 781, 803],
+                              [454, 438, 428, 425, 431, 446, 480, 450])
+    # Bright aperture pixels belong to the white, including the thin band at
+    # the painted lid boundary. Moving them with the lash leaves a dotted rim.
+    left_lash = left_eye & (yy <= left_lash_edge) & ~left_iris & (g < 180)
+    right_lash = right_eye & (yy <= right_lash_edge) & ~right_iris & (g < 180)
     mouth = ellipse(source.size, (602, 508, 663, 543))
     # Follow the painted sleeve/cuff/fingers rather than taking a wide slice
     # of the adjacent hair, which would move a blue rectangle with the hand.
@@ -159,6 +169,8 @@ def main() -> None:
     pr, pg, pb = [plate_pixels[:, :, i].astype(np.int16) for i in range(3)]
 
     candidates = [
+        ("eyelash-l", left_lash),
+        ("eyelash-r", right_lash),
         ("irides-l", left_iris),
         ("irides-r", right_iris),
         ("eyewhite-l", left_eye),
@@ -188,7 +200,7 @@ def main() -> None:
         # neighbouring meshes move. Never expand the exterior silhouette.
         expanded = np.asarray(Image.fromarray(mask.astype(np.uint8) * 255)
                               .filter(ImageFilter.MaxFilter(25))) > 0
-        if name not in ("irides-l", "irides-r", "eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r"):
+        if name not in ("eyelash-l", "eyelash-r", "irides-l", "irides-r", "eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r"):
             # Never copy moving foreground pixels into a lower layer: that
             # would leave a second eye/hand visible when the real one moves.
             movable = removal | left_arm | right_arm
@@ -224,18 +236,6 @@ def main() -> None:
     smile_art = smile_art.crop(smile_art.getbbox()).resize((48, 24), Image.Resampling.LANCZOS)
     smile.alpha_composite(smile_art, (604, 515))
     layers.insert(0, ("mouth open", smile))
-
-    # A closed-eye mesh supplies the lash only as EyeOpen approaches zero.
-    # The eye-white mesh alone collapses its dark pixels almost to zero height.
-    for name, points in (
-        ("eye close-l", [(477, 477), (491, 462), (511, 454), (532, 451),
-                         (553, 455), (574, 464), (590, 477)]),
-        ("eye close-r", [(666, 470), (680, 455), (700, 447), (720, 443),
-                         (741, 447), (761, 456), (779, 471)]),
-    ):
-        lid = Image.new("RGBA", source.size, (0, 0, 0, 0))
-        ImageDraw.Draw(lid).line(points, fill=(57, 38, 64, 255), width=5, joint="curve")
-        layers.insert(0, (name, lid))
 
     # Flat art has no pixels behind the sleeves. Sample adjacent hair into the
     # original sleeve footprints so rotating a sleeve cannot reveal the desktop.
@@ -303,7 +303,7 @@ def main() -> None:
     psd.save(OUTPUT)
     composite = Image.new("RGBA", source.size, (0, 0, 0, 0))
     for name, image in reversed(layers):
-        if image is not grass and image is not grip and image is not smile and not name.startswith("eye close"):
+        if image is not grass and image is not grip and image is not smile:
             composite = Image.alpha_composite(composite, image)
     composite.save(PREVIEW / "composite-check.png")
     composite_pixels = np.asarray(composite).astype(np.int16)

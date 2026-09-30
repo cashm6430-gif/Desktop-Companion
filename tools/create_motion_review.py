@@ -2,8 +2,11 @@
 
 Run build/DesktopCompanion.exe --review-motion build/motion-review first.
 For an animated review, also run --render-motion build/motion-sequence.
+For eye sweeps, run this script with --eye-manifest, then pass the returned
+manifest to DesktopCompanion.exe --review-motion <eye-directory> <manifest>.
 """
 import json
+import sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -13,13 +16,25 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     motion = json.loads((ROOT / "assets/motions/grass.motion.json").read_text(encoding="utf8"))
     revision = motion.get("revision", 1)
+    eye_folder = ROOT / f"build/eye-v{revision}-review"
+    eye_levels = ("1", "0.75", "0.5", "0.25", "0")
+    if "--eye-manifest" in sys.argv:
+        eye_folder.mkdir(parents=True, exist_ok=True)
+        keys = [{"time": row * 5 + col, "label": f"{mode}-{level}", "parameters": {
+            "ParamEyeLOpen": float(level), "ParamEyeROpen": float(level), "ParamEyeSmile": row,
+            "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
+        }} for row, mode in enumerate(("open", "smile")) for col, level in enumerate(eye_levels)]
+        manifest = eye_folder / "poses.motion.json"
+        manifest.write_text(json.dumps({"keyframes": keys}, ensure_ascii=False, indent=2), encoding="utf8")
+        print(manifest)
+        return
     font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 24)
     small = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 18)
     poses = tuple(next(i for i, frame in enumerate(motion["keyframes"]) if frame["time"] == time)
                   for time in (0.8, 2.0, 3.6, 5.2))
     sheet = Image.new("RGB", (1120, 1204), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
-    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 柔软弯曲 / 草穗滞后", font=font, fill="#1e2c47")
+    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 连续眼睑 / 柔性草", font=font, fill="#1e2c47")
     draw.text((28, 53), "实际 Cubism 模型渲染 / 待审批 / 四个动作关键姿势", font=small, fill="#52617b")
     for cell, key in enumerate(poses):
         x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
@@ -46,16 +61,17 @@ def main():
     detail.save(detail_output)
     print(detail_output)
 
-    if all((ROOT / "build" / name).is_file() for name in ("eye-before.png", "eye-after-plate.png")):
-        comparison = Image.new("RGB", (1180, 415), "#f8faff")
-        comparison_draw = ImageDraw.Draw(comparison)
-        comparison_draw.text((24, 14), "眼周对照 · 同一转头 / 半闭眼参数 · Native 渲染", font=font, fill="#243654")
-        for cell, (name, label) in enumerate((("eye-before.png", "修正前"), ("eye-after-plate.png", "修正后"))):
-            image = Image.open(ROOT / "build" / name).convert("RGBA")
-            image = image.crop((290, 235, 570, 405)).resize((560, 340), Image.Resampling.LANCZOS)
-            comparison.paste(image, (24 + cell * 590, 52), image)
-            comparison_draw.text((24 + cell * 590, 390), label, font=small, fill="#52617b")
-        comparison.save(output.with_name("eye-seam-comparison-v3.png"))
+    if all((eye_folder / f"grass-{index:02}.png").is_file() for index in range(10)):
+        eyes = Image.new("RGB", (1400, 510), "#f8faff")
+        eye_draw = ImageDraw.Draw(eyes)
+        for row, (mode, label) in enumerate((("open", "普通眨眼"), ("smile", "笑眼"))):
+            y = row * 255
+            eye_draw.text((12, y + 4), label + " · 眼睑形变 / 虹膜遮罩 · Native 渲染", font=small, fill="#243654")
+            for col, level in enumerate(eye_levels):
+                eye = Image.open(eye_folder / f"grass-{row * 5 + col:02}.png").convert("RGBA").crop((290, 235, 570, 405))
+                eyes.paste(eye, (col * 280, y + 36), eye)
+                eye_draw.text((col * 280 + 12, y + 212), f"开合 {level}", font=small, fill="#52617b")
+        eyes.save(output.with_name(f"eye-closure-v{revision}.png"))
 
     sequence = sorted((ROOT / "build/motion-sequence").glob("frame-*.png"))
     if len(sequence) == 120:

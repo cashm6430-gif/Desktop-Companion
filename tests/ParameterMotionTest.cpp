@@ -13,6 +13,7 @@ private slots:
     void repeatedDeleteRestartsAction();
     void grassKeysAndTransitions();
     void grassExpressionsSurviveBlink();
+    void proceduralBlinkClosesAndRecovers();
     void grassFlexLagsReboundsAndSettles();
     void malformedMotionDoesNotReplaceLoadedKeys();
 };
@@ -113,6 +114,7 @@ void ParameterMotionTest::grassExpressionsSurviveBlink() {
     for (int i = 0; i < 55; ++i) motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.2);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.95);
     QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.99);
     for (int i = 55; i < 90; ++i) motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamArmRA")) > 50.0);
@@ -124,6 +126,33 @@ void ParameterMotionTest::grassExpressionsSurviveBlink() {
     for (int i = 0; i < 30; ++i) motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.01);
+}
+
+void ParameterMotionTest::proceduralBlinkClosesAndRecovers() {
+    ParameterMotion motion;
+    motion.advance(0.075);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamEyeLOpen")), 0.0);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamEyeROpen")), 0.0);
+    motion.advance(0.085);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.99);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) > 0.99);
+    // A blink must not reopen an authored wink when the blink finishes.
+    QTemporaryFile heldWink;
+    QVERIFY(heldWink.open());
+    heldWink.write(R"({"keyframes":[{"time":0,"parameters":{"ParamEyeLOpen":0,"ParamEyeROpen":1}},
+        {"time":10,"parameters":{"ParamEyeLOpen":0,"ParamEyeROpen":1}}]})");
+    heldWink.flush();
+    ParameterMotion wink;
+    QVERIFY(wink.loadGrassMotion(heldWink.fileName()));
+    wink.setPreviewPose(wink.grassPose(0));
+    wink.setState(PetController::State::Grass);
+    wink.advance(0.075);
+    QCOMPARE(wink.values().value(QStringLiteral("ParamEyeLOpen")), 0.0);
+    QCOMPARE(wink.values().value(QStringLiteral("ParamEyeROpen")), 0.0);
+    wink.advance(0.085);
+    QCOMPARE(wink.values().value(QStringLiteral("ParamEyeLOpen")), 0.0);
+    QVERIFY(wink.values().value(QStringLiteral("ParamEyeROpen")) > 0.99);
 }
 
 void ParameterMotionTest::grassFlexLagsReboundsAndSettles() {

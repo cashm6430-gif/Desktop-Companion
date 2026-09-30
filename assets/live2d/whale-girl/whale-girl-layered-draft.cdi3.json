@@ -92,16 +92,6 @@
 			"Name": "后发摆动"
 		},
 		{
-			"Id": "ParamEyeLVisible",
-			"GroupId": "ParamGroupCustom",
-			"Name": "ParamEyeLVisible"
-		},
-		{
-			"Id": "ParamEyeRVisible",
-			"GroupId": "ParamGroupCustom",
-			"Name": "ParamEyeRVisible"
-		},
-		{
 			"Id": "ParamGrassVisible",
 			"GroupId": "ParamGroupCustom",
 			"Name": "ParamGrassVisible"
@@ -140,6 +130,11 @@
 			"Id": "ParamGrassTipBend",
 			"GroupId": "",
 			"Name": "柔软草穗滞后"
+		},
+		{
+			"Id": "ParamEyeSmile",
+			"GroupId": "",
+			"Name": "笑眼弧度"
 		}
 	],
 	"ParameterGroups": [
@@ -233,16 +228,16 @@
 			"Name": "handwear right"
 		},
 		{
-			"Id": "ArtMeshEyeCloseR",
-			"Name": "eye close-r"
-		},
-		{
-			"Id": "ArtMeshEyeCloseL",
-			"Name": "eye close-l"
-		},
-		{
 			"Id": "ArtMeshMouthOpen",
 			"Name": "mouth open"
+		},
+		{
+			"Id": "ArtMeshEyelashL",
+			"Name": "eyelash-l"
+		},
+		{
+			"Id": "ArtMeshEyelashR",
+			"Name": "eyelash-r"
 		},
 		{
 			"Id": "ArtMeshIridesL",

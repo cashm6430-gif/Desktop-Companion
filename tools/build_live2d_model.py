@@ -8,6 +8,8 @@ import json
 import sys
 from itertools import product
 from pathlib import Path
+import numpy as np
+from PIL import Image
 from psd2live_client import call, initialize
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,14 +50,14 @@ def main():
     # the face rather than stay on the body when the head turns.
     for name, role, extra in (
         ("arm backing", "unknown", {}),
-        ("irides-l", "irides", {"side": "left", "type": "toggle", "parameter": "ParamEyeLVisible"}),
-        ("irides-r", "irides", {"side": "right", "type": "toggle", "parameter": "ParamEyeRVisible"}),
-        ("eyewhite-l", "eyewhite", {"side": "left", "type": "toggle", "parameter": "ParamEyeLVisible"}),
-        ("eyewhite-r", "eyewhite", {"side": "right", "type": "toggle", "parameter": "ParamEyeRVisible"}),
+        ("irides-l", "irides", {"side": "left", "type": "preset"}),
+        ("irides-r", "irides", {"side": "right", "type": "preset"}),
+        ("eyewhite-l", "eyewhite", {"side": "left", "type": "preset"}),
+        ("eyewhite-r", "eyewhite", {"side": "right", "type": "preset"}),
+        ("eyelash-l", "eyelash", {"side": "left", "type": "preset"}),
+        ("eyelash-r", "eyelash", {"side": "right", "type": "preset"}),
         ("mouth", "mouth_close", {"type": "switch", "parameter": "ParamSmileOpen", "switch_id": 0}),
         ("mouth open", "mouth_open", {"type": "switch", "parameter": "ParamSmileOpen", "switch_id": 1}),
-        ("eye close-l", "eye_close", {"side": "left"}),
-        ("eye close-r", "eye_close", {"side": "right"}),
         ("handwear right", "handwear", {"side": "right", "type": "toggle", "parameter": "ParamGrassVisible"}),
         ("handwear_r", "handwear", {"side": "right", "type": "switch", "parameter": "ParamHandRGrip", "switch_id": 0}),
         ("handwear.right", "handwear", {"side": "right", "type": "switch", "parameter": "ParamHandRGrip", "switch_id": 1}),
@@ -78,6 +80,7 @@ def main():
         ("ParamArmLA", "左手动作", -65, 65), ("ParamArmRA", "右手动作", -65, 65),
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
         ("ParamGrassTipBend", "柔软草穗滞后", -1, 1),
+        ("ParamEyeSmile", "笑眼弧度", 0, 1),
     ):
         invoke("parameter", {"request": {"mode": "create", "state": state,
             "parameter_id": identifier, "name": label, "min": minimum, "max": maximum, "default": 0}})
@@ -87,6 +90,50 @@ def main():
         return [bounds[0] - 3, bounds[1] - 3, bounds[2] - bounds[0] + 6, bounds[3] - bounds[1] + 6]
     def normalized(point, bounds):
         return [(point[0] - bounds[0]) / bounds[2], (point[1] - bounds[1]) / bounds[3]]
+
+    def bezier_controls(polynomial):
+        a, b, c, d = polynomial
+        return [float(a), float(a + b / 3), float(a + 2 * b / 3 + c / 3), float(a + b + c + d)]
+
+    for side, parameter, edge_y in (("l", "ParamEyeLOpen", 472), ("r", "ParamEyeROpen", 468)):
+        lash_name = "eyelash-" + side
+        lash_bounds = frame(lash_name)
+        # Sample the painted lash centreline once, preserving actual thickness.
+        preview = next((ROOT / "build/psd2live/layer-previews").glob("*-" + lash_name + ".png"))
+        alpha = np.asarray(Image.open(preview).getchannel("A"), dtype=float) / 255
+        weights = alpha.sum(axis=0)
+        columns = np.flatnonzero(weights > 0)
+        centres = (alpha * np.arange(alpha.shape[0])[:, None]).sum(axis=0)[columns] / weights[columns]
+        source_line = np.polynomial.polynomial.polyfit(
+            (columns - lash_bounds[0]) / lash_bounds[2], centres, 3, w=np.sqrt(weights[columns]))
+        for name, is_lash in ((lash_name, True), ("eyewhite-" + side, False)):
+            target = "mesh:" + mesh(name)
+            bounds = frame(name)
+            neutral = {parameter: 1, "ParamEyeSmile": 0}
+            invoke("form", {"state": state, "changes": [{"op": "seed", "target": target, "key": neutral}]})
+            for openness, smile in product((0, 0.04, 0.25, 0.5, 0.75, 1), (0, 1)):
+                key = {parameter: openness, "ParamEyeSmile": smile}
+                if key == neutral: continue
+                invoke("form", {"state": state, "changes": [{"op": "copy", "target": target,
+                    "from": neutral, "key": key, "channels": ["geometry"]}]})
+                # Closed aperture and lid share a curve in canvas coordinates.
+                # Happy eyes arch upward; ordinary blinks curve downward.
+                x = np.linspace(0, 1, 20)
+                global_x = bounds[0] + x * bounds[2]
+                u = (global_x - lash_bounds[0]) / lash_bounds[2]
+                closed = edge_y + (18 - 42 * smile) * 4 * u * (1 - u)
+                pivot_y = bounds[1] + bounds[3] / 2
+                thickness = 0.88 if is_lash else 0.001
+                scale = openness + (1 - openness) * thickness
+                anchor = np.polynomial.polynomial.polyval(u, source_line) if is_lash else pivot_y
+                offset = (1 - openness) * (closed - thickness * anchor - (1 - thickness) * pivot_y) / bounds[3]
+                controls = bezier_controls(np.polynomial.polynomial.polyfit(x, offset, 3))
+                invoke("deform", {"state": state, "changes": [{"target": target, "key": key, "operations": [
+                    {"type": "scale", "pivot": [0.5, 0.5], "factors": [1, float(scale)]},
+                    {"type": "curve", "axis": "y", "controls": controls},
+                ]}]})
+        # The fully closed aperture is narrower than the opaque lash above it.
+        # Both stay opaque throughout: no alpha crossfade or second closed eye.
 
     for target, name, parameter, shoulder, direction, reaches, swings in (
         (left_arm, "handwear-l", "ParamArmLA", [496, 643], 1, [0], [0]),
@@ -157,6 +204,13 @@ def main():
         binding = invoke("inspect", {"target": "mesh:" + target})
         if not any("ParamHandRGrip" in channel.get("axes", {}) for channel in binding.get("channels", [])):
             raise RuntimeError("Open/gripping hands must share a native opacity parameter")
+    eye_bindings = {}
+    for name in ("eyelash-l", "eyelash-r", "eyewhite-l", "eyewhite-r", "irides-l", "irides-r"):
+        binding = invoke("inspect", {"target": "mesh:" + mesh(name)})
+        if binding.get("channels"):
+            raise RuntimeError("Eye material channels must stay unanimated: " + name)
+        eye_bindings[name] = binding
+    (OUTPUT / "diagnostics/eye-bindings.json").write_text(json.dumps(eye_bindings, ensure_ascii=False, indent=2), encoding="utf8")
     result = invoke("export", {"state": state, "output_directory": str(OUTPUT)})
     (OUTPUT / "diagnostics/export.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf8")
     # CMO3 and the layered PSD are the editable source artifacts. MCP archive

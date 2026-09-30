@@ -31,6 +31,8 @@ private:
     double clock_ = 0.0;
     double actionTime_ = 0.0;
     double blinkClock_ = 0.0;
+    double leftEyeExpression_ = 1.0;
+    double rightEyeExpression_ = 1.0;
     struct Keyframe { double time; Parameters parameters; };
     QVector<Keyframe> grassKeys_;
     bool preview_ = false;

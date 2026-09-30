@@ -16,7 +16,7 @@ REQUIRED_PARAMETERS = {
     "ParamGrassTipBend",
     "ParamHandRGrip",
     "ParamSmileOpen", "ParamEyeBallX", "ParamEyeBallY",
-    "ParamEyeLVisible", "ParamEyeRVisible",
+    "ParamEyeSmile",
 }
 
 
@@ -53,6 +53,10 @@ def main() -> None:
             raise SystemExit("Closed smile and open laugh must be bound to native expression keys")
     if any(layer["source"] == "face detail backing" for layer in metadata["layers"]):
         raise SystemExit("Hard oval eye backing must not be exported")
+    for source in ("irides-l", "irides-r", "eyewhite-l", "eyewhite-r", "eyelash-l", "eyelash-r"):
+        eye = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
+        if not eye or eye.get("type") != "preset":
+            raise SystemExit("Eyes must close geometrically, not crossfade their source art")
     print(f"Validated {len(paths)} Cubism files and {len(parameters)} parameters")
 
 

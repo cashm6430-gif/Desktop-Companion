@@ -25,7 +25,8 @@
         "ParamEyeBallX": 0,
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 0,
-        "ParamSmileOpen": 0
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0
       }
     },
     {
@@ -49,7 +50,8 @@
         "ParamEyeBallX": 0.45,
         "ParamEyeBallY": 0.2,
         "ParamMouthOpenY": 0.3,
-        "ParamSmileOpen": 1
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.0
       }
     },
     {
@@ -73,7 +75,8 @@
         "ParamEyeBallX": -0.21598518518518522,
         "ParamEyeBallY": 0.009718518518518515,
         "ParamMouthOpenY": 0.7757037037037038,
-        "ParamSmileOpen": 1.0
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -97,7 +100,8 @@
         "ParamEyeBallX": -0.25,
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 0.8,
-        "ParamSmileOpen": 1
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -121,7 +125,8 @@
         "ParamEyeBallX": -0.2464681640625,
         "ParamEyeBallY": 0.017659179687499974,
         "ParamMouthOpenY": 0.807063671875,
-        "ParamSmileOpen": 1.0
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -145,7 +150,8 @@
         "ParamEyeBallX": -0.2414728515625,
         "ParamEyeBallY": 0.042635742187499985,
         "ParamMouthOpenY": 0.8170542968750001,
-        "ParamSmileOpen": 1.0
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -169,7 +175,8 @@
         "ParamEyeBallX": -0.2,
         "ParamEyeBallY": 0.25,
         "ParamMouthOpenY": 0.9,
-        "ParamSmileOpen": 1
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.0
       }
     },
     {
@@ -193,7 +200,8 @@
         "ParamEyeBallX": -0.008593750000000011,
         "ParamEyeBallY": 0.010742187500000028,
         "ParamMouthOpenY": 0.995703125,
-        "ParamSmileOpen": 1.0
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -217,7 +225,8 @@
         "ParamEyeBallX": 0,
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 1,
-        "ParamSmileOpen": 1
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -241,7 +250,8 @@
         "ParamEyeBallX": 0.0,
         "ParamEyeBallY": 0.0,
         "ParamMouthOpenY": 1,
-        "ParamSmileOpen": 1
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -265,7 +275,8 @@
         "ParamEyeBallX": 0.0,
         "ParamEyeBallY": 0.0,
         "ParamMouthOpenY": 0.9,
-        "ParamSmileOpen": 1
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0
       }
     },
     {
@@ -289,9 +300,10 @@
         "ParamEyeBallX": 0,
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 0,
-        "ParamSmileOpen": 0
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0
       }
     }
   ],
-  "revision": 4
+  "revision": 5
 }

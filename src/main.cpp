@@ -63,7 +63,10 @@ int main(int argc, char** argv) {
     if (argc >= 3 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--review-motion")) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         if (!QDir().mkpath(output)) return 2;
-        QFile motionFile(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/grass.motion.json")));
+        // An optional pose manifest lets artists review eye/limb sweeps in one
+        // Native render session with the same keyframe capture path.
+        QFile motionFile(argc >= 4 ? QString::fromLocal8Bit(argv[3])
+            : QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/grass.motion.json")));
         if (!motionFile.open(QIODevice::ReadOnly)) return 2;
         const auto frames = QJsonDocument::fromJson(motionFile.readAll()).object().value(QStringLiteral("keyframes")).toArray();
         if (frames.isEmpty()) return 2;
