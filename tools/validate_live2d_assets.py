@@ -39,14 +39,18 @@ def main() -> None:
     missing_parameters = sorted(REQUIRED_PARAMETERS - parameters)
     if missing_parameters:
         raise SystemExit(f"Missing rigged parameters: {missing_parameters}")
-    motion = json.loads((ROOT / "assets/motions/grass.motion.json").read_text(encoding="utf8"))
-    used = {key for frame in motion["keyframes"] for key in frame["parameters"]}
-    if used - parameters:
-        raise SystemExit(f"Motion uses unbound model parameters: {sorted(used - parameters)}")
-    laptop = json.loads((ROOT / 'assets/motions/busy-laptop.motion.json').read_text(encoding='utf8'))
-    laptop_used = {key for frame in laptop['keyframes'] for key in frame['parameters']}
-    if laptop_used - parameters:
-        raise SystemExit(f'Laptop motion uses unbound parameters: {sorted(laptop_used - parameters)}')
+    # Every authored motion, whatever curve format it uses, must only drive
+    # parameters the model actually rigs.
+    for path in sorted((ROOT / "assets/motions").glob("*.motion.json")):
+        motion = json.loads(path.read_text(encoding="utf8"))
+        used = {key for frame in motion.get("keyframes", []) for key in frame["parameters"]}
+        used |= set(motion.get("tracks", {}))
+        used |= set(motion.get("constants", {}))
+        used |= set(motion.get("channels", {}))
+        used |= set(motion.get("pulses", {}))
+        unbound = sorted(used - parameters)
+        if unbound:
+            raise SystemExit(f"{path.name} uses unbound model parameters: {unbound}")
     metadata = json.loads((MODEL_DIR / "whale-girl-layered-draft.psd2live.json").read_text(encoding="utf8"))
     prop = next((layer for layer in metadata["layers"] if layer["source"] == "handwear right"), None)
     if not prop or prop.get("parameter") != "ParamGrassVisible":
