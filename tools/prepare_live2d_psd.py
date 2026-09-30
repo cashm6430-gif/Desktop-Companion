@@ -79,6 +79,9 @@ def main() -> None:
 
     # Blue hair in front of the face; the dark eyes are reserved above.
     r, g, b = [pixels[:, :, i].astype(np.int16) for i in range(3)]
+    # Keep only the painted smile in the mouth art mesh. Moving a whole skin
+    # oval leaves a visible O-shaped seam against the face in native Cubism.
+    mouth &= (yy >= 515) & (yy <= 530) & ((r - g) > 38) & (g < 225)
     blue_hair = (b > r + 13) & (b > g + 3) & (b > 48)
     front_hair = head & blue_hair & (yy < 588) & (xx > 286) & (xx < 949)
     face = head & (xx > 423) & (xx < 826) & (yy > 341) & (yy < 599)
@@ -113,11 +116,11 @@ def main() -> None:
         image.save(PREVIEW / f"{len(layers):02d}-{name.replace(' ', '-')}.png")
         layers.append((name, image))
 
-    # The source is flat. Underpaint the areas exposed when automatic eye and
-    # mouth deformers close or open; otherwise their cutouts show transparency.
+    # The source is flat. Underpaint the areas exposed when automatic eye
+    # deformers close; otherwise their cutouts show transparency.
     backing = Image.new("RGBA", source.size, (0, 0, 0, 0))
     backing_pixels = np.asarray(backing).copy()
-    for mask in (left_eye, right_eye, mouth):
+    for mask in (left_eye, right_eye):
         backing_pixels[mask] = (255, 225, 215, 255)
     backing = Image.fromarray(backing_pixels, "RGBA")
     draw = ImageDraw.Draw(backing)
@@ -125,7 +128,6 @@ def main() -> None:
               fill=(65, 44, 74, 255), width=5, joint="curve")
     draw.line([(681, 465), (705, 475), (735, 474), (764, 463)],
               fill=(65, 44, 74, 255), width=5, joint="curve")
-    draw.ellipse((621, 520, 641, 534), fill=(91, 47, 82, 255))
     backing.save(PREVIEW / "feature-backing.png")
     layers.insert(5, ("feature backing", backing))
 

@@ -1,4 +1,7 @@
 #include "PetWindow.h"
+#ifdef HAVE_CUBISM
+#include "CubismCanvas.h"
+#endif
 
 #include <QApplication>
 #include <QBitmap>
@@ -24,12 +27,23 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
       idleImage_(imagePath("idle.png")),
       busyImage_(imagePath("busy.png")),
       deleteImage_(imagePath("delete.png")),
+#ifdef HAVE_CUBISM
+      cubismHitMask_(imagePath("live2d/whale-girl/hit-mask.png")),
+#endif
       trayMenu_(this),
       controller_(controller) {
     setWindowTitle(QStringLiteral("DeepSeek 鲸鱼娘"));
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
     setFixedSize(280, 280);
+
+#ifdef HAVE_CUBISM
+    cubismCanvas_ = new CubismCanvas(&motion_, this);
+    cubismCanvas_->setGeometry(rect());
+    connect(cubismCanvas_, &CubismCanvas::readyChanged, this, [this] {
+        setState(controller_->state());
+    });
+#endif
 
     connect(&grassMovie_, &QMovie::frameChanged, this, [this] { update(); });
     grassMovie_.setScaledSize(QSize(280, 280));
@@ -40,7 +54,11 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     frameClock_.start();
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
-        motion_.advance(frameClock_.restart() / 1000.0);
+        const double seconds = frameClock_.restart() / 1000.0;
+        motion_.advance(seconds);
+#ifdef HAVE_CUBISM
+        if (cubismCanvas_ && cubismCanvas_->isReady()) cubismCanvas_->advance(seconds);
+#endif
         update();
     });
     frameTimer_.start();
@@ -85,6 +103,18 @@ void PetWindow::setState(PetController::State state) {
     case PetController::State::Delete: image = &deleteImage_; break;
     }
     if (currentMovie_) currentMovie_->setPaused(false);
+#ifdef HAVE_CUBISM
+    const bool useCubism = cubismCanvas_ && cubismCanvas_->isReady()
+        && state != PetController::State::Grass;
+    if (cubismCanvas_) cubismCanvas_->setVisible(useCubism);
+    if (useCubism && !cubismHitMask_.isNull()) {
+        const QImage alpha = cubismHitMask_.scaled(size(), Qt::IgnoreAspectRatio,
+            Qt::SmoothTransformation).toImage().createAlphaMask();
+        setMask(QBitmap::fromImage(alpha));
+        update();
+        return;
+    }
+#endif
     if (image && !image->isNull()) {
         const QImage alpha = image->scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation).toImage().createAlphaMask();
         setMask(QBitmap::fromImage(alpha));
@@ -93,6 +123,10 @@ void PetWindow::setState(PetController::State state) {
 }
 
 void PetWindow::paintEvent(QPaintEvent*) {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()
+        && controller_->state() != PetController::State::Grass) return;
+#endif
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     if (currentMovie_) {
@@ -112,6 +146,31 @@ void PetWindow::paintEvent(QPaintEvent*) {
             ? qSin(frame_ * 0.28) * 1.5 : qSin(frame_ * 0.11) * 2.0;
         painter.drawPixmap(QRectF(0, bob, width(), height()), image, image.rect());
     }
+}
+
+QString PetWindow::renderBackend() const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()
+        && controller_->state() != PetController::State::Grass)
+        return QStringLiteral("cubism_native");
+#endif
+    return QStringLiteral("image_preview");
+}
+
+QString PetWindow::renderError() const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) return cubismCanvas_->error();
+#endif
+    return {};
+}
+
+bool PetWindow::saveRenderFrame(const QString& path) {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()
+        && controller_->state() != PetController::State::Grass)
+        return cubismCanvas_->grabFramebuffer().save(path);
+#endif
+    return grab().save(path);
 }
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
