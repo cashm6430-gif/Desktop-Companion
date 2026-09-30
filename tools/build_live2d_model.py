@@ -250,8 +250,9 @@ def main():
     for name, side in (('footwear-l','l'),('footwear-r','r')):
         target='mesh:'+mesh(name)
         invoke('form',{'state':state,'changes':[{'op':'seed','target':target,'key':{'ParamSitPose':0}}]})
-        invoke('form',{'state':state,'changes':[{'op':'copy','target':target,'from':{'ParamSitPose':0},'key':{'ParamSitPose':1},'channels':['geometry']}]})
-        invoke('deform',{'state':state,'changes':[{'target':target,'key':{'ParamSitPose':1},'operations':leg_operations(frame(name),parent_aspect(name),side,1)}]})
+        for amount in (0.35,0.7,1):
+            invoke('form',{'state':state,'changes':[{'op':'copy','target':target,'from':{'ParamSitPose':0},'key':{'ParamSitPose':amount},'channels':['geometry']}]})
+            invoke('deform',{'state':state,'changes':[{'target':target,'key':{'ParamSitPose':amount},'operations':leg_operations(frame(name),parent_aspect(name),side,amount)}]})
     result = invoke("export", {"state": state, "output_directory": str(OUTPUT)})
     (OUTPUT / "diagnostics/export.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf8")
     # CMO3 and the layered PSD are the editable source artifacts. MCP archive

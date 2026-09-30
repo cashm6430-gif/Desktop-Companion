@@ -238,6 +238,14 @@ void ParameterMotion::advance(double seconds) {
             desired[QStringLiteral("ParamBusyTypingL")] *= 0.5 + 0.5*qSin(busyTime_*17.0);
             desired[QStringLiteral("ParamBusyTypingR")] = effort*(0.5 + 0.5*qSin(busyTime_*17.0+pi));
         }
+    } else if (state_ == PetController::State::Idle && actionTime_ < 0.36
+               && values_.value(QStringLiteral("ParamBusyLaptop")) >= 0.9) {
+        // Put the computer away before unfolding the legs. A short task that
+        // never reached the seated body continues directly from its pose.
+        desired[QStringLiteral("ParamBusyLaptop")] = values_.value(QStringLiteral("ParamBusyLaptop"));
+        desired[QStringLiteral("ParamSitPose")] = values_.value(QStringLiteral("ParamSitPose"));
+        desired[leftArm] = -40 * desired.value(QStringLiteral("ParamSitPose"));
+        desired[rightArm] = desired.value(leftArm);
     } else if (state_ == PetController::State::Delete) {
         // Anticipation -> swing -> recoil. A rigged arm/prop responds to these
         // parameters continuously; no pose swapping or GIF frame stepping.

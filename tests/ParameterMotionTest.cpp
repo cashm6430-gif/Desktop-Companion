@@ -63,6 +63,10 @@ void ParameterMotionTest::laptopTypingAndShortTaskExit() {
     const auto before = motion.values();
     motion.setState(PetController::State::Idle);
     QCOMPARE(motion.values(), before);
+    for (int i = 0; i < 15; ++i) motion.advance(0.02);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) < 0.1);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.01);
     for (int i = 0; i < 150; ++i) motion.advance(0.02);
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.001);

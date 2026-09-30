@@ -55,13 +55,15 @@
     "interrupt": "delete takes priority; preserve variant choice on busy resume"
   },
   "runtimeMotion": {
-    "exit": "Stop typing, look up, hide laptop and return to standing pose",
-    "entry": "Fold standing legs, switch seated body material and reveal the laptop",
+    "exit": "Stop typing and hide laptop for .36 seconds while seated, then unfold legs with the same planted-floor constraint",
+    "entry": "Pinned hip and feathered knee bend through 0/.35/.7/1 keyforms; whole-body descent follows native foot floor; seated material swaps at .9",
     "loop": [
       "parameter-driven typing",
       "pause to think",
       "resume typing"
-    ]
+    ],
+    "transitionRevision": 2,
+    "nativeReview": "art/live2d/review/busy-laptop-motion-v2.gif"
   },
   "limitations": [
     "Body material switches near the folded pose; a complete sit-down/get-up performance is future work.",

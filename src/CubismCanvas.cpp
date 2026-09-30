@@ -27,6 +27,9 @@
 #include <memory>
 #include <vector>
 #include <utility>
+#include <algorithm>
+#include <limits>
+#include <cmath>
 
 namespace Csm = Live2D::Cubism::Framework;
 
@@ -82,7 +85,21 @@ struct CubismCanvas::Impl {
     std::unique_ptr<PetCubismModel> model;
     std::vector<GLuint> textures;
     QHash<QString, int> parameterIndices;
+    std::vector<int> standingFeet;
+    std::vector<int> seatedFeet;
+    float standingFloor = 0;
     bool frameworkStarted = false;
+
+    float footFloor(const std::vector<int>& feet) const {
+        float floor = std::numeric_limits<float>::infinity();
+        const auto* native = model->GetModel();
+        for (int index : feet) {
+            const auto* vertices = native->GetDrawableVertexPositions(index);
+            for (int i = 0; i < native->GetDrawableVertexCount(index); ++i)
+                floor = std::min(floor, vertices[i].Y);
+        }
+        return floor;
+    }
 
     void bindTextures() {
         auto* renderer = model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
@@ -199,6 +216,20 @@ void CubismCanvas::initializeGL() {
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     impl_->model->GetModelMatrix()->SetHeight(1.90f);
+    const auto metadata = QJsonDocument::fromJson(readFile(QDir(directory).filePath(
+        QStringLiteral("whale-girl-layered-draft.psd2live.json"))));
+    for (const auto& layer : metadata.object().value(QStringLiteral("layers")).toArray()) {
+        const auto entry = layer.toObject();
+        const auto source = entry.value(QStringLiteral("source")).toString();
+        auto* feet = source.startsWith(QStringLiteral("footwear-")) ? &impl_->standingFeet
+            : source.startsWith(QStringLiteral("busy leg ")) ? &impl_->seatedFeet : nullptr;
+        if (!feet) continue;
+        const auto id = entry.value(QStringLiteral("drawable")).toString().toUtf8();
+        const int index = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
+        if (index >= 0) feet->push_back(index);
+    }
+    model->Update();
+    impl_->standingFloor = impl_->footFloor(impl_->standingFeet);
     impl_->model->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
                                  static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
     impl_->bindTextures();
@@ -230,17 +261,22 @@ void CubismCanvas::paintGL() {
     // Fold the standing legs before using the painted seated art. Keep seated
     // meshes at their complete pose: its skirt is not painted for extended legs.
     const bool seatedBody = motion_->values().value(QStringLiteral("ParamBusyLaptop")) >= 0.9;
+    const double sitProgress = std::clamp(motion_->values().value(QStringLiteral("ParamSitPose")) / 0.9, 0.0, 1.0);
+    // Finish most of the knee bend before the material changes, including on
+    // the first frame of unfolding. This keeps the shared head's height close
+    // across the two painted silhouettes while the soles remain grounded.
+    const double standingFold = 0.93 * sitProgress * sitProgress * (3.0 - 2.0 * sitProgress);
     for (auto it = motion_->values().cbegin(); it != motion_->values().cend(); ++it) {
         const auto index = impl_->parameterIndices.constFind(it.key());
         if (index != impl_->parameterIndices.cend())
             model->SetParameterValue(*index, static_cast<float>(it.key() == QStringLiteral("ParamBusyLaptop")
                 ? (seatedBody ? 1.0 : 0.0)
-                : (it.key() == QStringLiteral("ParamSitPose") && seatedBody ? 1.0 : it.value())));
+                : (it.key() == QStringLiteral("ParamSitPose") ? (seatedBody ? 1.0 : standingFold) : it.value())));
     }
     const double physicsSeconds = std::exchange(frameSeconds_, 0.0);
     if (!motion_->frozenPhysics() && physicsSeconds > 0)
         impl_->model->evaluatePhysics(static_cast<float>(physicsSeconds));
-    // ParamSitPose folds both sets of legs continuously. Swap body material
+    // ParamSitPose bends the standing knees. Swap body material
     // near the folded pose without drawing two translucent bodies;
     // the laptop has its own native visibility parameter. Existing grip/grass
     // tracks stay intact; head, hair and tail are shared by both poses.
@@ -250,6 +286,17 @@ void CubismCanvas::paintGL() {
 
     Csm::CubismMatrix44 matrix;
     matrix.MultiplyByMatrix(impl_->model->GetModelMatrix());
+    const float sitting = static_cast<float>(motion_->values().value(QStringLiteral("ParamSitPose")));
+    const float floor = impl_->footFloor(seatedBody ? impl_->seatedFeet : impl_->standingFeet);
+    if (sitting > 0 && std::isfinite(floor) && std::isfinite(impl_->standingFloor)) {
+        // Keep the sole on the desktop floor as the knees fold: the complete
+        // body descends together, rather than sliding legs under a fixed head.
+        auto* modelMatrix = impl_->model->GetModelMatrix();
+        const float blend = std::clamp(sitting / 0.15f, 0.0f, 1.0f);
+        const float offset = (modelMatrix->TransformY(impl_->standingFloor)
+            - modelMatrix->TransformY(floor)) * blend;
+        matrix.Translate(matrix.GetTranslateX(), matrix.GetTranslateY() + offset);
+    }
     auto* renderer = impl_->model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
     renderer->SetMvpMatrix(&matrix);
     auto* offscreen = Csm::Rendering::CubismOffscreenManager_OpenGLES2::GetInstance();

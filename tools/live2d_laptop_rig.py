@@ -61,29 +61,25 @@ def laptop_operations(name, bounds, laptop, typing_l, typing_r, rock):
     if name.startswith('busy sleeve'):
         typing=typing_r if name.endswith('r') else typing_l
         ops.append({'type':'curve','axis':'y','controls':[0,0,-8*typing/h,-8*typing/h]})
-    if name.startswith('busy leg'):
-        ops += leg_operations(bounds,1.0,'l' if name.endswith('l') else 'r',1-laptop,True)
+    # The seated painting has no hidden fabric for an extended leg. Keep its
+    # approved pose intact; only the standing legs perform the knee bend.
     if not ops: ops=[{'type':'translate','delta':[0,0]}]
     return ops
 
-def leg_operations(bounds, aspect, side, amount, inverse=False):
+def leg_operations(bounds, aspect, side, amount):
     x,y,w,h=bounds
     left=side=='l'
-    origin=(570,934) if left else (686,934)
-    shift=(-45,-70) if left else (-40,-60)
-    angle=25 if left else 17
-    sx,sy=(1.15,0.94) if left else (1.12,0.83)
-    if inverse:
-        origin=(origin[0]+shift[0],origin[1]+shift[1])
-    pivot=[(origin[0]-x)/w,(origin[1]-y)/h]
+    hip=(570,955) if left else (686,955)
+    knee=(570,1035) if left else (690,1035)
+    pivot=[(hip[0]-x)/w,(hip[1]-y)/h]
+    knee_pivot=[(hip[0]+aspect*(knee[0]-hip[0])-x)/w,(knee[1]-y)/h]
+    # Selection is measured in the undeformed mesh domain. Feather only the
+    # knee seam, with rectangle edges outside the shoe to keep the sole rigid.
+    calf={'rect':[-1,(knee[1]-12-y)/h,2,2],'feather':24/h}
     ops=[{'type':'scale','pivot':pivot,'factors':[aspect,1]}]
-    if inverse:
-        ops += [{'type':'rotate','pivot':pivot,'degrees':-angle*amount},
-                {'type':'scale','pivot':pivot,'factors':[1+(1/sx-1)*amount,1+(1/sy-1)*amount]}]
-    else:
-        ops += [{'type':'scale','pivot':pivot,'factors':[1+(sx-1)*amount,1+(sy-1)*amount]},
-                {'type':'rotate','pivot':pivot,'degrees':angle*amount}]
-    sign=-1 if inverse else 1
-    ops += [{'type':'translate','delta':[aspect*sign*shift[0]*amount/w,sign*shift[1]*amount/h]},
+    ops += [{'type':'scale','pivot':knee_pivot,
+             'factors':[1,1-(0.1 if left else 0.35)*amount],'selection':calf},
+            {'type':'rotate','pivot':knee_pivot,'degrees':30*amount,'selection':calf},
+            {'type':'rotate','pivot':pivot,'degrees':(25 if left else 20)*amount},
             {'type':'scale','pivot':pivot,'factors':[1/aspect,1]}]
     return ops
