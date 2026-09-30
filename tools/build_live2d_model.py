@@ -51,6 +51,8 @@ def main():
         ("eye close-l", "eye_close", {"side": "left"}),
         ("eye close-r", "eye_close", {"side": "right"}),
         ("handwear right", "handwear", {"side": "right", "type": "toggle", "parameter": "ParamGrassVisible"}),
+        ("handwear_r", "handwear", {"side": "right", "type": "switch", "parameter": "ParamHandRGrip", "switch_id": 0}),
+        ("handwear.right", "handwear", {"side": "right", "type": "switch", "parameter": "ParamHandRGrip", "switch_id": 1}),
     ):
         # Source layer IDs are stable name#index, as returned by inspect.
         entries = layers.get("layers", layers.get("items", []))
@@ -65,6 +67,7 @@ def main():
     def mesh(name):
         return next(x["target"].split(":", 1)[1] for x in entries if x.get("name") == name)
     prop, left_arm, right_arm = mesh("handwear right"), mesh("handwear-l"), mesh("handwear-r")
+    open_hand, grip = mesh("handwear_r"), mesh("handwear.right")
     for identifier, label, minimum, maximum in (
         ("ParamArmLA", "左手动作", -35, 35), ("ParamArmRA", "右手动作", -35, 35),
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
@@ -81,6 +84,8 @@ def main():
     for target, name, parameter, shoulder, direction, reaches, swings in (
         (left_arm, "handwear-l", "ParamArmLA", [496, 643], 1, [0], [0]),
         (right_arm, "handwear-r", "ParamArmRA", [758, 643], -1, [0, 1], [0]),
+        (open_hand, "handwear_r", "ParamArmRA", [758, 643], -1, [0, 1], [0]),
+        (grip, "handwear.right", "ParamArmRA", [758, 643], -1, [0, 1], [0]),
         (prop, "handwear right", "ParamArmRA", [758, 643], -1, [0, 1], [-1, 0, 1]),
     ):
         bounds = frame(name)
@@ -102,7 +107,7 @@ def main():
                         "from": neutral, "key": key, "channels": ["geometry"]}]})
                     operations = []
                     if swing:
-                        operations.append({"type": "rotate", "pivot": normalized([871, 827], bounds), "degrees": swing * 8})
+                        operations.append({"type": "rotate", "pivot": normalized([913, 852], bounds), "degrees": swing * 8})
                     operations.append({"type": "rotate", "pivot": normalized(shoulder, bounds), "degrees": arm * direction})
                     if reach:
                         operations.append({"type": "scale", "pivot": normalized(shoulder, bounds), "factors": [1.2, 1.2]})
@@ -117,6 +122,10 @@ def main():
     binding = invoke("inspect", {"target": "mesh:" + prop})
     if not any("ParamGrassVisible" in channel.get("axes", {}) for channel in binding.get("channels", [])):
         raise RuntimeError("Grass visibility is not bound to drawable opacity")
+    for target in (open_hand, grip):
+        binding = invoke("inspect", {"target": "mesh:" + target})
+        if not any("ParamHandRGrip" in channel.get("axes", {}) for channel in binding.get("channels", [])):
+            raise RuntimeError("Open/gripping hands must share a native opacity parameter")
     result = invoke("export", {"state": state, "output_directory": str(OUTPUT)})
     (OUTPUT / "diagnostics/export.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf8")
     # CMO3 and the layered PSD are the editable source artifacts. MCP archive

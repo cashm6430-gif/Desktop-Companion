@@ -15,6 +15,7 @@ from psd_tools import PSDImage
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "art/live2d/whale-girl-neutral-master.png"
+GRIP = ROOT / "art/live2d/whale-girl-hand-grip-v1.png"
 OUTPUT = ROOT / "art/live2d/whale-girl-layered-draft.psd"
 PREVIEW = ROOT / "build/psd2live/layer-previews"
 
@@ -60,6 +61,13 @@ def main() -> None:
     left_arm = polygon(source.size, [(1254 - x, y) for x, y in right_arm_outline])
     right_arm = np.asarray(Image.fromarray(right_arm.astype(np.uint8) * 255).filter(ImageFilter.MaxFilter(9))) > 0
     left_arm = np.asarray(Image.fromarray(left_arm.astype(np.uint8) * 255).filter(ImageFilter.MaxFilter(9))) > 0
+    # Separate the existing open palm from the sleeve. A native scalar parameter
+    # crossfades this small mesh into the authored grip, leaving the sleeve rig
+    # continuous. Preserve the cuff, including its white opening rim.
+    open_hand = polygon(source.size, [
+        (855, 788), (881, 805), (920, 819), (922, 849),
+        (879, 860), (854, 859), (832, 837), (825, 812),
+    ]) & right_arm
     tail = polygon(source.size, [
         (970, 580), (1110, 570), (1220, 650), (1249, 822),
         (1180, 953), (1040, 1025), (911, 973), (928, 799),
@@ -99,6 +107,7 @@ def main() -> None:
         ("mouth", mouth),
         ("front hair", front_hair),
         ("face", face),
+        ("handwear_r", open_hand),
         ("handwear-l", left_arm),
         ("handwear-r", right_arm),
         ("tail", tail),
@@ -120,7 +129,7 @@ def main() -> None:
         # neighbouring meshes move. Never expand the exterior silhouette.
         expanded = np.asarray(Image.fromarray(mask.astype(np.uint8) * 255)
                               .filter(ImageFilter.MaxFilter(25))) > 0
-        if name not in ("eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r"):
+        if name not in ("eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r"):
             # Never copy moving foreground pixels into a lower layer: that
             # would leave a second eye/hand visible when the real one moves.
             movable = left_eye | right_eye | mouth | left_arm | right_arm
@@ -163,10 +172,18 @@ def main() -> None:
     arm_backing_pixels = np.zeros_like(pixels)
     for mask, offset in ((left_arm, -90), (right_arm, 90)):
         sample_x = np.clip(xx + offset, 0, width - 1)
-        sampled = pixels[yy, sample_x]
-        color = np.where(sampled[:, :, 3:4] > 0,
-                         sampled[:, :, :3], np.array([49, 79, 153]))
-        arm_backing_pixels[mask, :3] = color[mask]
+        # A raw offset can land on the old fingers and copy a second skin hand
+        # into the stationary backing. Only sample genuine surrounding hair.
+        hair_samples = blue_hair & opaque & ~(left_arm | right_arm)
+        for row in np.flatnonzero(mask.any(axis=1)):
+            columns = np.flatnonzero(mask[row])
+            candidates = np.flatnonzero(hair_samples[row])
+            if candidates.size:
+                desired = sample_x[row, columns]
+                indices = np.abs(candidates[:, None] - desired).argmin(axis=0)
+                arm_backing_pixels[row, columns, :3] = pixels[row, candidates[indices], :3]
+            else:
+                arm_backing_pixels[row, columns, :3] = (49, 79, 153)
         arm_backing_pixels[mask, 3] = pixels[mask, 3]
     arm_backing = Image.fromarray(arm_backing_pixels, "RGBA")
     arm_backing.save(PREVIEW / "arm-backing.png")
@@ -176,7 +193,9 @@ def main() -> None:
     # independent sway; it is hidden by a parameter outside the interaction.
     grass = Image.new("RGBA", source.size, (0, 0, 0, 0))
     grass_draw = ImageDraw.Draw(grass)
-    stem = [(871, 827), (866, 746), (848, 652), (825, 574)]
+    # Extend the stem below the fist. The opaque fingers above this drawable
+    # occlude its middle section, so the shaft visibly passes through the palm.
+    stem = [(909, 895), (913, 852), (921, 780), (884, 669), (825, 574)]
     grass_draw.line(stem, fill=(45, 89, 54, 255), width=7, joint="curve")
     grass_draw.line(stem, fill=(118, 161, 78, 255), width=3, joint="curve")
     grass_draw.polygon([(856, 668), (878, 637), (888, 605), (869, 630)],
@@ -190,6 +209,18 @@ def main() -> None:
     # PSD2Live pairs by the base source name after removing a side suffix.
     # This alias puts the prop in the same normalization frame as the hands.
     layers.insert(0, ("handwear right", grass))
+
+    # Registration of the generated isolated hand, not a replacement for the
+    # character. Retain real alpha and resample once from the original cutout.
+    grip = Image.new("RGBA", source.size, (0, 0, 0, 0))
+    grip_art = Image.open(GRIP).convert("RGBA")
+    grip_art = grip_art.resize((118, 118), Image.Resampling.LANCZOS)
+    grip.alpha_composite(grip_art, (821, 779))
+    grip_pixels = np.asarray(grip).copy()
+    grip_pixels[xx + yy < 1643] = 0  # wrist terminates at the existing cuff
+    grip = Image.fromarray(grip_pixels, "RGBA")
+    grip.save(PREVIEW / "hand-grip-registered.png")
+    layers.insert(0, ("handwear.right", grip))
 
     # Save in reverse visual order. An eye/face backing pass will be painted
     # when the automatic rig has been reviewed; the first draft avoids drawing
@@ -206,7 +237,7 @@ def main() -> None:
     psd.save(OUTPUT)
     composite = Image.new("RGBA", source.size, (0, 0, 0, 0))
     for name, image in reversed(layers):
-        if image is not grass and not name.startswith("eye close"):
+        if image is not grass and image is not grip and not name.startswith("eye close"):
             composite = Image.alpha_composite(composite, image)
     composite.save(PREVIEW / "composite-check.png")
     composite_pixels = np.asarray(composite).astype(np.int16)

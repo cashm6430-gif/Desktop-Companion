@@ -97,6 +97,11 @@
 			"Name": "ParamGrassVisible"
 		},
 		{
+			"Id": "ParamHandRGrip",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamHandRGrip"
+		},
+		{
 			"Id": "ParamArmLA",
 			"GroupId": "",
 			"Name": "左手动作"
@@ -201,6 +206,10 @@
 	"Drawables": [
 		{
 			"Id": "ArtMeshHandwearR",
+			"Name": "handwear.right"
+		},
+		{
+			"Id": "ArtMeshHandwearR2",
 			"Name": "handwear right"
 		},
 		{
@@ -236,11 +245,15 @@
 			"Name": "face detail backing"
 		},
 		{
+			"Id": "ArtMeshHandwearR3",
+			"Name": "handwear_r"
+		},
+		{
 			"Id": "ArtMeshHandwearL",
 			"Name": "handwear-l"
 		},
 		{
-			"Id": "ArtMeshHandwearR2",
+			"Id": "ArtMeshHandwearR4",
 			"Name": "handwear-r"
 		},
 		{

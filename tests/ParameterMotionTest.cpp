@@ -68,7 +68,9 @@ void ParameterMotionTest::grassKeysAndTransitions() {
     ParameterMotion motion;
     QVERIFY(motion.loadGrassMotion(QStringLiteral("assets/motions/grass.motion.json")));
     QCOMPARE(motion.grassPose(3.6).value(QStringLiteral("ParamGrassReach")), 1.0);
+    QCOMPARE(motion.grassPose(3.6).value(QStringLiteral("ParamHandRGrip")), 1.0);
     QCOMPARE(motion.grassPose(6.9).value(QStringLiteral("ParamGrassVisible")), 0.0);
+    QCOMPARE(motion.grassPose(6.9).value(QStringLiteral("ParamHandRGrip")), 0.0);
     const auto middle = motion.grassPose(2.8);
     QVERIFY(middle.value(QStringLiteral("ParamGrassReach")) > 0.1);
     QVERIFY(middle.value(QStringLiteral("ParamGrassReach")) < 1.0);
@@ -76,11 +78,13 @@ void ParameterMotionTest::grassKeysAndTransitions() {
     motion.setState(PetController::State::Grass);
     for (int i = 0; i < 90; ++i) motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamGrassReach")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamHandRGrip")) > 0.99);
     const auto before = motion.values();
     motion.setState(PetController::State::Busy);
     QCOMPARE(motion.values(), before);
     motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamGrassReach")) < before.value(QStringLiteral("ParamGrassReach")));
+    QVERIFY(motion.values().value(QStringLiteral("ParamHandRGrip")) < before.value(QStringLiteral("ParamHandRGrip")));
     motion.setPreviewPose({{QStringLiteral("ParamArmRA"), 25.0}});
     motion.advance(0.04);
     QCOMPARE(motion.values().value(QStringLiteral("ParamArmRA")), 25.0);

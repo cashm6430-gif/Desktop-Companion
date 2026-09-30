@@ -131,6 +131,7 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamGrassVisible"), 0.0},
         {QStringLiteral("ParamGrassReach"), 0.0},
         {QStringLiteral("ParamGrassSwing"), 0.0},
+        {QStringLiteral("ParamHandRGrip"), 0.0},
     };
 
     if (state_ == PetController::State::Busy) {

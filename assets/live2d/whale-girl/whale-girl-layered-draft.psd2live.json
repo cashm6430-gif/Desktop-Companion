@@ -11,7 +11,7 @@
   "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-1.4956216,"centerX":630.1095,"centerY":485.5476,"radiusX":238.63712,"radiusY":172.86832},
   "deformerHierarchy": {"head":"DeformHeadContainer","face":"DeformFaceNinePose","frontHair":["DeformHairFrontFollow","DeformHairFrontPhysics"],"backHair":["DeformHairBackFollow","DeformHairBackPhysics"]},
   "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":false,"groups":["PhysicsHairBack","PhysicsHairFront"]},
-  "summary": {"layers":19,"drawables":19,"deformers":16,"parameters":23,"atlasPages":1},
+  "summary": {"layers":21,"drawables":21,"deformers":16,"parameters":24,"atlasPages":1},
   "layers": [
     {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
   {"source":"arm backing","type":"preset","tag":"unknown","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshLayer"},
@@ -21,8 +21,9 @@
   {"source":"footwear-r","type":"preset","tag":"footwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshFootwearR"},
   {"source":"footwear-l","type":"preset","tag":"footwear","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshFootwearL"},
   {"source":"tail","type":"preset","tag":"tail","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshTail"},
-  {"source":"handwear-r","type":"preset","tag":"handwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearR2"},
+  {"source":"handwear-r","type":"preset","tag":"handwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearR4"},
   {"source":"handwear-l","type":"preset","tag":"handwear","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearL"},
+  {"source":"handwear_r","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":0,"drawable":"ArtMeshHandwearR3"},
   {"source":"face detail backing","type":"preset","tag":"face","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshFace2"},
   {"source":"face","type":"preset","tag":"face","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshFace"},
   {"source":"front hair","type":"preset","tag":"front hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshFrontHair"},
@@ -31,7 +32,8 @@
   {"source":"eyewhite-l","type":"preset","tag":"eyewhite","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshEyewhiteL"},
   {"source":"eye close-l","type":"preset","tag":"eye_close","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshEyeCloseL"},
   {"source":"eye close-r","type":"preset","tag":"eye_close","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshEyeCloseR"},
-  {"source":"handwear right","type":"toggle","tag":"handwear","side":"RIGHT","parameter":"ParamGrassVisible","switchId":0,"drawable":"ArtMeshHandwearR"}
+  {"source":"handwear right","type":"toggle","tag":"handwear","side":"RIGHT","parameter":"ParamGrassVisible","switchId":0,"drawable":"ArtMeshHandwearR2"},
+  {"source":"handwear.right","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":1,"drawable":"ArtMeshHandwearR"}
   ],
   "warnings": ["检测到同名图层：footwear, handwear, eyewhite, eye close；已通过稳定图层 ID 区分。"]
 }

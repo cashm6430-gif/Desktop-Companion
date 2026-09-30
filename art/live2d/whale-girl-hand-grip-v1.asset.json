@@ -1,0 +1,17 @@
+{
+  "generator": "built-in imagegen",
+  "date": "2026-09-30",
+  "image": "whale-girl-hand-grip-v1.png",
+  "reference": "whale-girl-neutral-master.png (viewer-right hand and sleeve detail)",
+  "prompt_summary": "Isolated chibi anime gripping hand with a short bare wrist entering diagonally from upper left. Match the original peach skin, thin reddish linework and cel shading. Four fingers curl tightly around an imaginary slender vertical foxtail stem, thumb bends across index and middle fingers. Do not draw the grass, sleeve or other body parts. Genuine transparent background; no guides or extra fingers.",
+  "registration": {
+    "canvas": [1254, 1254],
+    "resample_size": [118, 118],
+    "position": [821, 779],
+    "wrist_clip": "x + y >= 1643",
+    "grass_grip_anchor": [913, 852]
+  },
+  "parameter": "ParamHandRGrip",
+  "native_layers": {"open": "handwear_r", "grip": "handwear.right"},
+  "approval": "pending"
+}

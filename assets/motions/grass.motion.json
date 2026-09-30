@@ -4,11 +4,102 @@
   "duration": 6.9,
   "interpolation": "smoothstep",
   "keyframes": [
-    {"time": 0.0, "label": "准备", "parameters": {"ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0, "ParamBodyAngleX": 0, "ParamArmLA": 0, "ParamArmRA": 0, "ParamGrassVisible": 0, "ParamGrassReach": 0, "ParamGrassSwing": 0}},
-    {"time": 0.8, "label": "拿起狗尾巴草", "parameters": {"ParamAngleX": 4, "ParamAngleY": -3, "ParamAngleZ": -2, "ParamBodyAngleX": 0, "ParamArmLA": -3, "ParamArmRA": 18, "ParamGrassVisible": 1, "ParamGrassReach": 0, "ParamGrassSwing": -0.5}},
-    {"time": 2.0, "label": "左右逗弄", "parameters": {"ParamAngleX": 6, "ParamAngleY": -2, "ParamAngleZ": 3, "ParamBodyAngleX": 1, "ParamArmLA": -3, "ParamArmRA": 24, "ParamGrassVisible": 1, "ParamGrassReach": 0.1, "ParamGrassSwing": 0.7}},
-    {"time": 3.6, "label": "伸向观众", "parameters": {"ParamAngleX": 0, "ParamAngleY": 3, "ParamAngleZ": -2, "ParamBodyAngleX": 1.5, "ParamArmLA": -4, "ParamArmRA": 28, "ParamGrassVisible": 1, "ParamGrassReach": 1, "ParamGrassSwing": -0.25}},
-    {"time": 5.2, "label": "笑着收回", "parameters": {"ParamAngleX": -3, "ParamAngleY": 1, "ParamAngleZ": 2, "ParamBodyAngleX": 0, "ParamArmLA": 0, "ParamArmRA": 16, "ParamGrassVisible": 1, "ParamGrassReach": 0.05, "ParamGrassSwing": 0.4}},
-    {"time": 6.9, "label": "回到待机", "parameters": {"ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0, "ParamBodyAngleX": 0, "ParamArmLA": 0, "ParamArmRA": 0, "ParamGrassVisible": 0, "ParamGrassReach": 0, "ParamGrassSwing": 0}}
-  ]
+    {
+      "time": 0.0,
+      "label": "准备",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamGrassVisible": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 0
+      }
+    },
+    {
+      "time": 0.8,
+      "label": "拿起狗尾巴草",
+      "parameters": {
+        "ParamAngleX": 4,
+        "ParamAngleY": -3,
+        "ParamAngleZ": -2,
+        "ParamBodyAngleX": 0,
+        "ParamArmLA": -3,
+        "ParamArmRA": 18,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": -0.5,
+        "ParamHandRGrip": 1
+      }
+    },
+    {
+      "time": 2.0,
+      "label": "左右逗弄",
+      "parameters": {
+        "ParamAngleX": 6,
+        "ParamAngleY": -2,
+        "ParamAngleZ": 3,
+        "ParamBodyAngleX": 1,
+        "ParamArmLA": -3,
+        "ParamArmRA": 24,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.1,
+        "ParamGrassSwing": 0.7,
+        "ParamHandRGrip": 1
+      }
+    },
+    {
+      "time": 3.6,
+      "label": "伸向观众",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 3,
+        "ParamAngleZ": -2,
+        "ParamBodyAngleX": 1.5,
+        "ParamArmLA": -4,
+        "ParamArmRA": 28,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": -0.25,
+        "ParamHandRGrip": 1
+      }
+    },
+    {
+      "time": 5.2,
+      "label": "笑着收回",
+      "parameters": {
+        "ParamAngleX": -3,
+        "ParamAngleY": 1,
+        "ParamAngleZ": 2,
+        "ParamBodyAngleX": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 16,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.05,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1
+      }
+    },
+    {
+      "time": 6.9,
+      "label": "回到待机",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamGrassVisible": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 0
+      }
+    }
+  ],
+  "revision": 2
 }

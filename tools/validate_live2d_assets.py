@@ -13,6 +13,7 @@ REQUIRED_PARAMETERS = {
     "ParamEyeLOpen", "ParamEyeROpen", "ParamBreath",
     "ParamMouthOpenY", "ParamArmLA", "ParamArmRA",
     "ParamGrassVisible", "ParamGrassReach", "ParamGrassSwing",
+    "ParamHandRGrip",
 }
 
 
@@ -39,6 +40,10 @@ def main() -> None:
     prop = next((layer for layer in metadata["layers"] if layer["source"] == "handwear right"), None)
     if not prop or prop.get("parameter") != "ParamGrassVisible":
         raise SystemExit("Grass prop must be exported as a parameter-driven drawable")
+    for source, switch_id in (("handwear_r", 0), ("handwear.right", 1)):
+        hand = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
+        if not hand or hand.get("parameter") != "ParamHandRGrip" or hand.get("type") != "switch" or hand.get("switchId") != switch_id:
+            raise SystemExit("Open and gripping hands must share complementary native opacity keys")
     print(f"Validated {len(paths)} Cubism files and {len(parameters)} parameters")
 
 
