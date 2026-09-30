@@ -135,6 +135,11 @@
 			"Id": "ParamGrassSwing",
 			"GroupId": "",
 			"Name": "草穗摆动"
+		},
+		{
+			"Id": "ParamGrassTipBend",
+			"GroupId": "",
+			"Name": "柔软草穗滞后"
 		}
 	],
 	"ParameterGroups": [

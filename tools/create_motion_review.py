@@ -12,13 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     motion = json.loads((ROOT / "assets/motions/grass.motion.json").read_text(encoding="utf8"))
+    revision = motion.get("revision", 1)
     font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 24)
     small = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 18)
     poses = tuple(next(i for i, frame in enumerate(motion["keyframes"]) if frame["time"] == time)
                   for time in (0.8, 2.0, 3.6, 5.2))
     sheet = Image.new("RGB", (1120, 1204), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
-    draw.text((28, 18), "狗尾巴草 · Live2D 草案 v3 · 追视 / 眨单眼 / 探身 / 笑", font=font, fill="#1e2c47")
+    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 柔软弯曲 / 草穗滞后", font=font, fill="#1e2c47")
     draw.text((28, 53), "实际 Cubism 模型渲染 / 待审批 / 四个动作关键姿势", font=small, fill="#52617b")
     for cell, key in enumerate(poses):
         x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
@@ -28,7 +29,7 @@ def main():
         sheet.paste(sprite, (x + (560 - sprite.width) // 2, y + 8), sprite)
         frame = motion["keyframes"][key]
         draw.text((x + 26, y + 495), f"{cell + 1}. {frame['label']}   {frame['time']:.1f}s", font=font, fill="#243654")
-    output = ROOT / "art/live2d/review/grass-keyframes-v3.png"
+    output = ROOT / f"art/live2d/review/grass-keyframes-v{revision}.png"
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output)
     print(output)
@@ -41,7 +42,7 @@ def main():
         sprite = sprite.crop((290, 235, 570, 405)).resize((560, 340), Image.Resampling.LANCZOS)
         detail.paste(sprite, (x, y), sprite)
         detail_draw.text((x, y + 342), motion["keyframes"][key]["label"], font=small, fill="#52617b")
-    detail_output = output.with_name("grass-expression-detail-v3.png")
+    detail_output = output.with_name(f"grass-expression-detail-v{revision}.png")
     detail.save(detail_output)
     print(detail_output)
 
@@ -71,9 +72,9 @@ def main():
             palette_source.paste(frame, (420 * i, 0))
         palette = palette_source.quantize(colors=255, method=Image.Quantize.MEDIANCUT)
         frames = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
-        frames[0].save(output.with_name("grass-motion-v3.gif"), save_all=True, append_images=frames[1:],
+        frames[0].save(output.with_name(f"grass-motion-v{revision}.gif"), save_all=True, append_images=frames[1:],
                        duration=[70, 70, 60] * 40, loop=0, optimize=False, disposal=2)
-        print(output.with_name("grass-motion-v3.gif"))
+        print(output.with_name(f"grass-motion-v{revision}.gif"))
 
 
 if __name__ == "__main__":

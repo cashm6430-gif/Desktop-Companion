@@ -253,11 +253,19 @@ def main() -> None:
     grass_draw = ImageDraw.Draw(grass)
     # Extend the stem below the fist. The opaque fingers above this drawable
     # occlude its middle section, so the shaft visibly passes through the palm.
-    stem = [(909, 895), (913, 852), (921, 780), (884, 669), (825, 574)]
+    # Sample two cubic spans rather than a polygonal stick. The lower span
+    # passes through the grip; the upper span has a continuous soft bow.
+    def cubic_points(a, b, c, d):
+        return [tuple(round((1-t)**3*a[j] + 3*(1-t)**2*t*b[j]
+                            + 3*(1-t)*t*t*c[j] + t**3*d[j]) for j in (0, 1))
+                for t in np.linspace(0, 1, 80)]
+    stem = cubic_points((909, 895), (910, 881), (912, 864), (913, 852))
+    stem += cubic_points((913, 852), (933, 740), (893, 678), (825, 574))[1:]
     grass_draw.line(stem, fill=(45, 89, 54, 255), width=7, joint="curve")
     grass_draw.line(stem, fill=(118, 161, 78, 255), width=3, joint="curve")
-    grass_draw.polygon([(856, 668), (878, 637), (888, 605), (869, 630)],
-                       fill=(103, 150, 75, 255))
+    leaf = cubic_points((883, 669), (861, 650), (878, 622), (887, 606))
+    leaf += cubic_points((887, 606), (889, 638), (873, 650), (883, 669))[1:]
+    grass_draw.polygon(leaf, fill=(103, 150, 75, 255))
     for i in range(19):
         y, x = 574 - i * 4, 825 - i * 1.3
         extent = 12 * (1 - abs(i - 9) / 12)

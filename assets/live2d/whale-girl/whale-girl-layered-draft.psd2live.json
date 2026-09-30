@@ -11,7 +11,7 @@
   "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-3.0905268,"centerX":630.6423,"centerY":484.35596,"radiusX":242.77338,"radiusY":178.06161},
   "deformerHierarchy": {"head":"DeformHeadContainer","face":"DeformFaceNinePose","frontHair":["DeformHairFrontFollow","DeformHairFrontPhysics"],"backHair":["DeformHairBackFollow","DeformHairBackPhysics"]},
   "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":false,"groups":["PhysicsHairBack","PhysicsHairFront"]},
-  "summary": {"layers":23,"drawables":23,"deformers":20,"parameters":27,"atlasPages":1},
+  "summary": {"layers":23,"drawables":23,"deformers":20,"parameters":28,"atlasPages":1},
   "layers": [
     {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
   {"source":"arm backing","type":"preset","tag":"unknown","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshLayer"},

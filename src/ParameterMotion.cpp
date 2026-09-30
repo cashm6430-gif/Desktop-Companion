@@ -107,9 +107,28 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     values_ = parameters;
+    grassBend_ = parameters.value(QStringLiteral("ParamGrassSwing"));
+    grassTip_ = grassBend_ + parameters.value(QStringLiteral("ParamGrassTipBend")) / 0.85;
+    grassBendVelocity_ = grassTipVelocity_ = 0.0;
+    previousReach_ = parameters.value(QStringLiteral("ParamGrassReach"));
+    previousGripAngle_ = -parameters.value(rightArm) + 55.0 * previousReach_;
     values_[QStringLiteral("ParamEyeLVisible")] = values_.value(leftEye, 1.0);
     values_[QStringLiteral("ParamEyeRVisible")] = values_.value(rightEye, 1.0);
     preview_ = true;
+}
+
+void ParameterMotion::updateGrassFlex(double seconds, double target) {
+    // Substeps keep the spring stable across frame rates and short UI stalls.
+    const int steps = static_cast<int>(std::ceil(seconds * 120.0));
+    const double dt = seconds / steps;
+    for (int i = 0; i < steps; ++i) {
+        grassBendVelocity_ += (90.0 * (target - grassBend_) - 6.0 * grassBendVelocity_) * dt;
+        grassBend_ += grassBendVelocity_ * dt;
+        grassTipVelocity_ += (55.0 * (grassBend_ - grassTip_) - 5.0 * grassTipVelocity_) * dt;
+        grassTip_ += grassTipVelocity_ * dt;
+    }
+    values_[QStringLiteral("ParamGrassSwing")] = std::clamp(grassBend_, -1.0, 1.0);
+    values_[QStringLiteral("ParamGrassTipBend")] = std::clamp(0.85 * (grassTip_ - grassBend_), -1.0, 1.0);
 }
 
 void ParameterMotion::advance(double seconds) {
@@ -136,6 +155,7 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamGrassVisible"), 0.0},
         {QStringLiteral("ParamGrassReach"), 0.0},
         {QStringLiteral("ParamGrassSwing"), 0.0},
+        {QStringLiteral("ParamGrassTipBend"), 0.0},
         {QStringLiteral("ParamHandRGrip"), 0.0},
     };
 
@@ -160,9 +180,6 @@ void ParameterMotion::advance(double seconds) {
     } else if (state_ == PetController::State::Grass) {
         const auto pose = grassPose(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
-        const double visible = pose.value(QStringLiteral("ParamGrassVisible"));
-        auto& swing = desired[QStringLiteral("ParamGrassSwing")];
-        swing = std::clamp(swing + visible * 0.32 * qSin(actionTime_ * 6.0), -1.0, 1.0);
     }
 
     // Short asymmetric blink. It stays procedural across action transitions.
@@ -181,4 +198,14 @@ void ParameterMotion::advance(double seconds) {
         const double previous = values_.contains(it.key()) ? values_.value(it.key()) : it.value();
         values_[it.key()] = previous + (it.value() - previous) * alpha;
     }
+    const double reach = values_.value(QStringLiteral("ParamGrassReach"));
+    const double gripAngle = -values_.value(rightArm) + 55.0 * reach;
+    const double gripSpeed = (gripAngle - previousGripAngle_) / seconds;
+    const double reachSpeed = (reach - previousReach_) / seconds;
+    previousGripAngle_ = gripAngle;
+    previousReach_ = reach;
+    const double visible = values_.value(QStringLiteral("ParamGrassVisible"));
+    const double flexTarget = 0.65 * desired.value(QStringLiteral("ParamGrassSwing"))
+        - visible * (0.0045 * gripSpeed + 0.035 * reachSpeed);
+    updateGrassFlex(seconds, std::clamp(flexTarget, -1.0, 1.0));
 }

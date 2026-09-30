@@ -24,6 +24,7 @@ private:
     static double smooth(double t);
     static double pulse(double t, double start, double peak, double end);
     static double target(const Parameters& values, const QString& id);
+    void updateGrassFlex(double seconds, double target);
 
     PetController::State state_ = PetController::State::Idle;
     Parameters values_;
@@ -33,4 +34,11 @@ private:
     struct Keyframe { double time; Parameters parameters; };
     QVector<Keyframe> grassKeys_;
     bool preview_ = false;
+    // Two damped modes: the stem follows the grip and the softer tip trails it.
+    double grassBend_ = 0.0;
+    double grassBendVelocity_ = 0.0;
+    double grassTip_ = 0.0;
+    double grassTipVelocity_ = 0.0;
+    double previousGripAngle_ = 0.0;
+    double previousReach_ = 0.0;
 };

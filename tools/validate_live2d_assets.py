@@ -13,6 +13,7 @@ REQUIRED_PARAMETERS = {
     "ParamEyeLOpen", "ParamEyeROpen", "ParamBreath",
     "ParamMouthOpenY", "ParamArmLA", "ParamArmRA",
     "ParamGrassVisible", "ParamGrassReach", "ParamGrassSwing",
+    "ParamGrassTipBend",
     "ParamHandRGrip",
     "ParamSmileOpen", "ParamEyeBallX", "ParamEyeBallY",
     "ParamEyeLVisible", "ParamEyeRVisible",

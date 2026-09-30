@@ -13,6 +13,7 @@ private slots:
     void repeatedDeleteRestartsAction();
     void grassKeysAndTransitions();
     void grassExpressionsSurviveBlink();
+    void grassFlexLagsReboundsAndSettles();
     void malformedMotionDoesNotReplaceLoadedKeys();
 };
 
@@ -123,6 +124,42 @@ void ParameterMotionTest::grassExpressionsSurviveBlink() {
     for (int i = 0; i < 30; ++i) motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+}
+
+void ParameterMotionTest::grassFlexLagsReboundsAndSettles() {
+    // A held gesture isolates elasticity from the authored motion curves.
+    QTemporaryFile gesture;
+    QVERIFY(gesture.open());
+    gesture.write(R"({"keyframes":[{"time":0,"parameters":{"ParamGrassSwing":1,"ParamGrassVisible":1}},{"time":4,"parameters":{"ParamGrassSwing":1,"ParamGrassVisible":1}}]})");
+    gesture.flush();
+    ParameterMotion slow, fast;
+    QVERIFY(slow.loadGrassMotion(gesture.fileName()));
+    QVERIFY(fast.loadGrassMotion(gesture.fileName()));
+    slow.setState(PetController::State::Grass);
+    fast.setState(PetController::State::Grass);
+    double peak = 0.0, tipLag = 0.0;
+    for (int i = 0; i < 36; ++i) {
+        slow.advance(1.0 / 30.0);
+        fast.advance(1.0 / 60.0);
+        fast.advance(1.0 / 60.0);
+        peak = std::max(peak, slow.values().value(QStringLiteral("ParamGrassSwing")));
+        tipLag = std::max(tipLag, std::abs(slow.values().value(QStringLiteral("ParamGrassTipBend"))));
+        QVERIFY(std::abs(slow.values().value(QStringLiteral("ParamGrassSwing"))
+            - fast.values().value(QStringLiteral("ParamGrassSwing"))) < 0.025);
+    }
+    QVERIFY(peak > 0.70); // Overshoots the held target of 0.65.
+    QVERIFY(tipLag > 0.15);
+    slow.setState(PetController::State::Idle);
+    bool rebounded = false;
+    for (int i = 0; i < 150; ++i) {
+        slow.advance(1.0 / 30.0);
+        const double bend = slow.values().value(QStringLiteral("ParamGrassSwing"));
+        rebounded |= bend < -0.02;
+        QVERIFY(std::abs(bend) <= 1.0);
+    }
+    QVERIFY(rebounded);
+    QVERIFY(std::abs(slow.values().value(QStringLiteral("ParamGrassSwing"))) < 0.001);
+    QVERIFY(std::abs(slow.values().value(QStringLiteral("ParamGrassTipBend"))) < 0.001);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

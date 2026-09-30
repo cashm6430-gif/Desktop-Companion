@@ -6,6 +6,7 @@ The user's existing .psd2live archive is never overwritten.
 """
 import json
 import sys
+from itertools import product
 from pathlib import Path
 from psd2live_client import call, initialize
 
@@ -76,6 +77,7 @@ def main():
     for identifier, label, minimum, maximum in (
         ("ParamArmLA", "左手动作", -65, 65), ("ParamArmRA", "右手动作", -65, 65),
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
+        ("ParamGrassTipBend", "柔软草穗滞后", -1, 1),
     ):
         invoke("parameter", {"request": {"mode": "create", "state": state,
             "parameter_id": identifier, "name": label, "min": minimum, "max": maximum, "default": 0}})
@@ -97,22 +99,32 @@ def main():
         neutral = {parameter: 0}
         if len(reaches) > 1: neutral["ParamGrassReach"] = 0
         if len(swings) > 1: neutral["ParamGrassSwing"] = 0
+        tips = [-1, 0, 1] if target == prop else [0]
+        if target == prop: neutral["ParamGrassTipBend"] = 0
         invoke("form", {"state": state, "changes": [{"op": "seed", "target": "mesh:" + target, "key": neutral}]})
         for arm in (-65, -35, 0, 35, 65):
             for reach in reaches:
-                for swing in swings:
+                for swing, tip_bend in product(swings, tips):
                     key = dict(neutral)
                     key[parameter] = arm
                     if len(reaches) > 1: key["ParamGrassReach"] = reach
                     if len(swings) > 1: key["ParamGrassSwing"] = swing
+                    if target == prop: key["ParamGrassTipBend"] = tip_bend
                     if key == neutral: continue
                     # Every form begins at the same neutral mesh. Sampling a
                     # previously modified key would accumulate deformation.
                     invoke("form", {"state": state, "changes": [{"op": "copy", "target": "mesh:" + target,
                         "from": neutral, "key": key, "channels": ["geometry"]}]})
                     operations = []
+                    # Local arcs preserve length and the grip. Bend the tip
+                    # first, then the whole upper stem, then move with the hand.
+                    # No sway key rotates the grass as a single rigid object.
+                    if tip_bend:
+                        operations.append({"type": "arc", "root": normalized([884, 669], bounds),
+                            "tip": normalized([806, 498], bounds), "root_pin": 0.08, "degrees": tip_bend * 32})
                     if swing:
-                        operations.append({"type": "rotate", "pivot": normalized([913, 852], bounds), "degrees": swing * 22})
+                        operations.append({"type": "arc", "root": normalized([913, 852], bounds),
+                            "tip": normalized([806, 498], bounds), "root_pin": 0.12, "degrees": swing * 65})
                     if reach and target == prop:
                         # Keep the grass beside the face as the wrist lifts;
                         # the tilt pivots inside the grip, preserving occlusion.
