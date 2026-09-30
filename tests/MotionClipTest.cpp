@@ -4,9 +4,11 @@
 #include "../src/PetController.h"
 
 #include <QFile>
+#include <QtMath>
 #include <QtTest/QTest>
 #include <QTemporaryDir>
 #include <QTemporaryFile>
+#include <algorithm>
 
 class MotionClipTest final : public QObject {
     Q_OBJECT
@@ -18,6 +20,11 @@ private slots:
     void malformedDataIsRejected();
     void libraryNamesClipsAfterFiles();
     void libraryIsTheSingleDurationSource();
+    void channelsEvaluateExactSine();
+    void pulsesMatchLegacyRamp();
+    void additiveAndBlendMetadataAreParsed();
+    void legacyFileWithoutNewFieldsStillLoads();
+    void malformedCurvesAreRejected();
 };
 
 namespace {
@@ -144,6 +151,104 @@ void MotionClipTest::libraryIsTheSingleDurationSource() {
     QCOMPARE(library.duration(QStringLiteral("busy-laptop")), motion.library().duration(QStringLiteral("busy-laptop")));
     QVERIFY(library.duration(QStringLiteral("busy-laptop")) > 0.0);
     controller.setActionDuration(PetController::State::Grass, motion.actionDuration(PetController::State::Grass));
+}
+
+void MotionClipTest::channelsEvaluateExactSine() {
+    QTemporaryFile file;
+    QVERIFY(writeJson(file, R"({"duration":12,"loop":true,"channels":{
+        "ParamAngleX":[{"type":"sine","amplitude":2.0,"frequency":0.68,"phase":0.0,"offset":0.0}],
+        "ParamBreath":[{"type":"sine","amplitude":0.5,"frequency":2.1,"phase":0.0,"offset":0.5}],
+        "ParamBodyAngleX":[{"type":"sine","amplitude":0.8,"frequency":0.68,"phase":-0.3,"offset":0.0}]}})"));
+    MotionClip clip;
+    QString error;
+    QVERIFY2(clip.loadJson(file.fileName(), &error), qPrintable(error));
+    QVERIFY(clip.hasCurves());
+    QVERIFY(clip.keys().isEmpty());
+    // The data must reproduce the legacy generator term for term.
+    for (const double t : {0.0, 0.37, 1.5, 4.25, 9.9}) {
+        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamAngleX")), 2.0 * qSin(t * 0.68));
+        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamBreath")), 0.5 + 0.5 * qSin(t * 2.1));
+        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamBodyAngleX")), 0.8 * qSin(t * 0.68 - 0.3));
+    }
+    // A pure-channel clip is a formula, not a sampled range: no clamping.
+    QCOMPARE(clip.sample(100.0).value(QStringLiteral("ParamAngleX")), 2.0 * qSin(100.0 * 0.68));
+}
+
+void MotionClipTest::pulsesMatchLegacyRamp() {
+    QTemporaryFile file;
+    QVERIFY(writeJson(file, R"({"duration":1.4,"interpolation":"smoothstep","pulses":{
+        "ParamArmRA":[
+            {"start":0.00,"peak":0.28,"end":0.48,"weight":-22.0},
+            {"start":0.34,"peak":0.59,"end":0.91,"weight":30.0},
+            {"start":0.82,"peak":1.02,"end":1.34,"weight":-8.0}]}})"));
+    MotionClip clip;
+    QVERIFY(clip.loadJson(file.fileName()));
+
+    const auto smoothstep = [](double t) {
+        t = std::clamp(t, 0.0, 1.0);
+        return t * t * (3.0 - 2.0 * t);
+    };
+    const auto legacyPulse = [&smoothstep](double t, double start, double peak, double end) {
+        if (t < start || t >= end) return 0.0;
+        if (t < peak) return smoothstep((t - start) / (peak - start));
+        return 1.0 - smoothstep((t - peak) / (end - peak));
+    };
+    for (const double t : {0.0, 0.1, 0.28, 0.4, 0.59, 0.82, 1.0, 1.2, 1.4}) {
+        const double expected = -22.0 * legacyPulse(t, 0.00, 0.28, 0.48)
+            + 30.0 * legacyPulse(t, 0.34, 0.59, 0.91)
+            - 8.0 * legacyPulse(t, 0.82, 1.02, 1.34);
+        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamArmRA")), expected);
+    }
+}
+
+void MotionClipTest::additiveAndBlendMetadataAreParsed() {
+    QTemporaryFile file;
+    QVERIFY(writeJson(file, R"({"duration":12,"loop":true,"mode":"additive","blendSeconds":0.2,
+        "blendSecondsPerParameter":{"ParamBusyLaptop":0.28,"ParamSitPose":0.28},
+        "channels":{"ParamAngleY":[{"type":"sine","amplitude":1.8,"frequency":4.3,"phase":0.0,"offset":-7.0}]}})"));
+    MotionClip clip;
+    QString error;
+    QVERIFY2(clip.loadJson(file.fileName(), &error), qPrintable(error));
+    QVERIFY(clip.isAdditive());
+    QCOMPARE(clip.blendSeconds(), 0.2);
+    QCOMPARE(clip.blendSecondsFor(QStringLiteral("ParamBusyLaptop")), 0.28);
+    // Parameters without an override fall back to the clip-wide blend time.
+    QCOMPARE(clip.blendSecondsFor(QStringLiteral("ParamAngleX")), 0.2);
+}
+
+void MotionClipTest::legacyFileWithoutNewFieldsStillLoads() {
+    QTemporaryFile file;
+    QVERIFY(writeJson(file, R"({"duration":2,"keyframes":[
+        {"time":0,"parameters":{"ParamA":0}},{"time":2,"parameters":{"ParamA":1}}]})"));
+    MotionClip clip;
+    QVERIFY(clip.loadJson(file.fileName()));
+    QVERIFY(!clip.isAdditive());
+    QVERIFY(!clip.hasCurves());
+    QCOMPARE(clip.channels().size(), 0);
+    QCOMPARE(clip.blendSeconds(), 0.12); // The legacy default is preserved.
+}
+
+void MotionClipTest::malformedCurvesAreRejected() {
+    MotionClip clip;
+    QTemporaryFile badType;
+    QVERIFY(writeJson(badType, R"({"duration":1,"channels":{"A":[{"type":"cosine"}]}})"));
+    QVERIFY(!clip.loadJson(badType.fileName()));
+
+    QTemporaryFile badPulse;
+    QVERIFY(writeJson(badPulse, R"({"duration":1,"pulses":{"A":[{"start":0.5,"peak":0.2,"end":1}]}})"));
+    QVERIFY(!clip.loadJson(badPulse.fileName()));
+
+    QTemporaryFile badMode;
+    QVERIFY(writeJson(badMode, R"({"duration":1,"mode":"blend","channels":{"A":[{"type":"sine"}]}})"));
+    QVERIFY(!clip.loadJson(badMode.fileName()));
+
+    QTemporaryFile badBlend;
+    QVERIFY(writeJson(badBlend, R"({"duration":1,"blendSecondsPerParameter":{"A":-1},"channels":{"A":[{"type":"sine"}]}})"));
+    QVERIFY(!clip.loadJson(badBlend.fileName()));
+
+    QTemporaryFile emptyChannel;
+    QVERIFY(writeJson(emptyChannel, R"({"duration":1,"channels":{"A":[]}})"));
+    QVERIFY(!clip.loadJson(emptyChannel.fileName()));
 }
 
 QTEST_GUILESS_MAIN(MotionClipTest)

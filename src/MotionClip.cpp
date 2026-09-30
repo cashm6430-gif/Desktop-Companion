@@ -91,16 +91,102 @@ bool MotionClip::parseJson(const QByteArray& json, QString* error) {
         tracks.insert(it.key(), track);
     }
 
-    if (keys.isEmpty() && tracks.isEmpty()) {
-        if (error) *error = QStringLiteral("Motion needs keyframes or tracks");
+    QHash<QString, double> constants;
+    const auto constantsObject = root.value(QStringLiteral("constants")).toObject();
+    for (auto it = constantsObject.begin(); it != constantsObject.end(); ++it) {
+        if (!it.value().isDouble() || !qIsFinite(it.value().toDouble())) {
+            if (error) *error = QStringLiteral("Invalid constant value");
+            return false;
+        }
+        constants.insert(it.key(), it.value().toDouble());
+    }
+
+    QHash<QString, QVector<Channel>> channels;
+    const auto channelsObject = root.value(QStringLiteral("channels")).toObject();
+    for (auto it = channelsObject.begin(); it != channelsObject.end(); ++it) {
+        QVector<Channel> terms;
+        for (const auto& entry : it.value().toArray()) {
+            const auto object = entry.toObject();
+            if (object.value(QStringLiteral("type")).toString() != QLatin1String("sine")) {
+                if (error) *error = QStringLiteral("Unsupported channel type");
+                return false;
+            }
+            Channel channel;
+            channel.amplitude = object.value(QStringLiteral("amplitude")).toDouble(0.0);
+            channel.frequency = object.value(QStringLiteral("frequency")).toDouble(0.0);
+            channel.phase = object.value(QStringLiteral("phase")).toDouble(0.0);
+            channel.offset = object.value(QStringLiteral("offset")).toDouble(0.0);
+            if (!qIsFinite(channel.amplitude) || !qIsFinite(channel.frequency)
+                || !qIsFinite(channel.phase) || !qIsFinite(channel.offset)) {
+                if (error) *error = QStringLiteral("Invalid channel value");
+                return false;
+            }
+            terms.append(channel);
+        }
+        if (terms.isEmpty()) {
+            if (error) *error = QStringLiteral("A channel needs at least one term");
+            return false;
+        }
+        channels.insert(it.key(), terms);
+    }
+
+    QHash<QString, QVector<Pulse>> pulses;
+    const auto pulsesObject = root.value(QStringLiteral("pulses")).toObject();
+    for (auto it = pulsesObject.begin(); it != pulsesObject.end(); ++it) {
+        QVector<Pulse> list;
+        for (const auto& entry : it.value().toArray()) {
+            const auto object = entry.toObject();
+            Pulse pulse;
+            pulse.start = object.value(QStringLiteral("start")).toDouble(0.0);
+            pulse.peak = object.value(QStringLiteral("peak")).toDouble(0.0);
+            pulse.end = object.value(QStringLiteral("end")).toDouble(0.0);
+            pulse.weight = object.value(QStringLiteral("weight")).toDouble(0.0);
+            if (!qIsFinite(pulse.start) || !qIsFinite(pulse.peak) || !qIsFinite(pulse.end)
+                || !qIsFinite(pulse.weight) || !(pulse.start <= pulse.peak)
+                || !(pulse.peak < pulse.end)) {
+                if (error) *error = QStringLiteral("A pulse needs start <= peak < end");
+                return false;
+            }
+            list.append(pulse);
+        }
+        if (list.isEmpty()) {
+            if (error) *error = QStringLiteral("A pulse list needs at least one entry");
+            return false;
+        }
+        pulses.insert(it.key(), list);
+    }
+
+    const QString mode = root.value(QStringLiteral("mode")).toString(QStringLiteral("absolute"));
+    if (mode != QLatin1String("absolute") && mode != QLatin1String("additive")) {
+        if (error) *error = QStringLiteral("Unsupported mode");
+        return false;
+    }
+
+    QHash<QString, double> blendSecondsPerParameter;
+    const auto blendObject = root.value(QStringLiteral("blendSecondsPerParameter")).toObject();
+    for (auto it = blendObject.begin(); it != blendObject.end(); ++it) {
+        const double value = it.value().toDouble(-1.0);
+        if (!qIsFinite(value) || value < 0.0) {
+            if (error) *error = QStringLiteral("Invalid per-parameter blend time");
+            return false;
+        }
+        blendSecondsPerParameter.insert(it.key(), value);
+    }
+
+    if (keys.isEmpty() && tracks.isEmpty() && constants.isEmpty()
+        && channels.isEmpty() && pulses.isEmpty()) {
+        if (error) *error = QStringLiteral("Motion needs keyframes, tracks or curves");
         return false;
     }
 
     double duration = root.value(QStringLiteral("duration")).toDouble(-1.0);
     if (!(duration > 0.0)) {
-        duration = keys.isEmpty() ? tracks.begin()->times.last() : keys.last().time;
+        duration = keys.isEmpty() ? 0.0 : keys.last().time;
         for (auto it = tracks.begin(); it != tracks.end(); ++it)
             duration = std::max(duration, it.value().times.last());
+        for (auto it = pulses.begin(); it != pulses.end(); ++it)
+            for (const auto& pulse : it.value())
+                duration = std::max(duration, pulse.end);
     }
     if (!qIsFinite(duration) || duration <= 0.0) {
         if (error) *error = QStringLiteral("Motion needs a positive duration");
@@ -118,6 +204,11 @@ bool MotionClip::parseJson(const QByteArray& json, QString* error) {
 
     keys_ = keys;
     tracks_ = tracks;
+    constants_ = constants;
+    channels_ = channels;
+    pulses_ = pulses;
+    blendSecondsPerParameter_ = blendSecondsPerParameter;
+    additive_ = mode == QLatin1String("additive");
     duration_ = duration;
     loop_ = loop;
     loopStart_ = loopStart;
@@ -179,8 +270,34 @@ double MotionClip::sampleTrack(const Track& track, double seconds) const {
     return track.values[next - 1] + (track.values[next] - track.values[next - 1]) * weight;
 }
 
+double MotionClip::pulseValue(double seconds, const Pulse& pulse) const {
+    if (seconds < pulse.start || seconds >= pulse.end) return 0.0;
+    if (seconds < pulse.peak) return ease((seconds - pulse.start) / (pulse.peak - pulse.start));
+    return 1.0 - ease((seconds - pulse.peak) / (pulse.end - pulse.peak));
+}
+
 MotionClip::Parameters MotionClip::sample(double seconds) const {
     Parameters result;
+    // Lowest precedence first: constants, procedural channels, pulses, then
+    // per-parameter tracks and finally the shared keyframes.
+    for (auto it = constants_.cbegin(); it != constants_.cend(); ++it)
+        result.insert(it.key(), it.value());
+    for (auto it = channels_.cbegin(); it != channels_.cend(); ++it) {
+        const auto& terms = it.value();
+        double value = terms.first().offset
+            + terms.first().amplitude * qSin(terms.first().frequency * seconds + terms.first().phase);
+        for (int i = 1; i < terms.size(); ++i)
+            value += terms[i].offset
+                + terms[i].amplitude * qSin(terms[i].frequency * seconds + terms[i].phase);
+        result.insert(it.key(), value);
+    }
+    for (auto it = pulses_.cbegin(); it != pulses_.cend(); ++it) {
+        const auto& list = it.value();
+        double value = list.first().weight * pulseValue(seconds, list.first());
+        for (int i = 1; i < list.size(); ++i)
+            value += list[i].weight * pulseValue(seconds, list[i]);
+        result.insert(it.key(), value);
+    }
     for (auto it = tracks_.cbegin(); it != tracks_.cend(); ++it)
         result.insert(it.key(), sampleTrack(it.value(), seconds));
     if (keys_.isEmpty()) return result;
