@@ -88,6 +88,7 @@ bool ParameterMotion::loadBusyLaptopMotion(const QString& path, QString* error) 
 bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error) {
     if (!library_.loadDirectory(directory, error)) return false;
     if (const MotionClip* grass = library_.clip(QStringLiteral("grass"))) grassClip_ = *grass;
+    if (const MotionClip* idle = library_.clip(QStringLiteral("idle"))) idleClip_ = *idle;
     if (const MotionClip* laptop = library_.clip(QStringLiteral("busy-laptop"))) {
         if (!validateSeated(*laptop, error)) return false;
         laptopClip_ = *laptop;
@@ -171,13 +172,13 @@ void ParameterMotion::advance(double seconds) {
     blinkClock_ += seconds;
 
     Parameters desired{
-        {angleX, 2.0 * qSin(clock_ * 0.68)},
-        {angleY, 1.5 * qSin(clock_ * 0.53)},
-        {angleZ, 1.0 * qSin(clock_ * 0.91)},
-        {bodyX, 0.8 * qSin(clock_ * 0.68 - 0.3)},
-        {bodyY, 0.5 * qSin(clock_ * 1.7)},
+        {angleX, 0.0},
+        {angleY, 0.0},
+        {angleZ, 0.0},
+        {bodyX, 0.0},
+        {bodyY, 0.0},
         {bodyZ, 0.0},
-        {breath, 0.5 + 0.5 * qSin(clock_ * 2.1)},
+        {breath, 0.0},
         {leftArm, 0.0}, {rightArm, 0.0},
         {QStringLiteral("ParamElbowLA"), 0.0}, {QStringLiteral("ParamElbowRA"), 0.0},
         {QStringLiteral("ParamWristRA"), 0.0},
@@ -199,6 +200,21 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamBusyTypingR"), 0.0},
         {QStringLiteral("ParamLaptopRock"), 0.0},
     };
+
+    // Idle base layer. Sampled on the global clock so the breathing phase
+    // carries across state changes instead of restarting at every switch.
+    if (idleClip_.isValid()) {
+        const auto base = idleClip_.sample(clock_);
+        for (auto it = base.cbegin(); it != base.cend(); ++it) desired[it.key()] = it.value();
+    } else {
+        // Fallback for callers that loaded a single clip instead of the library.
+        desired[angleX] = 2.0 * qSin(clock_ * 0.68);
+        desired[angleY] = 1.5 * qSin(clock_ * 0.53);
+        desired[angleZ] = 1.0 * qSin(clock_ * 0.91);
+        desired[bodyX] = 0.8 * qSin(clock_ * 0.68 - 0.3);
+        desired[bodyY] = 0.5 * qSin(clock_ * 1.7);
+        desired[breath] = 0.5 + 0.5 * qSin(clock_ * 2.1);
+    }
 
     if (state_ == PetController::State::Busy) {
         desired[angleY] += -7.0 + 1.8 * qSin(clock_ * 4.3);
