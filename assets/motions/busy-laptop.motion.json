@@ -6,6 +6,11 @@
   "loop": true,
   "interpolation": "smoothstep",
   "revision": 2,
+  "blendSeconds": 0.12,
+  "blendSecondsPerParameter": {
+    "ParamBusyLaptop": 0.28,
+    "ParamSitPose": 0.28
+  },
   "keyframes": [
     {
       "time": 0,

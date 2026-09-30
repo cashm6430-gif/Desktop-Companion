@@ -20,6 +20,8 @@ class ParameterMotion final {
 public:
     using Parameters = QHash<QString, double>;
 
+    ParameterMotion();
+
     void setState(PetController::State state);
     void advance(double seconds);
     bool loadGrassMotion(const QString& path, QString* error = nullptr);
@@ -48,9 +50,12 @@ public:
     const Parameters& values() const { return values_; }
 
 private:
+    // Blend time used for every parameter that no clip overrides.
+    static constexpr double kDefaultBlend = 0.12;
     static double smooth(double t);
     static double pulse(double t, double start, double peak, double end);
     void updateGrassFlex(double seconds, double target);
+    void applyBlendOverrides(const MotionClip& clip);
 
     PetController::State state_ = PetController::State::Idle;
     Parameters values_;
@@ -65,6 +70,8 @@ private:
     MotionClip idleClip_;
     MotionClip busyStandClip_;
     MotionClip deleteClip_;
+    // Per-parameter blend time (seconds); see applyBlendOverrides().
+    QHash<QString, double> blendSeconds_;
     QRandomGenerator busyRandom_{QRandomGenerator::securelySeeded()};
     bool busyChoiceExists_ = false;
     bool laptopBusy_ = false;

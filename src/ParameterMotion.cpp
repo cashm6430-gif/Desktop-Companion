@@ -1,5 +1,6 @@
 #include "ParameterMotion.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QtMath>
 #include <algorithm>
@@ -31,6 +32,26 @@ bool validateSeated(const MotionClip& clip, QString* error) {
     }
     return true;
 }
+}
+
+ParameterMotion::ParameterMotion() {
+    // The seated switch is deliberately slower than the general 120 ms blend.
+    // Both numbers used to be hard-coded in advance(); seeding them here keeps
+    // the behaviour identical for clips that do not declare their own.
+    blendSeconds_.insert(QStringLiteral("ParamBusyLaptop"), 0.28);
+    blendSeconds_.insert(QStringLiteral("ParamSitPose"), 0.28);
+}
+
+void ParameterMotion::applyBlendOverrides(const MotionClip& clip) {
+    for (auto it = clip.blendSecondsPerParameter().cbegin();
+         it != clip.blendSecondsPerParameter().cend(); ++it) {
+        const auto existing = blendSeconds_.constFind(it.key());
+        if (existing != blendSeconds_.constEnd() && existing.value() != it.value()) {
+            qWarning() << "Blend time for" << it.key() << "in clip" << clip.id()
+                       << "redeclares" << existing.value() << "as" << it.value();
+        }
+        blendSeconds_.insert(it.key(), it.value());
+    }
 }
 
 double ParameterMotion::smooth(double t) {
@@ -81,12 +102,14 @@ bool ParameterMotion::loadBusyLaptopMotion(const QString& path, QString* error) 
     // A seated work cycle is a loop: the authored seam is the wrap point.
     clip.setLoop(true, 0.0, clip.duration());
     laptopClip_ = clip;
+    applyBlendOverrides(clip);
     library_.loadClip(QStringLiteral("busy-laptop"), path, nullptr);
     return true;
 }
 
 bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error) {
     if (!library_.loadDirectory(directory, error)) return false;
+    for (const QString& id : library_.ids()) applyBlendOverrides(*library_.clip(id));
     if (const MotionClip* grass = library_.clip(QStringLiteral("grass"))) grassClip_ = *grass;
     if (const MotionClip* idle = library_.clip(QStringLiteral("idle"))) idleClip_ = *idle;
     if (const MotionClip* standing = library_.clip(QStringLiteral("busy-stand"))) busyStandClip_ = *standing;
@@ -286,13 +309,13 @@ void ParameterMotion::advance(double seconds) {
     const double blinkPhase = std::fmod(blinkClock_, 4.3);
     const double eye = 1.0 - pulse(blinkPhase, 0.0, 0.075, 0.16);
     // Time-based exponential blending is stable at both 30 and 60 Hz.
-    const double alpha = 1.0 - qExp(-seconds / 0.12);
+    const double alpha = 1.0 - qExp(-seconds / kDefaultBlend);
     for (auto it = desired.cbegin(); it != desired.cend(); ++it) {
         double previous = values_.contains(it.key()) ? values_.value(it.key()) : it.value();
         if (it.key() == leftEye) previous = leftEyeExpression_;
         if (it.key() == rightEye) previous = rightEyeExpression_;
-        const double weight = it.key() == QStringLiteral("ParamBusyLaptop") || it.key() == QStringLiteral("ParamSitPose")
-            ? 1.0 - qExp(-seconds / 0.28) : alpha;
+        const auto tau = blendSeconds_.constFind(it.key());
+        const double weight = tau == blendSeconds_.constEnd() ? alpha : 1.0 - qExp(-seconds / tau.value());
         const double blended = previous + (it.value() - previous) * weight;
         if (it.key() == leftEye) leftEyeExpression_ = blended;
         if (it.key() == rightEye) rightEyeExpression_ = blended;

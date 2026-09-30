@@ -1,6 +1,8 @@
 #include "../src/ParameterMotion.h"
 
+#include <QtMath>
 #include <QtTest/QTest>
+#include <QTemporaryDir>
 #include <QTemporaryFile>
 #include <cmath>
 
@@ -20,6 +22,7 @@ private slots:
     void malformedMotionDoesNotReplaceLoadedKeys();
     void laptopSelectionAndInterruptions();
     void laptopTypingAndShortTaskExit();
+    void blendSecondsComeFromClip();
 };
 
 void ParameterMotionTest::laptopSelectionAndInterruptions() {
@@ -302,6 +305,32 @@ void ParameterMotionTest::grassForwardHoldAndWristGesture() {
     QCOMPARE(motion.values(), before);
     for (int i = 0; i < 30; ++i) motion.advance(0.04);
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamWristRA"))) < 0.01);
+}
+
+void ParameterMotionTest::blendSecondsComeFromClip() {
+    // A clip that declares a slower blend must actually slow that parameter down:
+    // the blend times used to be hard-coded in advance().
+    QTemporaryDir dir;
+    QVERIFY(dir.isValid());
+    QFile clip(dir.filePath(QStringLiteral("idle.motion.json")));
+    QVERIFY(clip.open(QIODevice::WriteOnly));
+    clip.write(R"({"duration":8,"blendSeconds":0.12,
+        "blendSecondsPerParameter":{"ParamAngleX":0.9},
+        "constants":{"ParamAngleX":30.0,"ParamAngleY":30.0}})");
+    clip.close();
+
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    // Start both parameters from zero so the approach to 30 is observable.
+    motion.setPreviewPose({{QStringLiteral("ParamAngleX"), 0.0}, {QStringLiteral("ParamAngleY"), 0.0}});
+    motion.setState(PetController::State::Idle);
+    motion.advance(0.02);
+    const double slow = motion.values().value(QStringLiteral("ParamAngleX"));
+    const double fast = motion.values().value(QStringLiteral("ParamAngleY"));
+    // Same target, but X was declared with a 0.9 s blend against the 0.12 s default.
+    QVERIFY(qAbs(fast - slow) > 1.0);
+    QVERIFY(qAbs(slow - 30.0 * (1.0 - qExp(-0.02 / 0.9))) < 1e-9);
+    QVERIFY(qAbs(fast - 30.0 * (1.0 - qExp(-0.02 / 0.12))) < 1e-9);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)
