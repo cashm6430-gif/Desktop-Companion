@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
     app.setQuitOnLastWindowClosed(false);
     PetController controller;
     PetWindow window(&controller);
+    QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
     window.show();
 
     if (argc >= 3 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-smoke")) {
@@ -26,6 +27,7 @@ int main(int argc, char** argv) {
                 report.write(QJsonDocument(QJsonObject{
                     {QStringLiteral("render_backend"), window.renderBackend()},
                     {QStringLiteral("render_error"), window.renderError()},
+                    {QStringLiteral("render_samples"), window.renderSampleCount()},
                     {QStringLiteral("frame_saved"), saved}
                 }).toJson());
             app.exit(saved ? 0 : 1);

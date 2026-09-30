@@ -20,6 +20,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QSurfaceFormat>
 #include <cstdlib>
 #include <cstring>
 #include <memory>
@@ -85,7 +86,7 @@ struct CubismCanvas::Impl {
         auto* renderer = model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
         for (size_t i = 0; i < textures.size(); ++i)
             renderer->BindTexture(static_cast<Csm::csmUint32>(i), textures[i]);
-        renderer->IsPremultipliedAlpha(false);
+        renderer->IsPremultipliedAlpha(true);
     }
 };
 
@@ -94,6 +95,9 @@ CubismCanvas::CubismCanvas(const ParameterMotion* motion, QWidget* parent)
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_TransparentForMouseEvents);
     setAutoFillBackground(false);
+    QSurfaceFormat surfaceFormat = format();
+    surfaceFormat.setSamples(4);
+    setFormat(surfaceFormat);
 }
 
 CubismCanvas::~CubismCanvas() {
@@ -173,7 +177,7 @@ void CubismCanvas::initializeGL() {
     }
     for (const QJsonValue& entry : textures) {
         const QImage image = QImage(QDir(directory).filePath(entry.toString()))
-                                 .convertToFormat(QImage::Format_RGBA8888);
+                                 .convertToFormat(QImage::Format_RGBA8888_Premultiplied);
         if (image.isNull()) {
             error_ = QStringLiteral("Cubism texture is missing: %1").arg(entry.toString());
             return;
@@ -207,6 +211,11 @@ void CubismCanvas::resizeGL(int width, int height) {
 }
 
 void CubismCanvas::paintGL() {
+    if (sampleCount_ < 0) {
+        GLint samples = 0;
+        glGetIntegerv(GL_SAMPLES, &samples);
+        sampleCount_ = samples;
+    }
     glViewport(0, 0, static_cast<GLsizei>(width() * devicePixelRatioF()),
                static_cast<GLsizei>(height() * devicePixelRatioF()));
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

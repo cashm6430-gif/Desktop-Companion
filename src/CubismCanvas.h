@@ -14,6 +14,7 @@ public:
 
     bool isReady() const { return ready_; }
     QString error() const { return error_; }
+    int sampleCount() const { return sampleCount_; }
     void advance(double seconds);
 
 signals:
@@ -30,5 +31,6 @@ private:
     const ParameterMotion* motion_;
     bool ready_ = false;
     QString error_;
+    int sampleCount_ = -1;
     double frameSeconds_ = 0.04;
 };

@@ -22,7 +22,9 @@ public:
     const ParameterMotion::Parameters& motionParameters() const { return motion_.values(); }
     QString renderBackend() const;
     QString renderError() const;
+    int renderSampleCount() const;
     bool saveRenderFrame(const QString& path);
+    void shutdown();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -34,6 +36,7 @@ protected:
 
 private:
     void setState(PetController::State state);
+    void setInteractionMask(const QPixmap& artwork);
     void showMenu(const QPoint& globalPos);
     QMovie grassMovie_;
     QPixmap idleImage_;

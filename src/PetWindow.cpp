@@ -80,7 +80,10 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), controller_, &PetController::playGrass);
     trayMenu_.addAction(QStringLiteral("重置忙碌状态"), controller_, &PetController::resetBusy);
     trayMenu_.addSeparator();
-    trayMenu_.addAction(QStringLiteral("退出"), qApp, &QApplication::quit);
+    trayMenu_.addAction(QStringLiteral("退出"), this, [this] {
+        shutdown();
+        qApp->quit();
+    });
     tray_.setContextMenu(&trayMenu_);
     connect(&tray_, &QSystemTrayIcon::activated, this, [this](QSystemTrayIcon::ActivationReason reason) {
         if (reason == QSystemTrayIcon::Trigger) {
@@ -95,31 +98,47 @@ void PetWindow::setState(PetController::State state) {
     grassMovie_.setPaused(true);
     currentMovie_ = nullptr;
     frame_ = 0;
-    const QPixmap* image = nullptr;
+    const QPixmap* hitArtwork = nullptr;
     switch (state) {
-    case PetController::State::Idle: image = &idleImage_; break;
-    case PetController::State::Busy: image = &busyImage_; break;
+    case PetController::State::Idle: hitArtwork = &idleImage_; break;
+    case PetController::State::Busy: hitArtwork = &busyImage_; break;
     case PetController::State::Grass: currentMovie_ = &grassMovie_; grassMovie_.jumpToFrame(0); break;
-    case PetController::State::Delete: image = &deleteImage_; break;
+    case PetController::State::Delete: hitArtwork = &deleteImage_; break;
     }
     if (currentMovie_) currentMovie_->setPaused(false);
 #ifdef HAVE_CUBISM
     const bool useCubism = cubismCanvas_ && cubismCanvas_->isReady()
         && state != PetController::State::Grass;
     if (cubismCanvas_) cubismCanvas_->setVisible(useCubism);
-    if (useCubism && !cubismHitMask_.isNull()) {
-        const QImage alpha = cubismHitMask_.scaled(size(), Qt::IgnoreAspectRatio,
-            Qt::SmoothTransformation).toImage().createAlphaMask();
-        setMask(QBitmap::fromImage(alpha));
-        update();
-        return;
-    }
+    if (useCubism) hitArtwork = &cubismHitMask_;
 #endif
-    if (image && !image->isNull()) {
-        const QImage alpha = image->scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation).toImage().createAlphaMask();
-        setMask(QBitmap::fromImage(alpha));
-    } else clearMask();
+    if (hitArtwork && !hitArtwork->isNull()) setInteractionMask(*hitArtwork);
+    else clearMask();
     update();
+}
+
+void PetWindow::setInteractionMask(const QPixmap& artwork) {
+    // Windows needs a window region for desktop clicks to pass through.
+    // Keep its 1-bit boundary outside the artwork so it cannot cut off soft edges.
+    const QPixmap scaled = artwork.scaled(size(), Qt::IgnoreAspectRatio,
+                                         Qt::SmoothTransformation);
+    QImage coverage(size(), QImage::Format_ARGB32_Premultiplied);
+    coverage.fill(Qt::transparent);
+    {
+        QPainter painter(&coverage);
+        constexpr int padding = 12;
+        for (int y = -padding; y <= padding; y += padding / 2)
+            for (int x = -padding; x <= padding; x += padding / 2)
+                painter.drawPixmap(x, y, scaled);
+    }
+    setMask(QBitmap::fromImage(coverage.createAlphaMask()));
+}
+
+void PetWindow::shutdown() {
+    hide();
+    frameTimer_.stop();
+    grassMovie_.stop();
+    tray_.hide();
 }
 
 void PetWindow::paintEvent(QPaintEvent*) {
@@ -162,6 +181,13 @@ QString PetWindow::renderError() const {
     if (cubismCanvas_) return cubismCanvas_->error();
 #endif
     return {};
+}
+
+int PetWindow::renderSampleCount() const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) return cubismCanvas_->sampleCount();
+#endif
+    return 0;
 }
 
 bool PetWindow::saveRenderFrame(const QString& path) {
