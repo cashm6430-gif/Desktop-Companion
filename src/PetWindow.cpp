@@ -55,10 +55,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 #endif
 
     QString motionError;
-    if (!motion_.loadGrassMotion(imagePath("motions/grass.motion.json"), &motionError))
-        qWarning() << "Grass motion:" << motionError;
-    if (!motion_.loadBusyLaptopMotion(imagePath("motions/busy-laptop.motion.json"), &motionError))
-        qWarning() << "Laptop motion:" << motionError;
+    if (!motion_.loadMotionLibrary(imagePath("motions"), &motionError))
+        qWarning() << "Motion library:" << motionError;
+    // The state machine gets its durations from the same clips that drive the
+    // motion, so a retimed asset can never desync the fallback timer.
+    controller_->setActionDuration(PetController::State::Delete,
+                                   motion_.actionDuration(PetController::State::Delete));
+    controller_->setActionDuration(PetController::State::Grass,
+                                   motion_.actionDuration(PetController::State::Grass));
 
     frameTimer_.setInterval(40);
     frameClock_.start();
@@ -66,6 +70,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;
         motion_.advance(seconds);
+        if (motion_.consumeActionFinished()) controller_->actionFinished();
 #ifdef HAVE_CUBISM
         if (cubismCanvas_ && cubismCanvas_->isReady()) {
             cubismCanvas_->advance(seconds);

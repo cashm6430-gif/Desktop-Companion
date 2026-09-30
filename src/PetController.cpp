@@ -20,6 +20,24 @@ void PetController::restoreBackgroundState() {
     setState(activeTurns_.isEmpty() ? State::Idle : State::Busy);
 }
 
+void PetController::setActionDuration(State state, double seconds) {
+    if (!(seconds > 0.0)) return;
+    if (state == State::Delete) deleteDuration_ = seconds;
+    else if (state == State::Grass) grassDuration_ = seconds;
+}
+
+int PetController::durationMs(State state) const {
+    const double seconds = state == State::Delete ? deleteDuration_ : grassDuration_;
+    return static_cast<int>(seconds * 1000.0 + 0.5);
+}
+
+void PetController::actionFinished() {
+    // A one-shot action ended. Stop the fallback timer and fall back to whatever
+    // the background was doing; concurrent turns keep the pet busy.
+    actionTimer_.stop();
+    if (state_ == State::Delete || state_ == State::Grass) restoreBackgroundState();
+}
+
 void PetController::turnStarted(const QString& sessionId, const QString& turnId) {
     if (sessionId.isEmpty() || turnId.isEmpty()) return;
     activeTurns_.insert(sessionId + QChar::Null + turnId, QDateTime::currentMSecsSinceEpoch());
@@ -46,14 +64,14 @@ void PetController::desktopItemDeleted() {
     deleteClock_.restart();
     if (state_ == State::Delete) emit stateChanged(State::Delete);
     else setState(State::Delete);
-    actionTimer_.start(1400);
+    actionTimer_.start(durationMs(State::Delete));
 }
 
 void PetController::playGrass() {
     if (state_ == State::Delete) return;
     if (state_ == State::Grass) emit stateChanged(State::Grass);
     else setState(State::Grass);
-    actionTimer_.start(6900);
+    actionTimer_.start(durationMs(State::Grass));
 }
 
 void PetController::resetBusy() {

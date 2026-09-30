@@ -10,6 +10,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTimer>
+#include <algorithm>
+#include <cmath>
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
@@ -36,31 +38,51 @@ int main(int argc, char** argv) {
     if (argc >= 3 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-motion")) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         if (!QDir().mkpath(output)) return 2;
+        const QString clipId = argc >= 4 ? QString::fromLocal8Bit(argv[3]) : QStringLiteral("grass");
+        const bool laptop = clipId == QStringLiteral("busy-laptop");
+        const bool grass = clipId == QStringLiteral("grass");
         ParameterMotion sampler;
-        const bool laptop = argc >= 4 && QString::fromLocal8Bit(argv[3]) == QStringLiteral("busy-laptop");
+        QString motionError;
+        if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &motionError)) {
+            qWarning() << "Motion library:" << motionError;
+            return 2;
+        }
+        // Grass and the seated loop run through the real state machine. Any other
+        // authored clip is sampled straight from the library, so a new asset can
+        // be reviewed without adding a C++ branch.
+        const MotionClip* directClip = nullptr;
         if (laptop) {
-            if (!sampler.loadBusyLaptopMotion(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/busy-laptop.motion.json")))) return 2;
             sampler.advance(0.001);
             sampler.forceLaptopBusy();
-        } else {
-            if (!sampler.loadGrassMotion(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/grass.motion.json")))) return 2;
+        } else if (grass) {
             sampler.setPreviewPose(sampler.grassPose(0.0));
             sampler.setState(PetController::State::Grass);
+        } else {
+            directClip = sampler.library().clip(clipId);
+            if (!directClip) return 2;
+            sampler.setPreviewPose(directClip->sample(0.0));
         }
+        constexpr double step = 1.0 / 15.0;
+        const int frameCount = laptop ? 195 : grass ? 120
+            : std::max(1, static_cast<int>(std::lround(directClip->duration() / step)));
         window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);
         int frame = 0;
         QTimer captureTimer;
         captureTimer.setInterval(100);
         QObject::connect(&captureTimer, &QTimer::timeout, &app, [&] {
+            double time = frame * step;
+            if (directClip && directClip->isLoop()) time = std::fmod(time, directClip->duration());
+            const ParameterMotion::Parameters pose = directClip ? directClip->sample(time) : sampler.values();
             if (window.renderBackend() != QStringLiteral("cubism_native")
-                || !window.renderSequenceFrame(sampler.values(), 1.0/15.0, QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                || !window.renderSequenceFrame(pose, step, QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
                 app.exit(1); return;
             }
-            if (++frame == (laptop ? 195 : 120)) { app.exit(0); return; }
+            if (++frame == frameCount) { app.exit(0); return; }
+            if (directClip) return; // The pose above already advanced one frame.
             // Fixed motion time gives a reproducible 15 FPS review even when
             // writing a large PNG takes longer than the desktop frame interval.
-            sampler.advance(1.0 / 15.0);
+            sampler.advance(step);
             if (laptop && frame == 150) sampler.setState(PetController::State::Idle);
         });
         QTimer::singleShot(1000, &captureTimer, [&] { captureTimer.start(); });

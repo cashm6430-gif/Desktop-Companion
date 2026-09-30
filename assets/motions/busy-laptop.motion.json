@@ -3,7 +3,9 @@
   "conceptApproval": "approved",
   "approval": "pending",
   "duration": 8,
+  "loop": true,
   "interpolation": "smoothstep",
+  "revision": 2,
   "keyframes": [
     {
       "time": 0,

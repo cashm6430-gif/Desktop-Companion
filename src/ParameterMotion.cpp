@@ -1,10 +1,7 @@
 #include "ParameterMotion.h"
 
+#include <QDir>
 #include <QtMath>
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
 #include <algorithm>
 #include <cmath>
 
@@ -23,6 +20,17 @@ const QString rightArm = QStringLiteral("ParamArmRA");
 const QString mouth = QStringLiteral("ParamMouthOpenY");
 const QString cheek = QStringLiteral("ParamCheek");
 constexpr double pi = 3.14159265358979323846;
+
+// A seated work cycle only reads correctly when every key is a seated pose.
+bool validateSeated(const MotionClip& clip, QString* error) {
+    for (const auto& key : clip.keys()) {
+        if (key.parameters.value(QStringLiteral("ParamBusyLaptop")) != 1.0) {
+            if (error) *error = QStringLiteral("Laptop loop requires seated poses");
+            return false;
+        }
+    }
+    return true;
+}
 }
 
 double ParameterMotion::smooth(double t) {
@@ -36,10 +44,6 @@ double ParameterMotion::pulse(double t, double start, double peak, double end) {
     return 1.0 - smooth((t - peak) / (end - peak));
 }
 
-double ParameterMotion::target(const Parameters& values, const QString& id) {
-    return values.value(id, 0.0);
-}
-
 void ParameterMotion::setState(PetController::State state) {
     preview_ = false;
     sequencePhysics_ = false;
@@ -47,6 +51,7 @@ void ParameterMotion::setState(PetController::State state) {
         && state != PetController::State::Grass) return;
     state_ = state;
     actionTime_ = 0.0;
+    finishedPending_ = false;
     if (state == PetController::State::Idle) {
         busyChoiceExists_ = false;
         laptopBusy_ = false;
@@ -54,30 +59,61 @@ void ParameterMotion::setState(PetController::State state) {
         nextBusyChoice_ = 40.0;
     } else if (state == PetController::State::Busy && !busyChoiceExists_) {
         busyChoiceExists_ = true;
-        laptopBusy_ = !laptopKeys_.isEmpty() && busyRandom_.generateDouble() < 0.4;
+        laptopBusy_ = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
     }
     // Keep current parameter values. The next advance blends from the current pose.
 }
 
 bool ParameterMotion::loadGrassMotion(const QString& path, QString* error) {
-    return readKeys(path, grassKeys_, error);
-}
-
-bool ParameterMotion::loadBusyLaptopMotion(const QString& path, QString* error) {
-    QVector<Keyframe> keys;
-    if (!readKeys(path, keys, error)) return false;
-    for (const auto& key : keys) {
-        if (key.parameters.value(QStringLiteral("ParamBusyLaptop")) != 1.0) {
-            if (error) *error = QStringLiteral("Laptop loop requires seated poses");
-            return false;
-        }
-    }
-    laptopKeys_ = keys;
+    MotionClip clip;
+    clip.setId(QStringLiteral("grass"));
+    if (!clip.loadJson(path, error)) return false;
+    grassClip_ = clip;
+    library_.loadClip(QStringLiteral("grass"), path, nullptr);
     return true;
 }
 
+bool ParameterMotion::loadBusyLaptopMotion(const QString& path, QString* error) {
+    MotionClip clip;
+    clip.setId(QStringLiteral("busy-laptop"));
+    if (!clip.loadJson(path, error)) return false;
+    if (!validateSeated(clip, error)) return false;
+    // A seated work cycle is a loop: the authored seam is the wrap point.
+    clip.setLoop(true, 0.0, clip.duration());
+    laptopClip_ = clip;
+    library_.loadClip(QStringLiteral("busy-laptop"), path, nullptr);
+    return true;
+}
+
+bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error) {
+    if (!library_.loadDirectory(directory, error)) return false;
+    if (const MotionClip* grass = library_.clip(QStringLiteral("grass"))) grassClip_ = *grass;
+    if (const MotionClip* laptop = library_.clip(QStringLiteral("busy-laptop"))) {
+        if (!validateSeated(*laptop, error)) return false;
+        laptopClip_ = *laptop;
+        laptopClip_.setLoop(true, laptopClip_.loopStart(), laptopClip_.duration());
+    }
+    return true;
+}
+
+double ParameterMotion::actionDuration(PetController::State state) const {
+    switch (state) {
+    case PetController::State::Delete: return library_.duration(QStringLiteral("delete"));
+    case PetController::State::Grass:
+        return grassClip_.isValid() ? grassClip_.duration()
+                                    : library_.duration(QStringLiteral("grass"));
+    default: return 0.0; // Background states are open-ended.
+    }
+}
+
+bool ParameterMotion::consumeActionFinished() {
+    const bool finished = finishedPending_;
+    finishedPending_ = false;
+    return finished;
+}
+
 void ParameterMotion::forceLaptopBusy() {
-    if (laptopKeys_.isEmpty()) return;
+    if (!laptopClip_.isValid()) return;
     setState(PetController::State::Busy);
     busyChoiceExists_ = true;
     laptopBusy_ = true;
@@ -85,64 +121,8 @@ void ParameterMotion::forceLaptopBusy() {
     nextBusyChoice_ = 40;
 }
 
-bool ParameterMotion::readKeys(const QString& path, QVector<Keyframe>& destination, QString* error) {
-    QFile file(path);
-    if (!file.open(QIODevice::ReadOnly)) {
-        if (error) *error = file.errorString();
-        return false;
-    }
-    const auto document = QJsonDocument::fromJson(file.readAll());
-    const auto frames = document.object().value(QStringLiteral("keyframes")).toArray();
-    QVector<Keyframe> keys;
-    for (const auto& entry : frames) {
-        const auto object = entry.toObject();
-        const double time = object.value(QStringLiteral("time")).toDouble(-1.0);
-        Parameters parameters;
-        const auto values = object.value(QStringLiteral("parameters")).toObject();
-        for (auto it = values.begin(); it != values.end(); ++it) {
-            if (!it.value().isDouble() || !qIsFinite(it.value().toDouble())) {
-                if (error) *error = QStringLiteral("Invalid keyframe parameter");
-                return false;
-            }
-            parameters.insert(it.key(), it.value().toDouble());
-        }
-        if (!qIsFinite(time) || time < 0 || (!keys.isEmpty() && time <= keys.last().time)
-            || parameters.isEmpty() || (!keys.isEmpty() && [&] {
-                auto ids = parameters.keys();
-                auto firstIds = keys.first().parameters.keys();
-                ids.sort(); firstIds.sort();
-                return ids != firstIds;
-            }())) {
-            if (error) *error = QStringLiteral("Keyframes need increasing times and identical parameter IDs");
-            return false;
-        }
-        keys.append({time, parameters});
-    }
-    if (keys.size() < 2 || keys.first().time != 0.0) {
-        if (error) *error = QStringLiteral("Motion needs at least two keys starting at zero");
-        return false;
-    }
-    destination = keys;
-    return true;
-}
-
 ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
-    return sample(grassKeys_, seconds);
-}
-
-ParameterMotion::Parameters ParameterMotion::sample(const QVector<Keyframe>& keys, double seconds) {
-    if (keys.isEmpty()) return {};
-    if (seconds <= keys.first().time) return keys.first().parameters;
-    if (seconds >= keys.last().time) return keys.last().parameters;
-    int next = 1;
-    while (keys[next].time < seconds) ++next;
-    const auto& a = keys[next - 1];
-    const auto& b = keys[next];
-    const double weight = smooth((seconds - a.time) / (b.time - a.time));
-    Parameters result;
-    for (auto it = a.parameters.begin(); it != a.parameters.end(); ++it)
-        result.insert(it.key(), it.value() + (b.parameters.value(it.key()) - it.value()) * weight);
-    return result;
+    return grassClip_.sample(seconds);
 }
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
@@ -219,15 +199,14 @@ void ParameterMotion::advance(double seconds) {
         desired[rightArm] = -9.0 + 5.0 * qSin(clock_ * 10.0 + pi);
         desired[mouth] = 0.12;
         busyTime_ += seconds;
-        // Choice times coincide with the authored eight-second loop seam.
+        // Choice times coincide with the authored loop seam.
         // A delete/grass interruption pauses this clock and retains the choice.
         if (busyTime_ >= nextBusyChoice_) {
-            laptopBusy_ = !laptopKeys_.isEmpty() && busyRandom_.generateDouble() < 0.4;
+            laptopBusy_ = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
             nextBusyChoice_ += 40.0;
         }
         if (laptopBusy_) {
-            const double phase = std::fmod(busyTime_, laptopKeys_.last().time);
-            const auto pose = sample(laptopKeys_, phase);
+            const auto pose = laptopClip_.sampleLooped(busyTime_);
             for (auto it = pose.cbegin(); it != pose.cend(); ++it) desired[it.key()] = it.value();
             desired[QStringLiteral("ParamSitPose")] = 1;
             desired[QStringLiteral("ParamLaptopVisible")] = smooth((values_.value(QStringLiteral("ParamSitPose")) - 0.85)/0.1);
@@ -259,7 +238,7 @@ void ParameterMotion::advance(double seconds) {
         desired[angleY] += 4.0 * strike;
         desired[mouth] = 0.4 * strike;
     } else if (state_ == PetController::State::Grass) {
-        const auto pose = grassPose(actionTime_);
+        const auto pose = grassClip_.sample(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
     }
 
@@ -295,4 +274,10 @@ void ParameterMotion::advance(double seconds) {
     const double flexTarget = 0.65 * desired.value(QStringLiteral("ParamGrassSwing"))
         - visible * (0.0045 * gripSpeed + 0.035 * reachSpeed);
     updateGrassFlex(seconds, std::clamp(flexTarget, -1.0, 1.0));
+
+    // A one-shot action reports completion once it reaches its authored length.
+    if (state_ == PetController::State::Delete || state_ == PetController::State::Grass) {
+        const double duration = actionDuration(state_);
+        if (duration > 0.0 && actionTime_ >= duration) finishedPending_ = true;
+    }
 }
