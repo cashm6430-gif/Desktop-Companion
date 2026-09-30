@@ -7,6 +7,7 @@ Requires Pillow, numpy and psd-tools in the asset-authoring Python environment.
 """
 
 from pathlib import Path
+import json
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
@@ -175,6 +176,12 @@ def main() -> None:
     pr, pg, pb = [plate_pixels[:, :, i].astype(np.int16) for i in range(3)]
 
     candidates = [
+        # The distal limbs can travel across the face. Keep them in front of
+        # every facial drawable, as the gripping hand already is, so a sleeve
+        # cannot disappear behind a cheek while its palm stays in front.
+        ("handwear_r", open_hand),
+        ("handwear-l", left_lower),
+        ("handwear-r", right_lower),
         ("eyelash-l", left_lash),
         ("eyelash-r", right_lash),
         ("irides-l", left_iris),
@@ -184,9 +191,6 @@ def main() -> None:
         ("mouth", mouth),
         ("front hair", front_hair),
         ("face", face),
-        ("handwear_r", open_hand),
-        ("handwear-l", left_lower),
-        ("handwear-r", right_lower),
         ("upperarm-l", left_upper),
         ("upperarm-r", right_upper),
         ("tail", tail),
@@ -200,6 +204,7 @@ def main() -> None:
 
     assigned = np.zeros((height, width), dtype=bool)
     layers: list[tuple[str, Image.Image]] = []
+    previews = {}
     PREVIEW.mkdir(parents=True, exist_ok=True)
     for name, candidate in candidates:
         mask = candidate & opaque & ~assigned
@@ -238,8 +243,13 @@ def main() -> None:
         layer[:, :, 3] = np.where(mask, layer[:, :, 3], 0)
         layer[~mask, :3] = 0
         image = Image.fromarray(layer, "RGBA")
-        image.save(PREVIEW / f"{len(layers):02d}-{name.replace(' ', '-')}.png")
+        preview_path = PREVIEW / f"{len(layers):02d}-{name.replace(' ', '-')}.png"
+        image.save(preview_path)
+        previews[name] = preview_path.name
         layers.append((name, image))
+    # Layer order can change during occlusion work. Never choose an old preview
+    # merely because a glob happens to return an earlier numeric prefix first.
+    (PREVIEW / "manifest.json").write_text(json.dumps(previews, indent=2), encoding="utf8")
 
     # There is no separate ellipse backing: it would expose its border when
     # the eye region and face contour use different deformations.

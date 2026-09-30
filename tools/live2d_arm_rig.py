@@ -6,7 +6,7 @@ aspect before rotations so separate sleeves, hands and grass share a grip.
 import math
 
 
-def arm_operations(bounds, aspect, side, arm, elbow=0, reach=0, kind="forearm", swing=0, tip=0):
+def arm_operations(bounds, aspect, side, arm, elbow=0, reach=0, kind="forearm", swing=0, tip=0, wrist_angle=0):
     right = side == "r"
     shoulder = (758, 643) if right else (496, 643)
     joint = (765, 720) if right else (489, 720)
@@ -46,6 +46,17 @@ def arm_operations(bounds, aspect, side, arm, elbow=0, reach=0, kind="forearm", 
                     {"type": "translate", "delta": [aspect * (length - 1) * (wrist[0] - joint[0]) / bounds[2],
                         (length - 1) * (wrist[1] - joint[1]) / bounds[3]]},
                 ])
+        if wrist_angle:
+            # Turn around the shortened cuff, before the elbow/shoulder moves.
+            # Hands and prop get the same rigid turn. The cloth follows near
+            # the cuff but fades to zero at the elbow to avoid a hard hinge.
+            projected_wrist = [joint[i] + (1 - 0.42 * reach) * (wrist[i] - joint[i]) for i in (0, 1)]
+            wrist_rotation = {"type": "rotate", "pivot": normalized(projected_wrist),
+                "degrees": wrist_angle * direction}
+            if kind == "forearm":
+                wrist_rotation["selection"] = {"center": [(wrist[0] - bounds[0]) / bounds[2],
+                    (wrist[1] - bounds[1]) / bounds[3]], "radius": 0.43, "hardness": 0.7}
+            operations.append(wrist_rotation)
         operations.append({"type": "rotate", "pivot": normalized(joint), "degrees": elbow * direction})
     rotation = {"type": "rotate", "pivot": pivot, "degrees": arm * direction}
     if kind == "upper":

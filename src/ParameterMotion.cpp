@@ -112,7 +112,8 @@ void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     grassBendVelocity_ = grassTipVelocity_ = 0.0;
     previousReach_ = parameters.value(QStringLiteral("ParamGrassReach"));
     previousGripAngle_ = -parameters.value(rightArm)
-        - parameters.value(QStringLiteral("ParamElbowRA")) + 30.0 * previousReach_;
+        - parameters.value(QStringLiteral("ParamElbowRA"))
+        - parameters.value(QStringLiteral("ParamWristRA")) + 30.0 * previousReach_;
     leftEyeExpression_ = parameters.value(leftEye, 1.0);
     rightEyeExpression_ = parameters.value(rightEye, 1.0);
     preview_ = true;
@@ -150,6 +151,7 @@ void ParameterMotion::advance(double seconds) {
         {breath, 0.5 + 0.5 * qSin(clock_ * 2.1)},
         {leftArm, 0.0}, {rightArm, 0.0},
         {QStringLiteral("ParamElbowLA"), 0.0}, {QStringLiteral("ParamElbowRA"), 0.0},
+        {QStringLiteral("ParamWristRA"), 0.0},
         {leftEye, 1.0}, {rightEye, 1.0},
         {mouth, 0.0}, {cheek, 0.0},
         {QStringLiteral("ParamSmileOpen"), 0.0},
@@ -206,7 +208,8 @@ void ParameterMotion::advance(double seconds) {
     values_[rightEye] = rightEyeExpression_ * eye;
     const double reach = values_.value(QStringLiteral("ParamGrassReach"));
     const double gripAngle = -values_.value(rightArm)
-        - values_.value(QStringLiteral("ParamElbowRA")) + 30.0 * reach;
+        - values_.value(QStringLiteral("ParamElbowRA"))
+        - values_.value(QStringLiteral("ParamWristRA")) + 30.0 * reach;
     const double gripSpeed = (gripAngle - previousGripAngle_) / seconds;
     const double reachSpeed = (reach - previousReach_) / seconds;
     previousGripAngle_ = gripAngle;

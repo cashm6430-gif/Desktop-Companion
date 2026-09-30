@@ -97,14 +97,14 @@
 			"Name": "ParamGrassVisible"
 		},
 		{
-			"Id": "ParamHandRGrip",
-			"GroupId": "ParamGroupCustom",
-			"Name": "ParamHandRGrip"
-		},
-		{
 			"Id": "ParamSmileOpen",
 			"GroupId": "ParamGroupCustom",
 			"Name": "ParamSmileOpen"
+		},
+		{
+			"Id": "ParamHandRGrip",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamHandRGrip"
 		},
 		{
 			"Id": "ParamArmLA",
@@ -125,6 +125,11 @@
 			"Id": "ParamElbowRA",
 			"GroupId": "",
 			"Name": "右肘弯曲"
+		},
+		{
+			"Id": "ParamWristRA",
+			"GroupId": "",
+			"Name": "右腕摆角"
 		},
 		{
 			"Id": "ParamGrassReach",
@@ -242,6 +247,18 @@
 			"Name": "mouth open"
 		},
 		{
+			"Id": "ArtMeshHandwearR3",
+			"Name": "handwear_r"
+		},
+		{
+			"Id": "ArtMeshHandwearL",
+			"Name": "handwear-l"
+		},
+		{
+			"Id": "ArtMeshHandwearR4",
+			"Name": "handwear-r"
+		},
+		{
 			"Id": "ArtMeshEyelashL",
 			"Name": "eyelash-l"
 		},
@@ -276,18 +293,6 @@
 		{
 			"Id": "ArtMeshFace",
 			"Name": "face"
-		},
-		{
-			"Id": "ArtMeshHandwearR3",
-			"Name": "handwear_r"
-		},
-		{
-			"Id": "ArtMeshHandwearL",
-			"Name": "handwear-l"
-		},
-		{
-			"Id": "ArtMeshHandwearR4",
-			"Name": "handwear-r"
 		},
 		{
 			"Id": "ArtMeshHandwearL2",

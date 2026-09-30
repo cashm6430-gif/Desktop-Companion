@@ -21,6 +21,22 @@ def main():
     arm_folder = ROOT / f"build/arm-v{revision}-sweep"
     elbow_levels = (-35, 0, 55)
     reach_levels = (0, 0.5, 1)
+    wrist_folder = ROOT / f"build/wrist-v{revision}-sweep"
+    wrist_levels = (-25, 0, 25)
+    wrist_poses = (("举草", 55, 20, 0), ("前伸", 60, -20, 1), ("脸侧遮挡", 65, 55, 1))
+    if "--wrist-manifest" in sys.argv:
+        wrist_folder.mkdir(parents=True, exist_ok=True)
+        keys = [{"time": row * 3 + col, "label": f"{label}-wrist-{wrist}", "parameters": {
+            "ParamArmLA": 0, "ParamArmRA": arm, "ParamElbowLA": 0, "ParamElbowRA": elbow,
+            "ParamWristRA": wrist, "ParamGrassReach": reach, "ParamGrassVisible": 1,
+            "ParamHandRGrip": 1, "ParamGrassSwing": 0, "ParamGrassTipBend": 0,
+            "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
+            "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
+        }} for row, (label, arm, elbow, reach) in enumerate(wrist_poses) for col, wrist in enumerate(wrist_levels)]
+        manifest = wrist_folder / "poses.motion.json"
+        manifest.write_text(json.dumps({"keyframes": keys}, ensure_ascii=False, indent=2), encoding="utf8")
+        print(manifest)
+        return
     if "--arm-manifest" in sys.argv:
         arm_folder.mkdir(parents=True, exist_ok=True)
         keys = [{"time": row * 3 + col, "label": f"elbow-{elbow}-reach-{reach}", "parameters": {
@@ -46,12 +62,12 @@ def main():
         return
     font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 24)
     small = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 18)
-    poses = tuple(next(i for i, frame in enumerate(motion["keyframes"]) if frame["time"] == time)
-                  for time in (0.8, 2.0, 3.6, 5.2))
-    sheet = Image.new("RGB", (1120, 1204), "#e9edf5")
+    times = (0.8, 2.0, 3.6, 3.95, 4.35, 5.2) if revision >= 7 else (0.8, 2.0, 3.6, 5.2)
+    poses = tuple(next(i for i, frame in enumerate(motion["keyframes"]) if frame["time"] == time) for time in times)
+    sheet = Image.new("RGB", (1120, 104 + ((len(poses) + 1) // 2) * 550), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
-    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 分段手臂 / 前伸透视", font=font, fill="#1e2c47")
-    draw.text((28, 53), "实际 Cubism 模型渲染 / 待审批 / 四个动作关键姿势", font=small, fill="#52617b")
+    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 转腕 / 前伸停留", font=font, fill="#1e2c47")
+    draw.text((28, 53), f"实际 Cubism 模型渲染 / 待审批 / {len(poses)} 个动作关键姿势", font=small, fill="#52617b")
     for cell, key in enumerate(poses):
         x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
         draw.rounded_rectangle((x + 12, y + 8, x + 548, y + 538), radius=18, fill="#f8faff")
@@ -59,7 +75,7 @@ def main():
         sprite.thumbnail((488, 488), Image.Resampling.LANCZOS)
         sheet.paste(sprite, (x + (560 - sprite.width) // 2, y + 8), sprite)
         frame = motion["keyframes"][key]
-        draw.text((x + 26, y + 495), f"{cell + 1}. {frame['label']}   {frame['time']:.1f}s", font=font, fill="#243654")
+        draw.text((x + 26, y + 495), f"{cell + 1}. {frame['label']}   {frame['time']:g}s", font=small, fill="#243654")
     output = ROOT / f"art/live2d/review/grass-keyframes-v{revision}.png"
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output)
@@ -67,7 +83,7 @@ def main():
     detail = Image.new("RGB", (1180, 830), "#f8faff")
     detail_draw = ImageDraw.Draw(detail)
     detail_draw.text((24, 16), "表情近景 · 实际 Cubism 渲染 · 待审批", font=font, fill="#243654")
-    for cell, key in enumerate(poses):
+    for cell, key in enumerate((poses[0], poses[1], poses[2], poses[-1])):
         x, y = 24 + cell % 2 * 590, 66 + cell // 2 * 380
         sprite = Image.open(ROOT / f"build/motion-review/grass-{key:02}.png").convert("RGBA")
         sprite = sprite.crop((290, 235, 570, 405)).resize((560, 340), Image.Resampling.LANCZOS)
@@ -76,6 +92,19 @@ def main():
     detail_output = output.with_name(f"grass-expression-detail-v{revision}.png")
     detail.save(detail_output)
     print(detail_output)
+
+    if all((wrist_folder / f"grass-{index:02}.png").is_file() for index in range(9)):
+        wrists = Image.new("RGB", (1080, 1230), "#e9edf5")
+        wrist_draw = ImageDraw.Draw(wrists)
+        wrist_draw.text((20, 12), "腕部摆角 / 袖口与草握点 / 脸侧遮挡 · Native 渲染", font=font, fill="#243654")
+        for row, (label, _, _, _) in enumerate(wrist_poses):
+            for col, angle in enumerate(wrist_levels):
+                x, y = col * 360, 52 + row * 392
+                sprite = Image.open(wrist_folder / f"grass-{row * 3 + col:02}.png").convert("RGBA")
+                sprite = sprite.resize((350, 350), Image.Resampling.LANCZOS)
+                wrists.paste(sprite, (x + 5, y), sprite)
+                wrist_draw.text((x + 12, y + 356), f"{label} / 腕角 {angle}°", font=small, fill="#52617b")
+        wrists.save(output.with_name(f"wrist-occlusion-v{revision}.png"))
 
     if all((arm_folder / f"grass-{index:02}.png").is_file() for index in range(9)):
         arms = Image.new("RGB", (1080, 1230), "#e9edf5")

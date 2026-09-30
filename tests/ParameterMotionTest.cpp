@@ -15,7 +15,8 @@ private slots:
     void grassExpressionsSurviveBlink();
     void proceduralBlinkClosesAndRecovers();
     void grassFlexLagsReboundsAndSettles();
-    void elbowFlexAndInterruptedRecovery();
+    void jointFlexAndInterruptedRecovery();
+    void grassForwardHoldAndWristGesture();
     void malformedMotionDoesNotReplaceLoadedKeys();
 };
 
@@ -192,31 +193,56 @@ void ParameterMotionTest::grassFlexLagsReboundsAndSettles() {
     QVERIFY(std::abs(slow.values().value(QStringLiteral("ParamGrassTipBend"))) < 0.001);
 }
 
-void ParameterMotionTest::elbowFlexAndInterruptedRecovery() {
-    // Hold the shoulder and reach still: the elbow alone must excite the grass.
-    QTemporaryFile gesture;
-    QVERIFY(gesture.open());
-    gesture.write(R"({"keyframes":[{"time":0,"parameters":{"ParamElbowRA":40,"ParamGrassVisible":1}},
-        {"time":5,"parameters":{"ParamElbowRA":40,"ParamGrassVisible":1}}]})");
-    gesture.flush();
-    ParameterMotion motion;
-    QVERIFY(motion.loadGrassMotion(gesture.fileName()));
-    motion.setPreviewPose({{QStringLiteral("ParamElbowRA"), 0}, {QStringLiteral("ParamGrassVisible"), 1}});
-    motion.setState(PetController::State::Grass);
-    double peak = 0;
-    for (int i = 0; i < 30; ++i) {
+void ParameterMotionTest::jointFlexAndInterruptedRecovery() {
+    // Hold the shoulder and reach still: elbow or wrist alone excites the grass.
+    for (const auto& joint : {QStringLiteral("ParamElbowRA"), QStringLiteral("ParamWristRA")}) {
+        QTemporaryFile gesture;
+        QVERIFY(gesture.open());
+        gesture.write(QStringLiteral(R"({"keyframes":[{"time":0,"parameters":{"%1":25,"ParamGrassVisible":1}},
+            {"time":5,"parameters":{"%1":25,"ParamGrassVisible":1}}]})").arg(joint).toUtf8());
+        gesture.flush();
+        ParameterMotion motion;
+        QVERIFY(motion.loadGrassMotion(gesture.fileName()));
+        motion.setPreviewPose({{joint, 0}, {QStringLiteral("ParamGrassVisible"), 1}});
+        motion.setState(PetController::State::Grass);
+        double peak = 0;
+        for (int i = 0; i < 30; ++i) {
+            motion.advance(1.0 / 60.0);
+            peak = std::max(peak, std::abs(motion.values().value(QStringLiteral("ParamGrassSwing"))));
+        }
+        QVERIFY(peak > 0.1);
+        QVERIFY(motion.values().value(joint) > 24);
+        const auto before = motion.values();
+        motion.setState(PetController::State::Busy);
+        QCOMPARE(motion.values(), before);
         motion.advance(1.0 / 60.0);
-        peak = std::max(peak, std::abs(motion.values().value(QStringLiteral("ParamGrassSwing"))));
+        QVERIFY(motion.values().value(joint) < before.value(joint));
+        for (int i = 0; i < 60; ++i) motion.advance(1.0 / 60.0);
+        QVERIFY(motion.values().value(joint) < 0.02);
     }
-    QVERIFY(peak > 0.1);
-    QVERIFY(motion.values().value(QStringLiteral("ParamElbowRA")) > 39);
+}
+
+void ParameterMotionTest::grassForwardHoldAndWristGesture() {
+    ParameterMotion motion;
+    QVERIFY(motion.loadGrassMotion(QStringLiteral("assets/motions/grass.motion.json")));
+    const auto arrival = motion.grassPose(3.6);
+    for (double time : {3.8, 3.95, 4.15, 4.35}) {
+        const auto held = motion.grassPose(time);
+        for (const auto& id : {QStringLiteral("ParamGrassReach"), QStringLiteral("ParamArmRA"),
+             QStringLiteral("ParamElbowRA"), QStringLiteral("ParamHandRGrip")})
+            QCOMPARE(held.value(id), arrival.value(id));
+    }
+    QVERIFY(motion.grassPose(3.95).value(QStringLiteral("ParamWristRA"))
+        - arrival.value(QStringLiteral("ParamWristRA")) > 30);
+    motion.setState(PetController::State::Grass);
+    for (int i = 0; i < 105; ++i) motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamGrassReach")) > 0.99);
+    QVERIFY(motion.values().value(QStringLiteral("ParamWristRA")) > 18);
     const auto before = motion.values();
-    motion.setState(PetController::State::Busy);
+    motion.setState(PetController::State::Idle);
     QCOMPARE(motion.values(), before);
-    motion.advance(1.0 / 60.0);
-    QVERIFY(motion.values().value(QStringLiteral("ParamElbowRA")) < before.value(QStringLiteral("ParamElbowRA")));
-    for (int i = 0; i < 60; ++i) motion.advance(1.0 / 60.0);
-    QVERIFY(motion.values().value(QStringLiteral("ParamElbowRA")) < 0.02);
+    for (int i = 0; i < 30; ++i) motion.advance(0.04);
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamWristRA"))) < 0.01);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

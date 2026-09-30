@@ -28,7 +28,8 @@
         "ParamSmileOpen": 0,
         "ParamEyeSmile": 0.0,
         "ParamElbowLA": 0,
-        "ParamElbowRA": 0
+        "ParamElbowRA": 0,
+        "ParamWristRA": 0
       }
     },
     {
@@ -55,7 +56,8 @@
         "ParamSmileOpen": 1,
         "ParamEyeSmile": 0.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 20
+        "ParamElbowRA": 20,
+        "ParamWristRA": 14
       }
     },
     {
@@ -82,7 +84,8 @@
         "ParamSmileOpen": 1.0,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 20
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
       }
     },
     {
@@ -109,7 +112,8 @@
         "ParamSmileOpen": 1,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 20
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
       }
     },
     {
@@ -136,7 +140,8 @@
         "ParamSmileOpen": 1.0,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 20
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
       }
     },
     {
@@ -163,7 +168,8 @@
         "ParamSmileOpen": 1.0,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 20
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
       }
     },
     {
@@ -190,7 +196,64 @@
         "ParamSmileOpen": 1,
         "ParamEyeSmile": 0.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": -20
+        "ParamElbowRA": -20,
+        "ParamWristRA": -18
+      }
+    },
+    {
+      "time": 3.95,
+      "label": "停在你面前，转腕逗弄",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.65,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.4,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20
+      }
+    },
+    {
+      "time": 4.35,
+      "label": "保持前伸，等你回应",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.65,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.4,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20
       }
     },
     {
@@ -217,7 +280,8 @@
         "ParamSmileOpen": 1.0,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 10
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
       }
     },
     {
@@ -244,7 +308,8 @@
         "ParamSmileOpen": 1,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 10
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
       }
     },
     {
@@ -271,7 +336,8 @@
         "ParamSmileOpen": 1,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 10
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
       }
     },
     {
@@ -298,7 +364,8 @@
         "ParamSmileOpen": 1,
         "ParamEyeSmile": 1.0,
         "ParamElbowLA": 12,
-        "ParamElbowRA": 10
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
       }
     },
     {
@@ -325,9 +392,10 @@
         "ParamSmileOpen": 0,
         "ParamEyeSmile": 0.0,
         "ParamElbowLA": 0,
-        "ParamElbowRA": 0
+        "ParamElbowRA": 0,
+        "ParamWristRA": 0
       }
     }
   ],
-  "revision": 6
+  "revision": 7
 }

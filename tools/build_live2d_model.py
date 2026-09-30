@@ -82,6 +82,7 @@ def main():
     for identifier, label, minimum, maximum in (
         ("ParamArmLA", "左手动作", -65, 65), ("ParamArmRA", "右手动作", -65, 65),
         ("ParamElbowLA", "左肘弯曲", -35, 55), ("ParamElbowRA", "右肘弯曲", -35, 55),
+        ("ParamWristRA", "右腕摆角", -25, 25),
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
         ("ParamGrassTipBend", "柔软草穗滞后", -1, 1),
         ("ParamEyeSmile", "笑眼弧度", 0, 1),
@@ -99,11 +100,13 @@ def main():
         a, b, c, d = polynomial
         return [float(a), float(a + b / 3), float(a + 2 * b / 3 + c / 3), float(a + b + c + d)]
 
+    preview_folder = ROOT / "build/psd2live/layer-previews"
+    preview_manifest = json.loads((preview_folder / "manifest.json").read_text(encoding="utf8"))
     for side, parameter, edge_y in (("l", "ParamEyeLOpen", 472), ("r", "ParamEyeROpen", 468)):
         lash_name = "eyelash-" + side
         lash_bounds = frame(lash_name)
         # Sample the painted lash centreline once, preserving actual thickness.
-        preview = next((ROOT / "build/psd2live/layer-previews").glob("*-" + lash_name + ".png"))
+        preview = preview_folder / preview_manifest[lash_name]
         alpha = np.asarray(Image.open(preview).getchannel("A"), dtype=float) / 255
         weights = alpha.sum(axis=0)
         columns = np.flatnonzero(weights > 0)
@@ -161,24 +164,27 @@ def main():
         neutral = {arm_id: 0}
         if kind != "upper": neutral[elbow_id] = 0
         if side == "r" and kind != "upper": neutral["ParamGrassReach"] = 0
+        if side == "r" and kind != "upper": neutral["ParamWristRA"] = 0
         if kind == "grass": neutral.update(ParamGrassSwing=0, ParamGrassTipBend=0)
         invoke("form", {"state": state, "changes": [{"op": "seed", "target": target, "key": neutral}]})
         copies, deforms = [], []
-        for arm, elbow, reach, swing, tip in product(
+        for arm, elbow, reach, swing, tip, wrist_angle in product(
             (-65, -35, 0, 35, 65), (0,) if kind == "upper" else (-35, 0, 55),
             (0, 1) if "ParamGrassReach" in neutral else (0,),
             (-1, 0, 1) if kind == "grass" else (0,),
             (-1, 0, 1) if kind == "grass" else (0,),
+            (-25, 0, 25) if "ParamWristRA" in neutral else (0,),
         ):
             key = dict(neutral)
             key[arm_id] = arm
             if elbow_id in key: key[elbow_id] = elbow
             if "ParamGrassReach" in key: key["ParamGrassReach"] = reach
+            if "ParamWristRA" in key: key["ParamWristRA"] = wrist_angle
             if kind == "grass": key.update(ParamGrassSwing=swing, ParamGrassTipBend=tip)
             if key == neutral: continue
             copies.append({"op": "copy", "target": target, "from": neutral, "key": key, "channels": ["geometry"]})
             deforms.append({"target": target, "key": key, "operations": arm_operations(
-                frame(name), parent_aspect(name), side, arm, elbow, reach, kind, swing, tip)})
+                frame(name), parent_aspect(name), side, arm, elbow, reach, kind, swing, tip, wrist_angle)})
         # Batch public mutations without accumulating previously deformed keys.
         for offset in range(0, len(copies), 32):
             invoke("form", {"state": state, "changes": copies[offset:offset + 32]})
@@ -187,6 +193,8 @@ def main():
         arm_bindings[name] = binding
         if kind != "upper" and elbow_id not in binding.get("axes", {}):
             raise RuntimeError("Independent elbow is not bound: " + name)
+        if "ParamWristRA" in neutral and binding.get("axes", {}).get("ParamWristRA") != [-25, 0, 25]:
+            raise RuntimeError("Wrist must turn the sleeve, both hands and prop: " + name)
     (OUTPUT / "diagnostics/arm-bindings.json").write_text(json.dumps(arm_bindings, ensure_ascii=False, indent=2), encoding="utf8")
 
     binding = invoke("inspect", {"target": "mesh:" + prop})

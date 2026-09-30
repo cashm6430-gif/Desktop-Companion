@@ -18,6 +18,7 @@ REQUIRED_PARAMETERS = {
     "ParamSmileOpen", "ParamEyeBallX", "ParamEyeBallY",
     "ParamEyeSmile",
     "ParamElbowLA", "ParamElbowRA",
+    "ParamWristRA",
 }
 
 
@@ -62,6 +63,10 @@ def main() -> None:
         sleeve = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
         if not sleeve or sleeve.get("tag") != "handwear":
             raise SystemExit("Upper and lower sleeves must be independent handwear layers: " + source)
+    order = {layer["source"]: index for index, layer in enumerate(metadata["layers"])}
+    if not all(order[arm] > order[face] for arm in ("handwear-l", "handwear-r", "handwear_r")
+               for face in ("face", "front hair", "eyelash-l", "eyelash-r", "irides-l", "irides-r")):
+        raise SystemExit("Distal limbs must cover the face when reaching across it")
     print(f"Validated {len(paths)} Cubism files and {len(parameters)} parameters")
 
 
