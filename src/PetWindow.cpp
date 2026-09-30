@@ -33,7 +33,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
       trayMenu_(this),
       controller_(controller) {
     setWindowTitle(QStringLiteral("DeepSeek 鲸鱼娘"));
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint
+                   | Qt::WindowStaysOnTopHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
     setFixedSize(280, 280);
 
@@ -144,7 +145,12 @@ void PetWindow::shutdown() {
 void PetWindow::paintEvent(QPaintEvent*) {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()
-        && controller_->state() != PetController::State::Grass) return;
+        && controller_->state() != PetController::State::Grass) {
+        QPainter painter(this);
+        painter.setCompositionMode(QPainter::CompositionMode_Source);
+        painter.fillRect(rect(), Qt::transparent);
+        return;
+    }
 #endif
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);

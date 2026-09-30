@@ -96,6 +96,7 @@ CubismCanvas::CubismCanvas(const ParameterMotion* motion, QWidget* parent)
     setAttribute(Qt::WA_TransparentForMouseEvents);
     setAutoFillBackground(false);
     QSurfaceFormat surfaceFormat = format();
+    surfaceFormat.setAlphaBufferSize(8);
     surfaceFormat.setSamples(4);
     setFormat(surfaceFormat);
 }
