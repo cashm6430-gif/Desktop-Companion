@@ -16,6 +16,8 @@ from psd_tools import PSDImage
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "art/live2d/whale-girl-neutral-master.png"
 GRIP = ROOT / "art/live2d/whale-girl-hand-grip-v1.png"
+SMILE = ROOT / "art/live2d/whale-girl-mouth-smile-v1.png"
+PLATE = ROOT / "art/live2d/whale-girl-clean-plate-v1.png"
 OUTPUT = ROOT / "art/live2d/whale-girl-layered-draft.psd"
 PREVIEW = ROOT / "build/psd2live/layer-previews"
 
@@ -32,19 +34,68 @@ def ellipse(size: tuple[int, int], box: tuple[int, int, int, int]) -> np.ndarray
     return np.asarray(canvas) > 0
 
 
+def skin_underpaint(pixels: np.ndarray, removal: np.ndarray) -> np.ndarray:
+    """Reconstruct the native face layer from nearby skin, without hard ovals."""
+    r, g, b = [pixels[:, :, i].astype(np.int16) for i in range(3)]
+    valid = (r > 215) & (g > 150) & (b > 140) & (r > g + 6) & (g > b + 2) & ~removal
+    # Do not divide separately rounded 8-bit blurs: low weights near hair
+    # amplify quantization into visible stripes and checkerboard pixels.
+    coordinates = np.arange(-54, 55, dtype=np.float32)
+    kernel = np.exp(-0.5 * (coordinates / 18) ** 2)
+    kernel /= kernel.sum()
+    def blur(values):
+        values = np.apply_along_axis(lambda row: np.convolve(row, kernel, mode="same"), 0, values)
+        return np.apply_along_axis(lambda row: np.convolve(row, kernel, mode="same"), 1, values)
+    weight = blur(valid.astype(np.float32))
+    colors = blur(np.where(valid[:, :, None], pixels[:, :, :3], 0).astype(np.float32))
+    filled = np.clip(colors / np.maximum(weight[:, :, None], 1e-5), 0, 255).astype(np.uint8)
+    result = pixels.copy()
+    result[removal, :3] = filled[removal]
+    return result
+
+
 def main() -> None:
     source = Image.open(SOURCE).convert("RGBA")
     width, height = source.size
     if (width, height) != (1254, 1254):
         raise ValueError(f"Masks need review for a {width}x{height} master")
     pixels = np.asarray(source).copy()
+    plate = Image.open(PLATE).convert("RGBA").resize(source.size, Image.Resampling.LANCZOS)
+    plate_pixels = np.asarray(plate).copy()
     opaque = pixels[:, :, 3] > 0
     yy, xx = np.mgrid[0:height, 0:width]
 
     # Core pixels belong to one layer. Lower layers also retain a small overlap
     # under their neighbours: independently deformed cutouts must not butt up.
-    left_eye = ellipse(source.size, (477, 423, 594, 510))
-    right_eye = ellipse(source.size, (665, 416, 780, 507))
+    # The old ellipses missed the outer lashes and included moving skin. Trace
+    # the entire painted eye instead, then remove the surrounding skin pixels.
+    r, g, b = [pixels[:, :, i].astype(np.int16) for i in range(3)]
+    skin = (r > 205) & (g > 140) & (b > 120) & (r > g + 6) & (g > b + 2)
+    left_eye_region = polygon(source.size, [
+        (478, 444), (493, 444), (504, 438), (500, 427), (514, 432),
+        (516, 420), (525, 429), (545, 426), (570, 433), (596, 450),
+        (601, 455), (594, 483), (581, 498), (561, 506), (521, 510),
+        (498, 504), (486, 491), (479, 479), (473, 472), (468, 467),
+        (477, 461), (485, 455), (476, 449),
+    ])
+    right_eye_region = polygon(source.size, [
+        (659, 445), (673, 430), (691, 419), (711, 414), (730, 412),
+        (737, 405), (738, 415), (758, 419), (772, 424), (782, 419),
+        (781, 431), (792, 440), (803, 442), (791, 452), (785, 470),
+        (772, 485), (752, 497), (723, 499), (696, 494), (676, 482), (665, 462),
+    ])
+    # The clean plate supplies the actual background under the outer lashes,
+    # including blue hair. Keep only the source features that differ from it;
+    # otherwise a skin/blue polygon would move with the blinking eye.
+    difference = np.max(np.abs(pixels[:, :, :3].astype(np.int16) - plate_pixels[:, :, :3].astype(np.int16)), axis=2)
+    left_eye = left_eye_region & (difference > 22) & ~skin
+    right_eye = right_eye_region & (difference > 22) & ~skin
+    # A one-pixel antialias band belongs to the eye; no large skin cutout moves
+    # with EyeOpen. The face underneath remains solid throughout the blink.
+    left_eye = np.asarray(Image.fromarray(left_eye.astype(np.uint8) * 255).filter(ImageFilter.MaxFilter(3))) > 0
+    right_eye = np.asarray(Image.fromarray(right_eye.astype(np.uint8) * 255).filter(ImageFilter.MaxFilter(3))) > 0
+    left_iris = ellipse(source.size, (506, 438, 576, 504)) & left_eye & (b > r + 15) & (b > g + 5)
+    right_iris = ellipse(source.size, (683, 429, 753, 497)) & right_eye & (b > r + 15) & (b > g + 5)
     mouth = ellipse(source.size, (602, 508, 663, 543))
     # Follow the painted sleeve/cuff/fingers rather than taking a wide slice
     # of the adjacent hair, which would move a blue rectangle with the hand.
@@ -100,8 +151,16 @@ def main() -> None:
     blue_hair = (b > r + 13) & (b > g + 3) & (b > 48)
     front_hair = head & blue_hair & (yy < 588) & (xx > 286) & (xx < 949)
     face = head & (xx > 423) & (xx < 826) & (yy > 341) & (yy < 599)
+    removal = np.asarray(Image.fromarray((left_eye | right_eye | mouth).astype(np.uint8) * 255)
+                         .filter(ImageFilter.MaxFilter(9))) > 0
+    # The painted plate has uninterrupted skin and a natural hair boundary;
+    # generic skin fill on an outer lash would paint a pink ring into the hair.
+    face_pixels = skin_underpaint(plate_pixels, ellipse(source.size, (602, 508, 663, 543)))
+    pr, pg, pb = [plate_pixels[:, :, i].astype(np.int16) for i in range(3)]
 
     candidates = [
+        ("irides-l", left_iris),
+        ("irides-r", right_iris),
         ("eyewhite-l", left_eye),
         ("eyewhite-r", right_eye),
         ("mouth", mouth),
@@ -129,39 +188,50 @@ def main() -> None:
         # neighbouring meshes move. Never expand the exterior silhouette.
         expanded = np.asarray(Image.fromarray(mask.astype(np.uint8) * 255)
                               .filter(ImageFilter.MaxFilter(25))) > 0
-        if name not in ("eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r"):
+        if name not in ("irides-l", "irides-r", "eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r"):
             # Never copy moving foreground pixels into a lower layer: that
             # would leave a second eye/hand visible when the real one moves.
-            movable = left_eye | right_eye | mouth | left_arm | right_arm
-            mask = (expanded & opaque & ~movable) | mask
+            movable = removal | left_arm | right_arm
+            mask = ((expanded & opaque & ~movable) | mask) & ~removal
         layer = pixels.copy()
-        layer[:, :, 3] = np.where(mask, pixels[:, :, 3], 0)
+        if name == "face":
+            # Full painted backing under both the skin and overlapping hair.
+            # A skin-only matte leaves holes when outer lashes cross the hair.
+            mask |= face
+            layer = face_pixels.copy()
+        elif name in ("front hair", "back hair", "headwear", "topwear", "bottomwear"):
+            # Only static layers use the clean plate. Original moving eyes,
+            # hands and sleeves retain their approved source pixels.
+            layer = plate_pixels.copy()
+            if name == "front hair":
+                plate_blue = (pb > pr + 13) & (pb > pg + 3)
+                mask = (mask & plate_blue) | (removal & plate_blue)
+        elif name in ("eyewhite-l", "eyewhite-r"):
+            iris = left_iris if name.endswith("-l") else right_iris
+            mask |= iris
+            # White stays behind the separately clipped, gaze-driven iris.
+            layer[iris, :3] = (250, 248, 252)
+        layer[:, :, 3] = np.where(mask, layer[:, :, 3], 0)
         layer[~mask, :3] = 0
         image = Image.fromarray(layer, "RGBA")
         image.save(PREVIEW / f"{len(layers):02d}-{name.replace(' ', '-')}.png")
         layers.append((name, image))
 
-    # The source is flat. Underpaint the areas exposed when automatic eye
-    # deformers close; otherwise their cutouts show transparency.
-    backing = Image.new("RGBA", source.size, (0, 0, 0, 0))
-    backing_pixels = np.asarray(backing).copy()
-    for mask in (left_eye, right_eye):
-        # Match the bridge-of-nose skin. The earlier saturated pink fill left
-        # a conspicuous oval around each eye when the eyelid closed.
-        backing_pixels[mask] = (253, 235, 224, 255)
-    backing = Image.fromarray(backing_pixels, "RGBA")
-    # The rig compresses the painted eyelash into the closed-eye line. Adding
-    # another line here creates a second eyelid outline beneath it.
-    backing.save(PREVIEW / "feature-backing.png")
-    layers.insert(5, ("face detail backing", backing))
+    # There is no separate ellipse backing: it would expose its border when
+    # the eye region and face contour use different deformations.
+    smile = Image.new("RGBA", source.size, (0, 0, 0, 0))
+    smile_art = Image.open(SMILE).convert("RGBA")
+    smile_art = smile_art.crop(smile_art.getbbox()).resize((48, 24), Image.Resampling.LANCZOS)
+    smile.alpha_composite(smile_art, (604, 515))
+    layers.insert(0, ("mouth open", smile))
 
     # A closed-eye mesh supplies the lash only as EyeOpen approaches zero.
     # The eye-white mesh alone collapses its dark pixels almost to zero height.
     for name, points in (
-        ("eye close-l", [(477, 453), (487, 465), (504, 478), (525, 485),
-                         (546, 485), (567, 478), (584, 465), (595, 453)]),
-        ("eye close-r", [(665, 447), (677, 460), (692, 474), (713, 481),
-                         (735, 481), (754, 473), (771, 459), (780, 447)]),
+        ("eye close-l", [(477, 477), (491, 462), (511, 454), (532, 451),
+                         (553, 455), (574, 464), (590, 477)]),
+        ("eye close-r", [(666, 470), (680, 455), (700, 447), (720, 443),
+                         (741, 447), (761, 456), (779, 471)]),
     ):
         lid = Image.new("RGBA", source.size, (0, 0, 0, 0))
         ImageDraw.Draw(lid).line(points, fill=(57, 38, 64, 255), width=5, joint="curve")
@@ -169,22 +239,10 @@ def main() -> None:
 
     # Flat art has no pixels behind the sleeves. Sample adjacent hair into the
     # original sleeve footprints so rotating a sleeve cannot reveal the desktop.
-    arm_backing_pixels = np.zeros_like(pixels)
-    for mask, offset in ((left_arm, -90), (right_arm, 90)):
-        sample_x = np.clip(xx + offset, 0, width - 1)
-        # A raw offset can land on the old fingers and copy a second skin hand
-        # into the stationary backing. Only sample genuine surrounding hair.
-        hair_samples = blue_hair & opaque & ~(left_arm | right_arm)
-        for row in np.flatnonzero(mask.any(axis=1)):
-            columns = np.flatnonzero(mask[row])
-            candidates = np.flatnonzero(hair_samples[row])
-            if candidates.size:
-                desired = sample_x[row, columns]
-                indices = np.abs(candidates[:, None] - desired).argmin(axis=0)
-                arm_backing_pixels[row, columns, :3] = pixels[row, candidates[indices], :3]
-            else:
-                arm_backing_pixels[row, columns, :3] = (49, 79, 153)
-        arm_backing_pixels[mask, 3] = pixels[mask, 3]
+    arm_backing_pixels = plate_pixels.copy()
+    backing_mask = np.asarray(Image.fromarray((left_arm | right_arm).astype(np.uint8) * 255)
+                              .filter(ImageFilter.MaxFilter(97))) > 0
+    arm_backing_pixels[~backing_mask] = 0
     arm_backing = Image.fromarray(arm_backing_pixels, "RGBA")
     arm_backing.save(PREVIEW / "arm-backing.png")
     layers.insert(-1, ("arm backing", arm_backing))
@@ -237,7 +295,7 @@ def main() -> None:
     psd.save(OUTPUT)
     composite = Image.new("RGBA", source.size, (0, 0, 0, 0))
     for name, image in reversed(layers):
-        if image is not grass and image is not grip and not name.startswith("eye close"):
+        if image is not grass and image is not grip and image is not smile and not name.startswith("eye close"):
             composite = Image.alpha_composite(composite, image)
     composite.save(PREVIEW / "composite-check.png")
     composite_pixels = np.asarray(composite).astype(np.int16)

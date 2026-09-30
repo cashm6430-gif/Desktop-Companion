@@ -107,6 +107,8 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     values_ = parameters;
+    values_[QStringLiteral("ParamEyeLVisible")] = values_.value(leftEye, 1.0);
+    values_[QStringLiteral("ParamEyeRVisible")] = values_.value(rightEye, 1.0);
     preview_ = true;
 }
 
@@ -128,6 +130,9 @@ void ParameterMotion::advance(double seconds) {
         {breath, 0.5 + 0.5 * qSin(clock_ * 2.1)},
         {leftArm, 0.0}, {rightArm, 0.0},
         {mouth, 0.0}, {cheek, 0.0},
+        {QStringLiteral("ParamSmileOpen"), 0.0},
+        {QStringLiteral("ParamEyeBallX"), 0.0},
+        {QStringLiteral("ParamEyeBallY"), 0.0},
         {QStringLiteral("ParamGrassVisible"), 0.0},
         {QStringLiteral("ParamGrassReach"), 0.0},
         {QStringLiteral("ParamGrassSwing"), 0.0},
@@ -156,14 +161,19 @@ void ParameterMotion::advance(double seconds) {
         const auto pose = grassPose(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
         const double visible = pose.value(QStringLiteral("ParamGrassVisible"));
-        desired[QStringLiteral("ParamGrassSwing")] += visible * 0.32 * qSin(actionTime_ * 6.0);
+        auto& swing = desired[QStringLiteral("ParamGrassSwing")];
+        swing = std::clamp(swing + visible * 0.32 * qSin(actionTime_ * 6.0), -1.0, 1.0);
     }
 
     // Short asymmetric blink. It stays procedural across action transitions.
     const double blinkPhase = std::fmod(blinkClock_, 4.3);
     const double eye = 1.0 - pulse(blinkPhase, 0.0, 0.075, 0.16);
-    desired[leftEye] = eye;
-    desired[rightEye] = eye;
+    // Blink modulates the authored expression, rather than overwriting winks
+    // and smiling closed eyes supplied by the action keyframes.
+    desired[leftEye] = desired.value(leftEye, 1.0) * eye;
+    desired[rightEye] = desired.value(rightEye, 1.0) * eye;
+    desired[QStringLiteral("ParamEyeLVisible")] = desired[leftEye];
+    desired[QStringLiteral("ParamEyeRVisible")] = desired[rightEye];
 
     // Time-based exponential blending is stable at both 30 and 60 Hz.
     const double alpha = 1.0 - qExp(-seconds / 0.12);

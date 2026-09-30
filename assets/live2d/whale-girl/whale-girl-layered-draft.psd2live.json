@@ -8,10 +8,10 @@
   "cmo3FileFormatVersion": "500000005",
   "canvas": {"width":1254,"height":1254},
   "config": {"atlasSize":4096,"meshSpacing":32,"headTurnStrength":0.65,"bodyStrength":0.6,"meshOnly":false,"generateDeformers":true,"exportMotions":true},
-  "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-1.4956216,"centerX":630.1095,"centerY":485.5476,"radiusX":238.63712,"radiusY":172.86832},
+  "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-3.0905268,"centerX":630.6423,"centerY":484.35596,"radiusX":242.77338,"radiusY":178.06161},
   "deformerHierarchy": {"head":"DeformHeadContainer","face":"DeformFaceNinePose","frontHair":["DeformHairFrontFollow","DeformHairFrontPhysics"],"backHair":["DeformHairBackFollow","DeformHairBackPhysics"]},
   "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":false,"groups":["PhysicsHairBack","PhysicsHairFront"]},
-  "summary": {"layers":21,"drawables":21,"deformers":16,"parameters":24,"atlasPages":1},
+  "summary": {"layers":23,"drawables":23,"deformers":20,"parameters":27,"atlasPages":1},
   "layers": [
     {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
   {"source":"arm backing","type":"preset","tag":"unknown","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshLayer"},
@@ -24,16 +24,18 @@
   {"source":"handwear-r","type":"preset","tag":"handwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearR4"},
   {"source":"handwear-l","type":"preset","tag":"handwear","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearL"},
   {"source":"handwear_r","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":0,"drawable":"ArtMeshHandwearR3"},
-  {"source":"face detail backing","type":"preset","tag":"face","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshFace2"},
   {"source":"face","type":"preset","tag":"face","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshFace"},
   {"source":"front hair","type":"preset","tag":"front hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshFrontHair"},
-  {"source":"mouth","type":"preset","tag":"mouth","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshMouth"},
-  {"source":"eyewhite-r","type":"preset","tag":"eyewhite","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshEyewhiteR"},
-  {"source":"eyewhite-l","type":"preset","tag":"eyewhite","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshEyewhiteL"},
+  {"source":"mouth","type":"switch","tag":"mouth_close","side":"NONE","parameter":"ParamSmileOpen","switchId":0,"drawable":"ArtMeshMouthClose"},
+  {"source":"eyewhite-r","type":"toggle","tag":"eyewhite","side":"RIGHT","parameter":"ParamEyeRVisible","switchId":0,"drawable":"ArtMeshEyewhiteR"},
+  {"source":"eyewhite-l","type":"toggle","tag":"eyewhite","side":"LEFT","parameter":"ParamEyeLVisible","switchId":0,"drawable":"ArtMeshEyewhiteL"},
+  {"source":"irides-r","type":"toggle","tag":"irides","side":"RIGHT","parameter":"ParamEyeRVisible","switchId":0,"drawable":"ArtMeshIridesR"},
+  {"source":"irides-l","type":"toggle","tag":"irides","side":"LEFT","parameter":"ParamEyeLVisible","switchId":0,"drawable":"ArtMeshIridesL"},
+  {"source":"mouth open","type":"switch","tag":"mouth_open","side":"NONE","parameter":"ParamSmileOpen","switchId":1,"drawable":"ArtMeshMouthOpen"},
   {"source":"eye close-l","type":"preset","tag":"eye_close","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshEyeCloseL"},
   {"source":"eye close-r","type":"preset","tag":"eye_close","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshEyeCloseR"},
   {"source":"handwear right","type":"toggle","tag":"handwear","side":"RIGHT","parameter":"ParamGrassVisible","switchId":0,"drawable":"ArtMeshHandwearR2"},
   {"source":"handwear.right","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":1,"drawable":"ArtMeshHandwearR"}
   ],
-  "warnings": ["检测到同名图层：footwear, handwear, eyewhite, eye close；已通过稳定图层 ID 区分。"]
+  "warnings": ["检测到同名图层：footwear, handwear, eyewhite, irides, eye close；已通过稳定图层 ID 区分。"]
 }

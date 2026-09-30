@@ -1,0 +1,19 @@
+{
+  "generator": "built-in imagegen",
+  "date": "2026-09-30",
+  "reference": "whale-girl-neutral-master.png",
+  "assets": [
+    {
+      "image": "whale-girl-clean-plate-v1.png",
+      "prompt_summary": "Preserve the exact original full-body character, framing, pose, maid outfit and blue hair. Remove both complete eyes, lashes and halos; reconstruct smooth uninterrupted face skin with the natural blue hair boundary. Remove both lower arms, cuffs and hands below the puff sleeves; reconstruct occluded blue curls and nearby fabric. Genuine transparent background. This plate is used behind independently rigged eyes and arms.",
+      "registration": "Resize to the original 1254 x 1254 canvas; only static layer textures and the hidden arm/face backing use this plate."
+    },
+    {
+      "image": "whale-girl-mouth-smile-v1.png",
+      "prompt_summary": "One isolated cheerful, wide open smiling mouth matching the original chibi anime illustration: thin reddish outline, burgundy interior, pink tongue and narrow pale upper tooth highlight. Rounded triangular bean shape, no circular O, no surrounding face or skin, genuine transparent background.",
+      "registration": {"crop": "nonzero alpha bounds", "size": [48, 24], "position": [604, 515]}
+    }
+  ],
+  "approval": "pending",
+  "review": "Native Cubism key poses and a 120-frame parameter-motion review; art is not used as full-character frame playback."
+}

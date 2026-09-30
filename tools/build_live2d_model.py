@@ -46,8 +46,13 @@ def main():
     # Classification determines inherited motion. The eye backing must follow
     # the face rather than stay on the body when the head turns.
     for name, role, extra in (
-        ("face detail backing", "face", {}),
         ("arm backing", "unknown", {}),
+        ("irides-l", "irides", {"side": "left", "type": "toggle", "parameter": "ParamEyeLVisible"}),
+        ("irides-r", "irides", {"side": "right", "type": "toggle", "parameter": "ParamEyeRVisible"}),
+        ("eyewhite-l", "eyewhite", {"side": "left", "type": "toggle", "parameter": "ParamEyeLVisible"}),
+        ("eyewhite-r", "eyewhite", {"side": "right", "type": "toggle", "parameter": "ParamEyeRVisible"}),
+        ("mouth", "mouth_close", {"type": "switch", "parameter": "ParamSmileOpen", "switch_id": 0}),
+        ("mouth open", "mouth_open", {"type": "switch", "parameter": "ParamSmileOpen", "switch_id": 1}),
         ("eye close-l", "eye_close", {"side": "left"}),
         ("eye close-r", "eye_close", {"side": "right"}),
         ("handwear right", "handwear", {"side": "right", "type": "toggle", "parameter": "ParamGrassVisible"}),
@@ -69,7 +74,7 @@ def main():
     prop, left_arm, right_arm = mesh("handwear right"), mesh("handwear-l"), mesh("handwear-r")
     open_hand, grip = mesh("handwear_r"), mesh("handwear.right")
     for identifier, label, minimum, maximum in (
-        ("ParamArmLA", "左手动作", -35, 35), ("ParamArmRA", "右手动作", -35, 35),
+        ("ParamArmLA", "左手动作", -65, 65), ("ParamArmRA", "右手动作", -65, 65),
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
     ):
         invoke("parameter", {"request": {"mode": "create", "state": state,
@@ -93,7 +98,7 @@ def main():
         if len(reaches) > 1: neutral["ParamGrassReach"] = 0
         if len(swings) > 1: neutral["ParamGrassSwing"] = 0
         invoke("form", {"state": state, "changes": [{"op": "seed", "target": "mesh:" + target, "key": neutral}]})
-        for arm in (-35, 0, 35):
+        for arm in (-65, -35, 0, 35, 65):
             for reach in reaches:
                 for swing in swings:
                     key = dict(neutral)
@@ -107,16 +112,30 @@ def main():
                         "from": neutral, "key": key, "channels": ["geometry"]}]})
                     operations = []
                     if swing:
-                        operations.append({"type": "rotate", "pivot": normalized([913, 852], bounds), "degrees": swing * 8})
-                    operations.append({"type": "rotate", "pivot": normalized(shoulder, bounds), "degrees": arm * direction})
+                        operations.append({"type": "rotate", "pivot": normalized([913, 852], bounds), "degrees": swing * 22})
+                    if reach and target == prop:
+                        # Keep the grass beside the face as the wrist lifts;
+                        # the tilt pivots inside the grip, preserving occlusion.
+                        operations.append({"type": "rotate", "pivot": normalized([913, 852], bounds), "degrees": 55})
+                    if target in (left_arm, right_arm):
+                        cuff = [399, 802] if target == left_arm else [855, 802]
+                        arm_selection = {"center": normalized(cuff, bounds), "radius": 0.8, "hardness": 0.6}
+                        # Full rigid motion at the cuff matches the palm/prop;
+                        # zero weight near the shoulder prevents a second puff
+                        # sleeve appearing when the gesture becomes large.
+                        operations.append({"type": "rotate", "pivot": normalized(shoulder, bounds),
+                            "degrees": arm * direction, "selection": arm_selection})
+                    else:
+                        operations.append({"type": "rotate", "pivot": normalized(shoulder, bounds), "degrees": arm * direction})
                     if reach:
-                        operations.append({"type": "scale", "pivot": normalized(shoulder, bounds), "factors": [1.2, 1.2]})
-                        translation = {"type": "translate", "delta": [-170 / bounds[2], -55 / bounds[3]]}
+                        scaling = {"type": "scale", "pivot": normalized(shoulder, bounds), "factors": [1.45, 1.45]}
+                        if target == right_arm: scaling["selection"] = arm_selection
+                        operations.append(scaling)
+                        translation = {"type": "translate", "delta": [-240 / bounds[2], -85 / bounds[3]]}
                         if target == right_arm:
                             # Move the wrist towards the viewer while pinning
                             # the shoulder, rather than translating the sleeve.
-                            translation["selection"] = {"center": normalized([871, 827], bounds),
-                                "radius": 0.85, "hardness": 0.55}
+                            translation["selection"] = arm_selection
                         operations.append(translation)
                     invoke("deform", {"state": state, "changes": [{"target": "mesh:" + target, "key": key, "operations": operations}]})
     binding = invoke("inspect", {"target": "mesh:" + prop})

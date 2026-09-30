@@ -14,6 +14,8 @@ REQUIRED_PARAMETERS = {
     "ParamMouthOpenY", "ParamArmLA", "ParamArmRA",
     "ParamGrassVisible", "ParamGrassReach", "ParamGrassSwing",
     "ParamHandRGrip",
+    "ParamSmileOpen", "ParamEyeBallX", "ParamEyeBallY",
+    "ParamEyeLVisible", "ParamEyeRVisible",
 }
 
 
@@ -44,6 +46,12 @@ def main() -> None:
         hand = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
         if not hand or hand.get("parameter") != "ParamHandRGrip" or hand.get("type") != "switch" or hand.get("switchId") != switch_id:
             raise SystemExit("Open and gripping hands must share complementary native opacity keys")
+    for source, switch_id in (("mouth", 0), ("mouth open", 1)):
+        mouth = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
+        if not mouth or mouth.get("parameter") != "ParamSmileOpen" or mouth.get("switchId") != switch_id:
+            raise SystemExit("Closed smile and open laugh must be bound to native expression keys")
+    if any(layer["source"] == "face detail backing" for layer in metadata["layers"]):
+        raise SystemExit("Hard oval eye backing must not be exported")
     print(f"Validated {len(paths)} Cubism files and {len(parameters)} parameters")
 
 

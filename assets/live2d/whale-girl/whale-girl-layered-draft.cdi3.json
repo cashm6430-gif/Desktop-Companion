@@ -92,6 +92,16 @@
 			"Name": "后发摆动"
 		},
 		{
+			"Id": "ParamEyeLVisible",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamEyeLVisible"
+		},
+		{
+			"Id": "ParamEyeRVisible",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamEyeRVisible"
+		},
+		{
 			"Id": "ParamGrassVisible",
 			"GroupId": "ParamGroupCustom",
 			"Name": "ParamGrassVisible"
@@ -100,6 +110,11 @@
 			"Id": "ParamHandRGrip",
 			"GroupId": "ParamGroupCustom",
 			"Name": "ParamHandRGrip"
+		},
+		{
+			"Id": "ParamSmileOpen",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamSmileOpen"
 		},
 		{
 			"Id": "ParamArmLA",
@@ -221,6 +236,18 @@
 			"Name": "eye close-l"
 		},
 		{
+			"Id": "ArtMeshMouthOpen",
+			"Name": "mouth open"
+		},
+		{
+			"Id": "ArtMeshIridesL",
+			"Name": "irides-l"
+		},
+		{
+			"Id": "ArtMeshIridesR",
+			"Name": "irides-r"
+		},
+		{
 			"Id": "ArtMeshEyewhiteL",
 			"Name": "eyewhite-l"
 		},
@@ -229,7 +256,7 @@
 			"Name": "eyewhite-r"
 		},
 		{
-			"Id": "ArtMeshMouth",
+			"Id": "ArtMeshMouthClose",
 			"Name": "mouth"
 		},
 		{
@@ -239,10 +266,6 @@
 		{
 			"Id": "ArtMeshFace",
 			"Name": "face"
-		},
-		{
-			"Id": "ArtMeshFace2",
-			"Name": "face detail backing"
 		},
 		{
 			"Id": "ArtMeshHandwearR3",

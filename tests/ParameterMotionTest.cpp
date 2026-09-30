@@ -12,6 +12,7 @@ private slots:
     void backgroundMotionContinuesAfterAction();
     void repeatedDeleteRestartsAction();
     void grassKeysAndTransitions();
+    void grassExpressionsSurviveBlink();
     void malformedMotionDoesNotReplaceLoadedKeys();
 };
 
@@ -102,6 +103,26 @@ void ParameterMotionTest::malformedMotionDoesNotReplaceLoadedKeys() {
     invalid.flush();
     QVERIFY(!motion.loadGrassMotion(invalid.fileName()));
     QCOMPARE(motion.grassPose(3.6), before);
+}
+
+void ParameterMotionTest::grassExpressionsSurviveBlink() {
+    ParameterMotion motion;
+    QVERIFY(motion.loadGrassMotion(QStringLiteral("assets/motions/grass.motion.json")));
+    motion.setState(PetController::State::Grass);
+    for (int i = 0; i < 55; ++i) motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.2);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.99);
+    for (int i = 55; i < 90; ++i) motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamArmRA")) > 50.0);
+    for (int i = 90; i < 140; ++i) motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.1);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) < 0.1);
+    QVERIFY(motion.values().value(QStringLiteral("ParamMouthOpenY")) > 0.9);
+    motion.setState(PetController::State::Idle);
+    for (int i = 0; i < 30; ++i) motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)
