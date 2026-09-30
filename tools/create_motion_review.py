@@ -1,155 +1,39 @@
 """Create a review sheet from actual Cubism-rendered poses, never generated art.
 
-Run build/DesktopCompanion.exe --review-motion build/motion-review first.
-For an animated review, also run --render-motion build/motion-sequence.
-For eye sweeps, run this script with --eye-manifest, then pass the returned
-manifest to DesktopCompanion.exe --review-motion <eye-directory> <manifest>.
+Thin wrapper over tools/review_motion.py; prefer
+
+    python tools/review_motion.py grass
+
+Kept because the grass commands are documented. The sheet, the expression
+detail, the wrist / arm / eye panels and the loop GIF keep their previous
+layouts and file names, so the approved v7 sheet rebuilds byte for byte.
+
+The --eye-manifest / --arm-manifest / --wrist-manifest flags still write one
+sweep manifest and print its path, for rendering with
+
+    DesktopCompanion.exe --review-motion <dir> <manifest> grass
 """
-import json
 import sys
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
 
-ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import review_motion
+
+SWEEP_FLAGS = {'--eye-manifest': 'eye', '--arm-manifest': 'arm', '--wrist-manifest': 'wrist'}
 
 
 def main():
-    motion = json.loads((ROOT / "assets/motions/grass.motion.json").read_text(encoding="utf8"))
-    revision = motion.get("revision", 1)
-    eye_folder = ROOT / f"build/eye-v{revision}-review"
-    eye_levels = ("1", "0.75", "0.5", "0.25", "0")
-    arm_folder = ROOT / f"build/arm-v{revision}-sweep"
-    elbow_levels = (-35, 0, 55)
-    reach_levels = (0, 0.5, 1)
-    wrist_folder = ROOT / f"build/wrist-v{revision}-sweep"
-    wrist_levels = (-25, 0, 25)
-    wrist_poses = (("举草", 55, 20, 0), ("前伸", 60, -20, 1), ("脸侧遮挡", 65, 55, 1))
-    if "--wrist-manifest" in sys.argv:
-        wrist_folder.mkdir(parents=True, exist_ok=True)
-        keys = [{"time": row * 3 + col, "label": f"{label}-wrist-{wrist}", "parameters": {
-            "ParamArmLA": 0, "ParamArmRA": arm, "ParamElbowLA": 0, "ParamElbowRA": elbow,
-            "ParamWristRA": wrist, "ParamGrassReach": reach, "ParamGrassVisible": 1,
-            "ParamHandRGrip": 1, "ParamGrassSwing": 0, "ParamGrassTipBend": 0,
-            "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
-            "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
-        }} for row, (label, arm, elbow, reach) in enumerate(wrist_poses) for col, wrist in enumerate(wrist_levels)]
-        manifest = wrist_folder / "poses.motion.json"
-        manifest.write_text(json.dumps({"keyframes": keys}, ensure_ascii=False, indent=2), encoding="utf8")
-        print(manifest)
-        return
-    if "--arm-manifest" in sys.argv:
-        arm_folder.mkdir(parents=True, exist_ok=True)
-        keys = [{"time": row * 3 + col, "label": f"elbow-{elbow}-reach-{reach}", "parameters": {
-            "ParamArmLA": 0, "ParamArmRA": 35, "ParamElbowLA": 0, "ParamElbowRA": elbow,
-            "ParamGrassReach": reach, "ParamGrassVisible": 1, "ParamHandRGrip": 1,
-            "ParamGrassSwing": 0, "ParamGrassTipBend": 0,
-            "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
-            "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
-        }} for row, elbow in enumerate(elbow_levels) for col, reach in enumerate(reach_levels)]
-        manifest = arm_folder / "poses.motion.json"
-        manifest.write_text(json.dumps({"keyframes": keys}, ensure_ascii=False, indent=2), encoding="utf8")
-        print(manifest)
-        return
-    if "--eye-manifest" in sys.argv:
-        eye_folder.mkdir(parents=True, exist_ok=True)
-        keys = [{"time": row * 5 + col, "label": f"{mode}-{level}", "parameters": {
-            "ParamEyeLOpen": float(level), "ParamEyeROpen": float(level), "ParamEyeSmile": row,
-            "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
-        }} for row, mode in enumerate(("open", "smile")) for col, level in enumerate(eye_levels)]
-        manifest = eye_folder / "poses.motion.json"
-        manifest.write_text(json.dumps({"keyframes": keys}, ensure_ascii=False, indent=2), encoding="utf8")
-        print(manifest)
-        return
-    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 24)
-    small = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 18)
-    times = (0.8, 2.0, 3.6, 3.95, 4.35, 5.2) if revision >= 7 else (0.8, 2.0, 3.6, 5.2)
-    poses = tuple(next(i for i, frame in enumerate(motion["keyframes"]) if frame["time"] == time) for time in times)
-    sheet = Image.new("RGB", (1120, 104 + ((len(poses) + 1) // 2) * 550), "#e9edf5")
-    draw = ImageDraw.Draw(sheet)
-    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 转腕 / 前伸停留", font=font, fill="#1e2c47")
-    draw.text((28, 53), f"实际 Cubism 模型渲染 / 待审批 / {len(poses)} 个动作关键姿势", font=small, fill="#52617b")
-    for cell, key in enumerate(poses):
-        x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
-        draw.rounded_rectangle((x + 12, y + 8, x + 548, y + 538), radius=18, fill="#f8faff")
-        sprite = Image.open(ROOT / f"build/motion-review/grass-{key:02}.png").convert("RGBA")
-        sprite.thumbnail((488, 488), Image.Resampling.LANCZOS)
-        sheet.paste(sprite, (x + (560 - sprite.width) // 2, y + 8), sprite)
-        frame = motion["keyframes"][key]
-        draw.text((x + 26, y + 495), f"{cell + 1}. {frame['label']}   {frame['time']:g}s", font=small, fill="#243654")
-    output = ROOT / f"art/live2d/review/grass-keyframes-v{revision}.png"
-    output.parent.mkdir(parents=True, exist_ok=True)
-    sheet.save(output)
-    print(output)
-    detail = Image.new("RGB", (1180, 830), "#f8faff")
-    detail_draw = ImageDraw.Draw(detail)
-    detail_draw.text((24, 16), "表情近景 · 实际 Cubism 渲染 · 待审批", font=font, fill="#243654")
-    for cell, key in enumerate((poses[0], poses[1], poses[2], poses[-1])):
-        x, y = 24 + cell % 2 * 590, 66 + cell // 2 * 380
-        sprite = Image.open(ROOT / f"build/motion-review/grass-{key:02}.png").convert("RGBA")
-        sprite = sprite.crop((290, 235, 570, 405)).resize((560, 340), Image.Resampling.LANCZOS)
-        detail.paste(sprite, (x, y), sprite)
-        detail_draw.text((x, y + 342), motion["keyframes"][key]["label"], font=small, fill="#52617b")
-    detail_output = output.with_name(f"grass-expression-detail-v{revision}.png")
-    detail.save(detail_output)
-    print(detail_output)
-
-    if all((wrist_folder / f"grass-{index:02}.png").is_file() for index in range(9)):
-        wrists = Image.new("RGB", (1080, 1230), "#e9edf5")
-        wrist_draw = ImageDraw.Draw(wrists)
-        wrist_draw.text((20, 12), "腕部摆角 / 袖口与草握点 / 脸侧遮挡 · Native 渲染", font=font, fill="#243654")
-        for row, (label, _, _, _) in enumerate(wrist_poses):
-            for col, angle in enumerate(wrist_levels):
-                x, y = col * 360, 52 + row * 392
-                sprite = Image.open(wrist_folder / f"grass-{row * 3 + col:02}.png").convert("RGBA")
-                sprite = sprite.resize((350, 350), Image.Resampling.LANCZOS)
-                wrists.paste(sprite, (x + 5, y), sprite)
-                wrist_draw.text((x + 12, y + 356), f"{label} / 腕角 {angle}°", font=small, fill="#52617b")
-        wrists.save(output.with_name(f"wrist-occlusion-v{revision}.png"))
-
-    if all((arm_folder / f"grass-{index:02}.png").is_file() for index in range(9)):
-        arms = Image.new("RGB", (1080, 1230), "#e9edf5")
-        arm_draw = ImageDraw.Draw(arms)
-        arm_draw.text((20, 12), "独立肘关节 / 前伸透视 · Native 渲染 · 待审批", font=font, fill="#243654")
-        for row, elbow in enumerate(elbow_levels):
-            for col, reach in enumerate(reach_levels):
-                x, y = col * 360, 52 + row * 392
-                sprite = Image.open(arm_folder / f"grass-{row * 3 + col:02}.png").convert("RGBA")
-                sprite = sprite.resize((350, 350), Image.Resampling.LANCZOS)
-                arms.paste(sprite, (x + 5, y), sprite)
-                arm_draw.text((x + 12, y + 356), f"肘角 {elbow}° / 前伸 {reach}", font=small, fill="#52617b")
-        arms.save(output.with_name(f"arm-perspective-v{revision}.png"))
-
-    if all((eye_folder / f"grass-{index:02}.png").is_file() for index in range(10)):
-        eyes = Image.new("RGB", (1400, 510), "#f8faff")
-        eye_draw = ImageDraw.Draw(eyes)
-        for row, (mode, label) in enumerate((("open", "普通眨眼"), ("smile", "笑眼"))):
-            y = row * 255
-            eye_draw.text((12, y + 4), label + " · 眼睑形变 / 虹膜遮罩 · Native 渲染", font=small, fill="#243654")
-            for col, level in enumerate(eye_levels):
-                eye = Image.open(eye_folder / f"grass-{row * 5 + col:02}.png").convert("RGBA").crop((290, 235, 570, 405))
-                eyes.paste(eye, (col * 280, y + 36), eye)
-                eye_draw.text((col * 280 + 12, y + 212), f"开合 {level}", font=small, fill="#52617b")
-        eyes.save(output.with_name(f"eye-closure-v{revision}.png"))
-
-    sequence = sorted((ROOT / "build/motion-sequence").glob("frame-*.png"))
-    if len(sequence) == 120:
-        # This GIF is a review artifact made from actual Native frames. The
-        # desktop pet continues to animate the MOC3, and never plays this file.
-        frames = []
-        for path in sequence:
-            image = Image.open(path).convert("RGBA").resize((420, 420), Image.Resampling.LANCZOS)
-            matte = Image.new("RGB", image.size, "#f8faff")
-            matte.paste(image, (0, 0), image)
-            frames.append(matte)
-        palette_source = Image.new("RGB", (420 * 4, 420))
-        for i, frame in enumerate((frames[12], frames[30], frames[54], frames[78])):
-            palette_source.paste(frame, (420 * i, 0))
-        palette = palette_source.quantize(colors=255, method=Image.Quantize.MEDIANCUT)
-        frames = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
-        frames[0].save(output.with_name(f"grass-motion-v{revision}.gif"), save_all=True, append_images=frames[1:],
-                       duration=[70, 70, 60] * 40, loop=0, optimize=False, disposal=2)
-        print(output.with_name(f"grass-motion-v{revision}.gif"))
+    profile = review_motion.profile('grass')
+    for flag, kind in SWEEP_FLAGS.items():
+        if flag in sys.argv:
+            print(review_motion.write_grass_sweep_manifest(kind, profile))
+            return 0
+    if not review_motion.pose_paths(profile):
+        review_motion.capture(profile)
+    review_motion.compose(profile)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

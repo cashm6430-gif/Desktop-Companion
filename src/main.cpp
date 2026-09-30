@@ -119,6 +119,10 @@ int main(int argc, char** argv) {
         QFile motionFile(argc >= 4 ? QString::fromLocal8Bit(argv[3])
             : QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/grass.motion.json")));
         if (!motionFile.open(QIODevice::ReadOnly)) return 2;
+        // The capture prefix names the clip so several motions can share one
+        // review directory. It stays optional and defaults to grass so the
+        // earlier commands and their artifacts keep the same file names.
+        const QString prefix = argc >= 5 ? QString::fromLocal8Bit(argv[4]) : QStringLiteral("grass");
         const auto frames = QJsonDocument::fromJson(motionFile.readAll()).object().value(QStringLiteral("keyframes")).toArray();
         if (frames.isEmpty()) return 2;
         window.move(-10000, -10000);
@@ -129,7 +133,8 @@ int main(int argc, char** argv) {
         reviewTimer.setInterval(240);
         QObject::connect(&reviewTimer, &QTimer::timeout, &app, [&] {
             if (index > 0) savedAll &= window.renderBackend() == QStringLiteral("cubism_native")
-                && window.saveRenderFrame(QDir(output).filePath(QStringLiteral("grass-%1.png").arg(index - 1, 2, 10, QChar('0'))));
+                && window.saveRenderFrame(QDir(output).filePath(
+                    QStringLiteral("%1-%2.png").arg(prefix, QString::number(index - 1).rightJustified(2, QChar('0')))));
             if (index == frames.size()) { app.exit(savedAll ? 0 : 1); return; }
             ParameterMotion::Parameters pose;
             const auto parameters = frames[index++].toObject().value(QStringLiteral("parameters")).toObject();
