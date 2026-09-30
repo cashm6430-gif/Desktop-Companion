@@ -4,7 +4,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $helper = (Resolve-Path (Join-Path $PSScriptRoot '..\build\DesktopCompanionHook.exe')).Path
-$command = '"' + $helper + '"'
+# Codex uses the session's PowerShell on Windows. A quoted path alone prints
+# the path instead of running it, which Stop rejects as non-JSON stdout.
+$command = "& '" + $helper.Replace("'", "''") + "'"
 $events = @('UserPromptSubmit', 'Stop', 'Interrupt', 'SessionEnd')
 
 if (Test-Path -LiteralPath $TargetPath) {

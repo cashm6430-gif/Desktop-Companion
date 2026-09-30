@@ -82,4 +82,12 @@ if(BUILD_TESTING)
         src/ParameterMotion.h src/ParameterMotion.cpp)
     target_link_libraries(ParameterMotionTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME ParameterMotionTest COMMAND ParameterMotionTest)
+    if(WIN32)
+        find_program(POWERSHELL_EXECUTABLE NAMES pwsh REQUIRED)
+        add_test(NAME CodexHookTest COMMAND "${POWERSHELL_EXECUTABLE}"
+            -NoLogo -NoProfile -NonInteractive -File
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/CodexHookTest.ps1"
+            -HelperPath "$<TARGET_FILE:DesktopCompanionHook>"
+            -InstallerPath "${CMAKE_CURRENT_SOURCE_DIR}/tools/install-codex-hooks.ps1")
+    endif()
 endif()
