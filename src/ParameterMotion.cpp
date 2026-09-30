@@ -1,6 +1,10 @@
 #include "ParameterMotion.h"
 
 #include <QtMath>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <algorithm>
 #include <cmath>
 
@@ -37,6 +41,7 @@ double ParameterMotion::target(const Parameters& values, const QString& id) {
 }
 
 void ParameterMotion::setState(PetController::State state) {
+    preview_ = false;
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     state_ = state;
@@ -44,7 +49,69 @@ void ParameterMotion::setState(PetController::State state) {
     // Keep current parameter values. The next advance blends from the current pose.
 }
 
+bool ParameterMotion::loadGrassMotion(const QString& path, QString* error) {
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly)) {
+        if (error) *error = file.errorString();
+        return false;
+    }
+    const auto document = QJsonDocument::fromJson(file.readAll());
+    const auto frames = document.object().value(QStringLiteral("keyframes")).toArray();
+    QVector<Keyframe> keys;
+    for (const auto& entry : frames) {
+        const auto object = entry.toObject();
+        const double time = object.value(QStringLiteral("time")).toDouble(-1.0);
+        Parameters parameters;
+        const auto values = object.value(QStringLiteral("parameters")).toObject();
+        for (auto it = values.begin(); it != values.end(); ++it) {
+            if (!it.value().isDouble() || !qIsFinite(it.value().toDouble())) {
+                if (error) *error = QStringLiteral("Invalid keyframe parameter");
+                return false;
+            }
+            parameters.insert(it.key(), it.value().toDouble());
+        }
+        if (!qIsFinite(time) || time < 0 || (!keys.isEmpty() && time <= keys.last().time)
+            || parameters.isEmpty() || (!keys.isEmpty() && [&] {
+                auto ids = parameters.keys();
+                auto firstIds = keys.first().parameters.keys();
+                ids.sort(); firstIds.sort();
+                return ids != firstIds;
+            }())) {
+            if (error) *error = QStringLiteral("Keyframes need increasing times and identical parameter IDs");
+            return false;
+        }
+        keys.append({time, parameters});
+    }
+    if (keys.size() < 2 || keys.first().time != 0.0) {
+        if (error) *error = QStringLiteral("Motion needs at least two keys starting at zero");
+        return false;
+    }
+    grassKeys_ = keys;
+    return true;
+}
+
+ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
+    if (grassKeys_.isEmpty()) return {};
+    if (seconds <= grassKeys_.first().time) return grassKeys_.first().parameters;
+    if (seconds >= grassKeys_.last().time) return grassKeys_.last().parameters;
+    int next = 1;
+    while (grassKeys_[next].time < seconds) ++next;
+    const auto& a = grassKeys_[next - 1];
+    const auto& b = grassKeys_[next];
+    const double weight = smooth((seconds - a.time) / (b.time - a.time));
+    Parameters result;
+    for (auto it = a.parameters.begin(); it != a.parameters.end(); ++it)
+        result.insert(it.key(), it.value() + (b.parameters.value(it.key()) - it.value()) * weight);
+    return result;
+}
+
+void ParameterMotion::setPreviewPose(const Parameters& parameters) {
+    values_ = parameters;
+    preview_ = true;
+}
+
 void ParameterMotion::advance(double seconds) {
+    if (preview_) return;
     if (!qIsFinite(seconds) || seconds <= 0.0) return;
     seconds = std::min(seconds, 0.1); // Avoid a leap after suspend or debugger pause.
     clock_ += seconds;
@@ -61,6 +128,9 @@ void ParameterMotion::advance(double seconds) {
         {breath, 0.5 + 0.5 * qSin(clock_ * 2.1)},
         {leftArm, 0.0}, {rightArm, 0.0},
         {mouth, 0.0}, {cheek, 0.0},
+        {QStringLiteral("ParamGrassVisible"), 0.0},
+        {QStringLiteral("ParamGrassReach"), 0.0},
+        {QStringLiteral("ParamGrassSwing"), 0.0},
     };
 
     if (state_ == PetController::State::Busy) {
@@ -82,12 +152,10 @@ void ParameterMotion::advance(double seconds) {
         desired[angleY] += 4.0 * strike;
         desired[mouth] = 0.4 * strike;
     } else if (state_ == PetController::State::Grass) {
-        const double reach = pulse(actionTime_, 0.15, 1.2, 5.8);
-        desired[angleX] += 10.0 * reach;
-        desired[angleY] += -4.0 * reach;
-        desired[bodyX] += 5.0 * reach;
-        desired[rightArm] = 25.0 * reach + 2.0 * qSin(clock_ * 3.2);
-        desired[cheek] = 0.35 * reach;
+        const auto pose = grassPose(actionTime_);
+        for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
+        const double visible = pose.value(QStringLiteral("ParamGrassVisible"));
+        desired[QStringLiteral("ParamGrassSwing")] += visible * 0.32 * qSin(actionTime_ * 6.0);
     }
 
     // Short asymmetric blink. It stays procedural across action transitions.

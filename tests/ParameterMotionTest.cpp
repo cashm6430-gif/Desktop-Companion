@@ -1,6 +1,7 @@
 #include "../src/ParameterMotion.h"
 
 #include <QtTest/QTest>
+#include <QTemporaryFile>
 #include <cmath>
 
 class ParameterMotionTest final : public QObject {
@@ -10,6 +11,8 @@ private slots:
     void deleteHasWindupStrikeAndRecoil();
     void backgroundMotionContinuesAfterAction();
     void repeatedDeleteRestartsAction();
+    void grassKeysAndTransitions();
+    void malformedMotionDoesNotReplaceLoadedKeys();
 };
 
 void ParameterMotionTest::stateTransitionIsContinuous() {
@@ -59,6 +62,42 @@ void ParameterMotionTest::repeatedDeleteRestartsAction() {
     motion.setState(PetController::State::Delete);
     for (int i = 0; i < 15; ++i) motion.advance(0.02);
     QVERIFY(motion.values().value(QStringLiteral("ParamArmRA")) < -5.0);
+}
+
+void ParameterMotionTest::grassKeysAndTransitions() {
+    ParameterMotion motion;
+    QVERIFY(motion.loadGrassMotion(QStringLiteral("assets/motions/grass.motion.json")));
+    QCOMPARE(motion.grassPose(3.6).value(QStringLiteral("ParamGrassReach")), 1.0);
+    QCOMPARE(motion.grassPose(6.9).value(QStringLiteral("ParamGrassVisible")), 0.0);
+    const auto middle = motion.grassPose(2.8);
+    QVERIFY(middle.value(QStringLiteral("ParamGrassReach")) > 0.1);
+    QVERIFY(middle.value(QStringLiteral("ParamGrassReach")) < 1.0);
+    motion.advance(0.04);
+    motion.setState(PetController::State::Grass);
+    for (int i = 0; i < 90; ++i) motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamGrassReach")) > 0.9);
+    const auto before = motion.values();
+    motion.setState(PetController::State::Busy);
+    QCOMPARE(motion.values(), before);
+    motion.advance(0.04);
+    QVERIFY(motion.values().value(QStringLiteral("ParamGrassReach")) < before.value(QStringLiteral("ParamGrassReach")));
+    motion.setPreviewPose({{QStringLiteral("ParamArmRA"), 25.0}});
+    motion.advance(0.04);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamArmRA")), 25.0);
+}
+
+void ParameterMotionTest::malformedMotionDoesNotReplaceLoadedKeys() {
+    ParameterMotion motion;
+    QVERIFY(motion.loadGrassMotion(QStringLiteral("assets/motions/grass.motion.json")));
+    const auto before = motion.grassPose(3.6);
+    QVERIFY(!motion.loadGrassMotion(QStringLiteral("missing.motion.json")));
+    QCOMPARE(motion.grassPose(3.6), before);
+    QTemporaryFile invalid;
+    QVERIFY(invalid.open());
+    invalid.write(R"({"keyframes":[{"time":0,"parameters":{"A":0}},{"time":0,"parameters":{"A":1}}]})");
+    invalid.flush();
+    QVERIFY(!motion.loadGrassMotion(invalid.fileName()));
+    QCOMPARE(motion.grassPose(3.6), before);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

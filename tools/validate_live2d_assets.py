@@ -12,6 +12,7 @@ REQUIRED_PARAMETERS = {
     "ParamBodyAngleX", "ParamBodyAngleY", "ParamBodyAngleZ",
     "ParamEyeLOpen", "ParamEyeROpen", "ParamBreath",
     "ParamMouthOpenY", "ParamArmLA", "ParamArmRA",
+    "ParamGrassVisible", "ParamGrassReach", "ParamGrassSwing",
 }
 
 
@@ -30,6 +31,14 @@ def main() -> None:
     missing_parameters = sorted(REQUIRED_PARAMETERS - parameters)
     if missing_parameters:
         raise SystemExit(f"Missing rigged parameters: {missing_parameters}")
+    motion = json.loads((ROOT / "assets/motions/grass.motion.json").read_text(encoding="utf8"))
+    used = {key for frame in motion["keyframes"] for key in frame["parameters"]}
+    if used - parameters:
+        raise SystemExit(f"Motion uses unbound model parameters: {sorted(used - parameters)}")
+    metadata = json.loads((MODEL_DIR / "whale-girl-layered-draft.psd2live.json").read_text(encoding="utf8"))
+    prop = next((layer for layer in metadata["layers"] if layer["source"] == "handwear right"), None)
+    if not prop or prop.get("parameter") != "ParamGrassVisible":
+        raise SystemExit("Grass prop must be exported as a parameter-driven drawable")
     print(f"Validated {len(paths)} Cubism files and {len(parameters)} parameters")
 
 

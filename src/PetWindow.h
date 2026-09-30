@@ -3,7 +3,6 @@
 #include "PetController.h"
 #include "ParameterMotion.h"
 
-#include <QMovie>
 #include <QElapsedTimer>
 #include <QImage>
 #include <QMenu>
@@ -27,6 +26,7 @@ public:
     int renderSampleCount() const;
     bool saveRenderFrame(const QString& path);
     void shutdown();
+    void setPreviewPose(const ParameterMotion::Parameters& parameters, int pixels = 840);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -41,7 +41,6 @@ private:
     void setInteractionMask(const QPixmap& artwork);
     void updateInputTransparency();
     void showMenu(const QPoint& globalPos);
-    QMovie grassMovie_;
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
@@ -50,7 +49,6 @@ private:
     QImage cubismFrame_;
     CubismCanvas* cubismCanvas_ = nullptr;
 #endif
-    QMovie* currentMovie_ = nullptr;
     QSystemTrayIcon tray_;
     QMenu trayMenu_;
     QTimer frameTimer_;

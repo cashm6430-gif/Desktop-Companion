@@ -92,6 +92,11 @@
 			"Name": "后发摆动"
 		},
 		{
+			"Id": "ParamGrassVisible",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamGrassVisible"
+		},
+		{
 			"Id": "ParamArmLA",
 			"GroupId": "",
 			"Name": "左手动作"
@@ -100,6 +105,16 @@
 			"Id": "ParamArmRA",
 			"GroupId": "",
 			"Name": "右手动作"
+		},
+		{
+			"Id": "ParamGrassReach",
+			"GroupId": "",
+			"Name": "向观众伸手"
+		},
+		{
+			"Id": "ParamGrassSwing",
+			"GroupId": "",
+			"Name": "草穗摆动"
 		}
 	],
 	"ParameterGroups": [
@@ -132,6 +147,11 @@
 			"Id": "ParamGroupPhysics",
 			"GroupId": "",
 			"Name": "物理"
+		},
+		{
+			"Id": "ParamGroupCustom",
+			"GroupId": "",
+			"Name": "自定义参数"
 		}
 	],
 	"Parts": [
@@ -180,6 +200,18 @@
 	],
 	"Drawables": [
 		{
+			"Id": "ArtMeshHandwearR",
+			"Name": "handwear right"
+		},
+		{
+			"Id": "ArtMeshEyeCloseR",
+			"Name": "eye close-r"
+		},
+		{
+			"Id": "ArtMeshEyeCloseL",
+			"Name": "eye close-l"
+		},
+		{
 			"Id": "ArtMeshEyewhiteL",
 			"Name": "eyewhite-l"
 		},
@@ -192,14 +224,6 @@
 			"Name": "mouth"
 		},
 		{
-			"Id": "ArtMeshMouth_lip_0",
-			"Name": "mouth / 上唇描边"
-		},
-		{
-			"Id": "ArtMeshMouth_lip_1",
-			"Name": "mouth / 下唇描边"
-		},
-		{
 			"Id": "ArtMeshFrontHair",
 			"Name": "front hair"
 		},
@@ -208,15 +232,15 @@
 			"Name": "face"
 		},
 		{
-			"Id": "ArtMeshLayer",
-			"Name": "feature backing"
+			"Id": "ArtMeshFace2",
+			"Name": "face detail backing"
 		},
 		{
 			"Id": "ArtMeshHandwearL",
 			"Name": "handwear-l"
 		},
 		{
-			"Id": "ArtMeshHandwearR",
+			"Id": "ArtMeshHandwearR2",
 			"Name": "handwear-r"
 		},
 		{
@@ -244,7 +268,7 @@
 			"Name": "headwear"
 		},
 		{
-			"Id": "ArtMeshHandwear",
+			"Id": "ArtMeshLayer",
 			"Name": "arm backing"
 		},
 		{

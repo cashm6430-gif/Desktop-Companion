@@ -230,7 +230,7 @@ void CubismCanvas::paintGL() {
         if (index != impl_->parameterIndices.cend())
             model->SetParameterValue(*index, static_cast<float>(it.value()));
     }
-    impl_->model->evaluatePhysics(static_cast<float>(frameSeconds_));
+    if (!motion_->isPreview()) impl_->model->evaluatePhysics(static_cast<float>(frameSeconds_));
     model->Update();
 
     Csm::CubismMatrix44 matrix;

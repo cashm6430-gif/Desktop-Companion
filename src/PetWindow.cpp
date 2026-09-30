@@ -26,7 +26,6 @@ QString imagePath(const char* name) {
 
 PetWindow::PetWindow(PetController* controller, QWidget* parent)
     : QWidget(parent),
-      grassMovie_(imagePath("grass.gif")),
       idleImage_(imagePath("idle.png")),
       busyImage_(imagePath("busy.png")),
       deleteImage_(imagePath("delete.png")),
@@ -55,10 +54,9 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     cubismCanvas_->show();
 #endif
 
-    connect(&grassMovie_, &QMovie::frameChanged, this, [this] { update(); });
-    grassMovie_.setScaledSize(QSize(280, 280));
-    grassMovie_.start();
-    grassMovie_.setPaused(true);
+    QString motionError;
+    if (!motion_.loadGrassMotion(imagePath("motions/grass.motion.json"), &motionError))
+        qWarning() << "Grass motion:" << motionError;
 
     frameTimer_.setInterval(40);
     frameClock_.start();
@@ -69,8 +67,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 #ifdef HAVE_CUBISM
         if (cubismCanvas_ && cubismCanvas_->isReady()) {
             cubismCanvas_->advance(seconds);
-            if (controller_->state() != PetController::State::Grass)
-                cubismFrame_ = cubismCanvas_->grabFramebuffer();
+            cubismFrame_ = cubismCanvas_->grabFramebuffer();
         }
 #endif
         updateInputTransparency();
@@ -116,20 +113,16 @@ PetWindow::~PetWindow() {
 
 void PetWindow::setState(PetController::State state) {
     motion_.setState(state);
-    grassMovie_.setPaused(true);
-    currentMovie_ = nullptr;
     frame_ = 0;
     const QPixmap* hitArtwork = nullptr;
     switch (state) {
     case PetController::State::Idle: hitArtwork = &idleImage_; break;
     case PetController::State::Busy: hitArtwork = &busyImage_; break;
-    case PetController::State::Grass: currentMovie_ = &grassMovie_; grassMovie_.jumpToFrame(0); break;
+    case PetController::State::Grass: hitArtwork = &idleImage_; break;
     case PetController::State::Delete: hitArtwork = &deleteImage_; break;
     }
-    if (currentMovie_) currentMovie_->setPaused(false);
 #ifdef HAVE_CUBISM
-    const bool useCubism = cubismCanvas_ && cubismCanvas_->isReady()
-        && state != PetController::State::Grass;
+    const bool useCubism = cubismCanvas_ && cubismCanvas_->isReady();
     if (useCubism) hitArtwork = &cubismHitMask_;
 #endif
     if (hitArtwork && !hitArtwork->isNull()) setInteractionMask(*hitArtwork);
@@ -188,14 +181,12 @@ void PetWindow::shutdown() {
     if (cubismCanvas_) cubismCanvas_->hide();
 #endif
     frameTimer_.stop();
-    grassMovie_.stop();
     tray_.hide();
 }
 
 void PetWindow::paintEvent(QPaintEvent*) {
 #ifdef HAVE_CUBISM
-    if (cubismCanvas_ && cubismCanvas_->isReady()
-        && controller_->state() != PetController::State::Grass) {
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
         QPainter painter(this);
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.fillRect(rect(), Qt::transparent);
@@ -205,10 +196,7 @@ void PetWindow::paintEvent(QPaintEvent*) {
 #endif
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-    if (currentMovie_) {
-        const QPixmap image = currentMovie_->currentPixmap();
-        if (!image.isNull()) painter.drawPixmap(rect(), image);
-    } else if (controller_->state() == PetController::State::Delete && !deleteImage_.isNull()) {
+    if (controller_->state() == PetController::State::Delete && !deleteImage_.isNull()) {
         // Motion on a transparent key pose until a frame sequence is drawn.
         const qreal phase = qMin(frame_ / 35.0, 1.0);
         const qreal angle = 8.0 * qSin(phase * 4.0 * M_PI) * (1.0 - phase);
@@ -226,8 +214,7 @@ void PetWindow::paintEvent(QPaintEvent*) {
 
 QString PetWindow::renderBackend() const {
 #ifdef HAVE_CUBISM
-    if (cubismCanvas_ && cubismCanvas_->isReady()
-        && controller_->state() != PetController::State::Grass)
+    if (cubismCanvas_ && cubismCanvas_->isReady())
         return QStringLiteral("cubism_native");
 #endif
     return QStringLiteral("image_preview");
@@ -249,11 +236,18 @@ int PetWindow::renderSampleCount() const {
 
 bool PetWindow::saveRenderFrame(const QString& path) {
 #ifdef HAVE_CUBISM
-    if (cubismCanvas_ && cubismCanvas_->isReady()
-        && controller_->state() != PetController::State::Grass)
+    if (cubismCanvas_ && cubismCanvas_->isReady())
         return (cubismFrame_.isNull() ? cubismCanvas_->grabFramebuffer() : cubismFrame_).save(path);
 #endif
     return grab().save(path);
+}
+
+void PetWindow::setPreviewPose(const ParameterMotion::Parameters& parameters, int pixels) {
+    motion_.setPreviewPose(parameters);
+    setFixedSize(pixels, pixels);
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) cubismCanvas_->setFixedSize(size());
+#endif
 }
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
