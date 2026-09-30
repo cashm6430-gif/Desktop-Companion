@@ -2,5 +2,7 @@
 /.vs/
 /.conan/
 /CubismSdkForNative-5-r.5/
+/.workbuddy/
+/nul
 __pycache__/
 *.pyc

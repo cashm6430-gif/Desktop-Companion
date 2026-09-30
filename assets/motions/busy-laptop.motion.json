@@ -1,7 +1,7 @@
 {
   "version": 1,
   "conceptApproval": "approved",
-  "approval": "pending",
+  "approval": "approved",
   "duration": 8,
   "loop": true,
   "interpolation": "smoothstep",

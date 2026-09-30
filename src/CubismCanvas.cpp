@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <limits>
 #include <cmath>
+#include <type_traits>
 
 namespace Csm = Live2D::Cubism::Framework;
 
@@ -87,6 +88,10 @@ struct CubismCanvas::Impl {
     QHash<QString, int> parameterIndices;
     std::vector<int> standingFeet;
     std::vector<int> seatedFeet;
+    // Every mesh painted for the seated variant. It is registered chin-to-head
+    // instead of sole-to-sole, so the soles sit ~64 px above the standing
+    // shoes; they are shifted onto the standing floor each frame.
+    std::vector<int> seatedMeshes;
     float standingFloor = 0;
     bool frameworkStarted = false;
 
@@ -221,12 +226,15 @@ void CubismCanvas::initializeGL() {
     for (const auto& layer : metadata.object().value(QStringLiteral("layers")).toArray()) {
         const auto entry = layer.toObject();
         const auto source = entry.value(QStringLiteral("source")).toString();
-        auto* feet = source.startsWith(QStringLiteral("footwear-")) ? &impl_->standingFeet
-            : source.startsWith(QStringLiteral("busy leg ")) ? &impl_->seatedFeet : nullptr;
-        if (!feet) continue;
+        const bool seatedMesh = source.startsWith(QStringLiteral("busy "));
+        const bool standingFoot = source.startsWith(QStringLiteral("footwear-"));
+        if (!seatedMesh && !standingFoot) continue;
         const auto id = entry.value(QStringLiteral("drawable")).toString().toUtf8();
         const int index = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
-        if (index >= 0) feet->push_back(index);
+        if (index < 0) continue;
+        if (seatedMesh) impl_->seatedMeshes.push_back(index);
+        if (standingFoot) impl_->standingFeet.push_back(index);
+        if (source.startsWith(QStringLiteral("busy leg "))) impl_->seatedFeet.push_back(index);
     }
     model->Update();
     impl_->standingFloor = impl_->footFloor(impl_->standingFeet);
@@ -258,20 +266,27 @@ void CubismCanvas::paintGL() {
 
     auto* model = impl_->model->GetModel();
     model->LoadParameters();
-    // Fold the standing legs before using the painted seated art. Keep seated
-    // meshes at their complete pose: its skirt is not painted for extended legs.
-    const bool seatedBody = motion_->values().value(QStringLiteral("ParamBusyLaptop")) >= 0.9;
+    // Cross-fade the two painted bodies instead of swapping them on one frame:
+    // the seated art is ~21 px shorter than the crouched standing body, so a
+    // hard swap always read as a single snapping frame. ParamBusyLaptop drives
+    // the seated drawables' opacity, so fading it in fades the art in too.
+    // Smoothstep keeps the half-and-half overlap brief: two stacked silhouettes
+    // read as ghosting, so get through the middle quickly.
+    const double fade = std::clamp(
+        (motion_->values().value(QStringLiteral("ParamBusyLaptop")) - 0.74) / 0.19, 0.0, 1.0);
+    const double seatedMix = fade * fade * (3.0 - 2.0 * fade);
     const double sitProgress = std::clamp(motion_->values().value(QStringLiteral("ParamSitPose")) / 0.9, 0.0, 1.0);
     // Finish most of the knee bend before the material changes, including on
     // the first frame of unfolding. This keeps the shared head's height close
     // across the two painted silhouettes while the soles remain grounded.
-    const double standingFold = 0.93 * sitProgress * sitProgress * (3.0 - 2.0 * sitProgress);
+    const double standingFold = (0.93 * sitProgress * sitProgress * (3.0 - 2.0 * sitProgress))
+        * (1.0 - seatedMix) + seatedMix;
     for (auto it = motion_->values().cbegin(); it != motion_->values().cend(); ++it) {
         const auto index = impl_->parameterIndices.constFind(it.key());
         if (index != impl_->parameterIndices.cend())
             model->SetParameterValue(*index, static_cast<float>(it.key() == QStringLiteral("ParamBusyLaptop")
-                ? (seatedBody ? 1.0 : 0.0)
-                : (it.key() == QStringLiteral("ParamSitPose") ? (seatedBody ? 1.0 : standingFold) : it.value())));
+                ? seatedMix
+                : (it.key() == QStringLiteral("ParamSitPose") ? standingFold : it.value())));
     }
     const double physicsSeconds = std::exchange(frameSeconds_, 0.0);
     if (!motion_->frozenPhysics() && physicsSeconds > 0)
@@ -281,21 +296,35 @@ void CubismCanvas::paintGL() {
     // the laptop has its own native visibility parameter. Existing grip/grass
     // tracks stay intact; head, hair and tail are shared by both poses.
     model->SetPartOpacity(Csm::CubismFramework::GetIdManager()->GetId("PartBody"),
-        seatedBody ? 0.0f : 1.0f);
+        static_cast<float>(1.0 - seatedMix));
     model->Update();
 
+    // Folded knees lift the standing shoes off the floor, and the seated art is
+    // registered chin-to-head so its soles float higher still. Cancel the knee
+    // lift with the model transform, then bring only the seated meshes down onto
+    // the same floor. Both silhouettes then keep ground contact all the way
+    // through the cross-fade; shifting the whole model instead pulled one of
+    // them off the desktop, and dropping the transform let the shoes float.
+    const float standingFoot = impl_->footFloor(impl_->standingFeet);
+    const float seatedFoot = impl_->footFloor(impl_->seatedFeet);
     Csm::CubismMatrix44 matrix;
     matrix.MultiplyByMatrix(impl_->model->GetModelMatrix());
-    const float sitting = static_cast<float>(motion_->values().value(QStringLiteral("ParamSitPose")));
-    const float floor = impl_->footFloor(seatedBody ? impl_->seatedFeet : impl_->standingFeet);
-    if (sitting > 0 && std::isfinite(floor) && std::isfinite(impl_->standingFloor)) {
-        // Keep the sole on the desktop floor as the knees fold: the complete
-        // body descends together, rather than sliding legs under a fixed head.
+    if (std::isfinite(standingFoot) && std::isfinite(seatedFoot)
+        && std::isfinite(impl_->standingFloor)) {
         auto* modelMatrix = impl_->model->GetModelMatrix();
-        const float blend = std::clamp(sitting / 0.15f, 0.0f, 1.0f);
-        const float offset = (modelMatrix->TransformY(impl_->standingFloor)
-            - modelMatrix->TransformY(floor)) * blend;
-        matrix.Translate(matrix.GetTranslateX(), matrix.GetTranslateY() + offset);
+        const float grounded = modelMatrix->TransformY(impl_->standingFloor)
+            - modelMatrix->TransformY(standingFoot);
+        matrix.Translate(matrix.GetTranslateX(), matrix.GetTranslateY() + grounded);
+        // The SDK exposes the vertex buffer as const, but Update() rebuilds it
+        // every frame, so a write here only affects this draw call.
+        using Position = std::remove_const_t<std::remove_pointer_t<
+            decltype(model->GetDrawableVertexPositions(0))>>;
+        const float seatedShift = standingFoot - seatedFoot;
+        for (int index : impl_->seatedMeshes) {
+            auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(index));
+            const int count = model->GetDrawableVertexCount(index);
+            for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
+        }
     }
     auto* renderer = impl_->model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
     renderer->SetMvpMatrix(&matrix);
