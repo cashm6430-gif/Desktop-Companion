@@ -15,6 +15,7 @@ private slots:
     void grassExpressionsSurviveBlink();
     void proceduralBlinkClosesAndRecovers();
     void grassFlexLagsReboundsAndSettles();
+    void elbowFlexAndInterruptedRecovery();
     void malformedMotionDoesNotReplaceLoadedKeys();
 };
 
@@ -189,6 +190,33 @@ void ParameterMotionTest::grassFlexLagsReboundsAndSettles() {
     QVERIFY(rebounded);
     QVERIFY(std::abs(slow.values().value(QStringLiteral("ParamGrassSwing"))) < 0.001);
     QVERIFY(std::abs(slow.values().value(QStringLiteral("ParamGrassTipBend"))) < 0.001);
+}
+
+void ParameterMotionTest::elbowFlexAndInterruptedRecovery() {
+    // Hold the shoulder and reach still: the elbow alone must excite the grass.
+    QTemporaryFile gesture;
+    QVERIFY(gesture.open());
+    gesture.write(R"({"keyframes":[{"time":0,"parameters":{"ParamElbowRA":40,"ParamGrassVisible":1}},
+        {"time":5,"parameters":{"ParamElbowRA":40,"ParamGrassVisible":1}}]})");
+    gesture.flush();
+    ParameterMotion motion;
+    QVERIFY(motion.loadGrassMotion(gesture.fileName()));
+    motion.setPreviewPose({{QStringLiteral("ParamElbowRA"), 0}, {QStringLiteral("ParamGrassVisible"), 1}});
+    motion.setState(PetController::State::Grass);
+    double peak = 0;
+    for (int i = 0; i < 30; ++i) {
+        motion.advance(1.0 / 60.0);
+        peak = std::max(peak, std::abs(motion.values().value(QStringLiteral("ParamGrassSwing"))));
+    }
+    QVERIFY(peak > 0.1);
+    QVERIFY(motion.values().value(QStringLiteral("ParamElbowRA")) > 39);
+    const auto before = motion.values();
+    motion.setState(PetController::State::Busy);
+    QCOMPARE(motion.values(), before);
+    motion.advance(1.0 / 60.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamElbowRA")) < before.value(QStringLiteral("ParamElbowRA")));
+    for (int i = 0; i < 60; ++i) motion.advance(1.0 / 60.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamElbowRA")) < 0.02);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

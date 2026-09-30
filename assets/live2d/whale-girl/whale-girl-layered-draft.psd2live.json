@@ -11,7 +11,7 @@
   "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-3.854725,"centerX":631.0259,"centerY":484.7809,"radiusX":244.7728,"radiusY":181.51529},
   "deformerHierarchy": {"head":"DeformHeadContainer","face":"DeformFaceNinePose","frontHair":["DeformHairFrontFollow","DeformHairFrontPhysics"],"backHair":["DeformHairBackFollow","DeformHairBackPhysics"]},
   "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":false,"groups":["PhysicsHairBack","PhysicsHairFront"]},
-  "summary": {"layers":23,"drawables":23,"deformers":20,"parameters":27,"atlasPages":1},
+  "summary": {"layers":25,"drawables":25,"deformers":21,"parameters":29,"atlasPages":1},
   "layers": [
     {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
   {"source":"arm backing","type":"preset","tag":"unknown","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshLayer"},
@@ -21,6 +21,8 @@
   {"source":"footwear-r","type":"preset","tag":"footwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshFootwearR"},
   {"source":"footwear-l","type":"preset","tag":"footwear","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshFootwearL"},
   {"source":"tail","type":"preset","tag":"tail","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshTail"},
+  {"source":"upperarm-r","type":"preset","tag":"handwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearR5"},
+  {"source":"upperarm-l","type":"preset","tag":"handwear","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearL2"},
   {"source":"handwear-r","type":"preset","tag":"handwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearR4"},
   {"source":"handwear-l","type":"preset","tag":"handwear","side":"LEFT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearL"},
   {"source":"handwear_r","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":0,"drawable":"ArtMeshHandwearR3"},
@@ -37,5 +39,5 @@
   {"source":"handwear right","type":"toggle","tag":"handwear","side":"RIGHT","parameter":"ParamGrassVisible","switchId":0,"drawable":"ArtMeshHandwearR2"},
   {"source":"handwear.right","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":1,"drawable":"ArtMeshHandwearR"}
   ],
-  "warnings": ["检测到同名图层：footwear, handwear, eyewhite, irides, eyelash；已通过稳定图层 ID 区分。"]
+  "warnings": ["检测到同名图层：footwear, upperarm, handwear, eyewhite, irides, eyelash；已通过稳定图层 ID 区分。"]
 }

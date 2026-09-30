@@ -17,6 +17,7 @@ REQUIRED_PARAMETERS = {
     "ParamHandRGrip",
     "ParamSmileOpen", "ParamEyeBallX", "ParamEyeBallY",
     "ParamEyeSmile",
+    "ParamElbowLA", "ParamElbowRA",
 }
 
 
@@ -57,6 +58,10 @@ def main() -> None:
         eye = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
         if not eye or eye.get("type") != "preset":
             raise SystemExit("Eyes must close geometrically, not crossfade their source art")
+    for source in ("upperarm-l", "upperarm-r", "handwear-l", "handwear-r"):
+        sleeve = next((layer for layer in metadata["layers"] if layer["source"] == source), None)
+        if not sleeve or sleeve.get("tag") != "handwear":
+            raise SystemExit("Upper and lower sleeves must be independent handwear layers: " + source)
     print(f"Validated {len(paths)} Cubism files and {len(parameters)} parameters")
 
 

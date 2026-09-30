@@ -26,7 +26,9 @@
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 0,
         "ParamSmileOpen": 0,
-        "ParamEyeSmile": 0.0
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0
       }
     },
     {
@@ -51,7 +53,9 @@
         "ParamEyeBallY": 0.2,
         "ParamMouthOpenY": 0.3,
         "ParamSmileOpen": 1,
-        "ParamEyeSmile": 0.0
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20
       }
     },
     {
@@ -76,7 +80,9 @@
         "ParamEyeBallY": 0.009718518518518515,
         "ParamMouthOpenY": 0.7757037037037038,
         "ParamSmileOpen": 1.0,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20
       }
     },
     {
@@ -101,7 +107,9 @@
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 0.8,
         "ParamSmileOpen": 1,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20
       }
     },
     {
@@ -126,7 +134,9 @@
         "ParamEyeBallY": 0.017659179687499974,
         "ParamMouthOpenY": 0.807063671875,
         "ParamSmileOpen": 1.0,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20
       }
     },
     {
@@ -151,7 +161,9 @@
         "ParamEyeBallY": 0.042635742187499985,
         "ParamMouthOpenY": 0.8170542968750001,
         "ParamSmileOpen": 1.0,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20
       }
     },
     {
@@ -176,7 +188,9 @@
         "ParamEyeBallY": 0.25,
         "ParamMouthOpenY": 0.9,
         "ParamSmileOpen": 1,
-        "ParamEyeSmile": 0.0
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20
       }
     },
     {
@@ -201,7 +215,9 @@
         "ParamEyeBallY": 0.010742187500000028,
         "ParamMouthOpenY": 0.995703125,
         "ParamSmileOpen": 1.0,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10
       }
     },
     {
@@ -226,7 +242,9 @@
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 1,
         "ParamSmileOpen": 1,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10
       }
     },
     {
@@ -251,7 +269,9 @@
         "ParamEyeBallY": 0.0,
         "ParamMouthOpenY": 1,
         "ParamSmileOpen": 1,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10
       }
     },
     {
@@ -276,7 +296,9 @@
         "ParamEyeBallY": 0.0,
         "ParamMouthOpenY": 0.9,
         "ParamSmileOpen": 1,
-        "ParamEyeSmile": 1.0
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10
       }
     },
     {
@@ -301,9 +323,11 @@
         "ParamEyeBallY": 0,
         "ParamMouthOpenY": 0,
         "ParamSmileOpen": 0,
-        "ParamEyeSmile": 0.0
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0
       }
     }
   ],
-  "revision": 5
+  "revision": 6
 }

@@ -117,6 +117,16 @@
 			"Name": "右手动作"
 		},
 		{
+			"Id": "ParamElbowLA",
+			"GroupId": "",
+			"Name": "左肘弯曲"
+		},
+		{
+			"Id": "ParamElbowRA",
+			"GroupId": "",
+			"Name": "右肘弯曲"
+		},
+		{
 			"Id": "ParamGrassReach",
 			"GroupId": "",
 			"Name": "向观众伸手"
@@ -278,6 +288,14 @@
 		{
 			"Id": "ArtMeshHandwearR4",
 			"Name": "handwear-r"
+		},
+		{
+			"Id": "ArtMeshHandwearL2",
+			"Name": "upperarm-l"
+		},
+		{
+			"Id": "ArtMeshHandwearR5",
+			"Name": "upperarm-r"
 		},
 		{
 			"Id": "ArtMeshTail",

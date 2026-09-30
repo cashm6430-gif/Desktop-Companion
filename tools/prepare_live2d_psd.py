@@ -129,6 +129,12 @@ def main() -> None:
         (855, 788), (881, 805), (920, 819), (922, 849),
         (879, 860), (854, 859), (832, 837), (825, 812),
     ]) & right_arm
+    # Cut through the plain cloth below the puff sleeve. Keep a 24px overlap
+    # under the forearm so bending the elbow cannot reveal a cut edge.
+    right_lower = right_arm & (xx + yy >= 1467)
+    left_lower = left_arm & (1254 - xx + yy >= 1467)
+    right_upper = right_arm & (xx + yy <= 1503)
+    left_upper = left_arm & (1254 - xx + yy <= 1503)
     tail = polygon(source.size, [
         (970, 580), (1110, 570), (1220, 650), (1249, 822),
         (1180, 953), (1040, 1025), (911, 973), (928, 799),
@@ -179,8 +185,10 @@ def main() -> None:
         ("front hair", front_hair),
         ("face", face),
         ("handwear_r", open_hand),
-        ("handwear-l", left_arm),
-        ("handwear-r", right_arm),
+        ("handwear-l", left_lower),
+        ("handwear-r", right_lower),
+        ("upperarm-l", left_upper),
+        ("upperarm-r", right_upper),
         ("tail", tail),
         ("footwear-l", left_leg),
         ("footwear-r", right_leg),
@@ -200,12 +208,16 @@ def main() -> None:
         # neighbouring meshes move. Never expand the exterior silhouette.
         expanded = np.asarray(Image.fromarray(mask.astype(np.uint8) * 255)
                               .filter(ImageFilter.MaxFilter(25))) > 0
-        if name not in ("eyelash-l", "eyelash-r", "irides-l", "irides-r", "eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r"):
+        if name not in ("eyelash-l", "eyelash-r", "irides-l", "irides-r", "eyewhite-l", "eyewhite-r", "mouth", "handwear-l", "handwear-r", "handwear_r", "upperarm-l", "upperarm-r"):
             # Never copy moving foreground pixels into a lower layer: that
             # would leave a second eye/hand visible when the real one moves.
             movable = removal | left_arm | right_arm
             mask = ((expanded & opaque & ~movable) | mask) & ~removal
         layer = pixels.copy()
+        if name in ("upperarm-l", "upperarm-r"):
+            # Retain the shared cloth under the foreground forearm. Assignment
+            # remains unique, but these pixels deliberately exist in both meshes.
+            mask = candidate & opaque
         if name == "face":
             # Full painted backing under both the skin and overlapping hair.
             # A skin-only matte leaves holes when outer lashes cross the hair.

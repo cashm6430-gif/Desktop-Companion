@@ -18,6 +18,22 @@ def main():
     revision = motion.get("revision", 1)
     eye_folder = ROOT / f"build/eye-v{revision}-review"
     eye_levels = ("1", "0.75", "0.5", "0.25", "0")
+    arm_folder = ROOT / f"build/arm-v{revision}-sweep"
+    elbow_levels = (-35, 0, 55)
+    reach_levels = (0, 0.5, 1)
+    if "--arm-manifest" in sys.argv:
+        arm_folder.mkdir(parents=True, exist_ok=True)
+        keys = [{"time": row * 3 + col, "label": f"elbow-{elbow}-reach-{reach}", "parameters": {
+            "ParamArmLA": 0, "ParamArmRA": 35, "ParamElbowLA": 0, "ParamElbowRA": elbow,
+            "ParamGrassReach": reach, "ParamGrassVisible": 1, "ParamHandRGrip": 1,
+            "ParamGrassSwing": 0, "ParamGrassTipBend": 0,
+            "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
+            "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
+        }} for row, elbow in enumerate(elbow_levels) for col, reach in enumerate(reach_levels)]
+        manifest = arm_folder / "poses.motion.json"
+        manifest.write_text(json.dumps({"keyframes": keys}, ensure_ascii=False, indent=2), encoding="utf8")
+        print(manifest)
+        return
     if "--eye-manifest" in sys.argv:
         eye_folder.mkdir(parents=True, exist_ok=True)
         keys = [{"time": row * 5 + col, "label": f"{mode}-{level}", "parameters": {
@@ -34,7 +50,7 @@ def main():
                   for time in (0.8, 2.0, 3.6, 5.2))
     sheet = Image.new("RGB", (1120, 1204), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
-    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 连续眼睑 / 柔性草", font=font, fill="#1e2c47")
+    draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 分段手臂 / 前伸透视", font=font, fill="#1e2c47")
     draw.text((28, 53), "实际 Cubism 模型渲染 / 待审批 / 四个动作关键姿势", font=small, fill="#52617b")
     for cell, key in enumerate(poses):
         x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
@@ -60,6 +76,19 @@ def main():
     detail_output = output.with_name(f"grass-expression-detail-v{revision}.png")
     detail.save(detail_output)
     print(detail_output)
+
+    if all((arm_folder / f"grass-{index:02}.png").is_file() for index in range(9)):
+        arms = Image.new("RGB", (1080, 1230), "#e9edf5")
+        arm_draw = ImageDraw.Draw(arms)
+        arm_draw.text((20, 12), "独立肘关节 / 前伸透视 · Native 渲染 · 待审批", font=font, fill="#243654")
+        for row, elbow in enumerate(elbow_levels):
+            for col, reach in enumerate(reach_levels):
+                x, y = col * 360, 52 + row * 392
+                sprite = Image.open(arm_folder / f"grass-{row * 3 + col:02}.png").convert("RGBA")
+                sprite = sprite.resize((350, 350), Image.Resampling.LANCZOS)
+                arms.paste(sprite, (x + 5, y), sprite)
+                arm_draw.text((x + 12, y + 356), f"肘角 {elbow}° / 前伸 {reach}", font=small, fill="#52617b")
+        arms.save(output.with_name(f"arm-perspective-v{revision}.png"))
 
     if all((eye_folder / f"grass-{index:02}.png").is_file() for index in range(10)):
         eyes = Image.new("RGB", (1400, 510), "#f8faff")

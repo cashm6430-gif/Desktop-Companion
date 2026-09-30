@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 from psd2live_client import call, initialize
+from live2d_arm_rig import arm_operations
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "build/psd2live/whale-seam-fixed-output"
@@ -50,6 +51,8 @@ def main():
     # the face rather than stay on the body when the head turns.
     for name, role, extra in (
         ("arm backing", "unknown", {}),
+        ("upperarm-l", "handwear", {"side": "left", "type": "preset"}),
+        ("upperarm-r", "handwear", {"side": "right", "type": "preset"}),
         ("irides-l", "irides", {"side": "left", "type": "preset"}),
         ("irides-r", "irides", {"side": "right", "type": "preset"}),
         ("eyewhite-l", "eyewhite", {"side": "left", "type": "preset"}),
@@ -74,10 +77,11 @@ def main():
     entries = objects.get("objects", objects.get("items", []))
     def mesh(name):
         return next(x["target"].split(":", 1)[1] for x in entries if x.get("name") == name)
-    prop, left_arm, right_arm = mesh("handwear right"), mesh("handwear-l"), mesh("handwear-r")
+    prop = mesh("handwear right")
     open_hand, grip = mesh("handwear_r"), mesh("handwear.right")
     for identifier, label, minimum, maximum in (
         ("ParamArmLA", "左手动作", -65, 65), ("ParamArmRA", "右手动作", -65, 65),
+        ("ParamElbowLA", "左肘弯曲", -35, 55), ("ParamElbowRA", "右肘弯曲", -35, 55),
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
         ("ParamGrassTipBend", "柔软草穗滞后", -1, 1),
         ("ParamEyeSmile", "笑眼弧度", 0, 1),
@@ -135,68 +139,56 @@ def main():
         # The fully closed aperture is narrower than the opaque lash above it.
         # Both stay opaque throughout: no alpha crossfade or second closed eye.
 
-    for target, name, parameter, shoulder, direction, reaches, swings in (
-        (left_arm, "handwear-l", "ParamArmLA", [496, 643], 1, [0], [0]),
-        (right_arm, "handwear-r", "ParamArmRA", [758, 643], -1, [0, 1], [0]),
-        (open_hand, "handwear_r", "ParamArmRA", [758, 643], -1, [0, 1], [0]),
-        (grip, "handwear.right", "ParamArmRA", [758, 643], -1, [0, 1], [0]),
-        (prop, "handwear right", "ParamArmRA", [758, 643], -1, [0, 1], [-1, 0, 1]),
+    def parent_aspect(name):
+        parent = next(x["parentId"] for x in entries if x.get("name") == name)
+        siblings = [x["name"] for x in entries if x.get("parentId") == parent and x["target"].startswith("mesh:")]
+        boxes = [x["bounds"] for x in source_layers if x["name"] in siblings]
+        width = max(x[2] for x in boxes) - min(x[0] for x in boxes)
+        height = max(x[3] for x in boxes) - min(x[1] for x in boxes)
+        # Paired deformers use the source union with 4% padding on each edge.
+        return (width + 2 * max(width * 0.04, 4)) / (height + 2 * max(height * 0.04, 4))
+
+    arm_bindings = {}
+    for name, side, kind in (
+        ("upperarm-l", "l", "upper"), ("upperarm-r", "r", "upper"),
+        ("handwear-l", "l", "forearm"), ("handwear-r", "r", "forearm"),
+        ("handwear_r", "r", "hand"), ("handwear.right", "r", "hand"),
+        ("handwear right", "r", "grass"),
     ):
-        bounds = frame(name)
-        neutral = {parameter: 0}
-        if len(reaches) > 1: neutral["ParamGrassReach"] = 0
-        if len(swings) > 1: neutral["ParamGrassSwing"] = 0
-        tips = [-1, 0, 1] if target == prop else [0]
-        if target == prop: neutral["ParamGrassTipBend"] = 0
-        invoke("form", {"state": state, "changes": [{"op": "seed", "target": "mesh:" + target, "key": neutral}]})
-        for arm in (-65, -35, 0, 35, 65):
-            for reach in reaches:
-                for swing, tip_bend in product(swings, tips):
-                    key = dict(neutral)
-                    key[parameter] = arm
-                    if len(reaches) > 1: key["ParamGrassReach"] = reach
-                    if len(swings) > 1: key["ParamGrassSwing"] = swing
-                    if target == prop: key["ParamGrassTipBend"] = tip_bend
-                    if key == neutral: continue
-                    # Every form begins at the same neutral mesh. Sampling a
-                    # previously modified key would accumulate deformation.
-                    invoke("form", {"state": state, "changes": [{"op": "copy", "target": "mesh:" + target,
-                        "from": neutral, "key": key, "channels": ["geometry"]}]})
-                    operations = []
-                    # Local arcs preserve length and the grip. Bend the tip
-                    # first, then the whole upper stem, then move with the hand.
-                    # No sway key rotates the grass as a single rigid object.
-                    if tip_bend:
-                        operations.append({"type": "arc", "root": normalized([884, 669], bounds),
-                            "tip": normalized([806, 498], bounds), "root_pin": 0.08, "degrees": tip_bend * 32})
-                    if swing:
-                        operations.append({"type": "arc", "root": normalized([913, 852], bounds),
-                            "tip": normalized([806, 498], bounds), "root_pin": 0.12, "degrees": swing * 65})
-                    if reach and target == prop:
-                        # Keep the grass beside the face as the wrist lifts;
-                        # the tilt pivots inside the grip, preserving occlusion.
-                        operations.append({"type": "rotate", "pivot": normalized([913, 852], bounds), "degrees": 55})
-                    if target in (left_arm, right_arm):
-                        cuff = [399, 802] if target == left_arm else [855, 802]
-                        arm_selection = {"center": normalized(cuff, bounds), "radius": 0.8, "hardness": 0.6}
-                        # Full rigid motion at the cuff matches the palm/prop;
-                        # zero weight near the shoulder prevents a second puff
-                        # sleeve appearing when the gesture becomes large.
-                        operations.append({"type": "rotate", "pivot": normalized(shoulder, bounds),
-                            "degrees": arm * direction, "selection": arm_selection})
-                    else:
-                        operations.append({"type": "rotate", "pivot": normalized(shoulder, bounds), "degrees": arm * direction})
-                    if reach:
-                        scaling = {"type": "scale", "pivot": normalized(shoulder, bounds), "factors": [1.45, 1.45]}
-                        if target == right_arm: scaling["selection"] = arm_selection
-                        operations.append(scaling)
-                        translation = {"type": "translate", "delta": [-240 / bounds[2], -85 / bounds[3]]}
-                        if target == right_arm:
-                            # Move the wrist towards the viewer while pinning
-                            # the shoulder, rather than translating the sleeve.
-                            translation["selection"] = arm_selection
-                        operations.append(translation)
-                    invoke("deform", {"state": state, "changes": [{"target": "mesh:" + target, "key": key, "operations": operations}]})
+        target = "mesh:" + mesh(name)
+        arm_id = "ParamArm" + side.upper() + "A"
+        elbow_id = "ParamElbow" + side.upper() + "A"
+        neutral = {arm_id: 0}
+        if kind != "upper": neutral[elbow_id] = 0
+        if side == "r" and kind != "upper": neutral["ParamGrassReach"] = 0
+        if kind == "grass": neutral.update(ParamGrassSwing=0, ParamGrassTipBend=0)
+        invoke("form", {"state": state, "changes": [{"op": "seed", "target": target, "key": neutral}]})
+        copies, deforms = [], []
+        for arm, elbow, reach, swing, tip in product(
+            (-65, -35, 0, 35, 65), (0,) if kind == "upper" else (-35, 0, 55),
+            (0, 1) if "ParamGrassReach" in neutral else (0,),
+            (-1, 0, 1) if kind == "grass" else (0,),
+            (-1, 0, 1) if kind == "grass" else (0,),
+        ):
+            key = dict(neutral)
+            key[arm_id] = arm
+            if elbow_id in key: key[elbow_id] = elbow
+            if "ParamGrassReach" in key: key["ParamGrassReach"] = reach
+            if kind == "grass": key.update(ParamGrassSwing=swing, ParamGrassTipBend=tip)
+            if key == neutral: continue
+            copies.append({"op": "copy", "target": target, "from": neutral, "key": key, "channels": ["geometry"]})
+            deforms.append({"target": target, "key": key, "operations": arm_operations(
+                frame(name), parent_aspect(name), side, arm, elbow, reach, kind, swing, tip)})
+        # Batch public mutations without accumulating previously deformed keys.
+        for offset in range(0, len(copies), 32):
+            invoke("form", {"state": state, "changes": copies[offset:offset + 32]})
+            invoke("deform", {"state": state, "changes": deforms[offset:offset + 32]})
+        binding = invoke("inspect", {"target": target})
+        arm_bindings[name] = binding
+        if kind != "upper" and elbow_id not in binding.get("axes", {}):
+            raise RuntimeError("Independent elbow is not bound: " + name)
+    (OUTPUT / "diagnostics/arm-bindings.json").write_text(json.dumps(arm_bindings, ensure_ascii=False, indent=2), encoding="utf8")
+
     binding = invoke("inspect", {"target": "mesh:" + prop})
     if not any("ParamGrassVisible" in channel.get("axes", {}) for channel in binding.get("channels", [])):
         raise RuntimeError("Grass visibility is not bound to drawable opacity")
