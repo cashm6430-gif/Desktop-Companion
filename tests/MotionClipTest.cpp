@@ -25,6 +25,7 @@ private slots:
     void additiveAndBlendMetadataAreParsed();
     void legacyFileWithoutNewFieldsStillLoads();
     void malformedCurvesAreRejected();
+    void authoredCurvesMatchLegacyGenerators();
 };
 
 namespace {
@@ -34,7 +35,21 @@ bool writeJson(QTemporaryFile& file, const QByteArray& json) {
     file.flush();
     return true;
 }
+
+// QCOMPARE compares doubles with an absolute tolerance, which would hide a
+// changed summation order. The migration must reproduce the curves it replaced
+// bit for bit, so compare exactly and print both values at full precision.
+void compareExact(double actual, double expected, const char* label, const char* file, int line) {
+    if (actual == expected) return;
+    QTest::qFail(qPrintable(QStringLiteral("%1 differs: %2 != %3")
+        .arg(QString::fromLatin1(label),
+             QString::number(actual, 'g', 17),
+             QString::number(expected, 'g', 17))), file, line);
+}
 } // namespace
+
+#define COMPARE_EXACT(actual, expected) \
+    compareExact((actual), (expected), #actual, __FILE__, __LINE__)
 
 void MotionClipTest::sharedKeysInterpolateAndClamp() {
     QTemporaryFile file;
@@ -166,12 +181,12 @@ void MotionClipTest::channelsEvaluateExactSine() {
     QVERIFY(clip.keys().isEmpty());
     // The data must reproduce the legacy generator term for term.
     for (const double t : {0.0, 0.37, 1.5, 4.25, 9.9}) {
-        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamAngleX")), 2.0 * qSin(t * 0.68));
-        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamBreath")), 0.5 + 0.5 * qSin(t * 2.1));
-        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamBodyAngleX")), 0.8 * qSin(t * 0.68 - 0.3));
+        COMPARE_EXACT(clip.sample(t).value(QStringLiteral("ParamAngleX")), 2.0 * qSin(t * 0.68));
+        COMPARE_EXACT(clip.sample(t).value(QStringLiteral("ParamBreath")), 0.5 + 0.5 * qSin(t * 2.1));
+        COMPARE_EXACT(clip.sample(t).value(QStringLiteral("ParamBodyAngleX")), 0.8 * qSin(t * 0.68 - 0.3));
     }
     // A pure-channel clip is a formula, not a sampled range: no clamping.
-    QCOMPARE(clip.sample(100.0).value(QStringLiteral("ParamAngleX")), 2.0 * qSin(100.0 * 0.68));
+    COMPARE_EXACT(clip.sample(100.0).value(QStringLiteral("ParamAngleX")), 2.0 * qSin(100.0 * 0.68));
 }
 
 void MotionClipTest::pulsesMatchLegacyRamp() {
@@ -197,7 +212,7 @@ void MotionClipTest::pulsesMatchLegacyRamp() {
         const double expected = -22.0 * legacyPulse(t, 0.00, 0.28, 0.48)
             + 30.0 * legacyPulse(t, 0.34, 0.59, 0.91)
             - 8.0 * legacyPulse(t, 0.82, 1.02, 1.34);
-        QCOMPARE(clip.sample(t).value(QStringLiteral("ParamArmRA")), expected);
+        COMPARE_EXACT(clip.sample(t).value(QStringLiteral("ParamArmRA")), expected);
     }
 }
 
@@ -249,6 +264,71 @@ void MotionClipTest::malformedCurvesAreRejected() {
     QTemporaryFile emptyChannel;
     QVERIFY(writeJson(emptyChannel, R"({"duration":1,"channels":{"A":[]}})"));
     QVERIFY(!clip.loadJson(emptyChannel.fileName()));
+}
+
+void MotionClipTest::authoredCurvesMatchLegacyGenerators() {
+    // Golden test for the migration: every authored curve must reproduce the
+    // procedural formula it replaced, bit for bit.
+    const auto load = [](const QString& name, MotionClip& clip) {
+        QString error;
+        const bool ok = clip.loadJson(QStringLiteral("assets/motions/%1").arg(name), &error);
+        if (!ok) qWarning() << name << error;
+        return ok;
+    };
+    const auto smoothstep = [](double t) {
+        t = std::clamp(t, 0.0, 1.0);
+        return t * t * (3.0 - 2.0 * t);
+    };
+
+    MotionClip idle;
+    QVERIFY(load(QStringLiteral("idle.motion.json"), idle));
+    QVERIFY(!idle.isAdditive());
+    for (const double t : {0.0, 0.4, 1.25, 3.5, 7.75, 11.9}) {
+        const auto pose = idle.sample(t);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleX")), 2.0 * qSin(t * 0.68));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleY")), 1.5 * qSin(t * 0.53));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleZ")), 1.0 * qSin(t * 0.91));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleX")), 0.8 * qSin(t * 0.68 - 0.3));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleY")), 0.5 * qSin(t * 1.7));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamBreath")), 0.5 + 0.5 * qSin(t * 2.1));
+    }
+
+    MotionClip busy;
+    QVERIFY(load(QStringLiteral("busy-stand.motion.json"), busy));
+    QVERIFY(busy.isAdditive());
+    for (const double t : {0.0, 0.15, 0.9, 2.4, 6.05}) {
+        const auto pose = busy.sample(t);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleY")), -7.0 + 1.8 * qSin(t * 4.3));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleX")), 2.0);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmLA")), 9.0 + 5.0 * qSin(t * 10.0));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmRA")),
+                      -9.0 + 5.0 * qSin(t * 10.0 + 3.141592653589793));
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamMouthOpenY")), 0.12);
+    }
+
+    MotionClip remove;
+    QVERIFY(load(QStringLiteral("delete.motion.json"), remove));
+    QVERIFY(remove.isAdditive());
+    QCOMPARE(remove.duration(), MotionLibrary::kDeleteDuration);
+    const auto pulse = [&smoothstep](double t, double start, double peak, double end) {
+        if (t < start || t >= end) return 0.0;
+        if (t < peak) return smoothstep((t - start) / (peak - start));
+        return 1.0 - smoothstep((t - peak) / (end - peak));
+    };
+    for (const double t : {0.0, 0.2, 0.28, 0.5, 0.59, 0.7, 0.9, 1.02, 1.34, 1.4}) {
+        const double windup = pulse(t, 0.0, 0.28, 0.48);
+        const double strike = pulse(t, 0.34, 0.59, 0.91);
+        const double recoil = pulse(t, 0.82, 1.02, 1.34);
+        const auto pose = remove.sample(t);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmRA")),
+                      -22.0 * windup + 30.0 * strike - 8.0 * recoil);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmLA")), 8.0 * windup - 5.0 * strike);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleZ")),
+                      -7.0 * windup + 10.0 * strike - 3.0 * recoil);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleZ")), -6.0 * windup + 8.0 * strike);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleY")), 4.0 * strike);
+        COMPARE_EXACT(pose.value(QStringLiteral("ParamMouthOpenY")), 0.4 * strike);
+    }
 }
 
 QTEST_GUILESS_MAIN(MotionClipTest)

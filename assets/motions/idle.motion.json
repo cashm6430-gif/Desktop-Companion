@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "approval": "pending",
+  "revision": 1,
+  "duration": 12,
+  "loop": true,
+  "loopStart": 0,
+  "loopEnd": 12,
+  "interpolation": "smoothstep",
+  "blendSeconds": 0.12,
+  "channels": {
+    "ParamAngleX": [
+      { "type": "sine", "amplitude": 2.0, "frequency": 0.68, "phase": 0.0, "offset": 0.0 }
+    ],
+    "ParamAngleY": [
+      { "type": "sine", "amplitude": 1.5, "frequency": 0.53, "phase": 0.0, "offset": 0.0 }
+    ],
+    "ParamAngleZ": [
+      { "type": "sine", "amplitude": 1.0, "frequency": 0.91, "phase": 0.0, "offset": 0.0 }
+    ],
+    "ParamBodyAngleX": [
+      { "type": "sine", "amplitude": 0.8, "frequency": 0.68, "phase": -0.3, "offset": 0.0 }
+    ],
+    "ParamBodyAngleY": [
+      { "type": "sine", "amplitude": 0.5, "frequency": 1.7, "phase": 0.0, "offset": 0.0 }
+    ],
+    "ParamBreath": [
+      { "type": "sine", "amplitude": 0.5, "frequency": 2.1, "phase": 0.0, "offset": 0.5 }
+    ]
+  }
+}

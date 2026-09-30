@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "approval": "pending",
+  "revision": 1,
+  "duration": 12,
+  "loop": true,
+  "loopStart": 0,
+  "loopEnd": 12,
+  "interpolation": "smoothstep",
+  "blendSeconds": 0.12,
+  "mode": "additive",
+  "constants": {
+    "ParamBodyAngleX": 2.0,
+    "ParamMouthOpenY": 0.12
+  },
+  "channels": {
+    "ParamAngleY": [
+      { "type": "sine", "amplitude": 1.8, "frequency": 4.3, "phase": 0.0, "offset": -7.0 }
+    ],
+    "ParamArmLA": [
+      { "type": "sine", "amplitude": 5.0, "frequency": 10.0, "phase": 0.0, "offset": 9.0 }
+    ],
+    "ParamArmRA": [
+      { "type": "sine", "amplitude": 5.0, "frequency": 10.0, "phase": 3.141592653589793, "offset": -9.0 }
+    ]
+  }
+}
