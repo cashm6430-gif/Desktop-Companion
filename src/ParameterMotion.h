@@ -37,6 +37,9 @@ public:
 
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
+    // Same, but pins the standing variant so the busy curve can be reviewed
+    // without depending on the 40% random laptop choice.
+    void forceStandingBusy();
     bool isLaptopBusy() const { return laptopBusy_; }
     void setPreviewPose(const Parameters& parameters);
     bool isPreview() const { return preview_; }

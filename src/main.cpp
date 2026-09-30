@@ -39,8 +39,14 @@ int main(int argc, char** argv) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         if (!QDir().mkpath(output)) return 2;
         const QString clipId = argc >= 4 ? QString::fromLocal8Bit(argv[3]) : QStringLiteral("grass");
+        // Idle, busy and delete have no authored clip of their own yet: they run
+        // through the real state machine so their procedural curves can be
+        // reviewed with the same capture path as grass and the seated loop.
         const bool laptop = clipId == QStringLiteral("busy-laptop");
         const bool grass = clipId == QStringLiteral("grass");
+        const bool idle = clipId == QStringLiteral("idle");
+        const bool busy = clipId == QStringLiteral("busy");
+        const bool remove = clipId == QStringLiteral("delete");
         ParameterMotion sampler;
         QString motionError;
         if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &motionError)) {
@@ -54,6 +60,17 @@ int main(int argc, char** argv) {
         if (laptop) {
             sampler.advance(0.001);
             sampler.forceLaptopBusy();
+        } else if (busy) {
+            // A fixed seed keeps the standing variant reproducible frame by frame.
+            sampler.setBusyRandomSeed(20260930);
+            sampler.advance(0.001);
+            sampler.forceStandingBusy();
+        } else if (idle) {
+            sampler.advance(0.001);
+            sampler.setState(PetController::State::Idle);
+        } else if (remove) {
+            sampler.advance(0.001);
+            sampler.setState(PetController::State::Delete);
         } else if (grass) {
             sampler.setPreviewPose(sampler.grassPose(0.0));
             sampler.setState(PetController::State::Grass);
@@ -63,7 +80,12 @@ int main(int argc, char** argv) {
             sampler.setPreviewPose(directClip->sample(0.0));
         }
         constexpr double step = 1.0 / 15.0;
-        const int frameCount = laptop ? 195 : grass ? 120
+        const int frameCount = laptop ? 195
+            : grass ? 120
+            : busy ? 195
+            : idle ? 120
+            : remove ? std::max(1, static_cast<int>(std::lround(
+                  sampler.actionDuration(PetController::State::Delete) / step)))
             : std::max(1, static_cast<int>(std::lround(directClip->duration() / step)));
         window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);

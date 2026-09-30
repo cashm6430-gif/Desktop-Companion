@@ -121,6 +121,14 @@ void ParameterMotion::forceLaptopBusy() {
     nextBusyChoice_ = 40;
 }
 
+void ParameterMotion::forceStandingBusy() {
+    setState(PetController::State::Busy);
+    busyChoiceExists_ = true;
+    laptopBusy_ = false;
+    busyTime_ = 0;
+    nextBusyChoice_ = 40;
+}
+
 ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
     return grassClip_.sample(seconds);
 }
