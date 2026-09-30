@@ -19,6 +19,8 @@ REQUIRED_PARAMETERS = {
     "ParamEyeSmile",
     "ParamElbowLA", "ParamElbowRA",
     "ParamWristRA",
+    "ParamBusyLaptop", "ParamBusyTypingL", "ParamBusyTypingR", "ParamLaptopRock",
+    "ParamSitPose", "ParamLaptopVisible",
 }
 
 
@@ -41,6 +43,10 @@ def main() -> None:
     used = {key for frame in motion["keyframes"] for key in frame["parameters"]}
     if used - parameters:
         raise SystemExit(f"Motion uses unbound model parameters: {sorted(used - parameters)}")
+    laptop = json.loads((ROOT / 'assets/motions/busy-laptop.motion.json').read_text(encoding='utf8'))
+    laptop_used = {key for frame in laptop['keyframes'] for key in frame['parameters']}
+    if laptop_used - parameters:
+        raise SystemExit(f'Laptop motion uses unbound parameters: {sorted(laptop_used - parameters)}')
     metadata = json.loads((MODEL_DIR / "whale-girl-layered-draft.psd2live.json").read_text(encoding="utf8"))
     prop = next((layer for layer in metadata["layers"] if layer["source"] == "handwear right"), None)
     if not prop or prop.get("parameter") != "ParamGrassVisible":
@@ -64,6 +70,9 @@ def main() -> None:
         if not sleeve or sleeve.get("tag") != "handwear":
             raise SystemExit("Upper and lower sleeves must be independent handwear layers: " + source)
     order = {layer["source"]: index for index, layer in enumerate(metadata["layers"])}
+    seated = [layer for layer in metadata['layers'] if layer['source'].startswith('busy ')]
+    if len(seated) != 8 or any(layer.get('parameter') != ('ParamLaptopVisible' if layer['source'].startswith('busy laptop') else 'ParamBusyLaptop') or layer.get('type') != 'toggle' for layer in seated):
+        raise SystemExit('Eight separate seated pieces must have native busy visibility bindings')
     if not all(order[arm] > order[face] for arm in ("handwear-l", "handwear-r", "handwear_r")
                for face in ("face", "front hair", "eyelash-l", "eyelash-r", "irides-l", "irides-r")):
         raise SystemExit("Distal limbs must cover the face when reaching across it")

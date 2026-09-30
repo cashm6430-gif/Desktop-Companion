@@ -92,9 +92,19 @@
 			"Name": "后发摆动"
 		},
 		{
+			"Id": "ParamBusyLaptop",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamBusyLaptop"
+		},
+		{
 			"Id": "ParamGrassVisible",
 			"GroupId": "ParamGroupCustom",
 			"Name": "ParamGrassVisible"
+		},
+		{
+			"Id": "ParamLaptopVisible",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamLaptopVisible"
 		},
 		{
 			"Id": "ParamSmileOpen",
@@ -150,6 +160,26 @@
 			"Id": "ParamEyeSmile",
 			"GroupId": "",
 			"Name": "笑眼弧度"
+		},
+		{
+			"Id": "ParamBusyTypingL",
+			"GroupId": "",
+			"Name": "左手敲键"
+		},
+		{
+			"Id": "ParamBusyTypingR",
+			"GroupId": "",
+			"Name": "右手敲键"
+		},
+		{
+			"Id": "ParamLaptopRock",
+			"GroupId": "",
+			"Name": "抱电脑轻摆"
+		},
+		{
+			"Id": "ParamSitPose",
+			"GroupId": "",
+			"Name": "屈腿坐姿过渡"
 		}
 	],
 	"ParameterGroups": [
@@ -234,6 +264,38 @@
 		]
 	],
 	"Drawables": [
+		{
+			"Id": "ArtMeshObjects",
+			"Name": "busy laptop lid"
+		},
+		{
+			"Id": "ArtMeshObjects2",
+			"Name": "busy sleeve r"
+		},
+		{
+			"Id": "ArtMeshObjects3",
+			"Name": "busy sleeve l"
+		},
+		{
+			"Id": "ArtMeshObjects4",
+			"Name": "busy laptop base"
+		},
+		{
+			"Id": "ArtMeshObjects5",
+			"Name": "busy leg l"
+		},
+		{
+			"Id": "ArtMeshObjects6",
+			"Name": "busy leg r"
+		},
+		{
+			"Id": "ArtMeshObjects7",
+			"Name": "busy skirt"
+		},
+		{
+			"Id": "ArtMeshObjects8",
+			"Name": "busy torso"
+		},
 		{
 			"Id": "ArtMeshHandwearR",
 			"Name": "handwear.right"
@@ -327,11 +389,11 @@
 			"Name": "headwear"
 		},
 		{
-			"Id": "ArtMeshLayer",
+			"Id": "ArtMeshBackHair",
 			"Name": "arm backing"
 		},
 		{
-			"Id": "ArtMeshBackHair",
+			"Id": "ArtMeshBackHair2",
 			"Name": "back hair"
 		}
 	]

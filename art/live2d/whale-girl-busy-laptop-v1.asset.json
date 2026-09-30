@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "kind": "concept_reference",
+  "approval": "approved",
+  "runtimeReady": true,
+  "image": "whale-girl-busy-laptop-concept-v1.png",
+  "identityReference": "whale-girl-neutral-master.png",
+  "generator": "builtin_imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: ONE approval key-pose reference for a Live2D desktop companion, true transparent background. Input image 1 is the approved character identity reference. Primary request: depict this SAME chibi blue whale maid girl sitting comfortably with her knees bent and her little feet visible at the front, hugging an open laptop securely on her lap, diligently working. Preserve her exact face proportions, big blue eyes, long two-tone flowing blue hair, curved antenna curl, white frilled maid headdress, blue side bow, navy and white dress, gold bow trims, whale apron motif, white stockings, navy shoes and whale tail on screen right. Compact full-body frontal pose with a slight downward head tilt. Both forearms wrap naturally around the laptop; hands have anatomically plausible five-finger shapes, relaxed palms close to the keyboard so later small typing motions are possible. The laptop base rests on her thighs, screen facing her and the viewer sees the back of its navy-blue lid, opened about 105 degrees and low enough that her face and neck bow remain fully visible. No logos or text. Expression: focused determined but sweet, eyebrows slightly drawn, eyes looking down at her screen, small CLOSED mouth, no O mouth. The laptop should not engulf her whole torso; allow sleeves, skirt frills and bent knees to read clearly. Use the same crisp clean anime illustration rendering and blue palette as reference, clean smooth contours, no heavy black silhouette border, no construction lines, no mesh edges. One character, one laptop, no chair, no desk, no grass, no background, no floor shadow, no captions, no duplicates. Entire curl, hair, tail and feet fit inside the canvas with clear transparent margin on every side. This is a single concept key pose awaiting user review, not a sprite sheet.",
+  "refinement": "Preserve the seated laptop pose; add transparent margin around the entire silhouette.",
+  "reuseAfterRegistration": [
+    "head",
+    "eyes",
+    "mouth",
+    "front_hair",
+    "back_hair",
+    "headdress",
+    "tail"
+  ],
+  "constraints": [
+    "Preserve approved character identity; concept anatomy and registration need review before use.",
+    "Separate laptop lid from base at the hinge; hands must stay aligned with the keyboard.",
+    "Complete concealed artwork beneath laptop and sleeves; a crop is not a clean plate.",
+    "Reuse continuous eyelids and closed neutral mouth; no opacity-based blink.",
+    "Native parameter animation only; do not display the concept as the busy runtime renderer."
+  ],
+  "nativeMotionApproval": "pending",
+  "layers": [
+    "busy torso",
+    "busy skirt",
+    "busy leg l",
+    "busy leg r",
+    "busy sleeve l",
+    "busy sleeve r",
+    "busy laptop lid",
+    "busy laptop base"
+  ],
+  "runtimeParameters": [
+    "ParamBusyLaptop",
+    "ParamSitPose",
+    "ParamLaptopVisible",
+    "ParamBusyTypingL",
+    "ParamBusyTypingR",
+    "ParamLaptopRock"
+  ],
+  "runtimeSelection": {
+    "state": "Busy",
+    "entryProbability": 0.4,
+    "minimumDwellSeconds": 40,
+    "selectOnlyAt": [
+      "busy entry",
+      "loop boundary after dwell"
+    ],
+    "additionalActiveTurn": "keep current variant",
+    "interrupt": "delete takes priority; preserve variant choice on busy resume"
+  },
+  "runtimeMotion": {
+    "exit": "Stop typing, look up, hide laptop and return to standing pose",
+    "entry": "Fold standing legs, switch seated body material and reveal the laptop",
+    "loop": [
+      "parameter-driven typing",
+      "pause to think",
+      "resume typing"
+    ]
+  },
+  "limitations": [
+    "Body material switches near the folded pose; a complete sit-down/get-up performance is future work.",
+    "Each seated sleeve and hand share a mesh; independent fingers and lid-opening motion are not implemented."
+  ]
+}

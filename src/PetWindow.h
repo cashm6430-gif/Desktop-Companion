@@ -27,6 +27,7 @@ public:
     bool saveRenderFrame(const QString& path);
     void shutdown();
     void setPreviewPose(const ParameterMotion::Parameters& parameters, int pixels = 840);
+    bool renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds, const QString& path);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -52,6 +53,7 @@ private:
     QSystemTrayIcon tray_;
     QMenu trayMenu_;
     QTimer frameTimer_;
+    QTimer laptopPreviewTimer_;
     QImage hitCoverage_;
     QElapsedTimer frameClock_;
     ParameterMotion motion_;

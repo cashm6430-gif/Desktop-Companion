@@ -12,6 +12,7 @@ import json
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 from psd_tools import PSDImage
+from live2d_laptop_rig import seated_layers
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -315,6 +316,8 @@ def main() -> None:
     # synthetic detail that could compromise the approved character identity.
     # Keep an alpha channel in the document composite. A plain RGB PSD gets
     # a black opaque base that PSD2Live correctly imports as a black rectangle.
+    layers[0:0] = seated_layers(source.size, PREVIEW, previews)
+    (PREVIEW / "manifest.json").write_text(json.dumps(previews, indent=2), encoding="utf8")
     psd = PSDImage.new(mode="RGBA", size=source.size, color=(0, 0, 0, 0), depth=8)
     for name, image in reversed(layers):
         bounds = image.getbbox()
@@ -325,7 +328,7 @@ def main() -> None:
     psd.save(OUTPUT)
     composite = Image.new("RGBA", source.size, (0, 0, 0, 0))
     for name, image in reversed(layers):
-        if image is not grass and image is not grip and image is not smile:
+        if not name.startswith("busy ") and image is not grass and image is not grip and image is not smile:
             composite = Image.alpha_composite(composite, image)
     composite.save(PREVIEW / "composite-check.png")
     composite_pixels = np.asarray(composite).astype(np.int16)

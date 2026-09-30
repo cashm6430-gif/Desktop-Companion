@@ -42,14 +42,50 @@ double ParameterMotion::target(const Parameters& values, const QString& id) {
 
 void ParameterMotion::setState(PetController::State state) {
     preview_ = false;
+    sequencePhysics_ = false;
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     state_ = state;
     actionTime_ = 0.0;
+    if (state == PetController::State::Idle) {
+        busyChoiceExists_ = false;
+        laptopBusy_ = false;
+        busyTime_ = 0.0;
+        nextBusyChoice_ = 40.0;
+    } else if (state == PetController::State::Busy && !busyChoiceExists_) {
+        busyChoiceExists_ = true;
+        laptopBusy_ = !laptopKeys_.isEmpty() && busyRandom_.generateDouble() < 0.4;
+    }
     // Keep current parameter values. The next advance blends from the current pose.
 }
 
 bool ParameterMotion::loadGrassMotion(const QString& path, QString* error) {
+    return readKeys(path, grassKeys_, error);
+}
+
+bool ParameterMotion::loadBusyLaptopMotion(const QString& path, QString* error) {
+    QVector<Keyframe> keys;
+    if (!readKeys(path, keys, error)) return false;
+    for (const auto& key : keys) {
+        if (key.parameters.value(QStringLiteral("ParamBusyLaptop")) != 1.0) {
+            if (error) *error = QStringLiteral("Laptop loop requires seated poses");
+            return false;
+        }
+    }
+    laptopKeys_ = keys;
+    return true;
+}
+
+void ParameterMotion::forceLaptopBusy() {
+    if (laptopKeys_.isEmpty()) return;
+    setState(PetController::State::Busy);
+    busyChoiceExists_ = true;
+    laptopBusy_ = true;
+    busyTime_ = 0;
+    nextBusyChoice_ = 40;
+}
+
+bool ParameterMotion::readKeys(const QString& path, QVector<Keyframe>& destination, QString* error) {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         if (error) *error = file.errorString();
@@ -86,18 +122,22 @@ bool ParameterMotion::loadGrassMotion(const QString& path, QString* error) {
         if (error) *error = QStringLiteral("Motion needs at least two keys starting at zero");
         return false;
     }
-    grassKeys_ = keys;
+    destination = keys;
     return true;
 }
 
 ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
-    if (grassKeys_.isEmpty()) return {};
-    if (seconds <= grassKeys_.first().time) return grassKeys_.first().parameters;
-    if (seconds >= grassKeys_.last().time) return grassKeys_.last().parameters;
+    return sample(grassKeys_, seconds);
+}
+
+ParameterMotion::Parameters ParameterMotion::sample(const QVector<Keyframe>& keys, double seconds) {
+    if (keys.isEmpty()) return {};
+    if (seconds <= keys.first().time) return keys.first().parameters;
+    if (seconds >= keys.last().time) return keys.last().parameters;
     int next = 1;
-    while (grassKeys_[next].time < seconds) ++next;
-    const auto& a = grassKeys_[next - 1];
-    const auto& b = grassKeys_[next];
+    while (keys[next].time < seconds) ++next;
+    const auto& a = keys[next - 1];
+    const auto& b = keys[next];
     const double weight = smooth((seconds - a.time) / (b.time - a.time));
     Parameters result;
     for (auto it = a.parameters.begin(); it != a.parameters.end(); ++it)
@@ -117,6 +157,7 @@ void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     leftEyeExpression_ = parameters.value(leftEye, 1.0);
     rightEyeExpression_ = parameters.value(rightEye, 1.0);
     preview_ = true;
+    sequencePhysics_ = false;
 }
 
 void ParameterMotion::updateGrassFlex(double seconds, double target) {
@@ -163,6 +204,12 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamGrassSwing"), 0.0},
         {QStringLiteral("ParamGrassTipBend"), 0.0},
         {QStringLiteral("ParamHandRGrip"), 0.0},
+        {QStringLiteral("ParamBusyLaptop"), 0.0},
+        {QStringLiteral("ParamSitPose"), 0.0},
+        {QStringLiteral("ParamLaptopVisible"), 0.0},
+        {QStringLiteral("ParamBusyTypingL"), 0.0},
+        {QStringLiteral("ParamBusyTypingR"), 0.0},
+        {QStringLiteral("ParamLaptopRock"), 0.0},
     };
 
     if (state_ == PetController::State::Busy) {
@@ -171,6 +218,26 @@ void ParameterMotion::advance(double seconds) {
         desired[leftArm] = 9.0 + 5.0 * qSin(clock_ * 10.0);
         desired[rightArm] = -9.0 + 5.0 * qSin(clock_ * 10.0 + pi);
         desired[mouth] = 0.12;
+        busyTime_ += seconds;
+        // Choice times coincide with the authored eight-second loop seam.
+        // A delete/grass interruption pauses this clock and retains the choice.
+        if (busyTime_ >= nextBusyChoice_) {
+            laptopBusy_ = !laptopKeys_.isEmpty() && busyRandom_.generateDouble() < 0.4;
+            nextBusyChoice_ += 40.0;
+        }
+        if (laptopBusy_) {
+            const double phase = std::fmod(busyTime_, laptopKeys_.last().time);
+            const auto pose = sample(laptopKeys_, phase);
+            for (auto it = pose.cbegin(); it != pose.cend(); ++it) desired[it.key()] = it.value();
+            desired[QStringLiteral("ParamSitPose")] = 1;
+            desired[QStringLiteral("ParamLaptopVisible")] = smooth((values_.value(QStringLiteral("ParamSitPose")) - 0.85)/0.1);
+            const double sitting = values_.value(QStringLiteral("ParamSitPose"));
+            desired[leftArm] = -40*sitting;
+            desired[rightArm] = -40*sitting;
+            const double effort = desired.value(QStringLiteral("ParamBusyTypingR"));
+            desired[QStringLiteral("ParamBusyTypingL")] *= 0.5 + 0.5*qSin(busyTime_*17.0);
+            desired[QStringLiteral("ParamBusyTypingR")] = effort*(0.5 + 0.5*qSin(busyTime_*17.0+pi));
+        }
     } else if (state_ == PetController::State::Delete) {
         // Anticipation -> swing -> recoil. A rigged arm/prop responds to these
         // parameters continuously; no pose swapping or GIF frame stepping.
@@ -197,7 +264,9 @@ void ParameterMotion::advance(double seconds) {
         double previous = values_.contains(it.key()) ? values_.value(it.key()) : it.value();
         if (it.key() == leftEye) previous = leftEyeExpression_;
         if (it.key() == rightEye) previous = rightEyeExpression_;
-        const double blended = previous + (it.value() - previous) * alpha;
+        const double weight = it.key() == QStringLiteral("ParamBusyLaptop") || it.key() == QStringLiteral("ParamSitPose")
+            ? 1.0 - qExp(-seconds / 0.28) : alpha;
+        const double blended = previous + (it.value() - previous) * weight;
         if (it.key() == leftEye) leftEyeExpression_ = blended;
         if (it.key() == rightEye) rightEyeExpression_ = blended;
         values_[it.key()] = blended;

@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image
 from psd2live_client import call, initialize
 from live2d_arm_rig import arm_operations
+from live2d_laptop_rig import laptop_operations, leg_operations
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "build/psd2live/whale-seam-fixed-output"
@@ -34,11 +35,16 @@ def main():
         print(name, payload.get("summary", "ok"), flush=True)
         return payload
 
-    if "--resume" in sys.argv:
+    if "--resume" in sys.argv or "--export-only" in sys.argv:
         invoke("inspect", {"scope": "project"})
     else:
         invoke("asset", {"request": {"mode": "psd", "path": str(ROOT / "art/live2d/whale-girl-layered-draft.psd")}})
     (OUTPUT / "diagnostics").mkdir(parents=True, exist_ok=True)
+    if '--export-only' in sys.argv:
+        result = invoke('export', {'state':state,'output_directory':str(OUTPUT)})
+        (OUTPUT / 'diagnostics/export.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf8')
+        print('Export confirmed at', OUTPUT)
+        return
     invoke("inspect", {"scope": "settings"})
     invoke("settings", {"state": state, "changes": {
         "atlasSize": 4096, "meshSpacing": 32, "meshOuterMargin": 3,
@@ -50,7 +56,7 @@ def main():
     # Classification determines inherited motion. The eye backing must follow
     # the face rather than stay on the body when the head turns.
     for name, role, extra in (
-        ("arm backing", "unknown", {}),
+        ("arm backing", "back_hair", {}),
         ("upperarm-l", "handwear", {"side": "left", "type": "preset"}),
         ("upperarm-r", "handwear", {"side": "right", "type": "preset"}),
         ("irides-l", "irides", {"side": "left", "type": "preset"}),
@@ -70,6 +76,12 @@ def main():
         layer_id = next(x["id"] for x in entries if x.get("name") == name)
         invoke("layer", {"state": state, "layer_id": layer_id, "role": role, **extra})
 
+    source_entries = layers.get("layers", layers.get("items", []))
+    seated_names = [x['name'] for x in source_entries if x['name'].startswith('busy ')]
+    for name in seated_names:
+        layer_id = next(x['id'] for x in source_entries if x['name'] == name)
+        invoke('layer', {'state': state, 'layer_id': layer_id, 'role': 'objects',
+                         'type': 'toggle', 'parameter': 'ParamLaptopVisible' if name.startswith('busy laptop') else 'ParamBusyLaptop', 'side': 'none'})
     objects = invoke("inspect", {"scope": "objects", "limit": 64})
     (OUTPUT / "diagnostics/objects.json").write_text(json.dumps(objects, ensure_ascii=False, indent=2), encoding="utf8")
     # Drawable IDs are generated from semantic roles. Resolve the prop from
@@ -86,6 +98,10 @@ def main():
         ("ParamGrassReach", "向观众伸手", 0, 1), ("ParamGrassSwing", "草穗摆动", -1, 1),
         ("ParamGrassTipBend", "柔软草穗滞后", -1, 1),
         ("ParamEyeSmile", "笑眼弧度", 0, 1),
+        ("ParamBusyTypingL", "左手敲键", 0, 1),
+        ("ParamBusyTypingR", "右手敲键", 0, 1),
+        ("ParamLaptopRock", "抱电脑轻摆", -1, 1),
+        ("ParamSitPose", "屈腿坐姿过渡", 0, 1),
     ):
         invoke("parameter", {"request": {"mode": "create", "state": state,
             "parameter_id": identifier, "name": label, "min": minimum, "max": maximum, "default": 0}})
@@ -211,6 +227,31 @@ def main():
             raise RuntimeError("Eye material channels must stay unanimated: " + name)
         eye_bindings[name] = binding
     (OUTPUT / "diagnostics/eye-bindings.json").write_text(json.dumps(eye_bindings, ensure_ascii=False, indent=2), encoding="utf8")
+    laptop_bindings = {}
+    for name in seated_names:
+        target = 'mesh:' + mesh(name)
+        neutral = {'ParamSitPose': 1}
+        if name.startswith('busy sleeve'):
+            neutral['ParamBusyTypingR' if name.endswith('r') else 'ParamBusyTypingL'] = 0
+        if name.startswith('busy laptop') or name.startswith('busy sleeve'):
+            neutral['ParamLaptopRock'] = 0
+        invoke('form', {'state':state,'changes':[{'op':'seed','target':target,'key':neutral}]})
+        axes=list(neutral)
+        values=[(0,1) if axis != 'ParamLaptopRock' else (-1,0,1) for axis in axes]
+        for coordinate in product(*values):
+            key=dict(zip(axes,coordinate))
+            if key == neutral: continue
+            invoke('form', {'state':state,'changes':[{'op':'copy','target':target,'from':neutral,'key':key,'channels':['geometry']}]})
+            invoke('deform', {'state':state,'changes':[{'target':target,'key':key,'operations':laptop_operations(
+                name,frame(name),key['ParamSitPose'],key.get('ParamBusyTypingL',0),
+                key.get('ParamBusyTypingR',0),key.get('ParamLaptopRock',0))}]})
+        laptop_bindings[name]=invoke('inspect',{'target':target})
+    (OUTPUT / 'diagnostics/laptop-bindings.json').write_text(json.dumps(laptop_bindings,ensure_ascii=False,indent=2),encoding='utf8')
+    for name, side in (('footwear-l','l'),('footwear-r','r')):
+        target='mesh:'+mesh(name)
+        invoke('form',{'state':state,'changes':[{'op':'seed','target':target,'key':{'ParamSitPose':0}}]})
+        invoke('form',{'state':state,'changes':[{'op':'copy','target':target,'from':{'ParamSitPose':0},'key':{'ParamSitPose':1},'channels':['geometry']}]})
+        invoke('deform',{'state':state,'changes':[{'target':target,'key':{'ParamSitPose':1},'operations':leg_operations(frame(name),parent_aspect(name),side,1)}]})
     result = invoke("export", {"state": state, "output_directory": str(OUTPUT)})
     (OUTPUT / "diagnostics/export.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf8")
     # CMO3 and the layered PSD are the editable source artifacts. MCP archive

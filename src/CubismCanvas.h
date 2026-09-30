@@ -32,5 +32,5 @@ private:
     bool ready_ = false;
     QString error_;
     int sampleCount_ = -1;
-    double frameSeconds_ = 0.04;
+    double frameSeconds_ = 0.0;
 };

@@ -32,7 +32,7 @@ def call(method, params, ident, session=None):
                        "method": method, "params": params}).encode()
     request = urllib.request.Request("http://127.0.0.1:23871/mcp", data,
                                      headers, method="POST")
-    with urllib.request.urlopen(request, timeout=20) as response:
+    with urllib.request.urlopen(request, timeout=180) as response:
         body = response.read().decode()
         if body.startswith("event:"):
             body = next(line[5:].strip() for line in body.splitlines()

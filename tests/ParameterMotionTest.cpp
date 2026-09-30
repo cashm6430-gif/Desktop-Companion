@@ -18,7 +18,62 @@ private slots:
     void jointFlexAndInterruptedRecovery();
     void grassForwardHoldAndWristGesture();
     void malformedMotionDoesNotReplaceLoadedKeys();
+    void laptopSelectionAndInterruptions();
+    void laptopTypingAndShortTaskExit();
 };
+
+void ParameterMotionTest::laptopSelectionAndInterruptions() {
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    motion.setBusyRandomSeed(1234);
+    int seated = 0;
+    for (int session = 0; session < 60; ++session) {
+        motion.setState(PetController::State::Idle);
+        motion.setState(PetController::State::Busy);
+        const bool choice = motion.isLaptopBusy();
+        seated += choice;
+        for (int frame = 0; frame < 300; ++frame) {
+            motion.advance(0.02);
+            motion.setState(PetController::State::Busy); // another active turn
+            QCOMPARE(motion.isLaptopBusy(), choice);
+        }
+        motion.setState(PetController::State::Delete);
+        for (int frame = 0; frame < 70; ++frame) motion.advance(0.02);
+        motion.setState(PetController::State::Busy);
+        QCOMPARE(motion.isLaptopBusy(), choice);
+    }
+    QVERIFY(seated > 10 && seated < 40);
+}
+
+void ParameterMotionTest::laptopTypingAndShortTaskExit() {
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    motion.advance(0.02);
+    motion.forceLaptopBusy();
+    double minimum = 1, maximum = 0;
+    for (int i = 0; i < 200; ++i) {
+        motion.advance(0.02);
+        const double hand = motion.values().value(QStringLiteral("ParamBusyTypingR"));
+        minimum = std::min(minimum, hand); maximum = std::max(maximum, hand);
+    }
+    QVERIFY(maximum - minimum > 0.3);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    for (int i = 0; i < 90; ++i) motion.advance(0.02);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.04);
+    const auto before = motion.values();
+    motion.setState(PetController::State::Idle);
+    QCOMPARE(motion.values(), before);
+    for (int i = 0; i < 150; ++i) motion.advance(0.02);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.001);
+    // Stop during the first tenth of a second must also fade from that pose.
+    motion.forceLaptopBusy();
+    motion.advance(0.1);
+    const double early = motion.values().value(QStringLiteral("ParamBusyLaptop"));
+    motion.setState(PetController::State::Idle);
+    motion.advance(0.02);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < early);
+}
 
 void ParameterMotionTest::stateTransitionIsContinuous() {
     ParameterMotion motion;

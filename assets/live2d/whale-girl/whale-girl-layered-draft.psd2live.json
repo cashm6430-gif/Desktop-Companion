@@ -11,10 +11,10 @@
   "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-3.854725,"centerX":631.0259,"centerY":484.7809,"radiusX":244.7728,"radiusY":181.51529},
   "deformerHierarchy": {"head":"DeformHeadContainer","face":"DeformFaceNinePose","frontHair":["DeformHairFrontFollow","DeformHairFrontPhysics"],"backHair":["DeformHairBackFollow","DeformHairBackPhysics"]},
   "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":false,"groups":["PhysicsHairBack","PhysicsHairFront"]},
-  "summary": {"layers":25,"drawables":25,"deformers":21,"parameters":30,"atlasPages":1},
+  "summary": {"layers":33,"drawables":33,"deformers":21,"parameters":36,"atlasPages":1},
   "layers": [
-    {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
-  {"source":"arm backing","type":"preset","tag":"unknown","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshLayer"},
+    {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair2"},
+  {"source":"arm backing","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
   {"source":"headwear","type":"preset","tag":"headwear","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshHeadwear"},
   {"source":"topwear","type":"preset","tag":"topwear","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshTopwear"},
   {"source":"bottomwear","type":"preset","tag":"bottomwear","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBottomwear"},
@@ -37,7 +37,15 @@
   {"source":"handwear_r","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":0,"drawable":"ArtMeshHandwearR3"},
   {"source":"mouth open","type":"switch","tag":"mouth_open","side":"NONE","parameter":"ParamSmileOpen","switchId":1,"drawable":"ArtMeshMouthOpen"},
   {"source":"handwear right","type":"toggle","tag":"handwear","side":"RIGHT","parameter":"ParamGrassVisible","switchId":0,"drawable":"ArtMeshHandwearR2"},
-  {"source":"handwear.right","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":1,"drawable":"ArtMeshHandwearR"}
+  {"source":"handwear.right","type":"switch","tag":"handwear","side":"RIGHT","parameter":"ParamHandRGrip","switchId":1,"drawable":"ArtMeshHandwearR"},
+  {"source":"busy torso","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamBusyLaptop","switchId":0,"drawable":"ArtMeshObjects8"},
+  {"source":"busy skirt","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamBusyLaptop","switchId":0,"drawable":"ArtMeshObjects7"},
+  {"source":"busy leg r","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamBusyLaptop","switchId":0,"drawable":"ArtMeshObjects6"},
+  {"source":"busy leg l","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamBusyLaptop","switchId":0,"drawable":"ArtMeshObjects5"},
+  {"source":"busy laptop base","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamLaptopVisible","switchId":0,"drawable":"ArtMeshObjects4"},
+  {"source":"busy sleeve l","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamBusyLaptop","switchId":0,"drawable":"ArtMeshObjects3"},
+  {"source":"busy sleeve r","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamBusyLaptop","switchId":0,"drawable":"ArtMeshObjects2"},
+  {"source":"busy laptop lid","type":"toggle","tag":"objects","side":"NONE","parameter":"ParamLaptopVisible","switchId":0,"drawable":"ArtMeshObjects"}
   ],
-  "warnings": ["检测到同名图层：footwear, upperarm, eyewhite, irides, eyelash, handwear；已通过稳定图层 ID 区分。"]
+  "warnings": ["检测到同名图层：footwear, upperarm, eyewhite, irides, eyelash, handwear；已通过稳定图层 ID 区分。","生成模型：ArtMeshObjects5 默认姿态与 PSD 有明显偏差；期望=Bounds(left=320.0072, top=812.5988, right=560.04126, bottom=1124.2456)，实际=Bounds(left=457.28937, top=885.05945, right=610.39685, bottom=1271.0596)","生成模型：ArtMeshObjects6 默认姿态与 PSD 有明显偏差；期望=Bounds(left=502.39883, top=816.12036, right=704.9904, bottom=1137.3888)，实际=Bounds(left=597.22766, top=866.25726, right=757.7402, bottom=1255.4679)","MOC3 回读：ArtMeshObjects6 默认姿态与 PSD 有明显偏差；期望=Bounds(left=502.39883, top=816.12036, right=704.9904, bottom=1137.3888)，实际=Bounds(left=597.24567, top=866.2226, right=757.7355, bottom=1255.4054)","MOC3 回读：ArtMeshObjects5 默认姿态与 PSD 有明显偏差；期望=Bounds(left=320.0072, top=812.5988, right=560.04126, bottom=1124.2456)，实际=Bounds(left=457.30432, top=885.0441, right=610.39404, bottom=1271.0771)","CMO3 回读：ArtMeshObjects6 默认姿态与 PSD 有明显偏差；期望=Bounds(left=502.39883, top=816.12036, right=704.9904, bottom=1137.3888)，实际=Bounds(left=597.24567, top=866.2226, right=757.7355, bottom=1255.4055)","CMO3 回读：ArtMeshObjects5 默认姿态与 PSD 有明显偏差；期望=Bounds(left=320.0072, top=812.5988, right=560.04126, bottom=1124.2456)，实际=Bounds(left=457.30432, top=885.0441, right=610.39404, bottom=1271.0773)"]
 }

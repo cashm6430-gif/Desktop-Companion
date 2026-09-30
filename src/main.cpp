@@ -37,24 +37,31 @@ int main(int argc, char** argv) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         if (!QDir().mkpath(output)) return 2;
         ParameterMotion sampler;
-        if (!sampler.loadGrassMotion(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/grass.motion.json")))) return 2;
-        sampler.setPreviewPose(sampler.grassPose(0.0));
-        sampler.setState(PetController::State::Grass);
-        window.setPreviewPose(sampler.grassPose(0.0));
+        const bool laptop = argc >= 4 && QString::fromLocal8Bit(argv[3]) == QStringLiteral("busy-laptop");
+        if (laptop) {
+            if (!sampler.loadBusyLaptopMotion(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/busy-laptop.motion.json")))) return 2;
+            sampler.advance(0.001);
+            sampler.forceLaptopBusy();
+        } else {
+            if (!sampler.loadGrassMotion(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/grass.motion.json")))) return 2;
+            sampler.setPreviewPose(sampler.grassPose(0.0));
+            sampler.setState(PetController::State::Grass);
+        }
+        window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);
         int frame = 0;
         QTimer captureTimer;
         captureTimer.setInterval(100);
         QObject::connect(&captureTimer, &QTimer::timeout, &app, [&] {
             if (window.renderBackend() != QStringLiteral("cubism_native")
-                || !window.saveRenderFrame(QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                || !window.renderSequenceFrame(sampler.values(), 1.0/15.0, QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
                 app.exit(1); return;
             }
-            if (++frame == 120) { app.exit(0); return; }
+            if (++frame == (laptop ? 195 : 120)) { app.exit(0); return; }
             // Fixed motion time gives a reproducible 15 FPS review even when
             // writing a large PNG takes longer than the desktop frame interval.
             sampler.advance(1.0 / 15.0);
-            window.setPreviewPose(sampler.values());
+            if (laptop && frame == 150) sampler.setState(PetController::State::Idle);
         });
         QTimer::singleShot(1000, &captureTimer, [&] { captureTimer.start(); });
         return app.exec();

@@ -57,6 +57,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     QString motionError;
     if (!motion_.loadGrassMotion(imagePath("motions/grass.motion.json"), &motionError))
         qWarning() << "Grass motion:" << motionError;
+    if (!motion_.loadBusyLaptopMotion(imagePath("motions/busy-laptop.motion.json"), &motionError))
+        qWarning() << "Laptop motion:" << motionError;
 
     frameTimer_.setInterval(40);
     frameClock_.start();
@@ -68,6 +70,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (cubismCanvas_ && cubismCanvas_->isReady()) {
             cubismCanvas_->advance(seconds);
             cubismFrame_ = cubismCanvas_->grabFramebuffer();
+            if (!cubismFrame_.isNull()) setInteractionMask(QPixmap::fromImage(cubismFrame_));
         }
 #endif
         updateInputTransparency();
@@ -90,6 +93,18 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     trayMenu_.addAction(QStringLiteral("显示 / 隐藏"), this, [this] { if (isVisible()) hide(); else show(); });
     trayMenu_.addAction(QStringLiteral("播放删除动作"), controller_, &PetController::desktopItemDeleted);
     trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), controller_, &PetController::playGrass);
+    laptopPreviewTimer_.setSingleShot(true);
+    connect(&laptopPreviewTimer_, &QTimer::timeout, this, [this] {
+        controller_->turnStopped(QStringLiteral("local-preview"), QStringLiteral("laptop"));
+    });
+    trayMenu_.addAction(QStringLiteral("预览抱电脑工作"), this, [this] {
+        if (controller_->state() == PetController::State::Delete
+            || controller_->state() == PetController::State::Grass) return;
+        // A preview turn participates in the same concurrent-turn accounting.
+        controller_->turnStarted(QStringLiteral("local-preview"), QStringLiteral("laptop"));
+        motion_.forceLaptopBusy();
+        laptopPreviewTimer_.start(16000);
+    });
     trayMenu_.addAction(QStringLiteral("重置忙碌状态"), controller_, &PetController::resetBusy);
     trayMenu_.addSeparator();
     trayMenu_.addAction(QStringLiteral("退出"), this, [this] {
@@ -248,6 +263,19 @@ void PetWindow::setPreviewPose(const ParameterMotion::Parameters& parameters, in
 #ifdef HAVE_CUBISM
     if (cubismCanvas_) cubismCanvas_->setFixedSize(size());
 #endif
+}
+
+bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds, const QString& path) {
+    frameTimer_.stop();
+    motion_.setSequencePose(parameters);
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        cubismCanvas_->advance(seconds);
+        cubismFrame_ = cubismCanvas_->grabFramebuffer();
+        return cubismFrame_.save(path);
+    }
+#endif
+    return false;
 }
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {

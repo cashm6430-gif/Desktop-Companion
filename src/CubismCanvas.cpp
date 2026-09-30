@@ -4,6 +4,7 @@
 
 #include <CubismFramework.hpp>
 #include <Id/CubismId.hpp>
+#include <Id/CubismIdManager.hpp>
 #include <Math/CubismMatrix44.hpp>
 #include <Math/CubismModelMatrix.hpp>
 #include <Model/CubismModel.hpp>
@@ -25,6 +26,7 @@
 #include <cstring>
 #include <memory>
 #include <vector>
+#include <utility>
 
 namespace Csm = Live2D::Cubism::Framework;
 
@@ -114,7 +116,7 @@ CubismCanvas::~CubismCanvas() {
 }
 
 void CubismCanvas::advance(double seconds) {
-    frameSeconds_ = seconds;
+    frameSeconds_ += seconds;
     update();
 }
 
@@ -225,12 +227,25 @@ void CubismCanvas::paintGL() {
 
     auto* model = impl_->model->GetModel();
     model->LoadParameters();
+    // Fold the standing legs before using the painted seated art. Keep seated
+    // meshes at their complete pose: its skirt is not painted for extended legs.
+    const bool seatedBody = motion_->values().value(QStringLiteral("ParamBusyLaptop")) >= 0.9;
     for (auto it = motion_->values().cbegin(); it != motion_->values().cend(); ++it) {
         const auto index = impl_->parameterIndices.constFind(it.key());
         if (index != impl_->parameterIndices.cend())
-            model->SetParameterValue(*index, static_cast<float>(it.value()));
+            model->SetParameterValue(*index, static_cast<float>(it.key() == QStringLiteral("ParamBusyLaptop")
+                ? (seatedBody ? 1.0 : 0.0)
+                : (it.key() == QStringLiteral("ParamSitPose") && seatedBody ? 1.0 : it.value())));
     }
-    if (!motion_->isPreview()) impl_->model->evaluatePhysics(static_cast<float>(frameSeconds_));
+    const double physicsSeconds = std::exchange(frameSeconds_, 0.0);
+    if (!motion_->frozenPhysics() && physicsSeconds > 0)
+        impl_->model->evaluatePhysics(static_cast<float>(physicsSeconds));
+    // ParamSitPose folds both sets of legs continuously. Swap body material
+    // near the folded pose without drawing two translucent bodies;
+    // the laptop has its own native visibility parameter. Existing grip/grass
+    // tracks stay intact; head, hair and tail are shared by both poses.
+    model->SetPartOpacity(Csm::CubismFramework::GetIdManager()->GetId("PartBody"),
+        seatedBody ? 0.0f : 1.0f);
     model->Update();
 
     Csm::CubismMatrix44 matrix;
