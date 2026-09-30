@@ -90,6 +90,7 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
     if (const MotionClip* grass = library_.clip(QStringLiteral("grass"))) grassClip_ = *grass;
     if (const MotionClip* idle = library_.clip(QStringLiteral("idle"))) idleClip_ = *idle;
     if (const MotionClip* standing = library_.clip(QStringLiteral("busy-stand"))) busyStandClip_ = *standing;
+    if (const MotionClip* remove = library_.clip(QStringLiteral("delete"))) deleteClip_ = *remove;
     if (const MotionClip* laptop = library_.clip(QStringLiteral("busy-laptop"))) {
         if (!validateSeated(*laptop, error)) return false;
         laptopClip_ = *laptop;
@@ -261,15 +262,21 @@ void ParameterMotion::advance(double seconds) {
     } else if (state_ == PetController::State::Delete) {
         // Anticipation -> swing -> recoil. A rigged arm/prop responds to these
         // parameters continuously; no pose swapping or GIF frame stepping.
-        const double windup = pulse(actionTime_, 0.0, 0.28, 0.48);
-        const double strike = pulse(actionTime_, 0.34, 0.59, 0.91);
-        const double recoil = pulse(actionTime_, 0.82, 1.02, 1.34);
-        desired[rightArm] = -22.0 * windup + 30.0 * strike - 8.0 * recoil;
-        desired[leftArm] = 8.0 * windup - 5.0 * strike;
-        desired[bodyZ] = -7.0 * windup + 10.0 * strike - 3.0 * recoil;
-        desired[angleZ] += -6.0 * windup + 8.0 * strike;
-        desired[angleY] += 4.0 * strike;
-        desired[mouth] = 0.4 * strike;
+        if (deleteClip_.isValid()) {
+            const auto accent = deleteClip_.sample(actionTime_);
+            for (auto it = accent.cbegin(); it != accent.cend(); ++it)
+                desired[it.key()] += it.value();
+        } else {
+            const double windup = pulse(actionTime_, 0.0, 0.28, 0.48);
+            const double strike = pulse(actionTime_, 0.34, 0.59, 0.91);
+            const double recoil = pulse(actionTime_, 0.82, 1.02, 1.34);
+            desired[rightArm] = -22.0 * windup + 30.0 * strike - 8.0 * recoil;
+            desired[leftArm] = 8.0 * windup - 5.0 * strike;
+            desired[bodyZ] = -7.0 * windup + 10.0 * strike - 3.0 * recoil;
+            desired[angleZ] += -6.0 * windup + 8.0 * strike;
+            desired[angleY] += 4.0 * strike;
+            desired[mouth] = 0.4 * strike;
+        }
     } else if (state_ == PetController::State::Grass) {
         const auto pose = grassClip_.sample(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
