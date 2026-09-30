@@ -5,6 +5,7 @@
 
 #include <QMovie>
 #include <QElapsedTimer>
+#include <QImage>
 #include <QMenu>
 #include <QPoint>
 #include <QSystemTrayIcon>
@@ -19,6 +20,7 @@ class PetWindow final : public QWidget {
     Q_OBJECT
 public:
     explicit PetWindow(PetController* controller, QWidget* parent = nullptr);
+    ~PetWindow() override;
     const ParameterMotion::Parameters& motionParameters() const { return motion_.values(); }
     QString renderBackend() const;
     QString renderError() const;
@@ -37,6 +39,7 @@ protected:
 private:
     void setState(PetController::State state);
     void setInteractionMask(const QPixmap& artwork);
+    void updateInputTransparency();
     void showMenu(const QPoint& globalPos);
     QMovie grassMovie_;
     QPixmap idleImage_;
@@ -44,12 +47,14 @@ private:
     QPixmap deleteImage_;
 #ifdef HAVE_CUBISM
     QPixmap cubismHitMask_;
+    QImage cubismFrame_;
     CubismCanvas* cubismCanvas_ = nullptr;
 #endif
     QMovie* currentMovie_ = nullptr;
     QSystemTrayIcon tray_;
     QMenu trayMenu_;
     QTimer frameTimer_;
+    QImage hitCoverage_;
     QElapsedTimer frameClock_;
     ParameterMotion motion_;
     PetController* controller_;

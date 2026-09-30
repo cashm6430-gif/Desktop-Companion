@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.24)
 project(DesktopCompanion VERSION 0.1.0 LANGUAGES CXX)
 
+# Some Chinese MSVC installations report a mojibake /showIncludes prefix to
+# CMake. Ninja then records zero header dependencies and reuses stale objects.
+if(CMAKE_GENERATOR STREQUAL "Ninja" AND CMAKE_CXX_CL_SHOWINCLUDES_PREFIX MATCHES "^娉ㄦ剰:")
+    set(CMAKE_CXX_CL_SHOWINCLUDES_PREFIX "注意: 包含文件:  ")
+    set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_CXX_CL_SHOWINCLUDES_PREFIX}")
+endif()
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)

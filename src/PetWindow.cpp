@@ -4,7 +4,6 @@
 #endif
 
 #include <QApplication>
-#include <QBitmap>
 #include <QContextMenuEvent>
 #include <QDir>
 #include <QGuiApplication>
@@ -14,6 +13,10 @@
 #include <QScreen>
 #include <QSettings>
 #include <QtMath>
+
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 namespace {
 QString imagePath(const char* name) {
@@ -39,11 +42,17 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     setFixedSize(280, 280);
 
 #ifdef HAVE_CUBISM
-    cubismCanvas_ = new CubismCanvas(&motion_, this);
-    cubismCanvas_->setGeometry(rect());
+    // Keep OpenGL composition in a separate window. This translucent widget
+    // remains raster-backed so Windows can compose its per-pixel alpha.
+    cubismCanvas_ = new CubismCanvas(&motion_);
+    cubismCanvas_->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint
+                                  | Qt::WindowDoesNotAcceptFocus);
+    cubismCanvas_->setFixedSize(size());
+    cubismCanvas_->move(-10000, -10000);
     connect(cubismCanvas_, &CubismCanvas::readyChanged, this, [this] {
         setState(controller_->state());
     });
+    cubismCanvas_->show();
 #endif
 
     connect(&grassMovie_, &QMovie::frameChanged, this, [this] { update(); });
@@ -58,8 +67,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         const double seconds = frameClock_.restart() / 1000.0;
         motion_.advance(seconds);
 #ifdef HAVE_CUBISM
-        if (cubismCanvas_ && cubismCanvas_->isReady()) cubismCanvas_->advance(seconds);
+        if (cubismCanvas_ && cubismCanvas_->isReady()) {
+            cubismCanvas_->advance(seconds);
+            if (controller_->state() != PetController::State::Grass)
+                cubismFrame_ = cubismCanvas_->grabFramebuffer();
+        }
 #endif
+        updateInputTransparency();
         update();
     });
     frameTimer_.start();
@@ -94,6 +108,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     tray_.show();
 }
 
+PetWindow::~PetWindow() {
+#ifdef HAVE_CUBISM
+    delete cubismCanvas_;
+#endif
+}
+
 void PetWindow::setState(PetController::State state) {
     motion_.setState(state);
     grassMovie_.setPaused(true);
@@ -110,17 +130,18 @@ void PetWindow::setState(PetController::State state) {
 #ifdef HAVE_CUBISM
     const bool useCubism = cubismCanvas_ && cubismCanvas_->isReady()
         && state != PetController::State::Grass;
-    if (cubismCanvas_) cubismCanvas_->setVisible(useCubism);
     if (useCubism) hitArtwork = &cubismHitMask_;
 #endif
     if (hitArtwork && !hitArtwork->isNull()) setInteractionMask(*hitArtwork);
-    else clearMask();
+    else hitCoverage_ = QImage();
+    clearMask();
+    updateInputTransparency();
     update();
 }
 
 void PetWindow::setInteractionMask(const QPixmap& artwork) {
-    // Windows needs a window region for desktop clicks to pass through.
-    // Keep its 1-bit boundary outside the artwork so it cannot cut off soft edges.
+    // Keep the padded hit area separate from the visible window. A native
+    // region clips soft edges and exposed a black silhouette on Windows.
     const QPixmap scaled = artwork.scaled(size(), Qt::IgnoreAspectRatio,
                                          Qt::SmoothTransformation);
     QImage coverage(size(), QImage::Format_ARGB32_Premultiplied);
@@ -132,11 +153,40 @@ void PetWindow::setInteractionMask(const QPixmap& artwork) {
             for (int x = -padding; x <= padding; x += padding / 2)
                 painter.drawPixmap(x, y, scaled);
     }
-    setMask(QBitmap::fromImage(coverage.createAlphaMask()));
+    hitCoverage_ = coverage.convertToFormat(QImage::Format_Alpha8);
+}
+
+void PetWindow::updateInputTransparency() {
+#ifdef Q_OS_WIN
+    if (!isVisible()) return;
+    const HWND window = reinterpret_cast<HWND>(winId());
+    POINT cursor{};
+    RECT bounds{};
+    const BOOL cursorOk = GetCursorPos(&cursor);
+    const BOOL boundsOk = GetWindowRect(window, &bounds);
+    if (!boundsOk) return;
+    const int windowWidth = bounds.right - bounds.left;
+    const int windowHeight = bounds.bottom - bounds.top;
+    if (windowWidth <= 0 || windowHeight <= 0) return;
+    const int x = (cursor.x - bounds.left) * hitCoverage_.width() / windowWidth;
+    const int y = (cursor.y - bounds.top) * hitCoverage_.height() / windowHeight;
+    const bool buttonHeld = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+    const bool interactive = (dragging_ && buttonHeld)
+        || (cursorOk && !hitCoverage_.isNull()
+        && x >= 0 && y >= 0 && x < hitCoverage_.width() && y < hitCoverage_.height()
+        && hitCoverage_.constScanLine(y)[x] >= 16);
+    const LONG_PTR style = GetWindowLongPtr(window, GWL_EXSTYLE);
+    const LONG_PTR desired = interactive ? (style & ~WS_EX_TRANSPARENT)
+                                         : (style | WS_EX_TRANSPARENT);
+    if (desired != style) SetWindowLongPtr(window, GWL_EXSTYLE, desired);
+#endif
 }
 
 void PetWindow::shutdown() {
     hide();
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) cubismCanvas_->hide();
+#endif
     frameTimer_.stop();
     grassMovie_.stop();
     tray_.hide();
@@ -149,6 +199,7 @@ void PetWindow::paintEvent(QPaintEvent*) {
         QPainter painter(this);
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.fillRect(rect(), Qt::transparent);
+        if (!cubismFrame_.isNull()) painter.drawImage(rect(), cubismFrame_);
         return;
     }
 #endif
@@ -200,7 +251,7 @@ bool PetWindow::saveRenderFrame(const QString& path) {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()
         && controller_->state() != PetController::State::Grass)
-        return cubismCanvas_->grabFramebuffer().save(path);
+        return (cubismFrame_.isNull() ? cubismCanvas_->grabFramebuffer() : cubismFrame_).save(path);
 #endif
     return grab().save(path);
 }
@@ -225,6 +276,7 @@ void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
         dragging_ = false;
         QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         settings.setValue(QStringLiteral("position"), pos());
+        updateInputTransparency();
         event->accept();
     }
 }
