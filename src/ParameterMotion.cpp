@@ -89,6 +89,7 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
     if (!library_.loadDirectory(directory, error)) return false;
     if (const MotionClip* grass = library_.clip(QStringLiteral("grass"))) grassClip_ = *grass;
     if (const MotionClip* idle = library_.clip(QStringLiteral("idle"))) idleClip_ = *idle;
+    if (const MotionClip* standing = library_.clip(QStringLiteral("busy-stand"))) busyStandClip_ = *standing;
     if (const MotionClip* laptop = library_.clip(QStringLiteral("busy-laptop"))) {
         if (!validateSeated(*laptop, error)) return false;
         laptopClip_ = *laptop;
@@ -217,11 +218,19 @@ void ParameterMotion::advance(double seconds) {
     }
 
     if (state_ == PetController::State::Busy) {
-        desired[angleY] += -7.0 + 1.8 * qSin(clock_ * 4.3);
-        desired[bodyX] += 2.0;
-        desired[leftArm] = 9.0 + 5.0 * qSin(clock_ * 10.0);
-        desired[rightArm] = -9.0 + 5.0 * qSin(clock_ * 10.0 + pi);
-        desired[mouth] = 0.12;
+        // The standing accent is additive: it layers onto the idle base rather
+        // than replacing it, so the breathing curve lives in exactly one place.
+        if (busyStandClip_.isValid()) {
+            const auto accent = busyStandClip_.sample(clock_);
+            for (auto it = accent.cbegin(); it != accent.cend(); ++it)
+                desired[it.key()] += it.value();
+        } else {
+            desired[angleY] += -7.0 + 1.8 * qSin(clock_ * 4.3);
+            desired[bodyX] += 2.0;
+            desired[leftArm] = 9.0 + 5.0 * qSin(clock_ * 10.0);
+            desired[rightArm] = -9.0 + 5.0 * qSin(clock_ * 10.0 + pi);
+            desired[mouth] = 0.12;
+        }
         busyTime_ += seconds;
         // Choice times coincide with the authored loop seam.
         // A delete/grass interruption pauses this clock and retains the choice.

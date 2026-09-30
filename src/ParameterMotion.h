@@ -63,6 +63,7 @@ private:
     MotionClip grassClip_;
     MotionClip laptopClip_;
     MotionClip idleClip_;
+    MotionClip busyStandClip_;
     QRandomGenerator busyRandom_{QRandomGenerator::securelySeeded()};
     bool busyChoiceExists_ = false;
     bool laptopBusy_ = false;
