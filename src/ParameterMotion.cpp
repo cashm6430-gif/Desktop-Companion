@@ -229,6 +229,10 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamWristRA"), 0.0},
         {leftEye, 1.0}, {rightEye, 1.0},
         {mouth, 0.0}, {cheek, 0.0},
+        // Both shape the open mouth and are only visible while ParamSmileOpen
+        // selects the deformable art. Written every frame for the same reason
+        // as the brows: a clip value the skeleton omits would freeze on screen.
+        {QStringLiteral("ParamMouthForm"), 0.0},
         // Written every frame even though only the thinking pose drives them:
         // a clip parameter that the base skeleton does not carry would keep
         // whatever the clip left behind once the pet leaves that state.

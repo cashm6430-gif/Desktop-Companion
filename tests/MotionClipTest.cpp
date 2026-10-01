@@ -389,9 +389,25 @@ void MotionClipTest::deleteSwingIsReadable() {
     QVERIFY(remove.isAdditive());
     QCOMPARE(remove.duration(), MotionLibrary::kDeleteDuration);
     double peak = 0.0;
-    for (double t = 0.0; t <= remove.duration(); t += 1.0 / 60.0)
-        peak = std::max(peak, remove.sample(t).value(QStringLiteral("ParamArmRA")));
+    double gaped = 0.0;        // seconds spent genuinely wide open
+    double cheeks = 0.0;
+    for (double t = 0.0; t <= remove.duration(); t += 1.0 / 60.0) {
+        const auto values = remove.sample(t);
+        peak = std::max(peak, values.value(QStringLiteral("ParamArmRA")));
+        cheeks = std::max(cheeks, values.value(QStringLiteral("ParamCheek")));
+        // ParamMouthOpenY is inert while ParamSmileOpen still selects the closed
+        // art, so a bite only exists where both are high at the same time.
+        if (values.value(QStringLiteral("ParamSmileOpen")) > 0.9
+            && values.value(QStringLiteral("ParamMouthOpenY")) > 0.85)
+            gaped += 1.0 / 60.0;
+    }
     QVERIFY2(peak > 50.0, qPrintable(QString::number(peak))); // a visible swing, not a twitch
+    // The desktop pet is only about 280 px wide, so the mouth has to be held
+    // open long enough to register as "about to bite" rather than as one frame.
+    QVERIFY2(gaped >= 0.2, qPrintable(QString::number(gaped)));
+    QVERIFY2(cheeks > 0.9, qPrintable(QString::number(cheeks)));
+    // ParamMouthForm widens the opening; without it the bite reads as a smile.
+    QVERIFY(remove.sample(0.6).value(QStringLiteral("ParamMouthForm")) > 0.9);
     // Every curve settles back to neutral, so busy or idle resumes without a jump.
     const auto settled = remove.sample(remove.duration());
     for (auto it = settled.cbegin(); it != settled.cend(); ++it)

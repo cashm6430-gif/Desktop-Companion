@@ -55,7 +55,7 @@ CLIPS = {
     "busy-stand": dict(name="busy-stand", render="busy", motion="busy-stand", frames=195,
                        style="sequence", prefix="busy-stand",
                        sequence="build/busy-stand-sequence", review="build/busy-stand-review"),
-    "delete": dict(name="delete", render="delete", motion="delete", frames=21, style="sequence",
+    "delete": dict(name="delete", render="delete", motion="delete", frames=39, style="sequence",
                    prefix="delete", sequence="build/delete-sequence", review="build/delete-review"),
 }
 STEP_SECONDS = 1.0 / 15.0
