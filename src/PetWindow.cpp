@@ -286,14 +286,14 @@ void PetWindow::paintEvent(QPaintEvent*) {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
         QPainter painter(this);
+        // One composition path for the live window and the review captures, so
+        // the approval frames can never show a bubble the desktop pet does not
+        // draw. In Source mode the composed frame replaces the window content
+        // outright, which is what the translucent widget wants.
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.fillRect(rect(), Qt::transparent);
-        if (!cubismFrame_.isNull()) painter.drawImage(rect(), cubismFrame_);
-        // Back to source-over: the bubble layers on top of the model, and
-        // compositing it in Source mode would punch its soft edge into the
-        // model instead of blending with it.
-        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-        paintThoughtBubble(painter, size(), motion_.bubblePulse());
+        const QImage frame = frameWithBubble(cubismFrame_, motion_.bubblePulse());
+        if (!frame.isNull()) painter.drawImage(rect(), frame);
         return;
     }
 #endif
