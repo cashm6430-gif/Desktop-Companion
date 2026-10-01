@@ -21,9 +21,17 @@ import argparse
 import json
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
+
+# A full native capture runs for about a minute (software OpenGL manages only a
+# few frames per second), so progress has to reach the caller line by line. A
+# block-buffered stdout would hold every line until the process exits, and that
+# silence is exactly what reads as a hang upstream.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(line_buffering=True)
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build"
@@ -113,11 +121,44 @@ def pose_paths(p):
     return files
 
 
-def run_exe(args, log=print):
+def run_exe(args, log=print, watch=None):
+    """Run DesktopCompanion.exe and report progress while it works.
+
+    The renderer ships as a Windows GUI build, so it has no usable stdout: even
+    with the handle redirected, its own progress prints vanish. Counting the
+    PNGs it writes is therefore both the reliable option and the honest one --
+    it measures real work rather than intent. A full clip takes roughly a minute
+    at four frames per second, and staying silent that long is what made callers
+    think the capture had hung.
+
+    `watch` is a `(folder, total, noun)` triple describing the captures to count.
+    """
     if not EXE.is_file():
         raise SystemExit(f"Missing {EXE}; build the project first (build/dev.cmd).")
     log("  " + " ".join(["DesktopCompanion.exe"] + [str(a) for a in args]))
-    subprocess.run([str(EXE)] + [str(a) for a in args], cwd=BUILD, check=True)
+    started = time.monotonic()
+    process = subprocess.Popen([str(EXE)] + [str(a) for a in args], cwd=BUILD)
+    last_report = 0.0
+    try:
+        while process.poll() is None:
+            now = time.monotonic()
+            if watch is not None and now - last_report >= 5.0:
+                folder, total, noun = watch
+                written = len(list(folder.glob("*.png"))) if folder.is_dir() else 0
+                # The first frames only appear after the model, shaders and the
+                # GL context are up, which takes several seconds on their own.
+                stage = f"{written}/{total} {noun}" if written else "warming up (model + GL)"
+                log(f"    {stage}, {now - started:.0f}s")
+                last_report = now
+            time.sleep(0.5)
+    except BaseException:
+        process.kill()
+        process.wait()
+        raise
+    elapsed = time.monotonic() - started
+    if process.returncode != 0:
+        raise SystemExit(f"DesktopCompanion.exe failed ({process.returncode}) after {elapsed:.0f}s")
+    log(f"    finished in {elapsed:.0f}s")
 
 
 def ensure_manifest(p, log=print):
@@ -168,6 +209,18 @@ def write_grass_sweep_manifest(kind, p, log=print):
     return path
 
 
+def manifest_poses(manifest):
+    """How many key poses a manifest asks the renderer to capture."""
+    return len(json.loads(Path(manifest).read_text(encoding="utf8"))["keyframes"])
+
+
+def clear_captures(folder, pattern):
+    """Drop earlier captures so the progress count reflects this run only."""
+    if folder.is_dir():
+        for stale in folder.glob(pattern):
+            stale.unlink()
+
+
 def capture(p, sweeps=False, log=print):
     """Render the key poses and the full sequence for one clip.
 
@@ -177,14 +230,20 @@ def capture(p, sweeps=False, log=print):
     manifest = ensure_manifest(p, log)
     if manifest is not None:
         p["review"].mkdir(parents=True, exist_ok=True)
-        run_exe(["--review-motion", p["review"], manifest, p["prefix"]], log)
+        clear_captures(p["review"], f"{p['prefix']}-[0-9][0-9].png")
+        run_exe(["--review-motion", p["review"], manifest, p["prefix"]], log,
+                watch=(p["review"], manifest_poses(manifest), "poses"))
     if sweeps:
         for kind in ("wrist", "arm", "eye"):
             if kind in p["sweeps"]:
                 sweep = write_grass_sweep_manifest(kind, p, log)
-                run_exe(["--review-motion", p["sweeps"][kind], sweep, p["prefix"]], log)
+                clear_captures(p["sweeps"][kind], f"{p['prefix']}-[0-9][0-9].png")
+                run_exe(["--review-motion", p["sweeps"][kind], sweep, p["prefix"]], log,
+                        watch=(p["sweeps"][kind], manifest_poses(sweep), "poses"))
     p["sequence"].mkdir(parents=True, exist_ok=True)
-    run_exe(["--render-motion", p["sequence"], p["render"]], log)
+    clear_captures(p["sequence"], "frame-*.png")
+    run_exe(["--render-motion", p["sequence"], p["render"]], log,
+            watch=(p["sequence"], p["frames"], "frames"))
 
 
 # ------------------------------------------------------------------- composition
@@ -455,6 +514,7 @@ def main(argv=None):
     p = profile(args.clip, args.revision)
     print(f"{p['name']} v{p['revision']}: {p['frames']} frames, style={p['style']}")
     if not args.no_render:
+        print("  native capture runs at a few frames per second; expect about a minute")
         capture(p, sweeps=args.sweeps)
     compose(p)
     if args.validate:

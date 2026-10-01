@@ -142,6 +142,20 @@ void CubismCanvas::advance(double seconds) {
     update();
 }
 
+QJsonObject CubismCanvas::parameterRanges() const {
+    QJsonObject ranges;
+    if (!ready_ || !impl_->model) return ranges;
+    auto* model = impl_->model->GetModel();
+    for (int i = 0; i < model->GetParameterCount(); ++i) {
+        const auto id = QString::fromUtf8(model->GetParameterId(i)->GetString().GetRawString());
+        ranges.insert(id, QJsonObject{
+            {QStringLiteral("min"), model->GetParameterMinimumValue(i)},
+            {QStringLiteral("max"), model->GetParameterMaximumValue(i)},
+            {QStringLiteral("default"), model->GetParameterDefaultValue(i)}});
+    }
+    return ranges;
+}
+
 void CubismCanvas::initializeGL() {
     glewExperimental = GL_TRUE;
     if (const GLenum glewError = glewInit(); glewError != GLEW_OK) {

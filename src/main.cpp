@@ -147,6 +147,73 @@ int main(int argc, char** argv) {
         return app.exec();
     }
 
+    if (argc >= 3 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--dump-parameters")) {
+        // MOC3 is the only place a parameter's real limits live, and the Native
+        // backend is the only thing that reads it. Authors validate their curves
+        // against this dump instead of a hand-copied range table that drifts.
+        const QString path = QString::fromLocal8Bit(argv[2]);
+        window.move(-10000, -10000);
+        QTimer::singleShot(1500, &app, [&] {
+            const QJsonObject ranges = window.modelParameterRanges();
+            QFile out(path);
+            const bool saved = !ranges.isEmpty() && out.open(QIODevice::WriteOnly)
+                && out.write(QJsonDocument(QJsonObject{
+                       {QStringLiteral("render_backend"), window.renderBackend()},
+                       {QStringLiteral("parameter_count"), ranges.size()},
+                       {QStringLiteral("parameters"), ranges}}).toJson()) > 0;
+            app.exit(saved ? 0 : 1);
+        });
+        return app.exec();
+    }
+
+    if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--dump-motion")) {
+        // Sample a clip through MotionClip itself so the approval report never
+        // re-implements curve evaluation in Python, and dump the parameter set
+        // the runtime always writes on its own. A library-less sampler takes the
+        // procedural fallback path and touches no clip, so its values are exactly
+        // the base skeleton an interrupted overlay decays back to.
+        const QString clipId = QString::fromLocal8Bit(argv[2]);
+        const QString path = QString::fromLocal8Bit(argv[3]);
+        ParameterMotion sampler;
+        QString motionError;
+        if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &motionError)) {
+            qWarning() << "Motion library:" << motionError;
+            return 2;
+        }
+        const MotionClip* clip = sampler.library().clip(clipId);
+        if (!clip || clip->duration() <= 0) return 2;
+        ParameterMotion base;
+        base.advance(0.05);
+        constexpr double step = 1.0 / 60.0;
+        const int count = std::max(1, static_cast<int>(std::lround(clip->duration() / step)));
+        QJsonArray samples;
+        for (int frame = 0; frame <= count; ++frame) {
+            const double time = frame * step;
+            const auto values = clip->sample(time);
+            QJsonObject parameters;
+            for (auto it = values.cbegin(); it != values.cend(); ++it)
+                parameters.insert(it.key(), it.value());
+            samples.append(QJsonObject{{QStringLiteral("t"), time},
+                                       {QStringLiteral("parameters"), parameters}});
+        }
+        QJsonArray runtime;
+        for (auto it = base.values().cbegin(); it != base.values().cend(); ++it)
+            runtime.append(it.key());
+        QFile out(path);
+        const bool saved = out.open(QIODevice::WriteOnly)
+            && out.write(QJsonDocument(QJsonObject{
+                   {QStringLiteral("clip"), clipId},
+                   {QStringLiteral("duration"), clip->duration()},
+                   {QStringLiteral("loop"), clip->isLoop()},
+                   {QStringLiteral("loop_start"), clip->loopStart()},
+                   {QStringLiteral("loop_end"), clip->loopEnd()},
+                   {QStringLiteral("additive"), clip->isAdditive()},
+                   {QStringLiteral("step"), step},
+                   {QStringLiteral("runtime_parameters"), runtime},
+                   {QStringLiteral("samples"), samples}}).toJson()) > 0;
+        return saved ? 0 : 2;
+    }
+
     if (argc >= 3 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-smoke")) {
         const QString imagePath = QString::fromLocal8Bit(argv[2]);
         if (argc >= 4 && QString::fromLocal8Bit(argv[3]) == QStringLiteral("grass")) controller.playGrass();

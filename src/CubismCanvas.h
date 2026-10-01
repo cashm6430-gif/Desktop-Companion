@@ -2,6 +2,7 @@
 
 #include "ParameterMotion.h"
 
+#include <QJsonObject>
 #include <QOpenGLWidget>
 #include <QString>
 #include <memory>
@@ -16,6 +17,11 @@ public:
     QString error() const { return error_; }
     int sampleCount() const { return sampleCount_; }
     void advance(double seconds);
+    // Parameter id -> {min, max, default} straight out of the MOC3. Name lists
+    // (the CDI3, the PSD2Live metadata) do not carry limits, and an authored
+    // curve can only be judged against the range the rig actually accepts.
+    // Empty before the canvas has loaded the model.
+    QJsonObject parameterRanges() const;
 
 signals:
     void readyChanged(bool ready);

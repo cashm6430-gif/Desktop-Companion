@@ -5,6 +5,7 @@
 
 #include <QElapsedTimer>
 #include <QImage>
+#include <QJsonObject>
 #include <QMenu>
 #include <QPoint>
 #include <QSystemTrayIcon>
@@ -24,6 +25,9 @@ public:
     QString renderBackend() const;
     QString renderError() const;
     int renderSampleCount() const;
+    // Parameter id -> {min, max, default} from the loaded MOC3; empty when the
+    // Native backend is not up, so callers can tell "no data" from "no range".
+    QJsonObject modelParameterRanges() const;
     bool saveRenderFrame(const QString& path);
     void shutdown();
     void setPreviewPose(const ParameterMotion::Parameters& parameters, int pixels = 840);

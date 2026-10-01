@@ -254,6 +254,13 @@ int PetWindow::renderSampleCount() const {
     return 0;
 }
 
+QJsonObject PetWindow::modelParameterRanges() const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()) return cubismCanvas_->parameterRanges();
+#endif
+    return {};
+}
+
 bool PetWindow::saveRenderFrame(const QString& path) {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady())
