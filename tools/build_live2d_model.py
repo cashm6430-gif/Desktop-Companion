@@ -12,10 +12,15 @@ import numpy as np
 from PIL import Image
 from psd2live_client import call, initialize
 from live2d_arm_rig import arm_operations
+from live2d_face_rig import cheek_operations
 from live2d_laptop_rig import laptop_operations, leg_operations
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "build/psd2live/whale-seam-fixed-output"
+# The workspace lives in the running editor, not on disk, so the state handle
+# is the only way to keep shaping a finished rig without paying for the whole
+# classification and arm sweep again.
+STATE = ROOT / "build/psd2live/state.json"
 
 
 def main():
@@ -32,6 +37,8 @@ def main():
         if response.get("error") or result.get("isError") or payload.get("error"):
             raise RuntimeError(f"{name}: {json.dumps(response, ensure_ascii=False)[:1400]}")
         state = payload.get("state", state)
+        if state:
+            STATE.write_text(json.dumps({"state": state}, indent=1), encoding="utf8")
         print(name, payload.get("summary", "ok"), flush=True)
         return payload
 
@@ -102,6 +109,7 @@ def main():
         ("ParamBusyTypingR", "右手敲键", 0, 1),
         ("ParamLaptopRock", "抱电脑轻摆", -1, 1),
         ("ParamSitPose", "屈腿坐姿过渡", 0, 1),
+        ("ParamCheek", "脸颊鼓起", 0, 1),
     ):
         invoke("parameter", {"request": {"mode": "create", "state": state,
             "parameter_id": identifier, "name": label, "min": minimum, "max": maximum, "default": 0}})
@@ -166,6 +174,25 @@ def main():
         height = max(x[3] for x in boxes) - min(x[1] for x in boxes)
         # Paired deformers use the source union with 4% padding on each edge.
         return (width + 2 * max(width * 0.04, 4)) / (height + 2 * max(height * 0.04, 4))
+
+    # Cheeks are a whole-plate bulge, so they need the face binding to carry no
+    # other direct axis. Refuse to guess: a hidden existing axis would make the
+    # seed key ambiguous and silently overwrite approved shapes.
+    cheek_target = "mesh:" + mesh("face")
+    cheek_binding = invoke("inspect", {"target": cheek_target})
+    if cheek_binding.get("axes"):
+        raise RuntimeError("Face plate already has direct axes: " + json.dumps(cheek_binding["axes"], ensure_ascii=False))
+    cheek_bounds = frame("face")
+    cheek_neutral, cheek_full = {"ParamCheek": 0}, {"ParamCheek": 1}
+    invoke("form", {"state": state, "changes": [{"op": "seed", "target": cheek_target, "key": cheek_neutral}]})
+    invoke("form", {"state": state, "changes": [{"op": "copy", "target": cheek_target,
+        "from": cheek_neutral, "key": cheek_full, "channels": ["geometry"]}]})
+    invoke("deform", {"state": state, "changes": [{"target": cheek_target, "key": cheek_full,
+        "operations": cheek_operations(cheek_bounds, parent_aspect("face"))}]})
+    cheek_binding = invoke("inspect", {"target": cheek_target})
+    if cheek_binding.get("axes", {}).get("ParamCheek") != [0, 1]:
+        raise RuntimeError("Cheek puff is not bound to its own axis: " + json.dumps(cheek_binding, ensure_ascii=False)[:600])
+    (OUTPUT / "diagnostics/cheek-binding.json").write_text(json.dumps(cheek_binding, ensure_ascii=False, indent=2), encoding="utf8")
 
     arm_bindings = {}
     for name, side, kind in (

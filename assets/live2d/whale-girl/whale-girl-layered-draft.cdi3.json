@@ -180,6 +180,11 @@
 			"Id": "ParamSitPose",
 			"GroupId": "",
 			"Name": "屈腿坐姿过渡"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "",
+			"Name": "脸颊鼓起"
 		}
 	],
 	"ParameterGroups": [
