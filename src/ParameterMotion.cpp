@@ -65,6 +65,26 @@ double ParameterMotion::pulse(double t, double start, double peak, double end) {
     return 1.0 - smooth((t - peak) / (end - peak));
 }
 
+double ParameterMotion::thoughtBubblePulse(double seconds) {
+    // Four beats: pop in with a small overshoot, settle, hold while the pet
+    // chews on the problem, then fade out and start again. The lead-in keeps
+    // the bubble out of the frame where the pose starts to change, so the pose
+    // reads first and the "?" reads as a reaction to it.
+    constexpr double leadIn = 0.55;
+    constexpr double rise = 0.28;
+    constexpr double settle = 0.26;
+    constexpr double holdEnd = 3.35;
+    constexpr double period = 4.2;
+    constexpr double overshoot = 1.16;
+    if (seconds < leadIn) return 0.0;
+    const double phase = std::fmod(seconds - leadIn, period);
+    if (phase < rise) return overshoot * smooth(phase / rise);
+    if (phase < rise + settle)
+        return overshoot + (1.0 - overshoot) * smooth((phase - rise) / settle);
+    if (phase < holdEnd) return 1.0;
+    return 1.0 - smooth((phase - holdEnd) / (period - holdEnd));
+}
+
 void ParameterMotion::setState(PetController::State state) {
     preview_ = false;
     sequencePhysics_ = false;
@@ -209,6 +229,10 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamWristRA"), 0.0},
         {leftEye, 1.0}, {rightEye, 1.0},
         {mouth, 0.0}, {cheek, 0.0},
+        // Written every frame even though only the thinking pose drives them:
+        // a clip parameter that the base skeleton does not carry would keep
+        // whatever the clip left behind once the pet leaves that state.
+        {QStringLiteral("ParamBrowLY"), 0.0}, {QStringLiteral("ParamBrowRY"), 0.0},
         {QStringLiteral("ParamSmileOpen"), 0.0},
         {QStringLiteral("ParamEyeSmile"), 0.0},
         {QStringLiteral("ParamEyeBallX"), 0.0},
@@ -304,6 +328,16 @@ void ParameterMotion::advance(double seconds) {
         const auto pose = grassClip_.sample(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
     }
+
+    // The thinking bubble belongs to the standing busy variant alone: the seated
+    // variant already tells its story with the laptop, and a delete swing is
+    // over before a bubble could read as a thought.
+    const bool thinking = state_ == PetController::State::Busy && !laptopBusy_
+        && busyStandClip_.isValid();
+    const double bubble = thinking ? thoughtBubblePulse(busyTime_) : 0.0;
+    // One short filter, so leaving the state retracts the bubble instead of
+    // blinking it out, but short enough that the authored pop survives it.
+    bubblePulse_ += (bubble - bubblePulse_) * (1.0 - qExp(-seconds / 0.07));
 
     // Short asymmetric blink. It stays procedural across action transitions.
     const double blinkPhase = std::fmod(blinkClock_, 4.3);

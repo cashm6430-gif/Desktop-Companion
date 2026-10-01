@@ -1,7 +1,7 @@
 {
   "version": 1,
   "approval": "pending",
-  "revision": 3,
+  "revision": 4,
   "duration": 12,
   "loop": true,
   "loopStart": 0,
@@ -10,24 +10,31 @@
   "blendSeconds": 0.12,
   "mode": "additive",
   "channels": {
-    "ParamWristRA": [
-      { "type": "sine", "amplitude": 15.0, "frequency": 16.7551608, "phase": 0.0, "offset": 0.0 }
-    ],
-    "ParamAngleX": [
-      { "type": "sine", "amplitude": 3.0, "frequency": 1.5707963, "phase": 1.5707963267948966, "offset": 0.0 }
-    ],
     "ParamAngleZ": [
-      { "type": "sine", "amplitude": 2.5, "frequency": 0.5235988, "phase": 0.0, "offset": 0.0 }
+      { "type": "sine", "amplitude": 4.0, "frequency": 0.5235988, "phase": 0.0, "offset": 0.0 }
+    ],
+    "ParamBodyAngleZ": [
+      { "type": "sine", "amplitude": 1.4, "frequency": 0.5235988, "phase": 0.0, "offset": 0.0 }
+    ],
+    "ParamEyeBallX": [
+      { "type": "sine", "amplitude": 0.38, "frequency": 0.5235988, "phase": -1.5707963, "offset": 0.0 }
+    ],
+    "ParamEyeBallY": [
+      { "type": "sine", "amplitude": 0.2, "frequency": 1.0471976, "phase": 0.0, "offset": 0.5 }
     ]
   },
   "tracks": {
-    "ParamArmLA": [[0, 54], [1.5, 50], [3, 56], [4.5, 40], [6, 26], [7.5, 44], [9, 56], [10.5, 50], [12, 54]],
-    "ParamArmRA": [[0, 50], [1.5, 56], [3, 50], [4.5, 42], [6, 30], [7.5, 42], [9, 50], [10.5, 56], [12, 50]],
-    "ParamElbowLA": [[0, 38], [3, 42], [4.5, 30], [6, 20], [7.5, 32], [9, 40], [12, 38]],
-    "ParamElbowRA": [[0, 42], [3, 38], [4.5, 32], [6, 22], [7.5, 30], [9, 42], [12, 42]],
-    "ParamAngleY": [[0, -15], [3, -16], [4.5, -9], [6, -2], [7.5, -10], [9, -15], [12, -15]],
-    "ParamBodyAngleX": [[0, 3], [3, 4], [4.5, 2], [6, 0], [7.5, 2], [9, 3], [12, 3]],
-    "ParamEyeBallY": [[0, -0.55], [3, -0.6], [6, 0.1], [9, -0.55], [12, -0.55]],
-    "ParamMouthOpenY": [[0, 0.1], [6, 0.0], [12, 0.1]]
+    "ParamAngleX": [[0, 5], [3, 8], [6, 2], [9, -4], [12, 5]],
+    "ParamAngleY": [[0, -3], [4, -5], [8, -2], [12, -3]],
+    "ParamBodyAngleX": [[0, 2], [6, 3], [12, 2]],
+    "ParamEyeLOpen": [[0, -0.24], [2.6, -0.29], [5.2, -0.21], [7.8, -0.3], [10, -0.25], [12, -0.24]],
+    "ParamEyeROpen": [[0, -0.24], [2.6, -0.29], [5.2, -0.21], [7.8, -0.3], [10, -0.25], [12, -0.24]],
+    "ParamBrowLY": [[0, 0.25], [6, 0.35], [12, 0.25]],
+    "ParamBrowRY": [[0, 0.25], [6, 0.35], [12, 0.25]],
+    "ParamMouthOpenY": [[0, 0.08], [6, 0.12], [12, 0.08]],
+    "ParamArmLA": [[0, -3], [3, -5], [6, -2], [9, -4], [12, -3]],
+    "ParamArmRA": [[0, -2], [4, -4], [8, -1], [12, -2]],
+    "ParamElbowLA": [[0, 2], [6, 3], [12, 2]],
+    "ParamElbowRA": [[0, 1], [6, 2], [12, 1]]
   }
 }

@@ -6,10 +6,12 @@
 #include <QApplication>
 #include <QContextMenuEvent>
 #include <QDir>
+#include <QFont>
 #include <QGuiApplication>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <QScreen>
 #include <QSettings>
 #include <QtMath>
@@ -21,6 +23,77 @@
 namespace {
 QString imagePath(const char* name) {
     return QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("assets/") + QLatin1String(name));
+}
+
+// ------------------------------------------------------- comic thought bubble
+// The "?" bubble is window-layer art: no drawable in the MOC3 paints it, so it
+// has to be composed into every frame the pet presents, live and captured.
+// Geometry is expressed as a fraction of the widget because one renderer feeds
+// both the 280 px desktop window and the 840 px approval captures.
+//
+// The anchor is fixed instead of following the head. A pose probe (yaw +-45,
+// pitch/tilt +-30 at 840 px) shifted the head silhouette by only a few pixels,
+// so a follow would be invisible in the desktop window while still coupling the
+// bubble to parameters that have nothing to do with it. The pop and the fade
+// carry the life instead.
+constexpr double kBubbleCenterX = 0.765;
+constexpr double kBubbleCenterY = 0.145;
+constexpr double kBubbleRadius = 0.084;
+
+void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
+    if (pulse <= 0.001) return;
+    // qMin/qMax, not std::min/std::max: windows.h defines min and max as
+    // macros, so the std:: forms do not survive this translation unit.
+    const double unit = qMin(size.width(), size.height());
+    const double cx = size.width() * kBubbleCenterX;
+    const double cy = size.height() * kBubbleCenterY;
+    // The overshoot in the envelope briefly grows the bubble past its resting
+    // size, which is what makes it read as popping in rather than fading up.
+    const double scale = 0.72 + 0.28 * qMin(pulse, 1.3);
+    const double radius = unit * kBubbleRadius * scale;
+    const QColor ink(0x26, 0x35, 0x5a);
+    const QColor accent(0xd0, 0x94, 0x2a);
+
+    painter.save();
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setOpacity(qBound(0.0, pulse, 1.0));
+    QPen outline(ink);
+    outline.setWidthF(qMax(1.4, unit * 0.0045 * scale));
+    outline.setJoinStyle(Qt::RoundJoin);
+    outline.setCapStyle(Qt::RoundCap);
+    painter.setPen(outline);
+    painter.setBrush(Qt::white);
+
+    // Two little bubbles trail back down towards the head, the way a comic
+    // thought balloon is drawn, so the "?" is read as the pet's own.
+    painter.drawEllipse(QPointF(cx - 1.26 * radius, cy + 0.64 * radius),
+                        0.29 * radius, 0.29 * radius);
+    painter.drawEllipse(QPointF(cx - 1.64 * radius, cy + 1.00 * radius),
+                        0.16 * radius, 0.16 * radius);
+
+    // The body is a union of lobes: overlapping ellipses drawn separately would
+    // show every internal edge, which reads as a diagram instead of a cloud.
+    auto lobe = [&](double dx, double dy, double rx, double ry) {
+        QPainterPath path;
+        path.addEllipse(QPointF(cx + dx * radius, cy + dy * radius),
+                        rx * radius, ry * radius);
+        return path;
+    };
+    QPainterPath cloud = lobe(0.0, 0.0, 1.04, 0.86);
+    cloud = cloud.united(lobe(-0.54, -0.30, 0.58, 0.52));
+    cloud = cloud.united(lobe(0.56, -0.20, 0.52, 0.48));
+    cloud = cloud.united(lobe(0.10, 0.42, 0.60, 0.46));
+    painter.drawPath(cloud);
+
+    // "?" -- the one part of the bubble that carries the meaning.
+    QFont font(QStringLiteral("Microsoft YaHei"));
+    font.setBold(true);
+    font.setPixelSize(qMax(9, qRound(radius * 1.15)));
+    painter.setFont(font);
+    painter.setPen(QPen(accent));
+    painter.drawText(QRectF(cx - radius, cy - radius * 0.86, 2.0 * radius, 1.72 * radius),
+                     Qt::AlignCenter, QStringLiteral("?"));
+    painter.restore();
 }
 }
 
@@ -75,7 +148,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (cubismCanvas_ && cubismCanvas_->isReady()) {
             cubismCanvas_->advance(seconds);
             cubismFrame_ = cubismCanvas_->grabFramebuffer();
-            if (!cubismFrame_.isNull()) setInteractionMask(QPixmap::fromImage(cubismFrame_));
+            // The hit area follows what is actually on screen, bubble included:
+            // a bubble you can see but not grab would be the only opaque pixels
+            // in the window that ignore the cursor.
+            if (!cubismFrame_.isNull())
+                setInteractionMask(QPixmap::fromImage(
+                    frameWithBubble(cubismFrame_, motion_.bubblePulse())));
         }
 #endif
         updateInputTransparency();
@@ -211,6 +289,11 @@ void PetWindow::paintEvent(QPaintEvent*) {
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.fillRect(rect(), Qt::transparent);
         if (!cubismFrame_.isNull()) painter.drawImage(rect(), cubismFrame_);
+        // Back to source-over: the bubble layers on top of the model, and
+        // compositing it in Source mode would punch its soft edge into the
+        // model instead of blending with it.
+        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        paintThoughtBubble(painter, size(), motion_.bubblePulse());
         return;
     }
 #endif
@@ -261,10 +344,22 @@ QJsonObject PetWindow::modelParameterRanges() const {
     return {};
 }
 
+QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
+    if (pulse <= 0.001 || frame.isNull()) return frame;
+    // QImage is copy-on-write, so this copies only when a bubble is actually
+    // being drawn over the frame.
+    QImage composed = frame;
+    QPainter painter(&composed);
+    paintThoughtBubble(painter, composed.size(), pulse);
+    return composed;
+}
+
 bool PetWindow::saveRenderFrame(const QString& path) {
 #ifdef HAVE_CUBISM
-    if (cubismCanvas_ && cubismCanvas_->isReady())
-        return (cubismFrame_.isNull() ? cubismCanvas_->grabFramebuffer() : cubismFrame_).save(path);
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        const QImage frame = cubismFrame_.isNull() ? cubismCanvas_->grabFramebuffer() : cubismFrame_;
+        return frameWithBubble(frame, motion_.bubblePulse()).save(path);
+    }
 #endif
     return grab().save(path);
 }
@@ -277,14 +372,15 @@ void PetWindow::setPreviewPose(const ParameterMotion::Parameters& parameters, in
 #endif
 }
 
-bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds, const QString& path) {
+bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds,
+                                    const QString& path, double bubblePulse) {
     frameTimer_.stop();
     motion_.setSequencePose(parameters);
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
         cubismCanvas_->advance(seconds);
         cubismFrame_ = cubismCanvas_->grabFramebuffer();
-        return cubismFrame_.save(path);
+        return frameWithBubble(cubismFrame_, bubblePulse).save(path);
     }
 #endif
     return false;

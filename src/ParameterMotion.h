@@ -48,12 +48,21 @@ public:
     bool frozenPhysics() const { return preview_ && !sequencePhysics_; }
     void setSequencePose(const Parameters& parameters) { values_ = parameters; preview_ = true; sequencePhysics_ = true; }
     const Parameters& values() const { return values_; }
+    // Comic "?" bubble next to the head while the pet is thinking. It is
+    // presentation, not a MOC3 parameter: the window layer paints it, so it
+    // cannot travel inside the parameter map. The player still owns its timing,
+    // which keeps the desktop pet and the approval captures on the same bubble
+    // at the same instant. 0 hides it, 1 is the resting size, and the pop-in
+    // overshoots a little past 1.
+    double bubblePulse() const { return bubblePulse_; }
 
 private:
     // Blend time used for every parameter that no clip overrides.
     static constexpr double kDefaultBlend = 0.12;
     static double smooth(double t);
     static double pulse(double t, double start, double peak, double end);
+    // Pop-in / hold / fade-out envelope of the thinking bubble.
+    static double thoughtBubblePulse(double seconds);
     void updateGrassFlex(double seconds, double target);
     void applyBlendOverrides(const MotionClip& clip);
 
@@ -61,6 +70,7 @@ private:
     Parameters values_;
     double clock_ = 0.0;
     double actionTime_ = 0.0;
+    double bubblePulse_ = 0.0;
     double blinkClock_ = 0.0;
     double leftEyeExpression_ = 1.0;
     double rightEyeExpression_ = 1.0;

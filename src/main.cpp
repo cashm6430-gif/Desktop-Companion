@@ -97,7 +97,9 @@ int main(int argc, char** argv) {
             if (directClip && directClip->isLoop()) time = std::fmod(time, directClip->duration());
             const ParameterMotion::Parameters pose = directClip ? directClip->sample(time) : sampler.values();
             if (window.renderBackend() != QStringLiteral("cubism_native")
-                || !window.renderSequenceFrame(pose, step, QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                || !window.renderSequenceFrame(pose, step,
+                       QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))),
+                       sampler.bubblePulse())) {
                 app.exit(1); return;
             }
             if (++frame == frameCount) { app.exit(0); return; }

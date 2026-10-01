@@ -27,7 +27,8 @@ private slots:
     void malformedCurvesAreRejected();
     void idleMatchesLegacyGenerator();
     void loopingActionsSeamlessAtLoopPoint();
-    void busyStandAlternatesWorkAndPause();
+    void busyStandReadsAsThinking();
+    void thinkingBubblePopsWhileBusy();
     void deleteSwingIsReadable();
 };
 
@@ -313,20 +314,71 @@ void MotionClipTest::loopingActionsSeamlessAtLoopPoint() {
     }
 }
 
-void MotionClipTest::busyStandAlternatesWorkAndPause() {
-    // The standing loop has to read as work with a thinking pause. An earlier
-    // revision swayed so gently that nothing about it was legible, so assert
-    // the arms stay raised while working and clearly drop during the pause.
+void MotionClipTest::busyStandReadsAsThinking() {
+    // The standing variant is the pet thinking, and the read has to come from
+    // the face. The rig cannot help: ParamArmL/R top out at chest height, so no
+    // hand can reach the chin, and ParamBusyTypingL/R deform nothing outside the
+    // seated branch. An earlier revision raised both arms to the chest, which
+    // was rejected for reading as a second typing pose instead of a pause.
     MotionClip busy;
     QString error;
     QVERIFY2(busy.loadJson(QStringLiteral("assets/motions/busy-stand.motion.json"), &error),
              qPrintable(error));
     QVERIFY(busy.isAdditive());
-    const double working = busy.sample(0.0).value(QStringLiteral("ParamArmLA"));
-    const double thinking = busy.sample(6.0).value(QStringLiteral("ParamArmLA"));
-    QVERIFY2(working > 45.0, qPrintable(QString::number(working)));
-    QVERIFY2(thinking < 32.0, qPrintable(QString::number(thinking)));
-    QVERIFY2(working - thinking > 18.0, qPrintable(QString::number(working - thinking)));
+    double armPeak = 0.0;
+    double eyesMin = 2.0;
+    double eyesMax = -1.0;
+    double gaze = 0.0;
+    double tilt = 0.0;
+    for (double t = 0.0; t <= busy.duration(); t += 1.0 / 60.0) {
+        const auto pose = busy.sample(t);
+        armPeak = std::max({armPeak, qAbs(pose.value(QStringLiteral("ParamArmLA"))),
+                            qAbs(pose.value(QStringLiteral("ParamArmRA")))});
+        // Additive offsets: what the model shows is the base 1.0 plus this.
+        const double eyes = 1.0 + pose.value(QStringLiteral("ParamEyeLOpen"));
+        eyesMin = std::min(eyesMin, eyes);
+        eyesMax = std::max(eyesMax, eyes);
+        gaze = std::max(gaze, pose.value(QStringLiteral("ParamEyeBallY")));
+        tilt = std::max(tilt, qAbs(pose.value(QStringLiteral("ParamAngleZ"))));
+    }
+    QVERIFY2(armPeak < 12.0, qPrintable(QString::number(armPeak))); // the hands stay down
+    // A pose probe put the legible band between two failures: 0.60 reads as
+    // sleepy, 0.82 as an ordinary open eye. The offset has to stay inside the
+    // pondering squint between them for the whole cycle.
+    QVERIFY2(eyesMin > 0.6, qPrintable(QString::number(eyesMin)));
+    QVERIFY2(eyesMax < 0.85, qPrintable(QString::number(eyesMax)));
+    QVERIFY2(gaze > 0.3, qPrintable(QString::number(gaze)));        // the gaze leaves the centre
+    QVERIFY2(tilt > 3.0, qPrintable(QString::number(tilt)));        // and the head is tilted
+}
+
+void MotionClipTest::thinkingBubblePopsWhileBusy() {
+    // The bubble is presentation, so it cannot live in the clip data -- no
+    // drawable in the MOC3 paints it. It is still the player's job to time it,
+    // because the approval captures render through this same state machine.
+    ParameterMotion motion;
+    QString error;
+    QVERIFY2(motion.loadMotionLibrary(QStringLiteral("assets/motions"), &error),
+             qPrintable(error));
+    motion.setBusyRandomSeed(20261001);
+    motion.advance(0.05);
+    motion.forceStandingBusy();
+    double peak = 0.0;
+    bool retracted = false;
+    for (int frame = 0; frame < 60 * 14; ++frame) {
+        motion.advance(1.0 / 60.0);
+        peak = std::max(peak, motion.bubblePulse());
+        if (peak > 0.95 && motion.bubblePulse() < 0.05) retracted = true;
+    }
+    QVERIFY2(peak > 1.0, qPrintable(QString::number(peak))); // the pop overshoots
+    QVERIFY2(retracted, "the bubble has to come back down, not sit there");
+    // Leaving the state has to take the bubble with it.
+    motion.setState(PetController::State::Idle);
+    for (int frame = 0; frame < 60; ++frame) motion.advance(1.0 / 60.0);
+    QVERIFY2(motion.bubblePulse() < 1e-3, qPrintable(QString::number(motion.bubblePulse())));
+    // The seated variant already tells its own story with the laptop.
+    motion.forceLaptopBusy();
+    for (int frame = 0; frame < 60 * 3; ++frame) motion.advance(1.0 / 60.0);
+    QVERIFY2(motion.bubblePulse() < 1e-3, qPrintable(QString::number(motion.bubblePulse())));
 }
 
 void MotionClipTest::deleteSwingIsReadable() {

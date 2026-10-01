@@ -7,6 +7,7 @@
 #include <QImage>
 #include <QJsonObject>
 #include <QMenu>
+#include <QPainter>
 #include <QPoint>
 #include <QSystemTrayIcon>
 #include <QTimer>
@@ -31,7 +32,12 @@ public:
     bool saveRenderFrame(const QString& path);
     void shutdown();
     void setPreviewPose(const ParameterMotion::Parameters& parameters, int pixels = 840);
-    bool renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds, const QString& path);
+    // `bubblePulse` is the thinking-bubble envelope for this instant. A comic
+    // bubble is not a MOC3 parameter, so it rides beside the pose rather than
+    // inside it -- but it does have to be captured, or the approval frames
+    // would show a pet that never thinks.
+    bool renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds,
+                             const QString& path, double bubblePulse = 0.0);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -43,6 +49,10 @@ protected:
 
 private:
     void setState(PetController::State state);
+    // The comic "?" bubble is window-layer art: no drawable in the MOC3 paints
+    // it, so every frame the pet presents -- the live window and the review
+    // captures -- has to have it composed in.
+    QImage frameWithBubble(const QImage& frame, double pulse) const;
     void setInteractionMask(const QPixmap& artwork);
     void updateInputTransparency();
     void showMenu(const QPoint& globalPos);
