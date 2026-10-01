@@ -12,7 +12,7 @@ REQUIRED_PARAMETERS = {
     "ParamBodyAngleX", "ParamBodyAngleY", "ParamBodyAngleZ",
     "ParamEyeLOpen", "ParamEyeROpen", "ParamBreath",
     "ParamMouthOpenY", "ParamMouthForm", "ParamArmLA", "ParamArmRA",
-    "ParamCheek",
+    "ParamCheek", "ParamMouthGape",
     "ParamGrassVisible", "ParamGrassReach", "ParamGrassSwing",
     "ParamGrassTipBend",
     "ParamHandRGrip",
@@ -22,7 +22,29 @@ REQUIRED_PARAMETERS = {
     "ParamWristRA",
     "ParamBusyLaptop", "ParamBusyTypingL", "ParamBusyTypingR", "ParamLaptopRock",
     "ParamSitPose", "ParamLaptopVisible",
+    # Whole-rig horizontal translation on the outermost ShiftRig warp:
+    # +X moves right, |100| ~ 115 source px (~26 screen px). ParamShiftY is
+    # declared too but cancelled by the renderer's ground contract.
+    "ParamShiftX", "ParamShiftY",
+    # The thinking pose drives the hair layers as secondary motion.
+    "ParamHairFront", "ParamHairBack",
 }
+
+# Declared by the model, and driven by nothing that matters: pushing either to
+# its limit and diffing the render is byte identical, because the art has no
+# eyebrows drawn and no mesh carries a key on them. A clip that animates one of
+# these looks perfectly reasonable in review and moves exactly nothing on
+# screen, which is why it fails here instead of shipping. Re-derive this set by
+# posing each declared axis at its min and max against a neutral pose (the
+# skill's "which axes are alive" recipe) whenever the artwork changes.
+INERT_PARAMETERS = {"ParamBrowLY", "ParamBrowRY"}
+
+# Bound to the ShiftRig warp, but CubismCanvas's ground contract presses the
+# lowest standing foot vertex back onto the floor every frame, cancelling any
+# whole-model vertical travel before it reaches the screen. Unlike the inert
+# brows this axis does carry keys, so the "keyed by no drawable" check cannot
+# catch it; reject it by name instead.
+GROUNDED_PARAMETERS = {"ParamShiftY"}
 
 
 def main() -> None:
@@ -52,6 +74,18 @@ def main() -> None:
         unbound = sorted(used - parameters)
         if unbound:
             raise SystemExit(f"{path.name} uses unbound model parameters: {unbound}")
+        inert = sorted(used & INERT_PARAMETERS)
+        if inert:
+            raise SystemExit(
+                f"{path.name} drives parameters keyed by no drawable: {inert}. "
+                "Those curves render no pixels; drop them or give them art.")
+        grounded = sorted(used & GROUNDED_PARAMETERS)
+        if grounded:
+            raise SystemExit(
+                f"{path.name} keys vertical whole-model travel: {grounded}. "
+                "CubismCanvas grounds the standing feet every frame, so "
+                "ParamShiftY renders no motion; use ParamShiftX or rework the "
+                "ground contract first.")
     metadata = json.loads((MODEL_DIR / "whale-girl-layered-draft.psd2live.json").read_text(encoding="utf8"))
     prop = next((layer for layer in metadata["layers"] if layer["source"] == "handwear right"), None)
     if not prop or prop.get("parameter") != "ParamGrassVisible":

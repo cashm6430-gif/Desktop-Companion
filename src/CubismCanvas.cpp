@@ -9,6 +9,7 @@
 #include <Math/CubismModelMatrix.hpp>
 #include <Model/CubismModel.hpp>
 #include <Model/CubismUserModel.hpp>
+#include <Live2DCubismCore.hpp>
 #include <Physics/CubismPhysics.hpp>
 #include <Rendering/OpenGL/CubismOffscreenManager_OpenGLES2.hpp>
 #include <Rendering/OpenGL/CubismRenderer_OpenGLES2.hpp>
@@ -88,6 +89,14 @@ struct CubismCanvas::Impl {
     QHash<QString, int> parameterIndices;
     std::vector<int> standingFeet;
     std::vector<int> seatedFeet;
+    // The bite (gape) art drawable. The exported moc3 lost the switch-opacity
+    // keyforms that should tie this mesh's visibility to ParamMouthGape, so
+    // the layer rides fully opaque and only MouthOpenY's 25%-sliver closed
+    // form keeps it unnoticeable -- which still reads as a phantom slit under
+    // the resting omega and a second mouth during the bite. The render loop
+    // patches this drawable's opacity directly (see paintGL) because the
+    // Framework exposes no setter and PSD2Live cannot re-export right now.
+    int gapeDrawable = -1;
     // Every mesh painted for the seated variant. It is registered chin-to-head
     // instead of sole-to-sole, so the soles sit ~64 px above the standing
     // shoes; they are shifted onto the standing floor each frame.
@@ -208,6 +217,10 @@ void CubismCanvas::initializeGL() {
         const auto id = model->GetParameterId(i)->GetString().GetRawString();
         impl_->parameterIndices.insert(QString::fromUtf8(id), i);
     }
+    for (int i = 0; i < model->GetDrawableCount(); ++i) {
+        if (model->GetDrawableId(i)->GetString().GetRawString() == QStringLiteral("ArtMeshMouthOpen"))
+            impl_->gapeDrawable = i;
+    }
 
     const QJsonArray textures = refs.value(QStringLiteral("Textures")).toArray();
     if (textures.isEmpty()) {
@@ -295,12 +308,42 @@ void CubismCanvas::paintGL() {
     // across the two painted silhouettes while the soles remain grounded.
     const double standingFold = (0.93 * sitProgress * sitProgress * (3.0 - 2.0 * sitProgress))
         * (1.0 - seatedMix) + seatedMix;
+    // MouthOpenY only ever shapes the bite art while its switch is on (or the
+    // open-smile art, its legacy consumer). Two failure modes live on this
+    // parameter, both fixed at the single write site:
+    //  - With the switch closed, a lagging MouthOpenY -- the per-state
+    //    exponential blend keeps values_ trailing the keyframes for a few
+    //    frames after the bite snaps shut -- deforms the resting omega into a
+    //    wide phantom grin, which reads as two mouths (review f24-f26).
+    //  - With the switch open, any authored value below 1 deforms the omega
+    //    out of the bite aperture's cover: the omega curl pokes out above the
+    //    gape and both mouths show at once (review f19). Fully open is the
+    //    only clean bite state, and the clip authors the open/shut as instant
+    //    jumps anyway, so the mouth is quantised to strictly binary here.
+    const double rawGape = motion_->values().value(QStringLiteral("ParamMouthGape"));
+    const double rawSmile = motion_->values().value(QStringLiteral("ParamSmileOpen"));
+    const bool gapeOn = rawGape >= 0.5;
+    const bool smileArtOn = rawSmile >= 0.5;
     for (auto it = motion_->values().cbegin(); it != motion_->values().cend(); ++it) {
         const auto index = impl_->parameterIndices.constFind(it.key());
-        if (index != impl_->parameterIndices.cend())
-            model->SetParameterValue(*index, static_cast<float>(it.key() == QStringLiteral("ParamBusyLaptop")
-                ? seatedMix
-                : (it.key() == QStringLiteral("ParamSitPose") ? standingFold : it.value())));
+        if (index == impl_->parameterIndices.cend()) continue;
+        float value = static_cast<float>(it.value());
+        if (it.key() == QStringLiteral("ParamBusyLaptop")) value = static_cast<float>(seatedMix);
+        else if (it.key() == QStringLiteral("ParamSitPose")) value = static_cast<float>(standingFold);
+        else if (it.key() == QStringLiteral("ParamMouthOpenY")) {
+            if (gapeOn) value = 1.0f;
+            else if (!smileArtOn) value = 0.0f;
+        }
+        else if (it.key() == QStringLiteral("ParamMouthGape"))
+            // The gape is a pure art selector: the layer is a switch on this
+            // parameter, and the resting omega keeps showing underneath while
+            // the switch crossfades -- a sampled 0.4 renders TWO mouths at
+            // once. Every consumer samples on an arbitrary clock (live frame
+            // timer, review captures), so the discretisation has to live here
+            // at the single write site, not in per-track keyframes. Opening
+            // size is MouthOpenY's job, which deforms the opaque gape art.
+            value = value >= 0.5f ? 1.0f : 0.0f;
+        model->SetParameterValue(*index, value);
     }
     const double physicsSeconds = std::exchange(frameSeconds_, 0.0);
     if (!motion_->frozenPhysics() && physicsSeconds > 0)
@@ -312,6 +355,17 @@ void CubismCanvas::paintGL() {
     model->SetPartOpacity(Csm::CubismFramework::GetIdManager()->GetId("PartBody"),
         static_cast<float>(1.0 - seatedMix));
     model->Update();
+    // The bite art's switch-opacity keyforms never made it into the exported
+    // moc3 (the layer stays fully opaque no matter what ParamMouthGape says),
+    // so gate its visibility here instead: Core keeps the live per-drawable
+    // opacity array and the renderer reads it after this point, between now
+    // and the next Update. Driven by the same discrete gape switch as the
+    // parameter write above, so every consumer (live timer, review captures)
+    // sees exactly one mouth state: resting omega, or fully open bite.
+    if (impl_->gapeDrawable >= 0) {
+        const float* opacities = Live2D::Cubism::Core::csmGetDrawableOpacities(model->GetModel());
+        const_cast<float*>(opacities)[impl_->gapeDrawable] = gapeOn ? 1.0f : 0.0f;
+    }
 
     // Folded knees lift the standing shoes off the floor, and the seated art is
     // registered chin-to-head so its soles float higher still. Cancel the knee

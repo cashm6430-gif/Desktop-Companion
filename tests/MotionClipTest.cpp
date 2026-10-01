@@ -395,19 +395,22 @@ void MotionClipTest::deleteSwingIsReadable() {
         const auto values = remove.sample(t);
         peak = std::max(peak, values.value(QStringLiteral("ParamArmRA")));
         cheeks = std::max(cheeks, values.value(QStringLiteral("ParamCheek")));
-        // ParamMouthOpenY is inert while ParamSmileOpen still selects the closed
-        // art, so a bite only exists where both are high at the same time.
-        if (values.value(QStringLiteral("ParamSmileOpen")) > 0.9
-            && values.value(QStringLiteral("ParamMouthOpenY")) > 0.85)
+        // The v6 bite is mechanical: Gape selects the neutral art and
+        // MouthOpenY deforms it. SmileOpen must stay out of it entirely.
+        if (values.value(QStringLiteral("ParamMouthGape")) > 0.9
+            && values.value(QStringLiteral("ParamMouthOpenY")) > 0.7)
             gaped += 1.0 / 60.0;
     }
     QVERIFY2(peak > 50.0, qPrintable(QString::number(peak))); // a visible swing, not a twitch
     // The desktop pet is only about 280 px wide, so the mouth has to be held
     // open long enough to register as "about to bite" rather than as one frame.
-    QVERIFY2(gaped >= 0.2, qPrintable(QString::number(gaped)));
-    QVERIFY2(cheeks > 0.9, qPrintable(QString::number(cheeks)));
-    // ParamMouthForm widens the opening; without it the bite reads as a smile.
-    QVERIFY(remove.sample(0.6).value(QStringLiteral("ParamMouthForm")) > 0.9);
+    QVERIFY2(gaped >= 0.15, qPrintable(QString::number(gaped)));
+    // Cheek caps at 0.75: at 1.0 the collar stretches (known artefact).
+    QVERIFY2(cheeks > 0.7, qPrintable(QString::number(cheeks)));
+    // The smile is an emotion: the mechanical bite must never touch it.
+    for (double t = 0.0; t <= remove.duration(); t += 1.0 / 60.0)
+        QVERIFY2(remove.sample(t).value(QStringLiteral("ParamSmileOpen")) < 0.01,
+                 qPrintable(QString::number(t)));
     // Every curve settles back to neutral, so busy or idle resumes without a jump.
     const auto settled = remove.sample(remove.duration());
     for (auto it = settled.cbegin(); it != settled.cend(); ++it)

@@ -66,23 +66,31 @@ double ParameterMotion::pulse(double t, double start, double peak, double end) {
 }
 
 double ParameterMotion::thoughtBubblePulse(double seconds) {
-    // Four beats: pop in with a small overshoot, settle, hold while the pet
-    // chews on the problem, then fade out and start again. The lead-in keeps
-    // the bubble out of the frame where the pose starts to change, so the pose
-    // reads first and the "?" reads as a reaction to it.
-    constexpr double leadIn = 0.55;
-    constexpr double rise = 0.28;
-    constexpr double settle = 0.26;
-    constexpr double holdEnd = 3.35;
-    constexpr double period = 4.2;
+    // The bubble is the "still chewing on it" marker, so it has to agree with
+    // the pose it sits next to. The standing accent is a twelve second loop and
+    // the bubble rides the same clock: a four second envelope would drift out of
+    // phase against it, jump at the loop seam, and read as a second animation
+    // rather than as a reaction. Two windows per cycle, one for each stretch the
+    // pet is stuck on, with the "?" out of frame for the beat it has just
+    // landed on an answer.
+    constexpr double period = 12.0;
+    constexpr double rise = 0.26;
+    constexpr double settle = 0.22;
+    constexpr double fall = 0.5;
     constexpr double overshoot = 1.16;
-    if (seconds < leadIn) return 0.0;
-    const double phase = std::fmod(seconds - leadIn, period);
-    if (phase < rise) return overshoot * smooth(phase / rise);
-    if (phase < rise + settle)
-        return overshoot + (1.0 - overshoot) * smooth((phase - rise) / settle);
-    if (phase < holdEnd) return 1.0;
-    return 1.0 - smooth((phase - holdEnd) / (period - holdEnd));
+    // Pop in with a small overshoot, settle, hold, fade out. `open` is the
+    // frame the pet changes its pose, so the pose reads first and the "?" reads
+    // as a reaction to it; `close` is lifted at the eureka beat.
+    const auto envelope = [](double phase, double open, double close) {
+        if (phase < open || phase > close + fall) return 0.0;
+        if (phase < open + rise) return overshoot * smooth((phase - open) / rise);
+        if (phase < open + rise + settle)
+            return overshoot + (1.0 - overshoot) * smooth((phase - open - rise) / settle);
+        if (phase <= close) return 1.0;
+        return 1.0 - smooth((phase - close) / fall);
+    };
+    const double phase = std::fmod(seconds, period) + (seconds < 0.0 ? period : 0.0);
+    return std::max(envelope(phase, 0.45, 3.7), envelope(phase, 7.0, 9.9));
 }
 
 void ParameterMotion::setState(PetController::State state) {
@@ -132,7 +140,14 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
     for (const QString& id : library_.ids()) applyBlendOverrides(*library_.clip(id));
     if (const MotionClip* grass = library_.clip(QStringLiteral("grass"))) grassClip_ = *grass;
     if (const MotionClip* idle = library_.clip(QStringLiteral("idle"))) idleClip_ = *idle;
-    if (const MotionClip* standing = library_.clip(QStringLiteral("busy-stand"))) busyStandClip_ = *standing;
+    if (const MotionClip* standing = library_.clip(QStringLiteral("busy-stand"))) {
+        busyStandClip_ = *standing;
+        // A loop by contract: advance() samples the accent with sampleLooped on
+        // the busy clock, so the authored seam is the wrap point whether or not
+        // the file remembers to declare one. Without this a missing `loop` flag
+        // would silently degrade back to the clamping behaviour above.
+        busyStandClip_.setLoop(true, busyStandClip_.loopStart(), busyStandClip_.duration());
+    }
     if (const MotionClip* remove = library_.clip(QStringLiteral("delete"))) deleteClip_ = *remove;
     if (const MotionClip* laptop = library_.clip(QStringLiteral("busy-laptop"))) {
         if (!validateSeated(*laptop, error)) return false;
@@ -238,6 +253,11 @@ void ParameterMotion::advance(double seconds) {
         // whatever the clip left behind once the pet leaves that state.
         {QStringLiteral("ParamBrowLY"), 0.0}, {QStringLiteral("ParamBrowRY"), 0.0},
         {QStringLiteral("ParamSmileOpen"), 0.0},
+        // Neutral "ah" gape on its own parameter (the exported moc3 clamps
+        // ParamSmileOpen at 1, so the third switch state never reached the
+        // render). Carried here so a delete bite cannot leave the gape on
+        // screen after the state ends.
+        {QStringLiteral("ParamMouthGape"), 0.0},
         {QStringLiteral("ParamEyeSmile"), 0.0},
         {QStringLiteral("ParamEyeBallX"), 0.0},
         {QStringLiteral("ParamEyeBallY"), 0.0},
@@ -246,12 +266,25 @@ void ParameterMotion::advance(double seconds) {
         {QStringLiteral("ParamGrassSwing"), 0.0},
         {QStringLiteral("ParamGrassTipBend"), 0.0},
         {QStringLiteral("ParamHandRGrip"), 0.0},
+        // HAIR FRONT / BACK: unused until now, but bound and a large share of
+        // the silhouette, so the thinking pose drives them as secondary motion.
+        // Carried here for the usual reason -- a clip value the skeleton omits
+        // would stay on screen after the pet leaves the state.
+        {QStringLiteral("ParamHairFront"), 0.0},
+        {QStringLiteral("ParamHairBack"), 0.0},
         {QStringLiteral("ParamBusyLaptop"), 0.0},
         {QStringLiteral("ParamSitPose"), 0.0},
         {QStringLiteral("ParamLaptopVisible"), 0.0},
         {QStringLiteral("ParamBusyTypingL"), 0.0},
         {QStringLiteral("ParamBusyTypingR"), 0.0},
         {QStringLiteral("ParamLaptopRock"), 0.0},
+        // Whole-rig translation on the outermost ShiftRig warp. Zero renders
+        // inert (4 stray pixels of 705600 against the pre-warp export), so
+        // carrying it here costs nothing and keeps clip leftovers from
+        // sticking. ShiftY is cancelled by the ground contract in
+        // CubismCanvas and exists only to match the declared model axes.
+        {QStringLiteral("ParamShiftX"), 0.0},
+        {QStringLiteral("ParamShiftY"), 0.0},
     };
 
     // Idle base layer. Sampled on the global clock so the breathing phase
@@ -272,16 +305,29 @@ void ParameterMotion::advance(double seconds) {
     if (state_ == PetController::State::Busy) {
         // The standing accent is additive: it layers onto the idle base rather
         // than replacing it, so the breathing curve lives in exactly one place.
-        if (busyStandClip_.isValid()) {
-            const auto accent = busyStandClip_.sample(clock_);
-            for (auto it = accent.cbegin(); it != accent.cend(); ++it)
-                desired[it.key()] += it.value();
-        } else {
-            desired[angleY] += -7.0 + 1.8 * qSin(clock_ * 4.3);
-            desired[bodyX] += 2.0;
-            desired[leftArm] = 9.0 + 5.0 * qSin(clock_ * 10.0);
-            desired[rightArm] = -9.0 + 5.0 * qSin(clock_ * 10.0 + pi);
-            desired[mouth] = 0.12;
+        // It is the standing variant's accent and nobody else's. The seated
+        // branch below is an assignment, but only for the parameters its own
+        // keyframes carry -- a seated laptop pose has no opinion about mouth
+        // shape, cheek or hair, so anything the accent writes there would ride
+        // along on the seated pose instead of being overwritten.
+        if (!laptopBusy_) {
+            if (busyStandClip_.isValid()) {
+                // Looped on the busy clock, not sampled on the global one. A
+                // track past its last key is clamped rather than wrapped, and the
+                // global clock never resets, so sampling this loop on clock_
+                // would freeze the whole routine at its seam pose once the pet
+                // had been running for one duration -- minutes of a dead pose
+                // after twelve seconds.
+                const auto accent = busyStandClip_.sampleLooped(busyTime_);
+                for (auto it = accent.cbegin(); it != accent.cend(); ++it)
+                    desired[it.key()] += it.value();
+            } else {
+                desired[angleY] += -7.0 + 1.8 * qSin(clock_ * 4.3);
+                desired[bodyX] += 2.0;
+                desired[leftArm] = 9.0 + 5.0 * qSin(clock_ * 10.0);
+                desired[rightArm] = -9.0 + 5.0 * qSin(clock_ * 10.0 + pi);
+                desired[mouth] = 0.12;
+            }
         }
         busyTime_ += seconds;
         // Choice times coincide with the authored loop seam.

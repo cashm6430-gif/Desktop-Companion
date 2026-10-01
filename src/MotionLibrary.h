@@ -15,7 +15,7 @@ class MotionLibrary final {
 public:
     // Fallback only: the authored clip wins while assets/motions/delete.motion.json
     // exists. Keep it equal to that clip so both sources cannot drift apart.
-    static constexpr double kDeleteDuration = 2.6;
+    static constexpr double kDeleteDuration = 3.2;
     static constexpr double kGrassFallback = 6.9;
     static constexpr double kLaptopFallback = 8.0;
 

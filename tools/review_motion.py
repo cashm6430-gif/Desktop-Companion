@@ -24,7 +24,7 @@ import sys
 import time
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFont, ImageStat
 
 # A full native capture runs for about a minute (software OpenGL manages only a
 # few frames per second), so progress has to reach the caller line by line. A
@@ -43,7 +43,9 @@ FONT_PATH = "C:/Windows/Fonts/msyh.ttc"
 # Frame counts published by `--render-motion`; keep in sync with src/main.cpp.
 # `name` is the CLI / artifact name, `render` is the --render-motion argument and
 # `motion` is the data file (`assets/motions/<motion>.motion.json`); they differ
-# only for the standing busy variant.
+# only for the standing busy variant. `peaks` asks the sequence sheet to add the
+# sharpest frame pairs (see compose_sequence); clips without it keep the layout
+# of the sheets that were already approved.
 CLIPS = {
     "grass": dict(name="grass", render="grass", motion="grass", frames=120, style="grass",
                   prefix="grass", sequence="build/motion-sequence", review="build/motion-review"),
@@ -53,10 +55,11 @@ CLIPS = {
     "idle": dict(name="idle", render="idle", motion="idle", frames=120, style="sequence", prefix="idle",
                   sequence="build/idle-sequence", review="build/idle-review"),
     "busy-stand": dict(name="busy-stand", render="busy", motion="busy-stand", frames=195,
-                       style="sequence", prefix="busy-stand",
+                       style="sequence", prefix="busy-stand", peaks=2,
                        sequence="build/busy-stand-sequence", review="build/busy-stand-review"),
-    "delete": dict(name="delete", render="delete", motion="delete", frames=39, style="sequence",
-                   prefix="delete", sequence="build/delete-sequence", review="build/delete-review"),
+    "delete": dict(name="delete", render="delete", motion="delete", frames=None, style="sequence",
+                   prefix="delete", peaks=2, sequence="build/delete-sequence",
+                   review="build/delete-review"),
 }
 STEP_SECONDS = 1.0 / 15.0
 ALPHA_THRESHOLD = 128
@@ -374,20 +377,67 @@ def compose_sequence(p, log=print):
     # denser sheet, or the peaks of its gesture fall between two samples.
     count = 8 if len(frames) >= 40 else min(len(frames), 12)
     picks = [round(i * (len(frames) - 1) / (count - 1)) for i in range(count)]
+    energy = legibility_series(frames)
+    # Even sampling is blind to a beat that lasts one or two frames, and that is
+    # exactly the beat a reviewer is looking for: a bite or a eureka reads as the
+    # clip's whole point and can still fall between two of the eight samples.
+    # Clips that ask for it get the sharpest frame pairs appended, so the sheet
+    # cannot quietly omit the punch it was rendered to show.
+    peaks = p.get("peaks", 0)
+    highlights = []
+    if peaks:
+        for index in sorted(range(len(energy)), key=lambda i: -energy[i]):
+            if len(highlights) >= peaks:
+                break
+            frame = index + 1  # the animated half of the pair
+            if frame in highlights:
+                continue
+            if frame in picks:
+                highlights.append(frame)
+                continue
+            near = min(picks, key=lambda taken: abs(taken - frame))
+            if near in highlights:
+                continue  # the same beat, already on the sheet
+            if abs(near - frame) <= 2:
+                # Even sampling landed beside the beat rather than on it, which
+                # is the common case; move that sample onto the beat instead of
+                # adding a cell that duplicates its neighbour.
+                picks[picks.index(near)] = frame
+            else:
+                picks.append(frame)
+            highlights.append(frame)
+        picks = sorted(set(picks))
     label = font(22)
     small = font(16)
-    sheet = Image.new("RGB", (1120, 104 + ((count + 1) // 2) * 550), "#e9edf5")
+    # The sheet keeps the layout the approved sequence sheets were built with;
+    # only a clip that asks for peak frames pays for the extra caption line.
+    top = 106 if peaks else 90
+    sheet = Image.new("RGB", (1120, 104 + ((len(picks) + 1) // 2) * 550), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
     draw.text((28, 18), f"{p['name']} · 实际 Live2D Native 渲染 · 待审批", font=font(24), fill="#1e2c47")
-    draw.text((28, 53), f"{len(frames)} 帧整段采样 / {frames[0].name} 起，每帧 1/15 s", font=font(18), fill="#52617b")
+    draw.text((28, 53), f"{len(frames)} 帧整段采样 / {frames[0].name} 起，每帧 1/15 s",
+              font=font(18), fill="#52617b")
+    if peaks:
+        summary = legibility(frames)
+        draw.text((28, 76), f"动作能量（按 280 px 实际显示尺寸测） 均值 {summary['energy']} · "
+                            f"p90 {summary['p90']} · 峰值 {summary['peak']} · "
+                            f"近似静止帧 {summary['still_ratio'] * 100:.1f}%   "
+                            f"★ 标记了整段里最强的 {len(highlights)} 拍",
+                  font=small, fill="#52617b")
     for cell, index in enumerate(picks):
-        x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
+        x, y = (cell % 2) * 560, top + (cell // 2) * 550
         draw.rounded_rectangle((x + 12, y + 8, x + 548, y + 538), radius=18, fill="#f8faff")
         sprite = Image.open(frames[index]).convert("RGBA")
         sprite.thumbnail((488, 488), Image.Resampling.LANCZOS)
         sheet.paste(sprite, (x + (560 - sprite.width) // 2, y + 8), sprite)
-        draw.text((x + 26, y + 495), f"{cell + 1}. {frames[index].name}   {index / 15:.2f}s",
-                  font=small, fill="#243654")
+        if peaks:
+            marked = index in highlights
+            mark = "★ " if marked else ""
+            shade = "#243654" if marked else "#52617b"
+        else:
+            mark, shade = "", "#243654"
+        draw.text((x + 26, y + 495), f"{mark}{cell + 1}. {frames[index].name}   {index / 15:.2f}s",
+                  font=small, fill=shade)
     output = OUT / f"{p['name']}-frames-v{revision}.png"
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output)
@@ -469,6 +519,50 @@ def floor_row(alpha):
     return box[3] - 1
 
 
+# The pet is shown in a fixed 280 px window (src/PetWindow.cpp), while the
+# approval captures are 840 px. A change that reads on a sheet can be invisible
+# on screen, so every figure is re-measured at the window size before it is
+# called expressive.
+PET_WINDOW = 280
+STILL_CUTOFF = 0.5  # mean grey level per frame pair; below this a viewer sees a still
+
+
+def legibility_series(frames):
+    """Per frame-pair motion energy, at the size the pet is actually shown.
+
+    Consecutive frames are scaled to the window size and composited over one
+    flat colour, then compared pixel by pixel. A viewer reads a pair below
+    `STILL_CUTOFF` as frozen, which is what "看不出在做什么动作" means
+    numerically; the size of a difference says how far the visible pixels
+    travelled.
+    """
+    series = []
+    previous = None
+    for path in frames:
+        image = Image.open(path).convert("RGBA").resize((PET_WINDOW, PET_WINDOW), Image.LANCZOS)
+        flat = Image.new("RGB", image.size, (96, 96, 96))
+        flat.paste(image, (0, 0), image)
+        grey = flat.convert("L")
+        if previous is not None:
+            series.append(ImageStat.Stat(ImageChops.difference(grey, previous)).mean[0])
+        previous = grey
+    return series
+
+
+def legibility(frames, cutoff=STILL_CUTOFF):
+    """Summarise a capture set's motion energy in one line."""
+    ordered = sorted(legibility_series(frames))
+    count = len(ordered)
+    return {
+        "window": PET_WINDOW,
+        "energy": round(sum(ordered) / count, 3),
+        "median": round(ordered[count // 2], 3),
+        "p90": round(ordered[min(count - 1, int(count * 0.9))], 3),
+        "peak": round(ordered[-1], 3),
+        "still_ratio": round(sum(1 for value in ordered if value < cutoff) / count, 3),
+    }
+
+
 def validate(p, expected_poses=None, max_floor_drift=4):
     """Check native captures for clipping and a moving floor, then report."""
     frames = sorted(p["sequence"].glob("frame-*.png"))
@@ -491,6 +585,7 @@ def validate(p, expected_poses=None, max_floor_drift=4):
               "sequence_frames": len(frames), "native_poses": len(poses),
               "alpha_border_failures": 0, "floor_y_range": [min(floors), max(floors)],
               "floor_drift_pixels": drift}
+    report["legibility"] = legibility(frames)
     target = p["sequence"].parent / f"{p['name']}-review-check.json"
     target.write_text(json.dumps(report, indent=2), encoding="utf8")
     print(json.dumps(report))

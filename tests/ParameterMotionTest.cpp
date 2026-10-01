@@ -23,6 +23,7 @@ private slots:
     void laptopSelectionAndInterruptions();
     void laptopTypingAndShortTaskExit();
     void blendSecondsComeFromClip();
+    void standingAccentKeepsMovingAfterOneCycle();
 };
 
 void ParameterMotionTest::laptopSelectionAndInterruptions() {
@@ -331,6 +332,34 @@ void ParameterMotionTest::blendSecondsComeFromClip() {
     QVERIFY(qAbs(fast - slow) > 1.0);
     QVERIFY(qAbs(slow - 30.0 * (1.0 - qExp(-0.02 / 0.9))) < 1e-9);
     QVERIFY(qAbs(fast - 30.0 * (1.0 - qExp(-0.02 / 0.12))) < 1e-9);
+}
+
+void ParameterMotionTest::standingAccentKeepsMovingAfterOneCycle() {
+    // The standing accent is an additive loop, and it has to be sampled on the
+    // busy clock. Sampling it on the global clock instead looked identical in
+    // the approval captures -- those start a fresh process at t = 0 -- while
+    // breaking the desktop pet completely: a track past its last key is clamped
+    // rather than wrapped, so once the pet had been open for one duration every
+    // accent curve sat frozen on its seam pose and the standing variant stopped
+    // moving for the rest of the session. Run the clock well past one cycle
+    // first, the way an open pet would, and then require the pose to still
+    // travel inside a single busy cycle.
+    ParameterMotion motion;
+    QString error;
+    QVERIFY2(motion.loadMotionLibrary(QStringLiteral("assets/motions"), &error), qPrintable(error));
+    for (int frame = 0; frame < 60 * 20; ++frame) motion.advance(1.0 / 60.0);
+    motion.setBusyRandomSeed(20260930);
+    motion.forceStandingBusy();
+    double low = 1e9;
+    double high = -1e9;
+    for (int frame = 0; frame < 60 * 12; ++frame) {
+        motion.advance(1.0 / 60.0);
+        const double pitch = motion.values().value(QStringLiteral("ParamAngleY"));
+        low = qMin(low, pitch);
+        high = qMax(high, pitch);
+    }
+    // Idle alone sways the pitch by 1.5 degrees; the accent adds an order more.
+    QVERIFY2(high - low > 12.0, qPrintable(QStringLiteral("%1..%2").arg(low).arg(high)));
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

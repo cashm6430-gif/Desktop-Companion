@@ -61,7 +61,9 @@ private:
     static constexpr double kDefaultBlend = 0.12;
     static double smooth(double t);
     static double pulse(double t, double start, double peak, double end);
-    // Pop-in / hold / fade-out envelope of the thinking bubble.
+    // Pop-in / hold / fade-out envelope of the thinking bubble. One cycle long,
+    // matching the standing accent's loop so the "?" cannot drift against the
+    // pose it is reacting to.
     static double thoughtBubblePulse(double seconds);
     void updateGrassFlex(double seconds, double target);
     void applyBlendOverrides(const MotionClip& clip);
