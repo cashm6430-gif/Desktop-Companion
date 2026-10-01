@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "art/live2d/whale-girl-neutral-master.png"
 GRIP = ROOT / "art/live2d/whale-girl-hand-grip-v1.png"
 SMILE = ROOT / "art/live2d/whale-girl-mouth-smile-v1.png"
+GAPE = ROOT / "art/live2d/whale-girl-mouth-gape-neutral-v1.png"
 PLATE = ROOT / "art/live2d/whale-girl-clean-plate-v1.png"
 OUTPUT = ROOT / "art/live2d/whale-girl-layered-draft.psd"
 PREVIEW = ROOT / "build/psd2live/layer-previews"
@@ -254,11 +255,72 @@ def main() -> None:
 
     # There is no separate ellipse backing: it would expose its border when
     # the eye region and face contour use different deformations.
+    # The opening mouth is the mesh that has to carry a bite, so it is drawn at
+    # the size a bite needs rather than at a placeholder. The first pass pasted
+    # this 1122x760 painted gape at 48x24 -- smaller than the 41x6 resting smile
+    # it replaces, and with its 1.48 aspect squashed into 2.0 -- so
+    # ParamMouthOpenY moved about ten pixels on the 280 px window and read as
+    # nothing. Sizing settled at 120 px across (28% of the 426 px face), but the
+    # position took three attempts: bottom-anchoring hung the whole gape below
+    # the resting smile line (y 515..530) and read as "mouth on the chin";
+    # top-edge anchoring still left the visual mass below the line, because the
+    # art's own opening fills most of its content box. The fix the user asked
+    # for is geometric and simple: centre the gape's content box on the resting
+    # smile's centre, so the opening straddles the line it replaces instead of
+    # hanging off it -- upper lip rises above the line, lower lip dips below.
+    # 2026-10-01 anchor calibration (render-space measurement, delete-v6 C):
+    # the resting omega renders at (423, 357) on the 840 px frame, i.e. source
+    # y ~532 -- not 522. The smile art anchored at 522 rendered ~7 px above the
+    # omega, which is exactly the "open mouth drifts upward" the user kept
+    # rejecting. Both open-mouth layers now anchor at (632, 532) so they land
+    # on the omega when rendered. Two open-mouth arts coexist, selected by
+    # ParamSmileOpen as a three-state switch (0 closed omega / 1 smile-open /
+    # 2 neutral gape): the smile is an emotion (approved grass/busy-stand keep
+    # using it untouched), the neutral gape is the mechanical bite for
+    # delete-v6. Interpolation between keys is the same linear cross-fade the
+    # existing 0.2/0.75 values already rely on.
+    SMILE_WIDTH = 120
+    # BISECT (build 7): back to 522. The 532 shift -- chosen to align the art
+    # with the omega's RENDERED centre -- coincides exactly with the mouth
+    # auto-rig corrupting the smile mesh (teeth gone, crescent shape), and the
+    # corruption survived every role/name change of the second art. Suspect:
+    # the rig derives its open/close mapping from the art position relative to
+    # the resting omega line (515..530) and an off-line art folds the mesh.
+    SMILE_CENTER = (632, 522)
     smile = Image.new("RGBA", source.size, (0, 0, 0, 0))
-    smile_art = Image.open(SMILE).convert("RGBA")
-    smile_art = smile_art.crop(smile_art.getbbox()).resize((48, 24), Image.Resampling.LANCZOS)
-    smile.alpha_composite(smile_art, (604, 515))
+    gape = Image.new("RGBA", source.size, (0, 0, 0, 0))
+
+    def paste_mouth_art(target: Image.Image, art_path, width: int) -> None:
+        art = Image.open(art_path).convert("RGBA")
+        # getbbox() on raw alpha keeps the faint glow halo (rows from y~21),
+        # which skews the content box downwards by half its height once
+        # cropped. Threshold the alpha so the crop is the visible artwork
+        # only, or the centring below lands ~13 px low.
+        visible = art.getchannel("A").point(lambda v: 255 if v > 100 else 0)
+        art = art.crop(visible.getbbox())
+        height = round(width * art.height / art.width)
+        art = art.resize((width, height), Image.Resampling.LANCZOS)
+        target.alpha_composite(
+            art,
+            (SMILE_CENTER[0] - width // 2, SMILE_CENTER[1] - height // 2),
+        )
+
+    paste_mouth_art(smile, SMILE, SMILE_WIDTH)
+    paste_mouth_art(gape, GAPE, SMILE_WIDTH)
     layers.insert(0, ("mouth open", smile))
+    # The bite art goes onto an invisible backing (alpha=2) that makes its
+    # layer bounds clearly DIFFERENT from the smile layer's. With near-ident
+    # bounds, PSD2Live's texture/mesh assignment gives BOTH layers the same
+    # atlas region and the smile mesh ends up sampling the gape pixels
+    # (teeth gone). Verified by bisect builds: the identical pipeline minus
+    # this layer renders the smile byte-identical to the pre-gape reference.
+    # The backing is top-aligned with the art so the manual MouthOpenY
+    # keyforms (pivot at the backing's top edge) pin the upper lip exactly.
+    backing = Image.new("RGBA", (140, 70), (0, 0, 0, 2))
+    backing.alpha_composite(gape.crop(gape.getbbox()), (10, 0))
+    gape = Image.new("RGBA", source.size, (0, 0, 0, 0))
+    gape.alpha_composite(backing, (SMILE_CENTER[0] - 60, SMILE_CENTER[1] - 25))
+    layers.insert(0, ("bite mouth", gape))
 
     # Flat art has no pixels behind the sleeves. Sample adjacent hair into the
     # original sleeve footprints so rotating a sleeve cannot reveal the desktop.
@@ -328,7 +390,8 @@ def main() -> None:
     psd.save(OUTPUT)
     composite = Image.new("RGBA", source.size, (0, 0, 0, 0))
     for name, image in reversed(layers):
-        if not name.startswith("busy ") and image is not grass and image is not grip and image is not smile:
+        if not name.startswith("busy ") and image is not grass and image is not grip \
+                and image is not smile and image is not gape:
             composite = Image.alpha_composite(composite, image)
     composite.save(PREVIEW / "composite-check.png")
     composite_pixels = np.asarray(composite).astype(np.int16)

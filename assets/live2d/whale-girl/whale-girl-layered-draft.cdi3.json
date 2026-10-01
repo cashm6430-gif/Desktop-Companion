@@ -117,6 +117,11 @@
 			"Name": "ParamHandRGrip"
 		},
 		{
+			"Id": "ParamMouthGape",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamMouthGape"
+		},
+		{
 			"Id": "ParamArmLA",
 			"GroupId": "",
 			"Name": "左手动作"
@@ -185,6 +190,16 @@
 			"Id": "ParamCheek",
 			"GroupId": "",
 			"Name": "脸颊鼓起"
+		},
+		{
+			"Id": "ParamShiftX",
+			"GroupId": "",
+			"Name": "整体位移 X"
+		},
+		{
+			"Id": "ParamShiftY",
+			"GroupId": "",
+			"Name": "整体位移 Y(贴地钳制,勿用)"
 		}
 	],
 	"ParameterGroups": [
@@ -311,6 +326,10 @@
 		},
 		{
 			"Id": "ArtMeshMouthOpen",
+			"Name": "mouth open gape"
+		},
+		{
+			"Id": "ArtMeshMouthOpen2",
 			"Name": "mouth open"
 		},
 		{

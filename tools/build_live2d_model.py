@@ -74,6 +74,25 @@ def main():
         ("eyelash-r", "eyelash", {"side": "right", "type": "preset"}),
         ("mouth", "mouth_close", {"type": "switch", "parameter": "ParamSmileOpen", "switch_id": 0}),
         ("mouth open", "mouth_open", {"type": "switch", "parameter": "ParamSmileOpen", "switch_id": 1}),
+        # Neutral gape on its OWN parameter. The first attempt piggybacked on
+        # ParamSmileOpen as a third switch state (switch_id 2) with the
+        # parameter's max raised to 2 via parameter-update -- the editor kept
+        # max=2 but the exported moc3 stayed at max=1, so Cubism clamped every
+        # value above 1 and the gape could never appear. Custom parameters
+        # created explicitly (ParamCheek, ParamShiftX, ...) export fine, so the
+        # gape gets one. Bite frames drive ParamMouthGape (+MouthOpenY, whose
+        # keyforms on the gape mesh are generated manually below) while
+        # SmileOpen stays 0: the opaque gape fully covers the resting omega
+        # (120x56 art over the 41x6 stroke), so the two never fight. The
+        # smile remains the only open art the approved clips reach.
+        # NOT "mouth open gape" (see prepare_live2d_psd.py) and NOT mouth_open:
+        # PSD2Live's mouth auto-rig assigns ONE uv region to every mesh in the
+        # mouth_open role -- with a second layer there, the smile mesh sampled
+        # the gape art's atlas region and the approved grin lost its teeth
+        # (verified by isolated editor renders). face_detail keeps the
+        # face-follow parenting without the mouth rig; the open/close keyforms
+        # are generated manually further down (same pattern as the eyelids).
+        ("bite mouth", "face_detail", {"type": "switch", "parameter": "ParamMouthGape", "switch_id": 1}),
         ("handwear right", "handwear", {"side": "right", "type": "toggle", "parameter": "ParamGrassVisible"}),
         ("handwear_r", "handwear", {"side": "right", "type": "switch", "parameter": "ParamHandRGrip", "switch_id": 0}),
         ("handwear.right", "handwear", {"side": "right", "type": "switch", "parameter": "ParamHandRGrip", "switch_id": 1}),
@@ -110,9 +129,42 @@ def main():
         ("ParamLaptopRock", "抱电脑轻摆", -1, 1),
         ("ParamSitPose", "屈腿坐姿过渡", 0, 1),
         ("ParamCheek", "脸颊鼓起", 0, 1),
+        # ParamMouthGape is auto-created by the mouth_open switch binding on
+        # "mouth open gape" (min 0 / max 1 / default 0); creating it here too
+        # fails with "Parameter already exists".
+        ("ParamShiftX", "整体位移 X", -100, 100),
+        # ParamShiftY exists for symmetry with the export history, but the
+        # renderer's ground contract (CubismCanvas presses the lowest foot
+        # vertex back onto the floor every frame) cancels any whole-model
+        # vertical travel, so the display name carries a warning and
+        # validate_live2d_assets.py rejects clips that key it.
+        ("ParamShiftY", "整体位移 Y(贴地钳制,勿用)", -100, 100),
     ):
         invoke("parameter", {"request": {"mode": "create", "state": state,
             "parameter_id": identifier, "name": label, "min": minimum, "max": maximum, "default": 0}})
+
+    # Whole-rig translation lives on its own outermost warp so the shift keys
+    # stay orthogonal to the nine body-angle forms (3x3x3x3 keys on DeformBodyXY
+    # would be unreadable). Probe-verified on the live editor: wrapping the rig
+    # is inert at zero (a handful of anti-aliasing stragglers across 147k
+    # pixels) and in the C++ render path (4 of 705600 pixels on the same pose).
+    # |100| moves the whole model ~115 source px (~26 screen px); +X moves
+    # right. Only X is keyed: vertical travel is cancelled by the ground
+    # contract in CubismCanvas, so ParamShiftY stays a declared dead axis.
+    invoke("canvas", {"request": {"mode": "warp", "state": state, "id": "DeformBodyShift",
+        "name": "ShiftRig", "meshes": [], "add_to": "parent_of_deformer",
+        "deformer_id": "DeformBodyXY", "size_strategy": "selection_bounds", "rows": 2, "columns": 2}})
+    shift_target = "warp:DeformBodyShift"
+    shift_neutral = {"ParamShiftX": 0, "ParamShiftY": 0}
+    invoke("form", {"state": state, "changes": [{"op": "seed", "target": shift_target, "key": shift_neutral}]})
+    shift_keys = [{"ParamShiftX": sx, "ParamShiftY": 0} for sx in (-100, 0, 100)]
+    invoke("form", {"state": state, "changes": [
+        {"op": "copy", "target": shift_target, "from": shift_neutral, "key": key, "channels": ["geometry"]}
+        for key in shift_keys if key != shift_neutral]})
+    invoke("deform", {"state": state, "changes": [
+        {"target": shift_target, "key": key,
+         "operations": [{"type": "translate", "delta": [key["ParamShiftX"] / 1000, 0.0]}]}
+        for key in shift_keys if key != shift_neutral]})
     source_layers = layers.get("items", [])
     def frame(name):
         bounds = next(x["bounds"] for x in source_layers if x["name"] == name)
@@ -165,6 +217,23 @@ def main():
                 ]}]})
         # The fully closed aperture is narrower than the opaque lash above it.
         # Both stay opaque throughout: no alpha crossfade or second closed eye.
+
+    # Manual open keyforms for the bite mouth (the gape). The mouth_open role
+    # would normally provide these, but the bite art cannot live in that role
+    # (see the classification note above). The upper lip stays pinned while
+    # MouthOpenY scales the art downwards: 0 keeps a 25% sliver so a keyed
+    # Gape=1 with MouthOpenY=0 still reads as slightly parted, 1 is the art as
+    # authored. Sampled monotonically so any in-between value interpolates.
+    gape_target = "mesh:" + mesh("bite mouth")
+    for openness in (0, 0.25, 0.5, 0.75, 1):
+        key = {"ParamMouthOpenY": openness}
+        factor = 0.25 + 0.75 * openness
+        invoke("form", {"state": state, "changes": [{"op": "seed", "target": gape_target, "key": key}]})
+        if openness != 0:
+            invoke("form", {"state": state, "changes": [{"op": "copy", "target": gape_target,
+                "from": {"ParamMouthOpenY": 0}, "key": key, "channels": ["geometry"]}]})
+            invoke("deform", {"state": state, "changes": [{"target": gape_target, "key": key,
+                "operations": [{"type": "scale", "pivot": [0.5, 0.0], "factors": [1, float(factor)]}]}]})
 
     def parent_aspect(name):
         parent = next(x["parentId"] for x in entries if x.get("name") == name)
