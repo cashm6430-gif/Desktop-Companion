@@ -26,7 +26,9 @@ void PetControllerTest::deleteReturnsToCurrentBackground() {
     controller.turnStarted("a", "1");
     controller.desktopItemDeleted();
     QCOMPARE(controller.state(), PetController::State::Delete);
-    QTRY_COMPARE_WITH_TIMEOUT(controller.state(), PetController::State::Busy, 1800);
+    // The fallback timer runs for the motion library's delete length (2.6 s
+    // since delete v5), so the wait has to cover the whole action plus slack.
+    QTRY_COMPARE_WITH_TIMEOUT(controller.state(), PetController::State::Busy, 3500);
 }
 
 void PetControllerTest::sessionEndCleansOnlyItsTurns() {

@@ -46,6 +46,16 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
     void contextMenuEvent(QContextMenuEvent* event) override;
+    // Dropping a file on the character is the feed gesture: the eat action
+    // plays for whatever was dropped. Windows click-through already scopes
+    // this to the character, because the drop only reaches the window while
+    // the cursor sits on opaque pixels (see updateInputTransparency()).
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dragMoveEvent(QDragMoveEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
+
+signals:
+    void filesDropped(const QStringList& paths);
 
 private:
     void setState(PetController::State state);
@@ -56,6 +66,13 @@ private:
     void setInteractionMask(const QPixmap& artwork);
     void updateInputTransparency();
     void showMenu(const QPoint& globalPos);
+    // The fed-file prop: the icon of the dropped file rides the window layer
+    // (same reasoning as the bubble -- it is UI, not a MOC3 drawable), drifting
+    // from the hand towards the mouth while the eat action plays.
+    void drawFedProp(QPainter& painter);
+    // Moves the dropped files to the Recycle Bin (FOF_ALLOWUNDO, recoverable),
+    // never a hard delete. The pet "eating" a file must stay undoable.
+    void recyclePaths(const QStringList& paths);
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
@@ -75,4 +92,6 @@ private:
     QPoint dragOffset_;
     bool dragging_ = false;
     int frame_ = 0;
+    QElapsedTimer fedClock_;
+    QPixmap fedIcon_;
 };

@@ -5,16 +5,23 @@
 
 #include <QApplication>
 #include <QContextMenuEvent>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
 #include <QDir>
+#include <QFileIconProvider>
+#include <QFileInfo>
 #include <QFont>
 #include <QGuiApplication>
 #include <QMenu>
+#include <QMimeData>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
 #include <QScreen>
 #include <QSettings>
 #include <QtMath>
+#include <QUrl>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -112,6 +119,11 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
                    | Qt::WindowStaysOnTopHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
     setFixedSize(280, 280);
+    // The character area is the drop target for the feed gesture. Accepting
+    // drops registers the OLE drop target for the whole window; the dynamic
+    // WS_EX_TRANSPARENT click-through keeps only the character interactive,
+    // so a file dropped beside the pet lands on the desktop as before.
+    setAcceptDrops(true);
 
 #ifdef HAVE_CUBISM
     // Keep OpenGL composition in a separate window. This translucent widget
@@ -294,6 +306,10 @@ void PetWindow::paintEvent(QPaintEvent*) {
         painter.fillRect(rect(), Qt::transparent);
         const QImage frame = frameWithBubble(cubismFrame_, motion_.bubblePulse());
         if (!frame.isNull()) painter.drawImage(rect(), frame);
+        // The prop and the bubble are ordinary overlays: back to SourceOver or
+        // their transparent pixels would erase the frame underneath.
+        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        drawFedProp(painter);
         return;
     }
 #endif
@@ -313,6 +329,7 @@ void PetWindow::paintEvent(QPaintEvent*) {
             ? qSin(frame_ * 0.28) * 1.5 : qSin(frame_ * 0.11) * 2.0;
         painter.drawPixmap(QRectF(0, bob, width(), height()), image, image.rect());
     }
+    drawFedProp(painter);
 }
 
 QString PetWindow::renderBackend() const {
@@ -417,6 +434,87 @@ void PetWindow::mouseDoubleClickEvent(QMouseEvent* event) {
 
 void PetWindow::contextMenuEvent(QContextMenuEvent* event) {
     showMenu(event->globalPos());
+}
+
+void PetWindow::dragEnterEvent(QDragEnterEvent* event) {
+    if (event->mimeData()->hasUrls()) event->acceptProposedAction();
+}
+
+void PetWindow::dragMoveEvent(QDragMoveEvent* event) {
+    // Kept in sync with dragEnterEvent so the accepted cursor follows the
+    // pointer across the character while the drag is in flight.
+    if (event->mimeData()->hasUrls()) event->acceptProposedAction();
+}
+
+void PetWindow::dropEvent(QDropEvent* event) {
+    QStringList paths;
+    const auto urls = event->mimeData()->urls();
+    for (const QUrl& url : urls) {
+        if (!url.isLocalFile()) continue;
+        const QString path = url.toLocalFile();
+        if (!QFileInfo::exists(path)) continue;
+        paths.append(path);
+    }
+    if (paths.isEmpty()) return;
+    event->acceptProposedAction();
+    // The prop shows the real icon of what was fed, so pick it up before the
+    // shell removes the file from its old location.
+    QIcon fedIcon = QFileIconProvider().icon(QFileInfo(paths.first()));
+    if (fedIcon.isNull()) fedIcon = QFileIconProvider().icon(QFileIconProvider::File);
+    fedIcon_ = fedIcon.pixmap(64, 64);
+    fedClock_.restart();
+    emit filesDropped(paths);
+    // The eat is the gesture for "this file is gone": move it to the Recycle
+    // Bin right away. FOF_ALLOWUNDO keeps it recoverable, so a misdrop is a
+    // restore away -- the pet is playful, not destructive.
+    recyclePaths(paths);
+}
+
+void PetWindow::recyclePaths(const QStringList& paths) {
+#ifdef Q_OS_WIN
+    if (paths.isEmpty()) return;
+    // SHFileOperation's file list is double-NUL terminated. QString may hold
+    // embedded NULs, so build the raw buffer by hand instead of join().
+    QString raw;
+    for (const QString& path : paths) raw += path + QChar(u'\0');
+    raw += QChar(u'\0');
+    SHFILEOPSTRUCTW operation{};
+    operation.hwnd = reinterpret_cast<HWND>(winId());
+    operation.wFunc = FO_DELETE;
+    operation.pFrom = reinterpret_cast<LPCWSTR>(raw.utf16());
+    operation.fFlags = FOF_ALLOWUNDO | FOF_NOCONFIRMATION | FOF_SILENT | FOF_NOERRORUI;
+    SHFileOperationW(&operation);
+#else
+    Q_UNUSED(paths)
+#endif
+}
+
+void PetWindow::drawFedProp(QPainter& painter) {
+    if (fedIcon_.isNull() || !fedClock_.isValid()) return;
+    // The prop lives exactly as long as the eat action: it fades in at the
+    // hand, drifts to the mouth while the pet reaches, and is consumed by the
+    // bite. Anchors are fractions of the widget so the 840 px captures and the
+    // 280 px window share one geometry.
+    const double life = motion_.actionDuration(PetController::State::Delete);
+    if (life <= 0.0) return;
+    const double t = qBound(0.0, fedClock_.elapsed() / 1000.0 / life, 1.0);
+    if (t >= 1.0) return;
+    const double w = width();
+    const double h = height();
+    const QPointF hand(0.74 * w, 0.56 * h);
+    const QPointF mouth(0.47 * w, 0.44 * h);
+    const double ease = t * t * (3.0 - 2.0 * t); // smoothstep between the two anchors
+    const QPointF pos = hand + (mouth - hand) * ease;
+    const double fadeIn = qBound(0.0, t / 0.12, 1.0);
+    const double fadeOut = qBound(0.0, (1.0 - t) / 0.18, 1.0);
+    const double scale = 1.0 - 0.35 * ease; // shrinks a little as it approaches the mouth
+    const double side = qMax(12.0, 0.11 * w) * scale;
+    painter.save();
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.setOpacity(fadeIn * fadeOut);
+    painter.drawPixmap(QRectF(pos.x() - side / 2.0, pos.y() - side / 2.0, side, side), fedIcon_,
+                       QRectF(fedIcon_.isNull() ? QRect() : fedIcon_.rect()));
+    painter.restore();
 }
 
 void PetWindow::showMenu(const QPoint& globalPos) {

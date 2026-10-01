@@ -60,6 +60,19 @@ void PetController::sessionEnded(const QString& sessionId) {
 }
 
 void PetController::desktopItemDeleted() {
+    triggerEat();
+}
+
+void PetController::fileDropped(const QStringList& paths) {
+    if (paths.isEmpty()) return;
+    lastFedFile_ = paths.first();
+    triggerEat();
+}
+
+void PetController::triggerEat() {
+    // One shared entry for every "eat" source, so the de-dup window, the
+    // retrigger broadcast and the fallback timer behave identically whether
+    // the file came from a desktop deletion or a drag-and-drop feed.
     if (deleteClock_.isValid() && deleteClock_.elapsed() < 450) return;
     deleteClock_.restart();
     if (state_ == State::Delete) emit stateChanged(State::Delete);

@@ -240,6 +240,10 @@ int main(int argc, char** argv) {
                      &controller, &PetController::desktopItemDeleted);
     desktopSource.start(reinterpret_cast<HWND>(window.winId()));
 
+    // Drag-and-drop feeding: dropping a file on the character eats it too.
+    QObject::connect(&window, &PetWindow::filesDropped,
+                     &controller, &PetController::fileDropped);
+
     CodexTurnSource codexSource;
     QObject::connect(&codexSource, &CodexTurnSource::turnStarted,
                      &controller, &PetController::turnStarted);
