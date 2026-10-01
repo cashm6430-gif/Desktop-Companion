@@ -1,7 +1,7 @@
 {
   "version": 1,
   "approval": "pending",
-  "revision": 1,
+  "revision": 3,
   "duration": 12,
   "loop": true,
   "loopStart": 0,
@@ -9,19 +9,25 @@
   "interpolation": "smoothstep",
   "blendSeconds": 0.12,
   "mode": "additive",
-  "constants": {
-    "ParamBodyAngleX": 2.0,
-    "ParamMouthOpenY": 0.12
-  },
   "channels": {
-    "ParamAngleY": [
-      { "type": "sine", "amplitude": 1.8, "frequency": 4.3, "phase": 0.0, "offset": -7.0 }
+    "ParamWristRA": [
+      { "type": "sine", "amplitude": 15.0, "frequency": 16.7551608, "phase": 0.0, "offset": 0.0 }
     ],
-    "ParamArmLA": [
-      { "type": "sine", "amplitude": 5.0, "frequency": 10.0, "phase": 0.0, "offset": 9.0 }
+    "ParamAngleX": [
+      { "type": "sine", "amplitude": 3.0, "frequency": 1.5707963, "phase": 1.5707963267948966, "offset": 0.0 }
     ],
-    "ParamArmRA": [
-      { "type": "sine", "amplitude": 5.0, "frequency": 10.0, "phase": 3.141592653589793, "offset": -9.0 }
+    "ParamAngleZ": [
+      { "type": "sine", "amplitude": 2.5, "frequency": 0.5235988, "phase": 0.0, "offset": 0.0 }
     ]
+  },
+  "tracks": {
+    "ParamArmLA": [[0, 54], [1.5, 50], [3, 56], [4.5, 40], [6, 26], [7.5, 44], [9, 56], [10.5, 50], [12, 54]],
+    "ParamArmRA": [[0, 50], [1.5, 56], [3, 50], [4.5, 42], [6, 30], [7.5, 42], [9, 50], [10.5, 56], [12, 50]],
+    "ParamElbowLA": [[0, 38], [3, 42], [4.5, 30], [6, 20], [7.5, 32], [9, 40], [12, 38]],
+    "ParamElbowRA": [[0, 42], [3, 38], [4.5, 32], [6, 22], [7.5, 30], [9, 42], [12, 42]],
+    "ParamAngleY": [[0, -15], [3, -16], [4.5, -9], [6, -2], [7.5, -10], [9, -15], [12, -15]],
+    "ParamBodyAngleX": [[0, 3], [3, 4], [4.5, 2], [6, 0], [7.5, 2], [9, 3], [12, 3]],
+    "ParamEyeBallY": [[0, -0.55], [3, -0.6], [6, 0.1], [9, -0.55], [12, -0.55]],
+    "ParamMouthOpenY": [[0, 0.1], [6, 0.0], [12, 0.1]]
   }
 }

@@ -25,7 +25,10 @@ private slots:
     void additiveAndBlendMetadataAreParsed();
     void legacyFileWithoutNewFieldsStillLoads();
     void malformedCurvesAreRejected();
-    void authoredCurvesMatchLegacyGenerators();
+    void idleMatchesLegacyGenerator();
+    void loopingActionsSeamlessAtLoopPoint();
+    void busyStandAlternatesWorkAndPause();
+    void deleteSwingIsReadable();
 };
 
 namespace {
@@ -266,22 +269,15 @@ void MotionClipTest::malformedCurvesAreRejected() {
     QVERIFY(!clip.loadJson(emptyChannel.fileName()));
 }
 
-void MotionClipTest::authoredCurvesMatchLegacyGenerators() {
-    // Golden test for the migration: every authored curve must reproduce the
-    // procedural formula it replaced, bit for bit.
-    const auto load = [](const QString& name, MotionClip& clip) {
-        QString error;
-        const bool ok = clip.loadJson(QStringLiteral("assets/motions/%1").arg(name), &error);
-        if (!ok) qWarning() << name << error;
-        return ok;
-    };
-    const auto smoothstep = [](double t) {
-        t = std::clamp(t, 0.0, 1.0);
-        return t * t * (3.0 - 2.0 * t);
-    };
-
+void MotionClipTest::idleMatchesLegacyGenerator() {
+    // The idle base layer is the migration's golden case: it is sampled on every
+    // frame, so it must still reproduce the procedural formula it replaced, bit
+    // for bit. The busy and delete curves are no longer migration copies -- they
+    // were re-authored to be readable -- so they get invariant tests instead.
     MotionClip idle;
-    QVERIFY(load(QStringLiteral("idle.motion.json"), idle));
+    QString error;
+    QVERIFY2(idle.loadJson(QStringLiteral("assets/motions/idle.motion.json"), &error),
+             qPrintable(error));
     QVERIFY(!idle.isAdditive());
     for (const double t : {0.0, 0.4, 1.25, 3.5, 7.75, 11.9}) {
         const auto pose = idle.sample(t);
@@ -292,43 +288,62 @@ void MotionClipTest::authoredCurvesMatchLegacyGenerators() {
         COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleY")), 0.5 * qSin(t * 1.7));
         COMPARE_EXACT(pose.value(QStringLiteral("ParamBreath")), 0.5 + 0.5 * qSin(t * 2.1));
     }
+}
 
-    MotionClip busy;
-    QVERIFY(load(QStringLiteral("busy-stand.motion.json"), busy));
-    QVERIFY(busy.isAdditive());
-    for (const double t : {0.0, 0.15, 0.9, 2.4, 6.05}) {
-        const auto pose = busy.sample(t);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleY")), -7.0 + 1.8 * qSin(t * 4.3));
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleX")), 2.0);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmLA")), 9.0 + 5.0 * qSin(t * 10.0));
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmRA")),
-                      -9.0 + 5.0 * qSin(t * 10.0 + 3.141592653589793));
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamMouthOpenY")), 0.12);
+void MotionClipTest::loopingActionsSeamlessAtLoopPoint() {
+    // A looping clip runs off a free-running clock, so the pose it lands on at
+    // the end of the cycle has to be the pose it started from. Get that wrong
+    // and the motion pops once per cycle -- an easy slip, because a channel
+    // whose frequency is not a whole number of cycles across the loop drifts.
+    for (const QString& name : {QStringLiteral("busy-stand.motion.json"),
+                                QStringLiteral("busy-laptop.motion.json")}) {
+        MotionClip clip;
+        QString error;
+        QVERIFY2(clip.loadJson(QStringLiteral("assets/motions/%1").arg(name), &error),
+                 qPrintable(error));
+        QVERIFY(clip.isLoop());
+        const auto first = clip.sample(0.0);
+        const auto last = clip.sample(clip.duration());
+        for (auto it = first.cbegin(); it != first.cend(); ++it) {
+            const double other = last.value(it.key(), 0.0);
+            QVERIFY2(qAbs(it.value() - other) <= 1e-3,
+                     qPrintable(QStringLiteral("%1 seams at %2: %3 vs %4")
+                         .arg(name, it.key()).arg(it.value()).arg(other)));
+        }
     }
+}
 
+void MotionClipTest::busyStandAlternatesWorkAndPause() {
+    // The standing loop has to read as work with a thinking pause. An earlier
+    // revision swayed so gently that nothing about it was legible, so assert
+    // the arms stay raised while working and clearly drop during the pause.
+    MotionClip busy;
+    QString error;
+    QVERIFY2(busy.loadJson(QStringLiteral("assets/motions/busy-stand.motion.json"), &error),
+             qPrintable(error));
+    QVERIFY(busy.isAdditive());
+    const double working = busy.sample(0.0).value(QStringLiteral("ParamArmLA"));
+    const double thinking = busy.sample(6.0).value(QStringLiteral("ParamArmLA"));
+    QVERIFY2(working > 45.0, qPrintable(QString::number(working)));
+    QVERIFY2(thinking < 32.0, qPrintable(QString::number(thinking)));
+    QVERIFY2(working - thinking > 18.0, qPrintable(QString::number(working - thinking)));
+}
+
+void MotionClipTest::deleteSwingIsReadable() {
     MotionClip remove;
-    QVERIFY(load(QStringLiteral("delete.motion.json"), remove));
+    QString error;
+    QVERIFY2(remove.loadJson(QStringLiteral("assets/motions/delete.motion.json"), &error),
+             qPrintable(error));
     QVERIFY(remove.isAdditive());
     QCOMPARE(remove.duration(), MotionLibrary::kDeleteDuration);
-    const auto pulse = [&smoothstep](double t, double start, double peak, double end) {
-        if (t < start || t >= end) return 0.0;
-        if (t < peak) return smoothstep((t - start) / (peak - start));
-        return 1.0 - smoothstep((t - peak) / (end - peak));
-    };
-    for (const double t : {0.0, 0.2, 0.28, 0.5, 0.59, 0.7, 0.9, 1.02, 1.34, 1.4}) {
-        const double windup = pulse(t, 0.0, 0.28, 0.48);
-        const double strike = pulse(t, 0.34, 0.59, 0.91);
-        const double recoil = pulse(t, 0.82, 1.02, 1.34);
-        const auto pose = remove.sample(t);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmRA")),
-                      -22.0 * windup + 30.0 * strike - 8.0 * recoil);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamArmLA")), 8.0 * windup - 5.0 * strike);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamBodyAngleZ")),
-                      -7.0 * windup + 10.0 * strike - 3.0 * recoil);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleZ")), -6.0 * windup + 8.0 * strike);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamAngleY")), 4.0 * strike);
-        COMPARE_EXACT(pose.value(QStringLiteral("ParamMouthOpenY")), 0.4 * strike);
-    }
+    double peak = 0.0;
+    for (double t = 0.0; t <= remove.duration(); t += 1.0 / 60.0)
+        peak = std::max(peak, remove.sample(t).value(QStringLiteral("ParamArmRA")));
+    QVERIFY2(peak > 50.0, qPrintable(QString::number(peak))); // a visible swing, not a twitch
+    // Every curve settles back to neutral, so busy or idle resumes without a jump.
+    const auto settled = remove.sample(remove.duration());
+    for (auto it = settled.cbegin(); it != settled.cend(); ++it)
+        QVERIFY2(qAbs(it.value()) < 1e-9, qPrintable(it.key()));
 }
 
 QTEST_GUILESS_MAIN(MotionClipTest)

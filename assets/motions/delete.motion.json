@@ -1,35 +1,56 @@
 {
   "version": 1,
   "approval": "pending",
-  "revision": 1,
+  "revision": 3,
   "duration": 1.4,
   "interpolation": "smoothstep",
   "blendSeconds": 0.12,
   "mode": "additive",
   "pulses": {
     "ParamArmRA": [
-      { "start": 0.00, "peak": 0.28, "end": 0.48, "weight": -22.0 },
-      { "start": 0.34, "peak": 0.59, "end": 0.91, "weight": 30.0 },
-      { "start": 0.82, "peak": 1.02, "end": 1.34, "weight": -8.0 }
+      { "start": 0.00, "peak": 0.22, "end": 0.40, "weight": -30.0 },
+      { "start": 0.34, "peak": 0.58, "end": 0.88, "weight": 62.0 },
+      { "start": 0.74, "peak": 0.92, "end": 1.25, "weight": -18.0 }
+    ],
+    "ParamElbowRA": [
+      { "start": 0.00, "peak": 0.22, "end": 0.40, "weight": 22.0 },
+      { "start": 0.34, "peak": 0.58, "end": 0.88, "weight": -30.0 }
+    ],
+    "ParamWristRA": [
+      { "start": 0.34, "peak": 0.58, "end": 0.88, "weight": 24.0 }
     ],
     "ParamArmLA": [
-      { "start": 0.00, "peak": 0.28, "end": 0.48, "weight": 8.0 },
-      { "start": 0.34, "peak": 0.59, "end": 0.91, "weight": -5.0 }
+      { "start": 0.00, "peak": 0.22, "end": 0.42, "weight": -16.0 },
+      { "start": 0.34, "peak": 0.58, "end": 0.90, "weight": -26.0 }
     ],
     "ParamBodyAngleZ": [
-      { "start": 0.00, "peak": 0.28, "end": 0.48, "weight": -7.0 },
-      { "start": 0.34, "peak": 0.59, "end": 0.91, "weight": 10.0 },
-      { "start": 0.82, "peak": 1.02, "end": 1.34, "weight": -3.0 }
+      { "start": 0.00, "peak": 0.22, "end": 0.44, "weight": 9.0 },
+      { "start": 0.34, "peak": 0.58, "end": 0.92, "weight": -9.0 },
+      { "start": 0.85, "peak": 1.05, "end": 1.40, "weight": 4.0 }
     ],
-    "ParamAngleZ": [
-      { "start": 0.00, "peak": 0.28, "end": 0.48, "weight": -6.0 },
-      { "start": 0.34, "peak": 0.59, "end": 0.91, "weight": 8.0 }
+    "ParamAngleX": [
+      { "start": 0.00, "peak": 0.22, "end": 0.44, "weight": -20.0 },
+      { "start": 0.85, "peak": 1.05, "end": 1.40, "weight": 12.0 }
     ],
     "ParamAngleY": [
-      { "start": 0.34, "peak": 0.59, "end": 0.91, "weight": 4.0 }
+      { "start": 0.00, "peak": 0.22, "end": 0.44, "weight": 14.0 },
+      { "start": 0.34, "peak": 0.58, "end": 0.90, "weight": -8.0 },
+      { "start": 0.85, "peak": 1.05, "end": 1.40, "weight": 10.0 }
+    ],
+    "ParamAngleZ": [
+      { "start": 0.00, "peak": 0.24, "end": 0.46, "weight": -12.0 },
+      { "start": 0.34, "peak": 0.58, "end": 0.90, "weight": 15.0 },
+      { "start": 0.85, "peak": 1.05, "end": 1.40, "weight": -7.0 }
     ],
     "ParamMouthOpenY": [
-      { "start": 0.34, "peak": 0.59, "end": 0.91, "weight": 0.4 }
+      { "start": 0.00, "peak": 0.20, "end": 0.40, "weight": 0.25 },
+      { "start": 0.34, "peak": 0.56, "end": 0.86, "weight": 0.6 }
+    ],
+    "ParamEyeSmile": [
+      { "start": 0.82, "peak": 1.02, "end": 1.40, "weight": 1.0 }
+    ],
+    "ParamSmileOpen": [
+      { "start": 0.82, "peak": 1.02, "end": 1.40, "weight": 0.9 }
     ]
   }
 }
