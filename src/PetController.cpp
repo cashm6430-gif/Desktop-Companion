@@ -59,17 +59,19 @@ void PetController::sessionEnded(const QString& sessionId) {
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
 }
 
-void PetController::desktopItemDeleted() {
-    triggerEat();
+void PetController::desktopItemDeleted(const QString& path, const QPointF& iconPos, const QIcon& icon) {
+    triggerEat(path, iconPos, icon);
 }
 
 void PetController::fileDropped(const QStringList& paths) {
     if (paths.isEmpty()) return;
     lastFedFile_ = paths.first();
-    triggerEat();
+    // A drop happens on the pet itself, so there is no separate source
+    // position to lunge from -- the window layer already holds the icon.
+    triggerEat(paths.first(), QPointF(), QIcon());
 }
 
-void PetController::triggerEat() {
+void PetController::triggerEat(const QString& file, const QPointF& sourcePos, const QIcon& icon) {
     // One shared entry for every "eat" source, so the de-dup window, the
     // retrigger broadcast and the fallback timer behave identically whether
     // the file came from a desktop deletion or a drag-and-drop feed.
@@ -78,6 +80,10 @@ void PetController::triggerEat() {
     if (state_ == State::Delete) emit stateChanged(State::Delete);
     else setState(State::Delete);
     actionTimer_.start(durationMs(State::Delete));
+    // Emitted after the state entry, so a listener can read state() and its
+    // clock keeps in step with the clip. Suppressed during the de-dup window
+    // together with the trigger itself.
+    emit eatTriggered(file, sourcePos, icon);
 }
 
 void PetController::playGrass() {

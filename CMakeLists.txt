@@ -79,20 +79,21 @@ if(BUILD_TESTING)
     find_package(Qt6 6.8 REQUIRED COMPONENTS Test)
     add_executable(PetControllerTest tests/PetControllerTest.cpp
         src/PetController.h src/PetController.cpp)
-    target_link_libraries(PetControllerTest PRIVATE Qt6::Core Qt6::Test)
+    # QIcon rides the eatTriggered signature, so the controller needs QtGui.
+    target_link_libraries(PetControllerTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME PetControllerTest COMMAND PetControllerTest)
     add_executable(ParameterMotionTest tests/ParameterMotionTest.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
         src/MotionClip.h src/MotionClip.cpp
         src/MotionLibrary.h src/MotionLibrary.cpp)
-    target_link_libraries(ParameterMotionTest PRIVATE Qt6::Core Qt6::Test)
+    target_link_libraries(ParameterMotionTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME ParameterMotionTest COMMAND ParameterMotionTest)
     add_executable(MotionClipTest tests/MotionClipTest.cpp
         src/MotionClip.h src/MotionClip.cpp
         src/MotionLibrary.h src/MotionLibrary.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
         src/PetController.h src/PetController.cpp)
-    target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Test)
+    target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
     if(WIN32)
         find_program(POWERSHELL_EXECUTABLE NAMES pwsh REQUIRED)

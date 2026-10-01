@@ -4,6 +4,7 @@
 #include "ParameterMotion.h"
 
 #include <QElapsedTimer>
+#include <QIcon>
 #include <QImage>
 #include <QJsonObject>
 #include <QMenu>
@@ -16,6 +17,12 @@
 #ifdef HAVE_CUBISM
 class CubismCanvas;
 #endif
+
+// A 96 px frameless, click-through overlay that flies the deleted file's icon
+// from its desktop position towards the pet's fist, where the in-window eat
+// choreography (drawFedProp) takes over at its grip moment. Defined in
+// PetWindow.cpp; only the pointer lives here.
+class DeleteOverlay;
 
 class PetWindow final : public QWidget {
     Q_OBJECT
@@ -63,6 +70,16 @@ private:
     // it, so every frame the pet presents -- the live window and the review
     // captures -- has to have it composed in.
     QImage frameWithBubble(const QImage& frame, double pulse) const;
+    // The frame as presented: Cubism framebuffer, mirrored horizontally when
+    // the pet lunges to the left (so the authored right-handed choreography
+    // faces the deleted file), with the bubble composed on top. Used by both
+    // the live paint and the interaction mask so they can never disagree.
+    QImage composedFrame() const;
+    // One shared entry for every eat trigger (drop, desktop deletion, tray
+    // menu). Drives the deleted-file icon: overlay flight from the desktop
+    // position, then the in-window wrap choreography; mirror the frame when
+    // the file sat on the pet's other side.
+    void onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon);
     void setInteractionMask(const QPixmap& artwork);
     void updateInputTransparency();
     void showMenu(const QPoint& globalPos);
@@ -95,4 +112,9 @@ private:
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
     QPixmap wrapProp_;
+    // True while a deletion triggered a lunge towards a file on the pet's
+    // left: the Cubism frame is mirrored so the authored right-hand reach
+    // plays as a left-hand one. Reset when the delete state ends.
+    bool lungeMirrored_ = false;
+    DeleteOverlay* deleteOverlay_ = nullptr;
 };

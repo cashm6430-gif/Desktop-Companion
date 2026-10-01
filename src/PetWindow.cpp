@@ -102,7 +102,86 @@ void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
                      Qt::AlignCenter, QStringLiteral("?"));
     painter.restore();
 }
-}
+} // namespace
+
+// Flight of the deleted file's icon from its desktop position towards the
+// pet's fist. A QWidget can only paint inside itself, and the deleted file
+// usually sits outside the pet window, so the first leg of the eat
+// choreography (up to drawFedProp's grip moment, 0.62 s) rides on this small
+// transparent, click-through overlay; there it hands the icon over to the
+// in-window wrap sequence at the very same global position and size.
+// The grip moment is duplicated here and in drawFedProp on purpose: both are
+// annotations of delete.motion.json's authored grip frame, and a shared
+// constant would not keep them in sync with the clip either.
+// Defined at global scope (not in an anonymous namespace) so it matches the
+// forward declaration in PetWindow.h.
+class DeleteOverlay final : public QWidget {
+public:
+    explicit DeleteOverlay(QWidget* parent)
+        : QWidget(parent, Qt::Tool | Qt::FramelessWindowHint
+                              | Qt::WindowStaysOnTopHint | Qt::WindowDoesNotAcceptFocus
+                              | Qt::WindowTransparentForInput) {
+        setAttribute(Qt::WA_TranslucentBackground);
+        setAttribute(Qt::WA_ShowWithoutActivating);
+        setFixedSize(96, 96);
+        tick_.setInterval(16);
+        connect(&tick_, &QTimer::timeout, this, [this] {
+            const double t = clock_.elapsed() / 1000.0;
+            if (t >= 0.62) { hide(); tick_.stop(); return; }
+            step();
+            update();
+        });
+    }
+
+    // `from`/`to` in logical global coordinates; the clock starts now, in the
+    // same event-loop beat as the pet's fed clock so both stay in step.
+    void launch(const QPixmap& icon, const QPointF& from, const QPointF& to) {
+        if (icon.isNull()) return;
+        icon_ = icon;
+        from_ = from;
+        to_ = to;
+        clock_.restart();
+        step();
+        show();
+        raise();
+        tick_.start();
+    }
+
+    void stop() {
+        tick_.stop();
+        hide();
+    }
+
+protected:
+    void paintEvent(QPaintEvent*) override {
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+        painter.setOpacity(fadeAlpha_);  // brief fade-in
+        const QRectF target((96.0 - iconSize_) / 2.0, (96.0 - iconSize_) / 2.0,
+                            iconSize_, iconSize_);
+        painter.drawPixmap(target, icon_, icon_.rect());
+    }
+
+private:
+    void step() {
+        const double t = clock_.elapsed() / 1000.0;
+        const double k = qBound(0.0, t / 0.62, 1.0);
+        const double ease = k * k * (3.0 - 2.0 * k);
+        const QPointF p = from_ + (to_ - from_) * ease
+            - QPointF(0.0, 46.0 * qSin(M_PI * k));  // a slight arc over the desktop
+        iconSize_ = 64.0 - 36.0 * ease;             // 64 px at the file, 28 px at the fist
+        fadeAlpha_ = qBound(0.0, k * 6.0, 1.0);     // fade in over the first ~0.1 s
+        move((p - QPointF(48.0, 48.0)).toPoint());
+    }
+
+    QPixmap icon_;
+    QPointF from_;
+    QPointF to_;
+    double iconSize_ = 64.0;
+    double fadeAlpha_ = 0.0;
+    QElapsedTimer clock_;
+    QTimer tick_;
+};
 
 PetWindow::PetWindow(PetController* controller, QWidget* parent)
     : QWidget(parent),
@@ -151,6 +230,11 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 
     frameTimer_.setInterval(40);
     frameClock_.start();
+    deleteOverlay_ = new DeleteOverlay(this);
+    // Desktop deletions carry the file's snapshot (path, icon-grid position,
+    // icon); drops arrive here too, through the shared triggerEat entry.
+    connect(controller_, &PetController::eatTriggered,
+            this, &PetWindow::onEatTriggered);
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;
@@ -164,8 +248,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
             // a bubble you can see but not grab would be the only opaque pixels
             // in the window that ignore the cursor.
             if (!cubismFrame_.isNull())
-                setInteractionMask(QPixmap::fromImage(
-                    frameWithBubble(cubismFrame_, motion_.bubblePulse())));
+                setInteractionMask(QPixmap::fromImage(composedFrame()));
         }
 #endif
         updateInputTransparency();
@@ -186,7 +269,9 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     tray_.setIcon(QIcon(idleImage_.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     tray_.setToolTip(windowTitle());
     trayMenu_.addAction(QStringLiteral("显示 / 隐藏"), this, [this] { if (isVisible()) hide(); else show(); });
-    trayMenu_.addAction(QStringLiteral("播放删除动作"), controller_, &PetController::desktopItemDeleted);
+    trayMenu_.addAction(QStringLiteral("播放删除动作"), this, [this] {
+        controller_->desktopItemDeleted();
+    });
     trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), controller_, &PetController::playGrass);
     laptopPreviewTimer_.setSingleShot(true);
     connect(&laptopPreviewTimer_, &QTimer::timeout, this, [this] {
@@ -224,6 +309,12 @@ PetWindow::~PetWindow() {
 void PetWindow::setState(PetController::State state) {
     motion_.setState(state);
     frame_ = 0;
+    // Leaving the delete state cancels the sideways lunge: the next delete
+    // re-decides the direction from its own file position.
+    if (state != PetController::State::Delete) {
+        lungeMirrored_ = false;
+        if (deleteOverlay_) deleteOverlay_->stop();
+    }
     const QPixmap* hitArtwork = nullptr;
     switch (state) {
     case PetController::State::Idle: hitArtwork = &idleImage_; break;
@@ -304,7 +395,7 @@ void PetWindow::paintEvent(QPaintEvent*) {
         // outright, which is what the translucent widget wants.
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.fillRect(rect(), Qt::transparent);
-        const QImage frame = frameWithBubble(cubismFrame_, motion_.bubblePulse());
+        const QImage frame = composedFrame();
         if (!frame.isNull()) painter.drawImage(rect(), frame);
         // The prop and the bubble are ordinary overlays: back to SourceOver or
         // their transparent pixels would erase the frame underneath.
@@ -369,6 +460,58 @@ QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
     QPainter painter(&composed);
     paintThoughtBubble(painter, composed.size(), pulse);
     return composed;
+}
+
+QImage PetWindow::composedFrame() const {
+#ifdef HAVE_CUBISM
+    // Mirroring happens here rather than on the canvas: the authored delete
+    // choreography reaches with the right hand, so when the deleted file sat
+    // on the pet's left the whole frame flips and the reach reads left-handed.
+    const QImage base = lungeMirrored_ ? cubismFrame_.mirrored(true, false) : cubismFrame_;
+    return frameWithBubble(base, motion_.bubblePulse());
+#else
+    return {};
+#endif
+}
+
+void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon) {
+    // The drop path primes the prop itself before emitting filesDropped: the
+    // shell moves the file to the Recycle Bin right after, and the real icon
+    // has to be picked up while the file still exists. That happens before
+    // this signal, so anything under 300 ms old is that primed prop.
+    if (fedClock_.isValid() && fedClock_.elapsed() < 300 && !fedIcon_.isNull()) return;
+
+    QPixmap pixmap;
+    if (!icon.isNull()) {
+        pixmap = icon.pixmap(64, 64);
+    } else if (!file.isEmpty()) {
+        // Snapshot missed the file (added and deleted within one snapshot
+        // tick): fall back to whatever the provider still resolves, then to
+        // the generic file icon.
+        QIcon resolved = QFileIconProvider().icon(QFileInfo(file));
+        if (resolved.isNull()) resolved = QFileIconProvider().icon(QFileIconProvider::File);
+        pixmap = resolved.pixmap(64, 64);
+    }
+    lungeMirrored_ = false;
+
+    // Only a deletion away from the pet gets a sideways lunge: within half a
+    // window width the authored centred choreography already reads right.
+    const bool sideways = !sourcePos.isNull()
+        && qAbs(sourcePos.x() - (pos().x() + width() / 2.0)) > width() / 2.0;
+    if (sideways) {
+        lungeMirrored_ = sourcePos.x() < pos().x() + width() / 2.0;
+        if (!pixmap.isNull()) {
+            const double w = width();
+            const double h = height();
+            const QPointF fist(lungeMirrored_ ? 0.25 * w : 0.75 * w, 0.50 * h);
+            deleteOverlay_->launch(pixmap, sourcePos, pos() + fist);
+        }
+    }
+
+    if (!pixmap.isNull()) {
+        fedIcon_ = pixmap;
+        fedClock_.restart();
+    }
 }
 
 bool PetWindow::saveRenderFrame(const QString& path) {
@@ -539,9 +682,12 @@ void PetWindow::drawFedProp(QPainter& painter) {
     if (t < gripT || t >= goneT) return; // hand still reaching / already swallowed
     const double w = width();
     const double h = height();
-    const QPointF fistGrip(0.75 * w, 0.50 * h);
-    const QPointF fistUp(0.77 * w, 0.44 * h);
-    const QPointF mouth(0.545 * w, 0.44 * h);
+    // Mirrored lunge: the whole authored choreography reflects horizontally,
+    // anchors included, so the reach happens on the side the file sat on.
+    const auto mx = [&](double x) { return lungeMirrored_ ? w - x : x; };
+    const QPointF fistGrip(mx(0.75 * w), 0.50 * h);
+    const QPointF fistUp(mx(0.77 * w), 0.44 * h);
+    const QPointF mouth(mx(0.545 * w), 0.44 * h);
     const double side = qMax(12.0, 0.10 * w);
     QPointF pos;
     double angle = 0.0;      // degrees, clockwise
@@ -593,6 +739,7 @@ void PetWindow::drawFedProp(QPainter& painter) {
         heightScale = 0.9 * (1.0 - 0.75 * k);
         wrapAlpha = 1.0 - k;
     }
+    if (lungeMirrored_) angle = -angle;  // mirroring flips rotation handedness
     painter.save();
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter.translate(pos);
