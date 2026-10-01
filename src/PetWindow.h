@@ -94,4 +94,5 @@ private:
     int frame_ = 0;
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
+    QPixmap wrapProp_;
 };

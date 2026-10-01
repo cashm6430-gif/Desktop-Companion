@@ -489,31 +489,128 @@ void PetWindow::recyclePaths(const QStringList& paths) {
 #endif
 }
 
+namespace {
+// The rolled-up "wrap" the file becomes mid-motion: a white paper roll with a
+// spiral end and the red delete cross, matching delete-concept-v6 panel 2.
+QPixmap makeWrapProp() {
+    QPixmap pm(144, 52);
+    pm.fill(Qt::transparent);
+    QPainter p(&pm);
+    p.setRenderHint(QPainter::Antialiasing, true);
+    QPen outline(QColor(0xA9, 0xA4, 0x9B), 4);
+    // body capsule
+    p.setPen(outline);
+    p.setBrush(QColor(0xFB, 0xFA, 0xF6));
+    p.drawRoundedRect(QRectF(5, 7, 134, 38), 19, 19);
+    // paper seam curves along the body
+    QPen seam(QColor(0xDD, 0xD8, 0xCF), 2);
+    p.setPen(seam);
+    p.drawLine(QPointF(52, 12), QPointF(48, 40));
+    p.drawLine(QPointF(84, 12), QPointF(80, 40));
+    // spiral at the left end (the rolled edge)
+    p.setPen(QPen(QColor(0xA9, 0xA4, 0x9B), 2.5));
+    p.drawArc(QRectF(14, 16, 20, 20), 90 * 16, 270 * 16);
+    p.drawArc(QRectF(19, 21, 10, 10), 200 * 16, 300 * 16);
+    // red delete cross at the right tip
+    QPen cross(QColor(0xD9, 0x53, 0x4F), 4, Qt::SolidLine, Qt::RoundCap);
+    p.setPen(cross);
+    p.drawLine(QPointF(114, 20), QPointF(126, 32));
+    p.drawLine(QPointF(126, 20), QPointF(114, 32));
+    return pm;
+}
+} // namespace
+
 void PetWindow::drawFedProp(QPainter& painter) {
     if (fedIcon_.isNull() || !fedClock_.isValid()) return;
-    // The prop lives exactly as long as the eat action: it fades in at the
-    // hand, drifts to the mouth while the pet reaches, and is consumed by the
-    // bite. Anchors are fractions of the widget so the 840 px captures and the
-    // 280 px window share one geometry.
-    const double life = motion_.actionDuration(PetController::State::Delete);
-    if (life <= 0.0) return;
-    const double t = qBound(0.0, fedClock_.elapsed() / 1000.0 / life, 1.0);
-    if (t >= 1.0) return;
+    if (wrapProp_.isNull()) wrapProp_ = makeWrapProp();
+    // Choreography mirrors delete.motion.json (3.2 s): the hand reaches out and
+    // the grip closes at 0.62 s, the file is rolled into a wrap while the arm
+    // settles, the mouth lunges forward between 1.30-1.45 s, and the bite
+    // consumes the wrap right after. Anchors were measured on the 840 px probe
+    // renders (fist at grip 0.75w/0.50h, fist raised 0.77w/0.44h, mouth once
+    // the ShiftX=80 lunge lands 0.545w/0.44h).
+    const double t = fedClock_.elapsed() / 1000.0;
+    const double gripT = 0.62;
+    const double rollT = 0.80;   // file has spun flat
+    const double wrapT = 0.95;   // wrap fully formed
+    const double raiseT = 1.30;
+    const double biteT = 1.45;
+    const double goneT = 1.62;
+    if (t < gripT || t >= goneT) return; // hand still reaching / already swallowed
     const double w = width();
     const double h = height();
-    const QPointF hand(0.74 * w, 0.56 * h);
-    const QPointF mouth(0.47 * w, 0.44 * h);
-    const double ease = t * t * (3.0 - 2.0 * t); // smoothstep between the two anchors
-    const QPointF pos = hand + (mouth - hand) * ease;
-    const double fadeIn = qBound(0.0, t / 0.12, 1.0);
-    const double fadeOut = qBound(0.0, (1.0 - t) / 0.18, 1.0);
-    const double scale = 1.0 - 0.35 * ease; // shrinks a little as it approaches the mouth
-    const double side = qMax(12.0, 0.11 * w) * scale;
+    const QPointF fistGrip(0.75 * w, 0.50 * h);
+    const QPointF fistUp(0.77 * w, 0.44 * h);
+    const QPointF mouth(0.545 * w, 0.44 * h);
+    const double side = qMax(12.0, 0.10 * w);
+    QPointF pos;
+    double angle = 0.0;      // degrees, clockwise
+    double widthScale = 1.0;
+    double heightScale = 1.0;
+    double iconAlpha = 0.0;
+    double wrapAlpha = 0.0;
+    if (t < rollT) {
+        // Rolling: the file spins flat around its centre while shrinking tall.
+        const double k = qBound(0.0, (t - gripT) / (rollT - gripT), 1.0);
+        const double ease = k * k * (3.0 - 2.0 * k);
+        pos = fistGrip + (fistUp - fistGrip) * ease * 0.35;
+        angle = 360.0 * ease;
+        heightScale = 1.0 - 0.65 * ease;
+        widthScale = 1.0 - 0.2 * ease;
+        iconAlpha = 1.0;
+    } else if (t < wrapT) {
+        // The flat strip unrolls into the drawn wrap.
+        const double k = qBound(0.0, (t - rollT) / (wrapT - rollT), 1.0);
+        const double ease = k * k * (3.0 - 2.0 * k);
+        pos = fistGrip + (fistUp - fistGrip) * (0.35 + 0.65 * ease);
+        angle = -25.0 * ease;
+        heightScale = 0.35 + 0.65 * ease;
+        widthScale = 0.8 + 0.2 * ease;
+        iconAlpha = 1.0 - k;
+        wrapAlpha = k;
+    } else if (t < raiseT) {
+        // Held phase: the wrap rides the fist at its raised anchor.
+        pos = fistUp;
+        angle = -25.0;
+        heightScale = 1.0;
+        widthScale = 1.0;
+        wrapAlpha = 1.0;
+    } else if (t < biteT) {
+        // Lunge phase: the wrap levels out as the mouth snaps forward to it.
+        const double k = qBound(0.0, (t - raiseT) / (biteT - raiseT), 1.0);
+        const double ease = k * k * (3.0 - 2.0 * k);
+        pos = fistUp + (mouth - fistUp) * ease;
+        angle = -25.0 * (1.0 - ease);
+        widthScale = 1.0 - 0.1 * ease;
+        heightScale = 1.0 - 0.1 * ease;
+        wrapAlpha = 1.0;
+    } else {
+        // Bite lands: swallowed in a couple of frames, no slow drift.
+        const double k = qBound(0.0, (t - biteT) / (goneT - biteT), 1.0);
+        pos = mouth;
+        angle = 0.0;
+        widthScale = 0.9 * (1.0 - 0.75 * k);
+        heightScale = 0.9 * (1.0 - 0.75 * k);
+        wrapAlpha = 1.0 - k;
+    }
     painter.save();
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-    painter.setOpacity(fadeIn * fadeOut);
-    painter.drawPixmap(QRectF(pos.x() - side / 2.0, pos.y() - side / 2.0, side, side), fedIcon_,
-                       QRectF(fedIcon_.isNull() ? QRect() : fedIcon_.rect()));
+    painter.translate(pos);
+    painter.rotate(angle);
+    const QRectF source = fedIcon_.isNull() ? QRect() : fedIcon_.rect();
+    if (iconAlpha > 0.0) {
+        painter.setOpacity(iconAlpha);
+        painter.drawPixmap(QRectF(-side * widthScale / 2.0, -side * heightScale / 2.0,
+                                  side * widthScale, side * heightScale),
+                           fedIcon_, source);
+    }
+    if (wrapAlpha > 0.0) {
+        const double wrapW = side * 1.8 * widthScale;
+        const double wrapH = side * 0.62 * heightScale;
+        painter.setOpacity(wrapAlpha);
+        painter.drawPixmap(QRectF(-wrapW / 2.0, -wrapH / 2.0, wrapW, wrapH),
+                           wrapProp_, QRectF(wrapProp_.rect()));
+    }
     painter.restore();
 }
 
