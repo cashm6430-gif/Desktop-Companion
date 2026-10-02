@@ -27,10 +27,11 @@ int main(int argc, char** argv) {
         const QString scenario = QString::fromLocal8Bit(argv[3]);
         if (scenario.startsWith(QStringLiteral("grass-"))) {
             const QStringList grassScenes{QStringLiteral("grass-touch"), QStringLiteral("grass-timeout"),
-                QStringLiteral("grass-delete-busy")};
+                QStringLiteral("grass-delete-busy"), QStringLiteral("grass-approved")};
             if (!grassScenes.contains(scenario) || !QDir().mkpath(output)) return 2;
             window.prepareLiveInteractionReview();
-            window.setInteractionPreviewEnabled(true);
+            const bool approvedEntry = scenario == QStringLiteral("grass-approved");
+            window.setInteractionPreviewEnabled(!approvedEntry);
             window.move(-10000, -10000);
             constexpr double step = 1.0 / 15.0;
             constexpr int frameCount = 180;
@@ -55,8 +56,16 @@ int main(int argc, char** argv) {
                 QString event;
                 if (!started && time >= 0.2) {
                     started = true;
-                    if (!window.startGrassInteraction()) { app.exit(2); return; }
-                    event = QStringLiteral("grass_start");
+                    if (approvedEntry) {
+                        const QPointF body(window.width() * 0.5, window.height() * 0.5);
+                        mouse(QEvent::MouseButtonDblClick, body, Qt::LeftButton, Qt::LeftButton);
+                        mouse(QEvent::MouseButtonRelease, body, Qt::LeftButton, Qt::NoButton);
+                        if (window.grassInteractionPhase() != QStringLiteral("enter")) { app.exit(2); return; }
+                        event = QStringLiteral("default_double_click");
+                    } else {
+                        if (!window.startGrassInteraction()) { app.exit(2); return; }
+                        event = QStringLiteral("grass_start");
+                    }
                 }
                 if (!newTurn && time >= 1.0) {
                     newTurn = true;
@@ -78,7 +87,7 @@ int main(int argc, char** argv) {
                     const QPointF center = tip.boundingRect().center();
                     mouse(QEvent::MouseMove, center + QPointF(window.width() * 0.03, 0),
                           Qt::NoButton, Qt::NoButton);
-                    if (scenario == QStringLiteral("grass-touch") && !touched && time >= holdStarted + 0.8) {
+                    if ((scenario == QStringLiteral("grass-touch") || approvedEntry) && !touched && time >= holdStarted + 0.8) {
                         if (!window.isGrassTipAt(center)) { qWarning() << "Tip center missed" << center; app.exit(2); return; }
                         touched = true;
                         click(center);
@@ -120,6 +129,7 @@ int main(int argc, char** argv) {
                 trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
                     {QStringLiteral("state"), static_cast<int>(controller.state())},
                     {QStringLiteral("active_turns"), controller.activeTurnCount()},
+                    {QStringLiteral("preview_enabled"), window.interactionPreviewEnabled()},
                     {QStringLiteral("grass_phase"), window.grassInteractionPhase()},
                     {QStringLiteral("grass_time"), window.grassInteractionTime()},
                     {QStringLiteral("tip_bounds"), QJsonArray{tip.x(), tip.y(), tip.width(), tip.height()}},

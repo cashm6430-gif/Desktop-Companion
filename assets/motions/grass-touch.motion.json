@@ -1,7 +1,8 @@
 {
   "version": 1,
-  "approval": "pending",
-  "conceptApproval": "pending",
+  "approval": "approved",
+  "conceptApproval": "approved",
+  "approvedOn": "2026-10-02",
   "revision": 1,
   "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
   "displayName": "草穗接招",

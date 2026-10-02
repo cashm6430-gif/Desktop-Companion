@@ -269,10 +269,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     interactionPreviewAction_ = trayMenu_.addAction(QStringLiteral("预览新互动（待审批）"));
     interactionPreviewAction_->setCheckable(true);
     connect(interactionPreviewAction_, &QAction::toggled, this, &PetWindow::setInteractionPreviewEnabled);
-    trayMenu_.addAction(QStringLiteral("预览草穗接招"), this, [this] {
-        setInteractionPreviewEnabled(true);
-        startGrassInteraction();
-    });
+    if (!grassInteractionApproved()) {
+        trayMenu_.addAction(QStringLiteral("预览草穗接招"), this, [this] {
+            setInteractionPreviewEnabled(true);
+            startGrassInteraction();
+        });
+    }
     trayMenu_.addAction(QStringLiteral("预览收工回望"), this, [this] {
         if (controller_->state() != PetController::State::Idle) return;
         setInteractionPreviewEnabled(true);
@@ -596,7 +598,7 @@ bool PetWindow::renderLiveInteractionFrame(double seconds, const QString& path) 
 }
 
 bool PetWindow::startGrassInteraction() {
-    if (!interactionPreviewEnabled_ || renderBackend() != QStringLiteral("cubism_native")
+    if ((!grassInteractionApproved() && !interactionPreviewEnabled_) || renderBackend() != QStringLiteral("cubism_native")
         || controller_->state() == PetController::State::Delete) return false;
     controller_->playInteractiveGrass(motion_.grassInteractionMaxDuration() + 1.0);
     if (motion_.beginGrassInteraction()) return true;
@@ -605,8 +607,13 @@ bool PetWindow::startGrassInteraction() {
 }
 
 void PetWindow::playGrass() {
-    if (interactionPreviewEnabled_) startGrassInteraction();
-    else controller_->playGrass();
+    if ((grassInteractionApproved() || interactionPreviewEnabled_) && startGrassInteraction()) return;
+    controller_->playGrass();
+}
+
+bool PetWindow::grassInteractionApproved() const {
+    const auto* clip = motion_.library().clip(QStringLiteral("grass-touch"));
+    return clip && clip->approval() == QStringLiteral("approved");
 }
 
 QPainterPath PetWindow::grassTipHitPath() const {
@@ -624,7 +631,8 @@ QPainterPath PetWindow::grassTipHitPath() const {
 }
 
 bool PetWindow::isGrassTipAt(const QPointF& position) const {
-    return interactionPreviewEnabled_ && motion_.grassInteractionPhase() == QStringLiteral("hold")
+    return (grassInteractionApproved() || interactionPreviewEnabled_)
+        && motion_.grassInteractionPhase() == QStringLiteral("hold")
         && grassTipHitPath().contains(position);
 }
 
@@ -636,7 +644,7 @@ void PetWindow::setInteractionPreviewEnabled(bool enabled) {
         patPreviewTimer_.stop();
         releasePointerGesture();
         motion_.cancelInteraction();
-        if (motion_.grassInteractionActive()) controller_->actionFinished();
+        if (motion_.grassInteractionActive() && !grassInteractionApproved()) controller_->actionFinished();
     }
 }
 

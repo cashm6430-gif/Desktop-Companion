@@ -23,7 +23,7 @@ from review_session import (
 
 SCENARIOS = ('turn-ended-standing', 'turn-ended-laptop', 'turn-ended-interrupt',
              'head-pat', 'head-pat-busy', 'head-pat-interrupt',
-             'grass-touch', 'grass-timeout', 'grass-delete-busy')
+             'grass-touch', 'grass-timeout', 'grass-delete-busy', 'grass-approved')
 SCOPE = 'real_interaction_player_and_native_model'
 GRASS_SCOPE = 'window_player_and_synthetic_qt_pointer_with_native_model'
 
@@ -46,10 +46,13 @@ def check_grass_scene(evidence, scenario):
     assert any(frame['event'] == 'body_click_and_double_click_miss' and frame['grass_phase'] == 'hold'
                for frame in frames), 'Body input restarted or accepted the grass interaction'
     assert max(frame['active_turns'] for frame in frames) == 1
-    if scenario == 'grass-touch':
+    if scenario in ('grass-touch', 'grass-approved'):
         assert 'respond' in phases and 'timeout' not in phases and 'release' in phases
         assert any(frame['event'] == 'tip_click_twice' and frame['grass_phase'] == 'respond' for frame in frames)
         assert sum(before != 'respond' and after == 'respond' for before, after in zip(phases, phases[1:])) == 1
+        if scenario == 'grass-approved':
+            assert not any(frame['preview_enabled'] for frame in frames), 'Approved grass required draft previews'
+            assert any(frame['event'] == 'default_double_click' for frame in frames), 'Normal entry was not used'
     elif scenario == 'grass-timeout':
         assert 'timeout' in phases and 'respond' not in phases and 'release' in phases
         assert len(hold) / 15 <= 3.1, 'Grass hold exceeded its bounded timeout'

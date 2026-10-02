@@ -26,6 +26,16 @@ class GrassSceneEvidenceTest(unittest.TestCase):
         report = check_grass_scene(self.evidence(), 'grass-touch')
         self.assertEqual(report['qt_pointer_arbitration'], 'passed')
 
+    def test_approved_entry_requires_default_input_without_previews(self):
+        evidence = self.evidence()
+        for frame in evidence['frames']:
+            frame['preview_enabled'] = False
+        evidence['frames'][0]['event'] = 'default_double_click'
+        check_grass_scene(evidence, 'grass-approved')
+        evidence['frames'][0]['preview_enabled'] = True
+        with self.assertRaisesRegex(AssertionError, 'draft previews'):
+            check_grass_scene(evidence, 'grass-approved')
+
     def test_both_branches_in_one_sequence_are_rejected(self):
         evidence = self.evidence()
         evidence['frames'][88]['grass_phase'] = 'timeout'

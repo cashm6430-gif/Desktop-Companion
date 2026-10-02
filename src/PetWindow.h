@@ -110,6 +110,7 @@ private:
     void releasePointerGesture();
     void advanceLiveFrame(double seconds);
     void playGrass();
+    bool grassInteractionApproved() const;
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
