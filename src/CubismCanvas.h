@@ -26,6 +26,7 @@ public:
     // Logical widget coordinates of the latest rendered head mesh. Uses the
     // same grounded transform as the picture, so input follows head/seat motion.
     const QPainterPath& headHitPath() const { return headHitPath_; }
+    const QPainterPath& grassTipHitPath() const { return grassTipHitPath_; }
 
 signals:
     void readyChanged(bool ready);
@@ -44,4 +45,5 @@ private:
     int sampleCount_ = -1;
     double frameSeconds_ = 0.0;
     QPainterPath headHitPath_;
+    QPainterPath grassTipHitPath_;
 };

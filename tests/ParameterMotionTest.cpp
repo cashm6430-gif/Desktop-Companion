@@ -4,6 +4,9 @@
 #include <QtTest/QTest>
 #include <QTemporaryDir>
 #include <QTemporaryFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <cmath>
 
 namespace {
@@ -29,6 +32,47 @@ bool writeReactionFixture(const QTemporaryDir& dir) {
 
 void advanceFrames(ParameterMotion& motion, int frames) {
     for (int i = 0; i < frames; ++i) motion.advance(0.02);
+}
+
+bool writeGrassInteractionFixture(const QTemporaryDir& dir, double maxHold = 3.0) {
+    QJsonArray keys;
+    const auto key = [&](double time, double wrist, double reach, double eyeX, double smile) {
+        const bool visible = time > 0 && time < 8.6;
+        keys.append(QJsonObject{{QStringLiteral("time"), time},
+            {QStringLiteral("parameters"), QJsonObject{
+                {QStringLiteral("ParamGrassVisible"), visible ? 1.0 : 0.0},
+                {QStringLiteral("ParamHandRGrip"), visible ? 1.0 : 0.0},
+                {QStringLiteral("ParamGrassReach"), reach},
+                {QStringLiteral("ParamGrassSwing"), 0.0},
+                {QStringLiteral("ParamArmRA"), visible ? 50.0 : 0.0},
+                {QStringLiteral("ParamElbowRA"), visible ? 14.0 : 0.0},
+                {QStringLiteral("ParamWristRA"), wrist},
+                {QStringLiteral("ParamEyeBallX"), eyeX},
+                {QStringLiteral("ParamEyeLOpen"), 1.0},
+                {QStringLiteral("ParamEyeROpen"), 1.0},
+                {QStringLiteral("ParamEyeSmile"), smile}
+            }}});
+    };
+    key(0, 0, 0, 0, 0);
+    key(3.6, 0, 1, 0, 0);
+    key(4.0, 20, 1, 0, 0);
+    key(4.4, 0, 1, 0, 0);
+    key(5.2, -22, 0.5, 0, 1);
+    key(6.0, 0, 1, 0, 0);
+    key(6.5, 0, 1, 0.75, 0);
+    key(7.0, 0, 1, 0, 0);
+    key(8.6, 0, 0, 0, 0);
+    const QJsonObject root{
+        {QStringLiteral("duration"), 8.6}, {QStringLiteral("approval"), QStringLiteral("pending")},
+        {QStringLiteral("interaction"), QJsonObject{
+            {QStringLiteral("enterEnd"), 3.6}, {QStringLiteral("holdEnd"), 4.4},
+            {QStringLiteral("respondEnd"), 6.0}, {QStringLiteral("timeoutEnd"), 7.0},
+            {QStringLiteral("releaseEnd"), 8.6}, {QStringLiteral("maxHold"), maxHold}
+        }}, {QStringLiteral("keyframes"), keys}
+    };
+    QFile file(dir.filePath(QStringLiteral("grass-touch.motion.json")));
+    const auto json = QJsonDocument(root).toJson();
+    return file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(json) == json.size();
 }
 }
 
@@ -58,7 +102,196 @@ private slots:
     void invalidReactionConfigurationIsRejected();
     void seatedReactionContextSurvivesUserAndLastStopHandoffs();
     void earlyHeadPatReleaseDoesNotForceClosedEyes();
+    void grassInteractionRespondsOnlyDuringHold();
+    void grassInteractionTimeoutSkipsResponse();
+    void grassInteractionIgnoresLegacyCompletionDeadline();
+    void grassInteractionInterruptionsAndRestartStayContinuous();
+    void grassInteractionRootAndSoftTipStayBounded();
+    void grassInteractionConfigurationRejectsBadPhasesAndGrip();
 };
+
+void ParameterMotionTest::grassInteractionRespondsOnlyDuringHold() {
+    QTemporaryDir dir;
+    QVERIFY(writeGrassInteractionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QVERIFY(!motion.beginGrassInteraction());
+    motion.setState(PetController::State::Grass);
+    QVERIFY(motion.beginGrassInteraction());
+    QVERIFY(!motion.beginGrassInteraction());
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("enter"));
+    QVERIFY(!motion.respondToGrass());
+    advanceFrames(motion, 180);
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("hold"));
+    const auto held = motion.values();
+    motion.lookAtGrassTip(1);
+    QCOMPARE(motion.values(), held);
+    advanceFrames(motion, 30);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.15);
+    const auto beforeClick = motion.values();
+    QVERIFY(motion.respondToGrass());
+    QCOMPARE(motion.values(), beforeClick);
+    QCOMPARE(motion.grassInteractionTime(), 4.4);
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("respond"));
+    QVERIFY(!motion.respondToGrass());
+    motion.lookAtGrassTip(-1); // The response owns the gaze again.
+    advanceFrames(motion, 80);
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("release"));
+    QVERIFY(!motion.consumeActionFinished());
+    advanceFrames(motion, 80);
+    QVERIFY(!motion.grassInteractionActive());
+    QVERIFY(motion.grassInteractionPhase().isEmpty());
+    QVERIFY(motion.consumeActionFinished());
+    QVERIFY(!motion.consumeActionFinished());
+    advanceFrames(motion, 150);
+    QVERIFY(!motion.consumeActionFinished());
+    QVERIFY(!motion.respondToGrass());
+    QCOMPARE(motion.library().clip(QStringLiteral("grass-touch"))->approval(), QStringLiteral("pending"));
+}
+
+void ParameterMotionTest::grassInteractionTimeoutSkipsResponse() {
+    QTemporaryDir dir;
+    QVERIFY(writeGrassInteractionFixture(dir));
+    for (const double step : {1.0 / 30.0, 1.0 / 60.0}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(dir.path()));
+        motion.setState(PetController::State::Grass);
+        QVERIFY(motion.beginGrassInteraction());
+        bool sawHold = false, sawTimeout = false, sawRelease = false;
+        double highestTimeoutGaze = 0;
+        for (int i = 0; i < static_cast<int>(9.3 / step); ++i) {
+            motion.advance(step);
+            const auto phase = motion.grassInteractionPhase();
+            QVERIFY(phase != QStringLiteral("respond"));
+            sawHold |= phase == QStringLiteral("hold");
+            sawTimeout |= phase == QStringLiteral("timeout");
+            sawRelease |= phase == QStringLiteral("release");
+            if (phase == QStringLiteral("timeout"))
+                highestTimeoutGaze = std::max(highestTimeoutGaze,
+                    motion.values().value(QStringLiteral("ParamEyeBallX")));
+        }
+        QVERIFY(sawHold && sawTimeout && sawRelease);
+        QVERIFY(highestTimeoutGaze > 0.5);
+        QVERIFY(!motion.grassInteractionActive());
+        QVERIFY(motion.consumeActionFinished());
+        motion.advance(step);
+        QVERIFY(!motion.consumeActionFinished());
+    }
+}
+
+void ParameterMotionTest::grassInteractionIgnoresLegacyCompletionDeadline() {
+    QTemporaryDir dir;
+    QVERIFY(writeGrassInteractionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadGrassMotion(QStringLiteral("assets/motions/grass.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QCOMPARE(motion.actionDuration(PetController::State::Grass), 6.9);
+    QVERIFY(qAbs(motion.grassInteractionMaxDuration() - 9.8) < 1e-9);
+    motion.setState(PetController::State::Grass);
+    QVERIFY(motion.beginGrassInteraction());
+    QVERIFY(qAbs(motion.actionDuration(PetController::State::Grass) - 9.8) < 1e-9);
+    advanceFrames(motion, 325); // 6.5 s: click just before the 3 s wait expires.
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("hold"));
+    QVERIFY(motion.respondToGrass());
+    advanceFrames(motion, 25); // 7 s is already beyond the old fixed clip.
+    QVERIFY(motion.grassInteractionActive());
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("respond"));
+    QVERIFY(!motion.consumeActionFinished());
+    advanceFrames(motion, 134);
+    QVERIFY(motion.grassInteractionActive());
+    motion.advance(0.02); // Actual response path finishes at 9.7 s.
+    QVERIFY(!motion.grassInteractionActive());
+    QVERIFY(motion.consumeActionFinished());
+}
+
+void ParameterMotionTest::grassInteractionInterruptionsAndRestartStayContinuous() {
+    QTemporaryDir dir;
+    QVERIFY(writeGrassInteractionFixture(dir));
+    for (const auto next : {PetController::State::Busy, PetController::State::Delete, PetController::State::Idle}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(dir.path()));
+        motion.setState(PetController::State::Grass);
+        QVERIFY(motion.beginGrassInteraction());
+        advanceFrames(motion, 200);
+        const auto before = motion.values();
+        motion.setState(next);
+        QCOMPARE(motion.values(), before);
+        QVERIFY(!motion.grassInteractionActive());
+        QVERIFY(motion.grassInteractionPhase().isEmpty());
+        QVERIFY(!motion.respondToGrass());
+        QVERIFY(!motion.consumeActionFinished());
+        motion.setState(PetController::State::Grass);
+        QVERIFY(motion.beginGrassInteraction());
+        advanceFrames(motion, 190);
+        const auto hold = motion.values();
+        motion.setState(PetController::State::Grass); // Re-trigger starts Enter.
+        QCOMPARE(motion.values(), hold);
+        QVERIFY(!motion.grassInteractionActive());
+        QVERIFY(motion.beginGrassInteraction());
+        QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("enter"));
+        QCOMPARE(motion.values(), hold);
+    }
+}
+
+void ParameterMotionTest::grassInteractionRootAndSoftTipStayBounded() {
+    QTemporaryDir dir;
+    QVERIFY(writeGrassInteractionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.setState(PetController::State::Grass);
+    QVERIFY(motion.beginGrassInteraction());
+    advanceFrames(motion, 210);
+    double tipMotion = 0;
+    for (int i = 0; i < 60; ++i) {
+        motion.lookAtGrassTip(i % 2 ? -20 : 20); // Invalid extent is clamped.
+        motion.advance(0.02);
+        QVERIFY(motion.values().value(QStringLiteral("ParamHandRGrip")) > 0.99);
+        QVERIFY(motion.values().value(QStringLiteral("ParamGrassVisible")) > 0.99);
+        QVERIFY(motion.values().value(QStringLiteral("ParamGrassReach")) > 0.99);
+        QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamGrassSwing"))) <= 1);
+        QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamGrassTipBend"))) <= 1);
+        QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamEyeBallX"))) <= 0.18);
+        tipMotion = std::max(tipMotion, qAbs(motion.values().value(QStringLiteral("ParamGrassTipBend"))));
+    }
+    QVERIFY(tipMotion > 0.05); // Wrist motion excites the softer trailing tip.
+    QVERIFY(motion.respondToGrass());
+    advanceFrames(motion, 175);
+    QVERIFY(!motion.grassInteractionActive());
+    QVERIFY(motion.values().value(QStringLiteral("ParamGrassVisible")) < 0.01);
+}
+
+void ParameterMotionTest::grassInteractionConfigurationRejectsBadPhasesAndGrip() {
+    QTemporaryDir dir;
+    QVERIFY(writeGrassInteractionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QVERIFY(writeGrassInteractionFixture(dir, 3.1));
+    QString error;
+    QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
+    QVERIFY(error.contains(QStringLiteral("maxHold")));
+    motion.setState(PetController::State::Grass);
+    QVERIFY(motion.beginGrassInteraction()); // Retains the last valid metadata.
+    QVERIFY(qAbs(motion.grassInteractionMaxDuration() - 9.8) < 1e-9);
+    QVERIFY(writeGrassInteractionFixture(dir));
+    QFile fixture(dir.filePath(QStringLiteral("grass-touch.motion.json")));
+    QVERIFY(fixture.open(QIODevice::ReadOnly));
+    auto root = QJsonDocument::fromJson(fixture.readAll()).object();
+    fixture.close();
+    auto keys = root.value(QStringLiteral("keyframes")).toArray();
+    for (int index : {1, 3}) {
+        auto key = keys[index].toObject();
+        auto params = key.value(QStringLiteral("parameters")).toObject();
+        params.insert(QStringLiteral("ParamHandRGrip"), 0.0);
+        key.insert(QStringLiteral("parameters"), params);
+        keys[index] = key;
+    }
+    root.insert(QStringLiteral("keyframes"), keys);
+    QVERIFY(fixture.open(QIODevice::WriteOnly | QIODevice::Truncate));
+    fixture.write(QJsonDocument(root).toJson());
+    fixture.close();
+    QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
+    QVERIFY(error.contains(QStringLiteral("grip")));
+}
 
 void ParameterMotionTest::seatedReactionContextSurvivesUserAndLastStopHandoffs() {
     QTemporaryDir dir;

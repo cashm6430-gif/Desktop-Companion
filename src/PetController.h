@@ -29,6 +29,10 @@ public:
     // Overrides the fallback duration used when no motion player drives the
     // action. Called once at start-up with values from MotionLibrary.
     void setActionDuration(State state, double seconds);
+    // Native review advances its own frame clock. Disable only the wall-clock
+    // deadline there; explicit actionFinished() still restores the background.
+    // Re-enabling affects future starts and does not restart a current action.
+    void setActionFallbackEnabled(bool enabled);
 
 public slots:
     void turnStarted(const QString& sessionId, const QString& turnId);
@@ -46,6 +50,10 @@ public slots:
     // de-duplication window and the fallback timer cannot drift apart.
     void fileDropped(const QStringList& paths);
     void playGrass();
+    // Interactive grass owns an enter/hold/respond/release sequence whose
+    // maximum length can exceed the original one-shot clip. Replace that
+    // clip's fallback with a finite deadline; the player may finish sooner.
+    void playInteractiveGrass(double maximumSeconds);
     void resetBusy();
     // Raised by the motion player when a one-shot action reached its authored
     // length; falls back to the same duration when running headless.
@@ -75,6 +83,7 @@ private:
     QTimer actionTimer_;
     QTimer expiryTimer_;
     QElapsedTimer deleteClock_;
+    bool actionFallbackEnabled_ = true;
     QString lastFedFile_;
     double deleteDuration_ = MotionLibrary::kDeleteDuration;
     double grassDuration_ = MotionLibrary::kGrassFallback;

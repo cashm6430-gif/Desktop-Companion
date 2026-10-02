@@ -23,6 +23,7 @@
 #include <QSettings>
 #include <QtMath>
 #include <QUrl>
+#include <algorithm>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -204,6 +205,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // WS_EX_TRANSPARENT click-through keeps only the character interactive,
     // so a file dropped beside the pet lands on the desktop as before.
     setAcceptDrops(true);
+    setMouseTracking(true);
 
 #ifdef HAVE_CUBISM
     // Keep OpenGL composition in a separate window. This translucent widget
@@ -243,25 +245,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;
-        if (pointerGesture_.mode() != PetPointerGesture::Mode::None) {
-            pointerGesture_.advance(seconds);
-            updatePointerGesture();
-        }
-        motion_.advance(seconds);
-        if (motion_.consumeActionFinished()) controller_->actionFinished();
-#ifdef HAVE_CUBISM
-        if (cubismCanvas_ && cubismCanvas_->isReady()) {
-            cubismCanvas_->advance(seconds);
-            cubismFrame_ = cubismCanvas_->grabFramebuffer();
-            // The hit area follows what is actually on screen, bubble included:
-            // a bubble you can see but not grab would be the only opaque pixels
-            // in the window that ignore the cursor.
-            if (!cubismFrame_.isNull())
-                setInteractionMask(QPixmap::fromImage(composedFrame()));
-        }
-#endif
-        updateInputTransparency();
-        update();
+        advanceLiveFrame(seconds);
     });
     frameTimer_.start();
     connect(controller_, &PetController::stateChanged, this, &PetWindow::setState);
@@ -281,10 +265,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     trayMenu_.addAction(QStringLiteral("播放删除动作"), this, [this] {
         controller_->desktopItemDeleted();
     });
-    trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), controller_, &PetController::playGrass);
+    trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), this, &PetWindow::playGrass);
     interactionPreviewAction_ = trayMenu_.addAction(QStringLiteral("预览新互动（待审批）"));
     interactionPreviewAction_->setCheckable(true);
     connect(interactionPreviewAction_, &QAction::toggled, this, &PetWindow::setInteractionPreviewEnabled);
+    trayMenu_.addAction(QStringLiteral("预览草穗接招"), this, [this] {
+        setInteractionPreviewEnabled(true);
+        startGrassInteraction();
+    });
     trayMenu_.addAction(QStringLiteral("预览收工回望"), this, [this] {
         if (controller_->state() != PetController::State::Idle) return;
         setInteractionPreviewEnabled(true);
@@ -390,7 +378,7 @@ void PetWindow::updateInputTransparency() {
     const int x = (cursor.x - bounds.left) * hitCoverage_.width() / windowWidth;
     const int y = (cursor.y - bounds.top) * hitCoverage_.height() / windowHeight;
     const bool buttonHeld = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-    const bool interactive = (pointerGesture_.mode() != PetPointerGesture::Mode::None && buttonHeld)
+    const bool interactive = ((pointerGesture_.mode() != PetPointerGesture::Mode::None || grassTouchPressed_) && buttonHeld)
         || (cursorOk && !hitCoverage_.isNull()
         && x >= 0 && y >= 0 && x < hitCoverage_.width() && y < hitCoverage_.height()
         && hitCoverage_.constScanLine(y)[x] >= 16);
@@ -574,6 +562,72 @@ bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameter
     return false;
 }
 
+void PetWindow::advanceLiveFrame(double seconds) {
+    if (pointerGesture_.mode() != PetPointerGesture::Mode::None) {
+        pointerGesture_.advance(seconds);
+        updatePointerGesture();
+    }
+    motion_.advance(seconds);
+    if (motion_.consumeActionFinished()) controller_->actionFinished();
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        cubismCanvas_->advance(seconds);
+        cubismFrame_ = cubismCanvas_->grabFramebuffer();
+        if (!cubismFrame_.isNull())
+            setInteractionMask(QPixmap::fromImage(composedFrame()));
+    }
+#endif
+    updateInputTransparency();
+    update();
+}
+
+void PetWindow::prepareLiveInteractionReview(int pixels) {
+    frameTimer_.stop();
+    controller_->setActionFallbackEnabled(false);
+    setFixedSize(pixels, pixels);
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) cubismCanvas_->setFixedSize(size());
+#endif
+}
+
+bool PetWindow::renderLiveInteractionFrame(double seconds, const QString& path) {
+    advanceLiveFrame(seconds);
+    return renderBackend() == QStringLiteral("cubism_native") && saveRenderFrame(path);
+}
+
+bool PetWindow::startGrassInteraction() {
+    if (!interactionPreviewEnabled_ || renderBackend() != QStringLiteral("cubism_native")
+        || controller_->state() == PetController::State::Delete) return false;
+    controller_->playInteractiveGrass(motion_.grassInteractionMaxDuration() + 1.0);
+    if (motion_.beginGrassInteraction()) return true;
+    controller_->actionFinished();
+    return false;
+}
+
+void PetWindow::playGrass() {
+    if (interactionPreviewEnabled_) startGrassInteraction();
+    else controller_->playGrass();
+}
+
+QPainterPath PetWindow::grassTipHitPath() const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        const auto& path = cubismCanvas_->grassTipHitPath();
+        if (!lungeMirrored_) return path;
+        QTransform mirror;
+        mirror.translate(width(), 0);
+        mirror.scale(-1, 1);
+        return mirror.map(path);
+    }
+#endif
+    return {};
+}
+
+bool PetWindow::isGrassTipAt(const QPointF& position) const {
+    return interactionPreviewEnabled_ && motion_.grassInteractionPhase() == QStringLiteral("hold")
+        && grassTipHitPath().contains(position);
+}
+
 void PetWindow::setInteractionPreviewEnabled(bool enabled) {
     interactionPreviewEnabled_ = enabled;
     if (interactionPreviewAction_ && interactionPreviewAction_->isChecked() != enabled)
@@ -582,6 +636,7 @@ void PetWindow::setInteractionPreviewEnabled(bool enabled) {
         patPreviewTimer_.stop();
         releasePointerGesture();
         motion_.cancelInteraction();
+        if (motion_.grassInteractionActive()) controller_->actionFinished();
     }
 }
 
@@ -602,6 +657,7 @@ bool PetWindow::event(QEvent* event) {
         releasePointerGesture();
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
+        if (motion_.grassInteractionActive()) controller_->actionFinished();
     }
     return QWidget::event(event);
 }
@@ -633,11 +689,18 @@ void PetWindow::releasePointerGesture() {
         settings.setValue(QStringLiteral("position"), pos());
     }
     dragging_ = false;
+    grassTouchPressed_ = false;
 }
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         releasePointerGesture();
+        if (isGrassTipAt(event->position()) && motion_.respondToGrass()) {
+            grassTouchPressed_ = true;
+            updateInputTransparency();
+            event->accept();
+            return;
+        }
         gestureWindowOrigin_ = pos();
         dragOffset_ = event->globalPosition().toPoint() - pos();
         const bool allowPat = interactionPreviewEnabled_ && motion_.canBeginHeadPat()
@@ -650,6 +713,15 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
 }
 
 void PetWindow::mouseMoveEvent(QMouseEvent* event) {
+    if (motion_.grassInteractionPhase() == QStringLiteral("hold")) {
+        const QRectF tip = grassTipHitPath().boundingRect();
+        const bool nearby = !tip.isEmpty() && tip.adjusted(-width() * 0.12, -height() * 0.12,
+            width() * 0.12, height() * 0.12).contains(event->position());
+        motion_.lookAtGrassTip(nearby ? std::clamp((event->position().x() - tip.center().x())
+            / (width() * 0.15), -1.0, 1.0) : 0.0);
+        setCursor(isGrassTipAt(event->position()) ? Qt::PointingHandCursor : Qt::ArrowCursor);
+    } else setCursor(Qt::ArrowCursor);
+    if (grassTouchPressed_) { event->accept(); return; }
     if (pointerGesture_.mode() != PetPointerGesture::Mode::None && (event->buttons() & Qt::LeftButton)) {
         // Relative to the press-time window, never to a window moved mid-drag.
         pointerGesture_.move(event->globalPosition() - QPointF(gestureWindowOrigin_));
@@ -669,8 +741,12 @@ void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
 
 void PetWindow::mouseDoubleClickEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
+        if (motion_.grassInteractionActive()) {
+            event->accept();
+            return;
+        }
         releasePointerGesture();
-        controller_->playGrass();
+        playGrass();
     }
 }
 

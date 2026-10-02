@@ -23,6 +23,7 @@
 #include <QJsonObject>
 #include <QDebug>
 #include <QSurfaceFormat>
+#include <QPainterPathStroker>
 #include <cstdlib>
 #include <cstring>
 #include <memory>
@@ -91,6 +92,8 @@ struct CubismCanvas::Impl {
     std::vector<int> seatedFeet;
     std::vector<int> headMeshes;
     int faceMesh = -1;
+    int grassMesh = -1;
+    float grassTipMinV = 0, grassTipMaxU = 0;
     // The bite (gape) art drawable. The exported moc3 lost the switch-opacity
     // keyforms that should tie this mesh's visibility to ParamMouthGape, so
     // the layer rides fully opaque and only MouthOpenY's 25%-sliver closed
@@ -259,7 +262,8 @@ void CubismCanvas::initializeGL() {
         const bool standingFoot = source.startsWith(QStringLiteral("footwear-"));
         const bool headMesh = source == QStringLiteral("face")
             || source == QStringLiteral("front hair") || source == QStringLiteral("headwear");
-        if (!seatedMesh && !standingFoot && !headMesh) continue;
+        const bool grassMesh = source == QStringLiteral("handwear right");
+        if (!seatedMesh && !standingFoot && !headMesh && !grassMesh) continue;
         const auto id = entry.value(QStringLiteral("drawable")).toString().toUtf8();
         const int index = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
         if (index < 0) continue;
@@ -268,6 +272,21 @@ void CubismCanvas::initializeGL() {
         if (headMesh) impl_->headMeshes.push_back(index);
         if (source == QStringLiteral("face")) impl_->faceMesh = index;
         if (source.startsWith(QStringLiteral("busy leg "))) impl_->seatedFeet.push_back(index);
+        if (grassMesh) {
+            impl_->grassMesh = index;
+            const auto* uv = model->GetDrawableVertexUvs(index);
+            float minU = 1, maxU = 0, minV = 1, maxV = 0;
+            for (int i = 0; i < model->GetDrawableVertexCount(index); ++i) {
+                minU = std::min(minU, uv[i].X); maxU = std::max(maxU, uv[i].X);
+                minV = std::min(minV, uv[i].Y); maxV = std::max(maxV, uv[i].Y);
+            }
+            // UVs remain attached to the deformed vertices. This source's
+            // upper 24%, left 38% covers the fuzzy seed head (PSD y494..588),
+            // excluding its leaf and the shaft through the palm. Normalizing
+            // to this mesh avoids depending on atlas packing coordinates.
+            impl_->grassTipMinV = maxV - 0.24f * (maxV - minV);
+            impl_->grassTipMaxU = minU + 0.38f * (maxU - minU);
+        }
     }
     model->Update();
     impl_->standingFloor = impl_->footFloor(impl_->standingFeet);
@@ -430,6 +449,77 @@ void CubismCanvas::paintGL() {
         QPainterPath aboveChin;
         aboveChin.addRect(QRectF(0, 0, width(), faceBounds.bottom()));
         headHitPath_ = headHitPath_.intersected(aboveChin);
+    }
+    grassTipHitPath_ = QPainterPath();
+    if (impl_->grassMesh >= 0 && motion_->values().value(QStringLiteral("ParamGrassVisible")) >= 0.35
+        && model->GetDrawableOpacity(impl_->grassMesh) >= 0.2f) {
+        const int index = impl_->grassMesh;
+        const auto* vertices = model->GetDrawableVertexPositions(index);
+        const auto* uv = model->GetDrawableVertexUvs(index);
+        const auto* indices = model->GetDrawableVertexIndices(index);
+        struct HitVertex { QPointF uv, pixel; };
+        const auto clip = [](const std::vector<HitVertex>& input, bool vertical, double boundary) {
+            std::vector<HitVertex> output;
+            if (input.empty()) return output;
+            const auto coordinate = [vertical](const HitVertex& v) { return vertical ? v.uv.y() : v.uv.x(); };
+            const auto inside = [&](const HitVertex& v) {
+                return vertical ? coordinate(v) >= boundary : coordinate(v) <= boundary;
+            };
+            auto previous = input.back();
+            for (const auto& current : input) {
+                if (inside(previous) != inside(current)) {
+                    const double t = (boundary - coordinate(previous)) / (coordinate(current) - coordinate(previous));
+                    output.push_back({previous.uv + t * (current.uv - previous.uv),
+                                      previous.pixel + t * (current.pixel - previous.pixel)});
+                }
+                if (inside(current)) output.push_back(current);
+                previous = current;
+            }
+            return output;
+        };
+        std::vector<QPointF> tipPoints;
+        for (int i = 0; i + 2 < model->GetDrawableVertexIndexCount(index); i += 3) {
+            std::vector<HitVertex> polygon;
+            for (int j = 0; j < 3; ++j) {
+                const int vertex = indices[i + j];
+                polygon.push_back({QPointF(uv[vertex].X, uv[vertex].Y), point(vertices[vertex])});
+            }
+            polygon = clip(clip(polygon, true, impl_->grassTipMinV), false, impl_->grassTipMaxU);
+            if (polygon.size() < 3) continue;
+            for (const auto& vertex : polygon) tipPoints.push_back(vertex.pixel);
+        }
+        // A fuzzy seed head needs a small, forgiving region. Its convex hull
+        // also avoids boolean unions of hundreds of touching mesh triangles,
+        // which can stall QPainterPath on degenerate exported keyforms.
+        std::sort(tipPoints.begin(), tipPoints.end(), [](const QPointF& a, const QPointF& b) {
+            return a.x() < b.x() || (a.x() == b.x() && a.y() < b.y());
+        });
+        tipPoints.erase(std::unique(tipPoints.begin(), tipPoints.end()), tipPoints.end());
+        const auto cross = [](const QPointF& a, const QPointF& b, const QPointF& c) {
+            return (b.x() - a.x()) * (c.y() - a.y()) - (b.y() - a.y()) * (c.x() - a.x());
+        };
+        std::vector<QPointF> hull;
+        for (const auto& p : tipPoints) {
+            while (hull.size() >= 2 && cross(hull[hull.size() - 2], hull.back(), p) <= 0) hull.pop_back();
+            hull.push_back(p);
+        }
+        const auto lowerSize = hull.size();
+        for (auto it = tipPoints.rbegin(); it != tipPoints.rend(); ++it) {
+            while (hull.size() > lowerSize && cross(hull[hull.size() - 2], hull.back(), *it) <= 0) hull.pop_back();
+            hull.push_back(*it);
+        }
+        if (!hull.empty()) hull.pop_back();
+        QPolygonF pixels;
+        for (const auto& p : hull) pixels << p;
+        if (pixels.size() >= 3) {
+            grassTipHitPath_.addPolygon(pixels);
+            grassTipHitPath_.closeSubpath();
+        }
+        QPainterPathStroker padding;
+        padding.setWidth(width() * 0.03); // about 4px on each side at desktop size
+        padding.setCapStyle(Qt::RoundCap);
+        padding.setJoinStyle(Qt::RoundJoin);
+        grassTipHitPath_ = grassTipHitPath_.united(padding.createStroke(grassTipHitPath_));
     }
     auto* renderer = impl_->model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
     renderer->SetMvpMatrix(&matrix);

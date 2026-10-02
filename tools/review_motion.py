@@ -617,7 +617,7 @@ def compose_desktop_scale(p, log=print):
     sheet = Image.new('RGB', (width, 1050), '#e9edf5')
     draw = ImageDraw.Draw(sheet)
     draw.text((20, 12), f"{p['name']} · 实际 280px 尺寸 · 本次草稿待复核", font=font(22), fill='#243654')
-    draw.text((20, 46), '模型与思考气泡；桌面图标/卷纸/点击分支需另审场景。停顿可以是动作的一部分。',
+    draw.text((20, 46), p.get('capture_caption') or '模型与思考气泡；桌面图标/卷纸/点击分支需另审场景。停顿可以是动作的一部分。',
               font=font(16), fill='#52617b')
     for row, (name, color) in enumerate((('浅色', '#f8faff'), ('深色', '#202634'), ('透明格', None))):
         y = 100 + row * 310
@@ -762,6 +762,9 @@ def main(argv=None):
     parser.add_argument("--validate", action="store_true", help="check captures after composing")
     parser.add_argument("--max-floor-drift", type=int, default=4, help="allowed floor drift in pixels")
     args = parser.parse_args(argv)
+    if 'respondEnd' in load_motion(args.clip).get('interaction', {}):
+        parser.error('Branching motions require tools/review_interactions.py; '
+                     'sequential sampling would incorrectly play both response and timeout.')
     if args.draft and args.no_render:
         parser.error('--draft requires fresh Native captures; existing files have no verified provenance')
     p = profile(args.clip, args.revision)

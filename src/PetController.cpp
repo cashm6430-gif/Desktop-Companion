@@ -2,6 +2,9 @@
 
 #include <QDateTime>
 
+#include <algorithm>
+#include <cmath>
+
 PetController::PetController(QObject* parent) : QObject(parent) {
     actionTimer_.setSingleShot(true);
     connect(&actionTimer_, &QTimer::timeout, this, &PetController::restoreBackgroundState);
@@ -24,6 +27,11 @@ void PetController::setActionDuration(State state, double seconds) {
     if (!(seconds > 0.0)) return;
     if (state == State::Delete) deleteDuration_ = seconds;
     else if (state == State::Grass) grassDuration_ = seconds;
+}
+
+void PetController::setActionFallbackEnabled(bool enabled) {
+    actionFallbackEnabled_ = enabled;
+    if (!enabled) actionTimer_.stop();
 }
 
 int PetController::durationMs(State state) const {
@@ -80,7 +88,7 @@ void PetController::triggerEat(const QString& file, const QPointF& sourcePos, co
     deleteClock_.restart();
     if (state_ == State::Delete) emit stateChanged(State::Delete);
     else setState(State::Delete);
-    actionTimer_.start(durationMs(State::Delete));
+    if (actionFallbackEnabled_) actionTimer_.start(durationMs(State::Delete));
     // Emitted after the state entry, so a listener can read state() and its
     // clock keeps in step with the clip. Suppressed during the de-dup window
     // together with the trigger itself.
@@ -91,7 +99,20 @@ void PetController::playGrass() {
     if (state_ == State::Delete) return;
     if (state_ == State::Grass) emit stateChanged(State::Grass);
     else setState(State::Grass);
-    actionTimer_.start(durationMs(State::Grass));
+    if (actionFallbackEnabled_) actionTimer_.start(durationMs(State::Grass));
+}
+
+void PetController::playInteractiveGrass(double maximumSeconds) {
+    if (state_ == State::Delete) return;
+    const double seconds = std::isfinite(maximumSeconds) && maximumSeconds > 0.0
+        ? std::clamp(maximumSeconds, 0.25, 30.0) : 15.0;
+    if (state_ == State::Grass) emit stateChanged(State::Grass);
+    else setState(State::Grass);
+    // Restart the same timer rather than leaving the one-shot deadline live.
+    // Delete also replaces this timer, so an interrupted grass session cannot
+    // restore the background in the middle of eating a file.
+    if (actionFallbackEnabled_)
+        actionTimer_.start(static_cast<int>(seconds * 1000.0 + 0.5));
 }
 
 void PetController::resetBusy() {

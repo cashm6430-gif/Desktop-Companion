@@ -51,6 +51,16 @@ public:
     // Authored clip time, including the bounded hold loop.
     double interactionTime() const { return interactionTime_; }
 
+    // Foreground grass interaction uses its own phase clock; the approved
+    // fixed grass clip remains available when this draft is not selected.
+    bool beginGrassInteraction();
+    bool grassInteractionActive() const;
+    QString grassInteractionPhase() const;
+    double grassInteractionTime() const { return grassInteractionTime_; }
+    bool respondToGrass();
+    void lookAtGrassTip(double horizontal);
+    double grassInteractionMaxDuration() const;
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -84,6 +94,25 @@ private:
     void advanceInteraction(double seconds);
     void applyInteraction(Parameters& desired) const;
     void captureInteractionSeat();
+    bool configureGrassInteraction(const QString& directory, QString* error);
+    void resetGrassInteraction();
+    void advanceGrassInteraction(double seconds);
+
+    enum class GrassPhase { Inactive, Enter, Hold, Respond, Timeout, Release, Finished };
+    MotionClip grassTouchClip_;
+    GrassPhase grassPhase_ = GrassPhase::Inactive;
+    double grassEnterEnd_ = 0.0;
+    double grassHoldEnd_ = 0.0;
+    double grassRespondEnd_ = 0.0;
+    double grassTimeoutEnd_ = 0.0;
+    double grassReleaseEnd_ = 0.0;
+    double grassMaxHold_ = 0.0;
+    double grassInteractionTime_ = 0.0;
+    double grassHeldTime_ = 0.0;
+    double grassLook_ = 0.0;
+    double grassLookTarget_ = 0.0;
+    bool grassInteractionSelected_ = false;
+    bool actionFinishedReported_ = false;
 
     enum class Interaction { None, TurnEnded, HeadPat };
     MotionClip turnEndedClip_;

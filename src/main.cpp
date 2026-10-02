@@ -9,6 +9,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMouseEvent>
 #include <QTimer>
 #include <algorithm>
 #include <cmath>
@@ -24,6 +25,119 @@ int main(int argc, char** argv) {
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         const QString scenario = QString::fromLocal8Bit(argv[3]);
+        if (scenario.startsWith(QStringLiteral("grass-"))) {
+            const QStringList grassScenes{QStringLiteral("grass-touch"), QStringLiteral("grass-timeout"),
+                QStringLiteral("grass-delete-busy")};
+            if (!grassScenes.contains(scenario) || !QDir().mkpath(output)) return 2;
+            window.prepareLiveInteractionReview();
+            window.setInteractionPreviewEnabled(true);
+            window.move(-10000, -10000);
+            constexpr double step = 1.0 / 15.0;
+            constexpr int frameCount = 180;
+            int frame = 0;
+            bool started = false, missed = false, touched = false, interrupted = false;
+            bool newTurn = false, lastStop = false, geometrySaved = false;
+            double holdStarted = -1.0;
+            QJsonArray trace;
+            QTimer timer;
+            timer.setInterval(100);
+            const auto mouse = [&](QEvent::Type type, const QPointF& point, Qt::MouseButton button,
+                                   Qt::MouseButtons buttons) {
+                QMouseEvent event(type, point, point + QPointF(window.pos()), button, buttons, Qt::NoModifier);
+                QApplication::sendEvent(&window, &event);
+            };
+            const auto click = [&](const QPointF& point) {
+                mouse(QEvent::MouseButtonPress, point, Qt::LeftButton, Qt::LeftButton);
+                mouse(QEvent::MouseButtonRelease, point, Qt::LeftButton, Qt::NoButton);
+            };
+            QObject::connect(&timer, &QTimer::timeout, &app, [&] {
+                const double time = frame * step;
+                QString event;
+                if (!started && time >= 0.2) {
+                    started = true;
+                    if (!window.startGrassInteraction()) { app.exit(2); return; }
+                    event = QStringLiteral("grass_start");
+                }
+                if (!newTurn && time >= 1.0) {
+                    newTurn = true;
+                    controller.turnStarted(QStringLiteral("scene"), QStringLiteral("background"));
+                    event = QStringLiteral("background_turn_start");
+                }
+                if (window.grassInteractionPhase() == QStringLiteral("hold")) {
+                    if (holdStarted < 0) holdStarted = time;
+                    if (!missed) {
+                        missed = true;
+                        click(QPointF(window.width() * 0.5, window.height() * 0.25));
+                        mouse(QEvent::MouseButtonDblClick, QPointF(window.width() * 0.5, window.height() * 0.25),
+                              Qt::LeftButton, Qt::LeftButton);
+                        mouse(QEvent::MouseButtonRelease, QPointF(window.width() * 0.5, window.height() * 0.25),
+                              Qt::LeftButton, Qt::NoButton);
+                        event = QStringLiteral("body_click_and_double_click_miss");
+                    }
+                    const auto tip = window.grassTipHitPath();
+                    const QPointF center = tip.boundingRect().center();
+                    mouse(QEvent::MouseMove, center + QPointF(window.width() * 0.03, 0),
+                          Qt::NoButton, Qt::NoButton);
+                    if (scenario == QStringLiteral("grass-touch") && !touched && time >= holdStarted + 0.8) {
+                        if (!window.isGrassTipAt(center)) { qWarning() << "Tip center missed" << center; app.exit(2); return; }
+                        touched = true;
+                        click(center);
+                        // A second contact cannot queue a second response.
+                        click(center);
+                        event = QStringLiteral("tip_click_twice");
+                    }
+                    if (scenario == QStringLiteral("grass-delete-busy") && !interrupted && time >= holdStarted + 0.8) {
+                        interrupted = true;
+                        controller.desktopItemDeleted();
+                        event = QStringLiteral("delete_interrupt");
+                    }
+                }
+                if (scenario != QStringLiteral("grass-delete-busy") && !lastStop && time >= 5.4) {
+                    lastStop = true;
+                    controller.turnStopped(QStringLiteral("scene"), QStringLiteral("background"));
+                    event = QStringLiteral("background_last_turn_stop");
+                }
+                if (!window.renderLiveInteractionFrame(step,
+                    QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                    app.exit(1); return;
+                }
+                QJsonObject parameters;
+                for (auto it = window.motionParameters().cbegin(); it != window.motionParameters().cend(); ++it)
+                    parameters.insert(it.key(), it.value());
+                const QRectF tip = window.grassTipHitPath().boundingRect();
+                if (!geometrySaved && window.grassInteractionPhase() == QStringLiteral("hold")) {
+                    geometrySaved = true;
+                    QImage geometry(QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))));
+                    QPainter painter(&geometry);
+                    painter.setPen(QPen(QColor(220, 50, 50), 2));
+                    painter.setBrush(QColor(80, 230, 160, 70));
+                    painter.drawPath(window.grassTipHitPath());
+                    painter.end();
+                    if (!geometry.save(QDir(output).filePath(QStringLiteral("tip-region-diagnostic.png")))) {
+                        app.exit(1); return;
+                    }
+                }
+                trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
+                    {QStringLiteral("state"), static_cast<int>(controller.state())},
+                    {QStringLiteral("active_turns"), controller.activeTurnCount()},
+                    {QStringLiteral("grass_phase"), window.grassInteractionPhase()},
+                    {QStringLiteral("grass_time"), window.grassInteractionTime()},
+                    {QStringLiteral("tip_bounds"), QJsonArray{tip.x(), tip.y(), tip.width(), tip.height()}},
+                    {QStringLiteral("tip_center_hit"), window.isGrassTipAt(tip.center())},
+                    {QStringLiteral("foot_not_tip"), !window.isGrassTipAt(QPointF(window.width() * 0.5, window.height() * 0.95))},
+                    {QStringLiteral("parameters"), parameters}});
+                if (++frame == frameCount) {
+                    QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
+                    if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
+                    evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                        {QStringLiteral("scope"), QStringLiteral("window_player_and_synthetic_qt_pointer_with_native_model")},
+                        {QStringLiteral("frames"), trace}}).toJson());
+                    app.exit(0);
+                }
+            });
+            QTimer::singleShot(1000, &timer, [&] { timer.start(); });
+            return app.exec();
+        }
         const QStringList scenarios{QStringLiteral("turn-ended-standing"), QStringLiteral("turn-ended-laptop"),
             QStringLiteral("turn-ended-interrupt"), QStringLiteral("head-pat"),
             QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt")};

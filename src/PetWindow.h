@@ -10,6 +10,7 @@
 #include <QJsonObject>
 #include <QMenu>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPoint>
 #include <QSystemTrayIcon>
 #include <QTimer>
@@ -50,6 +51,15 @@ public:
     void setInteractionPreviewEnabled(bool enabled);
     bool interactionPreviewEnabled() const { return interactionPreviewEnabled_; }
     bool isHeadAt(const QPointF& position) const;
+    bool startGrassInteraction();
+    QString grassInteractionPhase() const { return motion_.grassInteractionPhase(); }
+    double grassInteractionTime() const { return motion_.grassInteractionTime(); }
+    QPainterPath grassTipHitPath() const;
+    bool isGrassTipAt(const QPointF& position) const;
+    // Native scene review uses the actual window player and Qt input handlers,
+    // with a manual frame clock instead of the desktop's wall clock.
+    void prepareLiveInteractionReview(int pixels = 840);
+    bool renderLiveInteractionFrame(double seconds, const QString& path);
 
 protected:
     bool event(QEvent* event) override;
@@ -98,6 +108,8 @@ private:
     void recyclePaths(const QStringList& paths);
     void updatePointerGesture();
     void releasePointerGesture();
+    void advanceLiveFrame(double seconds);
+    void playGrass();
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
@@ -121,6 +133,7 @@ private:
     PetPointerGesture pointerGesture_;
     bool patAttempted_ = false;
     bool interactionPreviewEnabled_ = false;
+    bool grassTouchPressed_ = false;
     bool dragging_ = false;
     int frame_ = 0;
     QElapsedTimer fedClock_;

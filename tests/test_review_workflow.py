@@ -66,6 +66,12 @@ class ReviewWorkflowTest(unittest.TestCase):
                 "sequence": self.build / "idle-sequence",
                 "review": self.build / "idle-review"}
 
+    def test_branch_clip_cannot_be_mislabelled_as_a_sequential_review(self):
+        self.write(self.motion, json.dumps({"duration": 8.6, "interaction": {"respondEnd": 6}}))
+        with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
+            review_motion.main(['idle', '--draft'])
+        self.assertEqual(error.exception.code, 2)
+
     def start_session(self):
         records = review_session.deployment_snapshot()
         profile = review_session.new_draft_profile(self.profile())

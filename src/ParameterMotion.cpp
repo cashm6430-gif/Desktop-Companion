@@ -135,10 +135,12 @@ void ParameterMotion::setState(PetController::State state) {
         cancelInteraction();
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
+    resetGrassInteraction();
     state_ = state;
     if (state != PetController::State::Idle) interactionSeat_.clear();
     actionTime_ = 0.0;
     finishedPending_ = false;
+    actionFinishedReported_ = false;
     if (state == PetController::State::Idle) {
         if (interaction_ == Interaction::HeadPat) captureInteractionSeat();
         busyChoiceExists_ = false;
@@ -194,7 +196,8 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
         laptopClip_.setLoop(true, laptopClip_.loopStart(), laptopClip_.duration());
     }
     interactionDirectory_ = directory;
-    return configureInteractions(error);
+    if (!configureInteractions(error)) return false;
+    return configureGrassInteraction(directory, error);
 }
 
 bool ParameterMotion::configureInteractions(QString* error) {
@@ -362,10 +365,169 @@ void ParameterMotion::applyInteraction(Parameters& desired) const {
     }
 }
 
+bool ParameterMotion::configureGrassInteraction(const QString& directory, QString* error) {
+    const MotionClip* clip = library_.clip(QStringLiteral("grass-touch"));
+    if (!clip) {
+        resetGrassInteraction();
+        grassTouchClip_ = MotionClip{};
+        return true;
+    }
+    QFile file(QDir(directory).filePath(QStringLiteral("grass-touch.motion.json")));
+    if (!file.open(QIODevice::ReadOnly)) {
+        if (error) *error = QStringLiteral("Cannot read grass-touch phase configuration");
+        return false;
+    }
+    const auto phase = QJsonDocument::fromJson(file.readAll()).object()
+                           .value(QStringLiteral("interaction")).toObject();
+    const double enterEnd = phase.value(QStringLiteral("enterEnd")).toDouble(-1);
+    const double holdEnd = phase.value(QStringLiteral("holdEnd")).toDouble(-1);
+    const double respondEnd = phase.value(QStringLiteral("respondEnd")).toDouble(-1);
+    const double timeoutEnd = phase.value(QStringLiteral("timeoutEnd")).toDouble(-1);
+    const double releaseEnd = phase.value(QStringLiteral("releaseEnd")).toDouble(clip->duration());
+    const double maxHold = phase.value(QStringLiteral("maxHold")).toDouble(-1);
+    if (!qIsFinite(enterEnd) || !qIsFinite(holdEnd) || !qIsFinite(respondEnd)
+        || !qIsFinite(timeoutEnd) || !qIsFinite(releaseEnd) || !qIsFinite(maxHold)
+        || enterEnd <= 0 || holdEnd <= enterEnd || respondEnd <= holdEnd
+        || timeoutEnd <= respondEnd || releaseEnd <= timeoutEnd
+        || qAbs(releaseEnd - clip->duration()) > 1e-6 || maxHold <= 0 || maxHold > 3.0
+        || clip->isLoop() || clip->isAdditive()) {
+        if (error) *error = QStringLiteral("grass-touch requires ordered enter/hold/respond/timeout/release boundaries and 0 < maxHold <= 3");
+        return false;
+    }
+    const auto loopStart = clip->sample(enterEnd);
+    const auto loopEnd = clip->sample(holdEnd);
+    for (auto it = loopStart.cbegin(); it != loopStart.cend(); ++it) {
+        if (!loopEnd.contains(it.key()) || qAbs(it.value() - loopEnd.value(it.key())) > 1e-6) {
+            if (error) *error = QStringLiteral("grass-touch Hold must close its parameter seam: %1").arg(it.key());
+            return false;
+        }
+    }
+    // During the invitation the palm remains gripping the grass root. Stem
+    // and tip flexibility are still driven by the existing soft spring.
+    const auto heldRoot = [](const MotionClip::Parameters& pose) {
+        return qAbs(pose.value(QStringLiteral("ParamHandRGrip")) - 1.0) < 1e-6
+            && qAbs(pose.value(QStringLiteral("ParamGrassVisible")) - 1.0) < 1e-6;
+    };
+    if (!heldRoot(loopStart) || !heldRoot(loopEnd)) {
+        if (error) *error = QStringLiteral("grass-touch Hold requires a visible grass root gripped in the palm");
+        return false;
+    }
+    for (const auto& key : clip->keys()) {
+        if (key.time >= enterEnd && key.time <= holdEnd && !heldRoot(clip->sample(key.time))) {
+            if (error) *error = QStringLiteral("grass-touch Hold cannot release the palm grip");
+            return false;
+        }
+    }
+    resetGrassInteraction();
+    grassTouchClip_ = *clip;
+    grassEnterEnd_ = enterEnd;
+    grassHoldEnd_ = holdEnd;
+    grassRespondEnd_ = respondEnd;
+    grassTimeoutEnd_ = timeoutEnd;
+    grassReleaseEnd_ = releaseEnd;
+    grassMaxHold_ = maxHold;
+    return true;
+}
+
+void ParameterMotion::resetGrassInteraction() {
+    grassPhase_ = GrassPhase::Inactive;
+    grassInteractionSelected_ = false;
+    grassInteractionTime_ = grassHeldTime_ = grassLook_ = grassLookTarget_ = 0.0;
+}
+
+bool ParameterMotion::beginGrassInteraction() {
+    if (preview_ || state_ != PetController::State::Grass || !grassTouchClip_.isValid()
+        || grassInteractionSelected_) return false;
+    resetGrassInteraction();
+    grassInteractionSelected_ = true;
+    grassPhase_ = GrassPhase::Enter;
+    actionTime_ = 0.0;
+    finishedPending_ = actionFinishedReported_ = false;
+    return true;
+}
+
+bool ParameterMotion::grassInteractionActive() const {
+    return grassInteractionSelected_ && grassPhase_ != GrassPhase::Inactive && grassPhase_ != GrassPhase::Finished;
+}
+
+QString ParameterMotion::grassInteractionPhase() const {
+    switch (grassPhase_) {
+    case GrassPhase::Enter: return QStringLiteral("enter");
+    case GrassPhase::Hold: return QStringLiteral("hold");
+    case GrassPhase::Respond: return QStringLiteral("respond");
+    case GrassPhase::Timeout: return QStringLiteral("timeout");
+    case GrassPhase::Release: return QStringLiteral("release");
+    default: return {};
+    }
+}
+
+bool ParameterMotion::respondToGrass() {
+    if (state_ != PetController::State::Grass || grassPhase_ != GrassPhase::Hold) return false;
+    grassPhase_ = GrassPhase::Respond;
+    grassInteractionTime_ = grassHoldEnd_;
+    grassLookTarget_ = 0.0;
+    return true;
+}
+
+void ParameterMotion::lookAtGrassTip(double horizontal) {
+    if (grassPhase_ == GrassPhase::Hold && qIsFinite(horizontal))
+        grassLookTarget_ = std::clamp(horizontal, -1.0, 1.0);
+}
+
+double ParameterMotion::grassInteractionMaxDuration() const {
+    if (!grassTouchClip_.isValid()) return 0.0;
+    return grassEnterEnd_ + grassMaxHold_
+        + std::max(grassRespondEnd_ - grassHoldEnd_, grassTimeoutEnd_ - grassRespondEnd_)
+        + grassReleaseEnd_ - grassTimeoutEnd_;
+}
+
+void ParameterMotion::advanceGrassInteraction(double seconds) {
+    if (!grassInteractionActive()) return;
+    if (grassPhase_ != GrassPhase::Hold) grassLookTarget_ = 0.0;
+    grassLook_ += (grassLookTarget_ - grassLook_) * (1.0 - qExp(-seconds / 0.16));
+    double remaining = seconds;
+    while (remaining > 0.0 && grassInteractionActive()) {
+        if (grassPhase_ == GrassPhase::Hold) {
+            const double consumed = std::min(remaining, grassMaxHold_ - grassHeldTime_);
+            grassHeldTime_ += consumed;
+            remaining -= consumed;
+            const double span = grassHoldEnd_ - grassEnterEnd_;
+            grassInteractionTime_ = grassEnterEnd_ + std::fmod(grassHeldTime_, span);
+            if (grassHeldTime_ >= grassMaxHold_ - 1e-9) {
+                grassPhase_ = GrassPhase::Timeout;
+                grassInteractionTime_ = grassRespondEnd_;
+                grassLookTarget_ = 0.0;
+            }
+            continue;
+        }
+        const double end = grassPhase_ == GrassPhase::Enter ? grassEnterEnd_
+            : grassPhase_ == GrassPhase::Respond ? grassRespondEnd_
+            : grassPhase_ == GrassPhase::Timeout ? grassTimeoutEnd_ : grassReleaseEnd_;
+        const double consumed = std::min(remaining, end - grassInteractionTime_);
+        grassInteractionTime_ += consumed;
+        remaining -= consumed;
+        if (grassInteractionTime_ >= end - 1e-9) {
+            if (grassPhase_ == GrassPhase::Enter) {
+                grassPhase_ = GrassPhase::Hold;
+                grassInteractionTime_ = grassEnterEnd_;
+            } else if (grassPhase_ == GrassPhase::Respond || grassPhase_ == GrassPhase::Timeout) {
+                grassPhase_ = GrassPhase::Release;
+                grassInteractionTime_ = grassTimeoutEnd_;
+            } else {
+                grassPhase_ = GrassPhase::Finished;
+                grassInteractionTime_ = grassReleaseEnd_;
+                finishedPending_ = true;
+                actionFinishedReported_ = true;
+            }
+        }
+    }
+}
+
 double ParameterMotion::actionDuration(PetController::State state) const {
     switch (state) {
     case PetController::State::Delete: return library_.duration(QStringLiteral("delete"));
     case PetController::State::Grass:
+        if (grassInteractionSelected_) return grassInteractionMaxDuration();
         return grassClip_.isValid() ? grassClip_.duration()
                                     : library_.duration(QStringLiteral("grass"));
     default: return 0.0; // Background states are open-ended.
@@ -401,6 +563,7 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     cancelInteraction();
+    resetGrassInteraction();
     values_ = parameters;
     grassBend_ = parameters.value(QStringLiteral("ParamGrassSwing"));
     grassTip_ = grassBend_ + parameters.value(QStringLiteral("ParamGrassTipBend")) / 0.85;
@@ -439,6 +602,7 @@ void ParameterMotion::advance(double seconds) {
         actionTime_ += seconds;
     blinkClock_ += seconds;
     advanceInteraction(seconds);
+    advanceGrassInteraction(seconds);
 
     Parameters desired{
         {angleX, 0.0},
@@ -585,8 +749,12 @@ void ParameterMotion::advance(double seconds) {
             desired[mouth] = 0.4 * strike;
         }
     } else if (state_ == PetController::State::Grass) {
-        const auto pose = grassClip_.sample(actionTime_);
+        const auto pose = grassInteractionSelected_ ? grassTouchClip_.sample(grassInteractionTime_)
+                                                    : grassClip_.sample(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
+        if (grassPhase_ == GrassPhase::Hold)
+            desired[QStringLiteral("ParamEyeBallX")] = std::clamp(
+                desired.value(QStringLiteral("ParamEyeBallX")) + 0.18 * grassLook_, -1.0, 1.0);
     }
     applyInteraction(desired);
 
@@ -634,8 +802,12 @@ void ParameterMotion::advance(double seconds) {
     updateGrassFlex(seconds, std::clamp(flexTarget, -1.0, 1.0));
 
     // A one-shot action reports completion once it reaches its authored length.
-    if (state_ == PetController::State::Delete || state_ == PetController::State::Grass) {
+    if (!actionFinishedReported_ && (state_ == PetController::State::Delete
+        || (state_ == PetController::State::Grass && !grassInteractionSelected_))) {
         const double duration = actionDuration(state_);
-        if (duration > 0.0 && actionTime_ >= duration) finishedPending_ = true;
+        if (duration > 0.0 && actionTime_ >= duration) {
+            finishedPending_ = true;
+            actionFinishedReported_ = true;
+        }
     }
 }
