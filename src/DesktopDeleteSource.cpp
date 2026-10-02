@@ -216,7 +216,7 @@ bool DesktopDeleteSource::nativeEventFilter(const QByteArray&, void* message, qi
                 qInfo() << "Desktop item deleted:" << deleted
                         << (entry == snapshot_.constEnd() ? QStringLiteral("no snapshot entry")
                                                           : QStringLiteral("snapshot hit"))
-                        << entry->pos;
+                        << (entry == snapshot_.constEnd() ? QPointF() : entry->pos);
                 emit desktopItemDeleted(deleted,
                     entry == snapshot_.constEnd() ? QPointF() : entry->pos,
                     entry == snapshot_.constEnd() ? QIcon() : entry->icon);

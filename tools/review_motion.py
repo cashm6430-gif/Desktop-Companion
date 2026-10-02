@@ -7,6 +7,10 @@ and (with --validate) checks the captures for clipping and a drifting floor.
     python tools/review_motion.py grass
     python tools/review_motion.py busy-laptop --revision 3 --validate
     python tools/review_motion.py idle --no-render
+    python tools/review_motion.py idle --draft
+
+Use --draft for a new review: it preserves approved sheets, captures into a
+fresh build/review-runs directory, and records source/deployment provenance.
 
 The grass and seated-laptop sheets keep the exact layouts of the earlier
 create_motion_review.py / create_laptop_review.py scripts, so the approved
@@ -19,12 +23,14 @@ which read build/assets/. Always run native captures, never generated art.
 """
 import argparse
 import json
+import math
 import subprocess
 import sys
 import time
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFont, ImageStat
+from review_session import deployment_snapshot, new_draft_profile, record_session, finish_session, write_session
 
 # A full native capture runs for about a minute (software OpenGL manages only a
 # few frames per second), so progress has to reach the caller line by line. A
@@ -76,20 +82,56 @@ def font(size):
     return ImageFont.truetype(FONT_PATH, size)
 
 
+def output_folder(p):
+    return p.get('output', OUT)
+
+
+def review_label(p, legacy):
+    if not p.get('draft'):
+        return legacy
+    status = load_motion(p['motion']).get('approval', 'pending')
+    authored = '已批准' if status == 'approved' else '待审批'
+    return f'动作数据{authored} / 本次草稿待复核'
+
+
 def load_motion(name):
     return json.loads((MOTIONS / f"{name}.motion.json").read_text(encoding="utf8"))
 
 
+def available_clips():
+    # "busy" is the Native state alias for busy-stand, not a direct clip ID.
+    discovered = {path.name.removesuffix('.motion.json') for path in MOTIONS.glob('*.motion.json')}
+    return sorted(set(CLIPS) | (discovered - {'busy'}))
+
+
+def motion_duration(motion):
+    """Resolve duration as MotionClip does, including implicit endpoints."""
+    duration = motion.get('duration', -1.0)
+    if not duration > 0:
+        endpoints = [key['time'] for key in motion.get('keyframes', [])]
+        endpoints.extend(track[-1][0] for track in motion.get('tracks', {}).values() if track)
+        endpoints.extend(pulse['end'] for pulses in motion.get('pulses', {}).values() for pulse in pulses)
+        duration = max(endpoints, default=0.0)
+    if not math.isfinite(duration) or duration <= 0:
+        raise SystemExit('Motion needs a positive duration or timed keyframes/tracks/pulses.')
+    return duration
+
+
 def profile(clip, revision=None):
     """Resolve the capture directories, prefix and sheet style for a clip."""
-    if clip not in CLIPS:
-        raise SystemExit(f"Unknown clip {clip!r}; known: {', '.join(CLIPS)}")
-    spec = CLIPS[clip]
+    if clip not in available_clips():
+        raise SystemExit(f"Unknown clip {clip!r}; known: {', '.join(available_clips())}")
+    # New clips can be reviewed without teaching this CLI another hard-coded
+    # name. Direct sampling reviews their curves, not yet their input/state flow.
+    spec = CLIPS.get(clip, dict(name=clip, render=clip, motion=clip, frames=None,
+                               style='sequence', prefix=clip,
+                               sequence=f'build/{clip}-sequence', review=f'build/{clip}-review'))
     motion = load_motion(spec["motion"])
     revision = revision if revision is not None else motion.get("revision", 1)
     frames = spec["frames"]
     if frames is None:
-        frames = max(1, round(motion.get("duration", 1.0) / STEP_SECONDS))
+        # Match positive std::lround in main.cpp; Python round ties to even.
+        frames = max(1, math.floor(motion_duration(motion) / STEP_SECONDS + 0.5))
     resolved = dict(spec)
     resolved.update(frames=frames, revision=revision,
                     sequence=ROOT / spec["sequence"].format(revision=revision),
@@ -140,7 +182,13 @@ def run_exe(args, log=print, watch=None):
         raise SystemExit(f"Missing {EXE}; build the project first (build/dev.cmd).")
     log("  " + " ".join(["DesktopCompanion.exe"] + [str(a) for a in args]))
     started = time.monotonic()
-    process = subprocess.Popen([str(EXE)] + [str(a) for a in args], cwd=BUILD)
+    options = {}
+    if sys.platform == 'win32':
+        startup = subprocess.STARTUPINFO()
+        startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startup.wShowWindow = 0
+        options['startupinfo'] = startup
+    process = subprocess.Popen([str(EXE)] + [str(a) for a in args], cwd=BUILD, **options)
     last_report = 0.0
     try:
         while process.poll() is None:
@@ -268,7 +316,7 @@ def compose_grass(p, log=print):
     sheet = Image.new("RGB", (1120, 104 + ((len(poses) + 1) // 2) * 550), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
     draw.text((28, 18), f"狗尾巴草 · Live2D 草案 v{revision} · 转腕 / 前伸停留", font=title, fill="#1e2c47")
-    draw.text((28, 53), f"实际 Cubism 模型渲染 / 待审批 / {len(poses)} 个动作关键姿势", font=small, fill="#52617b")
+    draw.text((28, 53), f"实际 Cubism 模型渲染 / {review_label(p, '待审批')} / {len(poses)} 个动作关键姿势", font=small, fill="#52617b")
     for cell, key in enumerate(poses):
         x, y = (cell % 2) * 560, 90 + (cell // 2) * 550
         draw.rounded_rectangle((x + 12, y + 8, x + 548, y + 538), radius=18, fill="#f8faff")
@@ -277,7 +325,7 @@ def compose_grass(p, log=print):
         sheet.paste(sprite, (x + (560 - sprite.width) // 2, y + 8), sprite)
         frame = motion["keyframes"][key]
         draw.text((x + 26, y + 495), f"{cell + 1}. {frame['label']}   {frame['time']:g}s", font=small, fill="#243654")
-    output = OUT / f"grass-keyframes-v{revision}.png"
+    output = output_folder(p) / f"grass-keyframes-v{revision}.png"
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output)
     log(f"  wrote {output.relative_to(ROOT)}")
@@ -350,7 +398,7 @@ def compose_laptop(p, log=print):
     label = font(22)
     sheet = Image.new("RGB", (1120, 1730), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
-    draw.text((24, 16), f"抱电脑工作 v{revision} · 实际 Live2D Native 渲染 · 动作待审", font=label, fill="#243654")
+    draw.text((24, 16), f"抱电脑工作 v{revision} · 实际 Live2D Native 渲染 · {review_label(p, '动作待审')}", font=label, fill="#243654")
     for i, pose in enumerate(poses):
         x, y = (i % 2) * 560, 60 + (i // 2) * 550
         draw.rounded_rectangle((x + 10, y + 8, x + 550, y + 540), radius=18, fill="#f8faff")
@@ -358,7 +406,7 @@ def compose_laptop(p, log=print):
         sprite.thumbnail((490, 490), Image.Resampling.LANCZOS)
         sheet.paste(sprite, (x + (560 - sprite.width) // 2, y + 8), sprite)
         draw.text((x + 24, y + 500), pose["label"], font=label, fill="#243654")
-    output = OUT / f"busy-laptop-keyframes-v{revision}.png"
+    output = output_folder(p) / f"busy-laptop-keyframes-v{revision}.png"
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output)
     log(f"  wrote {output.relative_to(ROOT)}")
@@ -376,14 +424,14 @@ def compose_sequence(p, log=print):
     # Eight samples read well for a long loop; a short one-shot clip needs a
     # denser sheet, or the peaks of its gesture fall between two samples.
     count = 8 if len(frames) >= 40 else min(len(frames), 12)
-    picks = [round(i * (len(frames) - 1) / (count - 1)) for i in range(count)]
+    picks = [round(i * (len(frames) - 1) / max(1, count - 1)) for i in range(count)]
     energy = legibility_series(frames)
     # Even sampling is blind to a beat that lasts one or two frames, and that is
     # exactly the beat a reviewer is looking for: a bite or a eureka reads as the
     # clip's whole point and can still fall between two of the eight samples.
     # Clips that ask for it get the sharpest frame pairs appended, so the sheet
     # cannot quietly omit the punch it was rendered to show.
-    peaks = p.get("peaks", 0)
+    peaks = p.get("peaks", 0) if len(frames) > 1 else 0
     highlights = []
     if peaks:
         for index in sorted(range(len(energy)), key=lambda i: -energy[i]):
@@ -414,7 +462,7 @@ def compose_sequence(p, log=print):
     top = 106 if peaks else 90
     sheet = Image.new("RGB", (1120, 104 + ((len(picks) + 1) // 2) * 550), "#e9edf5")
     draw = ImageDraw.Draw(sheet)
-    draw.text((28, 18), f"{p['name']} · 实际 Live2D Native 渲染 · 待审批", font=font(24), fill="#1e2c47")
+    draw.text((28, 18), f"{p['name']} · 实际 Live2D Native 渲染 · {review_label(p, '待审批')}", font=font(24), fill="#1e2c47")
     draw.text((28, 53), f"{len(frames)} 帧整段采样 / {frames[0].name} 起，每帧 1/15 s",
               font=font(18), fill="#52617b")
     if peaks:
@@ -438,7 +486,7 @@ def compose_sequence(p, log=print):
             mark, shade = "", "#243654"
         draw.text((x + 26, y + 495), f"{mark}{cell + 1}. {frames[index].name}   {index / 15:.2f}s",
                   font=small, fill=shade)
-    output = OUT / f"{p['name']}-frames-v{revision}.png"
+    output = output_folder(p) / f"{p['name']}-frames-v{revision}.png"
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output)
     log(f"  wrote {output.relative_to(ROOT)}")
@@ -494,6 +542,43 @@ def compose(p, log=print):
         compose_laptop(p, log)
     else:
         compose_sequence(p, log)
+
+
+def compose_desktop_scale(p, log=print):
+    """Show six actual 280px frames against light, dark and checker mattes."""
+    frames = sorted(p['sequence'].glob('frame-*.png'))
+    count = min(6, len(frames))
+    if not count:
+        raise SystemExit('No Native frames for desktop-scale review.')
+    picks = [round(i * (len(frames) - 1) / max(1, count - 1)) for i in range(count)]
+    width = count * 300 + 90
+    sheet = Image.new('RGB', (width, 1050), '#e9edf5')
+    draw = ImageDraw.Draw(sheet)
+    draw.text((20, 12), f"{p['name']} · 实际 280px 尺寸 · 本次草稿待复核", font=font(22), fill='#243654')
+    draw.text((20, 46), '模型与思考气泡；桌面图标/卷纸/点击分支需另审场景。停顿可以是动作的一部分。',
+              font=font(16), fill='#52617b')
+    for row, (name, color) in enumerate((('浅色', '#f8faff'), ('深色', '#202634'), ('透明格', None))):
+        y = 100 + row * 310
+        draw.text((10, y + 125), name, font=font(17), fill='#243654')
+        for col, index in enumerate(picks):
+            matte = Image.new('RGBA', (PET_WINDOW, PET_WINDOW), color or '#d0d5de')
+            if color is None:
+                grid = ImageDraw.Draw(matte)
+                for cy in range(0, PET_WINDOW, 14):
+                    for cx in range(0, PET_WINDOW, 14):
+                        if (cx // 14 + cy // 14) % 2:
+                            grid.rectangle((cx, cy, cx + 13, cy + 13), fill='#eff1f5')
+            with Image.open(frames[index]) as source:
+                sprite = source.convert('RGBA').resize((PET_WINDOW, PET_WINDOW), Image.Resampling.LANCZOS)
+            matte.alpha_composite(sprite)
+            x = 90 + col * 300
+            sheet.paste(matte.convert('RGB'), (x, y))
+            draw.text((x + 8, y + 282), f'{index / 15:.2f}s · 整段采样', font=font(16), fill='#52617b')
+    target = output_folder(p) / f"{p['name']}-desktop-scale.png"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    sheet.save(target)
+    log(f'  wrote {target.relative_to(ROOT)}')
+    return target
 
 
 # --------------------------------------------------------------------- validation
@@ -553,6 +638,10 @@ def legibility(frames, cutoff=STILL_CUTOFF):
     """Summarise a capture set's motion energy in one line."""
     ordered = sorted(legibility_series(frames))
     count = len(ordered)
+    if not count:
+        # A one-frame pose has no frame pair from which to measure motion.
+        return {"window": PET_WINDOW, "energy": None, "median": None,
+                "p90": None, "peak": None, "still_ratio": None}
     return {
         "window": PET_WINDOW,
         "energy": round(sum(ordered) / count, 3),
@@ -586,6 +675,9 @@ def validate(p, expected_poses=None, max_floor_drift=4):
               "alpha_border_failures": 0, "floor_y_range": [min(floors), max(floors)],
               "floor_drift_pixels": drift}
     report["legibility"] = legibility(frames)
+    if p.get('draft'):
+        report['metric_policy'] = 'diagnostic_only; quiet holds do not fail approval'
+        report['capture_scope'] = 'native_model_and_thought_bubble'
     target = p["sequence"].parent / f"{p['name']}-review-check.json"
     target.write_text(json.dumps(report, indent=2), encoding="utf8")
     print(json.dumps(report))
@@ -596,24 +688,51 @@ def validate(p, expected_poses=None, max_floor_drift=4):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Render and compose a motion approval sheet.")
-    parser.add_argument("clip", choices=sorted(CLIPS), metavar="clip",
-                        help="motion to review: " + ", ".join(sorted(CLIPS)))
+    parser.add_argument("clip", choices=available_clips(), metavar="clip",
+                        help="motion to review: " + ", ".join(available_clips()))
     parser.add_argument("--revision", type=int, default=None,
                         help="override the revision recorded in the motion file")
     parser.add_argument("--no-render", action="store_true", help="compose from existing captures")
+    parser.add_argument("--draft", action="store_true",
+                        help="fresh isolated review run; preserve approved artifacts and record inputs")
     parser.add_argument("--sweeps", action="store_true",
                         help="also render the grass eye/arm/wrist diagnostic sweeps")
     parser.add_argument("--validate", action="store_true", help="check captures after composing")
     parser.add_argument("--max-floor-drift", type=int, default=4, help="allowed floor drift in pixels")
     args = parser.parse_args(argv)
+    if args.draft and args.no_render:
+        parser.error('--draft requires fresh Native captures; existing files have no verified provenance')
     p = profile(args.clip, args.revision)
     print(f"{p['name']} v{p['revision']}: {p['frames']} frames, style={p['style']}")
+    evidence = None
     if not args.no_render:
+        # The manifest is read from source; the exe loads build/assets. Never
+        # silently review one dataset and label it as the other.
+        records = deployment_snapshot()
+        subprocess.run([sys.executable, str(ROOT / 'tools/validate_live2d_assets.py')], check=True)
+        if args.draft:
+            p = new_draft_profile(p)
+            evidence = record_session(p, records)
+            print(f"  isolated draft: {p['run']}")
         print("  native capture runs at a few frames per second; expect about a minute")
-        capture(p, sweeps=args.sweeps)
-    compose(p)
-    if args.validate:
-        validate(p, max_floor_drift=args.max_floor_drift)
+    try:
+        if not args.no_render:
+            capture(p, sweeps=args.sweeps)
+        compose(p)
+        if args.draft:
+            compose_desktop_scale(p)
+        if args.validate or args.draft:
+            report = validate(p, max_floor_drift=args.max_floor_drift)
+            if evidence is not None:
+                evidence['validation'] = report
+        if evidence is not None:
+            finish_session(p, evidence)
+            print('  draft ready; review approval remains pending')
+    except BaseException as error:
+        if evidence is not None:
+            evidence.update(capture_status='failed', error=str(error))
+            write_session(p, evidence)
+        raise
     return 0
 
 
