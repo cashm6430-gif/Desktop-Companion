@@ -53,6 +53,10 @@ public slots:
 
 signals:
     void stateChanged(PetController::State state);
+    // A real stop removed the last active turn across all sessions. The
+    // background state has already been restored when this is emitted.
+    // Session cleanup, expiry and manual reset deliberately stay silent.
+    void allTurnsStopped();
     // Fired once per accepted eat trigger, right after the delete state is
     // entered. `file` is the dropped or deleted file (empty for the manual
     // tray trigger), `sourcePos` the on-desktop position the file's icon sat

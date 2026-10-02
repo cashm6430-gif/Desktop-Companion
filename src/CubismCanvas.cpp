@@ -89,6 +89,8 @@ struct CubismCanvas::Impl {
     QHash<QString, int> parameterIndices;
     std::vector<int> standingFeet;
     std::vector<int> seatedFeet;
+    std::vector<int> headMeshes;
+    int faceMesh = -1;
     // The bite (gape) art drawable. The exported moc3 lost the switch-opacity
     // keyforms that should tie this mesh's visibility to ParamMouthGape, so
     // the layer rides fully opaque and only MouthOpenY's 25%-sliver closed
@@ -255,12 +257,16 @@ void CubismCanvas::initializeGL() {
         const auto source = entry.value(QStringLiteral("source")).toString();
         const bool seatedMesh = source.startsWith(QStringLiteral("busy "));
         const bool standingFoot = source.startsWith(QStringLiteral("footwear-"));
-        if (!seatedMesh && !standingFoot) continue;
+        const bool headMesh = source == QStringLiteral("face")
+            || source == QStringLiteral("front hair") || source == QStringLiteral("headwear");
+        if (!seatedMesh && !standingFoot && !headMesh) continue;
         const auto id = entry.value(QStringLiteral("drawable")).toString().toUtf8();
         const int index = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
         if (index < 0) continue;
         if (seatedMesh) impl_->seatedMeshes.push_back(index);
         if (standingFoot) impl_->standingFeet.push_back(index);
+        if (headMesh) impl_->headMeshes.push_back(index);
+        if (source == QStringLiteral("face")) impl_->faceMesh = index;
         if (source.startsWith(QStringLiteral("busy leg "))) impl_->seatedFeet.push_back(index);
     }
     model->Update();
@@ -393,6 +399,37 @@ void CubismCanvas::paintGL() {
             const int count = model->GetDrawableVertexCount(index);
             for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
         }
+    }
+    // Input geometry is captured after Update and after grounding, at the
+    // exact pose that is about to be rendered. Front hair extends below the
+    // chin; clip it there so stroking a long lock is still a body drag.
+    headHitPath_ = QPainterPath();
+    headHitPath_.setFillRule(Qt::WindingFill);
+    QRectF faceBounds;
+    const auto point = [&](const auto& vertex) {
+        return QPointF((matrix.TransformX(vertex.X) + 1.0) * width() / 2.0,
+                       (1.0 - matrix.TransformY(vertex.Y)) * height() / 2.0);
+    };
+    for (int index : impl_->headMeshes) {
+        const auto* vertices = model->GetDrawableVertexPositions(index);
+        const auto* indices = model->GetDrawableVertexIndices(index);
+        const int count = model->GetDrawableVertexIndexCount(index);
+        QPainterPath mesh;
+        mesh.setFillRule(Qt::WindingFill);
+        for (int i = 0; i + 2 < count; i += 3) {
+            QPolygonF triangle;
+            triangle << point(vertices[indices[i]]) << point(vertices[indices[i + 1]])
+                     << point(vertices[indices[i + 2]]);
+            mesh.addPolygon(triangle);
+            mesh.closeSubpath();
+        }
+        if (index == impl_->faceMesh) faceBounds = mesh.boundingRect();
+        headHitPath_.addPath(mesh);
+    }
+    if (!faceBounds.isEmpty()) {
+        QPainterPath aboveChin;
+        aboveChin.addRect(QRectF(0, 0, width(), faceBounds.bottom()));
+        headHitPath_ = headHitPath_.intersected(aboveChin);
     }
     auto* renderer = impl_->model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
     renderer->SetMvpMatrix(&matrix);

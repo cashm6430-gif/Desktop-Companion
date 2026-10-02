@@ -4,6 +4,7 @@
 
 #include <QJsonObject>
 #include <QOpenGLWidget>
+#include <QPainterPath>
 #include <QString>
 #include <memory>
 
@@ -22,6 +23,9 @@ public:
     // curve can only be judged against the range the rig actually accepts.
     // Empty before the canvas has loaded the model.
     QJsonObject parameterRanges() const;
+    // Logical widget coordinates of the latest rendered head mesh. Uses the
+    // same grounded transform as the picture, so input follows head/seat motion.
+    const QPainterPath& headHitPath() const { return headHitPath_; }
 
 signals:
     void readyChanged(bool ready);
@@ -39,4 +43,5 @@ private:
     QString error_;
     int sampleCount_ = -1;
     double frameSeconds_ = 0.0;
+    QPainterPath headHitPath_;
 };

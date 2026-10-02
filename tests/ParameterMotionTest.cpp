@@ -6,6 +6,32 @@
 #include <QTemporaryFile>
 #include <cmath>
 
+namespace {
+bool writeReactionFixture(const QTemporaryDir& dir) {
+    const QByteArray turn = R"({"duration":1.8,"approval":"pending","keyframes":[
+      {"time":0,"parameters":{"ParamAngleY":-8,"ParamEyeLOpen":1,"ParamEyeROpen":1,"ParamEyeSmile":0}},
+      {"time":0.5,"parameters":{"ParamAngleY":7,"ParamEyeLOpen":1,"ParamEyeROpen":1,"ParamEyeSmile":0}},
+      {"time":1.1,"parameters":{"ParamAngleY":-2,"ParamEyeLOpen":0,"ParamEyeROpen":0,"ParamEyeSmile":1}},
+      {"time":1.8,"parameters":{"ParamAngleY":0,"ParamEyeLOpen":1,"ParamEyeROpen":1,"ParamEyeSmile":0}}]})";
+    const QByteArray pat = R"({"duration":2.2,"approval":"pending","interaction":{"enterEnd":0.8,"holdEnd":1.6},
+      "constants":{"ParamMouthOpenY":0,"ParamSmileOpen":0},"keyframes":[
+      {"time":0,"parameters":{"ParamAngleZ":0,"ParamEyeLOpen":1,"ParamEyeROpen":1,"ParamEyeSmile":0}},
+      {"time":0.8,"parameters":{"ParamAngleZ":3,"ParamEyeLOpen":0,"ParamEyeROpen":0,"ParamEyeSmile":1}},
+      {"time":1.6,"parameters":{"ParamAngleZ":3,"ParamEyeLOpen":0,"ParamEyeROpen":0,"ParamEyeSmile":1}},
+      {"time":2.2,"parameters":{"ParamAngleZ":0,"ParamEyeLOpen":1,"ParamEyeROpen":1,"ParamEyeSmile":0}}]})";
+    for (const auto& entry : {qMakePair(QStringLiteral("turn-ended"), turn),
+                              qMakePair(QStringLiteral("head-pat"), pat)}) {
+        QFile file(dir.filePath(entry.first + QStringLiteral(".motion.json")));
+        if (!file.open(QIODevice::WriteOnly) || file.write(entry.second) != entry.second.size()) return false;
+    }
+    return true;
+}
+
+void advanceFrames(ParameterMotion& motion, int frames) {
+    for (int i = 0; i < frames; ++i) motion.advance(0.02);
+}
+}
+
 class ParameterMotionTest final : public QObject {
     Q_OBJECT
 private slots:
@@ -24,7 +50,247 @@ private slots:
     void laptopTypingAndShortTaskExit();
     void blendSecondsComeFromClip();
     void standingAccentKeepsMovingAfterOneCycle();
+    void absentReactionsLeaveExistingMotionAvailable();
+    void turnEndedPreservesSeatThenPutsLaptopAway();
+    void headPatHoldReleaseDirectionAndCooldown();
+    void headPatWhileBusyLeavesHandsAndComputerAlone();
+    void reactionInterruptionsKeepPoseContinuous();
+    void invalidReactionConfigurationIsRejected();
+    void seatedReactionContextSurvivesUserAndLastStopHandoffs();
+    void earlyHeadPatReleaseDoesNotForceClosedEyes();
 };
+
+void ParameterMotionTest::seatedReactionContextSurvivesUserAndLastStopHandoffs() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    for (const bool startWithTurnEnded : {false, true}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+        QVERIFY(motion.loadMotionLibrary(dir.path()));
+        motion.forceLaptopBusy();
+        advanceFrames(motion, 200);
+        auto seated = motion.values();
+        if (startWithTurnEnded) {
+            motion.setState(PetController::State::Idle);
+            QVERIFY(motion.playTurnEnded());
+            advanceFrames(motion, 40);
+            QVERIFY(motion.beginHeadPat());
+        } else {
+            QVERIFY(motion.beginHeadPat());
+            advanceFrames(motion, 20);
+            // The final turn stops while the user's hand is still on the head.
+            seated = motion.values();
+            motion.setState(PetController::State::Idle);
+        }
+        advanceFrames(motion, 42);
+        QVERIFY(motion.interactionActive());
+        for (const auto& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+                               QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamArmLA"),
+                               QStringLiteral("ParamArmRA")})
+            QCOMPARE(motion.values().value(id), seated.value(id));
+        const auto beforeRelease = motion.values();
+        motion.endHeadPat();
+        QCOMPARE(motion.values(), beforeRelease);
+        advanceFrames(motion, 31);
+        QVERIFY(!motion.interactionActive());
+        QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+        advanceFrames(motion, 12);
+        QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) < 0.1);
+        QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+        advanceFrames(motion, 150);
+        QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
+    }
+}
+
+void ParameterMotionTest::earlyHeadPatReleaseDoesNotForceClosedEyes() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 50);
+    QVERIFY(motion.beginHeadPat());
+    advanceFrames(motion, 10);
+    const auto before = motion.values();
+    QVERIFY(before.value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+    motion.endHeadPat();
+    QVERIFY(!motion.interactionActive());
+    QCOMPARE(motion.values(), before);
+    motion.advance(0.02);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) >= before.value(QStringLiteral("ParamEyeLOpen")));
+    advanceFrames(motion, 30);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.99);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.001);
+    QVERIFY(!motion.beginHeadPat());
+}
+
+void ParameterMotionTest::absentReactionsLeaveExistingMotionAvailable() {
+    QTemporaryDir dir;
+    QVERIFY(dir.isValid());
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QVERIFY(!motion.playTurnEnded());
+    QVERIFY(!motion.beginHeadPat());
+    motion.setState(PetController::State::Busy);
+    advanceFrames(motion, 50);
+    QVERIFY(!motion.interactionActive());
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamArmRA"))) > 1.0);
+}
+
+void ParameterMotionTest::turnEndedPreservesSeatThenPutsLaptopAway() {
+    QTemporaryDir dir;
+    QVERIFY(dir.isValid());
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    const auto seated = motion.values();
+    QVERIFY(seated.value(QStringLiteral("ParamLaptopVisible")) > 0.99);
+    motion.setState(PetController::State::Idle);
+    QVERIFY(motion.playTurnEnded());
+    QCOMPARE(motion.values(), seated);
+    QCOMPARE(motion.interactionId(), QStringLiteral("turn-ended"));
+    advanceFrames(motion, 60);
+    QVERIFY(motion.interactionActive());
+    for (const auto& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+                           QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamArmLA"),
+                           QStringLiteral("ParamArmRA")})
+        QCOMPARE(motion.values().value(id), seated.value(id));
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.001);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.8);
+    advanceFrames(motion, 35);
+    QVERIFY(!motion.interactionActive());
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    advanceFrames(motion, 12);
+    QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) < 0.1);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    advanceFrames(motion, 150);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.001);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+}
+
+void ParameterMotionTest::headPatHoldReleaseDirectionAndCooldown() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 50);
+    const auto initial = motion.values();
+    QVERIFY(motion.canBeginHeadPat());
+    QVERIFY(motion.beginHeadPat(1));
+    QVERIFY(!motion.canBeginHeadPat());
+    QCOMPARE(motion.values(), initial);
+    advanceFrames(motion, 70);
+    QVERIFY(motion.interactionTime() >= 0.8 && motion.interactionTime() < 1.6);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.98);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.03);
+    QVERIFY(motion.values().value(QStringLiteral("ParamAngleZ")) > 2.8);
+    const double before = motion.values().value(QStringLiteral("ParamAngleZ"));
+    motion.updateHeadPat(-1);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamAngleZ")), before);
+    motion.advance(0.02);
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamAngleZ")) - before) < 0.2);
+    advanceFrames(motion, 40);
+    QVERIFY(motion.values().value(QStringLiteral("ParamAngleZ")) < -2.5);
+    const auto held = motion.values();
+    motion.endHeadPat();
+    QCOMPARE(motion.values(), held);
+    QCOMPARE(motion.interactionTime(), 1.6);
+    advanceFrames(motion, 31);
+    QVERIFY(!motion.interactionActive());
+    QVERIFY(!motion.canBeginHeadPat());
+    QVERIFY(!motion.beginHeadPat());
+    advanceFrames(motion, 390);
+    QVERIFY(motion.beginHeadPat());
+    advanceFrames(motion, 410); // Held for eight seconds: bounded release begins.
+    QVERIFY(motion.interactionTime() > 1.6);
+    advanceFrames(motion, 25);
+    QVERIFY(!motion.interactionActive());
+    QVERIFY(!motion.beginHeadPat());
+}
+
+void ParameterMotionTest::headPatWhileBusyLeavesHandsAndComputerAlone() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion reaction, reference;
+    for (auto* motion : {&reaction, &reference}) {
+        QVERIFY(motion->loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+        QVERIFY(motion->loadMotionLibrary(dir.path()));
+        motion->forceLaptopBusy();
+        advanceFrames(*motion, 50);
+    }
+    QVERIFY(reaction.beginHeadPat());
+    double typingLow = 1, typingHigh = 0;
+    for (int frame = 0; frame < 100; ++frame) {
+        reaction.advance(0.02);
+        reference.advance(0.02);
+        for (const auto& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+             QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA"),
+             QStringLiteral("ParamBusyTypingL"), QStringLiteral("ParamBusyTypingR")})
+            QCOMPARE(reaction.values().value(id), reference.values().value(id));
+        typingLow = std::min(typingLow, reaction.values().value(QStringLiteral("ParamBusyTypingR")));
+        typingHigh = std::max(typingHigh, reaction.values().value(QStringLiteral("ParamBusyTypingR")));
+        if (frame == 70) QVERIFY(reaction.interactionTime() > 1.6);
+    }
+    QVERIFY(typingHigh - typingLow > 0.2);
+    QVERIFY(!reaction.interactionActive());
+    QCOMPARE(reaction.library().clip(QStringLiteral("head-pat"))->approval(), QStringLiteral("pending"));
+}
+
+void ParameterMotionTest::reactionInterruptionsKeepPoseContinuous() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    for (const auto next : {PetController::State::Busy, PetController::State::Delete, PetController::State::Grass}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(dir.path()));
+        QVERIFY(motion.playTurnEnded());
+        advanceFrames(motion, 25);
+        const auto before = motion.values();
+        motion.setState(next);
+        QVERIFY(!motion.interactionActive());
+        QCOMPARE(motion.values(), before);
+    }
+    for (const auto next : {PetController::State::Delete, PetController::State::Grass}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(dir.path()));
+        QVERIFY(motion.beginHeadPat());
+        advanceFrames(motion, 50);
+        const auto before = motion.values();
+        motion.setState(next);
+        QVERIFY(!motion.interactionActive());
+        QCOMPARE(motion.values(), before);
+        motion.setState(PetController::State::Idle);
+        advanceFrames(motion, 60);
+        QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.001);
+        QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+    }
+}
+
+void ParameterMotionTest::invalidReactionConfigurationIsRejected() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QFile invalid(dir.filePath(QStringLiteral("head-pat.motion.json")));
+    QVERIFY(invalid.open(QIODevice::WriteOnly | QIODevice::Truncate));
+    invalid.write(R"({"duration":2.2,"interaction":{"enterEnd":1.6,"holdEnd":0.8},"constants":{"ParamAngleZ":3}})");
+    invalid.close();
+    QString error;
+    QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
+    QVERIFY(error.contains(QStringLiteral("enterEnd")));
+    // Bad metadata must not replace the previous usable reaction.
+    QVERIFY(motion.beginHeadPat());
+    advanceFrames(motion, 50);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.8);
+    motion.cancelInteraction();
+    QVERIFY(invalid.open(QIODevice::WriteOnly | QIODevice::Truncate));
+    invalid.write(R"({"duration":2.2,"interaction":{"enterEnd":0.8,"holdEnd":1.6},"constants":{"ParamArmRA":40}})");
+    invalid.close();
+    QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
+    QVERIFY(error.contains(QStringLiteral("ParamArmRA")));
+}
 
 void ParameterMotionTest::laptopSelectionAndInterruptions() {
     ParameterMotion motion;

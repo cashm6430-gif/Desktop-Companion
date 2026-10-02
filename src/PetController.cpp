@@ -45,8 +45,9 @@ void PetController::turnStarted(const QString& sessionId, const QString& turnId)
 }
 
 void PetController::turnStopped(const QString& sessionId, const QString& turnId) {
-    activeTurns_.remove(sessionId + QChar::Null + turnId);
+    const bool removed = activeTurns_.remove(sessionId + QChar::Null + turnId);
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
+    if (removed && activeTurns_.isEmpty()) emit allTurnsStopped();
 }
 
 void PetController::sessionEnded(const QString& sessionId) {

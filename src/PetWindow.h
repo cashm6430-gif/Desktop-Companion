@@ -2,6 +2,7 @@
 
 #include "PetController.h"
 #include "ParameterMotion.h"
+#include "PetPointerGesture.h"
 
 #include <QElapsedTimer>
 #include <QIcon>
@@ -23,6 +24,7 @@ class CubismCanvas;
 // choreography (drawFedProp) takes over at its grip moment. Defined in
 // PetWindow.cpp; only the pointer lives here.
 class DeleteOverlay;
+class QAction;
 
 class PetWindow final : public QWidget {
     Q_OBJECT
@@ -45,8 +47,12 @@ public:
     // would show a pet that never thinks.
     bool renderSequenceFrame(const ParameterMotion::Parameters& parameters, double seconds,
                              const QString& path, double bubblePulse = 0.0);
+    void setInteractionPreviewEnabled(bool enabled);
+    bool interactionPreviewEnabled() const { return interactionPreviewEnabled_; }
+    bool isHeadAt(const QPointF& position) const;
 
 protected:
+    bool event(QEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
@@ -90,6 +96,8 @@ private:
     // Moves the dropped files to the Recycle Bin (FOF_ALLOWUNDO, recoverable),
     // never a hard delete. The pet "eating" a file must stay undoable.
     void recyclePaths(const QStringList& paths);
+    void updatePointerGesture();
+    void releasePointerGesture();
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
@@ -102,11 +110,17 @@ private:
     QMenu trayMenu_;
     QTimer frameTimer_;
     QTimer laptopPreviewTimer_;
+    QTimer patPreviewTimer_;
+    QAction* interactionPreviewAction_ = nullptr;
     QImage hitCoverage_;
     QElapsedTimer frameClock_;
     ParameterMotion motion_;
     PetController* controller_;
     QPoint dragOffset_;
+    QPoint gestureWindowOrigin_;
+    PetPointerGesture pointerGesture_;
+    bool patAttempted_ = false;
+    bool interactionPreviewEnabled_ = false;
     bool dragging_ = false;
     int frame_ = 0;
     QElapsedTimer fedClock_;

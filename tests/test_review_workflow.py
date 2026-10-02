@@ -118,6 +118,7 @@ class ReviewWorkflowTest(unittest.TestCase):
         self.assertEqual(profile["frames"], 36)
         self.assertEqual(profile["revision"], 7)
         self.assertEqual(profile["style"], "sequence")
+        self.assertIsNone(profile["manifest"])
         self.assertEqual(profile["sequence"], self.build / "head-pat-sequence")
         self.assertEqual(review_motion.profile("head-pat", revision=8)["revision"], 8)
 
@@ -137,6 +138,7 @@ class ReviewWorkflowTest(unittest.TestCase):
                                               "end": 2.2, "weight": 0.5}]}}
         self.write(path, json.dumps(motion))
         self.assertEqual(review_motion.profile("reply")["frames"], 33)
+        self.assertEqual(review_motion.profile("reply")["manifest"], path)
         # An explicitly authored positive duration wins over later channel
         # endpoints, matching the Native clip parser's own duration contract.
         self.write(path, json.dumps({**motion, "duration": 1.2}))
@@ -147,6 +149,10 @@ class ReviewWorkflowTest(unittest.TestCase):
             ("grass", {"duration": 6.9, "revision": 7}),
             ("busy-stand", {"duration": 12, "revision": 5}),
             ("busy-laptop", {"duration": 8, "revision": 2}),
+            # Existing sequence profiles keep their approved sheet layout even
+            # when their source data also happens to contain shared keyframes.
+            ("idle", {"duration": 12, "revision": 1, "keyframes": [{"time": 0}]}),
+            ("delete", {"duration": 3.2, "revision": 6, "keyframes": [{"time": 0}]}),
         ):
             self.write(self.motion.parent / f"{name}.motion.json", json.dumps(data))
         grass = review_motion.profile("grass")
@@ -160,6 +166,91 @@ class ReviewWorkflowTest(unittest.TestCase):
         self.assertEqual(laptop["frames"], 195)
         self.assertEqual(laptop["review"], self.build / "laptop-v3-review")
         self.assertEqual(laptop["manifest"], "generate")
+        for name in ("idle", "busy-stand", "delete"):
+            self.assertIsNone(review_motion.profile(name)["manifest"])
+
+    def test_new_shared_keyframes_capture_exact_native_poses_before_sequence(self):
+        source = self.motion.parent / "head-pat.motion.json"
+        poses = [{"time": 0, "label": "觉察", "parameters": {"ParamAngleZ": 0}},
+                 {"time": 0.8, "label": "笑眼保持", "parameters": {"ParamAngleZ": 4.5}},
+                 {"time": 1.6, "label": "保持闭环", "parameters": {"ParamAngleZ": 4.5}},
+                 {"time": 2.2, "label": "回正", "parameters": {"ParamAngleZ": 0}}]
+        self.write(source, json.dumps({"duration": 2.2, "keyframes": poses}))
+        profile = review_session.new_draft_profile(review_motion.profile("head-pat"))
+        self.assertEqual(profile["manifest"], source)
+        with patch.object(review_motion, "run_exe") as native:
+            review_motion.capture(profile, log=lambda _: None)
+        self.assertEqual(native.call_count, 2)
+        key_call, sequence_call = native.call_args_list
+        self.assertEqual(key_call.args[0],
+                         ["--review-motion", profile["review"], source, "head-pat"])
+        self.assertEqual(key_call.kwargs["watch"], (profile["review"], 4, "poses"))
+        self.assertEqual(sequence_call.args[0],
+                         ["--render-motion", profile["sequence"], "head-pat"])
+        self.assertEqual(sequence_call.kwargs["watch"], (profile["sequence"], 33, "frames"))
+        self.assertEqual(json.loads(source.read_text())["keyframes"], poses)
+
+    def test_new_keyframe_artifact_contains_all_labels_times_and_native_captures(self):
+        source = self.motion.parent / "head-pat.motion.json"
+        poses = [{"time": 0, "label": "初始正视", "parameters": {"ParamAngleZ": 0}},
+                 {"time": 0.8, "label": "闭眼浅笑", "parameters": {"ParamAngleZ": 4.5}},
+                 {"time": 1.6, "label": "松手收尾", "parameters": {"ParamAngleZ": 4.5}},
+                 {"time": 2.2, "label": "完全回正", "parameters": {"ParamAngleZ": 0}}]
+        self.write(source, json.dumps({"duration": 2.2, "revision": 3,
+                                      "approval": "pending", "keyframes": poses}))
+        profile = review_session.new_draft_profile(review_motion.profile("head-pat"))
+        profile["review"].mkdir()
+        colors = [(176, 52, 68, 255), (56, 132, 188, 255),
+                  (68, 156, 92, 255), (176, 140, 44, 255)]
+        for index, color in enumerate(colors):
+            Image.new("RGBA", (640, 640), color).save(
+                profile["review"] / f"head-pat-{index:02}.png")
+        captions = []
+        text_lines = []
+        original = ImageDraw.ImageDraw.multiline_text
+        original_text = ImageDraw.ImageDraw.text
+
+        def record_caption(draw, xy, text, **kwargs):
+            captions.append(text)
+            return original(draw, xy, text, **kwargs)
+
+        def record_text(draw, xy, text, *args, **kwargs):
+            text_lines.append(text)
+            return original_text(draw, xy, text, *args, **kwargs)
+
+        with patch.object(review_motion, "compose_sequence") as sequence, \
+                patch.object(ImageDraw.ImageDraw, "multiline_text", record_caption), \
+                patch.object(ImageDraw.ImageDraw, "text", record_text):
+            review_motion.compose(profile, log=lambda _: None)
+        sequence.assert_called_once()
+        self.assertEqual(captions, [f"{index + 1}. {pose['label']}   {pose['time']:g}s"
+                                    for index, pose in enumerate(poses)])
+        self.assertTrue(any(text.startswith("摸头回应 · Live2D Native") for text in text_lines))
+        self.assertTrue(any("动作数据待审批 / 本次草稿待复核" in text for text in text_lines))
+        artifact = profile["output"] / "head-pat-keyframes-v3.png"
+        with Image.open(artifact) as sheet:
+            self.assertEqual(sheet.size, (1120, 1204))
+            for index, color in enumerate(colors):
+                x, y = index % 2 * 560 + 280, 90 + index // 2 * 550 + 250
+                self.assertEqual(sheet.getpixel((x, y)), color[:3])
+        self.assertEqual(review_motion.review_label(profile, "待审批"),
+                         "动作数据待审批 / 本次草稿待复核")
+        self.assertEqual(json.loads(source.read_text())["approval"], "pending")
+
+    def test_keyframe_manifest_cannot_be_composed_from_missing_or_shifted_poses(self):
+        source = self.motion.parent / "reply.motion.json"
+        self.write(source, json.dumps({"duration": 1, "keyframes": [
+            {"time": 0, "parameters": {"ParamAngleX": 0}},
+            {"time": 1, "parameters": {"ParamAngleX": 0}}]}))
+        profile = review_session.new_draft_profile(review_motion.profile("reply"))
+        profile["review"].mkdir()
+        Image.new("RGBA", (16, 16), "red").save(profile["review"] / "reply-00.png")
+        with self.assertRaisesRegex(SystemExit, "expected 2 Native key poses, found 1"):
+            review_motion.compose_keyframes(profile, log=lambda _: None)
+        Image.new("RGBA", (16, 16), "blue").save(profile["review"] / "reply-02.png")
+        with self.assertRaisesRegex(SystemExit, "indices do not match the manifest"):
+            review_motion.compose_keyframes(profile, log=lambda _: None)
+        self.assertFalse((profile["output"] / "reply-keyframes-v1.png").exists())
 
     def test_one_frame_capture_validates_without_claiming_motion_measurement(self):
         profile = self.profile()

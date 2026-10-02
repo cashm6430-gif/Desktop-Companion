@@ -10,17 +10,92 @@ private slots:
     void deleteReturnsToCurrentBackground();
     void sessionEndCleansOnlyItsTurns();
     void eatTriggeredCarriesSourcePayload();
+    void allTurnsStoppedFollowsBackgroundState();
+    void unknownAndDuplicateStopsAreSilent();
+    void cleanupAndResetAreSilent();
+    void lastStopDuringForegroundAction();
 };
 
 void PetControllerTest::concurrentTurns() {
     PetController controller;
+    QSignalSpy completed(&controller, &PetController::allTurnsStopped);
     controller.turnStarted("a", "1");
     controller.turnStarted("b", "2");
     QCOMPARE(controller.state(), PetController::State::Busy);
     controller.turnStopped("a", "1");
     QCOMPARE(controller.state(), PetController::State::Busy);
+    QCOMPARE(completed.size(), 0);
     controller.turnStopped("b", "2");
     QCOMPARE(controller.state(), PetController::State::Idle);
+    QCOMPARE(completed.size(), 1);
+}
+
+void PetControllerTest::allTurnsStoppedFollowsBackgroundState() {
+    PetController controller;
+    QStringList order;
+    connect(&controller, &PetController::stateChanged, this,
+            [&order](PetController::State state) {
+                if (state == PetController::State::Idle) order.append("idle");
+            });
+    connect(&controller, &PetController::allTurnsStopped, this, [&] {
+        order.append("stopped");
+        QCOMPARE(controller.activeTurnCount(), 0);
+        QCOMPARE(controller.state(), PetController::State::Idle);
+    });
+    controller.turnStarted("session", "turn");
+    // Repeated starts refresh a turn rather than making duplicate work.
+    controller.turnStarted("session", "turn");
+    QCOMPARE(controller.activeTurnCount(), 1);
+    controller.turnStopped("session", "turn");
+    QCOMPARE(order, QStringList({"idle", "stopped"}));
+}
+
+void PetControllerTest::unknownAndDuplicateStopsAreSilent() {
+    PetController controller;
+    QSignalSpy completed(&controller, &PetController::allTurnsStopped);
+    controller.turnStopped("missing", "turn");
+    controller.turnStopped(QString(), QString());
+    QCOMPARE(completed.size(), 0);
+    controller.turnStarted("a", "1");
+    controller.turnStopped("b", "1");
+    controller.turnStopped("a", "missing");
+    QCOMPARE(controller.activeTurnCount(), 1);
+    QCOMPARE(completed.size(), 0);
+    controller.turnStopped("a", "1");
+    QCOMPARE(completed.size(), 1);
+    controller.turnStopped("a", "1");
+    QCOMPARE(completed.size(), 1);
+}
+
+void PetControllerTest::cleanupAndResetAreSilent() {
+    PetController controller;
+    QSignalSpy completed(&controller, &PetController::allTurnsStopped);
+    controller.turnStarted("a", "1");
+    controller.sessionEnded("a");
+    QCOMPARE(controller.state(), PetController::State::Idle);
+    QCOMPARE(completed.size(), 0);
+    controller.turnStarted("b", "2");
+    controller.resetBusy();
+    QCOMPARE(controller.state(), PetController::State::Idle);
+    QCOMPARE(completed.size(), 0);
+    controller.turnStopped("b", "2");
+    QCOMPARE(completed.size(), 0);
+}
+
+void PetControllerTest::lastStopDuringForegroundAction() {
+    for (const auto action : {PetController::State::Delete, PetController::State::Grass}) {
+        PetController controller;
+        QSignalSpy completed(&controller, &PetController::allTurnsStopped);
+        controller.turnStarted("a", "1");
+        if (action == PetController::State::Delete) controller.desktopItemDeleted();
+        else controller.playGrass();
+        controller.turnStopped("a", "1");
+        QCOMPARE(completed.size(), 1);
+        QCOMPARE(controller.state(), action);
+        controller.actionFinished();
+        QCOMPARE(controller.state(), PetController::State::Idle);
+        QCOMPARE(completed.size(), 1);
+    }
 }
 
 void PetControllerTest::deleteReturnsToCurrentBackground() {

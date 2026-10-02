@@ -4,6 +4,7 @@
 #endif
 
 #include <QApplication>
+#include <QAction>
 #include <QContextMenuEvent>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -235,9 +236,17 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // icon); drops arrive here too, through the shared triggerEat entry.
     connect(controller_, &PetController::eatTriggered,
             this, &PetWindow::onEatTriggered);
+    connect(controller_, &PetController::allTurnsStopped, this, [this] {
+        if (interactionPreviewEnabled_ && controller_->state() == PetController::State::Idle)
+            motion_.playTurnEnded();
+    });
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;
+        if (pointerGesture_.mode() != PetPointerGesture::Mode::None) {
+            pointerGesture_.advance(seconds);
+            updatePointerGesture();
+        }
         motion_.advance(seconds);
         if (motion_.consumeActionFinished()) controller_->actionFinished();
 #ifdef HAVE_CUBISM
@@ -273,6 +282,20 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         controller_->desktopItemDeleted();
     });
     trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), controller_, &PetController::playGrass);
+    interactionPreviewAction_ = trayMenu_.addAction(QStringLiteral("预览新互动（待审批）"));
+    interactionPreviewAction_->setCheckable(true);
+    connect(interactionPreviewAction_, &QAction::toggled, this, &PetWindow::setInteractionPreviewEnabled);
+    trayMenu_.addAction(QStringLiteral("预览收工回望"), this, [this] {
+        if (controller_->state() != PetController::State::Idle) return;
+        setInteractionPreviewEnabled(true);
+        motion_.playTurnEnded();
+    });
+    patPreviewTimer_.setSingleShot(true);
+    connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
+    trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
+        setInteractionPreviewEnabled(true);
+        if (motion_.beginHeadPat(1.0)) patPreviewTimer_.start(1600);
+    });
     laptopPreviewTimer_.setSingleShot(true);
     connect(&laptopPreviewTimer_, &QTimer::timeout, this, [this] {
         controller_->turnStopped(QStringLiteral("local-preview"), QStringLiteral("laptop"));
@@ -307,6 +330,8 @@ PetWindow::~PetWindow() {
 }
 
 void PetWindow::setState(PetController::State state) {
+    if (state == PetController::State::Delete || state == PetController::State::Grass)
+        releasePointerGesture();
     motion_.setState(state);
     frame_ = 0;
     // Leaving the delete state cancels the sideways lunge: the next delete
@@ -365,7 +390,7 @@ void PetWindow::updateInputTransparency() {
     const int x = (cursor.x - bounds.left) * hitCoverage_.width() / windowWidth;
     const int y = (cursor.y - bounds.top) * hitCoverage_.height() / windowHeight;
     const bool buttonHeld = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-    const bool interactive = (dragging_ && buttonHeld)
+    const bool interactive = (pointerGesture_.mode() != PetPointerGesture::Mode::None && buttonHeld)
         || (cursorOk && !hitCoverage_.isNull()
         && x >= 0 && y >= 0 && x < hitCoverage_.width() && y < hitCoverage_.height()
         && hitCoverage_.constScanLine(y)[x] >= 16);
@@ -382,6 +407,9 @@ void PetWindow::shutdown() {
     if (cubismCanvas_) cubismCanvas_->hide();
 #endif
     frameTimer_.stop();
+    patPreviewTimer_.stop();
+    laptopPreviewTimer_.stop();
+    motion_.cancelInteraction();
     tray_.hide();
 }
 
@@ -546,33 +574,104 @@ bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameter
     return false;
 }
 
+void PetWindow::setInteractionPreviewEnabled(bool enabled) {
+    interactionPreviewEnabled_ = enabled;
+    if (interactionPreviewAction_ && interactionPreviewAction_->isChecked() != enabled)
+        interactionPreviewAction_->setChecked(enabled);
+    if (!enabled) {
+        patPreviewTimer_.stop();
+        releasePointerGesture();
+        motion_.cancelInteraction();
+    }
+}
+
+bool PetWindow::isHeadAt(const QPointF& position) const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        const QPointF native = lungeMirrored_ ? QPointF(width() - position.x(), position.y()) : position;
+        return cubismCanvas_->headHitPath().contains(native);
+    }
+#endif
+    return false;
+}
+
+bool PetWindow::event(QEvent* event) {
+    if (event->type() == QEvent::UngrabMouse || event->type() == QEvent::WindowDeactivate)
+        releasePointerGesture();
+    if (event->type() == QEvent::Hide) {
+        releasePointerGesture();
+        patPreviewTimer_.stop();
+        motion_.cancelInteraction();
+    }
+    return QWidget::event(event);
+}
+
+void PetWindow::updatePointerGesture() {
+    if (pointerGesture_.mode() == PetPointerGesture::Mode::Pat) {
+        if (!patAttempted_) {
+            patAttempted_ = true;
+            patPreviewTimer_.stop();
+            if (!motion_.beginHeadPat(pointerGesture_.normalizedPatDirection())) {
+                patAttempted_ = false;
+                pointerGesture_.rejectPat();
+                dragging_ = pointerGesture_.mode() == PetPointerGesture::Mode::Drag;
+                return;
+            }
+        }
+        motion_.updateHeadPat(pointerGesture_.normalizedPatDirection());
+    } else if (pointerGesture_.mode() == PetPointerGesture::Mode::Drag) {
+        dragging_ = true;
+    }
+}
+
+void PetWindow::releasePointerGesture() {
+    if (patAttempted_) motion_.endHeadPat();
+    pointerGesture_.release();
+    patAttempted_ = false;
+    if (dragging_) {
+        QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        settings.setValue(QStringLiteral("position"), pos());
+    }
+    dragging_ = false;
+}
+
 void PetWindow::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        dragging_ = true;
+        releasePointerGesture();
+        gestureWindowOrigin_ = pos();
         dragOffset_ = event->globalPosition().toPoint() - pos();
+        const bool allowPat = interactionPreviewEnabled_ && motion_.canBeginHeadPat()
+            && renderBackend() == QStringLiteral("cubism_native")
+            && controller_->state() != PetController::State::Delete
+            && controller_->state() != PetController::State::Grass;
+        pointerGesture_.press(event->position(), allowPat && isHeadAt(event->position()));
         event->accept();
     }
 }
 
 void PetWindow::mouseMoveEvent(QMouseEvent* event) {
-    if (dragging_ && (event->buttons() & Qt::LeftButton)) {
-        move(event->globalPosition().toPoint() - dragOffset_);
+    if (pointerGesture_.mode() != PetPointerGesture::Mode::None && (event->buttons() & Qt::LeftButton)) {
+        // Relative to the press-time window, never to a window moved mid-drag.
+        pointerGesture_.move(event->globalPosition() - QPointF(gestureWindowOrigin_));
+        updatePointerGesture();
+        if (dragging_) move(event->globalPosition().toPoint() - dragOffset_);
         event->accept();
     }
 }
 
 void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
-    if (event->button() == Qt::LeftButton && dragging_) {
-        dragging_ = false;
-        QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
-        settings.setValue(QStringLiteral("position"), pos());
+    if (event->button() == Qt::LeftButton) {
+        releasePointerGesture();
         updateInputTransparency();
         event->accept();
     }
 }
 
 void PetWindow::mouseDoubleClickEvent(QMouseEvent* event) {
-    if (event->button() == Qt::LeftButton) controller_->playGrass();
+    if (event->button() == Qt::LeftButton) {
+        releasePointerGesture();
+        controller_->playGrass();
+    }
 }
 
 void PetWindow::contextMenuEvent(QContextMenuEvent* event) {

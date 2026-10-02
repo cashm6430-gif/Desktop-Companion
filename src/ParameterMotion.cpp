@@ -2,6 +2,10 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QSet>
 #include <QtMath>
 #include <algorithm>
 #include <cmath>
@@ -21,6 +25,35 @@ const QString rightArm = QStringLiteral("ParamArmRA");
 const QString mouth = QStringLiteral("ParamMouthOpenY");
 const QString cheek = QStringLiteral("ParamCheek");
 constexpr double pi = 3.14159265358979323846;
+
+// Reactions own only the face and head. A draft must not steal a seated hand
+// or a grass prop channel from the activity underneath it.
+const QSet<QString>& reactionParameters() {
+    static const QSet<QString> ids{
+        angleX, angleY, angleZ, leftEye, rightEye, cheek, mouth,
+        QStringLiteral("ParamEyeSmile"), QStringLiteral("ParamEyeBallX"),
+        QStringLiteral("ParamEyeBallY"), QStringLiteral("ParamMouthForm"),
+        QStringLiteral("ParamSmileOpen"), QStringLiteral("ParamMouthGape"),
+        QStringLiteral("ParamBrowLY"), QStringLiteral("ParamBrowRY")
+    };
+    return ids;
+}
+
+bool validateReaction(const MotionClip& clip, QString* error) {
+    if (!clip.isValid()) return true;
+    if (clip.isAdditive() || clip.isLoop()) {
+        if (error) *error = QStringLiteral("Reaction %1 must be an absolute one-shot clip").arg(clip.id());
+        return false;
+    }
+    const auto first = clip.sample(0.0);
+    for (auto it = first.cbegin(); it != first.cend(); ++it) {
+        if (!reactionParameters().contains(it.key())) {
+            if (error) *error = QStringLiteral("Reaction %1 cannot own parameter %2").arg(clip.id(), it.key());
+            return false;
+        }
+    }
+    return true;
+}
 
 // A seated work cycle only reads correctly when every key is a seated pose.
 bool validateSeated(const MotionClip& clip, QString* error) {
@@ -96,12 +129,18 @@ double ParameterMotion::thoughtBubblePulse(double seconds) {
 void ParameterMotion::setState(PetController::State state) {
     preview_ = false;
     sequencePhysics_ = false;
+    if ((interaction_ == Interaction::TurnEnded && state != PetController::State::Idle)
+        || (interaction_ == Interaction::HeadPat
+            && (state == PetController::State::Delete || state == PetController::State::Grass)))
+        cancelInteraction();
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     state_ = state;
+    if (state != PetController::State::Idle) interactionSeat_.clear();
     actionTime_ = 0.0;
     finishedPending_ = false;
     if (state == PetController::State::Idle) {
+        if (interaction_ == Interaction::HeadPat) captureInteractionSeat();
         busyChoiceExists_ = false;
         laptopBusy_ = false;
         busyTime_ = 0.0;
@@ -154,7 +193,173 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
         laptopClip_ = *laptop;
         laptopClip_.setLoop(true, laptopClip_.loopStart(), laptopClip_.duration());
     }
+    interactionDirectory_ = directory;
+    return configureInteractions(error);
+}
+
+bool ParameterMotion::configureInteractions(QString* error) {
+    const MotionClip* turnEnded = library_.clip(QStringLiteral("turn-ended"));
+    const MotionClip* headPat = library_.clip(QStringLiteral("head-pat"));
+    if (turnEnded && !validateReaction(*turnEnded, error)) return false;
+    if (headPat && !validateReaction(*headPat, error)) return false;
+    double enterEnd = 0.8;
+    double holdEnd = 1.6;
+    if (headPat) {
+        QFile file(QDir(interactionDirectory_).filePath(QStringLiteral("head-pat.motion.json")));
+        if (!file.open(QIODevice::ReadOnly)) {
+            if (error) *error = QStringLiteral("Cannot read head-pat phase configuration");
+            return false;
+        }
+        const auto phase = QJsonDocument::fromJson(file.readAll()).object()
+                               .value(QStringLiteral("interaction")).toObject();
+        enterEnd = phase.value(QStringLiteral("enterEnd")).toDouble(-1.0);
+        holdEnd = phase.value(QStringLiteral("holdEnd")).toDouble(-1.0);
+        if (!qIsFinite(enterEnd) || !qIsFinite(holdEnd) || enterEnd <= 0.0
+            || holdEnd <= enterEnd || holdEnd >= headPat->duration()) {
+            if (error) *error = QStringLiteral("head-pat requires 0 < enterEnd < holdEnd < duration");
+            return false;
+        }
+    }
+    cancelInteraction();
+    turnEndedClip_ = turnEnded ? *turnEnded : MotionClip{};
+    headPatClip_ = headPat ? *headPat : MotionClip{};
+    headPatEnterEnd_ = enterEnd;
+    headPatHoldEnd_ = holdEnd;
     return true;
+}
+
+bool ParameterMotion::interactionActive() const {
+    return interaction_ != Interaction::None;
+}
+
+QString ParameterMotion::interactionId() const {
+    switch (interaction_) {
+    case Interaction::TurnEnded: return QStringLiteral("turn-ended");
+    case Interaction::HeadPat: return QStringLiteral("head-pat");
+    default: return {};
+    }
+}
+
+void ParameterMotion::cancelInteraction() {
+    if (interaction_ == Interaction::HeadPat && !headPatReleasing_)
+        headPatCooldown_ = 8.0;
+    if (state_ == PetController::State::Idle && !interactionSeat_.isEmpty())
+        actionTime_ = 0.0;
+    interaction_ = Interaction::None;
+    interactionTime_ = interactionElapsed_ = 0.0;
+    headPatHeld_ = headPatReleasing_ = false;
+    interactionSeat_.clear();
+    // Keep the current values: the background recovers through the same
+    // expression-before-blink filter as a normal state transition.
+}
+
+bool ParameterMotion::playTurnEnded() {
+    if (state_ != PetController::State::Idle || preview_ || interactionActive()
+        || !turnEndedClip_.isValid()) return false;
+    interaction_ = Interaction::TurnEnded;
+    interactionTime_ = interactionElapsed_ = 0.0;
+    // setState(Idle) retains the previous pose. Keep a settled seated computer
+    // while looking up; the usual put-away starts after the reaction.
+    captureInteractionSeat();
+    return true;
+}
+
+void ParameterMotion::captureInteractionSeat() {
+    if (values_.value(QStringLiteral("ParamBusyLaptop")) >= 0.9) {
+        for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+             QStringLiteral("ParamLaptopVisible"), leftArm, rightArm,
+             QStringLiteral("ParamElbowLA"), QStringLiteral("ParamElbowRA"),
+             QStringLiteral("ParamWristRA"), QStringLiteral("ParamLaptopRock")})
+            interactionSeat_.insert(id, values_.value(id));
+    }
+}
+
+bool ParameterMotion::canBeginHeadPat() const {
+    return !preview_ && headPatClip_.isValid() && headPatCooldown_ <= 0.0
+        && state_ != PetController::State::Delete && state_ != PetController::State::Grass
+        && interaction_ != Interaction::HeadPat;
+}
+
+bool ParameterMotion::beginHeadPat(double direction) {
+    if (!canBeginHeadPat()) return false;
+    cancelInteraction();
+    interaction_ = Interaction::HeadPat;
+    headPatHeld_ = true;
+    headPatBeganBusy_ = state_ == PetController::State::Busy;
+    headPatDirection_ = 0.0;
+    if (state_ == PetController::State::Idle) captureInteractionSeat();
+    updateHeadPat(direction);
+    return true;
+}
+
+void ParameterMotion::updateHeadPat(double direction) {
+    if (interaction_ == Interaction::HeadPat && qIsFinite(direction))
+        headPatDirectionTarget_ = std::clamp(direction, -1.0, 1.0);
+}
+
+void ParameterMotion::endHeadPat() {
+    if (interaction_ != Interaction::HeadPat || headPatReleasing_) return;
+    // A light tap released during anticipation should not jump forward to a
+    // closed-eye hold pose solely to open the eyes again during release.
+    if (interactionTime_ < headPatEnterEnd_) {
+        cancelInteraction();
+        return;
+    }
+    headPatHeld_ = false;
+    headPatReleasing_ = true;
+    interactionTime_ = headPatHoldEnd_;
+    headPatCooldown_ = 8.0;
+}
+
+void ParameterMotion::advanceInteraction(double seconds) {
+    headPatCooldown_ = std::max(0.0, headPatCooldown_ - seconds);
+    if (!interactionActive()) return;
+    interactionElapsed_ += seconds;
+    if (interaction_ == Interaction::TurnEnded) {
+        interactionTime_ += seconds;
+        if (interactionTime_ >= turnEndedClip_.duration()) {
+            // Looking up is not part of the computer put-away interval.
+            actionTime_ = 0.0;
+            cancelInteraction();
+        }
+        return;
+    }
+    headPatDirection_ += (headPatDirectionTarget_ - headPatDirection_)
+        * (1.0 - qExp(-seconds / 0.14));
+    const double heldLimit = headPatBeganBusy_ || state_ == PetController::State::Busy
+        ? headPatEnterEnd_ + 0.5 : 8.0;
+    if (headPatHeld_ && interactionElapsed_ >= heldLimit) endHeadPat();
+    if (headPatReleasing_) {
+        interactionTime_ += seconds;
+        if (interactionTime_ >= headPatClip_.duration()) cancelInteraction();
+    } else if (interactionTime_ < headPatEnterEnd_) {
+        interactionTime_ = std::min(headPatEnterEnd_, interactionTime_ + seconds);
+    } else {
+        const double span = headPatHoldEnd_ - headPatEnterEnd_;
+        interactionTime_ = headPatEnterEnd_
+            + std::fmod(interactionTime_ - headPatEnterEnd_ + seconds, span);
+    }
+}
+
+void ParameterMotion::applyInteraction(Parameters& desired) const {
+    if (!interactionActive()) return;
+    const MotionClip& clip = interaction_ == Interaction::TurnEnded ? turnEndedClip_ : headPatClip_;
+    const auto pose = clip.sample(interactionTime_);
+    for (auto it = pose.cbegin(); it != pose.cend(); ++it) desired[it.key()] = it.value();
+    if (state_ == PetController::State::Idle && !interactionSeat_.isEmpty()) {
+        for (auto it = interactionSeat_.cbegin(); it != interactionSeat_.cend(); ++it)
+            desired[it.key()] = it.value();
+        desired[QStringLiteral("ParamBusyTypingL")] = 0.0;
+        desired[QStringLiteral("ParamBusyTypingR")] = 0.0;
+    }
+    if (interaction_ == Interaction::HeadPat && pose.contains(angleZ)) {
+        // Mirror only the authored head/gaze channels. Adding a small negative
+        // delta to a right-leaning pose never actually leaned toward the left.
+        desired[angleZ] = pose.value(angleZ) * headPatDirection_;
+        if (pose.contains(angleX)) desired[angleX] = pose.value(angleX) * headPatDirection_;
+        const QString eyeBallX = QStringLiteral("ParamEyeBallX");
+        if (pose.contains(eyeBallX)) desired[eyeBallX] = pose.value(eyeBallX) * headPatDirection_;
+    }
 }
 
 double ParameterMotion::actionDuration(PetController::State state) const {
@@ -195,6 +400,7 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 }
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
+    cancelInteraction();
     values_ = parameters;
     grassBend_ = parameters.value(QStringLiteral("ParamGrassSwing"));
     grassTip_ = grassBend_ + parameters.value(QStringLiteral("ParamGrassTipBend")) / 0.85;
@@ -228,8 +434,11 @@ void ParameterMotion::advance(double seconds) {
     if (!qIsFinite(seconds) || seconds <= 0.0) return;
     seconds = std::min(seconds, 0.1); // Avoid a leap after suspend or debugger pause.
     clock_ += seconds;
-    actionTime_ += seconds;
+    if (interaction_ != Interaction::TurnEnded
+        && !(interactionActive() && state_ == PetController::State::Idle && !interactionSeat_.isEmpty()))
+        actionTime_ += seconds;
     blinkClock_ += seconds;
+    advanceInteraction(seconds);
 
     Parameters desired{
         {angleX, 0.0},
@@ -348,7 +557,8 @@ void ParameterMotion::advance(double seconds) {
             desired[QStringLiteral("ParamBusyTypingL")] *= 0.5 + 0.5*qSin(busyTime_*17.0);
             desired[QStringLiteral("ParamBusyTypingR")] = effort*(0.5 + 0.5*qSin(busyTime_*17.0+pi));
         }
-    } else if (state_ == PetController::State::Idle && actionTime_ < 0.36
+    } else if (state_ == PetController::State::Idle && !interactionActive()
+               && actionTime_ < 0.36
                && values_.value(QStringLiteral("ParamBusyLaptop")) >= 0.9) {
         // Put the computer away before unfolding the legs. A short task that
         // never reached the seated body continues directly from its pose.
@@ -378,6 +588,7 @@ void ParameterMotion::advance(double seconds) {
         const auto pose = grassClip_.sample(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
     }
+    applyInteraction(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is

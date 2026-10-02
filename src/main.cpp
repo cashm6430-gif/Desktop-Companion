@@ -21,6 +21,91 @@ int main(int argc, char** argv) {
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
     window.show();
 
+    if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
+        const QString output = QString::fromLocal8Bit(argv[2]);
+        const QString scenario = QString::fromLocal8Bit(argv[3]);
+        const QStringList scenarios{QStringLiteral("turn-ended-standing"), QStringLiteral("turn-ended-laptop"),
+            QStringLiteral("turn-ended-interrupt"), QStringLiteral("head-pat"),
+            QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt")};
+        if (!scenarios.contains(scenario) || !QDir().mkpath(output)) return 2;
+        ParameterMotion sampler;
+        QString error;
+        if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &error)) {
+            qWarning() << error;
+            return 2;
+        }
+        const bool glance = scenario.startsWith(QStringLiteral("turn-ended"));
+        const bool laptop = scenario == QStringLiteral("turn-ended-laptop") || scenario == QStringLiteral("head-pat-busy");
+        const bool interrupted = scenario.endsWith(QStringLiteral("interrupt"));
+        sampler.setBusyRandomSeed(20261002);
+        if (laptop) sampler.forceLaptopBusy();
+        else if (glance) sampler.forceStandingBusy();
+        for (int i = 0; i < 90; ++i) sampler.advance(1.0 / 30.0);
+        window.setPreviewPose(sampler.values());
+        window.move(-10000, -10000);
+        constexpr double step = 1.0 / 15.0;
+        constexpr int frameCount = 75;
+        int frame = 0;
+        bool started = false, released = false, cancelled = false;
+        QJsonArray trace;
+        QTimer timer;
+        timer.setInterval(100);
+        QObject::connect(&timer, &QTimer::timeout, &app, [&] {
+            const double time = frame * step;
+            QString event;
+            if (!started && time >= 0.4) {
+                started = true;
+                if (glance) {
+                    sampler.setState(PetController::State::Idle);
+                    if (!sampler.playTurnEnded()) { app.exit(2); return; }
+                    event = QStringLiteral("last_turn_stopped");
+                } else {
+                    if (!sampler.beginHeadPat(1.0)) { app.exit(2); return; }
+                    event = QStringLiteral("head_pat_begin");
+                }
+            }
+            if (interrupted && !cancelled && time >= 1.2) {
+                cancelled = true;
+                sampler.setState(glance ? PetController::State::Busy : PetController::State::Delete);
+                if (glance) sampler.forceStandingBusy();
+                event = glance ? QStringLiteral("new_turn_started") : QStringLiteral("delete_interrupt");
+            }
+            if (!glance && !interrupted && !released && time >= 2.4) {
+                released = true;
+                sampler.endHeadPat();
+                event = QStringLiteral("head_pat_release");
+            }
+            if (!glance && started && !released && !cancelled)
+                sampler.updateHeadPat(std::cos((time - 0.4) * 2.0));
+            if (sampler.consumeActionFinished()) sampler.setState(PetController::State::Idle);
+            if (window.renderBackend() != QStringLiteral("cubism_native")
+                || !window.renderSequenceFrame(sampler.values(), step,
+                    QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))),
+                    sampler.bubblePulse())) { app.exit(1); return; }
+            QJsonObject parameters;
+            for (auto it = sampler.values().cbegin(); it != sampler.values().cend(); ++it)
+                parameters.insert(it.key(), it.value());
+            trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
+                {QStringLiteral("interaction"), sampler.interactionId()},
+                {QStringLiteral("interaction_time"), sampler.interactionTime()},
+                {QStringLiteral("parameters"), parameters},
+                {QStringLiteral("head_center_hit"), window.isHeadAt(QPointF(window.width() * 0.5, window.height() * 0.3))},
+                {QStringLiteral("foot_not_head"), !window.isHeadAt(QPointF(window.width() * 0.5, window.height() * 0.95))}});
+            if (++frame == frameCount) {
+                QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
+                if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
+                evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                    {QStringLiteral("scope"), QStringLiteral("real_interaction_player_and_native_model")},
+                    {QStringLiteral("frames"), trace}}).toJson());
+                app.exit(0);
+                return;
+            }
+            sampler.advance(step);
+        });
+        QTimer::singleShot(1000, &timer, [&] { timer.start(); });
+        return app.exec();
+    }
+
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-pose")) {
         QFile poseFile(QString::fromLocal8Bit(argv[2]));
         if (!poseFile.open(QIODevice::ReadOnly)) return 2;
@@ -39,14 +124,15 @@ int main(int argc, char** argv) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         if (!QDir().mkpath(output)) return 2;
         const QString clipId = argc >= 4 ? QString::fromLocal8Bit(argv[3]) : QStringLiteral("grass");
-        // Idle, busy and delete have no authored clip of their own yet: they run
-        // through the real state machine so their procedural curves can be
-        // reviewed with the same capture path as grass and the seated loop.
+        // Existing activities and the two short reactions use the real player;
+        // other authored clips can still be sampled directly for curve review.
         const bool laptop = clipId == QStringLiteral("busy-laptop");
         const bool grass = clipId == QStringLiteral("grass");
         const bool idle = clipId == QStringLiteral("idle");
         const bool busy = clipId == QStringLiteral("busy");
         const bool remove = clipId == QStringLiteral("delete");
+        const bool turnEnded = clipId == QStringLiteral("turn-ended");
+        const bool headPat = clipId == QStringLiteral("head-pat");
         ParameterMotion sampler;
         QString motionError;
         if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &motionError)) {
@@ -57,6 +143,8 @@ int main(int argc, char** argv) {
         // authored clip is sampled straight from the library, so a new asset can
         // be reviewed without adding a C++ branch.
         const MotionClip* directClip = nullptr;
+        const MotionClip* interactionClip = nullptr;
+        double patReleaseTime = 0.0;
         if (laptop) {
             sampler.advance(0.001);
             sampler.forceLaptopBusy();
@@ -74,6 +162,23 @@ int main(int argc, char** argv) {
         } else if (grass) {
             sampler.setPreviewPose(sampler.grassPose(0.0));
             sampler.setState(PetController::State::Grass);
+        } else if (turnEnded || headPat) {
+            interactionClip = sampler.library().clip(clipId);
+            if (!interactionClip) return 2;
+            if (turnEnded) {
+                sampler.forceStandingBusy();
+                for (int i = 0; i < 30; ++i) sampler.advance(1.0 / 30.0);
+                sampler.setState(PetController::State::Idle);
+                if (!sampler.playTurnEnded()) return 2;
+            } else {
+                sampler.advance(0.001);
+                if (!sampler.beginHeadPat(1.0)) return 2;
+                QFile authored(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions/head-pat.motion.json")));
+                if (!authored.open(QIODevice::ReadOnly)) return 2;
+                patReleaseTime = QJsonDocument::fromJson(authored.readAll()).object()
+                    .value(QStringLiteral("interaction")).toObject().value(QStringLiteral("holdEnd")).toDouble();
+                if (!(patReleaseTime > 0.0)) return 2;
+            }
         } else {
             directClip = sampler.library().clip(clipId);
             if (!directClip) return 2;
@@ -86,7 +191,8 @@ int main(int argc, char** argv) {
             : idle ? 120
             : remove ? std::max(1, static_cast<int>(std::lround(
                   sampler.actionDuration(PetController::State::Delete) / step)))
-            : std::max(1, static_cast<int>(std::lround(directClip->duration() / step)));
+            : std::max(1, static_cast<int>(std::lround(
+                (interactionClip ? interactionClip : directClip)->duration() / step)));
         window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);
         int frame = 0;
@@ -107,6 +213,7 @@ int main(int argc, char** argv) {
             // Fixed motion time gives a reproducible 15 FPS review even when
             // writing a large PNG takes longer than the desktop frame interval.
             sampler.advance(step);
+            if (headPat && frame * step >= patReleaseTime) sampler.endHeadPat();
             if (laptop && frame == 150) sampler.setState(PetController::State::Idle);
         });
         QTimer::singleShot(1000, &captureTimer, [&] { captureTimer.start(); });

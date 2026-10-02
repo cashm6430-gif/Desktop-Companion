@@ -9,10 +9,9 @@
 
 // Turns the pet's state into Cubism parameter values each frame.
 //
-// Authored clips (grass, seated laptop) come from MotionLibrary; the idle, busy
-// and delete curves are still generated procedurally here. Either way, the
-// duration of an action is never hard-coded: it is asked from the library so the
-// player and the state machine can never disagree.
+// Authored activity clips and short head/face reactions come from MotionLibrary.
+// Procedural fallbacks keep the pet usable when a clip is absent. Durations come
+// from the loaded data, keeping the player and controller in step.
 //
 // Values are Cubism parameter units, not screen pixels or pre-rendered frames.
 // The model artist must rig these IDs (or provide an explicit mapping).
@@ -36,6 +35,21 @@ public:
     // Returns true exactly once after a one-shot action reached its duration, so
     // the owner can restore the background state without a parallel timer.
     bool consumeActionFinished();
+
+    // Short reactions are a separate layer: they leave the background state,
+    // breathing phase, seated body and prop channels in place. Draft clips are
+    // loaded for explicit previews as well as the eventual approved actions.
+    bool configureInteractions(QString* error = nullptr);
+    bool playTurnEnded();
+    bool beginHeadPat(double direction = 0.0);
+    bool canBeginHeadPat() const;
+    void updateHeadPat(double direction);
+    void endHeadPat();
+    void cancelInteraction();
+    bool interactionActive() const;
+    QString interactionId() const;
+    // Authored clip time, including the bounded hold loop.
+    double interactionTime() const { return interactionTime_; }
 
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
@@ -67,6 +81,26 @@ private:
     static double thoughtBubblePulse(double seconds);
     void updateGrassFlex(double seconds, double target);
     void applyBlendOverrides(const MotionClip& clip);
+    void advanceInteraction(double seconds);
+    void applyInteraction(Parameters& desired) const;
+    void captureInteractionSeat();
+
+    enum class Interaction { None, TurnEnded, HeadPat };
+    MotionClip turnEndedClip_;
+    MotionClip headPatClip_;
+    QString interactionDirectory_;
+    Interaction interaction_ = Interaction::None;
+    double interactionTime_ = 0.0;
+    double interactionElapsed_ = 0.0;
+    double headPatEnterEnd_ = 0.8;
+    double headPatHoldEnd_ = 1.6;
+    double headPatDirection_ = 0.0;
+    double headPatDirectionTarget_ = 0.0;
+    double headPatCooldown_ = 0.0;
+    bool headPatHeld_ = false;
+    bool headPatReleasing_ = false;
+    bool headPatBeganBusy_ = false;
+    Parameters interactionSeat_;
 
     PetController::State state_ = PetController::State::Idle;
     Parameters values_;

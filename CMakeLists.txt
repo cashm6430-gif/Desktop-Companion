@@ -38,6 +38,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/MotionClip.h src/MotionClip.cpp
     src/MotionLibrary.h src/MotionLibrary.cpp
     src/PetController.h src/PetController.cpp
+    src/PetPointerGesture.h src/PetPointerGesture.cpp
     src/ParameterMotion.h src/ParameterMotion.cpp
     src/PetWindow.h src/PetWindow.cpp
     src/DesktopDeleteSource.h src/DesktopDeleteSource.cpp
@@ -82,6 +83,10 @@ if(BUILD_TESTING)
     # QIcon rides the eatTriggered signature, so the controller needs QtGui.
     target_link_libraries(PetControllerTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME PetControllerTest COMMAND PetControllerTest)
+    add_executable(PetPointerGestureTest tests/PetPointerGestureTest.cpp
+        src/PetPointerGesture.h src/PetPointerGesture.cpp)
+    target_link_libraries(PetPointerGestureTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
+    add_test(NAME PetPointerGestureTest COMMAND PetPointerGestureTest)
     add_executable(ParameterMotionTest tests/ParameterMotionTest.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
         src/MotionClip.h src/MotionClip.cpp

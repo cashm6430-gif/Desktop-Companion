@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "approval": "pending",
+  "conceptApproval": "pending",
+  "revision": 1,
+  "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
+  "duration": 1.8,
+  "loop": false,
+  "interpolation": "smoothstep",
+  "blendSeconds": 0.1,
+  "mode": "absolute",
+  "description": "回合结束后的温和回望。眼睛先注意用户，头稍后抬起，轻点头一次，闭眼浅笑一拍后睁眼回正。仅覆盖头、视线和表情，保留站立或抱电脑坐姿；不表示任务成功，不收电脑、不移动腿。",
+  "keyframes": [
+    {
+      "time": 0,
+      "label": "结束当前工作，保持闭嘴",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
+        "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0, "ParamCheek": 0
+      }
+    },
+    {
+      "time": 0.12,
+      "label": "目光先注意用户，头还未跟上",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
+        "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0.12,
+        "ParamEyeSmile": 0, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0, "ParamCheek": 0
+      }
+    },
+    {
+      "time": 0.35,
+      "label": "头稍后抬起，正面看向用户",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 3, "ParamAngleZ": 0.6,
+        "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0.08,
+        "ParamEyeSmile": 0, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0.08, "ParamCheek": 0
+      }
+    },
+    {
+      "time": 0.62,
+      "label": "轻轻点头一次，视线仍落在用户",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": -4, "ParamAngleZ": 0.4,
+        "ParamEyeLOpen": 0.88, "ParamEyeROpen": 0.88,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0.12,
+        "ParamEyeSmile": 0.1, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0.2, "ParamCheek": 0.08
+      }
+    },
+    {
+      "time": 0.9,
+      "label": "点头回弹，准备浅笑",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 1, "ParamAngleZ": 0.8,
+        "ParamEyeLOpen": 0.9, "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0.25, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0.3, "ParamCheek": 0.15
+      }
+    },
+    {
+      "time": 1.1,
+      "label": "闭眼浅笑，嘴仍闭合",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 1, "ParamAngleZ": 1.2,
+        "ParamEyeLOpen": 0, "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0.35, "ParamCheek": 0.22
+      }
+    },
+    {
+      "time": 1.4,
+      "label": "笑眼停留一拍，让表情被看懂",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 1, "ParamAngleZ": 1.2,
+        "ParamEyeLOpen": 0, "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0.35, "ParamCheek": 0.22
+      }
+    },
+    {
+      "time": 1.6,
+      "label": "慢慢睁眼，温和看人",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 0.5, "ParamAngleZ": 0.4,
+        "ParamEyeLOpen": 0.75, "ParamEyeROpen": 0.75,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0.2, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0.12, "ParamCheek": 0.08
+      }
+    },
+    {
+      "time": 1.8,
+      "label": "回正，交还原先的坐姿或站姿",
+      "parameters": {
+        "ParamAngleX": 0, "ParamAngleY": 0, "ParamAngleZ": 0,
+        "ParamEyeLOpen": 1, "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0, "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0, "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0, "ParamMouthForm": 0, "ParamCheek": 0
+      }
+    }
+  ]
+}
