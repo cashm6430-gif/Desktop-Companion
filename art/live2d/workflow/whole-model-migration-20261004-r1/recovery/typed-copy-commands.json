@@ -1,0 +1,27 @@
+{
+  "argv": [
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:/tool/psd2live/app/*",
+      "-d",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\classes",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveCmoGeometryCopyProbe.java"
+    ],
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+      "-Dpsd2live.agent.store=E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\store",
+      "-Djava.io.tmpdir=E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\temp",
+      "-cp",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\classes;D:/tool/psd2live/app/*",
+      "PSD2LiveCmoGeometryCopyProbe",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovered.cmo3",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovered.moc3",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\texture_00.png",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\export"
+    ]
+  ],
+  "source_sha256": "95db22fc8acf6cf9ac37173c6080d7d1b827113a59d8bb54cbe23ceb2aab96a0"
+}

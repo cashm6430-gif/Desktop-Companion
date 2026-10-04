@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "status": "approved conceptual pose; generated material sources, rig acceptance pending",
+  "approved_by": "user 2026-10-04: 通过，按这两姿势制作",
+  "concept": {
+    "path": "art/live2d/review/sit-pose-20261004-r1/keypose-concept-approved.png",
+    "sha256": "b31dbd46c439d3ec56d2bb223de850c3469f8a2d96e2ea28c35b3a9ce76c751b",
+    "size": [
+      1774,
+      887
+    ]
+  },
+  "material_images": {
+    "rear-skirt.png": {
+      "path": "art/live2d/sit-pose-20261004-r1/materials/rear-skirt.png",
+      "sha256": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox": [
+        0,
+        240,
+        1236,
+        1184
+      ],
+      "RGBA_sha256": "81358b4091932545444fdd045dacb94923afbcacb042aeafef384cec889568a3",
+      "transparent_padding": true,
+      "standalone_texture_page": true
+    },
+    "support-palm-screen-left.png": {
+      "path": "art/live2d/sit-pose-20261004-r1/materials/support-palm-screen-left.png",
+      "sha256": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox": [
+        82,
+        51,
+        1230,
+        1158
+      ],
+      "RGBA_sha256": "a0fd917d6106ceb1e617572c6115dfc5251458aea9de3fbc4e9f8e97be0da250",
+      "transparent_padding": true,
+      "standalone_texture_page": true
+    },
+    "support-palm-screen-right.png": {
+      "path": "art/live2d/sit-pose-20261004-r1/materials/support-palm-screen-right.png",
+      "sha256": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox": [
+        25,
+        52,
+        1174,
+        1156
+      ],
+      "RGBA_sha256": "00da3d74a6acd8d9cd3d669f8cdd583c8cbb8ee1defdb38fd2630a5a5e044529",
+      "transparent_padding": true,
+      "standalone_texture_page": true
+    }
+  },
+  "binding_constraints": [
+    "preserve original 4096 atlas pixels and old UVs; new materials use new pages",
+    "do not play these PNGs as pose animation frames",
+    "rear skirt behind standing skirt and legs; cover actual transparent holes with real mesh",
+    "palms replace original hands exclusively during support, visible wrists overlap sleeve openings",
+    "skin knee mesh reuses approved source texture; no new isolated skin image produced"
+  ],
+  "required_functional_axes": [
+    "ParamSkirtSpread",
+    "ParamHandGround"
+  ],
+  "runtime_adopted": false,
+  "generation": "built-in image_gen; full prompts in generation-prompts.json"
+}

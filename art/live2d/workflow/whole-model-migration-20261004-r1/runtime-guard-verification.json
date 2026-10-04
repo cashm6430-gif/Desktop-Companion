@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "source_checkpoint_tool_and_optin_runtime_verification",
+  "CTest": {
+    "passed": 9,
+    "failed": 0,
+    "log": "runtime-guard-ctest.log",
+    "log_sha256": "fb2d671d0d64bb6a125a1f00084a20f812d0060e87a1c9b7b6d2d6ea7a9ce212",
+    "isolated_build": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\renderer-build"
+  },
+  "Python_capture_gates": {
+    "tests": 37,
+    "passed": 37,
+    "scope": "synthetic receipt/equivalence integrity tests, not Core visual approval"
+  },
+  "renderer": {
+    "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\renderer-build\\DesktopCompanion.exe",
+    "sha256": "cc6dce22299dc335a846e6f8e74f6ffd36490f4ae6d479345307f67b183c37d8",
+    "new_author_metadata_version": 2,
+    "current_formal_model_opted_in": false
+  },
+  "source_hashes": {
+    "src/CubismCanvas.cpp": "d1cbe3ffddfa2fd657a0e57b3c884c812320d904a8ae8630d4f5fac9fafd6387",
+    "src/CubismPostureTransition.h": "da2710a6f9ef7dc021ad27bd678dfdccc1029f5db8a02d6932eda27bc35dec09",
+    "src/PetWindow.cpp": "323d5273e5d30beb7b93f3b70839a2ba5109b737be0fc280fa725cebf6b3d4a0",
+    "tests/CubismPostureTransitionTest.cpp": "4a6b5073007ed4bfc5ddb1fb3f84f29b12844398b76ee0210ce93bcc22ff6075",
+    "tools/install-codex-hooks.ps1": "e1d2e3d511b2671bc6287ea9996768f9776dea0d0d7af7c7a1952a5b152f0c58",
+    "tests/CodexHookTest.ps1": "aaa2789400fb3e0ce2d30907e0668bb192998ff491656d9a7297f2f7984ffa5d"
+  },
+  "protected_runtime": {
+    "formal_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "build_main_exe_sha256": "1516c29bd53819e4aebbd2aa34cf8b08dd7b214b9b2304021e96a9f5f5c9121e",
+    "formal_moc_expected": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "build_main_exe_expected": "1516c29bd53819e4aebbd2aa34cf8b08dd7b214b9b2304021e96a9f5f5c9121e"
+  },
+  "posture_adoption": "not adopted; draft mesh contact and material visual gates remain open"
+}

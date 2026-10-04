@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "kind": "sit_mcp_compile_and_path_rejection_smoke",
+  "scope": "javac21 succeeded; synthetic paths rejected before directory creation/ViewModel/MCP. No archive was opened, no GUI/Core/Native ran.",
+  "status": "passed",
+  "cases": [
+    {
+      "case": "existing-store-rejected",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "fresh and nonexistent",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Isolated output must be fresh and nonexistent: E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\sit-mcp-safety\\existing-store\n\tat PSD2LiveSitMcp.fresh(PSD2LiveSitMcp.java:119)\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:170)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "jvm-store-mismatch",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "equal to --store",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Pass -Dpsd2live.agent.store equal to --store\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:179)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "missing-jvm-store",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "equal to --store",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Pass -Dpsd2live.agent.store equal to --store\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:179)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "token-existing",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "fresh and nonexistent",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Isolated output must be fresh and nonexistent: E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\sit-mcp-safety\\existing-token.txt\n\tat PSD2LiveSitMcp.fresh(PSD2LiveSitMcp.java:119)\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:170)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "ready-existing",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "fresh and nonexistent",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Isolated output must be fresh and nonexistent: E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\sit-mcp-safety\\existing-ready.txt\n\tat PSD2LiveSitMcp.fresh(PSD2LiveSitMcp.java:119)\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:170)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "identical-outputs",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "must be disjoint",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Store/token/ready paths must be disjoint\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:176)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "token-under-store",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "must be disjoint",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Store/token/ready paths must be disjoint\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:176)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "store-under-install",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "overlaps source/install/default store",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Output overlaps source/install/default store: D:\\tool\\psd2live\\sit-safety-rejected-store\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:173)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "store-under-default",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "overlaps source/install/default store",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Output overlaps source/install/default store: C:\\Users\\Administrator\\AppData\\Local\\PSD2Live\\agent-workspaces\\sit-safety-rejected-store\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:173)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "relative-store",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "must be absolute",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: --store must be absolute\n\tat PSD2LiveSitMcp.target(PSD2LiveSitMcp.java:97)\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:152)",
+      "outputs_created": false,
+      "source_unchanged": true
+    },
+    {
+      "case": "odd-option",
+      "status": "rejected_before_mutation",
+      "exit_code": 1,
+      "expected_reason": "option/value pairs",
+      "stderr": "Exception in thread \"main\" java.lang.IllegalArgumentException: Expected option/value pairs\n\tat PSD2LiveSitMcp.options(PSD2LiveSitMcp.java:126)\n\tat PSD2LiveSitMcp.main(PSD2LiveSitMcp.java:149)",
+      "outputs_created": false,
+      "source_unchanged": true
+    }
+  ],
+  "fixed_source_sha256": "cdba6873a953ad68196e47fdb3f613a7e2660a0cae296b790509e75da25fc516",
+  "legacy_source_sha256": "75828ca814c553a08a506448e834447c59db20b73e115f61113e935118c5744b",
+  "compiled_class_sha256": "7559c35a354d105e3959fe1d740e9f4714e695d011bf138fca81578767cf93b9",
+  "real_user_archive_opened": false,
+  "mcp_started": false,
+  "native_run": false,
+  "old_194_188_topology_recovered": false
+}

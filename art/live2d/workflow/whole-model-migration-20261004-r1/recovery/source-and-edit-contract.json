@@ -1,0 +1,1658 @@
+{
+  "schema_version": 1,
+  "kind": "formal_recovered_source_and_parent_geometry_edit_contract",
+  "formal_recovery_moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+  "canonical_runtime_sha256": "c08a1ad72f4d18bd488c4c8f254bd1980743a97073cd6b1074a24b191dac32ed",
+  "current_CMO": {
+    "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovered.cmo3",
+    "sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+    "public_readback_target_version": 5000000,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "pixels_per_unit": 1254,
+    "world_origin": [
+      627,
+      -627
+    ],
+    "source_mode": "atlas",
+    "drawables34_texture_state": "TEXTURE_ATLAS",
+    "embedded_image_count": 35,
+    "original_cached_atlas_png_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "original_cached_atlas_decoded_RGBA_sha256": "701b1008867b211fe6aaa626e9cd141cd8c8db2f9ce9c0b83ba91dc7a01a49e5",
+    "CMO_cached_atlas_lock_flag": false,
+    "lock_contract": "Workflow pins PNG/page/UV hashes; CMO lockCachedAtlasImage flag is false and is not represented as true. Do not auto-regenerate or repack atlas.",
+    "CMO_notice": "ExportReport(format=Cmo3, notices=[MissingSourceArt(pageCount=1)])",
+    "gui_appearance": "not_observed; no claim of actual Editor preview approval"
+  },
+  "external_source_package": {
+    "PSD": {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\whale-girl-layered-draft.psd",
+      "sha256": "b88f11240a8dd9b8b9e304746d20727aa2e4d9f9ad5b71db70049d127029710f"
+    },
+    "manifest": {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\complete-manifest.json",
+      "sha256": "ecc1ff61e3f7dd14adc63e59f167644fa8c3e4437fef8553342ef49f9a8c2d15"
+    },
+    "receipt": {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\complete-source-receipt.json",
+      "sha256": "e3e9b71ad691ea297ac4d473b9aa7a50132f1507feb380aca37566fbf714e6dd"
+    },
+    "runtime_role_metadata": {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.psd2live.json",
+      "sha256": "73f6e4082b2bb05522ed31b06f4c140cbf78730245e58e8500a1dd79107f783e"
+    },
+    "restored_as_CMO_original_PSD_source_chain": false,
+    "usable_for": "Pixel/source provenance, material edits with explicitly approved role/UV association; not automatic rig regeneration.",
+    "receipt_scope": "Existing decoded PSD/PNG agreement receipt re-bound to present source hashes. This handoff did not re-decode PSD.",
+    "mapping": [
+      {
+        "runtime_source_role": "back hair",
+        "legacy_PSD_layer_name": "back hair",
+        "drawable_id": "ArtMeshBackHair2",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\20-back-hair.png",
+        "source_png_sha256": "a0d7a960a0fa397137f28edc67693f4475febee3345addf20f8776fc65ed0e95",
+        "source_RGBA_sha256_receipt": "25ea504290bdf41b24300deb7f86855707afb257e21ee383b9f529e3ce02b27a",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformHairBackPhysics",
+        "vertices": 547,
+        "triangles": 646,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "arm backing",
+        "legacy_PSD_layer_name": "arm backing",
+        "drawable_id": "ArtMeshBackHair",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\arm-backing.png",
+        "source_png_sha256": "4f91caa999466784e9d44e26a7c7d21dcf492f90fa012d290b4a540b2e5bb82c",
+        "source_RGBA_sha256_receipt": "d1f25beb725587dc6839413f6ba3a081b767ef1b687d2ae14d4eb2e2c9e7f476",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformHairBackPhysics",
+        "vertices": 335,
+        "triangles": 456,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "headwear",
+        "legacy_PSD_layer_name": "headwear",
+        "drawable_id": "ArtMeshHeadwear",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\19-headwear.png",
+        "source_png_sha256": "8a54ab96ceaf2d43fbe0afd151bdfee2032ac87f5d71f09b629ed31046772fec",
+        "source_RGBA_sha256_receipt": "8749b6784889005f74efb815c0e3245b5eb6c46d18ee031d27d7526ad56de6cc",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformHeadContainer",
+        "vertices": 656,
+        "triangles": 764,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "topwear",
+        "legacy_PSD_layer_name": "topwear",
+        "drawable_id": "ArtMeshTopwear",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\18-topwear.png",
+        "source_png_sha256": "4668ecd64379e258ba8222abc7edfa2f358c5d8932bc2d262f72ab7aa2ea052d",
+        "source_RGBA_sha256_receipt": "1ea3f6fbcfc47dc2609eced706da26bf28304487a263010dc0efcef16fa8525f",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 158,
+        "triangles": 179,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "bottomwear",
+        "legacy_PSD_layer_name": "bottomwear",
+        "drawable_id": "ArtMeshBottomwear",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\17-bottomwear.png",
+        "source_png_sha256": "695aea48359eaf9a944f4fe123437b12e36e9c2627d1d406fa97dd1247eb5d75",
+        "source_RGBA_sha256_receipt": "a5ce2b681da0233df05559786fd242ffc3fcb09c384755a5fe6ef9f285c925cb",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 276,
+        "triangles": 349,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "footwear-r",
+        "legacy_PSD_layer_name": "footwear-r",
+        "drawable_id": "ArtMeshFootwearR",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\16-footwear-r.png",
+        "source_png_sha256": "424ea322bf5d3c609c7607f0cefab4a0137918aeab9d7f529fa31f61157ff8ac",
+        "source_RGBA_sha256_receipt": "3d035f08eefec18a66605468769b588484ca83b40acb87864d6e1fd53ede4a32",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Footwear",
+        "vertices": 112,
+        "triangles": 130,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              0.35,
+              0.7,
+              1.0
+            ]
+          }
+        ],
+        "forms": 4,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "footwear-l",
+        "legacy_PSD_layer_name": "footwear-l",
+        "drawable_id": "ArtMeshFootwearL",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\15-footwear-l.png",
+        "source_png_sha256": "f83ad28772308da8f024fde38ece95f805c010dd4d8218facab805e20525d06f",
+        "source_RGBA_sha256_receipt": "3564427751838bc990ec1424601e5118f345b4c487b416bffddebdc93ffa1c39",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Footwear",
+        "vertices": 112,
+        "triangles": 129,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              0.35,
+              0.7,
+              1.0
+            ]
+          }
+        ],
+        "forms": 4,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "tail",
+        "legacy_PSD_layer_name": "tail",
+        "drawable_id": "ArtMeshTail",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\14-tail.png",
+        "source_png_sha256": "6ae466f453a7ecf586f54bbedec6f52a0fb4b123c8914b11f1b2015a4634a7d6",
+        "source_RGBA_sha256_receipt": "b2dce7c2adc43eedd9be024319002ac256d30469abe1af643554b99082286b74",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 229,
+        "triangles": 277,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "upperarm-r",
+        "legacy_PSD_layer_name": "upperarm-r",
+        "drawable_id": "ArtMeshHandwearR5",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\13-upperarm-r.png",
+        "source_png_sha256": "966761b81c0eea6f5da1e448cd2e1e770ae929414f231de3c892a275507b31f1",
+        "source_RGBA_sha256_receipt": "6bb6ace4b35386ddebbcea086ae75752514d83dc20bfec6de17aed181588cf40",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Upperarm",
+        "vertices": 40,
+        "triangles": 43,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmRA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          }
+        ],
+        "forms": 5,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "upperarm-l",
+        "legacy_PSD_layer_name": "upperarm-l",
+        "drawable_id": "ArtMeshHandwearL2",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\12-upperarm-l.png",
+        "source_png_sha256": "607d756af4326f737bdaf0c4804ad2fa95547683723e2b5141a2f00bfb759add",
+        "source_RGBA_sha256_receipt": "4adae14e6b4623158c3c90f49203acb7bdf438f9b2230b8456b0091125834f49",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Upperarm",
+        "vertices": 41,
+        "triangles": 45,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmLA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          }
+        ],
+        "forms": 5,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "face",
+        "legacy_PSD_layer_name": "face",
+        "drawable_id": "ArtMeshFace",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\11-face.png",
+        "source_png_sha256": "8d9d8df7b51e070e94a9a815d7db3e1ebf914fd3c14e457b1dea49fc1f9c812e",
+        "source_RGBA_sha256_receipt": "02e3281338009545b4efe99de4309819acb2664e52d4e19455abec10963554f6",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformFaceContour",
+        "vertices": 355,
+        "triangles": 570,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamCheek",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 2,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "front hair",
+        "legacy_PSD_layer_name": "front hair",
+        "drawable_id": "ArtMeshFrontHair",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\10-front-hair.png",
+        "source_png_sha256": "9480997b19db7bfa77568911f7c0c0ddeef051dba3bd6f657304ddb95396b0c6",
+        "source_RGBA_sha256_receipt": "7d9c02458635008c859260cdcec5777b4b82ec6954e0af765a5a455b72828a37",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformHairFrontPhysics",
+        "vertices": 475,
+        "triangles": 864,
+        "texture_page": 0,
+        "geometry_axes": [],
+        "forms": 1,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "mouth",
+        "legacy_PSD_layer_name": "mouth",
+        "drawable_id": "ArtMeshMouthClose",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\09-mouth.png",
+        "source_png_sha256": "f87f30d0a6ce8c94537b98a6671982de0b6d5abee7c752edc6b6660533e6b82a",
+        "source_RGBA_sha256_receipt": "67ca3968fe945ef6f5746ed59a58c736a14dfb44dd29f1363f9086a8a729edb3",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformMouthShapeBoth",
+        "vertices": 16,
+        "triangles": 14,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSmileOpen",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 2,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "eyewhite-r",
+        "legacy_PSD_layer_name": "eyewhite-r",
+        "drawable_id": "ArtMeshEyewhiteR",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\08-eyewhite-r.png",
+        "source_png_sha256": "5bb1444cd963ba7a719de60da5f351b7c77617ae661994b31730f227e2a8fc72",
+        "source_RGBA_sha256_receipt": "3b95808d18faf70b9a96577e6c043ed6be40a6463e37c32718e14ff0971425c8",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformEyeShapeR",
+        "vertices": 87,
+        "triangles": 89,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamEyeROpen",
+            "keys": [
+              0.0,
+              0.04,
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamEyeSmile",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 12,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "eyewhite-l",
+        "legacy_PSD_layer_name": "eyewhite-l",
+        "drawable_id": "ArtMeshEyewhiteL",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\07-eyewhite-l.png",
+        "source_png_sha256": "9b7ca83408f4c32b53d8efac58fa4cb9d36580b14df54be717d9806c255db542",
+        "source_RGBA_sha256_receipt": "c80b920c86626806605163a57508bb92e09dd5043a651bcb1bb8afe16df7e025",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformEyeShapeL",
+        "vertices": 94,
+        "triangles": 85,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamEyeLOpen",
+            "keys": [
+              0.0,
+              0.04,
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamEyeSmile",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 12,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "irides-r",
+        "legacy_PSD_layer_name": "irides-r",
+        "drawable_id": "ArtMeshIridesR",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\06-irides-r.png",
+        "source_png_sha256": "d0893df897d9fec67493564a7117f6354d1426d7c2b6234809d89dfd3584c520",
+        "source_RGBA_sha256_receipt": "bc4c55698c10f459a3445dbc09f79e9b8769524aacd1def5ec25d4a1d09cec7f",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformEyeGazeR",
+        "vertices": 43,
+        "triangles": 47,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamEyeBallForm",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 3,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "irides-l",
+        "legacy_PSD_layer_name": "irides-l",
+        "drawable_id": "ArtMeshIridesL",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\05-irides-l.png",
+        "source_png_sha256": "e467763530f324b2ec62011183107cda3fd74056e35d9c260250fad2894eade6",
+        "source_RGBA_sha256_receipt": "75ea99ff4b7eec7c87b2b6c6942c63f8f7f19cf8275d419a9773470b3ec59829",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformEyeGazeL",
+        "vertices": 75,
+        "triangles": 96,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamEyeBallForm",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 3,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "eyelash-r",
+        "legacy_PSD_layer_name": "eyelash-r",
+        "drawable_id": "ArtMeshEyelashR",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\04-eyelash-r.png",
+        "source_png_sha256": "fd7f7222c7ba04e3de762b29209fe2a980d96cd123deb30ae484c8042063206f",
+        "source_RGBA_sha256_receipt": "7f70c36c5855f843d6ad0380f6f547dc398ffaf3f917123e42d86fc222aac06b",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformEyeShapeR",
+        "vertices": 46,
+        "triangles": 42,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamEyeROpen",
+            "keys": [
+              0.0,
+              0.04,
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamEyeSmile",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 12,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "eyelash-l",
+        "legacy_PSD_layer_name": "eyelash-l",
+        "drawable_id": "ArtMeshEyelashL",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\03-eyelash-l.png",
+        "source_png_sha256": "9924f382f9be96a3d8c6712f3c261f454e859f31d44e0cdfd9ceb3f5abc5b25b",
+        "source_RGBA_sha256_receipt": "beac2cc143cd01eb09c3da181f797df7e76649dd2f5e0c83a9539f68265a4ac4",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformEyeShapeL",
+        "vertices": 411,
+        "triangles": 445,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamEyeLOpen",
+            "keys": [
+              0.0,
+              0.04,
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamEyeSmile",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 12,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "handwear-r",
+        "legacy_PSD_layer_name": "handwear-r",
+        "drawable_id": "ArtMeshHandwearR4",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\02-handwear-r.png",
+        "source_png_sha256": "e8df96a069ed17c2935ea5082c6482a2723e9fae0405f86b5ce0a9cb967f9274",
+        "source_RGBA_sha256_receipt": "de91ca2e24d798c337e72eeface8e4e35ed5dfb51a37d15433f99ca63f1ad8ba",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Handwear",
+        "vertices": 63,
+        "triangles": 69,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmRA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          },
+          {
+            "parameter": "ParamElbowRA",
+            "keys": [
+              -35.0,
+              0.0,
+              55.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassReach",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamWristRA",
+            "keys": [
+              -25.0,
+              0.0,
+              25.0
+            ]
+          }
+        ],
+        "forms": 90,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "handwear-l",
+        "legacy_PSD_layer_name": "handwear-l",
+        "drawable_id": "ArtMeshHandwearL",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\01-handwear-l.png",
+        "source_png_sha256": "2b5d109022634b512b9660f26bca54016b46b2e7535f0b41525a1aa73f8fccc5",
+        "source_RGBA_sha256_receipt": "2ea8728826d6d1c729ffdee1724c2ea79289571f3f3950ab04e9a3902d8652ad",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Handwear",
+        "vertices": 70,
+        "triangles": 79,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmLA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          },
+          {
+            "parameter": "ParamElbowLA",
+            "keys": [
+              -35.0,
+              0.0,
+              55.0
+            ]
+          }
+        ],
+        "forms": 15,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "handwear_r",
+        "legacy_PSD_layer_name": "handwear_r",
+        "drawable_id": "ArtMeshHandwearR3",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\00-handwear_r.png",
+        "source_png_sha256": "796ca0341dc82df89b0656c95ddfbb71fa5d8f55ff55e24b55d89506db2c0a81",
+        "source_RGBA_sha256_receipt": "378eee4022f0e842e16b465126dc2f638e96f87db482a65429beffc1a4f74d50",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Handwear",
+        "vertices": 34,
+        "triangles": 35,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmRA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          },
+          {
+            "parameter": "ParamElbowRA",
+            "keys": [
+              -35.0,
+              0.0,
+              55.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassReach",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamWristRA",
+            "keys": [
+              -25.0,
+              0.0,
+              25.0
+            ]
+          },
+          {
+            "parameter": "ParamHandRGrip",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 180,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "mouth open",
+        "legacy_PSD_layer_name": "mouth open",
+        "drawable_id": "ArtMeshMouthOpen2",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\mouth-open.png",
+        "source_png_sha256": "102f075070d29f141b8fe5ba187ed6bc12992ccf79aecad2d1166bd585a4c1e6",
+        "source_RGBA_sha256_receipt": "fcb47cab3b97db2863b407da302435a930bf99f0b24a1106232c32420b456c1a",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformMouthShapeBoth",
+        "vertices": 33,
+        "triangles": 36,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamMouthForm",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamMouthOpenY",
+            "keys": [
+              0.0,
+              0.5,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamSmileOpen",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 18,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "mouth open gape",
+        "legacy_PSD_layer_name": "bite mouth",
+        "drawable_id": "ArtMeshMouthOpen",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\bite-mouth.png",
+        "source_png_sha256": "f48aa5feeb1ebf5ab43cbd65bb0a94eec683563889989d81cf00a9ad06dafd1b",
+        "source_RGBA_sha256_receipt": "0717094cc46519fb41f52a20b8018284ebfff342f95ce8f46cbaafbe68a96252",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformMouthShapeBoth",
+        "vertices": 30,
+        "triangles": 33,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamMouthForm",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamMouthOpenY",
+            "keys": [
+              0.0,
+              0.5,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamMouthGape",
+            "keys": [
+              1.0,
+              2.0
+            ]
+          }
+        ],
+        "forms": 18,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "handwear right",
+        "legacy_PSD_layer_name": "handwear right",
+        "drawable_id": "ArtMeshHandwearR2",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\grass-prop.png",
+        "source_png_sha256": "90dd2ad1d4f87872a703f6a9abff333ed7e66b04c5f23b1be2b1c4573c61dda6",
+        "source_RGBA_sha256_receipt": "727c363c795c9ad772f16a3422c95378179957d74498ae72cfefe786dd6bcdf1",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Handwear",
+        "vertices": 878,
+        "triangles": 920,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmRA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          },
+          {
+            "parameter": "ParamElbowRA",
+            "keys": [
+              -35.0,
+              0.0,
+              55.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassReach",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamWristRA",
+            "keys": [
+              -25.0,
+              0.0,
+              25.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassSwing",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassTipBend",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassVisible",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 1620,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "handwear.right",
+        "legacy_PSD_layer_name": "handwear.right",
+        "drawable_id": "ArtMeshHandwearR",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\hand-grip-registered.png",
+        "source_png_sha256": "3a947805ed569d6b620741fb93cbdd6da6533a11e224a1c252fd472c5dbfab37",
+        "source_RGBA_sha256_receipt": "83daa25de25d03362259df146e81e4dea191473eb8d4ea1f90b4fb167034f3d7",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformPair_Handwear",
+        "vertices": 32,
+        "triangles": 33,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamArmRA",
+            "keys": [
+              -65.0,
+              -35.0,
+              0.0,
+              35.0,
+              65.0
+            ]
+          },
+          {
+            "parameter": "ParamElbowRA",
+            "keys": [
+              -35.0,
+              0.0,
+              55.0
+            ]
+          },
+          {
+            "parameter": "ParamGrassReach",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamWristRA",
+            "keys": [
+              -25.0,
+              0.0,
+              25.0
+            ]
+          },
+          {
+            "parameter": "ParamHandRGrip",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 180,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy torso",
+        "legacy_PSD_layer_name": "busy torso",
+        "drawable_id": "ArtMeshObjects8",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-torso.png",
+        "source_png_sha256": "832e09b9f7ba8c98b20fe9ffe6ffa14a69258b0a90b84ccd6970e16bd39fdd61",
+        "source_RGBA_sha256_receipt": "493e7fc1d98f509736d0a50d8c331eeb8f1c4ac0b5d49194968df3259771dc98",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 132,
+        "triangles": 169,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyLaptop",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 4,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy skirt",
+        "legacy_PSD_layer_name": "busy skirt",
+        "drawable_id": "ArtMeshObjects7",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-skirt.png",
+        "source_png_sha256": "51d0c60ee05d2fc09e7f362ab42369b9a3cbef02215eb04608ab63afb5c3e878",
+        "source_RGBA_sha256_receipt": "62d3da1f8fba80360b8b02e12d98a5c28274a856f1eff06d6b7a9cd94eac27af",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 321,
+        "triangles": 395,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyLaptop",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 4,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy leg r",
+        "legacy_PSD_layer_name": "busy leg r",
+        "drawable_id": "ArtMeshObjects6",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-leg-r.png",
+        "source_png_sha256": "900b93cda616c4980597dc4f36b0c8a95890c5f692b5f9aaf17182533ade4426",
+        "source_RGBA_sha256_receipt": "547cad886c1510397ab42002572a1e69fa4dc0fc8c70c5fcf3e515b63f07c2b5",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 108,
+        "triangles": 132,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyLaptop",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 4,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy leg l",
+        "legacy_PSD_layer_name": "busy leg l",
+        "drawable_id": "ArtMeshObjects5",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-leg-l.png",
+        "source_png_sha256": "d3519bddf6363c18431f94138bd37339019fa96b04068c627406a9ce05553c82",
+        "source_RGBA_sha256_receipt": "0ce21091ced992cab14657821d3bedf7687a591684f0b10415ec8dc3f0f9f447",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 106,
+        "triangles": 129,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyLaptop",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 4,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy laptop base",
+        "legacy_PSD_layer_name": "busy laptop base",
+        "drawable_id": "ArtMeshObjects4",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-laptop-base.png",
+        "source_png_sha256": "8293be009c60745e10ca4507301cd956a7bc39281cb9d4c4dc99e87628a469ab",
+        "source_RGBA_sha256_receipt": "bb4b70d6492c5fba78132bedb2573455b99b6c408fd3cd7b05f49f644ce29197",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 66,
+        "triangles": 64,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamLaptopRock",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamLaptopVisible",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 12,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy sleeve l",
+        "legacy_PSD_layer_name": "busy sleeve l",
+        "drawable_id": "ArtMeshObjects3",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+        "source_png_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+        "source_RGBA_sha256_receipt": "71310d157cdde2b6c89a9b2cbe18e55fd50c5b47d3ae3703d2c3a475331e6701",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 42,
+        "triangles": 40,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyTypingL",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamLaptopRock",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyLaptop",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 24,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy sleeve r",
+        "legacy_PSD_layer_name": "busy sleeve r",
+        "drawable_id": "ArtMeshObjects2",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-r.png",
+        "source_png_sha256": "d26921db8334aff7c35f0b91d174c9ecbc4403403705224793be3f42af97b961",
+        "source_RGBA_sha256_receipt": "2c908a13ee2d97e324b6e23cf88bd3468b3bafe26e559d4a360e5580708ccea5",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 69,
+        "triangles": 78,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyTypingR",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamLaptopRock",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamBusyLaptop",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 24,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      },
+      {
+        "runtime_source_role": "busy laptop lid",
+        "legacy_PSD_layer_name": "busy laptop lid",
+        "drawable_id": "ArtMeshObjects",
+        "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-laptop-lid.png",
+        "source_png_sha256": "afaef4eea176d6815324590f6f239bd0545cd61434c491e22965ed10d1d27c98",
+        "source_RGBA_sha256_receipt": "8b676d1e302b2b89f9d18d8857f59d9f09fafcaed39fb9e45da665b309056e57",
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "author_parent": "DeformBodyZBreath",
+        "vertices": 110,
+        "triangles": 136,
+        "texture_page": 0,
+        "geometry_axes": [
+          {
+            "parameter": "ParamSitPose",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamLaptopRock",
+            "keys": [
+              -1.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "parameter": "ParamLaptopVisible",
+            "keys": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "forms": 12,
+        "pixel_provenance": "Original PSD/PNG receipt; not the original author binding. Formal MOC geometry supersedes old source rig."
+      }
+    ]
+  },
+  "native_parameter_domains": [
+    {
+      "id": "ParamAngleX",
+      "name": "角度 X",
+      "native_min": -45.0,
+      "native_max": 45.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamAngleY",
+      "name": "角度 Y",
+      "native_min": -30.0,
+      "native_max": 30.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamAngleZ",
+      "name": "角度 Z",
+      "native_min": -30.0,
+      "native_max": 30.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBodyAngleX",
+      "name": "身体角度 X",
+      "native_min": -10.0,
+      "native_max": 10.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBodyAngleY",
+      "name": "身体角度 Y",
+      "native_min": -10.0,
+      "native_max": 10.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBodyAngleZ",
+      "name": "身体角度 Z",
+      "native_min": -10.0,
+      "native_max": 10.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamEyeLOpen",
+      "name": "左眼开合",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 1.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamEyeROpen",
+      "name": "右眼开合",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 1.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamEyeBallX",
+      "name": "眼球 X",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamEyeBallY",
+      "name": "眼球 Y",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamEyeBallForm",
+      "name": "果冻眼",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBrowLY",
+      "name": "左眉 Y",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBrowRY",
+      "name": "右眉 Y",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamMouthForm",
+      "name": "嘴型",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamMouthOpenY",
+      "name": "嘴巴开合",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBreath",
+      "name": "呼吸",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamHairFront",
+      "name": "前发摆动",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamHairBack",
+      "name": "后发摆动",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBusyLaptop",
+      "name": "ParamBusyLaptop",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamGrassVisible",
+      "name": "ParamGrassVisible",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamLaptopVisible",
+      "name": "ParamLaptopVisible",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamSmileOpen",
+      "name": "ParamSmileOpen",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamHandRGrip",
+      "name": "ParamHandRGrip",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamMouthGape",
+      "name": "ParamMouthGape",
+      "native_min": 1.0,
+      "native_max": 2.0,
+      "native_default": 1.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamArmLA",
+      "name": "左手动作",
+      "native_min": -65.0,
+      "native_max": 65.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamArmRA",
+      "name": "右手动作",
+      "native_min": -65.0,
+      "native_max": 65.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamElbowLA",
+      "name": "左肘弯曲",
+      "native_min": -35.0,
+      "native_max": 55.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamElbowRA",
+      "name": "右肘弯曲",
+      "native_min": -35.0,
+      "native_max": 55.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamWristRA",
+      "name": "右腕摆角",
+      "native_min": -25.0,
+      "native_max": 25.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamGrassReach",
+      "name": "向观众伸手",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamGrassSwing",
+      "name": "草穗摆动",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamGrassTipBend",
+      "name": "柔软草穗滞后",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamEyeSmile",
+      "name": "笑眼弧度",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBusyTypingL",
+      "name": "左手敲键",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamBusyTypingR",
+      "name": "右手敲键",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamLaptopRock",
+      "name": "抱电脑轻摆",
+      "native_min": -1.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamSitPose",
+      "name": "屈腿坐姿过渡",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamCheek",
+      "name": "脸颊鼓起",
+      "native_min": 0.0,
+      "native_max": 1.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamShiftX",
+      "name": "整体位移 X",
+      "native_min": -100.0,
+      "native_max": 100.0,
+      "native_default": 0.0,
+      "repeat": false
+    },
+    {
+      "id": "ParamShiftY",
+      "name": "整体位移 Y(贴地钳制,勿用)",
+      "native_min": -100.0,
+      "native_max": 100.0,
+      "native_default": 0.0,
+      "repeat": false
+    }
+  ],
+  "runtime_domain_exceptions": {
+    "ParamMouthGape": {
+      "native_range": [
+        1,
+        2
+      ],
+      "native_default": 1,
+      "author_opacity_contract": "Native1=>opacity1,1.5=>.5,2=>0; preserve this author gate exactly.",
+      "runtime_input_domain": [
+        0,
+        1
+      ],
+      "resolution": "Current CubismCanvas logical>=.5 writes0/1 then applies opacity patch after Update. Never clamp logical input to Native min1 or silently normalize native gate."
+    }
+  },
+  "geometry_edit_contract": {
+    "read": "Cmo3ModelImport.INSTANCE.read(byte[]).getPuppet()",
+    "mesh_base": "DrawableMesh(float[] positions,float[] uvs,int[] indices)",
+    "mesh_form": "MeshDeltaForm(float[] positionDeltas); absolute local key position = existing mesh.positions + existing delta. Preserve float arrays for protected forms; do not K-B+ B rebase unnecessarily.",
+    "mesh_grid": "KeyformGrid<MeshDeltaForm>(List<KeyformAxis>,List<KeyformCell<MeshDeltaForm>>)",
+    "axis_constructor": "new KeyformAxis(String parameterId,float[] keys,null)",
+    "cell_constructor": "new KeyformCell<>(int[] coordinate,new MeshDeltaForm(float[]))",
+    "grid_replacement": "public Drawable.copy-g1W92vA component7 = geometryGrid; component6 base mesh and component8 channels unchanged unless explicitly edited",
+    "warp_form": "WarpLatticeForm(float[] controlPoints); public Deformer.Warp.copy-zT_RMoI component8 = KeyformGrid<WarpLatticeForm>",
+    "model_replacement": "public PuppetModel.copy-HKKzQzU component4 drawables/component3 deformers; preserve all other components",
+    "coordinate_domain": "Imported parent-local geometry. Source-pixel desired anchors must be inverted through actual resolved current parent chain before setting mesh deltas; do not apply sourcepixel/1254 blindly to arbitrary mesh-local coordinates. Root BodyShift CP alone is source pixels.",
+    "serialization": [
+      "freshCmo3(editedPuppet,original AtlasPage PNG,original pageIndexByDrawableId,modelName,time,fps,tile->null,null)",
+      "Cmo3.write(result.model)",
+      "Cmo3ModelImport.read(savedCMO).puppet",
+      "explicitly restore texturePage by original ID and pixelsPerUnit1254 (CMO reader returns page-1,PPU null)",
+      "Moc3Export.write(readback,V50,mapping=null,original options)",
+      "validate full canonical unchanged-field contracts before Native capture"
+    ],
+    "protected": [
+      "vertex ordering",
+      "triangle index triples",
+      "UV coordinates",
+      "original atlas page and pixels",
+      "parent IDs and deformer chain",
+      "all nonedited keyform/channel cartesian combinations",
+      "all native parameter min/max/default including Gape1..2",
+      "mouth/HeadZ/skirt formal repair values",
+      "standing protected endpoint and neck-r2 runtime identity"
+    ],
+    "SitPose_next_stage": "Author approval required for new .35/.65 target shapes. Existing Footwear Sit keys are0/.35/.7/1; .35 already exists there, .65 is not present. Do not silently erase .7 geometry/channels or claim old endpoints remain equivalent after an intentional redesign. Preserve untouched axis combinations and define which transition cells deliberately change.",
+    "forbidden": [
+      "PSD auto-binding over recovered graph",
+      "global restMeshesToCanvasSpace rewrite",
+      "private reflection/injection",
+      "opaque MOC runtime cache as editable source",
+      "direct global screen/canvas coordinates into a parent-local MeshDeltaForm"
+    ]
+  },
+  "evidence": [
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovery-report.json",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\public-cmo-texture-readback.json",
+    {
+      "historical_parent_graph": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\export\\recovered-parent-corrected-cmo-public-graph.json",
+      "sha256": "3ae94e023ecfff3973593168fd91c12d36d27b4564e5bf37af8f5955ee5e490d",
+      "scope": "Structural domains from corrected082620 route; current smoke MOC bytes identical. Original graph/CMO UUID is not equated to current CMO UUID."
+    }
+  ],
+  "approval": {
+    "engineering": "fresh public CMO readback and MOC canonical exact",
+    "visual": "root Native2465 strict compare pending",
+    "new_pose": "pending",
+    "adoption": "not_automatic"
+  },
+  "typed_geometry_edit_probe": {
+    "source": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveCmoGeometryCopyProbe.java",
+    "source_sha256": "95db22fc8acf6cf9ac37173c6080d7d1b827113a59d8bb54cbe23ceb2aab96a0",
+    "commands": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\commands.json",
+    "report": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\export\\typed-copy-report.json",
+    "no_op_copy_MOC_byte_exact": true,
+    "actual_saved_CMO_single_delta_edit_preserved": true,
+    "only_one_corresponding_decoded_vertex_position_changed": true,
+    "diagnostic_model_adoptable": false,
+    "scope": "Proves public parent-local typed mesh geometry editing and save/read/export preservation; does not approve new pose/axis key lattice."
+  }
+}

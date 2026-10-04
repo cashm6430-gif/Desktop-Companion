@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "kind": "all_public_decoded_moc_runtime_values_equivalence",
+  "status": "exact",
+  "scope": "Decoded runtime semantics by ID, including every mesh/deformer keyform value; binary layout and author source/history are not equated.",
+  "normalization": [
+    "Resolve parameter-binding indices to IDs and retain all keys",
+    "Resolve mesh mask indices to IDs",
+    "Resolve parent part/deformer indices to IDs",
+    "Resolve render-order child mesh indices to IDs",
+    "Bind full keyform tables to their consumer IDs"
+  ],
+  "input_sha256": {
+    "before": "bd3064a00e7a6831f20cbc90bedcd9c808087d935014d7497ab94c9b8566c83e",
+    "after": "95a0ef994808e5f73bf264b19a60d4cd3f6b1796333ea7d2b34f54e3211721ba"
+  },
+  "canonical_before_sha256": "3e9d890a7d56ef4a0c5b900ee4f0019a4c40668506555a525a274b8514dd598f",
+  "canonical_after_sha256": "3e9d890a7d56ef4a0c5b900ee4f0019a4c40668506555a525a274b8514dd598f",
+  "counts": {
+    "parameters": 40,
+    "parts": 7,
+    "deformers": 22,
+    "meshes": 34,
+    "mesh_keyforms": 2292,
+    "deformer_keyforms": 142,
+    "bindings": 28
+  },
+  "difference_count": 0,
+  "differences": []
+}

@@ -1,0 +1,27 @@
+{
+  "argv": [
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:/tool/psd2live/app/*",
+      "-d",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\classes",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveCmoTextureAudit.java"
+    ],
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+      "-Dpsd2live.agent.store=E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\store",
+      "-Djava.io.tmpdir=E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\temp",
+      "-cp",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\classes;D:/tool/psd2live/app/*",
+      "PSD2LiveCmoTextureAudit",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovered.cmo3",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\texture_00.png",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\public-cmo-texture-readback.json"
+    ]
+  ],
+  "source_sha256": "51863e52c3a90c806411782ca67388dd5107fae21716c76d72211efca1dda621",
+  "class_sha256": "202a095da6e948aa3a27378c09a729fce2163dee94268731afeb0dd4be661bf5"
+}

@@ -1,0 +1,1548 @@
+{
+  "schema_version": 1,
+  "scope": "Public graph component count/hash summary; omitted full float arrays cannot be reconstructed from hashes.",
+  "source": {
+    "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\export\\recovered-parent-corrected-cmo-public-graph.json",
+    "bytes": 34285896,
+    "sha256": "3ae94e023ecfff3973593168fd91c12d36d27b4564e5bf37af8f5955ee5e490d"
+  },
+  "component_hash_algorithm": "SHA256 of Python JSON sort_keys=True/separators=(comma,colon)/ensure_ascii=False UTF8; distinct from Java canonical-runtime report hash.",
+  "components": [
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshTopwear",
+      "public_component_sha256": "edaf9561628f630f2942fe1b5f8daa7478fd65080d47023ca8f42e891ca68f63",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 158,
+      "triangles": 179
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshBottomwear",
+      "public_component_sha256": "baf0ba266382ef8b0c7fab41cf07bc550054f7ab6acafffb44c344f3e4d5c027",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 276,
+      "triangles": 349
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshFootwearR",
+      "public_component_sha256": "c2ec22e6cfd548b21edc70dfa0b110bd66aa19c1a5ab255662600d0fe8c05d1c",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.35,
+            0.7,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 4,
+      "vertices": 112,
+      "triangles": 130
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshFootwearL",
+      "public_component_sha256": "59dd96d54e480c01d4b061fef55e5a30f92882cfa0624d9a3bae4673650f00a5",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.35,
+            0.7,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 4,
+      "vertices": 112,
+      "triangles": 129
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearR5",
+      "public_component_sha256": "c158ec2373b5236d302860923c8a53700f2587205a8d27bc4b79f20e49bc055d",
+      "geometry_axes": [
+        {
+          "id": "ParamArmRA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        }
+      ],
+      "geometry_cells": 5,
+      "vertices": 40,
+      "triangles": 43
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearL2",
+      "public_component_sha256": "4886d3901f2a6c8d7ede7dd38b5ff32d6d775d92c3d77fff026e7fcddb2372fa",
+      "geometry_axes": [
+        {
+          "id": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        }
+      ],
+      "geometry_cells": 5,
+      "vertices": 41,
+      "triangles": 45
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearR4",
+      "public_component_sha256": "6115474729684d4df6c6cddce7447897d6b0dfaebed4d8f6e8d82efeba4e6e23",
+      "geometry_axes": [
+        {
+          "id": "ParamArmRA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "id": "ParamElbowRA",
+          "keys": [
+            -35.0,
+            0.0,
+            55.0
+          ]
+        },
+        {
+          "id": "ParamGrassReach",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamWristRA",
+          "keys": [
+            -25.0,
+            0.0,
+            25.0
+          ]
+        }
+      ],
+      "geometry_cells": 90,
+      "vertices": 63,
+      "triangles": 69
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearL",
+      "public_component_sha256": "db025b165b4762d5b0b66e17eb155533f0a172790fae35998256001b1e890499",
+      "geometry_axes": [
+        {
+          "id": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "id": "ParamElbowLA",
+          "keys": [
+            -35.0,
+            0.0,
+            55.0
+          ]
+        }
+      ],
+      "geometry_cells": 15,
+      "vertices": 70,
+      "triangles": 79
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearR3",
+      "public_component_sha256": "d442c21d4000a21e83e04498f2a59810dd39f1dd43511333754a2df216184b97",
+      "geometry_axes": [
+        {
+          "id": "ParamArmRA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "id": "ParamElbowRA",
+          "keys": [
+            -35.0,
+            0.0,
+            55.0
+          ]
+        },
+        {
+          "id": "ParamGrassReach",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamWristRA",
+          "keys": [
+            -25.0,
+            0.0,
+            25.0
+          ]
+        },
+        {
+          "id": "ParamHandRGrip",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 180,
+      "vertices": 34,
+      "triangles": 35
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearR2",
+      "public_component_sha256": "402c1f4fc3fd17d6d5a7146c7b2320dc8c022646abf566b0c0ce537b02fc56a5",
+      "geometry_axes": [
+        {
+          "id": "ParamArmRA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "id": "ParamElbowRA",
+          "keys": [
+            -35.0,
+            0.0,
+            55.0
+          ]
+        },
+        {
+          "id": "ParamGrassReach",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamWristRA",
+          "keys": [
+            -25.0,
+            0.0,
+            25.0
+          ]
+        },
+        {
+          "id": "ParamGrassSwing",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamGrassTipBend",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamGrassVisible",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 1620,
+      "vertices": 878,
+      "triangles": 920
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHandwearR",
+      "public_component_sha256": "ae64889e81ca985e8603c0d6fd0d8493850e0bbb482b97bde2e020098b2da5ed",
+      "geometry_axes": [
+        {
+          "id": "ParamArmRA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "id": "ParamElbowRA",
+          "keys": [
+            -35.0,
+            0.0,
+            55.0
+          ]
+        },
+        {
+          "id": "ParamGrassReach",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamWristRA",
+          "keys": [
+            -25.0,
+            0.0,
+            25.0
+          ]
+        },
+        {
+          "id": "ParamHandRGrip",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 180,
+      "vertices": 32,
+      "triangles": 33
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshTail",
+      "public_component_sha256": "c77dc9eef7e0784c83428103f873e49568ae04fc53b450a3138e23b7d6f8a8c6",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 229,
+      "triangles": 277
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects8",
+      "public_component_sha256": "417682de05a73dea2c05f7fe4909a64b2171143d1f7f165c844b48ebf1150f50",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 4,
+      "vertices": 132,
+      "triangles": 169
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects7",
+      "public_component_sha256": "179cc68a04e7aeb0b8086740f236e07c5db7e93a1374ac0f2d10f83ebd8a4faf",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 4,
+      "vertices": 321,
+      "triangles": 395
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects6",
+      "public_component_sha256": "cf2e35a1639c88a9fa2dd185582bd17a2f193859b6783809e30b615f458a93b6",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 4,
+      "vertices": 108,
+      "triangles": 132
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects5",
+      "public_component_sha256": "9b40c73f0c7a0812d96ca7d979676c2e1e638e7019dd7c6c0f4ccad3b5e85bfa",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 4,
+      "vertices": 106,
+      "triangles": 129
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects4",
+      "public_component_sha256": "e44b435e8cf9b65a6a11231b502e371106bc3ce45a5c54dbbc1a0ea3bd3e4e75",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamLaptopVisible",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 12,
+      "vertices": 66,
+      "triangles": 64
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects3",
+      "public_component_sha256": "fd4be249016c655df6162e45b0295892f675d965fd1c518fc703b4e8940f1541",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 24,
+      "vertices": 42,
+      "triangles": 40
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects2",
+      "public_component_sha256": "32b9c905a0cff518260419b0c2d8cfde436b4b575d9663dd58d5deb1c5cac515",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyTypingR",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 24,
+      "vertices": 69,
+      "triangles": 78
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshObjects",
+      "public_component_sha256": "bf039798e990235d50b575bede3508f49387205800914d6f6593f93538cfc6be",
+      "geometry_axes": [
+        {
+          "id": "ParamSitPose",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamLaptopVisible",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 12,
+      "vertices": 110,
+      "triangles": 136
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshHeadwear",
+      "public_component_sha256": "6b06b76f7a765170ee2cb60a20be2393d1622dd289f57f0f8d2004dac2f41760",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 656,
+      "triangles": 764
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshFrontHair",
+      "public_component_sha256": "2c5178421fb93d5f7aac60f3dfe744a274f20e89d2a980c071f7027390aacd60",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 475,
+      "triangles": 864
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshFace",
+      "public_component_sha256": "8b0ff5424dbc440c64e60b99c5505de339c9d9228821884217a309d6cd8ee5de",
+      "geometry_axes": [
+        {
+          "id": "ParamCheek",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 2,
+      "vertices": 355,
+      "triangles": 570
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshMouthClose",
+      "public_component_sha256": "f6d86cdb3072464fabb22e111dc11c20f2498ca6ebefb4d8cd3cefcc706459b6",
+      "geometry_axes": [
+        {
+          "id": "ParamSmileOpen",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 2,
+      "vertices": 16,
+      "triangles": 14
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshEyewhiteR",
+      "public_component_sha256": "2c7f12ae563df454fa201395c8827bf23ba5c89802683c4aff9a23035d497b40",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeROpen",
+          "keys": [
+            0.0,
+            0.04,
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamEyeSmile",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 12,
+      "vertices": 87,
+      "triangles": 89
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshEyewhiteL",
+      "public_component_sha256": "140ed3d76ef1986288b46387a51103abd7166710b814977965adfd6902a383a0",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeLOpen",
+          "keys": [
+            0.0,
+            0.04,
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamEyeSmile",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 12,
+      "vertices": 94,
+      "triangles": 85
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshIridesR",
+      "public_component_sha256": "4513d8d917d1f6f16998b5cffae38f15a1e37a4ae6a6f53fc597910104779378",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeBallForm",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 3,
+      "vertices": 43,
+      "triangles": 47
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshIridesL",
+      "public_component_sha256": "6eb6b9c46b8305412bd3a1172d157387081fd2f7c2278bfc4cd361fe08aeefd7",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeBallForm",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 3,
+      "vertices": 75,
+      "triangles": 96
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshEyelashR",
+      "public_component_sha256": "e2c5f6b4dc877784e6158dfca5ede9fdebd4bf0e135d4445c1eb5bd3cfafb768",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeROpen",
+          "keys": [
+            0.0,
+            0.04,
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamEyeSmile",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 12,
+      "vertices": 46,
+      "triangles": 42
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshEyelashL",
+      "public_component_sha256": "4a969547d3abb83b657757e0d24379c514e74342e2fe8a0c331696e06bdf865a",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeLOpen",
+          "keys": [
+            0.0,
+            0.04,
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamEyeSmile",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 12,
+      "vertices": 411,
+      "triangles": 445
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshMouthOpen2",
+      "public_component_sha256": "38af02aa42a093f80348ae8674ad9872dbefb9cb4175e4762fbf7732f9cd0ff0",
+      "geometry_axes": [
+        {
+          "id": "ParamMouthForm",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamMouthOpenY",
+          "keys": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamSmileOpen",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 18,
+      "vertices": 33,
+      "triangles": 36
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshMouthOpen",
+      "public_component_sha256": "02b7d79ab41e30ccb1779f660a42391e38f42e96c7bc50a7ef8fb70f4d1e151a",
+      "geometry_axes": [
+        {
+          "id": "ParamMouthForm",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamMouthOpenY",
+          "keys": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamMouthGape",
+          "keys": [
+            1.0,
+            2.0
+          ]
+        }
+      ],
+      "geometry_cells": 18,
+      "vertices": 30,
+      "triangles": 33
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshBackHair2",
+      "public_component_sha256": "75c18e16c97f22365f0764fdd5eef16ee72c0b2735ffcdb05f85d4c801437d39",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 547,
+      "triangles": 646
+    },
+    {
+      "family": "getDrawables",
+      "id": "ArtMeshBackHair",
+      "public_component_sha256": "30d1be9214f58109766b516c10963a8bb97caf0833066e988da50650684a9f29",
+      "geometry_axes": [],
+      "geometry_cells": 1,
+      "vertices": 335,
+      "triangles": 456
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformBodyShift",
+      "public_component_sha256": "ce9aca370d04d7a98df6a3c4155d22bd41e967fbbe5fe100f3b59955e7af2e25",
+      "geometry_axes": [
+        {
+          "id": "ParamShiftX",
+          "keys": [
+            -100.0,
+            0.0,
+            100.0
+          ]
+        },
+        {
+          "id": "ParamShiftY",
+          "keys": [
+            -100.0,
+            0.0,
+            100.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformBodyXY",
+      "public_component_sha256": "b6503dacfd4f2beee8ab9a4683b52f4d1ca565aec31dde4d883a0b8d4164b208",
+      "geometry_axes": [
+        {
+          "id": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "id": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformBodyZBreath",
+      "public_component_sha256": "069cdc5e5054f83605fbb076a2a7fd62b71fe136f1cb0e2ee2202f2fe9829253",
+      "geometry_axes": [
+        {
+          "id": "ParamBodyAngleZ",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "id": "ParamBreath",
+          "keys": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformHeadRotation",
+      "public_component_sha256": "87bf3501da60e210ab7ac8ad1ba6b23723e241a923563f7a9348610ec55eb86a",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleZ",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 3
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformHeadContainer",
+      "public_component_sha256": "c4fed341b105ea67eb87ed1e36f626f21c42360968d7fbcfa42ae195e309aa34",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformFaceNinePose",
+      "public_component_sha256": "ab3b79c75e388d14f04917e57ec895d99ada1bf76fbf3f6c50cda706c282792f",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformFaceContour",
+      "public_component_sha256": "f352d0be217cbefe9db2ac690b1d001ac2915da65211731f2a132f5f8b2c58f1",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        }
+      ],
+      "geometry_cells": 3
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformEyes",
+      "public_component_sha256": "1d16d40b184a829620d8164d2a6bc03a510ec5aa3c23056fb70448379efbba8a",
+      "geometry_axes": [],
+      "geometry_cells": 1
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformEyeShapeR",
+      "public_component_sha256": "440bd17fc1f1809a656ec7adf8764639ed0b9d1288c7d67732727b906d319964",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformIrisPreserveR",
+      "public_component_sha256": "8d91d1a3b28795c3f463de73ed5548c859b1bf12a8a71dafae4755d3b021a349",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformEyeGazeR",
+      "public_component_sha256": "8c5726b98c3f70baa18e82ff6065aad7a1a32b437be25d87d186adcb206b5bda",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeBallX",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamEyeBallY",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformEyeShapeL",
+      "public_component_sha256": "4f299800f4215c21f8fa9e9e4bd1b87887138e07743fef481967539654edb9a9",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformIrisPreserveL",
+      "public_component_sha256": "c8a9dcd14d380b5814f2f7f78c074c2713c119f7cfc90a724c43d2334867fc5f",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformEyeGazeL",
+      "public_component_sha256": "aff4bba1b5c6253f3dd79fdb9b000330d1e599665cf53213719391fdaac5d9ab",
+      "geometry_axes": [
+        {
+          "id": "ParamEyeBallX",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "ParamEyeBallY",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformMouthShapeBoth",
+      "public_component_sha256": "a4029df0b980d6674b0b81b5c1e815edc33ec04d9ed501144365bf493842f544",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformHairFrontFollow",
+      "public_component_sha256": "b92f3f24f65fc5bd23865e993e72005067870ec734943065cbd7fc9dfd65a352",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformHairFrontPhysics",
+      "public_component_sha256": "9a3375db709e2f9c62a4e8681838f6898f9d034eaad295bfd7e5b6ba884e57ba",
+      "geometry_axes": [
+        {
+          "id": "ParamHairFront",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 3
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformHairBackFollow",
+      "public_component_sha256": "ffa141064372899d50e485e1c7f0e086542a1fe29eae6e9d60ba8ea005819700",
+      "geometry_axes": [
+        {
+          "id": "ParamAngleX",
+          "keys": [
+            -45.0,
+            0.0,
+            45.0
+          ]
+        },
+        {
+          "id": "ParamAngleY",
+          "keys": [
+            -30.0,
+            0.0,
+            30.0
+          ]
+        }
+      ],
+      "geometry_cells": 9
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformHairBackPhysics",
+      "public_component_sha256": "453542f1e032756cba152a8965ffa6ca81e17c8889b3a6746e2224e29f9f4f2b",
+      "geometry_axes": [
+        {
+          "id": "ParamHairBack",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "geometry_cells": 3
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformPair_Footwear",
+      "public_component_sha256": "46aca366b1eb088645a1549732d3a39e456613bf2a6d01336129602938e77b16",
+      "geometry_axes": [],
+      "geometry_cells": 1
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformPair_Upperarm",
+      "public_component_sha256": "b7a1ecf94d47ca693fdc0c2500c5efb40b8bd6e4063def8eb9ed9a4059c976ec",
+      "geometry_axes": [],
+      "geometry_cells": 1
+    },
+    {
+      "family": "getDeformers",
+      "id": "DeformPair_Handwear",
+      "public_component_sha256": "a389ae9f9e3bba36c87d496315a98afc668e644a3ae3907105b913542c2c4947",
+      "geometry_axes": [],
+      "geometry_cells": 1
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamAngleX",
+      "public_component_sha256": "0d810cd92d6d6c67d63cfcca0fa923520332c1a108ea7a4af0a4e448058a4ee6"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamAngleY",
+      "public_component_sha256": "93d19e7cc47ecb50cba9495e19dde876060745a5881aaeecc3cc555debf2512b"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamAngleZ",
+      "public_component_sha256": "24e1b167df3a6575b0e203f4d4d8385717b5497f452f6ab0401a93068d534891"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBodyAngleX",
+      "public_component_sha256": "95361c2b73f91a9f2c41b8cdd28999e13bcd61178cd9826deced87582884eaf0"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBodyAngleY",
+      "public_component_sha256": "80bd037df5ad186536f04fee53a9389618850b6dfd1cd5b6eda3189bc7b6047b"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBodyAngleZ",
+      "public_component_sha256": "ac0b76504e9ca9c895b5c9f6387039d8dca7f581302f372b41850222b9d512fe"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamEyeLOpen",
+      "public_component_sha256": "44e81807fe58e78b345af7962d4a7d890fbb13c9109220157b3dab3687b9eab9"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamEyeROpen",
+      "public_component_sha256": "cfda93d0a73c71d39e704c4145d9c181eb2f854ba2f410fd0dc5a38f9e0e595f"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamEyeBallX",
+      "public_component_sha256": "96a76c8ac148975c323f22a2d58f38d1c19712e710c69f15222256e2e13e60ee"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamEyeBallY",
+      "public_component_sha256": "816053486f813156a5b7adc4baa863cbbb0fe9b27b9ebe4f4c8711e6ef245bef"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamEyeBallForm",
+      "public_component_sha256": "01f4528662961aa5ea70edd431d754e8e35eb5a664740df4d1bfe1ce31bee98a"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBrowLY",
+      "public_component_sha256": "538af73909f967bc9a80cdb9092a532e6fa0c4dd176d3a574b7a98df23da81f1"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBrowRY",
+      "public_component_sha256": "cfa151a07afcab71de84fff698e2de88587761718a7e807a40151fec8d08be09"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamMouthForm",
+      "public_component_sha256": "ef9fefb0c9ede0ad9ebea73f861ee0a3b1b32742628a3c91bf8ad11bd836db06"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamMouthOpenY",
+      "public_component_sha256": "72541bc97caa8293d2f4d87fe21be2f369ee881fe245973b7ab5f982941dbd30"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBreath",
+      "public_component_sha256": "c702795d111b1f4a56b9986674fb233cc54d093bfb5697f105dbc8cc094418cf"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamHairFront",
+      "public_component_sha256": "aa2da9485d01d6a70fed3822ec19450258fa3d405ace05b933c81d55786928ca"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamHairBack",
+      "public_component_sha256": "afc7e526a6d526f405fcdc2cd45f5ec8b13888c87e4d3d4bc217112dc7917fdb"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBusyLaptop",
+      "public_component_sha256": "22ade5dfb38c26913d2b6767b984b00a8449e2f92dcab328e9370722441f1a21"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamGrassVisible",
+      "public_component_sha256": "55a39a3df1656e7cf825328e9dce32221da10192a4e62898a6d5ea2ccf5b4d77"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamLaptopVisible",
+      "public_component_sha256": "de5765de838713e4e6995b747fc91c1c4bb35e6f00ef7e71680e889005773346"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamSmileOpen",
+      "public_component_sha256": "f0fb102bbc15b93005ee898d25dd6c42248b247dccc03cd647ddf3340854aa04"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamHandRGrip",
+      "public_component_sha256": "3cf757118920661c1276e37a4a7caf6354fc6b154e696efb631b0f97df71dff9"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamMouthGape",
+      "public_component_sha256": "1812cd6464b061c8843d48bc63c843c252378832e17b71a087fd8f9f6b02c03f"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamArmLA",
+      "public_component_sha256": "4e0260dda1ecfdd134bdff1a8fa5899c7920e98433f5e8ac1ee0f24702b5dd16"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamArmRA",
+      "public_component_sha256": "0328cea77356d0a299bba1d22d9e46b24bcfb14b099005c1f5eb8d34d110707e"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamElbowLA",
+      "public_component_sha256": "a51bba07d2742632f86845d5a93ccab8e4ba8ed73edead584e52f521208b2aa8"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamElbowRA",
+      "public_component_sha256": "06a62803514b0674f734e30333cef380c73c64f1c304df82621af2e791fcde3b"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamWristRA",
+      "public_component_sha256": "648e2f8b60158c741882e2f68c4892528bbb760f24c7e4905f10c9ce14820951"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamGrassReach",
+      "public_component_sha256": "c0f9a66f1dc3ea710fc3cd118e622af5ddcae17f5cdc8ed5762ca31eea84fd05"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamGrassSwing",
+      "public_component_sha256": "3b531591291376793039d37318d034846669442b3f0840c99802b2f10eea881d"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamGrassTipBend",
+      "public_component_sha256": "c59b2e969a59a62afcd6ce764d58f5dccea49330e471e84ba93a0a6de5382e35"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamEyeSmile",
+      "public_component_sha256": "c0dcfb002c64eed4b46a731d76909e2e75ca53c647a02bd0f1b8514c6a14bf2a"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBusyTypingL",
+      "public_component_sha256": "087474e5e63ebb36dc383e8d0a2788b8c2d3909dd0bd737b4e6f10fc5fe2bdb5"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamBusyTypingR",
+      "public_component_sha256": "b0595722e751e967a6d1d59c4a0b5e93d245c0706c7610fe62ade6f80988f5a0"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamLaptopRock",
+      "public_component_sha256": "2ff7457f07ea5c1a56dce8565a1cbd653431bddcace69d649debabe3719781b8"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamSitPose",
+      "public_component_sha256": "f80e7f1bd705691a364617ebd7d550ee8fe09d4eba6980da261a0c4119484286"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamCheek",
+      "public_component_sha256": "e9c2224b92bb5d099566c8933fc4db32c68e3d6a6e928dd64438d3992a7bf9fe"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamShiftX",
+      "public_component_sha256": "1947b7c1b39e9a78447f08782264a95a485c8dbddc84afdaaedc1101fed75108"
+    },
+    {
+      "family": "getParameters",
+      "id": "ParamShiftY",
+      "public_component_sha256": "1894fa625213e35affb1bca82d183b9ef290e2ae6aa7f92ef4142210f9126e45"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "e45a353e0ae6702fd34ef6306cad8e95be443641fd55af5a8d08c94a53b8b670"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "3fbdd4aa29a3fc21618229585c99b3ff8c9f5aaf138a9ee47e73fd0d3f119c99"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "4c22ffcc9230a515ca039b7e45df642d01d2125ffd0c50d8b24757ec956c2bda"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "c99910a964f274504e9baa66e17dac16057b7458f3c1385534704d4bc298fab1"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "908abc7b6efff9eb737a105cce8adba0474832a895110aecaf5f543ae9977f7e"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "8f1686b418eaf1583def45b9fbcc046133dc01e8f32abc1e0623a5458c20b809"
+    },
+    {
+      "family": "getParts",
+      "id": null,
+      "public_component_sha256": "cde64385fe73778435624a74ed9bb2c4e632c501c224e84a4109d828ec4d8c23"
+    }
+  ],
+  "counts": {
+    "parts": 7,
+    "drawables": 34,
+    "deformer_keyforms": 142,
+    "parameters": 40,
+    "bindings": 28,
+    "mesh_keyforms": 2292,
+    "deformers": 22
+  }
+}

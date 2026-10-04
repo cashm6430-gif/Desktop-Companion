@@ -21,6 +21,41 @@ double triangleArea(Posture::Point a, Posture::Point b, Posture::Point c) {
 class CubismPostureTransitionTest : public QObject {
     Q_OBJECT
 private slots:
+    void authoredKeysRetainTheirNativeCoordinates() {
+        for (double sit : {0.0, 0.35, 0.65, 1.0}) {
+            for (double busy : {0.0, 0.35, 0.65, 1.0}) {
+                const auto pose = Posture::sampleAuthored(busy, sit);
+                QVERIFY(pose.valid);
+                QCOMPARE(pose.standingFold, sit);
+                QCOMPARE(pose.nativeMaterial(), busy >= 0.5 && sit >= 0.93 ? 1.0 : 0.0);
+            }
+        }
+        QVERIFY(!Posture::sampleAuthored(1, 0.65).seatedMaterial);
+        QVERIFY(!Posture::sampleAuthored(1, std::nextafter(0.93, 0.0)).seatedMaterial);
+        QVERIFY(Posture::sampleAuthored(1, 0.93).seatedMaterial);
+        QCOMPARE(Posture::sampleAuthored(-1, -1).standingFold, 0.0);
+        QCOMPARE(Posture::sampleAuthored(2, 2).standingFold, 1.0);
+        const double nan = std::numeric_limits<double>::quiet_NaN();
+        QVERIFY(!Posture::sampleAuthored(nan, 0).valid);
+        QVERIFY(!Posture::sampleAuthored(0, nan).valid);
+    }
+
+    void authoredHandsSupportBeforeLaptopAcquisition() {
+        QCOMPARE(Posture::authoredHandGround(0), 0.0);
+        QCOMPARE(Posture::authoredHandGround(1), 0.0);
+        QCOMPARE(Posture::authoredHandGround(0.65), 1.0);
+        QCOMPARE(Posture::authoredSkirtSpread(0), 0.0);
+        QCOMPARE(Posture::authoredSkirtSpread(0.65), 1.0);
+        for (int frame = 0; frame <= 1000; ++frame) {
+            const double sit = frame / 1000.0;
+            const double hand = Posture::authoredHandGround(sit);
+            const double skirt = Posture::authoredSkirtSpread(sit);
+            QVERIFY(hand >= 0 && hand <= 1);
+            QVERIFY(skirt >= 0 && skirt <= 1);
+            if (sit >= 0.96) QCOMPARE(hand, 0.0);
+        }
+    }
+
     void materialSelectorIsBinaryAtArbitraryClocks() {
         const double threshold = 0.74 + 0.19 * 0.5;
         const double below = std::nextafter(threshold, -std::numeric_limits<double>::infinity());

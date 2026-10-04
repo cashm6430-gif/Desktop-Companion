@@ -6,7 +6,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $configPath = Join-Path ([IO.Path]::GetTempPath()) ("pet-hooks-test-" + [guid]::NewGuid() + '.json')
 try {
-    & $InstallerPath -TargetPath $configPath
+    & $InstallerPath -TargetPath $configPath -HelperPath $HelperPath
     $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
     foreach ($event in @('UserPromptSubmit', 'Stop', 'Interrupt', 'SessionEnd')) {
         $command = $config.hooks.$event[0].hooks[0].command

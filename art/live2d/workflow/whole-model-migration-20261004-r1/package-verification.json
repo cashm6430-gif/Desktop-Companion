@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "kind": "checkpoint_package_readback",
+  "status": "passed",
+  "manifest_sha256": "b65785d35461498ba4264468f6482660390c41ecdfc8bbb4d5e4c652410da521",
+  "file_count_excluding_this_report": 25,
+  "bytes_excluding_this_report": 11466928,
+  "original_receipts_byte_exact": true,
+  "source_and_tool_unchanged_by_packer": true,
+  "native_rerun": false,
+  "png_reaudit": false,
+  "primary_cmo_copied": false,
+  "files": [
+    {
+      "path": "index.json",
+      "sha256": "f1327e7e1b7cc4594b37c0f621348f7cd4b04b27c2f92978f18dcbeaff871067",
+      "matches": true
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "b65785d35461498ba4264468f6482660390c41ecdfc8bbb4d5e4c652410da521",
+      "matches": true
+    },
+    {
+      "path": "native/baseline.binding.json",
+      "sha256": "3e8ad252ac0109158f2ddf9128d167e8eca1b26b2009009640221147e0163d67",
+      "matches": true
+    },
+    {
+      "path": "native/baseline.capture-receipt.json",
+      "sha256": "e55784467dea84d4bace3b12528b3c55546d6ed9fb4e213e1af6952ca55793d8",
+      "matches": true
+    },
+    {
+      "path": "native/candidate.binding.json",
+      "sha256": "e58fe26d65951debade348c428528412ffee221869f4d7c828e441af1910eabd",
+      "matches": true
+    },
+    {
+      "path": "native/candidate.capture-receipt.json",
+      "sha256": "d3ce32afb7201f1352191c6675007059e77801eaf4f57b4340a314c5d68bab6c",
+      "matches": true
+    },
+    {
+      "path": "native/comparison.json",
+      "sha256": "9930a69a69f8715ad419b6eda119066123846d2a69c35f912a03912fbcbf2eb5",
+      "matches": true
+    },
+    {
+      "path": "native/equivalence-fixture.json",
+      "sha256": "8f517234bb499242c856b992dff3cad82c6e152a9cd027c085376787f1684763",
+      "matches": true
+    },
+    {
+      "path": "native/main-build-immutability.json",
+      "sha256": "227b21d6a303f0fba5f530dc240183d8aa886b34ed4bbeeb13f4d9120f62bcc4",
+      "matches": true
+    },
+    {
+      "path": "native/renderer-staging.json",
+      "sha256": "4c0fa050c5299631d305e269cf7585005dddbe28aba67d259da9a0609bc030c2",
+      "matches": true
+    },
+    {
+      "path": "recovery/full-canonical-equivalence.json",
+      "sha256": "5c0f71cb025aa824d39b11136164f87b57d25924b5a8b1fee2423549a1a11642",
+      "matches": true
+    },
+    {
+      "path": "recovery/original-rebuild-recipe.json",
+      "sha256": "2d4b91058c300349c39b1e0ab0165f53312e3472df44f8b7b8c9d7481d4d6fa9",
+      "matches": true
+    },
+    {
+      "path": "recovery/portable-recipe.json",
+      "sha256": "0d175cc1df210b16f2bf56c3bac84b605713b18faa64f8bed63e55c951a88d2d",
+      "matches": true
+    },
+    {
+      "path": "recovery/public-cmo-texture-readback.json",
+      "sha256": "c955bbffd7b5bbab12fe0ecbb0135b0dc6ec35582b24ad58074c57033ebcb0e2",
+      "matches": true
+    },
+    {
+      "path": "recovery/public-graph-component-summary.json",
+      "sha256": "bfbc65cbf4fb0af054a48b2c2730a7ac72dcf2dc3d2819b2219e26cb80e1a9bb",
+      "matches": true
+    },
+    {
+      "path": "recovery/raw-core83-equivalence.json",
+      "sha256": "20619d92887301998c1e789c8d65cc9ea4477b9b1e3b2433874d52bb6d17508d",
+      "matches": true
+    },
+    {
+      "path": "recovery/recovery-report.json",
+      "sha256": "48e678b0c53937442f74c7b3d198a0d185f997a5c9998edda74db47b552d83e8",
+      "matches": true
+    },
+    {
+      "path": "recovery/smoke-command.json",
+      "sha256": "37907dd5f4c66995de3058e84f26e392ef0bb43c6382097e7ce82ef3b979ec9c",
+      "matches": true
+    },
+    {
+      "path": "recovery/smoke-validation.json",
+      "sha256": "af10338381f99aad318e7c7cc5e6589b3563d477da1ad41992b172648328041a",
+      "matches": true
+    },
+    {
+      "path": "recovery/source-and-edit-contract.json",
+      "sha256": "655868009171242c02bdbb5b5a61f2c32ef952193bfe8a023abf6067b877a7b2",
+      "matches": true
+    },
+    {
+      "path": "recovery/source-receipt.json",
+      "sha256": "4c55b6b734807627741eaacb3d3f6a18cb8052ed9af245c5b925731ba1b1213a",
+      "matches": true
+    },
+    {
+      "path": "recovery/texture-readback-commands.json",
+      "sha256": "46cbe7d225355fa4c4503177c2f4c6ac1928903c234e14edc410ba1a4add213a",
+      "matches": true
+    },
+    {
+      "path": "recovery/typed-copy-commands.json",
+      "sha256": "26f433ed14cb0f1d8eaa1dac8aa4319d427a781b79af77efad50a96ef467553b",
+      "matches": true
+    },
+    {
+      "path": "recovery/typed-copy-report.json",
+      "sha256": "001f16917fba5d19b86856b7cfac39f4fbe9a1ffb50e40df5305b5dd390843e3",
+      "matches": true
+    },
+    {
+      "path": "tool-versions.json",
+      "sha256": "e84b071d1ca993a6284415d7b2f2517d167e58d685cae7217016f7f5b4bf8e12",
+      "matches": true
+    }
+  ]
+}

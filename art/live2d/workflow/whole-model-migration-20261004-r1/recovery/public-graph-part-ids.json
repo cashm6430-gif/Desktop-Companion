@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "public_graph_part_id_supplement",
+  "reason": "Runtime Part public ID accessor is getId-tmlwjzg; the original component summary retained hashes/counts but had null Part IDs. Original summary bytes and manifest remain unchanged.",
+  "original_summary_sha256": "bfbc65cbf4fb0af054a48b2c2730a7ac72dcf2dc3d2819b2219e26cb80e1a9bb",
+  "parts": [
+    {
+      "id": "PartHead",
+      "public_component_sha256": "e45a353e0ae6702fd34ef6306cad8e95be443641fd55af5a8d08c94a53b8b670"
+    },
+    {
+      "id": "PartHairBack",
+      "public_component_sha256": "3fbdd4aa29a3fc21618229585c99b3ff8c9f5aaf138a9ee47e73fd0d3f119c99"
+    },
+    {
+      "id": "PartFace",
+      "public_component_sha256": "4c22ffcc9230a515ca039b7e45df642d01d2125ffd0c50d8b24757ec956c2bda"
+    },
+    {
+      "id": "PartHairFront",
+      "public_component_sha256": "c99910a964f274504e9baa66e17dac16057b7458f3c1385534704d4bc298fab1"
+    },
+    {
+      "id": "PartHeadAccessories",
+      "public_component_sha256": "908abc7b6efff9eb737a105cce8adba0474832a895110aecaf5f543ae9977f7e"
+    },
+    {
+      "id": "PartExtra",
+      "public_component_sha256": "8f1686b418eaf1583def45b9fbcc046133dc01e8f32abc1e0623a5458c20b809"
+    },
+    {
+      "id": "PartBody",
+      "public_component_sha256": "cde64385fe73778435624a74ed9bb2c4e632c501c224e84a4109d828ec4d8c23"
+    }
+  ]
+}

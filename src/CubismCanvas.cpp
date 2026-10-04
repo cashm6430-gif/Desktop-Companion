@@ -140,6 +140,9 @@ struct CubismCanvas::Impl {
     float standingFloor = 0;
     bool frameworkStarted = false;
     bool rawExportReview = false;
+    bool authoredSitPose = false;
+    int skirtSpreadParameter = -1;
+    int handGroundParameter = -1;
 
     bool hasNeck() const { return neckTexture != 0 || neckModel != nullptr; }
 
@@ -294,6 +297,41 @@ void CubismCanvas::initializeGL() {
     metadataName += QStringLiteral("psd2live.json");
     const auto metadata = impl_->rawExportReview ? QJsonDocument(QJsonObject{})
         : QJsonDocument::fromJson(readFile(QDir(directory).filePath(metadataName)));
+    if (metadata.object().contains(QStringLiteral("runtimePostureTransition"))) {
+        const auto posture = metadata.object().value(QStringLiteral("runtimePostureTransition")).toObject();
+        const auto stage = posture.value(QStringLiteral("stage")).toString();
+        const bool structuralReview = stage == QStringLiteral("structural-review") && !reviewModel.isEmpty();
+        const auto expectedMoc = posture.value(QStringLiteral("mocSha256")).toString().toLatin1();
+        if (posture.value(QStringLiteral("version")).toDouble() != 2
+            || posture.value(QStringLiteral("logicalToNative")).toString() != QStringLiteral("identity")
+            || posture.value(QStringLiteral("geometryOwner")).toString() != QStringLiteral("author-model")
+            || (stage != QStringLiteral("complete") && !structuralReview)
+            || expectedMoc.size() != 64
+            || QCryptographicHash::hash(moc, QCryptographicHash::Sha256).toHex() != expectedMoc
+            || metadata.object().value(QStringLiteral("runtimeNeckConnection")).toObject()
+                .value(QStringLiteral("independentSurface")).toObject().isEmpty()) {
+            error_ = QStringLiteral("Authored posture metadata or MOC identity is invalid");
+            return;
+        }
+        const auto coupled = posture.value(QStringLiteral("coupledParameters")).toObject();
+        const QString skirt = coupled.value(QStringLiteral("skirtSpread")).toString();
+        const QString hand = coupled.value(QStringLiteral("handGround")).toString();
+        if ((!skirt.isEmpty() && skirt != QStringLiteral("ParamSkirtSpread"))
+            || (!hand.isEmpty() && hand != QStringLiteral("ParamHandGround"))
+            || (!structuralReview && (skirt.isEmpty() || hand.isEmpty()))) {
+            error_ = QStringLiteral("Authored posture requires functional skirt and support parameters");
+            return;
+        }
+        for (const QString& id : {skirt, hand}) {
+            if (!id.isEmpty() && !impl_->parameterIndices.contains(id)) {
+                error_ = QStringLiteral("Authored posture parameter is missing: ") + id;
+                return;
+            }
+        }
+        impl_->skirtSpreadParameter = skirt.isEmpty() ? -1 : impl_->parameterIndices.value(skirt);
+        impl_->handGroundParameter = hand.isEmpty() ? -1 : impl_->parameterIndices.value(hand);
+        impl_->authoredSitPose = true;
+    }
     const QJsonObject separation = metadata.object().value(QStringLiteral("runtimeMaterialSeparation")).toObject();
     const QJsonArray textures = refs.value(QStringLiteral("Textures")).toArray();
     if (textures.isEmpty()) {
@@ -570,9 +608,11 @@ void CubismCanvas::paintGL() {
     // The pose remains continuous, but the two painted bodies are exclusive.
     // After grounding, their collars are aligned to the same moving target;
     // selecting the material there avoids both ghosting and a collar jump.
-    const auto posture = CubismPostureTransition::sample(
-        motion_->values().value(QStringLiteral("ParamBusyLaptop")),
-        motion_->values().value(QStringLiteral("ParamSitPose")));
+    const double busyValue = motion_->values().value(QStringLiteral("ParamBusyLaptop"));
+    const double sitValue = motion_->values().value(QStringLiteral("ParamSitPose"));
+    const auto posture = impl_->authoredSitPose
+        ? CubismPostureTransition::sampleAuthored(busyValue, sitValue)
+        : CubismPostureTransition::sample(busyValue, sitValue);
     if (!posture.valid) return;
     const double seatedMix = posture.seatedMix;
     const double seatedMaterial = posture.nativeMaterial();
@@ -613,6 +653,16 @@ void CubismCanvas::paintGL() {
             value = value >= 0.5f ? 1.0f : 0.0f;
         model->SetParameterValue(*index, value);
     }
+    if (impl_->authoredSitPose) {
+        if (impl_->skirtSpreadParameter >= 0)
+            model->SetParameterValue(impl_->skirtSpreadParameter,
+                static_cast<float>(motion_->values().value(QStringLiteral("ParamSkirtSpread"),
+                    CubismPostureTransition::authoredSkirtSpread(posture.standingFold))));
+        if (impl_->handGroundParameter >= 0)
+            model->SetParameterValue(impl_->handGroundParameter,
+                static_cast<float>(motion_->values().value(QStringLiteral("ParamHandGround"),
+                    CubismPostureTransition::authoredHandGround(posture.standingFold))));
+    }
     const double physicsSeconds = std::exchange(frameSeconds_, 0.0);
     if (!motion_->frozenPhysics() && physicsSeconds > 0)
         impl_->model->evaluatePhysics(static_cast<float>(physicsSeconds));
@@ -647,7 +697,7 @@ void CubismCanvas::paintGL() {
     CubismPostureTransition::FloorPinnedTransform bodyClothTransform;
     Csm::CubismMatrix44 matrix;
     matrix.MultiplyByMatrix(impl_->model->GetModelMatrix());
-    if (std::isfinite(standingFoot) && std::isfinite(seatedFoot)
+    if (!impl_->authoredSitPose && std::isfinite(standingFoot) && std::isfinite(seatedFoot)
         && std::isfinite(impl_->standingFloor)) {
         auto* modelMatrix = impl_->model->GetModelMatrix();
         const float grounded = modelMatrix->TransformY(impl_->standingFloor)
@@ -664,7 +714,7 @@ void CubismCanvas::paintGL() {
             for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
         }
     }
-    if (impl_->hasNeck()) {
+    if (impl_->hasNeck() && !impl_->authoredSitPose) {
         std::array<double, 2> standing{}, seated{};
         CubismPostureTransition::Point target;
         const bool anchorsReady = impl_->neckBinding.collarPositions(&standing, &seated, &error_)
@@ -865,7 +915,7 @@ void CubismCanvas::paintGL() {
         auto* clothVertices = const_cast<CorePosition*>(
             Live2D::Cubism::Core::csmGetDrawableVertexPositions(body->GetModel())[cloth]);
         std::vector<CorePosition> savedClothVertices;
-        if (impl_->hasNeck() && !posture.seatedMaterial) {
+        if (impl_->hasNeck() && !posture.seatedMaterial && !impl_->authoredSitPose) {
             savedClothVertices.assign(clothVertices, clothVertices + body->GetDrawableVertexCount(cloth));
             if (!alignDrawable(body->GetModel(), cloth, bodyClothTransform)) {
                 std::copy(savedClothVertices.begin(), savedClothVertices.end(), clothVertices);

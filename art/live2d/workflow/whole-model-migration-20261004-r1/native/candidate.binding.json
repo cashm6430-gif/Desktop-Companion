@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "kind": "strict_saved_capture_binding_verification",
+  "status": "passed",
+  "created_utc": "2026-10-04T11:49:32.593463+00:00",
+  "scope": "saved receipt, pinned sources and planned decoded PNGs only",
+  "capture_scope": "full",
+  "raw_export_only": false,
+  "run": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\restored-parent-r2\\native-synchronous",
+  "receipt_version": 1,
+  "receipt_sha256": "d3ce32afb7201f1352191c6675007059e77801eaf4f57b4340a314c5d68bab6c",
+  "verifier_tool_sha256": "0c0cad25a86a9c64f29120590c5aeca6829773b21873bfd329158ddbcb4b899b",
+  "planned_motion_count": 8,
+  "planned_interaction_count": 10,
+  "sequence_count": 19,
+  "total_frames": 2465,
+  "sequences": [
+    {
+      "kind": "static",
+      "name": "fixture",
+      "folder": "static",
+      "frames": 426,
+      "trace_rows": 426,
+      "png_hashes": 426
+    },
+    {
+      "kind": "motion",
+      "name": "busy-laptop",
+      "folder": "motions/busy-laptop",
+      "frames": 195,
+      "trace_rows": 195,
+      "png_hashes": 195
+    },
+    {
+      "kind": "motion",
+      "name": "busy",
+      "folder": "motions/busy-stand",
+      "frames": 195,
+      "trace_rows": 195,
+      "png_hashes": 195
+    },
+    {
+      "kind": "motion",
+      "name": "delete",
+      "folder": "motions/delete",
+      "frames": 48,
+      "trace_rows": 48,
+      "png_hashes": 48
+    },
+    {
+      "kind": "motion",
+      "name": "grass",
+      "folder": "motions/grass",
+      "frames": 120,
+      "trace_rows": 120,
+      "png_hashes": 120
+    },
+    {
+      "kind": "motion",
+      "name": "grass-touch",
+      "folder": "motions/grass-touch",
+      "frames": 129,
+      "trace_rows": 129,
+      "png_hashes": 129
+    },
+    {
+      "kind": "motion",
+      "name": "head-pat",
+      "folder": "motions/head-pat",
+      "frames": 33,
+      "trace_rows": 33,
+      "png_hashes": 33
+    },
+    {
+      "kind": "motion",
+      "name": "idle",
+      "folder": "motions/idle",
+      "frames": 120,
+      "trace_rows": 120,
+      "png_hashes": 120
+    },
+    {
+      "kind": "motion",
+      "name": "turn-ended",
+      "folder": "motions/turn-ended",
+      "frames": 29,
+      "trace_rows": 29,
+      "png_hashes": 29
+    },
+    {
+      "kind": "interaction",
+      "name": "turn-ended-standing",
+      "folder": "interactions/turn-ended-standing",
+      "frames": 75,
+      "trace_rows": 75,
+      "png_hashes": 75
+    },
+    {
+      "kind": "interaction",
+      "name": "turn-ended-laptop",
+      "folder": "interactions/turn-ended-laptop",
+      "frames": 75,
+      "trace_rows": 75,
+      "png_hashes": 75
+    },
+    {
+      "kind": "interaction",
+      "name": "turn-ended-interrupt",
+      "folder": "interactions/turn-ended-interrupt",
+      "frames": 75,
+      "trace_rows": 75,
+      "png_hashes": 75
+    },
+    {
+      "kind": "interaction",
+      "name": "head-pat",
+      "folder": "interactions/head-pat",
+      "frames": 75,
+      "trace_rows": 75,
+      "png_hashes": 75
+    },
+    {
+      "kind": "interaction",
+      "name": "head-pat-busy",
+      "folder": "interactions/head-pat-busy",
+      "frames": 75,
+      "trace_rows": 75,
+      "png_hashes": 75
+    },
+    {
+      "kind": "interaction",
+      "name": "head-pat-interrupt",
+      "folder": "interactions/head-pat-interrupt",
+      "frames": 75,
+      "trace_rows": 75,
+      "png_hashes": 75
+    },
+    {
+      "kind": "interaction",
+      "name": "grass-touch",
+      "folder": "interactions/grass-touch",
+      "frames": 180,
+      "trace_rows": 180,
+      "png_hashes": 180
+    },
+    {
+      "kind": "interaction",
+      "name": "grass-timeout",
+      "folder": "interactions/grass-timeout",
+      "frames": 180,
+      "trace_rows": 180,
+      "png_hashes": 180
+    },
+    {
+      "kind": "interaction",
+      "name": "grass-delete-busy",
+      "folder": "interactions/grass-delete-busy",
+      "frames": 180,
+      "trace_rows": 180,
+      "png_hashes": 180
+    },
+    {
+      "kind": "interaction",
+      "name": "grass-approved",
+      "folder": "interactions/grass-approved",
+      "frames": 180,
+      "trace_rows": 180,
+      "png_hashes": 180
+    }
+  ],
+  "native_rendering_rerun": false,
+  "model_equivalence_tested": false,
+  "visual_approval": "pending",
+  "adoption": "not_requested"
+}

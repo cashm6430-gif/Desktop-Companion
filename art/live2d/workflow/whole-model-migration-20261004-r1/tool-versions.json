@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "scope": "Exact source versions used or reviewed; Java files remain local until root copies reviewed source into tools.",
+  "files": [
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\review_model_equivalence.py",
+      "bytes": 16304,
+      "sha256": "b9846f7e0a2b5bc609a43541057bf65b8008d481a7ca0f0dc94a83d94c036538"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\verify_model_capture.py",
+      "bytes": 10929,
+      "sha256": "0c0cad25a86a9c64f29120590c5aeca6829773b21873bfd329158ddbcb4b899b"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\review_isolated_model.py",
+      "bytes": 1483,
+      "sha256": "dcd522f5caf1da18f090338fea91e8a961d5287a72a71513d8b4d08a8182d22b"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\review_neck.py",
+      "bytes": 19273,
+      "sha256": "3ded25dbad48e73dc493900bdb2bb134ccb4e653a12dc2ed1af3f2e4a2f6eedd"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\review_motion.py",
+      "bytes": 41638,
+      "sha256": "93386c2c7ffe8dadf97b8ba0464f16b77dbce096ae6f9caf0752d37d79e3fb10"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\review_interactions.py",
+      "bytes": 10126,
+      "sha256": "d15211ada9b337f39e9c110ce3f48cfe4a04026cb6b689c0eaa86f33c5f6e0ff"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\tools\\probe_cubism_core.py",
+      "bytes": 25342,
+      "sha256": "9fb26795b62f5605ef8977e481d9722e2113db17eed087587e5b6a8bdd9f5345"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\src\\PetWindow.cpp",
+      "bytes": 41180,
+      "sha256": "323d5273e5d30beb7b93f3b70839a2ba5109b737be0fc280fa725cebf6b3d4a0"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveWholeModelRecover.java",
+      "bytes": 23446,
+      "sha256": "20c4617d015f6b8e631aceaae9701a283cfdd4403d60a2817c3e2af424d2a6a3"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveCmoGeometryCopyProbe.java",
+      "bytes": 10326,
+      "sha256": "95db22fc8acf6cf9ac37173c6080d7d1b827113a59d8bb54cbe23ceb2aab96a0"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveCmoTextureAudit.java",
+      "bytes": 6509,
+      "sha256": "51863e52c3a90c806411782ca67388dd5107fae21716c76d72211efca1dda621"
+    },
+    {
+      "original_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\pack_checkpoint.py",
+      "bytes": 16107,
+      "sha256": "91c935eb0e7a409d7a180ea0860e1cf727d0b423eabd596a1a88273c54fee868"
+    }
+  ],
+  "capture_binary_provenance": "native/*.capture-receipt.json shared_inputs pins actual renderer/Core/DLLs/motion assets; source hashes do not replace binary hashes."
+}

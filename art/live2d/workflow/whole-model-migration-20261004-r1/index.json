@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "whole_model_source_checkpoint_evidence_index",
+  "created_utc": "2026-10-04T12:14:03.033305+00:00",
+  "current_state": {
+    "source_engineering_gate": "passed: 2465 Native frames, exact decoded RGBA and traces",
+    "production_runtime_moc_replaced": false,
+    "new_sit_035_065_concept": "approved by user in current session; new geometry/Native/visual acceptance remain separate",
+    "historical_receipt_approval_fields": "Original pending/not_requested fields are kept byte-exact; current engineering source gate is recorded here and does not rewrite historical approvals."
+  },
+  "recommended_primary_author": {
+    "source_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovered.cmo3",
+    "sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+    "proposed_repository_path": "art/live2d/whale-girl-layered-draft.cmo3",
+    "materialization": "root only; not copied by this packer",
+    "reason": "Final public recovery tool output has explicit recipe, public CMO atlas readback and typed no-op/single-delta edit proof; its MOC is byte-identical to the corrected082620 MOC used in the 2465-frame candidate.",
+    "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+    "canonical_runtime_sha256": "c08a1ad72f4d18bd488c4c8f254bd1980743a97073cd6b1074a24b191dac32ed",
+    "previous_primary_retention": "Git c825590bbf039ad0f72c060f33132e7d5b532179 retains the previous primary CMO; retain its history."
+  },
+  "source_mode": {
+    "recovered_cmo": "atlas mode, original PNG/page/UVs pinned by workflow; CMO lock flag is false",
+    "cmo_notice": "MissingSourceArt(pageCount=1)",
+    "external_psd_provenance": "art/live2d/whale-girl-layered-draft.psd plus complete 34 PNG layers and hashed receipts; not reconstructed CMO PSD binding/history",
+    "actual_editor_gui_appearance": "not observed; no Editor-preview approval claimed"
+  },
+  "evidence": {
+    "native": "native/comparison.json + both bindings/receipts + 426-pose fixture",
+    "canonical_all_keyforms": "recovery/recovery-report.json and recovery/full-canonical-equivalence.json",
+    "raw_core_sample_only": "recovery/raw-core83-equivalence.json: 83 parameter/default/extreme probes; not all continuous poses, physics or rendered pixels",
+    "source_readback": "recovery/public-cmo-texture-readback.json + source-and-edit-contract.json",
+    "typed_author_edit": "recovery/typed-copy-report.json; changed diagnostic model is not adopted",
+    "rebuild": "recovery/portable-recipe.json + immutable original-rebuild-recipe.json"
+  },
+  "omitted_from_git": [
+    "2465 raw PNGs per capture remain at original local paths; hashes/trace inventories retained",
+    "full public graph and decoded float dumps remain local; count/hash summary and exact canonical reports retained",
+    "installed PSD2Live/JDK, licensed Core/SDK, runtime executable/DLLs remain external and hash pinned"
+  ],
+  "relocation_rule": "Archived receipts preserve original bytes and absolute paths. verify_model_capture audits the original local run only; verify permanent copies with manifest.json. A new checkout must rerun portable recipe/captures into fresh directories, not pretend stored original paths were relocated evidence.",
+  "catalog_handoff": "Root should refresh verify_asset_catalog.py only after reviewed tools and primary CMO are materialized; run worktree then staged-index verification. PSD2LiveSitMcp.java is a pre-existing untracked user file and requires safe store isolation fixes before being a supported entry point."
+}

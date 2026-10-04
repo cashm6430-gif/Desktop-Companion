@@ -539,6 +539,13 @@ void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, co
 bool PetWindow::saveRenderFrame(const QString& path) {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        if (motion_.frozenPhysics()) {
+            // A pose capture must read this pose, even when the normal frame
+            // timer has not painted it yet. Cached frames can lag one keyframe
+            // under load and invalidate otherwise identical model reviews.
+            cubismCanvas_->advance(0.0);
+            cubismFrame_ = cubismCanvas_->grabFramebuffer();
+        }
         const QImage frame = cubismFrame_.isNull() ? cubismCanvas_->grabFramebuffer() : cubismFrame_;
         return frameWithBubble(frame, motion_.bubblePulse()).save(path);
     }
@@ -589,6 +596,8 @@ void PetWindow::advanceLiveFrame(double seconds) {
 
 void PetWindow::prepareLiveInteractionReview(int pixels) {
     frameTimer_.stop();
+    // Keep the busy branch after interruption reproducible in review captures.
+    motion_.setBusyRandomSeed(20261002);
     controller_->setActionFallbackEnabled(false);
     setFixedSize(pixels, pixels);
 #ifdef HAVE_CUBISM

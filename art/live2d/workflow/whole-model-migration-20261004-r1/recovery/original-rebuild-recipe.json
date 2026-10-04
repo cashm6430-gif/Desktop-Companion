@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "kind": "whole_model_public_author_recovery_recipe",
+  "created_utc": "2026-10-04T11:58:20.493078+00:00",
+  "scope": "Restore this frozen formal MOC family to editable atlas-mode CMO. Does not regenerate PSD rig or approve adoption.",
+  "candidate_tool_source": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveWholeModelRecover.java",
+  "proposed_repository_tool": "tools/PSD2LiveWholeModelRecover.java",
+  "pinned_toolchain": {
+    "install": "D:/tool/psd2live",
+    "jar": "D:\\tool\\psd2live\\app\\psd2live-2.0.2-2ad13515cfa82896b5e2819475e01d.jar",
+    "jar_sha256": "f1e1663887a6ceefd57dd5cfa25f09b958fb45fbe5a0aa27a72e866bf7b5e3d4",
+    "javac": "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+    "java": "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+    "helper_source_sha256": "20c4617d015f6b8e631aceaae9701a283cfdd4403d60a2817c3e2af424d2a6a3",
+    "smoke_class_sha256": "84abd00009093406746d827bfa54101e672d3e85211602a1b1a5e00fc4d2dcf1",
+    "class_hash_scope": "javac21 compiler/class bytes used by this smoke; other javac patch versions require an explicit new compilation record"
+  },
+  "pinned_inputs": {
+    "jar": "f1e1663887a6ceefd57dd5cfa25f09b958fb45fbe5a0aa27a72e866bf7b5e3d4",
+    "moc": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "display": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+    "atlas": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+  },
+  "required_layout": {
+    "run_root": "{{FRESH_ABSOLUTE_RUN_ROOT}}",
+    "create_before_jvm": [
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/classes",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/temp"
+    ],
+    "must_be_fresh": [
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/export",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/store"
+    ],
+    "paths": "Absolute and real-ancestor resolved; output/store/install/default author store/source disjoint."
+  },
+  "exact_smoke_argv": {
+    "compile": [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:/tool/psd2live/app/*",
+      "-d",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\classes",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveWholeModelRecover.java"
+    ],
+    "recover": [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+      "-Dpsd2live.agent.store=E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\store",
+      "-Djava.io.tmpdir=E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\temp",
+      "-cp",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\classes;D:/tool/psd2live/app/*",
+      "PSD2LiveWholeModelRecover",
+      "--install",
+      "D:/tool/psd2live",
+      "--moc",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source\\whale-girl-layered-draft.moc3",
+      "--display",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source\\whale-girl-layered-draft.cdi3.json",
+      "--atlas",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source\\texture_00.png",
+      "--output",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export",
+      "--store",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\store"
+    ]
+  },
+  "next_run_argv": {
+    "compile": [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:/tool/psd2live/app/*",
+      "-d",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/classes",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveWholeModelRecover.java"
+    ],
+    "recover": [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+      "-Dpsd2live.agent.store={{FRESH_ABSOLUTE_RUN_ROOT}}/store",
+      "-Djava.io.tmpdir={{FRESH_ABSOLUTE_RUN_ROOT}}/temp",
+      "-cp",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/classes;D:/tool/psd2live/app/*",
+      "PSD2LiveWholeModelRecover",
+      "--install",
+      "D:/tool/psd2live",
+      "--moc",
+      "{{PINNED_FORMAL_MOC_ABSOLUTE}}",
+      "--display",
+      "{{PINNED_FORMAL_CDI_ABSOLUTE}}",
+      "--atlas",
+      "{{PINNED_FORMAL_ATLAS_ABSOLUTE}}",
+      "--output",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/export",
+      "--store",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/store"
+    ]
+  },
+  "success_gates": [
+    "exit0/PUBLIC_RECOVERY_EXACT",
+    "input MOC/CDI/atlas/JAR hashes identical before and after",
+    "runtime export notices empty",
+    "all decoded runtime values canonical exact (all keyforms; not sampled only)",
+    "MOC SHA exact match to corrected082620",
+    "CMO UUID bytes may differ: require public readback and exact MOC closure",
+    "CMO MissingSourceArt kept explicit; source34 painting separate"
+  ],
+  "expected_output": {
+    "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+    "canonical_runtime_sha256": "c08a1ad72f4d18bd488c4c8f254bd1980743a97073cd6b1074a24b191dac32ed",
+    "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "counts": {
+      "parts": 7,
+      "drawables": 34,
+      "deformer_keyforms": 142,
+      "parameters": 40,
+      "bindings": 28,
+      "mesh_keyforms": 2292,
+      "deformers": 22
+    }
+  },
+  "smoke_evidence": [
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\smoke-validation.json",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovery-report.json",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\public-cmo-texture-readback.json"
+  ],
+  "after_recovery": {
+    "full_runtime_family": "Root must copy formal metadata/material/neck-r2 references beside fresh MOC manifest and rebind ownership SHA. Minimal helper manifest alone is not a full Qt desktop pet family.",
+    "native_fixture": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\equivalence-fixture.json",
+      "sha256": "8f517234bb499242c856b992dff3cad82c6e152a9cd027c085376787f1684763",
+      "poses": 426
+    },
+    "native_commands": [
+      [
+        "{{PYTHON}}",
+        "tools/review_model_equivalence.py",
+        "capture",
+        "--model",
+        "{{BASELINE_FULL_FAMILY_MODEL3}}",
+        "--fixture",
+        "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\equivalence-fixture.json",
+        "--output",
+        "{{FRESH_NATIVE_REFERENCE}}"
+      ],
+      [
+        "{{PYTHON}}",
+        "tools/review_model_equivalence.py",
+        "capture",
+        "--model",
+        "{{CANDIDATE_FULL_FAMILY_MODEL3}}",
+        "--fixture",
+        "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\equivalence-fixture.json",
+        "--output",
+        "{{FRESH_NATIVE_CANDIDATE}}"
+      ],
+      [
+        "{{PYTHON}}",
+        "tools/review_model_equivalence.py",
+        "compare",
+        "--reference",
+        "{{FRESH_NATIVE_REFERENCE}}",
+        "--candidate",
+        "{{FRESH_NATIVE_CANDIDATE}}",
+        "--output",
+        "{{FRESH_COMPARISON_JSON}}"
+      ]
+    ],
+    "renderer_contract": "Use the same staged renderer/Core/DLLs/fixture/asset motions and actual parameter traces. review_model_equivalence reads build by default; isolated-build selection belongs to root orchestration and must be recorded in capture receipt.",
+    "strict_rule": "2465 planned frames: shared inputs, sequence inventory and parameter traces equal; decoded RGBA exact0 changed pixels. Compressed PNG SHA alone is not a pixel gate.",
+    "approval": "Still pending human adoption; engineering equivalence does not approve new SitPose artwork."
+  },
+  "typed_geometry_edit_probe": {
+    "source": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\PSD2LiveCmoGeometryCopyProbe.java",
+    "source_sha256": "95db22fc8acf6cf9ac37173c6080d7d1b827113a59d8bb54cbe23ceb2aab96a0",
+    "commands": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\commands.json",
+    "report": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\export\\typed-copy-report.json",
+    "no_op_copy_MOC_byte_exact": true,
+    "actual_saved_CMO_single_delta_edit_preserved": true,
+    "only_one_corresponding_decoded_vertex_position_changed": true,
+    "diagnostic_model_adoptable": false,
+    "scope": "Proves public parent-local typed mesh geometry editing and save/read/export preservation; does not approve new pose/axis key lattice."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "checkpoint_tool_safety_addendum",
+  "original_manifest_sha256": "b65785d35461498ba4264468f6482660390c41ecdfc8bbb4d5e4c652410da521",
+  "original_package_verification_sha256": "f1c6a6196b345d8d3fce6537c0761763e0d5a266b96ba674da5d604c26596dcf",
+  "additional_evidence": {
+    "path": "sit-mcp-safety.json",
+    "sha256": "a615d0239d130efbd747dae79846761a21da8164d291a4e8af857c47795b6a6f",
+    "scope": "javac21 plus 11 pre-start path rejection cases; no MCP/Native/GUI"
+  },
+  "fixed_tool": {
+    "repository_path": "tools/PSD2LiveSitMcp.java",
+    "sha256": "cdba6873a953ad68196e47fdb3f613a7e2660a0cae296b790509e75da25fc516"
+  },
+  "legacy_backup": {
+    "original_untracked_user_file": true,
+    "local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\legacy\\PSD2LiveSitMcp.java",
+    "sha256": "75828ca814c553a08a506448e834447c59db20b73e115f61113e935118c5744b",
+    "scope": "Exact original bytes preserved before authorized safety fix; not used as a supported authoring entry point"
+  },
+  "supersedes_index_caveat": "The historical index correctly said the old SitMcp required path isolation fixes; those entry fixes are now compiled and rejection-tested. The old archive topology is still not recovered and default workflow uses the new CMO/whole-model recipe.",
+  "catalog": "Root catalog refresh must cover this addendum, safety evidence, reviewed tool sources and materialized primary CMO; original manifest and receipts remain unchanged."
+}

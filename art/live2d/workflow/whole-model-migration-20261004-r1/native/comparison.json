@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "reference": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\baseline\\native-synchronous",
+  "candidate": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\restored-parent-r2\\native-synchronous",
+  "shared_inputs_equal": true,
+  "scope_equal": true,
+  "sequence_inventory_equal": true,
+  "pixel_rule": "decoded RGBA must be identical",
+  "approval": "pending",
+  "adoption": "not_requested",
+  "frames_compared": 2465,
+  "unequal_frames": 0,
+  "changed_pixels": 0,
+  "trace_differences": [],
+  "frame_differences": [],
+  "equivalent": true
+}

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "scope": "Portable command template; requires licensed SDK/PSD2Live/JDK and the frozen pinned source family. No command was rerun by packaging.",
+  "original_recipe": "original-rebuild-recipe.json",
+  "pinned_inputs": {
+    "jar": "f1e1663887a6ceefd57dd5cfa25f09b958fb45fbe5a0aa27a72e866bf7b5e3d4",
+    "moc": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "display": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+    "atlas": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+  },
+  "expected_output": {
+    "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+    "canonical_runtime_sha256": "c08a1ad72f4d18bd488c4c8f254bd1980743a97073cd6b1074a24b191dac32ed",
+    "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "counts": {
+      "parts": 7,
+      "drawables": 34,
+      "deformer_keyforms": 142,
+      "parameters": 40,
+      "bindings": 28,
+      "mesh_keyforms": 2292,
+      "deformers": 22
+    }
+  },
+  "required_layout": {
+    "run_root": "{{FRESH_ABSOLUTE_RUN_ROOT}}",
+    "create_before_jvm": [
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/classes",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/temp"
+    ],
+    "must_be_fresh": [
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/export",
+      "{{FRESH_ABSOLUTE_RUN_ROOT}}/store"
+    ],
+    "paths": "Absolute and real-ancestor resolved; output/store/install/default author store/source disjoint."
+  },
+  "recovery_compile": [
+    "{{JAVAC21}}",
+    "-encoding",
+    "UTF-8",
+    "-cp",
+    "{{PSD2LIVE_INSTALL}}/app/*",
+    "-d",
+    "{{FRESH_RUN}}/classes",
+    "{{REPO}}/tools/PSD2LiveWholeModelRecover.java"
+  ],
+  "recovery_run": [
+    "{{JAVA21}}",
+    "-Dpsd2live.agent.store={{FRESH_RUN}}/store",
+    "-Djava.io.tmpdir={{FRESH_RUN}}/temp",
+    "-cp",
+    "{{FRESH_RUN}}/classes;{{PSD2LIVE_INSTALL}}/app/*",
+    "PSD2LiveWholeModelRecover",
+    "--install",
+    "{{PSD2LIVE_INSTALL}}",
+    "--moc",
+    "{{PINNED_FORMAL_MOC_ABSOLUTE}}",
+    "--display",
+    "{{PINNED_FORMAL_CDI_ABSOLUTE}}",
+    "--atlas",
+    "{{PINNED_FORMAL_ATLAS_ABSOLUTE}}",
+    "--output",
+    "{{FRESH_RUN}}/export",
+    "--store",
+    "{{FRESH_RUN}}/store"
+  ],
+  "after_recovery": "Restore the full formal metadata/material/neck-r2 runtime family as described in the original recipe; the minimal recovered.model3.json alone is insufficient.",
+  "native_capture": [
+    [
+      "{{PYTHON}}",
+      "{{REPO}}/tools/review_isolated_model.py",
+      "--renderer",
+      "{{IDENTICAL_STAGED_RENDERER}}",
+      "capture",
+      "--model",
+      "{{BASELINE_FULL_FAMILY_MODEL3}}",
+      "--fixture",
+      "{{REPO}}/art/live2d/workflow/whole-model-migration-20261004-r1/native/equivalence-fixture.json",
+      "--output",
+      "{{NEW_REFERENCE_RUN}}"
+    ],
+    [
+      "{{PYTHON}}",
+      "{{REPO}}/tools/review_isolated_model.py",
+      "--renderer",
+      "{{IDENTICAL_STAGED_RENDERER}}",
+      "capture",
+      "--model",
+      "{{CANDIDATE_FULL_FAMILY_MODEL3}}",
+      "--fixture",
+      "{{REPO}}/art/live2d/workflow/whole-model-migration-20261004-r1/native/equivalence-fixture.json",
+      "--output",
+      "{{NEW_CANDIDATE_RUN}}"
+    ]
+  ],
+  "mandatory_binding_gates_before_compare": [
+    [
+      "{{PYTHON}}",
+      "{{REPO}}/tools/verify_model_capture.py",
+      "{{NEW_REFERENCE_RUN}}"
+    ],
+    [
+      "{{PYTHON}}",
+      "{{REPO}}/tools/verify_model_capture.py",
+      "{{NEW_CANDIDATE_RUN}}"
+    ]
+  ],
+  "compare": [
+    "{{PYTHON}}",
+    "{{REPO}}/tools/review_model_equivalence.py",
+    "compare",
+    "--reference",
+    "{{NEW_REFERENCE_RUN}}",
+    "--candidate",
+    "{{NEW_CANDIDATE_RUN}}",
+    "--output",
+    "{{NEW_COMPARISON_JSON}}"
+  ],
+  "comparison_bundle": "Save both verifier stdout JSONs and exact verifier/helper/receipt SHAs with the new comparison; require both gates passed before accepting compare output.",
+  "capture_invariants": [
+    "2465 planned frames: 426 static, 8 motions, 10 interactions",
+    "same renderer/Core/DLLs/fixture/motions and parameter traces",
+    "decoded RGBA exact, not compressed PNG hash equality",
+    "receipt remains original absolute paths; do not rewrite it to make relocated files appear captured"
+  ]
+}

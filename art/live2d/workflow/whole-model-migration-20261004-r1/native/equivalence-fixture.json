@@ -1,0 +1,5234 @@
+{
+  "kind": "whole_model_equivalence_fixture",
+  "revision": 1,
+  "approval": "pending",
+  "adoption": "not_requested",
+  "neck_crop_normalized": [
+    0.25,
+    0.32,
+    0.5,
+    0.34
+  ],
+  "keyframes": [
+    {
+      "name": "stand-neutral",
+      "phase": "standing",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 0
+      }
+    },
+    {
+      "name": "stand-shake-left",
+      "phase": "standing",
+      "parameters": {
+        "ParamAngleX": -30,
+        "ParamAngleY": 0,
+        "ParamAngleZ": -18,
+        "ParamBodyAngleZ": 8,
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 1
+      }
+    },
+    {
+      "name": "stand-shake-right",
+      "phase": "standing",
+      "parameters": {
+        "ParamAngleX": 30,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 18,
+        "ParamBodyAngleZ": -8,
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 2
+      }
+    },
+    {
+      "name": "stand-look-up",
+      "phase": "standing",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 30,
+        "ParamAngleZ": 0,
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 3
+      }
+    },
+    {
+      "name": "stand-look-down",
+      "phase": "standing",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -30,
+        "ParamAngleZ": 0,
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 4
+      }
+    },
+    {
+      "name": "sit-neutral",
+      "phase": "seated",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 5
+      }
+    },
+    {
+      "name": "sit-shake-left",
+      "phase": "seated",
+      "parameters": {
+        "ParamAngleX": -30,
+        "ParamAngleY": 0,
+        "ParamAngleZ": -18,
+        "ParamBodyAngleZ": 8,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 6
+      }
+    },
+    {
+      "name": "sit-shake-right",
+      "phase": "seated",
+      "parameters": {
+        "ParamAngleX": 30,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 18,
+        "ParamBodyAngleZ": -8,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 7
+      }
+    },
+    {
+      "name": "sit-look-up",
+      "phase": "seated",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 30,
+        "ParamAngleZ": 0,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 8
+      }
+    },
+    {
+      "name": "sit-look-down",
+      "phase": "seated",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -30,
+        "ParamAngleZ": 0,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 9
+      }
+    },
+    {
+      "name": "fold-early",
+      "phase": "material-transition",
+      "parameters": {
+        "ParamAngleX": -18,
+        "ParamAngleZ": -12,
+        "ParamBodyAngleZ": 6,
+        "ParamBusyLaptop": 0.74,
+        "ParamSitPose": 0.65,
+        "ParamLaptopVisible": 0.74
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 10
+      }
+    },
+    {
+      "name": "fold-before-switch",
+      "phase": "material-transition",
+      "parameters": {
+        "ParamAngleX": -18,
+        "ParamAngleZ": -12,
+        "ParamBodyAngleZ": 6,
+        "ParamBusyLaptop": 0.834999,
+        "ParamSitPose": 0.95,
+        "ParamLaptopVisible": 0.834999
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 11
+      }
+    },
+    {
+      "name": "fold-after-switch",
+      "phase": "material-transition",
+      "parameters": {
+        "ParamAngleX": -18,
+        "ParamAngleZ": -12,
+        "ParamBodyAngleZ": 6,
+        "ParamBusyLaptop": 0.835001,
+        "ParamSitPose": 0.95,
+        "ParamLaptopVisible": 0.835001
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 12
+      }
+    },
+    {
+      "name": "fold-late",
+      "phase": "material-transition",
+      "parameters": {
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -6,
+        "ParamBusyLaptop": 0.93,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 0.93
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 13
+      }
+    },
+    {
+      "name": "release-before-switch",
+      "phase": "material-transition",
+      "parameters": {
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -6,
+        "ParamBusyLaptop": 0.835001,
+        "ParamSitPose": 0.95,
+        "ParamLaptopVisible": 0.835001
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 14
+      }
+    },
+    {
+      "name": "release-after-switch",
+      "phase": "material-transition",
+      "parameters": {
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -6,
+        "ParamBusyLaptop": 0.834999,
+        "ParamSitPose": 0.95,
+        "ParamLaptopVisible": 0.834999
+      },
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+        "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3",
+        "keyframe": 15
+      }
+    },
+    {
+      "time": 0,
+      "label": "专注敲键",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": 0,
+        "ParamAngleX": 0,
+        "ParamAngleY": -8,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.75,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/专注敲键",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 0
+      }
+    },
+    {
+      "time": 1.5,
+      "label": "埋头努力",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": -0.35,
+        "ParamAngleX": 0,
+        "ParamAngleY": -18,
+        "ParamAngleZ": -4,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": -1.5,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.75,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/埋头努力",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 1
+      }
+    },
+    {
+      "time": 3,
+      "label": "另一侧敲键",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": 0.35,
+        "ParamAngleX": 3,
+        "ParamAngleY": -10,
+        "ParamAngleZ": 4,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 1.5,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.75,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/另一侧敲键",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 2
+      }
+    },
+    {
+      "time": 4.5,
+      "label": "停下思考",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 0,
+        "ParamBusyTypingR": 0,
+        "ParamLaptopRock": 0,
+        "ParamAngleX": -5,
+        "ParamAngleY": -2,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.3,
+        "ParamEyeBallY": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/停下思考",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 3
+      }
+    },
+    {
+      "time": 5.8,
+      "label": "想到办法",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 0,
+        "ParamBusyTypingR": 0,
+        "ParamLaptopRock": 0,
+        "ParamAngleX": 0,
+        "ParamAngleY": 1,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/想到办法",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 4
+      }
+    },
+    {
+      "time": 6.8,
+      "label": "继续工作",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": 0,
+        "ParamAngleX": 0,
+        "ParamAngleY": -8,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.75,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/继续工作",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 5
+      }
+    },
+    {
+      "time": 8,
+      "label": "循环收势",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": 0,
+        "ParamAngleX": 0,
+        "ParamAngleY": -8,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.75,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      },
+      "name": "busy-laptop/循环收势",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+        "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "keyframe": 6
+      }
+    },
+    {
+      "time": 0,
+      "label": "准备：正视观众，草尚未举起",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamGrassVisible": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamWristRA": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "grass-touch/准备：正视观众，草尚未举起",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 0
+      }
+    },
+    {
+      "time": 0.35,
+      "label": "掌心合握草根，手先举起",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 30,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.2,
+        "ParamEyeBallY": 0.1,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 12,
+        "ParamWristRA": 2,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "grass-touch/掌心合握草根，手先举起",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 1
+      }
+    },
+    {
+      "time": 0.8,
+      "label": "举草好奇追视，草尖滞后弯曲",
+      "parameters": {
+        "ParamAngleX": 4,
+        "ParamAngleY": -2,
+        "ParamAngleZ": 8,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": -2,
+        "ParamBodyAngleZ": -5,
+        "ParamArmLA": -12,
+        "ParamArmRA": 55,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": -0.7,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.45,
+        "ParamEyeBallY": 0.2,
+        "ParamMouthOpenY": 0.25,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": 14,
+        "ParamMouthForm": 0.2,
+        "ParamCheek": 0.1
+      },
+      "name": "grass-touch/举草好奇追视，草尖滞后弯曲",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 2
+      }
+    },
+    {
+      "time": 1.65,
+      "label": "转腕换向，目光追着柔软草穗",
+      "parameters": {
+        "ParamAngleX": -4,
+        "ParamAngleY": 1,
+        "ParamAngleZ": -9,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 1,
+        "ParamBodyAngleZ": 3,
+        "ParamArmLA": 18,
+        "ParamArmRA": 30,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.1,
+        "ParamGrassSwing": 0.9,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.25,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.2,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.1
+      },
+      "name": "grass-touch/转腕换向，目光追着柔软草穗",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 3
+      }
+    },
+    {
+      "time": 2,
+      "label": "歪头眨单眼：准备逗你",
+      "parameters": {
+        "ParamAngleX": -4,
+        "ParamAngleY": 1,
+        "ParamAngleZ": -12,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 1,
+        "ParamBodyAngleZ": 5,
+        "ParamArmLA": 25,
+        "ParamArmRA": 25,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.1,
+        "ParamGrassSwing": 0.9,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.25,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.55,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.2
+      },
+      "name": "grass-touch/歪头眨单眼：准备逗你",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 4
+      }
+    },
+    {
+      "time": 2.2,
+      "label": "单眼笑停一拍，握草不松手",
+      "parameters": {
+        "ParamAngleX": -4,
+        "ParamAngleY": 1,
+        "ParamAngleZ": -12,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 1,
+        "ParamBodyAngleZ": 5,
+        "ParamArmLA": 25,
+        "ParamArmRA": 25,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.1,
+        "ParamGrassSwing": 0.9,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.25,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.55,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.2
+      },
+      "name": "grass-touch/单眼笑停一拍，握草不松手",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 5
+      }
+    },
+    {
+      "time": 2.5,
+      "label": "睁眼看观众，手开始前伸",
+      "parameters": {
+        "ParamAngleX": -2,
+        "ParamAngleY": 0.5,
+        "ParamAngleZ": -10,
+        "ParamBodyAngleX": 1,
+        "ParamBodyAngleY": 2,
+        "ParamBodyAngleZ": 2,
+        "ParamArmLA": 14,
+        "ParamArmRA": 36,
+        "ParamGrassVisible": 1.0,
+        "ParamGrassReach": 0.35,
+        "ParamGrassSwing": 0.7,
+        "ParamHandRGrip": 1.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.2414728515625,
+        "ParamEyeBallY": 0.042635742187499985,
+        "ParamMouthOpenY": 0.45,
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/睁眼看观众，手开始前伸",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 6
+      }
+    },
+    {
+      "time": 3.15,
+      "label": "探身送草穗，根部仍锁在掌心",
+      "parameters": {
+        "ParamAngleX": 2,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -7,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 58,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.85,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.08,
+        "ParamMouthOpenY": 0.3,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.3,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": -4,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/探身送草穗，根部仍锁在掌心",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 7
+      }
+    },
+    {
+      "time": 3.6,
+      "label": "停在你面前，邀请触碰草穗",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.35,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/停在你面前，邀请触碰草穗",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 8
+      }
+    },
+    {
+      "time": 3.8,
+      "label": "静等回应，视线轻轻扫过草穗",
+      "parameters": {
+        "ParamAngleX": 1,
+        "ParamAngleY": -1.5,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.06,
+        "ParamEyeBallY": 0.05,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.35,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/静等回应，视线轻轻扫过草穗",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 9
+      }
+    },
+    {
+      "time": 4,
+      "label": "柔和眯眼，等待时手腕与握点不漂移",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0.65,
+        "ParamEyeROpen": 0.65,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.55,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/柔和眯眼，等待时手腕与握点不漂移",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 10
+      }
+    },
+    {
+      "time": 4.4,
+      "label": "等待闭环：点击进入接招分支",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.35,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/等待闭环：点击进入接招分支",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 11
+      }
+    },
+    {
+      "time": 4.55,
+      "label": "被点中：先轻收草穗，眼睛先觉察",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -0.5,
+        "ParamAngleZ": -9,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -6,
+        "ParamArmLA": -24,
+        "ParamArmRA": 58,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.72,
+        "ParamGrassSwing": -0.5,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.2,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -12,
+        "ParamWristRA": 16,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/被点中：先轻收草穗，眼睛先觉察",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 12
+      }
+    },
+    {
+      "time": 4.85,
+      "label": "笑着缩回半臂，草尖慢半拍回弹",
+      "parameters": {
+        "ParamAngleX": -2,
+        "ParamAngleY": 0,
+        "ParamAngleZ": -10,
+        "ParamBodyAngleX": 2,
+        "ParamBodyAngleY": 3,
+        "ParamBodyAngleZ": -4,
+        "ParamArmLA": -12,
+        "ParamArmRA": 52,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.4,
+        "ParamGrassSwing": -0.65,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.55,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.5,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 5,
+        "ParamWristRA": 6,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.28
+      },
+      "name": "grass-touch/笑着缩回半臂，草尖慢半拍回弹",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 13
+      }
+    },
+    {
+      "time": 5.2,
+      "label": "闭眼笑，转腕再送一次软草",
+      "parameters": {
+        "ParamAngleX": -2,
+        "ParamAngleY": 1,
+        "ParamAngleZ": 4,
+        "ParamBodyAngleX": 2,
+        "ParamBodyAngleY": 4,
+        "ParamBodyAngleZ": -2,
+        "ParamArmLA": -18,
+        "ParamArmRA": 55,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.55,
+        "ParamGrassSwing": 0.55,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -6,
+        "ParamWristRA": -8,
+        "ParamMouthForm": 0.45,
+        "ParamCheek": 0.3
+      },
+      "name": "grass-touch/闭眼笑，转腕再送一次软草",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 14
+      }
+    },
+    {
+      "time": 5.55,
+      "label": "再逗你一下：送回前方并眨单眼",
+      "parameters": {
+        "ParamAngleX": 1,
+        "ParamAngleY": -1,
+        "ParamAngleZ": -3,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.85,
+        "ParamGrassSwing": 0.6,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.55,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -15,
+        "ParamWristRA": 15,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.25
+      },
+      "name": "grass-touch/再逗你一下：送回前方并眨单眼",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 15
+      }
+    },
+    {
+      "time": 6,
+      "label": "接招结束：回到前伸，跳过超时分支",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.35,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/接招结束：回到前伸，跳过超时分支",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 16
+      }
+    },
+    {
+      "time": 6.18,
+      "label": "没有回应：先低头看一眼草穗",
+      "parameters": {
+        "ParamAngleX": 3,
+        "ParamAngleY": 0,
+        "ParamAngleZ": -4,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.25,
+        "ParamEyeBallY": 0.2,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.1,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.12
+      },
+      "name": "grass-touch/没有回应：先低头看一眼草穗",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 17
+      }
+    },
+    {
+      "time": 6.45,
+      "label": "目光留在草上，安静浅笑",
+      "parameters": {
+        "ParamAngleX": 4,
+        "ParamAngleY": 0.5,
+        "ParamAngleZ": -7,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.35,
+        "ParamEyeBallY": 0.25,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.4,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.3,
+        "ParamCheek": 0.15
+      },
+      "name": "grass-touch/目光留在草上，安静浅笑",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 18
+      }
+    },
+    {
+      "time": 6.68,
+      "label": "闭眼一笑，不再继续催观众",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 1,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.2
+      },
+      "name": "grass-touch/闭眼一笑，不再继续催观众",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 19
+      }
+    },
+    {
+      "time": 7,
+      "label": "两分支汇合：准备收草",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.35,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/两分支汇合：准备收草",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 20
+      }
+    },
+    {
+      "time": 7.25,
+      "label": "慢慢收手，草穗跟随根部滞后",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 58,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.9,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0.8,
+        "ParamEyeROpen": 0.8,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.5,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/慢慢收手，草穗跟随根部滞后",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 21
+      }
+    },
+    {
+      "time": 7.75,
+      "label": "笑眼收回掌边，草仍握住",
+      "parameters": {
+        "ParamAngleX": -3,
+        "ParamAngleY": 1,
+        "ParamAngleZ": 9,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 6,
+        "ParamArmLA": 18,
+        "ParamArmRA": 32,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.25,
+        "ParamGrassSwing": -0.8,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.6,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.18
+      },
+      "name": "grass-touch/笑眼收回掌边，草仍握住",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 22
+      }
+    },
+    {
+      "time": 8.1,
+      "label": "睁眼回正，手与草落向身侧",
+      "parameters": {
+        "ParamAngleX": -1,
+        "ParamAngleY": 0.3,
+        "ParamAngleZ": 3,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 2,
+        "ParamArmLA": 8,
+        "ParamArmRA": 20,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.15,
+        "ParamGrassSwing": -0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": 0.0,
+        "ParamEyeBallY": 0.0,
+        "ParamMouthOpenY": 0.2,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.35,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10,
+        "ParamWristRA": -2,
+        "ParamMouthForm": 0.15,
+        "ParamCheek": 0.08
+      },
+      "name": "grass-touch/睁眼回正，手与草落向身侧",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 23
+      }
+    },
+    {
+      "time": 8.45,
+      "label": "手已落下，最后保持握根再藏草",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 4,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 2,
+        "ParamWristRA": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "grass-touch/手已落下，最后保持握根再藏草",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 24
+      }
+    },
+    {
+      "time": 8.6,
+      "label": "回到待机，交还原状态控制",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamGrassVisible": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamWristRA": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "grass-touch/回到待机，交还原状态控制",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+        "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "keyframe": 25
+      }
+    },
+    {
+      "time": 0.0,
+      "label": "准备",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamGrassVisible": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamWristRA": 0
+      },
+      "name": "grass/准备",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 0
+      }
+    },
+    {
+      "time": 0.8,
+      "label": "举草，好奇追视",
+      "parameters": {
+        "ParamAngleX": 4,
+        "ParamAngleY": -2,
+        "ParamAngleZ": 8,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": -2,
+        "ParamBodyAngleZ": -5,
+        "ParamArmLA": -12,
+        "ParamArmRA": 55,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": -0.7,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.45,
+        "ParamEyeBallY": 0.2,
+        "ParamMouthOpenY": 0.3,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": 14
+      },
+      "name": "grass/举草，好奇追视",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 1
+      }
+    },
+    {
+      "time": 1.84,
+      "label": "眨眼准备",
+      "parameters": {
+        "ParamAngleX": -3.61125925925926,
+        "ParamAngleY": 0.8542222222222224,
+        "ParamAngleZ": -11.028148148148148,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.8542222222222224,
+        "ParamBodyAngleZ": 4.514074074074074,
+        "ParamArmLA": 23.202074074074076,
+        "ParamArmRA": 26.457777777777775,
+        "ParamGrassVisible": 1.0,
+        "ParamGrassReach": 0.09514074074074075,
+        "ParamGrassSwing": 0.822251851851852,
+        "ParamHandRGrip": 1.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.21598518518518522,
+        "ParamEyeBallY": 0.009718518518518515,
+        "ParamMouthOpenY": 0.7757037037037038,
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
+      },
+      "name": "grass/眨眼准备",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 2
+      }
+    },
+    {
+      "time": 2.0,
+      "label": "歪头，眨单眼逗弄",
+      "parameters": {
+        "ParamAngleX": -4,
+        "ParamAngleY": 1,
+        "ParamAngleZ": -12,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 1,
+        "ParamBodyAngleZ": 5,
+        "ParamArmLA": 25,
+        "ParamArmRA": 25,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.1,
+        "ParamGrassSwing": 0.9,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.25,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.8,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
+      },
+      "name": "grass/歪头，眨单眼逗弄",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 3
+      }
+    },
+    {
+      "time": 2.26,
+      "label": "眨单眼停留",
+      "parameters": {
+        "ParamAngleX": -3.5761796875000007,
+        "ParamAngleY": 0.7880898437500004,
+        "ParamAngleZ": -11.64681640625,
+        "ParamBodyAngleX": 0.2825468749999996,
+        "ParamBodyAngleY": 1.3531835937499994,
+        "ParamBodyAngleZ": 4.152359375000001,
+        "ParamArmLA": 21.538800781250004,
+        "ParamArmRA": 27.472285156249995,
+        "ParamGrassVisible": 1.0,
+        "ParamGrassReach": 0.1635730468749999,
+        "ParamGrassSwing": 0.8646816406250001,
+        "ParamHandRGrip": 1.0,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.2464681640625,
+        "ParamEyeBallY": 0.017659179687499974,
+        "ParamMouthOpenY": 0.807063671875,
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
+      },
+      "name": "grass/眨单眼停留",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 4
+      }
+    },
+    {
+      "time": 2.42,
+      "label": "重新追视",
+      "parameters": {
+        "ParamAngleX": -2.9767421875,
+        "ParamAngleY": 0.4883710937500002,
+        "ParamAngleZ": -11.14728515625,
+        "ParamBodyAngleX": 0.6821718749999998,
+        "ParamBodyAngleY": 1.8527148437499998,
+        "ParamBodyAngleZ": 2.953484375000001,
+        "ParamArmLA": 16.643394531250003,
+        "ParamArmRA": 30.96900390625,
+        "ParamGrassVisible": 1.0,
+        "ParamGrassReach": 0.25348867187499996,
+        "ParamGrassSwing": 0.814728515625,
+        "ParamHandRGrip": 1.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.2414728515625,
+        "ParamEyeBallY": 0.042635742187499985,
+        "ParamMouthOpenY": 0.8170542968750001,
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 20,
+        "ParamWristRA": -12
+      },
+      "name": "grass/重新追视",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 5
+      }
+    },
+    {
+      "time": 3.6,
+      "label": "探身伸向你",
+      "parameters": {
+        "ParamAngleX": 2,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -7,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.2,
+        "ParamEyeBallY": 0.25,
+        "ParamMouthOpenY": 0.9,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": -18
+      },
+      "name": "grass/探身伸向你",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 6
+      }
+    },
+    {
+      "time": 3.95,
+      "label": "停在你面前，转腕逗弄",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.65,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.4,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20
+      },
+      "name": "grass/停在你面前，转腕逗弄",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 7
+      }
+    },
+    {
+      "time": 4.35,
+      "label": "保持前伸，等你回应",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": -2,
+        "ParamAngleZ": -5,
+        "ParamBodyAngleX": 4,
+        "ParamBodyAngleY": 6,
+        "ParamBodyAngleZ": -7,
+        "ParamArmLA": -24,
+        "ParamArmRA": 60,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 0.4,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0.65,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 0.4,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": -20,
+        "ParamWristRA": 20
+      },
+      "name": "grass/保持前伸，等你回应",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 8
+      }
+    },
+    {
+      "time": 5.0,
+      "label": "笑眼准备",
+      "parameters": {
+        "ParamAngleX": -2.785156249999999,
+        "ParamAngleY": 0.8710937499999996,
+        "ParamAngleZ": 8.312499999999998,
+        "ParamBodyAngleX": 0.17187500000000044,
+        "ParamBodyAngleY": 0.2578125000000009,
+        "ParamBodyAngleZ": 5.441406249999998,
+        "ParamArmLA": 16.195312499999993,
+        "ParamArmRA": 33.203125,
+        "ParamGrassVisible": 1.0,
+        "ParamGrassReach": 0.2822265625000001,
+        "ParamGrassSwing": -0.7484375,
+        "ParamHandRGrip": 1.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.008593750000000011,
+        "ParamEyeBallY": 0.010742187500000028,
+        "ParamMouthOpenY": 0.995703125,
+        "ParamSmileOpen": 1.0,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
+      },
+      "name": "grass/笑眼准备",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 9
+      }
+    },
+    {
+      "time": 5.2,
+      "label": "眯眼笑着收回",
+      "parameters": {
+        "ParamAngleX": -3,
+        "ParamAngleY": 1,
+        "ParamAngleZ": 9,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 6,
+        "ParamArmLA": 18,
+        "ParamArmRA": 32,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.25,
+        "ParamGrassSwing": -0.8,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 1,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
+      },
+      "name": "grass/眯眼笑着收回",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 10
+      }
+    },
+    {
+      "time": 5.65,
+      "label": "笑眼停留",
+      "parameters": {
+        "ParamAngleX": -2.4806635456950943,
+        "ParamAngleY": 0.8268878485650315,
+        "ParamAngleZ": 7.441990637085283,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 4.961327091390189,
+        "ParamArmLA": 14.883981274170566,
+        "ParamArmRA": 26.460411154081008,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.20672196214125788,
+        "ParamGrassSwing": -0.6615102788520252,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0.0,
+        "ParamEyeBallY": 0.0,
+        "ParamMouthOpenY": 1,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
+      },
+      "name": "grass/笑眼停留",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 11
+      }
+    },
+    {
+      "time": 5.82,
+      "label": "睁眼收尾",
+      "parameters": {
+        "ParamAngleX": -2.093964583757378,
+        "ParamAngleY": 0.6979881945857928,
+        "ParamAngleZ": 6.2818937512721345,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 4.187929167514756,
+        "ParamArmLA": 12.563787502544269,
+        "ParamArmRA": 22.335622226745368,
+        "ParamGrassVisible": 1,
+        "ParamGrassReach": 0.1744970486464482,
+        "ParamGrassSwing": -0.5583905556686343,
+        "ParamHandRGrip": 1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.0,
+        "ParamEyeBallY": 0.0,
+        "ParamMouthOpenY": 0.9,
+        "ParamSmileOpen": 1,
+        "ParamEyeSmile": 1.0,
+        "ParamElbowLA": 12,
+        "ParamElbowRA": 10,
+        "ParamWristRA": -8
+      },
+      "name": "grass/睁眼收尾",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 12
+      }
+    },
+    {
+      "time": 6.9,
+      "label": "回到待机",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamGrassVisible": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamHandRGrip": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamMouthOpenY": 0,
+        "ParamSmileOpen": 0,
+        "ParamEyeSmile": 0.0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamWristRA": 0
+      },
+      "name": "grass/回到待机",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+        "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "keyframe": 13
+      }
+    },
+    {
+      "time": 0,
+      "label": "初始正视，身体保持原姿势",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "head-pat/初始正视，身体保持原姿势",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 0
+      }
+    },
+    {
+      "time": 0.12,
+      "label": "触碰瞬间眼稍收，抬视线寻找手",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0.5,
+        "ParamEyeLOpen": 0.82,
+        "ParamEyeROpen": 0.82,
+        "ParamEyeBallX": 0.08,
+        "ParamEyeBallY": 0.15,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "head-pat/触碰瞬间眼稍收，抬视线寻找手",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 1
+      }
+    },
+    {
+      "time": 0.25,
+      "label": "觉察抚摸，眼稍睁、头慢一步靠近",
+      "parameters": {
+        "ParamAngleX": 0.5,
+        "ParamAngleY": 1,
+        "ParamAngleZ": 1.2,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0.2,
+        "ParamEyeBallY": 0.2,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.08,
+        "ParamCheek": 0.04
+      },
+      "name": "head-pat/觉察抚摸，眼稍睁、头慢一步靠近",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 2
+      }
+    },
+    {
+      "time": 0.55,
+      "label": "头偏向手，慢慢合眼",
+      "parameters": {
+        "ParamAngleX": 1.5,
+        "ParamAngleY": 0.5,
+        "ParamAngleZ": 3.2,
+        "ParamEyeLOpen": 0.55,
+        "ParamEyeROpen": 0.55,
+        "ParamEyeBallX": 0.08,
+        "ParamEyeBallY": 0.08,
+        "ParamEyeSmile": 0.6,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.12
+      },
+      "name": "head-pat/头偏向手，慢慢合眼",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 3
+      }
+    },
+    {
+      "time": 0.8,
+      "label": "闭眼浅笑，保持段起点",
+      "parameters": {
+        "ParamAngleX": 2,
+        "ParamAngleY": -1,
+        "ParamAngleZ": 4.5,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.2
+      },
+      "name": "head-pat/闭眼浅笑，保持段起点",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 4
+      }
+    },
+    {
+      "time": 1.2,
+      "label": "持续摸头时轻微靠近，身体不摇动",
+      "parameters": {
+        "ParamAngleX": 2,
+        "ParamAngleY": -0.5,
+        "ParamAngleZ": 5,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.24
+      },
+      "name": "head-pat/持续摸头时轻微靠近，身体不摇动",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 5
+      }
+    },
+    {
+      "time": 1.6,
+      "label": "保持段同姿势闭环，松手进入收尾",
+      "parameters": {
+        "ParamAngleX": 2,
+        "ParamAngleY": -1,
+        "ParamAngleZ": 4.5,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.2
+      },
+      "name": "head-pat/保持段同姿势闭环，松手进入收尾",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 6
+      }
+    },
+    {
+      "time": 1.9,
+      "label": "松手后保留短笑眼，头开始回正",
+      "parameters": {
+        "ParamAngleX": 1,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 2.5,
+        "ParamEyeLOpen": 0.15,
+        "ParamEyeROpen": 0.15,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0.85,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.15
+      },
+      "name": "head-pat/松手后保留短笑眼，头开始回正",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 7
+      }
+    },
+    {
+      "time": 2.08,
+      "label": "睁眼看向用户，平稳交还控制",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0.5,
+        "ParamEyeLOpen": 0.85,
+        "ParamEyeROpen": 0.85,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0.1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.08,
+        "ParamCheek": 0.04
+      },
+      "name": "head-pat/睁眼看向用户，平稳交还控制",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 8
+      }
+    },
+    {
+      "time": 2.2,
+      "label": "完全回正，恢复原坐姿或站姿",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "head-pat/完全回正，恢复原坐姿或站姿",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+        "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "keyframe": 9
+      }
+    },
+    {
+      "time": 0,
+      "label": "结束当前工作，保持闭嘴",
+      "parameters": {
+        "ParamAngleX": 0.0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.0,
+        "ParamHairBack": 0.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "turn-ended/结束当前工作，保持闭嘴",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 0
+      }
+    },
+    {
+      "time": 0.12,
+      "label": "目光先转向用户，头与身体都还没跟上",
+      "parameters": {
+        "ParamAngleX": 0.0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.0,
+        "ParamHairBack": 0.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.7,
+        "ParamEyeBallY": 0.35,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "turn-ended/目光先转向用户，头与身体都还没跟上",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 1
+      }
+    },
+    {
+      "time": 0.4,
+      "label": "身体向前倾、头转过去",
+      "parameters": {
+        "ParamAngleX": 10.0,
+        "ParamAngleY": 4,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.21,
+        "ParamHairBack": 0.36,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.6,
+        "ParamEyeBallY": 0.25,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.08,
+        "ParamCheek": 0
+      },
+      "name": "turn-ended/身体向前倾、头转过去",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 2
+      }
+    },
+    {
+      "time": 0.62,
+      "label": "倾到最大，视线仍落在用户身上",
+      "parameters": {
+        "ParamAngleX": 13.0,
+        "ParamAngleY": 8,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.3,
+        "ParamHairBack": 0.51,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.55,
+        "ParamEyeBallY": 0.2,
+        "ParamEyeSmile": 0.05,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.1,
+        "ParamCheek": 0.05
+      },
+      "name": "turn-ended/倾到最大，视线仍落在用户身上",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 3
+      }
+    },
+    {
+      "time": 0.8,
+      "label": "对着用户轻轻点头一次",
+      "parameters": {
+        "ParamAngleX": 12.5,
+        "ParamAngleY": -4,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.33,
+        "ParamHairBack": 0.54,
+        "ParamEyeLOpen": 0.85,
+        "ParamEyeROpen": 0.85,
+        "ParamEyeBallX": -0.5,
+        "ParamEyeBallY": 0.28,
+        "ParamEyeSmile": 0.12,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.12,
+        "ParamCheek": 0.08
+      },
+      "name": "turn-ended/对着用户轻轻点头一次",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 4
+      }
+    },
+    {
+      "time": 1.02,
+      "label": "点头回弹，笑眼开始合上",
+      "parameters": {
+        "ParamAngleX": 13.0,
+        "ParamAngleY": 6,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.27,
+        "ParamHairBack": 0.45,
+        "ParamEyeLOpen": 0.55,
+        "ParamEyeROpen": 0.55,
+        "ParamEyeBallX": -0.4,
+        "ParamEyeBallY": 0.15,
+        "ParamEyeSmile": 0.45,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.12
+      },
+      "name": "turn-ended/点头回弹，笑眼开始合上",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 5
+      }
+    },
+    {
+      "time": 1.2,
+      "label": "闭眼浅笑，嘴仍闭合",
+      "parameters": {
+        "ParamAngleX": 13.0,
+        "ParamAngleY": 5,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.21,
+        "ParamHairBack": 0.36,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.22
+      },
+      "name": "turn-ended/闭眼浅笑，嘴仍闭合",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 6
+      }
+    },
+    {
+      "time": 1.5,
+      "label": "笑眼停留一拍，让表情被看懂",
+      "parameters": {
+        "ParamAngleX": 13.0,
+        "ParamAngleY": 5,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.18,
+        "ParamHairBack": 0.3,
+        "ParamEyeLOpen": 0,
+        "ParamEyeROpen": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.35,
+        "ParamCheek": 0.22
+      },
+      "name": "turn-ended/笑眼停留一拍，让表情被看懂",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 7
+      }
+    },
+    {
+      "time": 1.7,
+      "label": "慢慢睁眼，仍看着用户",
+      "parameters": {
+        "ParamAngleX": 11.5,
+        "ParamAngleY": 4,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.12,
+        "ParamHairBack": 0.192,
+        "ParamEyeLOpen": 0.72,
+        "ParamEyeROpen": 0.72,
+        "ParamEyeBallX": -0.35,
+        "ParamEyeBallY": 0.12,
+        "ParamEyeSmile": 0.22,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.15,
+        "ParamCheek": 0.1
+      },
+      "name": "turn-ended/慢慢睁眼，仍看着用户",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 8
+      }
+    },
+    {
+      "time": 1.9,
+      "label": "回正，交还原先的坐姿或站姿",
+      "parameters": {
+        "ParamAngleX": 0.0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamShiftX": 0.0,
+        "ParamHairFront": 0.0,
+        "ParamHairBack": 0.0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      },
+      "name": "turn-ended/回正，交还原先的坐姿或站姿",
+      "phase": "authored-motion-keyframe",
+      "source": {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+        "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "keyframe": 9
+      }
+    },
+    {
+      "name": "source-equivalence/native-default",
+      "parameters": {}
+    },
+    {
+      "name": "source-equivalence/mouth-request-zero",
+      "parameters": {
+        "ParamMouthGape": 0
+      }
+    },
+    {
+      "name": "source-equivalence/mouth-native-min",
+      "parameters": {
+        "ParamMouthGape": 1
+      }
+    },
+    {
+      "name": "source-equivalence/mouth-native-middle",
+      "parameters": {
+        "ParamMouthGape": 1.5
+      }
+    },
+    {
+      "name": "source-equivalence/mouth-native-max",
+      "parameters": {
+        "ParamMouthGape": 2
+      }
+    },
+    {
+      "name": "source-equivalence/smile-open",
+      "parameters": {
+        "ParamSmileOpen": 1,
+        "ParamMouthGape": 1
+      }
+    },
+    {
+      "name": "source-equivalence/mouth-shape-open",
+      "parameters": {
+        "ParamMouthGape": 2,
+        "ParamMouthOpenY": 1,
+        "ParamMouthForm": -1
+      }
+    },
+    {
+      "name": "source-equivalence/head-left",
+      "parameters": {
+        "ParamAngleX": -45
+      }
+    },
+    {
+      "name": "source-equivalence/head-right",
+      "parameters": {
+        "ParamAngleX": 45
+      }
+    },
+    {
+      "name": "source-equivalence/head-down",
+      "parameters": {
+        "ParamAngleY": -30
+      }
+    },
+    {
+      "name": "source-equivalence/head-up",
+      "parameters": {
+        "ParamAngleY": 30
+      }
+    },
+    {
+      "name": "source-equivalence/head-roll-left",
+      "parameters": {
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "source-equivalence/head-roll-right",
+      "parameters": {
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "source-equivalence/head-body-opposed-left",
+      "parameters": {
+        "ParamAngleX": 25,
+        "ParamAngleY": 10,
+        "ParamAngleZ": 18,
+        "ParamBodyAngleX": -8,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "source-equivalence/head-body-opposed-right",
+      "parameters": {
+        "ParamAngleX": -25,
+        "ParamAngleY": -10,
+        "ParamAngleZ": -18,
+        "ParamBodyAngleX": 8,
+        "ParamBodyAngleZ": 8
+      }
+    },
+    {
+      "name": "source-equivalence/standing-fold-middle",
+      "parameters": {
+        "ParamSitPose": 0.5
+      }
+    },
+    {
+      "name": "source-equivalence/seated-mix-middle",
+      "parameters": {
+        "ParamBusyLaptop": 0.5,
+        "ParamSitPose": 0.5
+      }
+    },
+    {
+      "name": "source-equivalence/material-switch-before",
+      "parameters": {
+        "ParamBusyLaptop": 0.834999,
+        "ParamSitPose": 0.9,
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "source-equivalence/material-switch-after",
+      "parameters": {
+        "ParamBusyLaptop": 0.835001,
+        "ParamSitPose": 0.9,
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "source-equivalence/standing-fold-max",
+      "parameters": {
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "source-equivalence/seated-full",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      }
+    },
+    {
+      "name": "source-equivalence/seated-head-left",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamAngleX": -30,
+        "ParamAngleZ": -18,
+        "ParamBodyAngleZ": 8
+      }
+    },
+    {
+      "name": "source-equivalence/seated-head-right",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamAngleX": 30,
+        "ParamAngleZ": 18,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "source-equivalence/seated-typing-left",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 0,
+        "ParamLaptopRock": -1
+      }
+    },
+    {
+      "name": "source-equivalence/seated-typing-right",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamBusyTypingL": 0,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": 1
+      }
+    },
+    {
+      "name": "source-equivalence/grass-half-visible",
+      "parameters": {
+        "ParamGrassVisible": 0.5,
+        "ParamHandRGrip": 0.5
+      }
+    },
+    {
+      "name": "source-equivalence/grass-held",
+      "parameters": {
+        "ParamGrassVisible": 1,
+        "ParamHandRGrip": 1,
+        "ParamArmRA": 15,
+        "ParamElbowRA": 20,
+        "ParamWristRA": 10
+      }
+    },
+    {
+      "name": "source-equivalence/grass-reach-left",
+      "parameters": {
+        "ParamGrassVisible": 1,
+        "ParamHandRGrip": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": -1,
+        "ParamGrassTipBend": 1,
+        "ParamArmRA": 40,
+        "ParamElbowRA": 55,
+        "ParamWristRA": -25,
+        "ParamArmLA": -65,
+        "ParamElbowLA": 55
+      }
+    },
+    {
+      "name": "source-equivalence/grass-reach-right",
+      "parameters": {
+        "ParamGrassVisible": 1,
+        "ParamHandRGrip": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 1,
+        "ParamGrassTipBend": -1,
+        "ParamArmRA": -40,
+        "ParamElbowRA": -35,
+        "ParamWristRA": 25,
+        "ParamArmLA": 65,
+        "ParamElbowLA": -35
+      }
+    },
+    {
+      "name": "axis/ParamAngleX/0",
+      "parameters": {
+        "ParamAngleX": -45.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleX/0.25",
+      "parameters": {
+        "ParamAngleX": -22.5
+      }
+    },
+    {
+      "name": "axis/ParamAngleX/0.5",
+      "parameters": {
+        "ParamAngleX": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleX/0.75",
+      "parameters": {
+        "ParamAngleX": 22.5
+      }
+    },
+    {
+      "name": "axis/ParamAngleX/1",
+      "parameters": {
+        "ParamAngleX": 45.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleY/0",
+      "parameters": {
+        "ParamAngleY": -30.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleY/0.25",
+      "parameters": {
+        "ParamAngleY": -15.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleY/0.5",
+      "parameters": {
+        "ParamAngleY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleY/0.75",
+      "parameters": {
+        "ParamAngleY": 15.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleY/1",
+      "parameters": {
+        "ParamAngleY": 30.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleZ/0",
+      "parameters": {
+        "ParamAngleZ": -30.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleZ/0.25",
+      "parameters": {
+        "ParamAngleZ": -15.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleZ/0.5",
+      "parameters": {
+        "ParamAngleZ": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleZ/0.75",
+      "parameters": {
+        "ParamAngleZ": 15.0
+      }
+    },
+    {
+      "name": "axis/ParamAngleZ/1",
+      "parameters": {
+        "ParamAngleZ": 30.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleX/0",
+      "parameters": {
+        "ParamBodyAngleX": -10.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleX/0.25",
+      "parameters": {
+        "ParamBodyAngleX": -5.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleX/0.5",
+      "parameters": {
+        "ParamBodyAngleX": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleX/0.75",
+      "parameters": {
+        "ParamBodyAngleX": 5.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleX/1",
+      "parameters": {
+        "ParamBodyAngleX": 10.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleY/0",
+      "parameters": {
+        "ParamBodyAngleY": -10.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleY/0.25",
+      "parameters": {
+        "ParamBodyAngleY": -5.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleY/0.5",
+      "parameters": {
+        "ParamBodyAngleY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleY/0.75",
+      "parameters": {
+        "ParamBodyAngleY": 5.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleY/1",
+      "parameters": {
+        "ParamBodyAngleY": 10.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleZ/0",
+      "parameters": {
+        "ParamBodyAngleZ": -10.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleZ/0.25",
+      "parameters": {
+        "ParamBodyAngleZ": -5.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleZ/0.5",
+      "parameters": {
+        "ParamBodyAngleZ": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleZ/0.75",
+      "parameters": {
+        "ParamBodyAngleZ": 5.0
+      }
+    },
+    {
+      "name": "axis/ParamBodyAngleZ/1",
+      "parameters": {
+        "ParamBodyAngleZ": 10.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeLOpen/0",
+      "parameters": {
+        "ParamEyeLOpen": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeLOpen/0.25",
+      "parameters": {
+        "ParamEyeLOpen": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamEyeLOpen/0.5",
+      "parameters": {
+        "ParamEyeLOpen": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeLOpen/0.75",
+      "parameters": {
+        "ParamEyeLOpen": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamEyeLOpen/1",
+      "parameters": {
+        "ParamEyeLOpen": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeROpen/0",
+      "parameters": {
+        "ParamEyeROpen": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeROpen/0.25",
+      "parameters": {
+        "ParamEyeROpen": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamEyeROpen/0.5",
+      "parameters": {
+        "ParamEyeROpen": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeROpen/0.75",
+      "parameters": {
+        "ParamEyeROpen": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamEyeROpen/1",
+      "parameters": {
+        "ParamEyeROpen": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallX/0",
+      "parameters": {
+        "ParamEyeBallX": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallX/0.25",
+      "parameters": {
+        "ParamEyeBallX": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallX/0.5",
+      "parameters": {
+        "ParamEyeBallX": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallX/0.75",
+      "parameters": {
+        "ParamEyeBallX": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallX/1",
+      "parameters": {
+        "ParamEyeBallX": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallY/0",
+      "parameters": {
+        "ParamEyeBallY": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallY/0.25",
+      "parameters": {
+        "ParamEyeBallY": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallY/0.5",
+      "parameters": {
+        "ParamEyeBallY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallY/0.75",
+      "parameters": {
+        "ParamEyeBallY": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallY/1",
+      "parameters": {
+        "ParamEyeBallY": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallForm/0",
+      "parameters": {
+        "ParamEyeBallForm": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallForm/0.25",
+      "parameters": {
+        "ParamEyeBallForm": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallForm/0.5",
+      "parameters": {
+        "ParamEyeBallForm": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallForm/0.75",
+      "parameters": {
+        "ParamEyeBallForm": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeBallForm/1",
+      "parameters": {
+        "ParamEyeBallForm": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamBrowLY/0",
+      "parameters": {
+        "ParamBrowLY": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamBrowLY/0.25",
+      "parameters": {
+        "ParamBrowLY": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamBrowLY/0.5",
+      "parameters": {
+        "ParamBrowLY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBrowLY/0.75",
+      "parameters": {
+        "ParamBrowLY": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamBrowLY/1",
+      "parameters": {
+        "ParamBrowLY": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamBrowRY/0",
+      "parameters": {
+        "ParamBrowRY": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamBrowRY/0.25",
+      "parameters": {
+        "ParamBrowRY": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamBrowRY/0.5",
+      "parameters": {
+        "ParamBrowRY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBrowRY/0.75",
+      "parameters": {
+        "ParamBrowRY": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamBrowRY/1",
+      "parameters": {
+        "ParamBrowRY": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthForm/0",
+      "parameters": {
+        "ParamMouthForm": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthForm/0.25",
+      "parameters": {
+        "ParamMouthForm": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamMouthForm/0.5",
+      "parameters": {
+        "ParamMouthForm": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthForm/0.75",
+      "parameters": {
+        "ParamMouthForm": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamMouthForm/1",
+      "parameters": {
+        "ParamMouthForm": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthOpenY/0",
+      "parameters": {
+        "ParamMouthOpenY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthOpenY/0.25",
+      "parameters": {
+        "ParamMouthOpenY": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamMouthOpenY/0.5",
+      "parameters": {
+        "ParamMouthOpenY": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamMouthOpenY/0.75",
+      "parameters": {
+        "ParamMouthOpenY": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamMouthOpenY/1",
+      "parameters": {
+        "ParamMouthOpenY": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamBreath/0",
+      "parameters": {
+        "ParamBreath": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBreath/0.25",
+      "parameters": {
+        "ParamBreath": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamBreath/0.5",
+      "parameters": {
+        "ParamBreath": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamBreath/0.75",
+      "parameters": {
+        "ParamBreath": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamBreath/1",
+      "parameters": {
+        "ParamBreath": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamHairFront/0",
+      "parameters": {
+        "ParamHairFront": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamHairFront/0.25",
+      "parameters": {
+        "ParamHairFront": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamHairFront/0.5",
+      "parameters": {
+        "ParamHairFront": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamHairFront/0.75",
+      "parameters": {
+        "ParamHairFront": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamHairFront/1",
+      "parameters": {
+        "ParamHairFront": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamHairBack/0",
+      "parameters": {
+        "ParamHairBack": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamHairBack/0.25",
+      "parameters": {
+        "ParamHairBack": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamHairBack/0.5",
+      "parameters": {
+        "ParamHairBack": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamHairBack/0.75",
+      "parameters": {
+        "ParamHairBack": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamHairBack/1",
+      "parameters": {
+        "ParamHairBack": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamBusyLaptop/0",
+      "parameters": {
+        "ParamBusyLaptop": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBusyLaptop/0.25",
+      "parameters": {
+        "ParamBusyLaptop": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamBusyLaptop/0.5",
+      "parameters": {
+        "ParamBusyLaptop": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamBusyLaptop/0.75",
+      "parameters": {
+        "ParamBusyLaptop": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamBusyLaptop/1",
+      "parameters": {
+        "ParamBusyLaptop": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassVisible/0",
+      "parameters": {
+        "ParamGrassVisible": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassVisible/0.25",
+      "parameters": {
+        "ParamGrassVisible": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamGrassVisible/0.5",
+      "parameters": {
+        "ParamGrassVisible": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamGrassVisible/0.75",
+      "parameters": {
+        "ParamGrassVisible": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamGrassVisible/1",
+      "parameters": {
+        "ParamGrassVisible": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamLaptopVisible/0",
+      "parameters": {
+        "ParamLaptopVisible": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamLaptopVisible/0.25",
+      "parameters": {
+        "ParamLaptopVisible": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamLaptopVisible/0.5",
+      "parameters": {
+        "ParamLaptopVisible": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamLaptopVisible/0.75",
+      "parameters": {
+        "ParamLaptopVisible": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamLaptopVisible/1",
+      "parameters": {
+        "ParamLaptopVisible": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamSmileOpen/0",
+      "parameters": {
+        "ParamSmileOpen": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamSmileOpen/0.25",
+      "parameters": {
+        "ParamSmileOpen": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamSmileOpen/0.5",
+      "parameters": {
+        "ParamSmileOpen": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamSmileOpen/0.75",
+      "parameters": {
+        "ParamSmileOpen": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamSmileOpen/1",
+      "parameters": {
+        "ParamSmileOpen": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamHandRGrip/0",
+      "parameters": {
+        "ParamHandRGrip": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamHandRGrip/0.25",
+      "parameters": {
+        "ParamHandRGrip": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamHandRGrip/0.5",
+      "parameters": {
+        "ParamHandRGrip": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamHandRGrip/0.75",
+      "parameters": {
+        "ParamHandRGrip": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamHandRGrip/1",
+      "parameters": {
+        "ParamHandRGrip": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthGape/0",
+      "parameters": {
+        "ParamMouthGape": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamMouthGape/0.25",
+      "parameters": {
+        "ParamMouthGape": 1.25
+      }
+    },
+    {
+      "name": "axis/ParamMouthGape/0.5",
+      "parameters": {
+        "ParamMouthGape": 1.5
+      }
+    },
+    {
+      "name": "axis/ParamMouthGape/0.75",
+      "parameters": {
+        "ParamMouthGape": 1.75
+      }
+    },
+    {
+      "name": "axis/ParamMouthGape/1",
+      "parameters": {
+        "ParamMouthGape": 2.0
+      }
+    },
+    {
+      "name": "axis/ParamArmLA/0",
+      "parameters": {
+        "ParamArmLA": -65.0
+      }
+    },
+    {
+      "name": "axis/ParamArmLA/0.25",
+      "parameters": {
+        "ParamArmLA": -32.5
+      }
+    },
+    {
+      "name": "axis/ParamArmLA/0.5",
+      "parameters": {
+        "ParamArmLA": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamArmLA/0.75",
+      "parameters": {
+        "ParamArmLA": 32.5
+      }
+    },
+    {
+      "name": "axis/ParamArmLA/1",
+      "parameters": {
+        "ParamArmLA": 65.0
+      }
+    },
+    {
+      "name": "axis/ParamArmRA/0",
+      "parameters": {
+        "ParamArmRA": -65.0
+      }
+    },
+    {
+      "name": "axis/ParamArmRA/0.25",
+      "parameters": {
+        "ParamArmRA": -32.5
+      }
+    },
+    {
+      "name": "axis/ParamArmRA/0.5",
+      "parameters": {
+        "ParamArmRA": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamArmRA/0.75",
+      "parameters": {
+        "ParamArmRA": 32.5
+      }
+    },
+    {
+      "name": "axis/ParamArmRA/1",
+      "parameters": {
+        "ParamArmRA": 65.0
+      }
+    },
+    {
+      "name": "axis/ParamElbowLA/0",
+      "parameters": {
+        "ParamElbowLA": -35.0
+      }
+    },
+    {
+      "name": "axis/ParamElbowLA/0.25",
+      "parameters": {
+        "ParamElbowLA": -12.5
+      }
+    },
+    {
+      "name": "axis/ParamElbowLA/0.5",
+      "parameters": {
+        "ParamElbowLA": 10.0
+      }
+    },
+    {
+      "name": "axis/ParamElbowLA/0.75",
+      "parameters": {
+        "ParamElbowLA": 32.5
+      }
+    },
+    {
+      "name": "axis/ParamElbowLA/1",
+      "parameters": {
+        "ParamElbowLA": 55.0
+      }
+    },
+    {
+      "name": "axis/ParamElbowRA/0",
+      "parameters": {
+        "ParamElbowRA": -35.0
+      }
+    },
+    {
+      "name": "axis/ParamElbowRA/0.25",
+      "parameters": {
+        "ParamElbowRA": -12.5
+      }
+    },
+    {
+      "name": "axis/ParamElbowRA/0.5",
+      "parameters": {
+        "ParamElbowRA": 10.0
+      }
+    },
+    {
+      "name": "axis/ParamElbowRA/0.75",
+      "parameters": {
+        "ParamElbowRA": 32.5
+      }
+    },
+    {
+      "name": "axis/ParamElbowRA/1",
+      "parameters": {
+        "ParamElbowRA": 55.0
+      }
+    },
+    {
+      "name": "axis/ParamWristRA/0",
+      "parameters": {
+        "ParamWristRA": -25.0
+      }
+    },
+    {
+      "name": "axis/ParamWristRA/0.25",
+      "parameters": {
+        "ParamWristRA": -12.5
+      }
+    },
+    {
+      "name": "axis/ParamWristRA/0.5",
+      "parameters": {
+        "ParamWristRA": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamWristRA/0.75",
+      "parameters": {
+        "ParamWristRA": 12.5
+      }
+    },
+    {
+      "name": "axis/ParamWristRA/1",
+      "parameters": {
+        "ParamWristRA": 25.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassReach/0",
+      "parameters": {
+        "ParamGrassReach": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassReach/0.25",
+      "parameters": {
+        "ParamGrassReach": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamGrassReach/0.5",
+      "parameters": {
+        "ParamGrassReach": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamGrassReach/0.75",
+      "parameters": {
+        "ParamGrassReach": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamGrassReach/1",
+      "parameters": {
+        "ParamGrassReach": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassSwing/0",
+      "parameters": {
+        "ParamGrassSwing": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassSwing/0.25",
+      "parameters": {
+        "ParamGrassSwing": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamGrassSwing/0.5",
+      "parameters": {
+        "ParamGrassSwing": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassSwing/0.75",
+      "parameters": {
+        "ParamGrassSwing": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamGrassSwing/1",
+      "parameters": {
+        "ParamGrassSwing": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassTipBend/0",
+      "parameters": {
+        "ParamGrassTipBend": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassTipBend/0.25",
+      "parameters": {
+        "ParamGrassTipBend": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamGrassTipBend/0.5",
+      "parameters": {
+        "ParamGrassTipBend": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamGrassTipBend/0.75",
+      "parameters": {
+        "ParamGrassTipBend": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamGrassTipBend/1",
+      "parameters": {
+        "ParamGrassTipBend": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeSmile/0",
+      "parameters": {
+        "ParamEyeSmile": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamEyeSmile/0.25",
+      "parameters": {
+        "ParamEyeSmile": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamEyeSmile/0.5",
+      "parameters": {
+        "ParamEyeSmile": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamEyeSmile/0.75",
+      "parameters": {
+        "ParamEyeSmile": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamEyeSmile/1",
+      "parameters": {
+        "ParamEyeSmile": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingL/0",
+      "parameters": {
+        "ParamBusyTypingL": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingL/0.25",
+      "parameters": {
+        "ParamBusyTypingL": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingL/0.5",
+      "parameters": {
+        "ParamBusyTypingL": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingL/0.75",
+      "parameters": {
+        "ParamBusyTypingL": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingL/1",
+      "parameters": {
+        "ParamBusyTypingL": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingR/0",
+      "parameters": {
+        "ParamBusyTypingR": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingR/0.25",
+      "parameters": {
+        "ParamBusyTypingR": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingR/0.5",
+      "parameters": {
+        "ParamBusyTypingR": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingR/0.75",
+      "parameters": {
+        "ParamBusyTypingR": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamBusyTypingR/1",
+      "parameters": {
+        "ParamBusyTypingR": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamLaptopRock/0",
+      "parameters": {
+        "ParamLaptopRock": -1.0
+      }
+    },
+    {
+      "name": "axis/ParamLaptopRock/0.25",
+      "parameters": {
+        "ParamLaptopRock": -0.5
+      }
+    },
+    {
+      "name": "axis/ParamLaptopRock/0.5",
+      "parameters": {
+        "ParamLaptopRock": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamLaptopRock/0.75",
+      "parameters": {
+        "ParamLaptopRock": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamLaptopRock/1",
+      "parameters": {
+        "ParamLaptopRock": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamSitPose/0",
+      "parameters": {
+        "ParamSitPose": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamSitPose/0.25",
+      "parameters": {
+        "ParamSitPose": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamSitPose/0.5",
+      "parameters": {
+        "ParamSitPose": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamSitPose/0.75",
+      "parameters": {
+        "ParamSitPose": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamSitPose/1",
+      "parameters": {
+        "ParamSitPose": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamCheek/0",
+      "parameters": {
+        "ParamCheek": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamCheek/0.25",
+      "parameters": {
+        "ParamCheek": 0.25
+      }
+    },
+    {
+      "name": "axis/ParamCheek/0.5",
+      "parameters": {
+        "ParamCheek": 0.5
+      }
+    },
+    {
+      "name": "axis/ParamCheek/0.75",
+      "parameters": {
+        "ParamCheek": 0.75
+      }
+    },
+    {
+      "name": "axis/ParamCheek/1",
+      "parameters": {
+        "ParamCheek": 1.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftX/0",
+      "parameters": {
+        "ParamShiftX": -100.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftX/0.25",
+      "parameters": {
+        "ParamShiftX": -50.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftX/0.5",
+      "parameters": {
+        "ParamShiftX": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftX/0.75",
+      "parameters": {
+        "ParamShiftX": 50.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftX/1",
+      "parameters": {
+        "ParamShiftX": 100.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftY/0",
+      "parameters": {
+        "ParamShiftY": -100.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftY/0.25",
+      "parameters": {
+        "ParamShiftY": -50.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftY/0.5",
+      "parameters": {
+        "ParamShiftY": 0.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftY/0.75",
+      "parameters": {
+        "ParamShiftY": 50.0
+      }
+    },
+    {
+      "name": "axis/ParamShiftY/1",
+      "parameters": {
+        "ParamShiftY": 100.0
+      }
+    },
+    {
+      "name": "mouth/0/closed/0/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/closed/0/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.25/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.25/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.25/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.5/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.5/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.5/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.75/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/closed/0.75/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/closed/1/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/closed/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/closed/1/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/smile/0/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.25/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.25/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.25/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.5/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.5/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.5/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.75/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/smile/0.75/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/smile/1/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/smile/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/smile/1/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/gape/0/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.25/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.25/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.25/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.5/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.5/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.5/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.75/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/gape/0.75/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/0/gape/1/-30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/0/gape/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/0/gape/1/30",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/closed/0/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.25/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.25/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.25/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.5/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.5/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.5/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.75/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/closed/0.75/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/closed/1/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/closed/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/closed/1/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/smile/0/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.25/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.25/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.25/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.5/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.5/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.5/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.75/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/smile/0.75/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/smile/1/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/smile/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/smile/1/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 0,
+        "ParamMouthSmileOpen": 1,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/gape/0/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.25/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.25/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.25/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.25,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.5/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.5/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.5/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.5,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.75/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/gape/0.75/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 0.75,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "mouth/1/gape/1/-30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "mouth/1/gape/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 0
+      }
+    },
+    {
+      "name": "mouth/1/gape/1/30",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamMouthGape": 1,
+        "ParamMouthSmileOpen": 0,
+        "ParamMouthOpenY": 1,
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "posture/0/0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0
+      }
+    },
+    {
+      "name": "posture/0/0.35",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0.35
+      }
+    },
+    {
+      "name": "posture/0/0.65",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0.65
+      }
+    },
+    {
+      "name": "posture/0/1",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "posture/0.75/0",
+      "parameters": {
+        "ParamBusyLaptop": 0.75,
+        "ParamSitPose": 0
+      }
+    },
+    {
+      "name": "posture/0.75/0.35",
+      "parameters": {
+        "ParamBusyLaptop": 0.75,
+        "ParamSitPose": 0.35
+      }
+    },
+    {
+      "name": "posture/0.75/0.65",
+      "parameters": {
+        "ParamBusyLaptop": 0.75,
+        "ParamSitPose": 0.65
+      }
+    },
+    {
+      "name": "posture/0.75/1",
+      "parameters": {
+        "ParamBusyLaptop": 0.75,
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "posture/0.8/0",
+      "parameters": {
+        "ParamBusyLaptop": 0.8,
+        "ParamSitPose": 0
+      }
+    },
+    {
+      "name": "posture/0.8/0.35",
+      "parameters": {
+        "ParamBusyLaptop": 0.8,
+        "ParamSitPose": 0.35
+      }
+    },
+    {
+      "name": "posture/0.8/0.65",
+      "parameters": {
+        "ParamBusyLaptop": 0.8,
+        "ParamSitPose": 0.65
+      }
+    },
+    {
+      "name": "posture/0.8/1",
+      "parameters": {
+        "ParamBusyLaptop": 0.8,
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "posture/0.85/0",
+      "parameters": {
+        "ParamBusyLaptop": 0.85,
+        "ParamSitPose": 0
+      }
+    },
+    {
+      "name": "posture/0.85/0.35",
+      "parameters": {
+        "ParamBusyLaptop": 0.85,
+        "ParamSitPose": 0.35
+      }
+    },
+    {
+      "name": "posture/0.85/0.65",
+      "parameters": {
+        "ParamBusyLaptop": 0.85,
+        "ParamSitPose": 0.65
+      }
+    },
+    {
+      "name": "posture/0.85/1",
+      "parameters": {
+        "ParamBusyLaptop": 0.85,
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "posture/0.9/0",
+      "parameters": {
+        "ParamBusyLaptop": 0.9,
+        "ParamSitPose": 0
+      }
+    },
+    {
+      "name": "posture/0.9/0.35",
+      "parameters": {
+        "ParamBusyLaptop": 0.9,
+        "ParamSitPose": 0.35
+      }
+    },
+    {
+      "name": "posture/0.9/0.65",
+      "parameters": {
+        "ParamBusyLaptop": 0.9,
+        "ParamSitPose": 0.65
+      }
+    },
+    {
+      "name": "posture/0.9/1",
+      "parameters": {
+        "ParamBusyLaptop": 0.9,
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "posture/1/0",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0
+      }
+    },
+    {
+      "name": "posture/1/0.35",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.35
+      }
+    },
+    {
+      "name": "posture/1/0.65",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.65
+      }
+    },
+    {
+      "name": "posture/1/1",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+      "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+      "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-stand.motion.json",
+      "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\delete.motion.json",
+      "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+      "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+      "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+      "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\idle.motion.json",
+      "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+      "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\authoring-archive\\editor-candidate-20261003\\reports\\poses.json",
+      "sha256": "3b43cbecc87e64c585a781fa5d5b94bdd12c4e77e485810daf7e84678826cfe8"
+    }
+  ],
+  "scope": "All authored keys, legacy 29 poses, 5 samples of each of 40 Native axes, seated/standing mouth modes and posture material thresholds; static physics frozen."
+}

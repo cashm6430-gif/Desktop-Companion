@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "kind": "exact_json_checkpoint_manifest",
+  "scope": "Copied original evidence bytes and newly generated explanatory JSONs; no Native execution or model/source/tool mutation.",
+  "files": {
+    "index.json": {
+      "bytes": 3695,
+      "sha256": "f1327e7e1b7cc4594b37c0f621348f7cd4b04b27c2f92978f18dcbeaff871067",
+      "copy_mode": "generated_explanatory_json"
+    },
+    "native/baseline.binding.json": {
+      "bytes": 4471,
+      "sha256": "3e8ad252ac0109158f2ddf9128d167e8eca1b26b2009009640221147e0163d67",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\baseline\\native-synchronous.binding.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/baseline.capture-receipt.json": {
+      "bytes": 5047103,
+      "sha256": "e55784467dea84d4bace3b12528b3c55546d6ed9fb4e213e1af6952ca55793d8",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\baseline\\native-synchronous\\capture-receipt.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/candidate.binding.json": {
+      "bytes": 4481,
+      "sha256": "e58fe26d65951debade348c428528412ffee221869f4d7c828e441af1910eabd",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\restored-parent-r2\\native-synchronous.binding.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/candidate.capture-receipt.json": {
+      "bytes": 5071963,
+      "sha256": "d3ce32afb7201f1352191c6675007059e77801eaf4f57b4340a314c5d68bab6c",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\restored-parent-r2\\native-synchronous\\capture-receipt.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/comparison.json": {
+      "bytes": 659,
+      "sha256": "9930a69a69f8715ad419b6eda119066123846d2a69c35f912a03912fbcbf2eb5",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\restored-parent-r2\\full-equivalence-synchronous.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/equivalence-fixture.json": {
+      "bytes": 142929,
+      "sha256": "8f517234bb499242c856b992dff3cad82c6e152a9cd027c085376787f1684763",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\equivalence-fixture.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/main-build-immutability.json": {
+      "bytes": 276,
+      "sha256": "227b21d6a303f0fba5f530dc240183d8aa886b34ed4bbeeb13f4d9120f62bcc4",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\renderer-main-build-immutability.json",
+      "copy_mode": "byte_exact"
+    },
+    "native/renderer-staging.json": {
+      "bytes": 10003,
+      "sha256": "4c0fa050c5299631d305e269cf7585005dddbe28aba67d259da9a0609bc030c2",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\renderer-runtime-staging.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/full-canonical-equivalence.json": {
+      "bytes": 1179,
+      "sha256": "5c0f71cb025aa824d39b11136164f87b57d25924b5a8b1fee2423549a1a11642",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\decoded-runtime-exact-equivalence.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/original-rebuild-recipe.json": {
+      "bytes": 10148,
+      "sha256": "2d4b91058c300349c39b1e0ab0165f53312e3472df44f8b7b8c9d7481d4d6fa9",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-handoff-20261004T115820Z-5725dd1a\\rebuild-recipe.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/portable-recipe.json": {
+      "bytes": 4243,
+      "sha256": "0d175cc1df210b16f2bf56c3bac84b605713b18faa64f8bed63e55c951a88d2d",
+      "copy_mode": "generated_explanatory_json"
+    },
+    "recovery/public-cmo-texture-readback.json": {
+      "bytes": 915484,
+      "sha256": "c955bbffd7b5bbab12fe0ecbb0135b0dc6ec35582b24ad58074c57033ebcb0e2",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\public-cmo-texture-readback.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/public-graph-component-summary.json": {
+      "bytes": 37324,
+      "sha256": "bfbc65cbf4fb0af054a48b2c2730a7ac72dcf2dc3d2819b2219e26cb80e1a9bb",
+      "copy_mode": "generated_explanatory_json"
+    },
+    "recovery/raw-core83-equivalence.json": {
+      "bytes": 133958,
+      "sha256": "20619d92887301998c1e789c8d65cc9ea4477b9b1e3b2433874d52bb6d17508d",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\core-equivalence.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/recovery-report.json": {
+      "bytes": 2323,
+      "sha256": "48e678b0c53937442f74c7b3d198a0d185f997a5c9998edda74db47b552d83e8",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\export\\recovery-report.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/smoke-command.json": {
+      "bytes": 2484,
+      "sha256": "37907dd5f4c66995de3058e84f26e392ef0bb43c6382097e7ce82ef3b979ec9c",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\run-command.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/smoke-validation.json": {
+      "bytes": 859,
+      "sha256": "af10338381f99aad318e7c7cc5e6589b3563d477da1ad41992b172648328041a",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-tool-smoke-20261004T115121Z-1d9e5f18\\smoke-validation.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/source-and-edit-contract.json": {
+      "bytes": 56026,
+      "sha256": "655868009171242c02bdbb5b5a61f2c32ef952193bfe8a023abf6067b877a7b2",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\recovery-handoff-20261004T115820Z-5725dd1a\\source-and-edit-contract.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/source-receipt.json": {
+      "bytes": 917,
+      "sha256": "4c55b6b734807627741eaacb3d3f6a18cb8052ed9af245c5b925731ba1b1213a",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source-receipt.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/texture-readback-commands.json": {
+      "bytes": 1950,
+      "sha256": "46cbe7d225355fa4c4503177c2f4c6ac1928903c234e14edc410ba1a4add213a",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\author-source-audit-20261004T115450Z-fa5fd3e3\\commands.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/typed-copy-commands.json": {
+      "bytes": 2015,
+      "sha256": "26f433ed14cb0f1d8eaa1dac8aa4319d427a781b79af77efad50a96ef467553b",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\commands.json",
+      "copy_mode": "byte_exact"
+    },
+    "recovery/typed-copy-report.json": {
+      "bytes": 987,
+      "sha256": "001f16917fba5d19b86856b7cfac39f4fbe9a1ffb50e40df5305b5dd390843e3",
+      "original_local_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\cmo-geometry-copy-20261004T120216Z-ea6d8e0e\\export\\typed-copy-report.json",
+      "copy_mode": "byte_exact"
+    },
+    "tool-versions.json": {
+      "bytes": 3040,
+      "sha256": "e84b071d1ca993a6284415d7b2f2517d167e58d685cae7217016f7f5b4bf8e12",
+      "copy_mode": "generated_explanatory_json"
+    }
+  }
+}

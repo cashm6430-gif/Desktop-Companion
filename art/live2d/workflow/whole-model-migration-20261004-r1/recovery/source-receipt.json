@@ -1,0 +1,13 @@
+{
+  "source": {
+    "moc": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source\\whale-girl-layered-draft.moc3",
+    "cdi": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source\\whale-girl-layered-draft.cdi3.json",
+    "atlas": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\source\\texture_00.png"
+  },
+  "sha256": {
+    "moc": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "cdi": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+    "atlas": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+  },
+  "probe_java_sha256": "6f465f65f3e1717c8c700942bc751a76415c2fce43dbcfacc16884887b3c92de"
+}

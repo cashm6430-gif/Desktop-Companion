@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "canonical_runtime_sha256": "c08a1ad72f4d18bd488c4c8f254bd1980743a97073cd6b1074a24b191dac32ed",
+  "native_moc_byte_match_to_082620_corrected": true,
+  "reference_moc": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\export\\cmo-parent-corrected.moc3",
+  "reference_moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+  "source_rechecked_after": true,
+  "runtime_export_notices": "ExportReport(format=Moc3, notices=[])",
+  "counts": {
+    "parts": 7,
+    "drawables": 34,
+    "deformer_keyforms": 142,
+    "parameters": 40,
+    "bindings": 28,
+    "mesh_keyforms": 2292,
+    "deformers": 22
+  },
+  "visual_adoption": "root Native2465 gate pending; smoke does not approve visuals"
+}

@@ -1,0 +1,4162 @@
+{
+  "schema_version": 1,
+  "kind": "whole_model_public_library_core_equivalence",
+  "scope": {
+    "raw_core": true,
+    "physics": false,
+    "runtime_material_mouth_grounding_neck_patches": false,
+    "rendered_pixels": false
+  },
+  "source_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "poses": [
+    {
+      "name": "neutral",
+      "parameters": {},
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamAngleX-minimum",
+      "parameters": {
+        "ParamAngleX": -45.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamAngleX-maximum",
+      "parameters": {
+        "ParamAngleX": 45.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamAngleY-minimum",
+      "parameters": {
+        "ParamAngleY": -30.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamAngleY-maximum",
+      "parameters": {
+        "ParamAngleY": 30.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamAngleZ-minimum",
+      "parameters": {
+        "ParamAngleZ": -30.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamAngleZ-maximum",
+      "parameters": {
+        "ParamAngleZ": 30.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBodyAngleX-minimum",
+      "parameters": {
+        "ParamBodyAngleX": -10.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBodyAngleX-maximum",
+      "parameters": {
+        "ParamBodyAngleX": 10.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBodyAngleY-minimum",
+      "parameters": {
+        "ParamBodyAngleY": -10.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBodyAngleY-maximum",
+      "parameters": {
+        "ParamBodyAngleY": 10.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBodyAngleZ-minimum",
+      "parameters": {
+        "ParamBodyAngleZ": -10.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBodyAngleZ-maximum",
+      "parameters": {
+        "ParamBodyAngleZ": 10.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeLOpen-minimum",
+      "parameters": {
+        "ParamEyeLOpen": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeLOpen-maximum",
+      "parameters": {
+        "ParamEyeLOpen": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeROpen-minimum",
+      "parameters": {
+        "ParamEyeROpen": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeROpen-maximum",
+      "parameters": {
+        "ParamEyeROpen": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeBallX-minimum",
+      "parameters": {
+        "ParamEyeBallX": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeBallX-maximum",
+      "parameters": {
+        "ParamEyeBallX": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeBallY-minimum",
+      "parameters": {
+        "ParamEyeBallY": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeBallY-maximum",
+      "parameters": {
+        "ParamEyeBallY": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeBallForm-minimum",
+      "parameters": {
+        "ParamEyeBallForm": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeBallForm-maximum",
+      "parameters": {
+        "ParamEyeBallForm": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBrowLY-minimum",
+      "parameters": {
+        "ParamBrowLY": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBrowLY-maximum",
+      "parameters": {
+        "ParamBrowLY": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBrowRY-minimum",
+      "parameters": {
+        "ParamBrowRY": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBrowRY-maximum",
+      "parameters": {
+        "ParamBrowRY": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamMouthForm-minimum",
+      "parameters": {
+        "ParamMouthForm": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamMouthForm-maximum",
+      "parameters": {
+        "ParamMouthForm": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamMouthOpenY-minimum",
+      "parameters": {
+        "ParamMouthOpenY": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamMouthOpenY-maximum",
+      "parameters": {
+        "ParamMouthOpenY": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBreath-minimum",
+      "parameters": {
+        "ParamBreath": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBreath-maximum",
+      "parameters": {
+        "ParamBreath": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamHairFront-minimum",
+      "parameters": {
+        "ParamHairFront": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamHairFront-maximum",
+      "parameters": {
+        "ParamHairFront": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamHairBack-minimum",
+      "parameters": {
+        "ParamHairBack": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamHairBack-maximum",
+      "parameters": {
+        "ParamHairBack": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBusyLaptop-minimum",
+      "parameters": {
+        "ParamBusyLaptop": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBusyLaptop-maximum",
+      "parameters": {
+        "ParamBusyLaptop": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassVisible-minimum",
+      "parameters": {
+        "ParamGrassVisible": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassVisible-maximum",
+      "parameters": {
+        "ParamGrassVisible": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamLaptopVisible-minimum",
+      "parameters": {
+        "ParamLaptopVisible": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamLaptopVisible-maximum",
+      "parameters": {
+        "ParamLaptopVisible": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamSmileOpen-minimum",
+      "parameters": {
+        "ParamSmileOpen": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamSmileOpen-maximum",
+      "parameters": {
+        "ParamSmileOpen": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamHandRGrip-minimum",
+      "parameters": {
+        "ParamHandRGrip": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamHandRGrip-maximum",
+      "parameters": {
+        "ParamHandRGrip": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamMouthGape-minimum",
+      "parameters": {
+        "ParamMouthGape": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamMouthGape-maximum",
+      "parameters": {
+        "ParamMouthGape": 2.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamArmLA-minimum",
+      "parameters": {
+        "ParamArmLA": -65.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamArmLA-maximum",
+      "parameters": {
+        "ParamArmLA": 65.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamArmRA-minimum",
+      "parameters": {
+        "ParamArmRA": -65.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamArmRA-maximum",
+      "parameters": {
+        "ParamArmRA": 65.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamElbowLA-minimum",
+      "parameters": {
+        "ParamElbowLA": -35.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamElbowLA-maximum",
+      "parameters": {
+        "ParamElbowLA": 55.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamElbowRA-minimum",
+      "parameters": {
+        "ParamElbowRA": -35.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamElbowRA-maximum",
+      "parameters": {
+        "ParamElbowRA": 55.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamWristRA-minimum",
+      "parameters": {
+        "ParamWristRA": -25.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamWristRA-maximum",
+      "parameters": {
+        "ParamWristRA": 25.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassReach-minimum",
+      "parameters": {
+        "ParamGrassReach": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassReach-maximum",
+      "parameters": {
+        "ParamGrassReach": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassSwing-minimum",
+      "parameters": {
+        "ParamGrassSwing": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassSwing-maximum",
+      "parameters": {
+        "ParamGrassSwing": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassTipBend-minimum",
+      "parameters": {
+        "ParamGrassTipBend": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamGrassTipBend-maximum",
+      "parameters": {
+        "ParamGrassTipBend": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeSmile-minimum",
+      "parameters": {
+        "ParamEyeSmile": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamEyeSmile-maximum",
+      "parameters": {
+        "ParamEyeSmile": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBusyTypingL-minimum",
+      "parameters": {
+        "ParamBusyTypingL": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBusyTypingL-maximum",
+      "parameters": {
+        "ParamBusyTypingL": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBusyTypingR-minimum",
+      "parameters": {
+        "ParamBusyTypingR": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamBusyTypingR-maximum",
+      "parameters": {
+        "ParamBusyTypingR": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamLaptopRock-minimum",
+      "parameters": {
+        "ParamLaptopRock": -1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamLaptopRock-maximum",
+      "parameters": {
+        "ParamLaptopRock": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamSitPose-minimum",
+      "parameters": {
+        "ParamSitPose": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamSitPose-maximum",
+      "parameters": {
+        "ParamSitPose": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamCheek-minimum",
+      "parameters": {
+        "ParamCheek": 0.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamCheek-maximum",
+      "parameters": {
+        "ParamCheek": 1.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamShiftX-minimum",
+      "parameters": {
+        "ParamShiftX": -100.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamShiftX-maximum",
+      "parameters": {
+        "ParamShiftX": 100.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamShiftY-minimum",
+      "parameters": {
+        "ParamShiftY": -100.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "ParamShiftY-maximum",
+      "parameters": {
+        "ParamShiftY": 100.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "all-min",
+      "parameters": {
+        "ParamAngleX": -45.0,
+        "ParamAngleY": -30.0,
+        "ParamAngleZ": -30.0,
+        "ParamBodyAngleX": -10.0,
+        "ParamBodyAngleY": -10.0,
+        "ParamBodyAngleZ": -10.0,
+        "ParamEyeLOpen": 0.0,
+        "ParamEyeROpen": 0.0,
+        "ParamEyeBallX": -1.0,
+        "ParamEyeBallY": -1.0,
+        "ParamEyeBallForm": -1.0,
+        "ParamBrowLY": -1.0,
+        "ParamBrowRY": -1.0,
+        "ParamMouthForm": -1.0,
+        "ParamMouthOpenY": 0.0,
+        "ParamBreath": 0.0,
+        "ParamHairFront": -1.0,
+        "ParamHairBack": -1.0,
+        "ParamBusyLaptop": 0.0,
+        "ParamGrassVisible": 0.0,
+        "ParamLaptopVisible": 0.0,
+        "ParamSmileOpen": 0.0,
+        "ParamHandRGrip": 0.0,
+        "ParamMouthGape": 1.0,
+        "ParamArmLA": -65.0,
+        "ParamArmRA": -65.0,
+        "ParamElbowLA": -35.0,
+        "ParamElbowRA": -35.0,
+        "ParamWristRA": -25.0,
+        "ParamGrassReach": 0.0,
+        "ParamGrassSwing": -1.0,
+        "ParamGrassTipBend": -1.0,
+        "ParamEyeSmile": 0.0,
+        "ParamBusyTypingL": 0.0,
+        "ParamBusyTypingR": 0.0,
+        "ParamLaptopRock": -1.0,
+        "ParamSitPose": 0.0,
+        "ParamCheek": 0.0,
+        "ParamShiftX": -100.0,
+        "ParamShiftY": -100.0
+      },
+      "part_opacities": {}
+    },
+    {
+      "name": "all-max",
+      "parameters": {
+        "ParamAngleX": 45.0,
+        "ParamAngleY": 30.0,
+        "ParamAngleZ": 30.0,
+        "ParamBodyAngleX": 10.0,
+        "ParamBodyAngleY": 10.0,
+        "ParamBodyAngleZ": 10.0,
+        "ParamEyeLOpen": 1.0,
+        "ParamEyeROpen": 1.0,
+        "ParamEyeBallX": 1.0,
+        "ParamEyeBallY": 1.0,
+        "ParamEyeBallForm": 1.0,
+        "ParamBrowLY": 1.0,
+        "ParamBrowRY": 1.0,
+        "ParamMouthForm": 1.0,
+        "ParamMouthOpenY": 1.0,
+        "ParamBreath": 1.0,
+        "ParamHairFront": 1.0,
+        "ParamHairBack": 1.0,
+        "ParamBusyLaptop": 1.0,
+        "ParamGrassVisible": 1.0,
+        "ParamLaptopVisible": 1.0,
+        "ParamSmileOpen": 1.0,
+        "ParamHandRGrip": 1.0,
+        "ParamMouthGape": 2.0,
+        "ParamArmLA": 65.0,
+        "ParamArmRA": 65.0,
+        "ParamElbowLA": 55.0,
+        "ParamElbowRA": 55.0,
+        "ParamWristRA": 25.0,
+        "ParamGrassReach": 1.0,
+        "ParamGrassSwing": 1.0,
+        "ParamGrassTipBend": 1.0,
+        "ParamEyeSmile": 1.0,
+        "ParamBusyTypingL": 1.0,
+        "ParamBusyTypingR": 1.0,
+        "ParamLaptopRock": 1.0,
+        "ParamSitPose": 1.0,
+        "ParamCheek": 1.0,
+        "ParamShiftX": 100.0,
+        "ParamShiftY": 100.0
+      },
+      "part_opacities": {}
+    }
+  ],
+  "pose_count": 83,
+  "routes": {
+    "canvas-mapped.moc3": {
+      "moc_sha256": "10853734d4f22c373a5df266a61c43965930f5b0fe6085cb4f3c6e4fc3cf2cf9",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0.0028191689744832076,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0.002809130200517122,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0.002902976700019625,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0.00271559655314306,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0.0028128576325252767,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0.0028194212697517447,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0.0028150785440103168,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0.0028235428462841977,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0.0028093259263126274,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0.0028184526037747376,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0.002817275434624629,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0.002820097493555474,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0.0028094448116968824,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0.0028094448116968824,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0.0028187661744525317,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0.013229727745056152,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0.0028187661744525317,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0.0028197531137136318,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0.002906314007122739,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0.0027150299428048597,
+          "exact_float_arrays_and_attributes": false
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 1.055002212524414e-05,
+        "pose": "ParamGrassReach-maximum",
+        "mesh": "ArtMeshHandwearR2",
+        "vertex": 802,
+        "source_pixel_distance": 0.013229727745056152
+      },
+      "exact_pose_count": 0,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "cmo-canvas-mapped.moc3": {
+      "moc_sha256": "10853734d4f22c373a5df266a61c43965930f5b0fe6085cb4f3c6e4fc3cf2cf9",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0.0028191689744832076,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0.002809130200517122,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0.002902976700019625,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0.00271559655314306,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0.0028128576325252767,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0.0028194212697517447,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0.0028150785440103168,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0.0028235428462841977,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0.0028093259263126274,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0.0028184526037747376,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0.002817275434624629,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0.002820097493555474,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0.0028094448116968824,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0.0028094448116968824,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0.0028187661744525317,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0.013229727745056152,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0.0028187661744525317,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0.0028197531137136318,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0.002906314007122739,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0.0027150299428048597,
+          "exact_float_arrays_and_attributes": false
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 1.055002212524414e-05,
+        "pose": "ParamGrassReach-maximum",
+        "mesh": "ArtMeshHandwearR2",
+        "vertex": 802,
+        "source_pixel_distance": 0.013229727745056152
+      },
+      "exact_pose_count": 0,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "cmo-parent-corrected.moc3": {
+      "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 0,
+        "pose": null,
+        "mesh": null,
+        "vertex": null,
+        "source_pixel_distance": 0
+      },
+      "exact_pose_count": 83,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "cmo-parent-unmapped.moc3": {
+      "moc_sha256": "717e6647c761218143b3f0069a1b6a8192a513208206c17a239decb06f535759",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0.0001494884490966797,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 1.1920928955078125e-07,
+        "pose": "ParamShiftX-maximum",
+        "mesh": "ArtMeshHandwearR2",
+        "vertex": 378,
+        "source_pixel_distance": 0.0001494884490966797
+      },
+      "exact_pose_count": 82,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "cmo-unmapped.moc3": {
+      "moc_sha256": "10853734d4f22c373a5df266a61c43965930f5b0fe6085cb4f3c6e4fc3cf2cf9",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0.0028191689744832076,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0.002809130200517122,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0.002902976700019625,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0.00271559655314306,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0.0028128576325252767,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0.0028194212697517447,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0.0028150785440103168,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0.0028235428462841977,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0.0028093259263126274,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0.0028184526037747376,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0.002817275434624629,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0.002820097493555474,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0.0028094448116968824,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0.0028094448116968824,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0.0028187661744525317,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0.013229727745056152,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0.0028187661744525317,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0.0028197531137136318,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0.002818608425663334,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0.002906314007122739,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0.0027150299428048597,
+          "exact_float_arrays_and_attributes": false
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 1.055002212524414e-05,
+        "pose": "ParamGrassReach-maximum",
+        "mesh": "ArtMeshHandwearR2",
+        "vertex": 802,
+        "source_pixel_distance": 0.013229727745056152
+      },
+      "exact_pose_count": 0,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "codec-reencoded.moc3": {
+      "moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 0,
+        "pose": null,
+        "mesh": null,
+        "vertex": null,
+        "source_pixel_distance": 0
+      },
+      "exact_pose_count": 83,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "parent-corrected.moc3": {
+      "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 0,
+        "pose": null,
+        "mesh": null,
+        "vertex": null,
+        "source_pixel_distance": 0
+      },
+      "exact_pose_count": 83,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    },
+    "parent-unmapped.moc3": {
+      "moc_sha256": "717e6647c761218143b3f0069a1b6a8192a513208206c17a239decb06f535759",
+      "consistency_passed": true,
+      "parameters_equal": true,
+      "part_ids_equal": true,
+      "drawable_ids_equal": true,
+      "topology_differences": {},
+      "pose_summaries": [
+        {
+          "name": "neutral",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBodyAngleZ-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeLOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeROpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallX-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeBallForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowLY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBrowRY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthForm-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthOpenY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBreath-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairFront-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHairBack-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyLaptop-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopVisible-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSmileOpen-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamHandRGrip-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamMouthGape-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamArmRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowLA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamElbowRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamWristRA-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassReach-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassSwing-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamGrassTipBend-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamEyeSmile-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingL-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamBusyTypingR-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamLaptopRock-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamSitPose-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamCheek-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftX-maximum",
+          "max_source_pixel_distance": 0.0001494884490966797,
+          "exact_float_arrays_and_attributes": false
+        },
+        {
+          "name": "ParamShiftY-minimum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "ParamShiftY-maximum",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-min",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        },
+        {
+          "name": "all-max",
+          "max_source_pixel_distance": 0,
+          "exact_float_arrays_and_attributes": true
+        }
+      ],
+      "attribute_differences": [],
+      "worst_geometry_difference": {
+        "native_distance": 1.1920928955078125e-07,
+        "pose": "ParamShiftX-maximum",
+        "mesh": "ArtMeshHandwearR2",
+        "vertex": 378,
+        "source_pixel_distance": 0.0001494884490966797
+      },
+      "exact_pose_count": 82,
+      "comparison": "sampled_all_meshes",
+      "native_moc_version": 5
+    }
+  }
+}

@@ -30,6 +30,30 @@ inline Sample sample(double rawBusyLaptop, double rawSitPose) {
     return {mix, fold, mix >= 0.5, true};
 }
 
+// New author graphs own their hip/knee/floor coordinates. Logical SitPose is
+// their native axis; the legacy smoothstep must not relabel approved keyforms.
+inline Sample sampleAuthored(double rawBusyLaptop, double rawSitPose) {
+    if (!std::isfinite(rawBusyLaptop) || !std::isfinite(rawSitPose)) return {};
+    const double sit = std::clamp(rawSitPose, 0.0, 1.0);
+    const double busy = std::clamp(rawBusyLaptop, 0.0, 1.0);
+    return {busy, sit, busy >= 0.5 && sit >= 0.93, true};
+}
+
+inline double smoothUnit(double value) {
+    value = std::clamp(value, 0.0, 1.0);
+    return value * value * (3.0 - 2.0 * value);
+}
+
+inline double authoredSkirtSpread(double sit) {
+    return std::isfinite(sit) ? smoothUnit((sit - 0.10) / 0.55) : 0.0;
+}
+
+inline double authoredHandGround(double sit) {
+    if (!std::isfinite(sit)) return 0.0;
+    return smoothUnit((sit - 0.28) / 0.30)
+        * (1.0 - smoothUnit((sit - 0.80) / 0.16));
+}
+
 inline bool collarTarget(Point standing, Point seated, double seatedMix, Point* result) {
     if (!result || !finite(standing) || !finite(seated)
         || !std::isfinite(seatedMix) || seatedMix < 0 || seatedMix > 1) return false;
