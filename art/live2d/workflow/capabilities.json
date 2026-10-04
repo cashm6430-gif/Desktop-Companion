@@ -1,0 +1,3674 @@
+{
+  "schema_version": 1,
+  "scope": "parameter_limits_and_conservative_authoring_policy",
+  "model_inputs": {
+    "assets/live2d/whale-girl/hit-mask.png": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+    "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+    "assets/live2d/whale-girl/material-ownership/body-underpaint.png": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+    "assets/live2d/whale-girl/material-ownership/duplicate-mask.png": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+    "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+    "assets/live2d/whale-girl/material-ownership/neck-mask.png": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+    "assets/live2d/whale-girl/material-ownership/ownership.json": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+  },
+  "model_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "policy": {
+    "path": "art/live2d/workflow/parameter-policy.json",
+    "sha256": "dec97e8845e34bef0b92db2eef2aae95148610daa0fa6972f2fba0b8c305f9ef"
+  },
+  "validator_sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+  "reaction_policy": {
+    "status": "extracted_explicit_lists",
+    "source": "src/ParameterMotion.cpp",
+    "source_sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8",
+    "allowed": [
+      "ParamAngleX",
+      "ParamAngleY",
+      "ParamAngleZ",
+      "ParamBodyAngleX",
+      "ParamBodyAngleZ",
+      "ParamBrowLY",
+      "ParamBrowRY",
+      "ParamCheek",
+      "ParamEyeBallX",
+      "ParamEyeBallY",
+      "ParamEyeLOpen",
+      "ParamEyeROpen",
+      "ParamEyeSmile",
+      "ParamHairBack",
+      "ParamHairFront",
+      "ParamMouthForm",
+      "ParamMouthGape",
+      "ParamMouthOpenY",
+      "ParamShiftX",
+      "ParamSmileOpen"
+    ],
+    "reserved": {
+      "ParamBusyLaptop": "seated/standing posture is the activity's",
+      "ParamSitPose": "seated/standing posture is the activity's",
+      "ParamLaptopVisible": "the laptop is a held prop",
+      "ParamLaptopRock": "the laptop is a held prop",
+      "ParamBusyTypingL": "the activity animates the hands",
+      "ParamBusyTypingR": "the activity animates the hands",
+      "ParamGrassVisible": "the grass is a held prop",
+      "ParamGrassReach": "the grass is a held prop",
+      "ParamGrassSwing": "the grass is a held prop",
+      "ParamGrassTipBend": "the grass is a held prop",
+      "ParamHandRGrip": "the grass grip is a held prop",
+      "ParamShiftY": "the grounding contract cancels vertical shift",
+      "ParamBreath": "breathing belongs to the idle base",
+      "ParamArmLA": "arms read only while holding a prop, which the activity owns",
+      "ParamArmRA": "arms read only while holding a prop, which the activity owns",
+      "ParamElbowLA": "arms read only while holding a prop",
+      "ParamElbowRA": "arms read only while holding a prop",
+      "ParamWristRA": "arms read only while holding a prop"
+    },
+    "scope": "current short-reaction ownership only; not visible-effect evidence"
+  },
+  "runtime_contract_sources": {
+    "src/ParameterMotion.cpp": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8",
+    "src/CubismCanvas.cpp": "a83cfaa8e4f96f1c93382c723a3267223d2129f70a196ce2312bec30d3b9bdc1",
+    "src/CubismPostureTransition.h": "74dea69f2f9856ee594bbea3a42b9a2dfb55495177755eab6da1efe1df607cb5"
+  },
+  "range_evidence": {
+    "path": "art/live2d/workflow/native-parameter-ranges.json",
+    "sha256": "d78312918c31460212f9a84d4f90f37b162281d47e5e54b16b41ed8eca690dcd",
+    "binding_status": "bound_native_ranges",
+    "capture_provenance": {
+      "schema_version": 1,
+      "kind": "native_parameter_ranges",
+      "captured_utc": "2026-10-03T03:44:47.199342+00:00",
+      "source_and_deployment_match": true,
+      "inputs_unchanged_during_capture": true,
+      "command": "DesktopCompanion.exe --dump-parameters",
+      "scope": "range_limits_only; no geometry or visual approval"
+    },
+    "renderer_sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+    "cubism_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+  },
+  "parameters": {
+    "ParamAngleX": {
+      "name": "角度 X",
+      "group": "ParamGroupFace",
+      "purpose": "Head horizontal angle; use measured small reactions before exploring combined extremes.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 45,
+        "min": -45
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "head_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle/state curves",
+        "ParameterMotion::applyInteraction short reactions",
+        "CubismCanvas::paintGL Native write and head/body ownership"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own this head channel plus the explicitly allowed silhouette channels; preserve standing/seated support and held props."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [
+        [
+          "ParamAngleX",
+          "ParamAngleY"
+        ]
+      ],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "idle",
+          "path": "assets/motions/idle.motion.json",
+          "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamAngleY": {
+      "name": "角度 Y",
+      "group": "ParamGroupFace",
+      "purpose": "Head vertical angle, looking up/down.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 30,
+        "min": -30
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "head_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle/state curves",
+        "ParameterMotion::applyInteraction short reactions",
+        "CubismCanvas::paintGL Native write and head/body ownership"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own this head channel plus the explicitly allowed silhouette channels; preserve standing/seated support and held props."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [
+        [
+          "ParamAngleX",
+          "ParamAngleY"
+        ]
+      ],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "idle",
+          "path": "assets/motions/idle.motion.json",
+          "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamAngleZ": {
+      "name": "角度 Z",
+      "group": "ParamGroupFace",
+      "purpose": "Head tilt and short-reaction directional tilt.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 30,
+        "min": -30
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "head_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle/state curves",
+        "ParameterMotion::applyInteraction short reactions",
+        "CubismCanvas::paintGL Native write and head/body ownership"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own this head channel plus the explicitly allowed silhouette channels; preserve standing/seated support and held props."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "idle",
+          "path": "assets/motions/idle.motion.json",
+          "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamArmLA": {
+      "name": "左手动作",
+      "group": "",
+      "purpose": "Standing left shoulder/arm pose; not a seated typing-hand lift control.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 65,
+        "min": -65
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "arm_pose",
+      "current_writers": [
+        "ParameterMotion::advance state curves and seated arm hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "arms read only while holding a prop, which the activity owns",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Standing arm rig and seated sleeve/hand art are different controls.",
+        "Arm channels are reserved from short reactions; do not move held props with a short-reaction overlay."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamArmRA": {
+      "name": "右手动作",
+      "group": "",
+      "purpose": "Standing right shoulder/arm pose, including grass hand.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 65,
+        "min": -65
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "arm_pose",
+      "current_writers": [
+        "ParameterMotion::advance state curves and seated arm hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "arms read only while holding a prop, which the activity owns",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Standing arm rig and seated sleeve/hand art are different controls.",
+        "Arm channels are reserved from short reactions; do not move held props with a short-reaction overlay."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBodyAngleX": {
+      "name": "身体角度 X",
+      "group": "ParamGroupBody",
+      "purpose": "Body horizontal pose angle; support and silhouette are separate from head gaze.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 10,
+        "min": -10
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "body_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle/state curves",
+        "ParameterMotion::applyInteraction allowed BodyAngleX/BodyAngleZ silhouette channels",
+        "CubismCanvas::paintGL Native write and posture grounding"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own BodyAngleX and BodyAngleZ; BodyAngleY is not allowed and Breath is reserved for the idle base.",
+        "Full posture/held-prop/arm support remains owned by the activity; allowed silhouette axes do not authorize support changes."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [
+        [
+          "ParamBodyAngleX",
+          "ParamBodyAngleY"
+        ]
+      ],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "idle",
+          "path": "assets/motions/idle.motion.json",
+          "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBodyAngleY": {
+      "name": "身体角度 Y",
+      "group": "ParamGroupBody",
+      "purpose": "Body vertical pose angle.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 10,
+        "min": -10
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "body_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle/state curves",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "not_allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own BodyAngleX and BodyAngleZ; BodyAngleY is not allowed and Breath is reserved for the idle base.",
+        "Full posture/held-prop/arm support remains owned by the activity; allowed silhouette axes do not authorize support changes.",
+        "Not allowed in the current short-reaction whitelist."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [
+        [
+          "ParamBodyAngleX",
+          "ParamBodyAngleY"
+        ]
+      ],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "idle",
+          "path": "assets/motions/idle.motion.json",
+          "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBodyAngleZ": {
+      "name": "身体角度 Z",
+      "group": "ParamGroupBody",
+      "purpose": "Body lean/roll for full-body accents.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 10,
+        "min": -10
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "body_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle/state curves",
+        "ParameterMotion::applyInteraction allowed BodyAngleX/BodyAngleZ silhouette channels",
+        "CubismCanvas::paintGL Native write and posture grounding"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own BodyAngleX and BodyAngleZ; BodyAngleY is not allowed and Breath is reserved for the idle base.",
+        "Full posture/held-prop/arm support remains owned by the activity; allowed silhouette axes do not authorize support changes."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBreath": {
+      "name": "呼吸",
+      "group": "ParamGroupBody",
+      "purpose": "Idle breathing base shared across states.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "body_pose",
+      "current_writers": [
+        "ParameterMotion::advance idle base breathing curve",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "breathing belongs to the idle base",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own BodyAngleX and BodyAngleZ; BodyAngleY is not allowed and Breath is reserved for the idle base.",
+        "Full posture/held-prop/arm support remains owned by the activity; allowed silhouette axes do not authorize support changes."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "idle",
+          "path": "assets/motions/idle.motion.json",
+          "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBrowLY": {
+      "name": "左眉 Y",
+      "group": "ParamGroupBrows",
+      "purpose": "Declared left eyebrow Y; earlier validator reports no drawn/keyed eyebrow effect.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "blocked",
+      "measured_scopes": [],
+      "evidence": [
+        {
+          "kind": "historical_code_report",
+          "scope": "The asset validator records earlier zero-pixel eyebrow probes and blocks the grounded Y axis. This is an enforcement source, not a fresh visual measurement.",
+          "model_inputs": null,
+          "sources": [
+            {
+              "path": "tools/validate_live2d_assets.py",
+              "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8"
+            }
+          ],
+          "source_checks": [
+            {
+              "path": "tools/validate_live2d_assets.py",
+              "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+              "current_sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+              "matches_recorded_source": true
+            }
+          ],
+          "runtime_checks": [],
+          "binding_status": "historical_unbound",
+          "eligible_as_current_measurement": false
+        }
+      ],
+      "recommended_channel": "disabled",
+      "current_writers": [
+        "ParameterMotion::advance zero skeleton",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Do not author this parameter until a model-bound probe and the current validator allow it.",
+        "The reaction whitelist contains this name, but the asset validator still prohibits authoring it."
+      ],
+      "prohibited_reasons": [
+        "Asset validator forbids this declared inert axis; name/range does not establish visible effect."
+      ],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": []
+    },
+    "ParamBrowRY": {
+      "name": "右眉 Y",
+      "group": "ParamGroupBrows",
+      "purpose": "Declared right eyebrow Y; earlier validator reports no drawn/keyed eyebrow effect.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "blocked",
+      "measured_scopes": [],
+      "evidence": [
+        {
+          "kind": "historical_code_report",
+          "scope": "The asset validator records earlier zero-pixel eyebrow probes and blocks the grounded Y axis. This is an enforcement source, not a fresh visual measurement.",
+          "model_inputs": null,
+          "sources": [
+            {
+              "path": "tools/validate_live2d_assets.py",
+              "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8"
+            }
+          ],
+          "source_checks": [
+            {
+              "path": "tools/validate_live2d_assets.py",
+              "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+              "current_sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+              "matches_recorded_source": true
+            }
+          ],
+          "runtime_checks": [],
+          "binding_status": "historical_unbound",
+          "eligible_as_current_measurement": false
+        }
+      ],
+      "recommended_channel": "disabled",
+      "current_writers": [
+        "ParameterMotion::advance zero skeleton",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Do not author this parameter until a model-bound probe and the current validator allow it.",
+        "The reaction whitelist contains this name, but the asset validator still prohibits authoring it."
+      ],
+      "prohibited_reasons": [
+        "Asset validator forbids this declared inert axis; name/range does not establish visible effect."
+      ],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": []
+    },
+    "ParamBusyLaptop": {
+      "name": "ParamBusyLaptop",
+      "group": "ParamGroupCustom",
+      "purpose": "Standing/seated painted-body transition driver.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [
+        {
+          "kind": "historical_native_geometry_report",
+          "scope": "Recorded posture/material/collar/neck verification on 2026-10-03; does not establish arbitrary axis combinations, visible effect of each individual axis, or new visual approval.",
+          "model_inputs": null,
+          "sources": [
+            {
+              "path": "art/live2d/review/posture-material-switch-20261003.json",
+              "sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b"
+            }
+          ],
+          "source_checks": [
+            {
+              "path": "art/live2d/review/posture-material-switch-20261003.json",
+              "sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b",
+              "current_sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b",
+              "matches_recorded_source": true
+            }
+          ],
+          "runtime_checks": [],
+          "binding_status": "historical_unbound",
+          "eligible_as_current_measurement": false
+        }
+      ],
+      "recommended_channel": "seated_posture",
+      "current_writers": [
+        "ParameterMotion::advance busy-laptop and put-away",
+        "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold",
+        "CubismCanvas::paintGL CubismPostureTransition/material/collar/neck resolution"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "seated/standing posture is the activity's",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "type": "continuous_driver",
+        "min": 0,
+        "max": 1,
+        "native_range_is_authoring_domain": false
+      },
+      "resolution_contract": {
+        "kind": "coupled_posture_and_exclusive_body_material",
+        "source": "src/CubismPostureTransition.h",
+        "seated_mix": "smoothstep(clamp((rawBusyLaptop - 0.74) / 0.19, 0, 1))",
+        "native_write": "seated_mix >= 0.5 ? 1 : 0",
+        "dependencies": [
+          "ParamSitPose"
+        ],
+        "effects": [
+          "exclusive standing/seated body material",
+          "collar interpolation",
+          "floor-pinned body transform",
+          "single neck-skin connection"
+        ]
+      },
+      "posture_constraints": [
+        "Do not independently animate posture/material drivers during a short face reaction.",
+        "Ground and collar alignment are runtime constraints, not unrestricted vertical travel."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [
+        {
+          "source": "busy torso",
+          "drawable": "ArtMeshObjects8",
+          "type": "toggle",
+          "switchId": 0
+        },
+        {
+          "source": "busy skirt",
+          "drawable": "ArtMeshObjects7",
+          "type": "toggle",
+          "switchId": 0
+        },
+        {
+          "source": "busy leg r",
+          "drawable": "ArtMeshObjects6",
+          "type": "toggle",
+          "switchId": 0
+        },
+        {
+          "source": "busy leg l",
+          "drawable": "ArtMeshObjects5",
+          "type": "toggle",
+          "switchId": 0
+        },
+        {
+          "source": "busy sleeve l",
+          "drawable": "ArtMeshObjects3",
+          "type": "toggle",
+          "switchId": 0
+        },
+        {
+          "source": "busy sleeve r",
+          "drawable": "ArtMeshObjects2",
+          "type": "toggle",
+          "switchId": 0
+        }
+      ],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBusyTypingL": {
+      "name": "左手敲键",
+      "group": "",
+      "purpose": "Small left seated sleeve/hand typing deformation.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "laptop_prop",
+      "current_writers": [
+        "ParameterMotion::advance busy-laptop visibility and typing",
+        "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the activity animates the hands",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Valid only with the matching seated torso/sleeve/hand art; standalone prop movement is unmeasured."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamBusyTypingR": {
+      "name": "右手敲键",
+      "group": "",
+      "purpose": "Small right seated sleeve/hand typing deformation.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "laptop_prop",
+      "current_writers": [
+        "ParameterMotion::advance busy-laptop visibility and typing",
+        "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the activity animates the hands",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Valid only with the matching seated torso/sleeve/hand art; standalone prop movement is unmeasured."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamCheek": {
+      "name": "脸颊鼓起",
+      "group": "",
+      "purpose": "Cheek puff/accent for chewing or short expressions.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "mouth",
+      "current_writers": [
+        "ParameterMotion::advance authored curves and releases",
+        "ParameterMotion::applyInteraction whitelisted face channels",
+        "CubismCanvas::paintGL binary mouth gating and drawable opacity patch"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Mouth selectors and opening controls are coupled by the current renderer; direct Native writes bypass this contract."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamElbowLA": {
+      "name": "左肘弯曲",
+      "group": "",
+      "purpose": "Standing left elbow bend.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 55,
+        "min": -35
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "arm_pose",
+      "current_writers": [
+        "ParameterMotion::advance state curves and seated arm hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "arms read only while holding a prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Standing arm rig and seated sleeve/hand art are different controls.",
+        "Arm channels are reserved from short reactions; do not move held props with a short-reaction overlay."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamElbowRA": {
+      "name": "右肘弯曲",
+      "group": "",
+      "purpose": "Standing right elbow bend.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 55,
+        "min": -35
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "arm_pose",
+      "current_writers": [
+        "ParameterMotion::advance state curves and seated arm hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "arms read only while holding a prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Standing arm rig and seated sleeve/hand art are different controls.",
+        "Arm channels are reserved from short reactions; do not move held props with a short-reaction overlay."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamEyeBallForm": {
+      "name": "果冻眼",
+      "group": "ParamGroupEyes",
+      "purpose": "Declared jelly-eye axis; eye-jelly physics disabled in current metadata and no current visible-effect probe.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "blocked",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "disabled",
+      "current_writers": [],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "not_allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Do not author this parameter until a model-bound probe and the current validator allow it."
+      ],
+      "prohibited_reasons": [
+        "Current authoring policy excludes the unverified jelly-eye axis."
+      ],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": []
+    },
+    "ParamEyeBallX": {
+      "name": "眼球 X",
+      "group": "ParamGroupEyes",
+      "purpose": "Horizontal gaze; grass hover and head pat may own its offset.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "gaze",
+      "current_writers": [
+        "ParameterMotion::advance authored gaze",
+        "ParameterMotion::applyInteraction short reactions",
+        "ParameterMotion grass hold look input",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Gaze does not prove eye art, occlusion, or contact correctness at combined head extremes."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [
+        [
+          "ParamEyeBallX",
+          "ParamEyeBallY"
+        ]
+      ],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamEyeBallY": {
+      "name": "眼球 Y",
+      "group": "ParamGroupEyes",
+      "purpose": "Vertical gaze.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "gaze",
+      "current_writers": [
+        "ParameterMotion::advance authored gaze",
+        "ParameterMotion::applyInteraction short reactions",
+        "ParameterMotion grass hold look input",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Gaze does not prove eye art, occlusion, or contact correctness at combined head extremes."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [
+        [
+          "ParamEyeBallX",
+          "ParamEyeBallY"
+        ]
+      ],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamEyeLOpen": {
+      "name": "左眼开合",
+      "group": "ParamGroupEyes",
+      "purpose": "Left eyelid expression, multiplied by procedural blink.",
+      "native_present": true,
+      "native_range": {
+        "default": 1,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "eyelid_expression",
+      "current_writers": [
+        "ParameterMotion::advance expression blend then procedural blink",
+        "ParameterMotion::applyInteraction short reactions",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Blink multiplies the blended authored eye expression; do not implement a competing blink writer."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamEyeROpen": {
+      "name": "右眼开合",
+      "group": "ParamGroupEyes",
+      "purpose": "Right eyelid expression, multiplied by procedural blink.",
+      "native_present": true,
+      "native_range": {
+        "default": 1,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "eyelid_expression",
+      "current_writers": [
+        "ParameterMotion::advance expression blend then procedural blink",
+        "ParameterMotion::applyInteraction short reactions",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Blink multiplies the blended authored eye expression; do not implement a competing blink writer."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamEyeSmile": {
+      "name": "笑眼弧度",
+      "group": "",
+      "purpose": "Smile-eye material/shape driver; review with eye-open controls.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "eyelid_expression",
+      "current_writers": [
+        "ParameterMotion::advance expression blend then procedural blink",
+        "ParameterMotion::applyInteraction short reactions",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Blink multiplies the blended authored eye expression; do not implement a competing blink writer."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamGrassReach": {
+      "name": "向观众伸手",
+      "group": "",
+      "purpose": "Authored right-hand/grass forward perspective; not unrestricted 3D reach.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "grass_prop",
+      "current_writers": [
+        "ParameterMotion::advance grass clip or interaction phase",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the grass is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Use the grass player enter/hold/respond/timeout/release contract.",
+        "Keep palm grip and visibility in agreement; a grip value is not a measured grass-root contact distance."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamGrassSwing": {
+      "name": "草穗摆动",
+      "group": "",
+      "purpose": "Grass stem bending from authored target and spring lag.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "grass_flex",
+      "current_writers": [
+        "ParameterMotion::advance authored flex target",
+        "ParameterMotion::updateGrassFlex spring lag/rebound",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the grass is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "The spring player owns final flex values; do not add a second final-value writer.",
+        "Grass root must remain fixed at the palm; geometric contact is separately measured."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamGrassTipBend": {
+      "name": "柔软草穗滞后",
+      "group": "",
+      "purpose": "Grass tip bending relative to the stem with lag and rebound.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "grass_flex",
+      "current_writers": [
+        "ParameterMotion::advance authored flex target",
+        "ParameterMotion::updateGrassFlex spring lag/rebound",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the grass is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "The spring player owns final flex values; do not add a second final-value writer.",
+        "Grass root must remain fixed at the palm; geometric contact is separately measured."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": []
+    },
+    "ParamGrassVisible": {
+      "name": "ParamGrassVisible",
+      "group": "ParamGroupCustom",
+      "purpose": "Held grass art visibility.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "grass_prop",
+      "current_writers": [
+        "ParameterMotion::advance grass clip or interaction phase",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the grass is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Use the grass player enter/hold/respond/timeout/release contract.",
+        "Keep palm grip and visibility in agreement; a grip value is not a measured grass-root contact distance."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [
+        {
+          "source": "handwear right",
+          "drawable": "ArtMeshHandwearR2",
+          "type": "toggle",
+          "switchId": 0
+        }
+      ],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamHairBack": {
+      "name": "后发摆动",
+      "group": "ParamGroupPhysics",
+      "purpose": "Back-hair secondary motion/accent.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "hair_secondary",
+      "current_writers": [
+        "ParameterMotion::advance authored hair accent",
+        "ParameterMotion::applyInteraction allowed hair silhouette channels",
+        "CubismCanvas physics evaluation",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own HairFront/HairBack according to the extracted whitelist.",
+        "Authored curves and Native physics share this channel; effective output depends on physics order and freeze mode."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamHairFront": {
+      "name": "前发摆动",
+      "group": "ParamGroupPhysics",
+      "purpose": "Front-hair secondary motion/accent.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "hair_secondary",
+      "current_writers": [
+        "ParameterMotion::advance authored hair accent",
+        "ParameterMotion::applyInteraction allowed hair silhouette channels",
+        "CubismCanvas physics evaluation",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own HairFront/HairBack according to the extracted whitelist.",
+        "Authored curves and Native physics share this channel; effective output depends on physics order and freeze mode."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamHandRGrip": {
+      "name": "ParamHandRGrip",
+      "group": "ParamGroupCustom",
+      "purpose": "Complementary open/gripping right-hand art selector.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "grass_prop",
+      "current_writers": [
+        "ParameterMotion::advance grass clip or interaction phase",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the grass grip is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Use the grass player enter/hold/respond/timeout/release contract.",
+        "Keep palm grip and visibility in agreement; a grip value is not a measured grass-root contact distance."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [
+        {
+          "source": "handwear_r",
+          "drawable": "ArtMeshHandwearR3",
+          "type": "switch",
+          "switchId": 0
+        },
+        {
+          "source": "handwear.right",
+          "drawable": "ArtMeshHandwearR",
+          "type": "switch",
+          "switchId": 1
+        }
+      ],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamLaptopRock": {
+      "name": "抱电脑轻摆",
+      "group": "",
+      "purpose": "Shared laptop/supporting hand rock.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "laptop_prop",
+      "current_writers": [
+        "ParameterMotion::advance busy-laptop visibility and typing",
+        "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the laptop is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Valid only with the matching seated torso/sleeve/hand art; standalone prop movement is unmeasured."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamLaptopVisible": {
+      "name": "ParamLaptopVisible",
+      "group": "ParamGroupCustom",
+      "purpose": "Laptop lid/base visibility after seated support is established.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "laptop_prop",
+      "current_writers": [
+        "ParameterMotion::advance busy-laptop visibility and typing",
+        "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the laptop is a held prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Valid only with the matching seated torso/sleeve/hand art; standalone prop movement is unmeasured."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [
+        {
+          "source": "busy laptop base",
+          "drawable": "ArtMeshObjects4",
+          "type": "toggle",
+          "switchId": 0
+        },
+        {
+          "source": "busy laptop lid",
+          "drawable": "ArtMeshObjects",
+          "type": "toggle",
+          "switchId": 0
+        }
+      ],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamMouthForm": {
+      "name": "嘴型",
+      "group": "ParamGroupMouth",
+      "purpose": "Opening shape when selected mouth art is visible.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": -1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "mouth",
+      "current_writers": [
+        "ParameterMotion::advance authored curves and releases",
+        "ParameterMotion::applyInteraction whitelisted face channels",
+        "CubismCanvas::paintGL binary mouth gating and drawable opacity patch"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Mouth selectors and opening controls are coupled by the current renderer; direct Native writes bypass this contract.",
+        "A closed-mouth probe alone cannot establish this shape axis's effect."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamMouthGape": {
+      "name": "ParamMouthGape",
+      "group": "ParamGroupCustom",
+      "purpose": "Neutral bite-mouth selector; renderer quantizes it and patches drawable opacity.",
+      "native_present": true,
+      "native_range": {
+        "default": 1,
+        "max": 2,
+        "min": 1
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "mouth",
+      "current_writers": [
+        "ParameterMotion::advance authored curves and releases",
+        "ParameterMotion::applyInteraction whitelisted face channels",
+        "CubismCanvas::paintGL binary mouth gating and drawable opacity patch"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "type": "logical_selector",
+        "min": 0,
+        "max": 1,
+        "native_range_is_authoring_domain": false
+      },
+      "resolution_contract": {
+        "kind": "threshold_and_post_update_opacity_patch",
+        "source": "src/CubismCanvas.cpp",
+        "threshold": 0.5,
+        "native_write": {
+          "off": 0,
+          "on": 1,
+          "sdk_may_clamp_to_native_range": true
+        },
+        "post_update_drawable_opacity": {
+          "off": 0,
+          "on": 1
+        },
+        "maps_to_native_1_2": false,
+        "prohibited_operation": "Do not clamp MotionClip/ParameterMotion logical values to MOC min=1; this would make every pose appear gape-on."
+      },
+      "posture_constraints": [
+        "Mouth selectors and opening controls are coupled by the current renderer; direct Native writes bypass this contract.",
+        "Logical 0/1 selector is a runtime contract; Native range alone does not establish correct art visibility."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [
+        {
+          "source": "mouth open gape",
+          "drawable": "ArtMeshMouthOpen",
+          "type": "switch",
+          "switchId": 1
+        }
+      ],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamMouthOpenY": {
+      "name": "嘴巴开合",
+      "group": "ParamGroupMouth",
+      "purpose": "Mouth opening driver subject to Native mouth selector gating.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "mouth",
+      "current_writers": [
+        "ParameterMotion::advance authored curves and releases",
+        "ParameterMotion::applyInteraction whitelisted face channels",
+        "CubismCanvas::paintGL binary mouth gating and drawable opacity patch"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Mouth selectors and opening controls are coupled by the current renderer; direct Native writes bypass this contract.",
+        "Gape forces fully open MY; closed selectors force MY=0 to suppress a ghost grin."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamShiftX": {
+      "name": "整体位移 X",
+      "group": "",
+      "purpose": "Model-relative horizontal shift inside the pet window; window movement is separate.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 100,
+        "min": -100
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "root_translation",
+      "current_writers": [
+        "ParameterMotion::advance authored state motion",
+        "ParameterMotion::applyInteraction allowed ShiftX silhouette channel",
+        "CubismCanvas::paintGL Native shift/ground resolution"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Short reactions may own ShiftX; ShiftY remains reserved and policy-blocked.",
+        "Window position is separate from model displacement; the current grounded renderer cancels model Y travel."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamShiftY": {
+      "name": "整体位移 Y(贴地钳制,勿用)",
+      "group": "",
+      "purpose": "Declared model-relative vertical shift cancelled by current ground contract.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 100,
+        "min": -100
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "blocked",
+      "measured_scopes": [],
+      "evidence": [
+        {
+          "kind": "historical_code_report",
+          "scope": "The asset validator records earlier zero-pixel eyebrow probes and blocks the grounded Y axis. This is an enforcement source, not a fresh visual measurement.",
+          "model_inputs": null,
+          "sources": [
+            {
+              "path": "tools/validate_live2d_assets.py",
+              "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8"
+            }
+          ],
+          "source_checks": [
+            {
+              "path": "tools/validate_live2d_assets.py",
+              "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+              "current_sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8",
+              "matches_recorded_source": true
+            }
+          ],
+          "runtime_checks": [],
+          "binding_status": "historical_unbound",
+          "eligible_as_current_measurement": false
+        }
+      ],
+      "recommended_channel": "disabled",
+      "current_writers": [
+        "ParameterMotion::advance zero skeleton",
+        "CubismCanvas::paintGL ground resolution cancels vertical travel"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "the grounding contract cancels vertical shift",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Do not author this parameter until a model-bound probe and the current validator allow it."
+      ],
+      "prohibited_reasons": [
+        "Asset validator forbids vertical whole-model travel under the current grounded renderer."
+      ],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": []
+    },
+    "ParamSitPose": {
+      "name": "屈腿坐姿过渡",
+      "group": "",
+      "purpose": "Standing knee-fold driver resolved together with ground/material/collar constraints.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [
+        {
+          "kind": "historical_native_geometry_report",
+          "scope": "Recorded posture/material/collar/neck verification on 2026-10-03; does not establish arbitrary axis combinations, visible effect of each individual axis, or new visual approval.",
+          "model_inputs": null,
+          "sources": [
+            {
+              "path": "art/live2d/review/posture-material-switch-20261003.json",
+              "sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b"
+            }
+          ],
+          "source_checks": [
+            {
+              "path": "art/live2d/review/posture-material-switch-20261003.json",
+              "sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b",
+              "current_sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b",
+              "matches_recorded_source": true
+            }
+          ],
+          "runtime_checks": [],
+          "binding_status": "historical_unbound",
+          "eligible_as_current_measurement": false
+        }
+      ],
+      "recommended_channel": "seated_posture",
+      "current_writers": [
+        "ParameterMotion::advance busy-laptop and put-away",
+        "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold",
+        "CubismCanvas::paintGL CubismPostureTransition/material/collar/neck resolution"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "seated/standing posture is the activity's",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "type": "continuous_driver",
+        "min": 0,
+        "max": 1,
+        "native_range_is_authoring_domain": false
+      },
+      "resolution_contract": {
+        "kind": "coupled_standing_fold",
+        "source": "src/CubismPostureTransition.h",
+        "native_write": "0.93 * smoothstep(clamp(rawSitPose / 0.9, 0, 1)) * (1 - seated_mix) + seated_mix",
+        "dependencies": [
+          "ParamBusyLaptop"
+        ],
+        "grounding": "CubismCanvas resolves floor/collar/neck after Native model update; this is not an unrestricted root-Y axis."
+      },
+      "posture_constraints": [
+        "Do not independently animate posture/material drivers during a short face reaction.",
+        "Ground and collar alignment are runtime constraints, not unrestricted vertical travel."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamSmileOpen": {
+      "name": "ParamSmileOpen",
+      "group": "ParamGroupCustom",
+      "purpose": "Select resting omega or open-smile art; do not use it as a third gape state.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 1,
+        "min": 0
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "mouth",
+      "current_writers": [
+        "ParameterMotion::advance authored curves and releases",
+        "ParameterMotion::applyInteraction whitelisted face channels",
+        "CubismCanvas::paintGL binary mouth gating and drawable opacity patch"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "allowed",
+      "reaction_reserved_reason": null,
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Mouth selectors and opening controls are coupled by the current renderer; direct Native writes bypass this contract."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [
+        {
+          "source": "mouth",
+          "drawable": "ArtMeshMouthClose",
+          "type": "switch",
+          "switchId": 0
+        },
+        {
+          "source": "mouth open",
+          "drawable": "ArtMeshMouthOpen2",
+          "type": "switch",
+          "switchId": 1
+        }
+      ],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "busy-laptop",
+          "path": "assets/motions/busy-laptop.motion.json",
+          "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+          "approval": "approved",
+          "revision": 2,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "busy-stand",
+          "path": "assets/motions/busy-stand.motion.json",
+          "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+          "approval": "pending",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "head-pat",
+          "path": "assets/motions/head-pat.motion.json",
+          "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "turn-ended",
+          "path": "assets/motions/turn-ended.motion.json",
+          "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+          "approval": "pending",
+          "revision": 9,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    },
+    "ParamWristRA": {
+      "name": "右腕摆角",
+      "group": "",
+      "purpose": "Right wrist planar angle; does not establish palm/back-of-hand turning.",
+      "native_present": true,
+      "native_range": {
+        "default": 0,
+        "max": 25,
+        "min": -25
+      },
+      "range_binding_status": "bound_native_ranges",
+      "range_scope": "limits only; does not prove visible motion, contact or naturalness",
+      "measured_status": "unmeasured",
+      "authoring_status": "unmeasured",
+      "measured_scopes": [],
+      "evidence": [],
+      "recommended_channel": "arm_pose",
+      "current_writers": [
+        "ParameterMotion::advance state curves and seated arm hold",
+        "CubismCanvas::paintGL Native write"
+      ],
+      "writer_scope": "documented code responsibilities; not automatically traced execution",
+      "reaction_ownership": "reserved",
+      "reaction_reserved_reason": "arms read only while holding a prop",
+      "reaction_ownership_source": {
+        "path": "src/ParameterMotion.cpp",
+        "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      },
+      "runtime_input_domain": {
+        "status": "not_explicitly_documented",
+        "do_not_infer_from_native_range": true
+      },
+      "resolution_contract": {
+        "kind": "not_explicitly_documented"
+      },
+      "posture_constraints": [
+        "Standing arm rig and seated sleeve/hand art are different controls.",
+        "Arm channels are reserved from short reactions; do not move held props with a short-reaction overlay."
+      ],
+      "prohibited_reasons": [],
+      "declared_layer_bindings": [],
+      "declared_combined_parameters": [],
+      "allowed_combinations": {
+        "status": "unmeasured",
+        "reason": "CDI pairs and shared clips do not prove arbitrary safe combinations"
+      },
+      "motion_references": [
+        {
+          "id": "delete",
+          "path": "assets/motions/delete.motion.json",
+          "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+          "approval": "approved",
+          "revision": 6,
+          "mode": "additive",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass-touch",
+          "path": "assets/motions/grass-touch.motion.json",
+          "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+          "approval": "approved",
+          "revision": 1,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        },
+        {
+          "id": "grass",
+          "path": "assets/motions/grass.motion.json",
+          "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+          "approval": "approved",
+          "revision": 7,
+          "mode": "absolute",
+          "usage_scope": "authored_reference; not proof of visible parameter effect"
+        }
+      ]
+    }
+  },
+  "motions": [
+    {
+      "id": "busy-laptop",
+      "path": "assets/motions/busy-laptop.motion.json",
+      "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+      "approval": "approved",
+      "revision": 2,
+      "mode": "absolute",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "busy-stand",
+      "path": "assets/motions/busy-stand.motion.json",
+      "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+      "approval": "pending",
+      "revision": 6,
+      "mode": "additive",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "delete",
+      "path": "assets/motions/delete.motion.json",
+      "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+      "approval": "approved",
+      "revision": 6,
+      "mode": "additive",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "grass-touch",
+      "path": "assets/motions/grass-touch.motion.json",
+      "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+      "approval": "approved",
+      "revision": 1,
+      "mode": "absolute",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "grass",
+      "path": "assets/motions/grass.motion.json",
+      "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+      "approval": "approved",
+      "revision": 7,
+      "mode": "absolute",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "head-pat",
+      "path": "assets/motions/head-pat.motion.json",
+      "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+      "approval": "approved",
+      "revision": 1,
+      "mode": "absolute",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "idle",
+      "path": "assets/motions/idle.motion.json",
+      "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+      "approval": "approved",
+      "revision": 1,
+      "mode": "absolute",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    },
+    {
+      "id": "turn-ended",
+      "path": "assets/motions/turn-ended.motion.json",
+      "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+      "approval": "pending",
+      "revision": 9,
+      "mode": "absolute",
+      "usage_scope": "authored_reference; not proof of visible parameter effect"
+    }
+  ],
+  "limitations": [
+    "No independent tail-joint parameter is currently documented; do not invent a tail capability from its drawable name.",
+    "Palm/back-of-hand turns and large shoulder lifts require appropriate artwork and independent contact/occlusion review.",
+    "The seated sleeves have typing/rock controls; standing arm controls cannot be assumed to lift seated hands.",
+    "Current posture transition chooses two painted bodies and aligns collar/neck geometry; it is not a complete anatomical stand/sit rig.",
+    "This policy does not approve new expressions, parameter combinations, motion revisions, or model changes.",
+    "Historical axis reports below have no complete model-input binding. They remain references, not current measured capabilities.",
+    "No parameter is made usable by its existence, name, declared layer, range, or an approved motion alone.",
+    "No new visual or user adoption approval is issued by this report.",
+    "Probe observations are valid only for the listed scope and exact bound model inputs."
+  ]
+}

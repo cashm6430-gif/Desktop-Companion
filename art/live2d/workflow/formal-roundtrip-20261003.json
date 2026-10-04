@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "kind": "formal_model_isolated_roundtrip_gate",
+  "updated_utc": "2026-10-03T14:12:51.261004+00:00",
+  "run": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z",
+  "status": "editor_export_loaded_current_binding_differs",
+  "source_package": {
+    "archive": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\author-history.psd2live",
+      "sha256": "00fe77999fe406ee05bdf6bd3242a9f630fb19bccf0630cba4ac90b44ef9da07",
+      "bytes": 12941094
+    },
+    "receipt": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\author-history.package.json",
+      "sha256": "e738aa1cd90d508421f34ec0fa3d388ec95b62cb467deeaf9feec0499fae53c2",
+      "bytes": 70669
+    },
+    "history_nodes": 148,
+    "source_head": "history-333a085d-b53d-470b-84f3-ddd822704b3e"
+  },
+  "source_correspondence_audit": {
+    "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\source-audit.json",
+    "sha256": "d5825e62f5b37e843bc1f4de76393356b49e5cc9a47db325fd6e5aa9d7f2a6f4",
+    "bytes": 85842
+  },
+  "source_correspondence": {
+    "PSD_HEAD_layer_RGBA_and_bounds_equal": true,
+    "layer_count": 34,
+    "HEAD_binding_matches_current_runtime": false,
+    "evidence": "HEAD bite mouth is FACE_DETAIL/ArtMeshFaceDetail; current raw Core has ArtMeshMouthOpen and no ArtMeshFaceDetail.",
+    "CMO3_binding_generation_matches_current_runtime": false
+  },
+  "psd2live_public_library": {
+    "version": "2.0.2",
+    "main_jar_sha256": "f1e1663887a6ceefd57dd5cfa25f09b958fb45fbe5a0aa27a72e866bf7b5e3d4",
+    "small_fixture": "open_and_export_passed_source_HEAD_unchanged",
+    "fixture_execution": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\library-smoke-evidence\\smoke-002.json",
+      "sha256": "f2e39f3ce4b86926309469fd8aeee1f427c7cf0fdb1bae50ca5b58ac9eb2fd07",
+      "bytes": 1339
+    },
+    "formal_open": "restored_original_source_HEAD",
+    "formal_export": "failed",
+    "exit_code": 1,
+    "failure": "Mesh ArtMeshEyewhiteL position deltas size mismatch: expected 194, got 188",
+    "failure_stage": "authoring_journal_keyform_replay",
+    "root_cause": "Not isolated: mesh generation, settings and historical tool compatibility may contribute.",
+    "log": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\library-formal.log",
+      "sha256": "de84bef9752d00fbb63a64fcd2a943d2317a3b93af64e5ec09b66690cbe96580",
+      "bytes": 2044
+    },
+    "partial_outputs": [],
+    "source_journal_patched": false,
+    "failed_export_adopted": false
+  },
+  "current_runtime_raw_Core_baseline": {
+    "report": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\runtime-before.core.json",
+      "sha256": "483db5bd317ecc34903f7adfe14a9e7faa0d3ca717c000a05a7f8fb11251b1ef",
+      "bytes": 19403635
+    },
+    "poses": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\poses.json",
+      "sha256": "3b43cbecc87e64c585a781fa5d5b94bdd12c4e77e485810daf7e84678826cfe8",
+      "bytes": 9287
+    },
+    "pose_count": 29,
+    "parameter_count": 40,
+    "drawable_count": 34,
+    "selected_drawables": 34,
+    "Qt_patches_used": false,
+    "visual_render_or_approval": false
+  },
+  "isolated_complete_source_pack": {
+    "directory": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\layers-complete",
+    "manifest": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\layers-complete\\manifest.json",
+      "sha256": "ecc1ff61e3f7dd14adc63e59f167644fa8c3e4437fef8553342ef49f9a8c2d15",
+      "bytes": 1254
+    },
+    "receipt": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\layers-complete\\receipt.json",
+      "sha256": "e3e9b71ad691ea297ac4d473b9aa7a50132f1507feb380aca37566fbf714e6dd",
+      "bytes": 35141
+    },
+    "layer_count": 34,
+    "copied_existing_PNGs": 32,
+    "exact_PSD_extractions": 2,
+    "all_full_canvas_RGBA_equal_PSD": true,
+    "adopted_by_runtime_or_legacy_generation_scripts": false
+  },
+  "editor": {
+    "path": "D:/tool/Live2D Cubism 5.3/CubismEditor5.exe",
+    "observed_version": "5.3.04",
+    "candidate": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\editor-candidate.cmo3",
+      "sha256": "523b8289f235fa0c3312c6638806fb90cbd62d69212d4876e598590040f6e952",
+      "bytes": 20996836
+    },
+    "opened": "user_confirmed_and_title_editor-candidate.cmo3_observed",
+    "export_dialog": "user_confirmation_and_accessibility_tree_observed",
+    "visual_state": "not_observed",
+    "capture_failure": "window capture timed out: timed out waiting on channel",
+    "public_external_API_can_trigger_export": false,
+    "manual_export_directory": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\exports\\editor-cmo3-roundtrip",
+    "export_status": "completed_by_user",
+    "verification_entry": [
+      "tools/review_authoring_roundtrip.py",
+      "--run",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z"
+    ],
+    "verification_entry_current_result": "changed",
+    "official_export_guide": "https://docs.live2d.com/zh-CHS/cubism-editor-manual/export-moc3-motion3-files/",
+    "official_external_API_list": "https://docs.live2d.com/zh-CHS/cubism-editor-manual/external-application-integration-api-list/",
+    "review": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\editor-check-20261003T135135973835Z-2f9daaa6\\review.json",
+      "sha256": "fa56b805f2cecf5f019a50ca61fad5deb08a97904945470e5f2c3b35d32cbf78",
+      "bytes": 9807
+    },
+    "raw_Core_report": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\editor-check-20261003T135135973835Z-2f9daaa6\\editor-after.core.json",
+      "sha256": "0481590a7721be9f5e80b773d679f0a392ca9b102648e106ed44914052c2145a",
+      "bytes": 19392516
+    },
+    "comparison": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\editor-check-20261003T135135973835Z-2f9daaa6\\comparison-r2.json",
+      "sha256": "9c66c61baae2d5f86fd88806e4ae0fedc5744fd228f6548ab66c3111fb3eb7ef",
+      "bytes": 354678
+    },
+    "original_comparison": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\editor-check-20261003T135135973835Z-2f9daaa6\\comparison.json",
+      "sha256": "48a4e769cf7d2c675aca1538349a4a46e730490e22a20e0d6f720f2a559f26a1",
+      "bytes": 348385
+    },
+    "comparison_diagnostic_fix": "Full raw arrays with different vertex counts now report topology_vertex_count_mismatch; no automatic ID remapping.",
+    "comparison_summary": {
+      "parameter_ids_compared": 40,
+      "part_ids_compared": 7,
+      "drawable_ids_compared": 33,
+      "poses_compared": 29,
+      "difference_count": 315,
+      "incomplete_count": 29,
+      "max_geometry_error_px": 5.175734134427119,
+      "max_opacity_error": 1.0
+    },
+    "parameter_count": 40,
+    "drawable_count": 34,
+    "missing_runtime_drawables": [
+      "ArtMeshMouthOpen2"
+    ],
+    "added_export_drawables": [
+      "ArtMeshFaceDetail"
+    ],
+    "adopted_by_runtime": false,
+    "difference_audit": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\editor-difference-audit.json",
+      "sha256": "e0a19d7393147ad9a43268d27729ce65063d92610fdaf195801a67c7e65ed219",
+      "bytes": 305688
+    },
+    "minimal_binding_restoration_handoff": [
+      {
+        "order": 1,
+        "scope": "confirm actual source-layer responsibilities",
+        "action": "Confirm original mouth open / mouth open gape source responsibilities and actual Editor/CMO IDs. Treat cross-ID gate/topology candidates as evidence to inspect, not automatic remapping.",
+        "candidates": [
+          "before ArtMeshMouthOpen2 -> after ArtMeshMouthOpen",
+          "before ArtMeshMouthOpen -> after ArtMeshFaceDetail"
+        ],
+        "source_correspondence_confirmed": false
+      },
+      {
+        "order": 2,
+        "scope": "restore confirmed mouth shape parameter binding",
+        "action": "On confirmed source meshes, verify and restore ParamMouthOpenY mouth-shape deformation and neutral placement, alongside SmileOpen/Gape opacity gates.",
+        "measured_limits": {
+          "smile_candidate_neutral_screen_y_shift_px": -9.999968081712723,
+          "smile_candidate_MY_motion_before_after_px": [
+            25.175269925570614,
+            25.175242072898058
+          ],
+          "gape_candidate_MY_motion_before_after_px": [
+            33.299994856816234,
+            0.0
+          ],
+          "gape_candidate_vertex_counts_before_after": [
+            30,
+            27
+          ]
+        },
+        "acceptance": "Confirmed mouth shape and neutral origin agree with intended baseline. Raw ParamMouthGape remains1..2/default1; do not let runtime corrections conceal it."
+      },
+      {
+        "order": 3,
+        "scope": "diagnose head Z translation",
+        "action": "Inspect head rotation center, initial transform and ParamAngleZ keyforms in the candidate. Use shared whole-head translation measurements to find the cause; no pivot correction is inferred as an established source edit.",
+        "evidence": "At Z=-30, stable head BackHair mean screen delta=(+4.907781,-1.609815)px; at Z=+30=(-5.055209,-1.059772)px. Departure from uniform translation is below0.000075px on this mesh.",
+        "acceptance": "Explain or restore the shared roughly5.165px shift before adding new motion. Keep separate mouth geometry evidence and source identity confirmation."
+      }
+    ]
+  },
+  "protection": {
+    "schema_version": 1,
+    "created_utc": "2026-10-03T14:12:51.048259+00:00",
+    "protected_before": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\protected-before.json",
+      "sha256": "b61092fc393cd74f149f3a319d603d90ecdb12d0ce7875c65b771c336a2b84b7",
+      "bytes": 207630
+    },
+    "protected_object_count": 407,
+    "all_raw_bytes_unchanged": true,
+    "changed_objects": []
+  },
+  "verification": {
+    "Python_tests": 89,
+    "Python_tests_passed": true,
+    "log": {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\reports\\python-tests-r2.log",
+      "sha256": "8b06cf335f10605c0d20e4864aec3b9d48953381ff1a86a305e37419486c13fe",
+      "bytes": 15379
+    },
+    "C++_changed_this_run": false,
+    "CTest_run_this_run": false,
+    "formal_model_or_motion_changed_this_run": false
+  },
+  "current_handoff_tool_snapshots": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\tool-snapshots\\package_psd2live_project.py",
+      "sha256": "99c6dd8a80451b702458ba05e084d0444acffc6b6ee0fc783c7731e492e58314",
+      "bytes": 6181
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\tool-snapshots\\PSD2LiveRoundtrip.java",
+      "sha256": "33bb5de680bab2005576f79f48e6928815eff4a578b7265cb08793ccfc78c516",
+      "bytes": 16348
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\tool-snapshots\\review_authoring_roundtrip.py",
+      "sha256": "4a2ad1630d176d8153b078f822b6d9271c45e13e7a18d45c6ff2684351d2c15e",
+      "bytes": 14080
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\tool-snapshots\\prepare_source_layer_pack.py",
+      "sha256": "960a552027d13e8beecd64eaf5bfab2f43991a7ac50f5ad8cb7060f86596d649",
+      "bytes": 10996
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\tool-snapshots\\probe_cubism_core.py",
+      "sha256": "9fb26795b62f5605ef8977e481d9722e2113db17eed087587e5b6a8bdd9f5345",
+      "bytes": 25342
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\tool-snapshots\\compare_cubism_probes-42d9570fda1a.py",
+      "sha256": "42d9570fda1a6308850fce21917a133f12da5b03745fc8faf9f81d13a22589d7",
+      "bytes": 22201
+    }
+  ],
+  "next_gate": [
+    "Identify the source/role correspondence of the two mouth meshes; restore intended mouth switch and keyform behavior in an isolated author branch.",
+    "Separate atlas repacking/root-part additions from geometry and opacity changes; verify source-chart anchors for each regenerated binding.",
+    "Once existing capabilities are retained in Native rendering, refine one independent neck mesh. Do not replace formal assets or remove existing gates on the basis of raw Core loading alone."
+  ],
+  "approval": {
+    "engineering": "Core_compatible_editor_export_differs_requires_binding_review",
+    "visual": "pending",
+    "adoption": "pending",
+    "existing_motion_approval_changed": false
+  },
+  "sdk_compatibility": {
+    "sdk_root": "E:\\projects\\Desktop-Companion\\CubismSdkForNative-5-r.5",
+    "release": "5-r.5",
+    "supports_Editor_5_3": true,
+    "download_required_for_this_export": false,
+    "sdk_Core": {
+      "path": "E:\\projects\\Desktop-Companion\\CubismSdkForNative-5-r.5\\Core\\dll\\windows\\x86_64\\Live2DCubismCore.dll",
+      "sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "bytes": 249800
+    },
+    "deployed_Core": {
+      "path": "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll",
+      "sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "bytes": 249800
+    },
+    "same_Core_raw_bytes": true,
+    "latest_supported_MOC_version": 6,
+    "exported_MOC_version": 6,
+    "raw_Core_loading_and_29_pose_updates": "passed",
+    "Native_rendered_visual_fidelity": "not_tested_for_this_export",
+    "header": {
+      "path": "E:\\projects\\Desktop-Companion\\CubismSdkForNative-5-r.5\\Core\\include\\Live2DCubismCore.h",
+      "sha256": "6f1802780d1eb36ff39705e0764f9eeed9b41c313a13ac155270c6f4ad51d53f",
+      "bytes": 20966
+    },
+    "README": {
+      "path": "E:\\projects\\Desktop-Companion\\CubismSdkForNative-5-r.5\\README.md",
+      "sha256": "e5e91d356dd4a84d89c03ea4d1c72ff269dade6f729d7cd5ccf96aa45584e523",
+      "bytes": 6233
+    },
+    "official_compatibility": "https://docs.live2d.com/zh-CHS/cubism-sdk-manual/compatibility-with-cubism-5-3/"
+  }
+}

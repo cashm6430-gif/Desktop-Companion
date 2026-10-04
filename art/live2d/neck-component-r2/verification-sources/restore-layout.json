@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "purpose": "Exact historical source recovery for the geometry ROI and original neck authoring recipe.",
+  "files": {
+    "audit_neck_surface.py": {
+      "restore_to": ".local/authoring/neck-refinement/audit_neck_surface.py",
+      "sha256": "c314cc440854a3db4b2e391f502f7490e508ea8fa5cab9522b0d23933597f68d"
+    },
+    "derive_neck_regions.py": {
+      "restore_to": ".local/authoring/neck-refinement/derive_neck_regions.py",
+      "sha256": "40670a88ab095a0df35eacba13c2167bd9b8c4f424848cf6a34124a8eaf3fc53"
+    },
+    "prepare_neck_authoring.py": {
+      "restore_to": ".local/authoring/neck-refinement/prepare_neck_authoring.py",
+      "sha256": "7d777a448ac2a727568e03a48b936daf86cfd3ef0fe70aa09d9a64853273f785"
+    }
+  },
+  "dependencies": [
+    "tracked tools/probe_cubism_core.py",
+    "local build/Live2DCubismCore.dll from the licensed SDK",
+    "Python numpy and Pillow"
+  ],
+  "restore_policy": "Copy to restore_to only when absent; if present and its SHA differs, retain both and use an isolated new run.",
+  "execution": "Run restored derive_neck_regions.py with --baseline/--candidate completed fresh captures and --output a fresh ROI path; then tools/compare_neck_reviews.py.",
+  "limitations": [
+    "Old baseline/candidate absolute run paths in reports are historical references.",
+    "Raw complete capture frames remain local; Git retains final comparison pages and reviewed Native images."
+  ]
+}

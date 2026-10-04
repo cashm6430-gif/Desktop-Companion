@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-03",
+  "scope": "handoff tools and evidence; character model and authored motion approvals unchanged",
+  "python_workflow_tests": {
+    "count": 52,
+    "status": "passed",
+    "log": "build/verification/workflow-tests.log",
+    "log_sha256": "0b9bca2b56c71331720a8dd94b9aca547c3b550fe2461cc57ad7dda0e871e4da"
+  },
+  "capabilities": {
+    "path": "art/live2d/workflow/capabilities.json",
+    "sha256": "24ec2c1900b3daf84bf242136ab9f8af7a2efe0c2f117216ecc1bf32243fbb82",
+    "bound_native_parameters": 40,
+    "range_binding": "bound_native_ranges",
+    "authoring_status_counts": {
+      "unmeasured": 36,
+      "blocked": 4
+    },
+    "single_axis_visual_effects": "unmeasured; ranges do not prove visible effects"
+  },
+  "baseline": {
+    "path": "art/live2d/workflow/baseline-current/manifest.json",
+    "sha256": "d0e0868cc7a0ea6b68ff969ba53dc3384b28113f76c2c1240e2f5505b17492d0",
+    "image_count": 8,
+    "package_bytes": 4711963,
+    "original_capture_bytes_checked": true,
+    "known_issues": [
+      {
+        "id": "existing-hair-edge-notch-at-glance",
+        "scene": "turn-ended-laptop",
+        "source_run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+        "sample_file": "frames/seated-glance-hold.png",
+        "frame_index": 19,
+        "scene_time_seconds": 1.2666666666666666,
+        "interaction_time_seconds": 0.8666666666666666,
+        "authored_keyframe_interval_seconds": [
+          0.8,
+          1.02
+        ],
+        "parts": [
+          "front-hair edge",
+          "antenna curl contour"
+        ],
+        "candidate_source_layers": [
+          "front hair",
+          "headwear"
+        ],
+        "candidate_drawables": [
+          "ArtMeshFrontHair",
+          "ArtMeshHeadwear"
+        ],
+        "attribution_status": "Visual localization; exact per-drawable ownership of the notch is not confirmed by this package.",
+        "observed": "An existing sharp horizontal edge/notch interrupts the antenna/front-hair contour near the top of the head while the seated glance turns horizontally. The original Native bytes intentionally retain this current-rig symptom.",
+        "observed_region_pixels_approx": [
+          326,
+          115,
+          487,
+          158
+        ],
+        "expected": "The antenna and hair outline remain continuous under the same head turn, without a hard horizontal cut or detached-looking strip.",
+        "recheck": "After changing head/front-hair/headwear meshes or binding, capture the real Native turn-ended-laptop scene and inspect frames 12 through 22 plus the mirrored look. At frame 19 recorded ParamAngleX=12.474447499997353, ParamAngleY=-0.63472818082342, ParamAngleZ=0.0025571954104893664; keep the one-neck/collar and seated laptop constraints intact.",
+        "not_adopted": true,
+        "adoption_scope": "This artifact is a current regression reference, not a perfect golden. The hair defect is not adopted as finished art; turn-ended revision 9 remains pending and receives no new approval."
+      }
+    ],
+    "not_a_new_motion_approval": true
+  },
+  "native_workflow_runs": [
+    {
+      "run": "build/review-runs/head-pat-v1-20261003T033457Z-e9c80d7a",
+      "session_sha256": "db6b5a3ed08fa92a4268d33073bd61fb9226246bd97e560994a3669fe5894320",
+      "report_sha256": "681d8002182019b3ef799940f2a01b6e0f136489f17027203584412ba44bfa64",
+      "facts": {
+        "capture_status": "complete",
+        "capture_scope": "native_model_and_thought_bubble",
+        "sequence_frames": 33,
+        "native_poses": 10,
+        "alpha_border_failures": 0,
+        "floor_drift_pixels": 0,
+        "scene_contracts": {},
+        "provenance_checks": {
+          "source_deployment_inputs": "passed",
+          "renderer": "passed",
+          "cubism_core": "passed",
+          "review_tools": "passed"
+        }
+      },
+      "engineering": "passed",
+      "visual": "pending",
+      "adoption": "pending"
+    },
+    {
+      "run": "build/review-runs/grass-delete-busy-v1-20261003T034742Z-2631c220",
+      "session_sha256": "02da77ef8c41c64257b678b09bec77706236d6c305d845bc56afff35b1eef3fc",
+      "report_sha256": "c66f5c57212da024025bd9a6bfa8dddbe2a3c68887a042c87c52af61e7e041cd",
+      "facts": {
+        "capture_status": "complete",
+        "capture_scope": "window_player_and_synthetic_qt_pointer_with_native_model",
+        "sequence_frames": 180,
+        "native_poses": 0,
+        "alpha_border_failures": 0,
+        "floor_drift_pixels": 0,
+        "scene_contracts": {
+          "frames": 180,
+          "branch": "grass-delete-busy",
+          "tip_hit_alignment": "passed",
+          "hand_grip_parameter_held": "passed",
+          "palm_to_grass_contact_distance": "unmeasured",
+          "qt_pointer_arbitration": "passed",
+          "background_restore": "passed",
+          "higher_priority_interruption": "passed",
+          "visual_expression_and_naturalness": "pending",
+          "scope": "window_player_and_synthetic_qt_pointer_with_native_model"
+        },
+        "provenance_checks": {
+          "source_deployment_inputs": "passed",
+          "renderer": "passed",
+          "cubism_core": "passed",
+          "review_tools": "passed"
+        }
+      },
+      "engineering": "passed",
+      "visual": "pending",
+      "adoption": "pending"
+    }
+  ],
+  "verification_limits": [
+    "No new full-project CTest attestation in this Python workflow change.",
+    "Native capture facts do not certify visual naturalness or physical Windows pointer/file overlays.",
+    "Reviewer capability is explicitly declared, not automatically detected."
+  ]
+}

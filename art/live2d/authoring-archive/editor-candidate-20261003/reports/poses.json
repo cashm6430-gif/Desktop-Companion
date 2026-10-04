@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "kind": "formal_model_unmodified_roundtrip_probe",
+  "scope": "raw Native export only; no CubismCanvas mouth/material/neck/grass patches or physics evaluation",
+  "notes": [
+    "mouth-request-zero intentionally tests raw 0 clamping to native minimum 1; it does not represent runtime closed mouth",
+    "material-switch-before/after supply raw values, not the binary material selector or floor-pinned runtime affine",
+    "all unspecified parameters and parts reset to Native defaults independently for every pose"
+  ],
+  "source_inputs": {
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.psd2live.json": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+    "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\native-parameter-ranges.json": "d78312918c31460212f9a84d4f90f37b162281d47e5e54b16b41ed8eca690dcd",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\material-ownership\\ownership.json": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+    "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+  },
+  "drawable_groups": {
+    "mouth": [
+      "ArtMeshMouthClose",
+      "ArtMeshMouthOpen2",
+      "ArtMeshMouthOpen"
+    ],
+    "head": [
+      "ArtMeshFace",
+      "ArtMeshFrontHair",
+      "ArtMeshBackHair2",
+      "ArtMeshHeadwear",
+      "ArtMeshEyewhiteR",
+      "ArtMeshEyewhiteL",
+      "ArtMeshIridesR",
+      "ArtMeshIridesL",
+      "ArtMeshEyelashR",
+      "ArtMeshEyelashL"
+    ],
+    "neck": [
+      "ArtMeshFace",
+      "ArtMeshTopwear",
+      "ArtMeshObjects8",
+      "ArtMeshBackHair"
+    ],
+    "posture": [
+      "ArtMeshTopwear",
+      "ArtMeshBottomwear",
+      "ArtMeshFootwearR",
+      "ArtMeshFootwearL",
+      "ArtMeshObjects8",
+      "ArtMeshObjects7",
+      "ArtMeshObjects6",
+      "ArtMeshObjects5",
+      "ArtMeshObjects3",
+      "ArtMeshObjects2",
+      "ArtMeshObjects4",
+      "ArtMeshObjects"
+    ],
+    "grass_arm": [
+      "ArtMeshHandwearR5",
+      "ArtMeshHandwearL2",
+      "ArtMeshHandwearR4",
+      "ArtMeshHandwearL",
+      "ArtMeshHandwearR3",
+      "ArtMeshHandwearR2",
+      "ArtMeshHandwearR",
+      "ArtMeshBackHair"
+    ],
+    "static_guard": [
+      "ArtMeshTail"
+    ]
+  },
+  "drawables": [
+    "ArtMeshBackHair",
+    "ArtMeshBackHair2",
+    "ArtMeshBottomwear",
+    "ArtMeshEyelashL",
+    "ArtMeshEyelashR",
+    "ArtMeshEyewhiteL",
+    "ArtMeshEyewhiteR",
+    "ArtMeshFace",
+    "ArtMeshFootwearL",
+    "ArtMeshFootwearR",
+    "ArtMeshFrontHair",
+    "ArtMeshHandwearL",
+    "ArtMeshHandwearL2",
+    "ArtMeshHandwearR",
+    "ArtMeshHandwearR2",
+    "ArtMeshHandwearR3",
+    "ArtMeshHandwearR4",
+    "ArtMeshHandwearR5",
+    "ArtMeshHeadwear",
+    "ArtMeshIridesL",
+    "ArtMeshIridesR",
+    "ArtMeshMouthClose",
+    "ArtMeshMouthOpen",
+    "ArtMeshMouthOpen2",
+    "ArtMeshObjects",
+    "ArtMeshObjects2",
+    "ArtMeshObjects3",
+    "ArtMeshObjects4",
+    "ArtMeshObjects5",
+    "ArtMeshObjects6",
+    "ArtMeshObjects7",
+    "ArtMeshObjects8",
+    "ArtMeshTail",
+    "ArtMeshTopwear"
+  ],
+  "poses": [
+    {
+      "name": "native-default",
+      "parameters": {}
+    },
+    {
+      "name": "mouth-request-zero",
+      "parameters": {
+        "ParamMouthGape": 0
+      }
+    },
+    {
+      "name": "mouth-native-min",
+      "parameters": {
+        "ParamMouthGape": 1
+      }
+    },
+    {
+      "name": "mouth-native-middle",
+      "parameters": {
+        "ParamMouthGape": 1.5
+      }
+    },
+    {
+      "name": "mouth-native-max",
+      "parameters": {
+        "ParamMouthGape": 2
+      }
+    },
+    {
+      "name": "smile-open",
+      "parameters": {
+        "ParamSmileOpen": 1,
+        "ParamMouthGape": 1
+      }
+    },
+    {
+      "name": "mouth-shape-open",
+      "parameters": {
+        "ParamMouthGape": 2,
+        "ParamMouthOpenY": 1,
+        "ParamMouthForm": -1
+      }
+    },
+    {
+      "name": "head-left",
+      "parameters": {
+        "ParamAngleX": -45
+      }
+    },
+    {
+      "name": "head-right",
+      "parameters": {
+        "ParamAngleX": 45
+      }
+    },
+    {
+      "name": "head-down",
+      "parameters": {
+        "ParamAngleY": -30
+      }
+    },
+    {
+      "name": "head-up",
+      "parameters": {
+        "ParamAngleY": 30
+      }
+    },
+    {
+      "name": "head-roll-left",
+      "parameters": {
+        "ParamAngleZ": -30
+      }
+    },
+    {
+      "name": "head-roll-right",
+      "parameters": {
+        "ParamAngleZ": 30
+      }
+    },
+    {
+      "name": "head-body-opposed-left",
+      "parameters": {
+        "ParamAngleX": 25,
+        "ParamAngleY": 10,
+        "ParamAngleZ": 18,
+        "ParamBodyAngleX": -8,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "head-body-opposed-right",
+      "parameters": {
+        "ParamAngleX": -25,
+        "ParamAngleY": -10,
+        "ParamAngleZ": -18,
+        "ParamBodyAngleX": 8,
+        "ParamBodyAngleZ": 8
+      }
+    },
+    {
+      "name": "standing-fold-middle",
+      "parameters": {
+        "ParamSitPose": 0.5
+      }
+    },
+    {
+      "name": "seated-mix-middle",
+      "parameters": {
+        "ParamBusyLaptop": 0.5,
+        "ParamSitPose": 0.5
+      }
+    },
+    {
+      "name": "material-switch-before",
+      "parameters": {
+        "ParamBusyLaptop": 0.834999,
+        "ParamSitPose": 0.9,
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "material-switch-after",
+      "parameters": {
+        "ParamBusyLaptop": 0.835001,
+        "ParamSitPose": 0.9,
+        "ParamAngleX": 18,
+        "ParamAngleZ": 12,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "standing-fold-max",
+      "parameters": {
+        "ParamSitPose": 1
+      }
+    },
+    {
+      "name": "seated-full",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1
+      }
+    },
+    {
+      "name": "seated-head-left",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamAngleX": -30,
+        "ParamAngleZ": -18,
+        "ParamBodyAngleZ": 8
+      }
+    },
+    {
+      "name": "seated-head-right",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamAngleX": 30,
+        "ParamAngleZ": 18,
+        "ParamBodyAngleZ": -8
+      }
+    },
+    {
+      "name": "seated-typing-left",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamBusyTypingL": 1,
+        "ParamBusyTypingR": 0,
+        "ParamLaptopRock": -1
+      }
+    },
+    {
+      "name": "seated-typing-right",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamBusyTypingL": 0,
+        "ParamBusyTypingR": 1,
+        "ParamLaptopRock": 1
+      }
+    },
+    {
+      "name": "grass-half-visible",
+      "parameters": {
+        "ParamGrassVisible": 0.5,
+        "ParamHandRGrip": 0.5
+      }
+    },
+    {
+      "name": "grass-held",
+      "parameters": {
+        "ParamGrassVisible": 1,
+        "ParamHandRGrip": 1,
+        "ParamArmRA": 15,
+        "ParamElbowRA": 20,
+        "ParamWristRA": 10
+      }
+    },
+    {
+      "name": "grass-reach-left",
+      "parameters": {
+        "ParamGrassVisible": 1,
+        "ParamHandRGrip": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": -1,
+        "ParamGrassTipBend": 1,
+        "ParamArmRA": 40,
+        "ParamElbowRA": 55,
+        "ParamWristRA": -25,
+        "ParamArmLA": -65,
+        "ParamElbowLA": 55
+      }
+    },
+    {
+      "name": "grass-reach-right",
+      "parameters": {
+        "ParamGrassVisible": 1,
+        "ParamHandRGrip": 1,
+        "ParamGrassReach": 1,
+        "ParamGrassSwing": 1,
+        "ParamGrassTipBend": -1,
+        "ParamArmRA": -40,
+        "ParamElbowRA": -35,
+        "ParamWristRA": 25,
+        "ParamArmLA": 65,
+        "ParamElbowLA": -35
+      }
+    }
+  ],
+  "geometry_budget": {
+    "measured_from_current_core_counts": true,
+    "moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "selected_vertex_count": 6202,
+    "pose_count": 29,
+    "vertex_samples": 179858,
+    "vertex_sample_limit": 200000,
+    "selected_topology_indices": 22854,
+    "topology_index_limit": 240000,
+    "recheck_if_reexport_topology_changes": true
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "kind": "read_only_r2_neck_source_alpha_verification",
+  "production_files_modified": false,
+  "source_sha256": "b13f7d27474a42c07d32d30e06d8ab6c1a8cdc63728d7eed7a1a80ed7cd20408",
+  "source_receipt_sha256": "69a94e8b2cc5e433719febca97a7c0399ff6c98955d5b55a2b1aa2f45ae372a3",
+  "candidate_texture_sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47",
+  "changed_rgba_pixel_count": 862,
+  "changed_source_bbox": [
+    601,
+    574,
+    659,
+    598
+  ],
+  "retained_rows_zero_through_573_identical": true,
+  "row574_changed": true,
+  "rows598_and_below_identical": true,
+  "corners": {
+    "left": {
+      "source": [
+        618,
+        586
+      ],
+      "rgba": [
+        252,
+        182,
+        165,
+        255
+      ]
+    },
+    "right": {
+      "source": [
+        641,
+        586
+      ],
+      "rgba": [
+        254,
+        174,
+        159,
+        255
+      ]
+    },
+    "left_lower": {
+      "source": [
+        619,
+        592
+      ],
+      "rgba": [
+        250,
+        181,
+        165,
+        255
+      ]
+    },
+    "right_lower": {
+      "source": [
+        640,
+        592
+      ],
+      "rgba": [
+        253,
+        175,
+        160,
+        255
+      ]
+    }
+  },
+  "lower_interior_alpha_minimum": 255,
+  "geometry_files": {
+    "neck-surface.moc3": {
+      "r1": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8",
+      "r2": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "neck-surface.rig.json": {
+      "r1": "e317be6254f7f267d55d52f6dfe6cebbd738461404d407bb05d1ed2bf5c1f820",
+      "r2": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb",
+      "parsed_json_identical": true
+    },
+    "neck-surface.model3.json": {
+      "r1": "d084632863339504f124ece233cde76a56a8a3f50335ab6353078cba46498854",
+      "r2": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d",
+      "parsed_json_identical": true
+    }
+  },
+  "rows": [
+    {
+      "y": 573,
+      "alpha_support_x_inclusive": [
+        594,
+        658
+      ],
+      "opaque_support_x_inclusive": null,
+      "changed_pixels": 0
+    },
+    {
+      "y": 574,
+      "alpha_support_x_inclusive": [
+        610,
+        654
+      ],
+      "opaque_support_x_inclusive": [
+        611,
+        652
+      ],
+      "changed_pixels": 58
+    },
+    {
+      "y": 578,
+      "alpha_support_x_inclusive": [
+        611,
+        651
+      ],
+      "opaque_support_x_inclusive": [
+        613,
+        650
+      ],
+      "changed_pixels": 41
+    },
+    {
+      "y": 581,
+      "alpha_support_x_inclusive": [
+        613,
+        650
+      ],
+      "opaque_support_x_inclusive": [
+        614,
+        648
+      ],
+      "changed_pixels": 38
+    },
+    {
+      "y": 584,
+      "alpha_support_x_inclusive": [
+        614,
+        648
+      ],
+      "opaque_support_x_inclusive": [
+        615,
+        646
+      ],
+      "changed_pixels": 35
+    },
+    {
+      "y": 588,
+      "alpha_support_x_inclusive": [
+        615,
+        645
+      ],
+      "opaque_support_x_inclusive": [
+        616,
+        644
+      ],
+      "changed_pixels": 31
+    },
+    {
+      "y": 589,
+      "alpha_support_x_inclusive": [
+        616,
+        645
+      ],
+      "opaque_support_x_inclusive": [
+        616,
+        644
+      ],
+      "changed_pixels": 30
+    },
+    {
+      "y": 592,
+      "alpha_support_x_inclusive": [
+        616,
+        644
+      ],
+      "opaque_support_x_inclusive": [
+        616,
+        643
+      ],
+      "changed_pixels": 29
+    },
+    {
+      "y": 597,
+      "alpha_support_x_inclusive": [
+        616,
+        644
+      ],
+      "opaque_support_x_inclusive": [
+        616,
+        643
+      ],
+      "changed_pixels": 29
+    }
+  ],
+  "interpretation": "Source alpha closes the lower corners, replacing the inherited V contour. Existing white collar and bow occlusion remains. Complete Native sequence and geometry-derived region comparison is still required."
+}

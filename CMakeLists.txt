@@ -47,7 +47,11 @@ qt_add_executable(DesktopCompanion WIN32
 target_link_libraries(DesktopCompanion PRIVATE Qt6::Widgets Qt6::Network shell32)
 target_compile_definitions(DesktopCompanion PRIVATE UNICODE _UNICODE)
 if(HAVE_CUBISM)
-    target_sources(DesktopCompanion PRIVATE src/CubismCanvas.h src/CubismCanvas.cpp)
+    target_sources(DesktopCompanion PRIVATE src/CubismCanvas.h src/CubismCanvas.cpp
+        src/CubismMaterialBinding.h src/CubismMaterialBinding.cpp
+        src/CubismNeckBinding.h src/CubismNeckBinding.cpp
+        src/CubismPostureTransition.h
+        src/CubismMaterialTexture.h src/CubismMaterialTexture.cpp)
     target_link_libraries(DesktopCompanion PRIVATE Qt6::OpenGLWidgets Framework)
     target_compile_definitions(DesktopCompanion PRIVATE HAVE_CUBISM)
 endif()
@@ -78,6 +82,15 @@ endif()
 include(CTest)
 if(BUILD_TESTING)
     find_package(Qt6 6.8 REQUIRED COMPONENTS Test)
+    # Several tests build their fixtures in a QTemporaryDir, which Qt places in
+    # the system %TEMP%. A sandboxed shell can deny child processes write access
+    # there, so every temporary dir fails to be created and the tests report
+    # "writeFixture(...) returned FALSE" instead of a real failure. Pointing TEMP
+    # at a directory inside the build tree keeps the suite runnable in a
+    # restricted terminal; outside a sandbox this is simply a normal temp dir.
+    set(PET_TEST_TEMP "${CMAKE_CURRENT_BINARY_DIR}/_tmp")
+    file(MAKE_DIRECTORY "${PET_TEST_TEMP}")
+    set(PET_TEST_ENV "TEMP=${PET_TEST_TEMP};TMP=${PET_TEST_TEMP}")
     add_executable(PetControllerTest tests/PetControllerTest.cpp
         src/PetController.h src/PetController.cpp)
     # QIcon rides the eatTriggered signature, so the controller needs QtGui.
@@ -100,6 +113,34 @@ if(BUILD_TESTING)
         src/PetController.h src/PetController.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
+    foreach(test_name PetControllerTest PetPointerGestureTest ParameterMotionTest MotionClipTest)
+        set_tests_properties(${test_name} PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
+    endforeach()
+    if(HAVE_CUBISM)
+        add_executable(CubismMaterialBindingTest tests/CubismMaterialBindingTest.cpp
+            src/CubismMaterialBinding.h src/CubismMaterialBinding.cpp)
+        target_include_directories(CubismMaterialBindingTest PRIVATE "${CUBISM_SDK_ROOT}/Framework/src")
+        target_link_libraries(CubismMaterialBindingTest PRIVATE Qt6::Core Qt6::Test Live2DCubismCore)
+        add_test(NAME CubismMaterialBindingTest COMMAND CubismMaterialBindingTest)
+        set_tests_properties(CubismMaterialBindingTest PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
+        add_executable(CubismNeckBindingTest tests/CubismNeckBindingTest.cpp
+            src/CubismNeckBinding.h src/CubismNeckBinding.cpp)
+        target_include_directories(CubismNeckBindingTest PRIVATE "${CUBISM_SDK_ROOT}/Framework/src")
+        target_link_libraries(CubismNeckBindingTest PRIVATE Qt6::Core Qt6::Test Live2DCubismCore)
+        add_test(NAME CubismNeckBindingTest COMMAND CubismNeckBindingTest)
+        set_tests_properties(CubismNeckBindingTest PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
+        add_executable(CubismPostureTransitionTest tests/CubismPostureTransitionTest.cpp
+            src/CubismPostureTransition.h)
+        target_include_directories(CubismPostureTransitionTest PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+        target_link_libraries(CubismPostureTransitionTest PRIVATE Qt6::Core Qt6::Test)
+        add_test(NAME CubismPostureTransitionTest COMMAND CubismPostureTransitionTest)
+        set_tests_properties(CubismPostureTransitionTest PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
+        add_executable(CubismMaterialTextureTest tests/CubismMaterialTextureTest.cpp
+            src/CubismMaterialTexture.h src/CubismMaterialTexture.cpp)
+        target_link_libraries(CubismMaterialTextureTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
+        add_test(NAME CubismMaterialTextureTest COMMAND CubismMaterialTextureTest)
+        set_tests_properties(CubismMaterialTextureTest PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
+    endif()
     if(WIN32)
         find_program(POWERSHELL_EXECUTABLE NAMES pwsh REQUIRED)
         add_test(NAME CodexHookTest COMMAND "${POWERSHELL_EXECUTABLE}"

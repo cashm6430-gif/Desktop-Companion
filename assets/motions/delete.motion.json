@@ -7,6 +7,15 @@
   "interpolation": "smoothstep",
   "blendSeconds": 0.12,
   "mode": "additive",
+  "events": [
+    {"name": "delete.icon", "time": 0},
+    {"name": "delete.eyes_found", "time": 0.35},
+    {"name": "delete.grip", "time": 0.65},
+    {"name": "delete.roll_formed", "time": 1.05},
+    {"name": "delete.lunge", "time": 1.3},
+    {"name": "delete.bite", "time": 1.45},
+    {"name": "delete.consumed", "time": 1.6}
+  ],
   "tracks": {
     "ParamAngleX": [
       [

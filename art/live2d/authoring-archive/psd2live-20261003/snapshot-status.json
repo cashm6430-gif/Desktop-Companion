@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "status": "recoverable_author_history_not_current_runtime_equivalence",
+  "archive_sha256": "00fe77999fe406ee05bdf6bd3242a9f630fb19bccf0630cba4ac90b44ef9da07",
+  "archive_entries_checked": 332,
+  "archive_CRC_and_all_entry_SHA256": "passed",
+  "history_nodes": 148,
+  "snapshots": 147,
+  "raster_blobs": 34,
+  "source_HEAD_preserved": true,
+  "known_export_limitation": "PSD2Live 2.0.2 replay of old EyewhiteL topology has a 194/188 delta-length mismatch.",
+  "restore": "Open a copy of author-history.psd2live in an isolated new PSD2Live workspace; do not replace production model assets."
+}

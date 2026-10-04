@@ -30,6 +30,11 @@ public:
     // clips the pet drives directly.
     bool loadMotionLibrary(const QString& directory, QString* error = nullptr);
     const MotionLibrary& library() const { return library_; }
+    // Time of a named marker on an authored clip, used by the window-layer props
+    // so their handovers ride the same timeline the character is animated with
+    // (see MotionClip::Event). Returns `fallback` when the clip or marker is
+    // absent, which keeps the procedural path usable without the asset.
+    double clipEventTime(const QString& clipId, const QString& event, double fallback) const;
     // Single source of truth for how long the current action runs.
     double actionDuration(PetController::State state) const;
     // Returns true exactly once after a one-shot action reached its duration, so
@@ -50,6 +55,10 @@ public:
     QString interactionId() const;
     // Authored clip time, including the bounded hold loop.
     double interactionTime() const { return interactionTime_; }
+    // True once a head pat has been released and the authored recovery segment
+    // is playing out. The release hands the reaction's own channels back on
+    // kExpressionReleaseBlend rather than the generic state-transition blend.
+    bool headPatReleasing() const { return headPatReleasing_; }
 
     // Foreground grass interaction uses its own phase clock; the approved
     // fixed grass clip remains available when this draft is not selected.
@@ -83,6 +92,13 @@ public:
 private:
     // Blend time used for every parameter that no clip overrides.
     static constexpr double kDefaultBlend = 0.12;
+    // Releasing a head pat hands the face back to the background. Exponential
+    // blending needs about three time constants to settle, so at the authored
+    // 50ms eye constant the recovery still spends several frames crossing from
+    // the closed-eye smile to open eyes: the clip's authored 0.18s recovery
+    // turns into a visible half-open "drowsy" face it never asked for. Settling
+    // the release in roughly two frames keeps the authored beats in charge.
+    static constexpr double kExpressionReleaseBlend = 0.045;
     static double smooth(double t);
     static double pulse(double t, double start, double peak, double end);
     // Pop-in / hold / fade-out envelope of the thinking bubble. One cycle long,
@@ -128,6 +144,8 @@ private:
     double headPatCooldown_ = 0.0;
     bool headPatHeld_ = false;
     bool headPatReleasing_ = false;
+    // True while the release should hand the whole reaction face back quickly.
+    bool releasingReaction_ = false;
     bool headPatBeganBusy_ = false;
     Parameters interactionSeat_;
 

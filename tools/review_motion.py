@@ -186,7 +186,7 @@ def run_exe(args, log=print, watch=None):
     `watch` is a `(folder, total, noun)` triple describing the captures to count.
     """
     if not EXE.is_file():
-        raise SystemExit(f"Missing {EXE}; build the project first (build/dev.cmd).")
+        raise SystemExit(f"Missing {EXE}; build the project first (tools/dev.cmd).")
     log("  " + " ".join(["DesktopCompanion.exe"] + [str(a) for a in args]))
     started = time.monotonic()
     options = {}

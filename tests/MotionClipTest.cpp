@@ -25,6 +25,7 @@ private slots:
     void additiveAndBlendMetadataAreParsed();
     void legacyFileWithoutNewFieldsStillLoads();
     void malformedCurvesAreRejected();
+    void propMarkersCoincideWithDrawnPoses();
     void idleMatchesLegacyGenerator();
     void loopingActionsSeamlessAtLoopPoint();
     void busyStandReadsAsThinking();
@@ -268,6 +269,65 @@ void MotionClipTest::malformedCurvesAreRejected() {
     QTemporaryFile emptyChannel;
     QVERIFY(writeJson(emptyChannel, R"({"duration":1,"channels":{"A":[]}})"));
     QVERIFY(!clip.loadJson(emptyChannel.fileName()));
+}
+
+void MotionClipTest::propMarkersCoincideWithDrawnPoses() {
+    // Window-layer props (the deleted icon, the rolled wrap) are drawn in code,
+    // but their handovers have to land on the same timeline the character is
+    // animated on. Markers make that one authored source instead of a second copy
+    // of the numbers in PetWindow.cpp, which had drifted: the code rolled the file
+    // flat at 0.80 s while the clip's contract rolled it with the arm rise to 1.05.
+    MotionClip clip;
+    QString error;
+    QVERIFY2(clip.loadJson(QStringLiteral("assets/motions/delete.motion.json"), &error),
+             qPrintable(error));
+    QVERIFY(clip.hasEvents());
+    QCOMPARE(clip.events().size(), 7);
+    // Ordered, and every marker lands on a time a parameter is authored at.
+    const QVector<double> authoredTimes = clip.authoredTimes();
+    QVERIFY(authoredTimes.size() > 20);
+    double previous = -1.0;
+    for (const auto& event : clip.events()) {
+        QVERIFY(!event.name.isEmpty());
+        QVERIFY(event.time > previous);
+        previous = event.time;
+        bool authored = false;
+        for (double time : authoredTimes) {
+            if (qAbs(time - event.time) < 1e-9) {
+                authored = true;
+                break;
+            }
+        }
+        QVERIFY2(authored, qPrintable(QStringLiteral("%1 is not on an authored time").arg(event.name)));
+    }
+    // The prop phases the window layer asks for, and the fallback contract.
+    QCOMPARE(clip.eventTime(QStringLiteral("delete.grip"), -1.0), 0.65);
+    QCOMPARE(clip.eventTime(QStringLiteral("delete.roll_formed"), -1.0), 1.05);
+    QCOMPARE(clip.eventTime(QStringLiteral("delete.lunge"), -1.0), 1.3);
+    QCOMPARE(clip.eventTime(QStringLiteral("delete.bite"), -1.0), 1.45);
+    QCOMPARE(clip.eventTime(QStringLiteral("delete.consumed"), -1.0), 1.6);
+    // An unknown marker must not invent a time.
+    QCOMPARE(clip.eventTime(QStringLiteral("delete.nonexistent"), 0.42), 0.42);
+
+    // A marker off the authored timeline is rejected: a handover between two drawn
+    // poses is a timing nobody can review.
+    MotionClip offBeat;
+    QTemporaryFile stray;
+    QVERIFY(writeJson(stray, R"({"duration":2,"events":[{"name":"x","time":0.77}],
+        "keyframes":[{"time":0,"parameters":{"A":0}},{"time":2,"parameters":{"A":1}}]})"));
+    QVERIFY(!offBeat.loadJson(stray.fileName()));
+
+    MotionClip duplicate;
+    QTemporaryFile twice;
+    QVERIFY(writeJson(twice, R"({"duration":2,"events":[{"name":"x","time":0},{"name":"x","time":2}],
+        "keyframes":[{"time":0,"parameters":{"A":0}},{"time":2,"parameters":{"A":1}}]})"));
+    QVERIFY(!duplicate.loadJson(twice.fileName()));
+
+    MotionClip unordered;
+    QTemporaryFile backwards;
+    QVERIFY(writeJson(backwards, R"({"duration":2,"events":[{"name":"b","time":2},{"name":"a","time":0}],
+        "keyframes":[{"time":0,"parameters":{"A":0}},{"time":2,"parameters":{"A":1}}]})"));
+    QVERIFY(!unordered.loadJson(backwards.fileName()));
 }
 
 void MotionClipTest::idleMatchesLegacyGenerator() {

@@ -55,6 +55,17 @@ public:
         double weight = 0.0;
     };
 
+    // A named moment on the clip's own timeline. Window-layer props (the deleted
+    // file's icon, the rolled-up wrap) are drawn in code, but the moments they
+    // hand over, level out or disappear are decisions of the same choreography
+    // the character is animated with. Markers keep one authored timeline instead
+    // of a second copy of the timings living in PetWindow.cpp, so the prop and
+    // the pose can be reviewed together and cannot drift apart.
+    struct Event {
+        QString name;
+        double time = 0.0;
+    };
+
     bool loadJson(const QString& path, QString* error = nullptr);
     bool parseJson(const QByteArray& json, QString* error = nullptr);
 
@@ -89,6 +100,24 @@ public:
     }
     const QHash<QString, double>& blendSecondsPerParameter() const { return blendSecondsPerParameter_; }
 
+    // Authored markers, ordered by time. Empty when a clip authors none.
+    const QVector<Event>& events() const { return events_; }
+    bool hasEvents() const { return !events_.isEmpty(); }
+    // Every moment some parameter is actually authored at: shared key times plus
+    // each parameter track's own times, deduplicated and ascending. Events must
+    // land on one of these, and reviews use it to check that a prop handover
+    // coincides with a drawn pose.
+    QVector<double> authoredTimes() const;
+    // Time of a named marker, or `fallback` when it is not authored. Callers that
+    // drive a prop should read their moments from here rather than hard-code a
+    // second copy of the timing.
+    double eventTime(const QString& name, double fallback) const {
+        for (const auto& event : events_) {
+            if (event.name == name) return event.time;
+        }
+        return fallback;
+    }
+
     // Clamped sample: before the first key returns the first key, after the last
     // key returns the last key. This is what one-shot actions use.
     Parameters sample(double seconds) const;
@@ -114,6 +143,7 @@ private:
     QHash<QString, QVector<Channel>> channels_;
     QHash<QString, QVector<Pulse>> pulses_;
     QHash<QString, double> blendSecondsPerParameter_;
+    QVector<Event> events_;
     double duration_ = 0.0;
     double loopStart_ = 0.0;
     double loopEnd_ = 0.0;

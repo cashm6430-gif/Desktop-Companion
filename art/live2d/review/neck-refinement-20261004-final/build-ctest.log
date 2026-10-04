@@ -1,0 +1,25 @@
+[1/2] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[2/2] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+Test project E:/projects/Desktop-Companion/build
+    Start 1: PetControllerTest
+1/9 Test #1: PetControllerTest ................   Passed    6.60 sec
+    Start 2: PetPointerGestureTest
+2/9 Test #2: PetPointerGestureTest ............   Passed    0.06 sec
+    Start 3: ParameterMotionTest
+3/9 Test #3: ParameterMotionTest ..............   Passed    1.79 sec
+    Start 4: MotionClipTest
+4/9 Test #4: MotionClipTest ...................   Passed    0.27 sec
+    Start 5: CubismMaterialBindingTest
+5/9 Test #5: CubismMaterialBindingTest ........   Passed    0.18 sec
+    Start 6: CubismNeckBindingTest
+6/9 Test #6: CubismNeckBindingTest ............   Passed    8.99 sec
+    Start 7: CubismPostureTransitionTest
+7/9 Test #7: CubismPostureTransitionTest ......   Passed    0.06 sec
+    Start 8: CubismMaterialTextureTest
+8/9 Test #8: CubismMaterialTextureTest ........   Passed    1.60 sec
+    Start 9: CodexHookTest
+9/9 Test #9: CodexHookTest ....................   Passed    4.74 sec
+
+100% tests passed out of 9
+
+Total Test time (real) =  24.47 sec

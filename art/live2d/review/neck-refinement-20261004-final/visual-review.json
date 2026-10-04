@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "source_session_sha256": "86a9c760c3f6e30c1529ce653c1f2f2e6cbea259da871426bab0b0d2bbab2624",
+  "source_comparison_sha256": "4c1937f5db847a77595a25bd7f9d4a607eaf65650201e325a63ea7b59c16a07c",
+  "reviewer": {
+    "name": "Codex / root",
+    "role": "visual",
+    "can_view_images": true
+  },
+  "scope": "neck engineering repair only; existing motion approval is unchanged",
+  "checks": {
+    "intent_readable": "not_applicable",
+    "contact_and_occlusion": "passed",
+    "expression": "not_applicable",
+    "interrupt_and_response": "not_applicable",
+    "comfortable_on_desktop": "passed"
+  },
+  "reviewed_artifacts": [
+    {
+      "path": "artifacts/busy-laptop-neck-frames.png",
+      "sha256": "c2b880ff1e8a28531ebf60a5286ff5fa5a07799e9f2cc5d39f6aa97dd3342925",
+      "coverage": "All 12 displayed native samples inspected: jaw, lower-neck corners, collar and posture."
+    },
+    {
+      "path": "artifacts/turn-ended-laptop-neck-frames.png",
+      "sha256": "06161a282632aca64dafdcf5403319164211a6fca5ccc405e6181bad623c87d4",
+      "coverage": "All 12 displayed native samples inspected: jaw, lower-neck corners, collar and posture."
+    }
+  ],
+  "reviewed_comparison_pages": {
+    "busy-laptop-pairs-page-01.png": "d9777b391aa0f99bb49a3c94bbd6e66251dd8f87bb2f566fd01b21165b724f79",
+    "busy-laptop-pairs-page-02.png": "f86719ee60abf75301a0052c4f4fad4af1507d197410bf60548d3a58733d595a",
+    "busy-laptop-pairs-page-03.png": "9db640b312635f7d6ed09266616cb7eaff799cfbb5927c1fb2d2022145a7e068",
+    "busy-laptop-pairs-page-04.png": "fffff6ed7afcce07b1668f74d383506f6de8240103640b8a81fc302d8b455228",
+    "busy-laptop-pairs-page-05.png": "4f2c82ae2a8a4577a148e708ccfe52453c899be150ddd5b77b3e1ec06354e842",
+    "busy-laptop-pairs-page-06.png": "7ae8cb8e10d209f4d8ebeb37b34ed01c1df26c212f193e52d24ae8ccaa843ecd",
+    "busy-laptop-pairs-page-07.png": "6e39a208252ec50c74ef93de9f3c4d64045e65c73c5c38f60ecdd31afa88da84",
+    "busy-laptop-pairs-page-08.png": "7e3edc56c4281b4cdc264b62cf013fc5463c53b8b0d55a053c50ad84cf89e74a",
+    "poses-pairs-page-01.png": "726ee5b7b34afff320c3b98b94ac64fe0e16d8bb9eceec5516800fe215f869cb",
+    "poses-pairs-page-02.png": "266e8c1929b578e78153d623a4f24145e1cfe4f31be5594c98b43f27ee9f59c3",
+    "poses-pairs-page-03.png": "84010e236f00769f9d194a79ac0c8f1b5ab98315f2877d94817b7149297d562c",
+    "poses-pairs-page-04.png": "6e1ebdea2444248be09eed3e4e535d860488ec2092ff1a74095809f8cf344607",
+    "turn-ended-laptop-pairs-page-01.png": "ed9c75ee3fd25218916dfb1b7ad9f9855b093c449c8fb7c03311269e96a429a3",
+    "turn-ended-laptop-pairs-page-02.png": "f108e683493664b1a87dba7bbebd6b3f74b50db5c6d3a4f92868d3097c5315e4",
+    "turn-ended-laptop-pairs-page-03.png": "747ab910d67d85fd69557f9125863f9e9ffce977fead4fa30aa6bd25d3ddc04c"
+  },
+  "coverage": {
+    "static_poses": 83,
+    "turn_ended_frames": 75,
+    "busy_frames": 195,
+    "comparison_pages_actually_viewed": 15,
+    "desktop_scale_comparison_actually_viewed": true,
+    "key_crops_actually_viewed": true
+  },
+  "observations": [
+    "Single neck skin stays attached to jaw and the visible collar across all sampled authored poses and both continuous scenes.",
+    "Seated lower corners no longer expose navy backing; white collar correctly occludes the lower tail.",
+    "Standing exposure is short and remains covered by its collar.",
+    "280px appearance is continuous; no shape flicker at the body material switch."
+  ],
+  "issues": [],
+  "limitations": [
+    "Input interruptions and anatomy outside neck were not newly reviewed or approved.",
+    "Combined full Native parameter extremes are outside this tested motion domain."
+  ],
+  "adoption": "engineering_fix_requested_by_user; deployment_pending"
+}

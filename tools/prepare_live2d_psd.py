@@ -9,6 +9,9 @@ Requires Pillow, numpy and psd-tools in the asset-authoring Python environment.
 from pathlib import Path
 import json
 
+from live2d_paths import LAYERS, enable_authoring_dependencies
+enable_authoring_dependencies()
+
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 from psd_tools import PSDImage
@@ -22,7 +25,7 @@ SMILE = ROOT / "art/live2d/whale-girl-mouth-smile-v1.png"
 GAPE = ROOT / "art/live2d/whale-girl-mouth-gape-neutral-v1.png"
 PLATE = ROOT / "art/live2d/whale-girl-clean-plate-v1.png"
 OUTPUT = ROOT / "art/live2d/whale-girl-layered-draft.psd"
-PREVIEW = ROOT / "build/psd2live/layer-previews"
+PREVIEW = LAYERS
 
 
 def polygon(size: tuple[int, int], points: list[tuple[int, int]]) -> np.ndarray:

@@ -1,0 +1,815 @@
+{
+  "schema_version": 1,
+  "kind": "isolated_pixel_exact_source_layer_pack",
+  "created_utc": "2026-10-03T09:26:23.859651+00:00",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "layer_count": 34,
+  "copied_PNG_count": 32,
+  "extracted_PSD_layer_count": 2,
+  "output_directory": "E:\\projects\\Desktop-Companion\\.local\\authoring\\roundtrips\\formal-20261003T090401Z\\source\\layers-complete",
+  "manifest_sha256": "ecc1ff61e3f7dd14adc63e59f167644fa8c3e4437fef8553342ef49f9a8c2d15",
+  "all_decoded_full_canvas_RGBA_equal_PSD": true,
+  "source_inputs_unchanged": true,
+  "source_inputs": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\build\\roundtrip-work\\source-audit.json",
+      "sha256": "d5825e62f5b37e843bc1f4de76393356b49e5cc9a47db325fd6e5aa9d7f2a6f4"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\whale-girl-layered-draft.psd",
+      "sha256": "b88f11240a8dd9b8b9e304746d20727aa2e4d9f9ad5b71db70049d127029710f"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\20-back-hair.png",
+      "sha256": "a0d7a960a0fa397137f28edc67693f4475febee3345addf20f8776fc65ed0e95"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\arm-backing.png",
+      "sha256": "4f91caa999466784e9d44e26a7c7d21dcf492f90fa012d290b4a540b2e5bb82c"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\19-headwear.png",
+      "sha256": "8a54ab96ceaf2d43fbe0afd151bdfee2032ac87f5d71f09b629ed31046772fec"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\18-topwear.png",
+      "sha256": "4668ecd64379e258ba8222abc7edfa2f358c5d8932bc2d262f72ab7aa2ea052d"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\17-bottomwear.png",
+      "sha256": "695aea48359eaf9a944f4fe123437b12e36e9c2627d1d406fa97dd1247eb5d75"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\16-footwear-r.png",
+      "sha256": "424ea322bf5d3c609c7607f0cefab4a0137918aeab9d7f529fa31f61157ff8ac"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\15-footwear-l.png",
+      "sha256": "f83ad28772308da8f024fde38ece95f805c010dd4d8218facab805e20525d06f"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\14-tail.png",
+      "sha256": "6ae466f453a7ecf586f54bbedec6f52a0fb4b123c8914b11f1b2015a4634a7d6"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\13-upperarm-r.png",
+      "sha256": "966761b81c0eea6f5da1e448cd2e1e770ae929414f231de3c892a275507b31f1"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\12-upperarm-l.png",
+      "sha256": "607d756af4326f737bdaf0c4804ad2fa95547683723e2b5141a2f00bfb759add"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\11-face.png",
+      "sha256": "8d9d8df7b51e070e94a9a815d7db3e1ebf914fd3c14e457b1dea49fc1f9c812e"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\10-front-hair.png",
+      "sha256": "9480997b19db7bfa77568911f7c0c0ddeef051dba3bd6f657304ddb95396b0c6"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\09-mouth.png",
+      "sha256": "f87f30d0a6ce8c94537b98a6671982de0b6d5abee7c752edc6b6660533e6b82a"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\08-eyewhite-r.png",
+      "sha256": "5bb1444cd963ba7a719de60da5f351b7c77617ae661994b31730f227e2a8fc72"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\07-eyewhite-l.png",
+      "sha256": "9b7ca83408f4c32b53d8efac58fa4cb9d36580b14df54be717d9806c255db542"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\06-irides-r.png",
+      "sha256": "d0893df897d9fec67493564a7117f6354d1426d7c2b6234809d89dfd3584c520"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\05-irides-l.png",
+      "sha256": "e467763530f324b2ec62011183107cda3fd74056e35d9c260250fad2894eade6"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\04-eyelash-r.png",
+      "sha256": "fd7f7222c7ba04e3de762b29209fe2a980d96cd123deb30ae484c8042063206f"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\03-eyelash-l.png",
+      "sha256": "9924f382f9be96a3d8c6712f3c261f454e859f31d44e0cdfd9ceb3f5abc5b25b"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\02-handwear-r.png",
+      "sha256": "e8df96a069ed17c2935ea5082c6482a2723e9fae0405f86b5ce0a9cb967f9274"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\01-handwear-l.png",
+      "sha256": "2b5d109022634b512b9660f26bca54016b46b2e7535f0b41525a1aa73f8fccc5"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\00-handwear_r.png",
+      "sha256": "796ca0341dc82df89b0656c95ddfbb71fa5d8f55ff55e24b55d89506db2c0a81"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\grass-prop.png",
+      "sha256": "90dd2ad1d4f87872a703f6a9abff333ed7e66b04c5f23b1be2b1c4573c61dda6"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\hand-grip-registered.png",
+      "sha256": "3a947805ed569d6b620741fb93cbdd6da6533a11e224a1c252fd472c5dbfab37"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-torso.png",
+      "sha256": "832e09b9f7ba8c98b20fe9ffe6ffa14a69258b0a90b84ccd6970e16bd39fdd61"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-skirt.png",
+      "sha256": "51d0c60ee05d2fc09e7f362ab42369b9a3cbef02215eb04608ab63afb5c3e878"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-leg-r.png",
+      "sha256": "900b93cda616c4980597dc4f36b0c8a95890c5f692b5f9aaf17182533ade4426"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-leg-l.png",
+      "sha256": "d3519bddf6363c18431f94138bd37339019fa96b04068c627406a9ce05553c82"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-laptop-base.png",
+      "sha256": "8293be009c60745e10ca4507301cd956a7bc39281cb9d4c4dc99e87628a469ab"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+      "sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-r.png",
+      "sha256": "d26921db8334aff7c35f0b91d174c9ecbc4403403705224793be3f42af97b961"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-laptop-lid.png",
+      "sha256": "afaef4eea176d6815324590f6f239bd0545cd61434c491e22965ed10d1d27c98"
+    }
+  ],
+  "layers_bottom_to_top": [
+    {
+      "source_layer_id": "back hair#0",
+      "source_name": "back hair",
+      "PSD_bottom_to_top_index": 0,
+      "PSD_bbox": [
+        0,
+        14,
+        1016,
+        1194
+      ],
+      "file": "20-back-hair.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\20-back-hair.png",
+      "file_sha256": "a0d7a960a0fa397137f28edc67693f4475febee3345addf20f8776fc65ed0e95",
+      "decoded_full_canvas_RGBA_sha256": "25ea504290bdf41b24300deb7f86855707afb257e21ee383b9f529e3ce02b27a",
+      "decoded_crop_RGBA_sha256": "40ffa508081355298cdf2db6023bc44b83f71d05fd2fb5ccc7d0db33515ab36e",
+      "source_crop_alpha_2_pixels_preserved": 1321,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "arm backing#1",
+      "source_name": "arm backing",
+      "PSD_bottom_to_top_index": 1,
+      "PSD_bbox": [
+        288,
+        558,
+        967,
+        908
+      ],
+      "file": "arm-backing.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\arm-backing.png",
+      "file_sha256": "4f91caa999466784e9d44e26a7c7d21dcf492f90fa012d290b4a540b2e5bb82c",
+      "decoded_full_canvas_RGBA_sha256": "d1f25beb725587dc6839413f6ba3a081b767ef1b687d2ae14d4eb2e2c9e7f476",
+      "decoded_crop_RGBA_sha256": "01770ac90cca204c04eca115c63b083a78b334c305a2bf930d739fcbb5e69f92",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "headwear#2",
+      "source_name": "headwear",
+      "PSD_bottom_to_top_index": 2,
+      "PSD_bbox": [
+        247,
+        86,
+        1011,
+        656
+      ],
+      "file": "19-headwear.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\19-headwear.png",
+      "file_sha256": "8a54ab96ceaf2d43fbe0afd151bdfee2032ac87f5d71f09b629ed31046772fec",
+      "decoded_full_canvas_RGBA_sha256": "8749b6784889005f74efb815c0e3245b5eb6c46d18ee031d27d7526ad56de6cc",
+      "decoded_crop_RGBA_sha256": "5ab3ac566d93b1e9ed14fe8ff748479276ab2835ef45af6f51a76dbb8972d0a6",
+      "source_crop_alpha_2_pixels_preserved": 546,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "topwear#3",
+      "source_name": "topwear",
+      "PSD_bottom_to_top_index": 3,
+      "PSD_bbox": [
+        450,
+        587,
+        796,
+        766
+      ],
+      "file": "18-topwear.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\18-topwear.png",
+      "file_sha256": "4668ecd64379e258ba8222abc7edfa2f358c5d8932bc2d262f72ab7aa2ea052d",
+      "decoded_full_canvas_RGBA_sha256": "1ea3f6fbcfc47dc2609eced706da26bf28304487a263010dc0efcef16fa8525f",
+      "decoded_crop_RGBA_sha256": "cd91701fb31600a1932930d8b6594f337ee9b45466967955452557b9f99c9df1",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "bottomwear#4",
+      "source_name": "bottomwear",
+      "PSD_bottom_to_top_index": 4,
+      "PSD_bbox": [
+        267,
+        741,
+        980,
+        1025
+      ],
+      "file": "17-bottomwear.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\17-bottomwear.png",
+      "file_sha256": "695aea48359eaf9a944f4fe123437b12e36e9c2627d1d406fa97dd1247eb5d75",
+      "decoded_full_canvas_RGBA_sha256": "a5ce2b681da0233df05559786fd242ffc3fcb09c384755a5fe6ef9f285c925cb",
+      "decoded_crop_RGBA_sha256": "e48fb95b108afcbfb9c0d466fdde04d4bde4413efee01d1e280cd29f8d2410b7",
+      "source_crop_alpha_2_pixels_preserved": 123,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "footwear-r#5",
+      "source_name": "footwear-r",
+      "PSD_bottom_to_top_index": 5,
+      "PSD_bbox": [
+        617,
+        920,
+        777,
+        1237
+      ],
+      "file": "16-footwear-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\16-footwear-r.png",
+      "file_sha256": "424ea322bf5d3c609c7607f0cefab4a0137918aeab9d7f529fa31f61157ff8ac",
+      "decoded_full_canvas_RGBA_sha256": "3d035f08eefec18a66605468769b588484ca83b40acb87864d6e1fd53ede4a32",
+      "decoded_crop_RGBA_sha256": "251038032cd5dfac930cf270215226fa612e37ed598802722833094eb6758ad4",
+      "source_crop_alpha_2_pixels_preserved": 354,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "footwear-l#6",
+      "source_name": "footwear-l",
+      "PSD_bottom_to_top_index": 6,
+      "PSD_bbox": [
+        475,
+        920,
+        641,
+        1237
+      ],
+      "file": "15-footwear-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\15-footwear-l.png",
+      "file_sha256": "f83ad28772308da8f024fde38ece95f805c010dd4d8218facab805e20525d06f",
+      "decoded_full_canvas_RGBA_sha256": "3564427751838bc990ec1424601e5118f345b4c487b416bffddebdc93ffa1c39",
+      "decoded_crop_RGBA_sha256": "527c6db724818ab206a68abcc8f16db76d083064d81f34caebe2ebba68d2cda8",
+      "source_crop_alpha_2_pixels_preserved": 369,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "tail#7",
+      "source_name": "tail",
+      "PSD_bottom_to_top_index": 7,
+      "PSD_bbox": [
+        899,
+        568,
+        1179,
+        999
+      ],
+      "file": "14-tail.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\14-tail.png",
+      "file_sha256": "6ae466f453a7ecf586f54bbedec6f52a0fb4b123c8914b11f1b2015a4634a7d6",
+      "decoded_full_canvas_RGBA_sha256": "b2dce7c2adc43eedd9be024319002ac256d30469abe1af643554b99082286b74",
+      "decoded_crop_RGBA_sha256": "c1c16150f14004e2e476076acf34266ac3c4a0de7c5a8df80d1da1de50cb8bff",
+      "source_crop_alpha_2_pixels_preserved": 676,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "upperarm-r#8",
+      "source_name": "upperarm-r",
+      "PSD_bottom_to_top_index": 8,
+      "PSD_bbox": [
+        700,
+        606,
+        800,
+        756
+      ],
+      "file": "13-upperarm-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\13-upperarm-r.png",
+      "file_sha256": "966761b81c0eea6f5da1e448cd2e1e770ae929414f231de3c892a275507b31f1",
+      "decoded_full_canvas_RGBA_sha256": "6bb6ace4b35386ddebbcea086ae75752514d83dc20bfec6de17aed181588cf40",
+      "decoded_crop_RGBA_sha256": "ea4e57cb92cba919b397e2ba7cb4c2b729f73205a0dabc3bd1f9762e22e80193",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "upperarm-l#9",
+      "source_name": "upperarm-l",
+      "PSD_bottom_to_top_index": 9,
+      "PSD_bbox": [
+        455,
+        606,
+        555,
+        756
+      ],
+      "file": "12-upperarm-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\12-upperarm-l.png",
+      "file_sha256": "607d756af4326f737bdaf0c4804ad2fa95547683723e2b5141a2f00bfb759add",
+      "decoded_full_canvas_RGBA_sha256": "4adae14e6b4623158c3c90f49203acb7bdf438f9b2230b8456b0091125834f49",
+      "decoded_crop_RGBA_sha256": "b7364c53cc222ba47baffebdaea7bb1f5ba2083b9733008cbeb751fa369fadd5",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "face#10",
+      "source_name": "face",
+      "PSD_bottom_to_top_index": 10,
+      "PSD_bbox": [
+        412,
+        330,
+        838,
+        611
+      ],
+      "file": "11-face.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\11-face.png",
+      "file_sha256": "8d9d8df7b51e070e94a9a815d7db3e1ebf914fd3c14e457b1dea49fc1f9c812e",
+      "decoded_full_canvas_RGBA_sha256": "02e3281338009545b4efe99de4309819acb2664e52d4e19455abec10963554f6",
+      "decoded_crop_RGBA_sha256": "42187b59cd20f38e1aa373efc44da3843e31e66e4369ae341f2d36b24da31ea9",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "front hair#11",
+      "source_name": "front hair",
+      "PSD_bottom_to_top_index": 11,
+      "PSD_bbox": [
+        275,
+        86,
+        961,
+        600
+      ],
+      "file": "10-front-hair.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\10-front-hair.png",
+      "file_sha256": "9480997b19db7bfa77568911f7c0c0ddeef051dba3bd6f657304ddb95396b0c6",
+      "decoded_full_canvas_RGBA_sha256": "7d9c02458635008c859260cdcec5777b4b82ec6954e0af765a5a455b72828a37",
+      "decoded_crop_RGBA_sha256": "1a4882f5b522cfadc48e5eaa2a5d6aa6e03ad3a8a5c51e12af94a45da6c1af07",
+      "source_crop_alpha_2_pixels_preserved": 90,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "mouth#12",
+      "source_name": "mouth",
+      "PSD_bottom_to_top_index": 12,
+      "PSD_bbox": [
+        610,
+        517,
+        651,
+        523
+      ],
+      "file": "09-mouth.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\09-mouth.png",
+      "file_sha256": "f87f30d0a6ce8c94537b98a6671982de0b6d5abee7c752edc6b6660533e6b82a",
+      "decoded_full_canvas_RGBA_sha256": "67ca3968fe945ef6f5746ed59a58c736a14dfb44dd29f1363f9086a8a729edb3",
+      "decoded_crop_RGBA_sha256": "8fcf2c13e98f61fd4fe120c9dceb19af74cfd2759e5dccc9de18bb1c11a03105",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "eyewhite-r#13",
+      "source_name": "eyewhite-r",
+      "PSD_bottom_to_top_index": 13,
+      "PSD_bbox": [
+        659,
+        408,
+        775,
+        497
+      ],
+      "file": "08-eyewhite-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\08-eyewhite-r.png",
+      "file_sha256": "5bb1444cd963ba7a719de60da5f351b7c77617ae661994b31730f227e2a8fc72",
+      "decoded_full_canvas_RGBA_sha256": "3b95808d18faf70b9a96577e6c043ed6be40a6463e37c32718e14ff0971425c8",
+      "decoded_crop_RGBA_sha256": "dde0db76d719fc916d1551a990cffe8571b9a89da666ebb59eea346f1fd2a37c",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "eyewhite-l#14",
+      "source_name": "eyewhite-l",
+      "PSD_bottom_to_top_index": 14,
+      "PSD_bbox": [
+        484,
+        421,
+        601,
+        507
+      ],
+      "file": "07-eyewhite-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\07-eyewhite-l.png",
+      "file_sha256": "9b7ca83408f4c32b53d8efac58fa4cb9d36580b14df54be717d9806c255db542",
+      "decoded_full_canvas_RGBA_sha256": "c80b920c86626806605163a57508bb92e09dd5043a651bcb1bb8afe16df7e025",
+      "decoded_crop_RGBA_sha256": "9633b0000135d63c04be8b5defa3d5fe0568f3962023acc0ab625526c5da63ff",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "irides-r#15",
+      "source_name": "irides-r",
+      "PSD_bottom_to_top_index": 15,
+      "PSD_bbox": [
+        683,
+        430,
+        745,
+        493
+      ],
+      "file": "06-irides-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\06-irides-r.png",
+      "file_sha256": "d0893df897d9fec67493564a7117f6354d1426d7c2b6234809d89dfd3584c520",
+      "decoded_full_canvas_RGBA_sha256": "bc4c55698c10f459a3445dbc09f79e9b8769524aacd1def5ec25d4a1d09cec7f",
+      "decoded_crop_RGBA_sha256": "90ce18b6b774f88cbb8c78c8530c5e0c00f322688151b77a5ecdd0f60636a6b7",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "irides-l#16",
+      "source_name": "irides-l",
+      "PSD_bottom_to_top_index": 16,
+      "PSD_bbox": [
+        513,
+        438,
+        577,
+        502
+      ],
+      "file": "05-irides-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\05-irides-l.png",
+      "file_sha256": "e467763530f324b2ec62011183107cda3fd74056e35d9c260250fad2894eade6",
+      "decoded_full_canvas_RGBA_sha256": "75ea99ff4b7eec7c87b2b6c6942c63f8f7f19cf8275d419a9773470b3ec59829",
+      "decoded_crop_RGBA_sha256": "25da9be72dc3779691fe39e2d2be95dbdb4fc21318f3d7d850c8c138663d5d23",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "eyelash-r#17",
+      "source_name": "eyelash-r",
+      "PSD_bottom_to_top_index": 17,
+      "PSD_bbox": [
+        659,
+        410,
+        791,
+        468
+      ],
+      "file": "04-eyelash-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\04-eyelash-r.png",
+      "file_sha256": "fd7f7222c7ba04e3de762b29209fe2a980d96cd123deb30ae484c8042063206f",
+      "decoded_full_canvas_RGBA_sha256": "7f70c36c5855f843d6ad0380f6f547dc398ffaf3f917123e42d86fc222aac06b",
+      "decoded_crop_RGBA_sha256": "2b9151f369806e8366aab84d420cec73a925e46a8fc4a7e32cc3fc00e5a59a38",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "eyelash-l#18",
+      "source_name": "eyelash-l",
+      "PSD_bottom_to_top_index": 18,
+      "PSD_bbox": [
+        469,
+        422,
+        602,
+        491
+      ],
+      "file": "03-eyelash-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\03-eyelash-l.png",
+      "file_sha256": "9924f382f9be96a3d8c6712f3c261f454e859f31d44e0cdfd9ceb3f5abc5b25b",
+      "decoded_full_canvas_RGBA_sha256": "beac2cc143cd01eb09c3da181f797df7e76649dd2f5e0c83a9539f68265a4ac4",
+      "decoded_crop_RGBA_sha256": "e2a6afe83648307d5abb8b0e85a35fb895e7820a8d09f9bc9fae5e94261b64ca",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "handwear-r#19",
+      "source_name": "handwear-r",
+      "PSD_bottom_to_top_index": 19,
+      "PSD_bbox": [
+        733,
+        686,
+        911,
+        844
+      ],
+      "file": "02-handwear-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\02-handwear-r.png",
+      "file_sha256": "e8df96a069ed17c2935ea5082c6482a2723e9fae0405f86b5ce0a9cb967f9274",
+      "decoded_full_canvas_RGBA_sha256": "de91ca2e24d798c337e72eeface8e4e35ed5dfb51a37d15433f99ca63f1ad8ba",
+      "decoded_crop_RGBA_sha256": "a4ad25ba87d9b0242f2dc81579b004208cb0c9dbbc1f5ba6c22e8783127ecf18",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "handwear-l#20",
+      "source_name": "handwear-l",
+      "PSD_bottom_to_top_index": 20,
+      "PSD_bbox": [
+        336,
+        686,
+        522,
+        860
+      ],
+      "file": "01-handwear-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\01-handwear-l.png",
+      "file_sha256": "2b5d109022634b512b9660f26bca54016b46b2e7535f0b41525a1aa73f8fccc5",
+      "decoded_full_canvas_RGBA_sha256": "2ea8728826d6d1c729ffdee1724c2ea79289571f3f3950ab04e9a3902d8652ad",
+      "decoded_crop_RGBA_sha256": "422723a05dfedf66bd2fd710b1ba2ebc1808e6e884898f9849387bc206de76d0",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "handwear_r#21",
+      "source_name": "handwear_r",
+      "PSD_bottom_to_top_index": 21,
+      "PSD_bbox": [
+        825,
+        788,
+        919,
+        860
+      ],
+      "file": "00-handwear_r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\00-handwear_r.png",
+      "file_sha256": "796ca0341dc82df89b0656c95ddfbb71fa5d8f55ff55e24b55d89506db2c0a81",
+      "decoded_full_canvas_RGBA_sha256": "378eee4022f0e842e16b465126dc2f638e96f87db482a65429beffc1a4f74d50",
+      "decoded_crop_RGBA_sha256": "b23eca857f6da699c3ddaf2867c64d008ff8c35d41872814db95eb4b4c82bb86",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "mouth open#22",
+      "source_name": "mouth open",
+      "PSD_bottom_to_top_index": 22,
+      "PSD_bbox": [
+        572,
+        494,
+        692,
+        550
+      ],
+      "file": "mouth-open.png",
+      "action": "extracted_raw_PSD_RGBA_at_original_coordinates",
+      "source_PNG": null,
+      "file_sha256": "102f075070d29f141b8fe5ba187ed6bc12992ccf79aecad2d1166bd585a4c1e6",
+      "decoded_full_canvas_RGBA_sha256": "fcb47cab3b97db2863b407da302435a930bf99f0b24a1106232c32420b456c1a",
+      "decoded_crop_RGBA_sha256": "e29cec438a151515d3a091a564f788b408eadfa50f726cec4db6052fba048468",
+      "source_crop_alpha_2_pixels_preserved": 46,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "bite mouth#23",
+      "source_name": "bite mouth",
+      "PSD_bottom_to_top_index": 23,
+      "PSD_bbox": [
+        572,
+        497,
+        712,
+        567
+      ],
+      "file": "bite-mouth.png",
+      "action": "extracted_raw_PSD_RGBA_at_original_coordinates",
+      "source_PNG": null,
+      "file_sha256": "f48aa5feeb1ebf5ab43cbd65bb0a94eec683563889989d81cf00a9ad06dafd1b",
+      "decoded_full_canvas_RGBA_sha256": "0717094cc46519fb41f52a20b8018284ebfff342f95ce8f46cbaafbe68a96252",
+      "decoded_crop_RGBA_sha256": "3ac74af8c051030c59283721e2a56af70d1412f1b14bbd07f85d041598dd71b8",
+      "source_crop_alpha_2_pixels_preserved": 4790,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "handwear right#24",
+      "source_name": "handwear right",
+      "PSD_bottom_to_top_index": 24,
+      "PSD_bbox": [
+        797,
+        494,
+        922,
+        896
+      ],
+      "file": "grass-prop.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\grass-prop.png",
+      "file_sha256": "90dd2ad1d4f87872a703f6a9abff333ed7e66b04c5f23b1be2b1c4573c61dda6",
+      "decoded_full_canvas_RGBA_sha256": "727c363c795c9ad772f16a3422c95378179957d74498ae72cfefe786dd6bcdf1",
+      "decoded_crop_RGBA_sha256": "e97cbb0473462e17b05772141ec0ba8479fd1aa54733262b6779656598b79041",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "handwear.right#25",
+      "source_name": "handwear.right",
+      "PSD_bottom_to_top_index": 25,
+      "PSD_bbox": [
+        827,
+        790,
+        929,
+        885
+      ],
+      "file": "hand-grip-registered.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\hand-grip-registered.png",
+      "file_sha256": "3a947805ed569d6b620741fb93cbdd6da6533a11e224a1c252fd472c5dbfab37",
+      "decoded_full_canvas_RGBA_sha256": "83daa25de25d03362259df146e81e4dea191473eb8d4ea1f90b4fb167034f3d7",
+      "decoded_crop_RGBA_sha256": "e643e67c6fd7588b85e878eba654d4766fb9c404450bf3af71153d29c0f0c04c",
+      "source_crop_alpha_2_pixels_preserved": 63,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy torso#26",
+      "source_name": "busy torso",
+      "PSD_bottom_to_top_index": 26,
+      "PSD_bbox": [
+        432,
+        566,
+        795,
+        818
+      ],
+      "file": "busy-torso.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-torso.png",
+      "file_sha256": "832e09b9f7ba8c98b20fe9ffe6ffa14a69258b0a90b84ccd6970e16bd39fdd61",
+      "decoded_full_canvas_RGBA_sha256": "493e7fc1d98f509736d0a50d8c331eeb8f1c4ac0b5d49194968df3259771dc98",
+      "decoded_crop_RGBA_sha256": "19f7b52e4f6cacfd9fb317947621a3f4e42db9770595eba3f5e1a4fb42c186e9",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy skirt#27",
+      "source_name": "busy skirt",
+      "PSD_bottom_to_top_index": 27,
+      "PSD_bbox": [
+        221,
+        699,
+        983,
+        1035
+      ],
+      "file": "busy-skirt.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-skirt.png",
+      "file_sha256": "51d0c60ee05d2fc09e7f362ab42369b9a3cbef02215eb04608ab63afb5c3e878",
+      "decoded_full_canvas_RGBA_sha256": "62d3da1f8fba80360b8b02e12d98a5c28274a856f1eff06d6b7a9cd94eac27af",
+      "decoded_crop_RGBA_sha256": "d9eed50d1c8a4ed805c2d4fca91afa849ac2f970ecaff407ef065e02d54f6627",
+      "source_crop_alpha_2_pixels_preserved": 109,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy leg r#28",
+      "source_name": "busy leg r",
+      "PSD_bottom_to_top_index": 28,
+      "PSD_bbox": [
+        499,
+        819,
+        703,
+        1140
+      ],
+      "file": "busy-leg-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-leg-r.png",
+      "file_sha256": "900b93cda616c4980597dc4f36b0c8a95890c5f692b5f9aaf17182533ade4426",
+      "decoded_full_canvas_RGBA_sha256": "547cad886c1510397ab42002572a1e69fa4dc0fc8c70c5fcf3e515b63f07c2b5",
+      "decoded_crop_RGBA_sha256": "38dc0e17682baf82544362a3a18b90d69471b1adc3f84bd25bae792a869a410e",
+      "source_crop_alpha_2_pixels_preserved": 105,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy leg l#29",
+      "source_name": "busy leg l",
+      "PSD_bottom_to_top_index": 29,
+      "PSD_bbox": [
+        319,
+        815,
+        558,
+        1126
+      ],
+      "file": "busy-leg-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-leg-l.png",
+      "file_sha256": "d3519bddf6363c18431f94138bd37339019fa96b04068c627406a9ce05553c82",
+      "decoded_full_canvas_RGBA_sha256": "0ce21091ced992cab14657821d3bedf7687a591684f0b10415ec8dc3f0f9f447",
+      "decoded_crop_RGBA_sha256": "936906552aba7c4fa728deb36ee2a6f1a846237f1ab5e93d98fd4591d66ac34b",
+      "source_crop_alpha_2_pixels_preserved": 83,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy laptop base#30",
+      "source_name": "busy laptop base",
+      "PSD_bottom_to_top_index": 30,
+      "PSD_bbox": [
+        391,
+        794,
+        729,
+        829
+      ],
+      "file": "busy-laptop-base.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-laptop-base.png",
+      "file_sha256": "8293be009c60745e10ca4507301cd956a7bc39281cb9d4c4dc99e87628a469ab",
+      "decoded_full_canvas_RGBA_sha256": "bb4b70d6492c5fba78132bedb2573455b99b6c408fd3cd7b05f49f644ce29197",
+      "decoded_crop_RGBA_sha256": "e9b4a0d74aa86b435bb1676ceac466811249e4dc7b8bd35f030980032f86e014",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy sleeve l#31",
+      "source_name": "busy sleeve l",
+      "PSD_bottom_to_top_index": 31,
+      "PSD_bbox": [
+        342,
+        619,
+        511,
+        810
+      ],
+      "file": "busy-sleeve-l.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+      "file_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+      "decoded_full_canvas_RGBA_sha256": "71310d157cdde2b6c89a9b2cbe18e55fd50c5b47d3ae3703d2c3a475331e6701",
+      "decoded_crop_RGBA_sha256": "ffa4ad94d0d5176621c45489f20aeb94fea6e09ccb19fd4ba444350f86455fa7",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy sleeve r#32",
+      "source_name": "busy sleeve r",
+      "PSD_bottom_to_top_index": 32,
+      "PSD_bbox": [
+        673,
+        615,
+        823,
+        831
+      ],
+      "file": "busy-sleeve-r.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-r.png",
+      "file_sha256": "d26921db8334aff7c35f0b91d174c9ecbc4403403705224793be3f42af97b961",
+      "decoded_full_canvas_RGBA_sha256": "2c908a13ee2d97e324b6e23cf88bd3468b3bafe26e559d4a360e5580708ccea5",
+      "decoded_crop_RGBA_sha256": "0b10111a09ca542105ec14168573f643883b4b330289e4dd802bfad45475a06b",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    },
+    {
+      "source_layer_id": "busy laptop lid#33",
+      "source_name": "busy laptop lid",
+      "PSD_bottom_to_top_index": 33,
+      "PSD_bbox": [
+        344,
+        641,
+        694,
+        817
+      ],
+      "file": "busy-laptop-lid.png",
+      "action": "copied_source_PNG_bytes",
+      "source_PNG": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-laptop-lid.png",
+      "file_sha256": "afaef4eea176d6815324590f6f239bd0545cd61434c491e22965ed10d1d27c98",
+      "decoded_full_canvas_RGBA_sha256": "8b676d1e302b2b89f9d18d8857f59d9f09fafcaed39fb9e45da665b309056e57",
+      "decoded_crop_RGBA_sha256": "a845e7ab0499cab764d2d59f3b6e899f6d5dc78fc0ac79953f3fdf58328250f5",
+      "source_crop_alpha_2_pixels_preserved": 0,
+      "exact_full_canvas_RGBA_matches_PSD": true
+    }
+  ],
+  "source_contract": "Flat source rasters only; no compositing, trimming, resizing, alpha masking, rig generation or editor imports.",
+  "consumer_contract": {
+    "manifest_format": "Flat source name to sibling PNG filename dictionary, matching the existing production manifest format.",
+    "layer_order": "PSD order is explicit in receipt.layers_bottom_to_top; filename prefixes are not ordering authority.",
+    "prepare_live2d_psd": "Does not read the manifest. Recreates rasters and overwrites fixed production PSD and layer outputs; do not use it to roundtrip this source pack.",
+    "build_live2d_model": "Imports the fixed production PSD, reads only eyelash-l and eyelash-r from fixed art/live2d/layers manifest. Has no pack input argument and will not adopt this isolated pack automatically.",
+    "binding_equivalence": "Not established: matching source pixels does not prove author HEAD, CMO3 or Native rig equivalence.",
+    "formal_inputs_replaced": false
+  },
+  "tool": {
+    "path": "E:\\projects\\Desktop-Companion\\tools\\prepare_source_layer_pack.py",
+    "sha256": "960a552027d13e8beecd64eaf5bfab2f43991a7ac50f5ad8cb7060f86596d649"
+  }
+}

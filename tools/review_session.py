@@ -78,7 +78,8 @@ def record_session(profile, records):
         'renderer_sha256': digest(BUILD / 'DesktopCompanion.exe'),
         'cubism_core_sha256': digest(BUILD / 'Live2DCubismCore.dll'),
         'review_tools': {name: digest(ROOT / 'tools' / name)
-                         for name in ('review_motion.py', 'review_session.py')},
+                         for name in ('review_motion.py', 'review_session.py', 'review_report.py')
+                         if (ROOT / 'tools' / name).is_file()},
         'fixed_step_seconds': 1 / 15, 'frames_expected': profile['frames'],
         'capture_scope': 'native_model_and_thought_bubble',
         'not_captured': ['desktop icon flight overlay', 'fed-file wrap prop',
@@ -95,6 +96,8 @@ def record_session(profile, records):
 def write_session(profile, evidence):
     (profile['run'] / 'session.json').write_text(
         json.dumps(evidence, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
+    from review_report import write_review_report
+    write_review_report(profile['run'], evidence)
 
 
 def finish_session(profile, evidence):
@@ -106,7 +109,12 @@ def finish_session(profile, evidence):
         raise SystemExit('Renderer changed during capture; run is stale.')
     if digest(BUILD / 'Live2DCubismCore.dll') != evidence['cubism_core_sha256']:
         raise SystemExit('Cubism Core changed during capture; run is stale.')
+    for name, expected in evidence['review_tools'].items():
+        if digest(ROOT / 'tools' / name) != expected:
+            raise SystemExit('Review tool changed during capture; run is stale: ' + name)
     evidence['artifacts'] = {path.relative_to(profile['run']).as_posix(): digest(path)
                              for path in sorted(profile['output'].glob('*')) if path.is_file()}
+    evidence['provenance_checks'] = dict.fromkeys(
+        ('source_deployment_inputs', 'renderer', 'cubism_core', 'review_tools'), 'passed')
     evidence['capture_status'] = 'complete'
     write_session(profile, evidence)

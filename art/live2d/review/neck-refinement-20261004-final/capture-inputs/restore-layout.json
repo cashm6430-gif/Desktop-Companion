@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "files": {
+    "capture-inputs/baseline/poses.json": {
+      "original_path": "build/review-runs/neck-v1-20261004T014229Z-4f6458da/poses.json",
+      "sha256": "3f450ff22ec9fc6c29d3236320b88175eb9cc861bbe187599e7b2e8e7049f797"
+    },
+    "capture-inputs/baseline/busy-laptop/capture.json": {
+      "original_path": "build/review-runs/neck-v1-20261004T014229Z-4f6458da/busy-laptop/capture.json",
+      "sha256": "bb39d5ea3401ba9749ee33fd9f4aa53c4fc424a62846e7d522776bc5ce7e46af"
+    },
+    "capture-inputs/baseline/turn-ended-laptop/scene.json": {
+      "original_path": "build/review-runs/neck-v1-20261004T014229Z-4f6458da/turn-ended-laptop/scene.json",
+      "sha256": "d79bd7f57f6f268cd912a4986f9a67da943e0394b843bd1b1e1075520c16a614"
+    },
+    "capture-inputs/candidate/poses.json": {
+      "original_path": "build/review-runs/neck-v1-20261004T020813Z-8f395f32/poses.json",
+      "sha256": "3f450ff22ec9fc6c29d3236320b88175eb9cc861bbe187599e7b2e8e7049f797"
+    },
+    "capture-inputs/candidate/busy-laptop/capture.json": {
+      "original_path": "build/review-runs/neck-v1-20261004T020813Z-8f395f32/busy-laptop/capture.json",
+      "sha256": "f48cddbd083cd8527a415dca2ccd2bd44e5bd80f231b84476c9d396945b241d6"
+    },
+    "capture-inputs/candidate/turn-ended-laptop/scene.json": {
+      "original_path": "build/review-runs/neck-v1-20261004T020813Z-8f395f32/turn-ended-laptop/scene.json",
+      "sha256": "27dac506e474025cb63c90478b3fa8c295def7fe36ea20c11d3b7dc112b40b31"
+    }
+  },
+  "scope": "Original 83-pose fixtures and 270-frame player parameter traces; historical capture scope is preserved.",
+  "not_preserved_here": "All raw capture frames and exact pre-adoption source/deployment layout.",
+  "recheck": "Restore current assets/code from Git and create fresh captures; do not rewrite production metadata to force an old session gate."
+}

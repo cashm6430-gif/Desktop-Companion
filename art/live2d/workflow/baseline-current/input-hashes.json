@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-10-03T03:41:17.184689+00:00",
+  "all_captured_input_bytes_equal_current": false,
+  "all_current_source_input_bytes_equal_deployed": true,
+  "captured_inputs": {
+    "busy-laptop-v2-20261002T160341Z-b556bf4d": [
+      {
+        "path": "assets/live2d/whale-girl/hit-mask.png",
+        "source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+        "deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+        "current_source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+        "current_deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png",
+        "source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+        "deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+        "current_source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+        "current_deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/body-underpaint.png",
+        "source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+        "deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+        "current_source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+        "current_deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/duplicate-mask.png",
+        "source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+        "deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+        "current_source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+        "current_deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png",
+        "source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+        "deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+        "current_source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+        "current_deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/neck-mask.png",
+        "source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+        "deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+        "current_source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+        "current_deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/ownership.json",
+        "source_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+        "deployed_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+        "current_source_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+        "current_deployed_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png",
+        "source_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+        "deployed_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+        "current_source_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+        "current_deployed_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json",
+        "source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+        "deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+        "current_source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+        "current_deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json",
+        "source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+        "deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+        "current_source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+        "current_deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json",
+        "source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+        "deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+        "current_source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+        "current_deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+        "source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+        "deployed_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+        "current_source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+        "current_deployed_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+        "source_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+        "deployed_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+        "current_source_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+        "current_deployed_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json",
+        "source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+        "deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+        "current_source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+        "current_deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json",
+        "source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+        "deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+        "current_source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+        "current_deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",
+        "source_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+        "deployed_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+        "current_source_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+        "current_deployed_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json",
+        "source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+        "deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+        "current_source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+        "current_deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+      },
+      {
+        "path": "assets/motions/busy-laptop.motion.json",
+        "source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "current_source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "current_deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+      },
+      {
+        "path": "assets/motions/busy-stand.motion.json",
+        "source_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+        "deployed_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+        "current_source_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+        "current_deployed_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
+      },
+      {
+        "path": "assets/motions/delete.motion.json",
+        "source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+        "deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+        "current_source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+        "current_deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+      },
+      {
+        "path": "assets/motions/grass-touch.motion.json",
+        "source_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "deployed_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "current_source_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "current_deployed_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322"
+      },
+      {
+        "path": "assets/motions/grass.motion.json",
+        "source_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "deployed_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "current_source_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "current_deployed_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a"
+      },
+      {
+        "path": "assets/motions/head-pat.motion.json",
+        "source_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+        "deployed_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+        "current_source_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "current_deployed_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+      },
+      {
+        "path": "assets/motions/idle.motion.json",
+        "source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+        "deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+        "current_source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+        "current_deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+      },
+      {
+        "path": "assets/motions/turn-ended.motion.json",
+        "source_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "deployed_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "current_source_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "current_deployed_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
+      }
+    ],
+    "turn-ended-laptop-v9-20261002T160501Z-7a660cfe": [
+      {
+        "path": "assets/live2d/whale-girl/hit-mask.png",
+        "source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+        "deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+        "current_source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+        "current_deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png",
+        "source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+        "deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+        "current_source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+        "current_deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/body-underpaint.png",
+        "source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+        "deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+        "current_source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+        "current_deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/duplicate-mask.png",
+        "source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+        "deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+        "current_source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+        "current_deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png",
+        "source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+        "deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+        "current_source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+        "current_deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/neck-mask.png",
+        "source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+        "deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+        "current_source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+        "current_deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+      },
+      {
+        "path": "assets/live2d/whale-girl/material-ownership/ownership.json",
+        "source_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+        "deployed_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+        "current_source_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+        "current_deployed_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png",
+        "source_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+        "deployed_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+        "current_source_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+        "current_deployed_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json",
+        "source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+        "deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+        "current_source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+        "current_deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json",
+        "source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+        "deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+        "current_source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+        "current_deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json",
+        "source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+        "deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+        "current_source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+        "current_deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+        "source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+        "deployed_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+        "current_source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+        "current_deployed_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+        "source_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+        "deployed_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+        "current_source_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+        "current_deployed_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json",
+        "source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+        "deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+        "current_source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+        "current_deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json",
+        "source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+        "deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+        "current_source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+        "current_deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",
+        "source_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+        "deployed_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+        "current_source_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+        "current_deployed_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb"
+      },
+      {
+        "path": "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json",
+        "source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+        "deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+        "current_source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+        "current_deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+      },
+      {
+        "path": "assets/motions/busy-laptop.motion.json",
+        "source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "current_source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+        "current_deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+      },
+      {
+        "path": "assets/motions/busy-stand.motion.json",
+        "source_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+        "deployed_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+        "current_source_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+        "current_deployed_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
+      },
+      {
+        "path": "assets/motions/delete.motion.json",
+        "source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+        "deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+        "current_source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+        "current_deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+      },
+      {
+        "path": "assets/motions/grass-touch.motion.json",
+        "source_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "deployed_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "current_source_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+        "current_deployed_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322"
+      },
+      {
+        "path": "assets/motions/grass.motion.json",
+        "source_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "deployed_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "current_source_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+        "current_deployed_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a"
+      },
+      {
+        "path": "assets/motions/head-pat.motion.json",
+        "source_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+        "deployed_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+        "current_source_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+        "current_deployed_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+      },
+      {
+        "path": "assets/motions/idle.motion.json",
+        "source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+        "deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+        "current_source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+        "current_deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+      },
+      {
+        "path": "assets/motions/turn-ended.motion.json",
+        "source_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "deployed_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "current_source_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+        "current_deployed_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
+      }
+    ]
+  },
+  "differences": [
+    {
+      "run": "busy-laptop-v2-20261002T160341Z-b556bf4d",
+      "path": "assets/motions/head-pat.motion.json",
+      "captured_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+      "current_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+      "classification": "approvedEvidence path relocation only; unrelated to selected motions",
+      "proof": "Reversing only the three evidence URLs exactly restores the captured byte SHA256",
+      "restored_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57"
+    },
+    {
+      "run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "path": "assets/motions/head-pat.motion.json",
+      "captured_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+      "current_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+      "classification": "approvedEvidence path relocation only; unrelated to selected motions",
+      "proof": "Reversing only the three evidence URLs exactly restores the captured byte SHA256",
+      "restored_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57"
+    }
+  ],
+  "evidence_url_mapping_current_to_captured": {
+    "art/live2d/review/head-pat-approved-r1/head-pat-keyframes-v1.png": "build/review-runs/head-pat-v1-20261002T025625Z-8804c270/artifacts/head-pat-keyframes-v1.png",
+    "art/live2d/review/head-pat-approved-r1/head-pat-desktop-scale.png": "build/review-runs/head-pat-v1-20261002T044455Z-4c4ff884/artifacts/head-pat-desktop-scale.png",
+    "art/live2d/review/head-pat-approved-r1/head-pat-busy-desktop-scale.png": "build/review-runs/head-pat-busy-v1-20261002T044718Z-6a4ab175/artifacts/head-pat-busy-desktop-scale.png"
+  }
+}

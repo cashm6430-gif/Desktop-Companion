@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-02",
+  "status": "superseded_incomplete_geometry_fix",
+  "cause": "Face backing includes collar pixels also present in topwear; head motion displaced those pixels relative to body clothing.",
+  "fix": "Blend the central face collar region to an independent Native body evaluation; keep body/posture/arms/expressions and visible parameters. No MOC3 or atlas re-export.",
+  "bindings": [
+    {
+      "source": "face",
+      "sourceBounds": [
+        407.2087,
+        325.0308,
+        842.7856,
+        615.9946
+      ],
+      "bodyTransitionY": [
+        580,
+        588
+      ],
+      "bodyTransitionX": [
+        515,
+        535,
+        725,
+        745
+      ]
+    }
+  ],
+  "ctest": {
+    "passed": 6,
+    "failed": 0,
+    "log": ".local/review-archive/diagnostics/torso-alignment-fix/ctest-final-tight.log"
+  },
+  "native_pose_count": 15,
+  "pose_manifest": ".local/review-archive/diagnostics/torso-alignment-fix/regression-poses.json",
+  "neutral_rgba_pixel_identical": true,
+  "sequences": {
+    "turn-ended-standing": {
+      "run": ".local/review-archive/sessions/turn-ended-standing-v9-20261002T101739Z-aadbe5d1",
+      "frames": 75,
+      "alpha_border_failures": 0,
+      "floor_drift_pixels": 0,
+      "capture_scope": "real_interaction_player_and_native_model"
+    },
+    "turn-ended-laptop": {
+      "run": ".local/review-archive/sessions/turn-ended-laptop-v9-20261002T101813Z-88b4ec2d",
+      "frames": 75,
+      "alpha_border_failures": 0,
+      "floor_drift_pixels": 0,
+      "capture_scope": "real_interaction_player_and_native_model"
+    },
+    "busy-stand": {
+      "run": ".local/review-archive/sessions/busy-stand-v6-20261002T101847Z-3845d0dc",
+      "frames": 195,
+      "alpha_border_failures": 0,
+      "floor_drift_pixels": 0,
+      "capture_scope": "native_model_and_thought_bubble"
+    }
+  },
+  "comparison": "art/live2d/review/torso-alignment-fix-20261002.png",
+  "review_scope": "Geometry bug fix; existing motion approval states preserved.",
+  "limits": [
+    "Face mesh is sparse: some side-hair and jaw-edge pixels interpolate the region weights.",
+    "Semantic PSD separation is still required on the next model rebuild; source bounds must be remeasured.",
+    "Physical Windows input routing is outside this geometry regression."
+  ],
+  "sha256": {
+    "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": "ce8f7172dd81ebfc856541c842b7fb4fc16402a5845e2a9666f38530b65af799",
+    "build/DesktopCompanion.exe": "1b8934fe0c6b0cf62965c5a6795b271bebb800aefc48e8a74bc08fead0d96066",
+    "src/CubismMaterialBinding.h": "fc26ff1c1cbe07d22ce5f9a61eef1823b9a1069768bfa708caa4ac6150f4f3a3",
+    "src/CubismMaterialBinding.cpp": "3b7bbc98ca3bb79d64c1b76ecf8959c3777775e039f8758d58c4363c437b471d",
+    "tests/CubismMaterialBindingTest.cpp": "56814a453993f45660b669c1c4a8390e54d10368dc00d1d22930f4fdc7f93014",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+  },
+  "superseded_by": "art/live2d/review/neck-ownership-fix-20261002.json",
+  "correction": "Prior checks proved collar alignment only; they missed duplicate neck skin and clothing copied into other layers. The geometry blend has been removed.",
+  "cleanup_storage": {
+    "date": "2026-10-03",
+    "index": "art/live2d/review/cleanup-index-20261003.json",
+    "session_summaries": ".local/review-archive/sessions",
+    "original_build_diagnostics_archive": ".local/diagnostics/historical-build-20261003.zip",
+    "current_and_comparison_native_frames_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+    "provenance": "Original capture/input hashes preserved; only storage moved."
+  }
+}

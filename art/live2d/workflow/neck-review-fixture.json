@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "kind": "isolated_neck_review_fixture",
+  "revision": 1,
+  "approval": "pending",
+  "adoption": "not_requested",
+  "description": "Static requested poses with frozen physics; continuous sitting/exit must be captured separately through the real player. This file is outside MotionLibrary.",
+  "neck_crop_normalized": [0.25, 0.32, 0.5, 0.34],
+  "keyframes": [
+    {"name":"stand-neutral","phase":"standing","parameters":{"ParamAngleX":0,"ParamAngleY":0,"ParamAngleZ":0,"ParamBodyAngleZ":0,"ParamBusyLaptop":0,"ParamSitPose":0}},
+    {"name":"stand-shake-left","phase":"standing","parameters":{"ParamAngleX":-30,"ParamAngleY":0,"ParamAngleZ":-18,"ParamBodyAngleZ":8,"ParamBusyLaptop":0,"ParamSitPose":0}},
+    {"name":"stand-shake-right","phase":"standing","parameters":{"ParamAngleX":30,"ParamAngleY":0,"ParamAngleZ":18,"ParamBodyAngleZ":-8,"ParamBusyLaptop":0,"ParamSitPose":0}},
+    {"name":"stand-look-up","phase":"standing","parameters":{"ParamAngleX":0,"ParamAngleY":30,"ParamAngleZ":0,"ParamBusyLaptop":0,"ParamSitPose":0}},
+    {"name":"stand-look-down","phase":"standing","parameters":{"ParamAngleX":0,"ParamAngleY":-30,"ParamAngleZ":0,"ParamBusyLaptop":0,"ParamSitPose":0}},
+    {"name":"sit-neutral","phase":"seated","parameters":{"ParamAngleX":0,"ParamAngleY":0,"ParamAngleZ":0,"ParamBodyAngleZ":0,"ParamBusyLaptop":1,"ParamSitPose":1,"ParamLaptopVisible":1}},
+    {"name":"sit-shake-left","phase":"seated","parameters":{"ParamAngleX":-30,"ParamAngleY":0,"ParamAngleZ":-18,"ParamBodyAngleZ":8,"ParamBusyLaptop":1,"ParamSitPose":1,"ParamLaptopVisible":1}},
+    {"name":"sit-shake-right","phase":"seated","parameters":{"ParamAngleX":30,"ParamAngleY":0,"ParamAngleZ":18,"ParamBodyAngleZ":-8,"ParamBusyLaptop":1,"ParamSitPose":1,"ParamLaptopVisible":1}},
+    {"name":"sit-look-up","phase":"seated","parameters":{"ParamAngleX":0,"ParamAngleY":30,"ParamAngleZ":0,"ParamBusyLaptop":1,"ParamSitPose":1,"ParamLaptopVisible":1}},
+    {"name":"sit-look-down","phase":"seated","parameters":{"ParamAngleX":0,"ParamAngleY":-30,"ParamAngleZ":0,"ParamBusyLaptop":1,"ParamSitPose":1,"ParamLaptopVisible":1}},
+    {"name":"fold-early","phase":"material-transition","parameters":{"ParamAngleX":-18,"ParamAngleZ":-12,"ParamBodyAngleZ":6,"ParamBusyLaptop":0.74,"ParamSitPose":0.65,"ParamLaptopVisible":0.74}},
+    {"name":"fold-before-switch","phase":"material-transition","parameters":{"ParamAngleX":-18,"ParamAngleZ":-12,"ParamBodyAngleZ":6,"ParamBusyLaptop":0.834999,"ParamSitPose":0.95,"ParamLaptopVisible":0.834999}},
+    {"name":"fold-after-switch","phase":"material-transition","parameters":{"ParamAngleX":-18,"ParamAngleZ":-12,"ParamBodyAngleZ":6,"ParamBusyLaptop":0.835001,"ParamSitPose":0.95,"ParamLaptopVisible":0.835001}},
+    {"name":"fold-late","phase":"material-transition","parameters":{"ParamAngleX":18,"ParamAngleZ":12,"ParamBodyAngleZ":-6,"ParamBusyLaptop":0.93,"ParamSitPose":1,"ParamLaptopVisible":0.93}},
+    {"name":"release-before-switch","phase":"material-transition","parameters":{"ParamAngleX":18,"ParamAngleZ":12,"ParamBodyAngleZ":-6,"ParamBusyLaptop":0.835001,"ParamSitPose":0.95,"ParamLaptopVisible":0.835001}},
+    {"name":"release-after-switch","phase":"material-transition","parameters":{"ParamAngleX":18,"ParamAngleZ":12,"ParamBodyAngleZ":-6,"ParamBusyLaptop":0.834999,"ParamSitPose":0.95,"ParamLaptopVisible":0.834999}}
+  ]
+}

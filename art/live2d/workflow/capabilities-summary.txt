@@ -1,0 +1,89 @@
+Native ranges: bound_native_ranges
+Range != visible capability; combinations remain unmeasured unless separately proved.
+ParamAngleX | 角度 X | -45..45 default=0 | unmeasured | head_pose | Head horizontal angle; use measured small reactions before exploring combined extremes.
+  short reaction: allowed
+ParamAngleY | 角度 Y | -30..30 default=0 | unmeasured | head_pose | Head vertical angle, looking up/down.
+  short reaction: allowed
+ParamAngleZ | 角度 Z | -30..30 default=0 | unmeasured | head_pose | Head tilt and short-reaction directional tilt.
+  short reaction: allowed
+ParamArmLA | 左手动作 | -65..65 default=0 | unmeasured | arm_pose | Standing left shoulder/arm pose; not a seated typing-hand lift control.
+  short reaction: reserved
+ParamArmRA | 右手动作 | -65..65 default=0 | unmeasured | arm_pose | Standing right shoulder/arm pose, including grass hand.
+  short reaction: reserved
+ParamBodyAngleX | 身体角度 X | -10..10 default=0 | unmeasured | body_pose | Body horizontal pose angle; support and silhouette are separate from head gaze.
+  short reaction: allowed
+ParamBodyAngleY | 身体角度 Y | -10..10 default=0 | unmeasured | body_pose | Body vertical pose angle.
+  short reaction: not_allowed
+ParamBodyAngleZ | 身体角度 Z | -10..10 default=0 | unmeasured | body_pose | Body lean/roll for full-body accents.
+  short reaction: allowed
+ParamBreath | 呼吸 | 0..1 default=0 | unmeasured | body_pose | Idle breathing base shared across states.
+  short reaction: reserved
+ParamBrowLY | 左眉 Y | -1..1 default=0 | blocked | disabled | Declared left eyebrow Y; earlier validator reports no drawn/keyed eyebrow effect.
+  short reaction: allowed
+  blocked: Asset validator forbids this declared inert axis; name/range does not establish visible effect.
+ParamBrowRY | 右眉 Y | -1..1 default=0 | blocked | disabled | Declared right eyebrow Y; earlier validator reports no drawn/keyed eyebrow effect.
+  short reaction: allowed
+  blocked: Asset validator forbids this declared inert axis; name/range does not establish visible effect.
+ParamBusyLaptop | ParamBusyLaptop | 0..1 default=0 | unmeasured | seated_posture | Standing/seated painted-body transition driver.
+  runtime input: 0..1; Native range is a separate output constraint
+  short reaction: reserved
+ParamBusyTypingL | 左手敲键 | 0..1 default=0 | unmeasured | laptop_prop | Small left seated sleeve/hand typing deformation.
+  short reaction: reserved
+ParamBusyTypingR | 右手敲键 | 0..1 default=0 | unmeasured | laptop_prop | Small right seated sleeve/hand typing deformation.
+  short reaction: reserved
+ParamCheek | 脸颊鼓起 | 0..1 default=0 | unmeasured | mouth | Cheek puff/accent for chewing or short expressions.
+  short reaction: allowed
+ParamElbowLA | 左肘弯曲 | -35..55 default=0 | unmeasured | arm_pose | Standing left elbow bend.
+  short reaction: reserved
+ParamElbowRA | 右肘弯曲 | -35..55 default=0 | unmeasured | arm_pose | Standing right elbow bend.
+  short reaction: reserved
+ParamEyeBallForm | 果冻眼 | -1..1 default=0 | blocked | disabled | Declared jelly-eye axis; eye-jelly physics disabled in current metadata and no current visible-effect probe.
+  short reaction: not_allowed
+  blocked: Current authoring policy excludes the unverified jelly-eye axis.
+ParamEyeBallX | 眼球 X | -1..1 default=0 | unmeasured | gaze | Horizontal gaze; grass hover and head pat may own its offset.
+  short reaction: allowed
+ParamEyeBallY | 眼球 Y | -1..1 default=0 | unmeasured | gaze | Vertical gaze.
+  short reaction: allowed
+ParamEyeLOpen | 左眼开合 | 0..1 default=1 | unmeasured | eyelid_expression | Left eyelid expression, multiplied by procedural blink.
+  short reaction: allowed
+ParamEyeROpen | 右眼开合 | 0..1 default=1 | unmeasured | eyelid_expression | Right eyelid expression, multiplied by procedural blink.
+  short reaction: allowed
+ParamEyeSmile | 笑眼弧度 | 0..1 default=0 | unmeasured | eyelid_expression | Smile-eye material/shape driver; review with eye-open controls.
+  short reaction: allowed
+ParamGrassReach | 向观众伸手 | 0..1 default=0 | unmeasured | grass_prop | Authored right-hand/grass forward perspective; not unrestricted 3D reach.
+  short reaction: reserved
+ParamGrassSwing | 草穗摆动 | -1..1 default=0 | unmeasured | grass_flex | Grass stem bending from authored target and spring lag.
+  short reaction: reserved
+ParamGrassTipBend | 柔软草穗滞后 | -1..1 default=0 | unmeasured | grass_flex | Grass tip bending relative to the stem with lag and rebound.
+  short reaction: reserved
+ParamGrassVisible | ParamGrassVisible | 0..1 default=0 | unmeasured | grass_prop | Held grass art visibility.
+  short reaction: reserved
+ParamHairBack | 后发摆动 | -1..1 default=0 | unmeasured | hair_secondary | Back-hair secondary motion/accent.
+  short reaction: allowed
+ParamHairFront | 前发摆动 | -1..1 default=0 | unmeasured | hair_secondary | Front-hair secondary motion/accent.
+  short reaction: allowed
+ParamHandRGrip | ParamHandRGrip | 0..1 default=0 | unmeasured | grass_prop | Complementary open/gripping right-hand art selector.
+  short reaction: reserved
+ParamLaptopRock | 抱电脑轻摆 | -1..1 default=0 | unmeasured | laptop_prop | Shared laptop/supporting hand rock.
+  short reaction: reserved
+ParamLaptopVisible | ParamLaptopVisible | 0..1 default=0 | unmeasured | laptop_prop | Laptop lid/base visibility after seated support is established.
+  short reaction: reserved
+ParamMouthForm | 嘴型 | -1..1 default=0 | unmeasured | mouth | Opening shape when selected mouth art is visible.
+  short reaction: allowed
+ParamMouthGape | ParamMouthGape | 1..2 default=1 | unmeasured | mouth | Neutral bite-mouth selector; renderer quantizes it and patches drawable opacity.
+  runtime input: 0..1; Native range is a separate output constraint
+  short reaction: allowed
+ParamMouthOpenY | 嘴巴开合 | 0..1 default=0 | unmeasured | mouth | Mouth opening driver subject to Native mouth selector gating.
+  short reaction: allowed
+ParamShiftX | 整体位移 X | -100..100 default=0 | unmeasured | root_translation | Model-relative horizontal shift inside the pet window; window movement is separate.
+  short reaction: allowed
+ParamShiftY | 整体位移 Y(贴地钳制,勿用) | -100..100 default=0 | blocked | disabled | Declared model-relative vertical shift cancelled by current ground contract.
+  short reaction: reserved
+  blocked: Asset validator forbids vertical whole-model travel under the current grounded renderer.
+ParamSitPose | 屈腿坐姿过渡 | 0..1 default=0 | unmeasured | seated_posture | Standing knee-fold driver resolved together with ground/material/collar constraints.
+  runtime input: 0..1; Native range is a separate output constraint
+  short reaction: reserved
+ParamSmileOpen | ParamSmileOpen | 0..1 default=0 | unmeasured | mouth | Select resting omega or open-smile art; do not use it as a third gape state.
+  short reaction: allowed
+ParamWristRA | 右腕摆角 | -25..25 default=0 | unmeasured | arm_pose | Right wrist planar angle; does not establish palm/back-of-hand turning.
+  short reaction: reserved

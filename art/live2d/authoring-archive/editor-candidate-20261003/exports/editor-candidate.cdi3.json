@@ -1,0 +1,286 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamShiftY",
+			"GroupId": "",
+			"Name": "整体位移 Y(贴地钳制,勿用)"
+		},
+		{
+			"Id": "ParamShiftX",
+			"GroupId": "",
+			"Name": "整体位移 X"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "",
+			"Name": "脸颊鼓起"
+		},
+		{
+			"Id": "ParamSitPose",
+			"GroupId": "",
+			"Name": "屈腿坐姿过渡"
+		},
+		{
+			"Id": "ParamLaptopRock",
+			"GroupId": "",
+			"Name": "抱电脑轻摆"
+		},
+		{
+			"Id": "ParamBusyTypingR",
+			"GroupId": "",
+			"Name": "右手敲键"
+		},
+		{
+			"Id": "ParamBusyTypingL",
+			"GroupId": "",
+			"Name": "左手敲键"
+		},
+		{
+			"Id": "ParamEyeSmile",
+			"GroupId": "",
+			"Name": "笑眼弧度"
+		},
+		{
+			"Id": "ParamGrassTipBend",
+			"GroupId": "",
+			"Name": "柔软草穗滞后"
+		},
+		{
+			"Id": "ParamGrassSwing",
+			"GroupId": "",
+			"Name": "草穗摆动"
+		},
+		{
+			"Id": "ParamGrassReach",
+			"GroupId": "",
+			"Name": "向观众伸手"
+		},
+		{
+			"Id": "ParamWristRA",
+			"GroupId": "",
+			"Name": "右腕摆角"
+		},
+		{
+			"Id": "ParamElbowRA",
+			"GroupId": "",
+			"Name": "右肘弯曲"
+		},
+		{
+			"Id": "ParamElbowLA",
+			"GroupId": "",
+			"Name": "左肘弯曲"
+		},
+		{
+			"Id": "ParamArmRA",
+			"GroupId": "",
+			"Name": "右手动作"
+		},
+		{
+			"Id": "ParamArmLA",
+			"GroupId": "",
+			"Name": "左手动作"
+		},
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "ParamGroupFace",
+			"Name": "角度 X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "ParamGroupFace",
+			"Name": "角度 Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "ParamGroupFace",
+			"Name": "角度 Z"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "ParamGroupEyes",
+			"Name": "左眼开合"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "ParamGroupEyes",
+			"Name": "右眼开合"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "ParamGroupEyes",
+			"Name": "眼球 X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "ParamGroupEyes",
+			"Name": "眼球 Y"
+		},
+		{
+			"Id": "ParamEyeBallForm",
+			"GroupId": "ParamGroupEyes",
+			"Name": "果冻眼"
+		},
+		{
+			"Id": "ParamBrowLY",
+			"GroupId": "ParamGroupBrows",
+			"Name": "左眉 Y"
+		},
+		{
+			"Id": "ParamBrowRY",
+			"GroupId": "ParamGroupBrows",
+			"Name": "右眉 Y"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "ParamGroupMouth",
+			"Name": "嘴型"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "ParamGroupMouth",
+			"Name": "嘴巴开合"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "ParamGroupBody",
+			"Name": "身体角度 X"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "ParamGroupBody",
+			"Name": "身体角度 Y"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "ParamGroupBody",
+			"Name": "身体角度 Z"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "ParamGroupBody",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamHairFront",
+			"GroupId": "ParamGroupPhysics",
+			"Name": "前发摆动"
+		},
+		{
+			"Id": "ParamHairBack",
+			"GroupId": "ParamGroupPhysics",
+			"Name": "后发摆动"
+		},
+		{
+			"Id": "ParamBusyLaptop",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamBusyLaptop"
+		},
+		{
+			"Id": "ParamGrassVisible",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamGrassVisible"
+		},
+		{
+			"Id": "ParamLaptopVisible",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamLaptopVisible"
+		},
+		{
+			"Id": "ParamSmileOpen",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamSmileOpen"
+		},
+		{
+			"Id": "ParamHandRGrip",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamHandRGrip"
+		},
+		{
+			"Id": "ParamMouthGape",
+			"GroupId": "ParamGroupCustom",
+			"Name": "ParamMouthGape"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroupFace",
+			"GroupId": "",
+			"Name": "面部"
+		},
+		{
+			"Id": "ParamGroupEyes",
+			"GroupId": "",
+			"Name": "眼睛"
+		},
+		{
+			"Id": "ParamGroupBrows",
+			"GroupId": "",
+			"Name": "眉毛"
+		},
+		{
+			"Id": "ParamGroupMouth",
+			"GroupId": "",
+			"Name": "嘴巴"
+		},
+		{
+			"Id": "ParamGroupBody",
+			"GroupId": "",
+			"Name": "身体"
+		},
+		{
+			"Id": "ParamGroupPhysics",
+			"GroupId": "",
+			"Name": "物理"
+		},
+		{
+			"Id": "ParamGroupCustom",
+			"GroupId": "",
+			"Name": "自定义参数"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "PartHead",
+			"Name": "头部"
+		},
+		{
+			"Id": "PartExtra",
+			"Name": "附加物"
+		},
+		{
+			"Id": "PartBody",
+			"Name": "身体"
+		},
+		{
+			"Id": "PartHairBack",
+			"Name": "后发"
+		},
+		{
+			"Id": "PartFace",
+			"Name": "面部"
+		},
+		{
+			"Id": "PartHairFront",
+			"Name": "前发"
+		},
+		{
+			"Id": "PartHeadAccessories",
+			"Name": "头部附件"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"ParamAngleX",
+			"ParamAngleY"
+		],
+		[
+			"ParamEyeBallX",
+			"ParamEyeBallY"
+		],
+		[
+			"ParamBodyAngleX",
+			"ParamBodyAngleY"
+		]
+	]
+}

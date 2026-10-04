@@ -1,8 +1,15 @@
 {
   "version": 1,
-  "approval": "pending",
-  "conceptApproval": "pending",
+  "approval": "approved",
+  "conceptApproval": "approved",
   "revision": 1,
+  "approvedUtc": "2026-10-02",
+  "approvedEvidence": {
+    "keyframes": "art/live2d/review/head-pat-approved-r1/head-pat-keyframes-v1.png",
+    "standing": "art/live2d/review/head-pat-approved-r1/head-pat-desktop-scale.png",
+    "busy": "art/live2d/review/head-pat-approved-r1/head-pat-busy-desktop-scale.png",
+    "scope": "pose, hold-loop seam, expression and the release pacing after the blend-tail fix; not a full-model regression (model unchanged)"
+  },
   "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
   "duration": 2.2,
   "loop": false,

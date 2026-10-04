@@ -1,0 +1,623 @@
+{
+  "schema_version": 1,
+  "native_binding": {
+    "source": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+    "source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "method": "Read parameter IDs/ranges from existing MOC3 using Core; no rendering or model Update",
+    "parameters": {
+      "ParamAngleX": {
+        "minimum": -45.0,
+        "maximum": 45.0,
+        "default": 0.0
+      },
+      "ParamAngleY": {
+        "minimum": -30.0,
+        "maximum": 30.0,
+        "default": 0.0
+      },
+      "ParamAngleZ": {
+        "minimum": -30.0,
+        "maximum": 30.0,
+        "default": 0.0
+      },
+      "ParamBodyAngleX": {
+        "minimum": -10.0,
+        "maximum": 10.0,
+        "default": 0.0
+      },
+      "ParamBodyAngleY": {
+        "minimum": -10.0,
+        "maximum": 10.0,
+        "default": 0.0
+      },
+      "ParamBodyAngleZ": {
+        "minimum": -10.0,
+        "maximum": 10.0,
+        "default": 0.0
+      },
+      "ParamEyeLOpen": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 1.0
+      },
+      "ParamEyeROpen": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 1.0
+      },
+      "ParamEyeBallX": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamEyeBallY": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamEyeBallForm": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamBrowLY": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamBrowRY": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamMouthForm": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamMouthOpenY": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamBreath": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamHairFront": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamHairBack": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamBusyLaptop": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamGrassVisible": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamLaptopVisible": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamSmileOpen": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamHandRGrip": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamMouthGape": {
+        "minimum": 1.0,
+        "maximum": 2.0,
+        "default": 1.0
+      },
+      "ParamArmLA": {
+        "minimum": -65.0,
+        "maximum": 65.0,
+        "default": 0.0
+      },
+      "ParamArmRA": {
+        "minimum": -65.0,
+        "maximum": 65.0,
+        "default": 0.0
+      },
+      "ParamElbowLA": {
+        "minimum": -35.0,
+        "maximum": 55.0,
+        "default": 0.0
+      },
+      "ParamElbowRA": {
+        "minimum": -35.0,
+        "maximum": 55.0,
+        "default": 0.0
+      },
+      "ParamWristRA": {
+        "minimum": -25.0,
+        "maximum": 25.0,
+        "default": 0.0
+      },
+      "ParamGrassReach": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamGrassSwing": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamGrassTipBend": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamEyeSmile": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamBusyTypingL": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamBusyTypingR": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamLaptopRock": {
+        "minimum": -1.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamSitPose": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamCheek": {
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.0
+      },
+      "ParamShiftX": {
+        "minimum": -100.0,
+        "maximum": 100.0,
+        "default": 0.0
+      },
+      "ParamShiftY": {
+        "minimum": -100.0,
+        "maximum": 100.0,
+        "default": 0.0
+      }
+    }
+  },
+  "runtime_parameter_exceptions": {
+    "ParamMouthGape": {
+      "logical_minimum": 0,
+      "logical_maximum": 1,
+      "native_minimum": 1.0,
+      "native_maximum": 2.0,
+      "source": "src/CubismCanvas.cpp paintGL gapeOn and post-Update drawable opacity gate",
+      "contract": "Logical binary mouth-art selector; the existing exported Native keyforms/range do not implement its visibility, so renderer gates the drawable after Core Update."
+    }
+  },
+  "authored_keyframes": {
+    "busy-laptop": {
+      "source": "assets/motions/busy-laptop.motion.json",
+      "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+      "approval": "approved",
+      "revision": 2,
+      "duration": 8,
+      "keyframes": [
+        {
+          "time": 0,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 1,
+            "ParamBusyTypingR": 1,
+            "ParamLaptopRock": 0,
+            "ParamAngleX": 0,
+            "ParamAngleY": -8,
+            "ParamAngleZ": 0,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": 0,
+            "ParamEyeLOpen": 0.9,
+            "ParamEyeROpen": 0.9,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": -0.75,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        },
+        {
+          "time": 1.5,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 1,
+            "ParamBusyTypingR": 1,
+            "ParamLaptopRock": -0.35,
+            "ParamAngleX": 0,
+            "ParamAngleY": -18,
+            "ParamAngleZ": -4,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": -1.5,
+            "ParamEyeLOpen": 0.9,
+            "ParamEyeROpen": 0.9,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": -0.75,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        },
+        {
+          "time": 3,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 1,
+            "ParamBusyTypingR": 1,
+            "ParamLaptopRock": 0.35,
+            "ParamAngleX": 3,
+            "ParamAngleY": -10,
+            "ParamAngleZ": 4,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": 1.5,
+            "ParamEyeLOpen": 0.9,
+            "ParamEyeROpen": 0.9,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": -0.75,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        },
+        {
+          "time": 4.5,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 0,
+            "ParamBusyTypingR": 0,
+            "ParamLaptopRock": 0,
+            "ParamAngleX": -5,
+            "ParamAngleY": -2,
+            "ParamAngleZ": 0,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": 0,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": -0.3,
+            "ParamEyeBallY": 0,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        },
+        {
+          "time": 5.8,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 0,
+            "ParamBusyTypingR": 0,
+            "ParamLaptopRock": 0,
+            "ParamAngleX": 0,
+            "ParamAngleY": 1,
+            "ParamAngleZ": 0,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": 0,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": 0,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        },
+        {
+          "time": 6.8,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 1,
+            "ParamBusyTypingR": 1,
+            "ParamLaptopRock": 0,
+            "ParamAngleX": 0,
+            "ParamAngleY": -8,
+            "ParamAngleZ": 0,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": 0,
+            "ParamEyeLOpen": 0.9,
+            "ParamEyeROpen": 0.9,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": -0.75,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        },
+        {
+          "time": 8,
+          "parameters": {
+            "ParamBusyLaptop": 1,
+            "ParamBusyTypingL": 1,
+            "ParamBusyTypingR": 1,
+            "ParamLaptopRock": 0,
+            "ParamAngleX": 0,
+            "ParamAngleY": -8,
+            "ParamAngleZ": 0,
+            "ParamBodyAngleX": 0,
+            "ParamBodyAngleY": 0,
+            "ParamBodyAngleZ": 0,
+            "ParamEyeLOpen": 0.9,
+            "ParamEyeROpen": 0.9,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": -0.75,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamSitPose": 1,
+            "ParamLaptopVisible": 1
+          }
+        }
+      ]
+    },
+    "turn-ended": {
+      "source": "assets/motions/turn-ended.motion.json",
+      "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+      "approval": "pending",
+      "revision": 9,
+      "duration": 1.9,
+      "keyframes": [
+        {
+          "time": 0,
+          "parameters": {
+            "ParamAngleX": 0.0,
+            "ParamAngleY": 0,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.0,
+            "ParamHairBack": 0.0,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": 0,
+            "ParamEyeSmile": 0,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0,
+            "ParamCheek": 0
+          }
+        },
+        {
+          "time": 0.12,
+          "parameters": {
+            "ParamAngleX": 0.0,
+            "ParamAngleY": 0,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.0,
+            "ParamHairBack": 0.0,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": -0.7,
+            "ParamEyeBallY": 0.35,
+            "ParamEyeSmile": 0,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0,
+            "ParamCheek": 0
+          }
+        },
+        {
+          "time": 0.4,
+          "parameters": {
+            "ParamAngleX": 10.0,
+            "ParamAngleY": 4,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.21,
+            "ParamHairBack": 0.36,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": -0.6,
+            "ParamEyeBallY": 0.25,
+            "ParamEyeSmile": 0,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.08,
+            "ParamCheek": 0
+          }
+        },
+        {
+          "time": 0.62,
+          "parameters": {
+            "ParamAngleX": 13.0,
+            "ParamAngleY": 8,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.3,
+            "ParamHairBack": 0.51,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": -0.55,
+            "ParamEyeBallY": 0.2,
+            "ParamEyeSmile": 0.05,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.1,
+            "ParamCheek": 0.05
+          }
+        },
+        {
+          "time": 0.8,
+          "parameters": {
+            "ParamAngleX": 12.5,
+            "ParamAngleY": -4,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.33,
+            "ParamHairBack": 0.54,
+            "ParamEyeLOpen": 0.85,
+            "ParamEyeROpen": 0.85,
+            "ParamEyeBallX": -0.5,
+            "ParamEyeBallY": 0.28,
+            "ParamEyeSmile": 0.12,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.12,
+            "ParamCheek": 0.08
+          }
+        },
+        {
+          "time": 1.02,
+          "parameters": {
+            "ParamAngleX": 13.0,
+            "ParamAngleY": 6,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.27,
+            "ParamHairBack": 0.45,
+            "ParamEyeLOpen": 0.55,
+            "ParamEyeROpen": 0.55,
+            "ParamEyeBallX": -0.4,
+            "ParamEyeBallY": 0.15,
+            "ParamEyeSmile": 0.45,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.25,
+            "ParamCheek": 0.12
+          }
+        },
+        {
+          "time": 1.2,
+          "parameters": {
+            "ParamAngleX": 13.0,
+            "ParamAngleY": 5,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.21,
+            "ParamHairBack": 0.36,
+            "ParamEyeLOpen": 0,
+            "ParamEyeROpen": 0,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": 0,
+            "ParamEyeSmile": 1,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.35,
+            "ParamCheek": 0.22
+          }
+        },
+        {
+          "time": 1.5,
+          "parameters": {
+            "ParamAngleX": 13.0,
+            "ParamAngleY": 5,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.18,
+            "ParamHairBack": 0.3,
+            "ParamEyeLOpen": 0,
+            "ParamEyeROpen": 0,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": 0,
+            "ParamEyeSmile": 1,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.35,
+            "ParamCheek": 0.22
+          }
+        },
+        {
+          "time": 1.7,
+          "parameters": {
+            "ParamAngleX": 11.5,
+            "ParamAngleY": 4,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.12,
+            "ParamHairBack": 0.192,
+            "ParamEyeLOpen": 0.72,
+            "ParamEyeROpen": 0.72,
+            "ParamEyeBallX": -0.35,
+            "ParamEyeBallY": 0.12,
+            "ParamEyeSmile": 0.22,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0.15,
+            "ParamCheek": 0.1
+          }
+        },
+        {
+          "time": 1.9,
+          "parameters": {
+            "ParamAngleX": 0.0,
+            "ParamAngleY": 0,
+            "ParamAngleZ": 0.0,
+            "ParamBodyAngleX": 0.0,
+            "ParamBodyAngleZ": 0.0,
+            "ParamShiftX": 0.0,
+            "ParamHairFront": 0.0,
+            "ParamHairBack": 0.0,
+            "ParamEyeLOpen": 1,
+            "ParamEyeROpen": 1,
+            "ParamEyeBallX": 0,
+            "ParamEyeBallY": 0,
+            "ParamEyeSmile": 0,
+            "ParamSmileOpen": 0,
+            "ParamMouthOpenY": 0,
+            "ParamMouthForm": 0,
+            "ParamCheek": 0
+          }
+        }
+      ]
+    }
+  },
+  "important": "Scene parameters are resolved player values with blend state; they are not identical to authored keyframe targets. Busy sequence has no saved parameter trace and must not be relabeled as an authored static pose."
+}

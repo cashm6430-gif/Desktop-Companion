@@ -1,0 +1,237 @@
+{
+  "parameter_count": 40,
+  "parameters": {
+    "ParamAngleX": {
+      "default": 0,
+      "max": 45,
+      "min": -45
+    },
+    "ParamAngleY": {
+      "default": 0,
+      "max": 30,
+      "min": -30
+    },
+    "ParamAngleZ": {
+      "default": 0,
+      "max": 30,
+      "min": -30
+    },
+    "ParamArmLA": {
+      "default": 0,
+      "max": 65,
+      "min": -65
+    },
+    "ParamArmRA": {
+      "default": 0,
+      "max": 65,
+      "min": -65
+    },
+    "ParamBodyAngleX": {
+      "default": 0,
+      "max": 10,
+      "min": -10
+    },
+    "ParamBodyAngleY": {
+      "default": 0,
+      "max": 10,
+      "min": -10
+    },
+    "ParamBodyAngleZ": {
+      "default": 0,
+      "max": 10,
+      "min": -10
+    },
+    "ParamBreath": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamBrowLY": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamBrowRY": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamBusyLaptop": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamBusyTypingL": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamBusyTypingR": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamCheek": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamElbowLA": {
+      "default": 0,
+      "max": 55,
+      "min": -35
+    },
+    "ParamElbowRA": {
+      "default": 0,
+      "max": 55,
+      "min": -35
+    },
+    "ParamEyeBallForm": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamEyeBallX": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamEyeBallY": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamEyeLOpen": {
+      "default": 1,
+      "max": 1,
+      "min": 0
+    },
+    "ParamEyeROpen": {
+      "default": 1,
+      "max": 1,
+      "min": 0
+    },
+    "ParamEyeSmile": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamGrassReach": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamGrassSwing": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamGrassTipBend": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamGrassVisible": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamHairBack": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamHairFront": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamHandRGrip": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamLaptopRock": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamLaptopVisible": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamMouthForm": {
+      "default": 0,
+      "max": 1,
+      "min": -1
+    },
+    "ParamMouthGape": {
+      "default": 1,
+      "max": 2,
+      "min": 1
+    },
+    "ParamMouthOpenY": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamShiftX": {
+      "default": 0,
+      "max": 100,
+      "min": -100
+    },
+    "ParamShiftY": {
+      "default": 0,
+      "max": 100,
+      "min": -100
+    },
+    "ParamSitPose": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamSmileOpen": {
+      "default": 0,
+      "max": 1,
+      "min": 0
+    },
+    "ParamWristRA": {
+      "default": 0,
+      "max": 25,
+      "min": -25
+    }
+  },
+  "render_backend": "cubism_native",
+  "model_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "model_inputs": {
+    "assets/live2d/whale-girl/hit-mask.png": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+    "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+    "assets/live2d/whale-girl/material-ownership/body-underpaint.png": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+    "assets/live2d/whale-girl/material-ownership/duplicate-mask.png": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+    "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+    "assets/live2d/whale-girl/material-ownership/neck-mask.png": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+    "assets/live2d/whale-girl/material-ownership/ownership.json": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+  },
+  "renderer_sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+  "cubism_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "capture_provenance": {
+    "schema_version": 1,
+    "kind": "native_parameter_ranges",
+    "captured_utc": "2026-10-03T03:44:47.199342+00:00",
+    "source_and_deployment_match": true,
+    "inputs_unchanged_during_capture": true,
+    "command": "DesktopCompanion.exe --dump-parameters",
+    "scope": "range_limits_only; no geometry or visual approval"
+  }
+}

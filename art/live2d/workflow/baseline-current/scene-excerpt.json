@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "source_path": ".local/review-archive/sessions/turn-ended-laptop-v9-20261002T160501Z-7a660cfe/sequence/scene.json",
+  "source_sha256": "db4bc38723d4e8e4e0ff13e2693c07a855daca38686c3aafe3ac4a2239a4ab87",
+  "scenario": "turn-ended-laptop",
+  "scope": "real_interaction_player_and_native_model",
+  "frames": [
+    {
+      "frame_index": 6,
+      "event": "last_turn_stopped",
+      "foot_not_head": true,
+      "head_center_hit": true,
+      "interaction": "turn-ended",
+      "interaction_time": 0,
+      "parameters": {
+        "ParamAngleX": 2.017367763498221,
+        "ParamAngleY": -9.028419205730799,
+        "ParamAngleZ": 3.502153476918409,
+        "ParamArmLA": -39.99999999997384,
+        "ParamArmRA": -39.99999999997384,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0,
+        "ParamBodyAngleZ": 1.3133075538444032,
+        "ParamBreath": 0.8021418100423372,
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 0.5463747788417888,
+        "ParamBusyTypingR": 0.3311729465843579,
+        "ParamCheek": 0,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamEyeBallX": -0.03673568237215583,
+        "ParamEyeBallY": -0.6581607940696104,
+        "ParamEyeLOpen": 0.9158684266326341,
+        "ParamEyeROpen": 0.9158684266326341,
+        "ParamEyeSmile": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamGrassTipBend": 0,
+        "ParamGrassVisible": 0,
+        "ParamHairBack": 0,
+        "ParamHairFront": 0,
+        "ParamHandRGrip": 0,
+        "ParamLaptopRock": 0.3064384292303608,
+        "ParamLaptopVisible": 0.999999999999346,
+        "ParamMouthForm": 0,
+        "ParamMouthGape": 0,
+        "ParamMouthOpenY": 0,
+        "ParamShiftX": 0,
+        "ParamShiftY": 0,
+        "ParamSitPose": 1,
+        "ParamSmileOpen": 0,
+        "ParamWristRA": 0
+      },
+      "time": 0.4,
+      "parameter_range_check": {
+        "unknown_ids": [],
+        "unexpected_out_of_range": [],
+        "known_runtime_exceptions": [
+          {
+            "id": "ParamMouthGape",
+            "value": 0,
+            "minimum": 1.0,
+            "maximum": 2.0,
+            "default": 1.0,
+            "logical_range": [
+              0,
+              1
+            ],
+            "reason": "Known post-Core renderer mouth visibility gate; not a Native range match."
+          }
+        ]
+      },
+      "authored_keyframe_interval": [
+        0,
+        0
+      ]
+    },
+    {
+      "frame_index": 19,
+      "event": "",
+      "foot_not_head": true,
+      "head_center_hit": true,
+      "interaction": "turn-ended",
+      "interaction_time": 0.8666666666666666,
+      "parameters": {
+        "ParamAngleX": 12.474447499997353,
+        "ParamAngleY": -0.63472818082342,
+        "ParamAngleZ": 0.0025571954104893664,
+        "ParamArmLA": -39.99999999997384,
+        "ParamArmRA": -39.99999999997384,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleY": 0.3587204536152065,
+        "ParamBodyAngleZ": 0.0009589482789335122,
+        "ParamBreath": 0.7929167521931066,
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 0.0003989508415521436,
+        "ParamBusyTypingR": 0.00024181519875277874,
+        "ParamCheek": 0.07505478591721475,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamEyeBallX": -0.5036174218850049,
+        "ParamEyeBallY": 0.2521723611836865,
+        "ParamEyeLOpen": 0.80622367927675,
+        "ParamEyeROpen": 0.80622367927675,
+        "ParamEyeSmile": 0.17115239828558942,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamGrassTipBend": 0,
+        "ParamGrassVisible": 0,
+        "ParamHairBack": 0.5166132956802609,
+        "ParamHairFront": 0.3128120630655961,
+        "ParamHandRGrip": 0,
+        "ParamLaptopRock": 0.3064384292303608,
+        "ParamLaptopVisible": 0.999999999999346,
+        "ParamMouthForm": 0.12650579195419717,
+        "ParamMouthGape": 0,
+        "ParamMouthOpenY": 0,
+        "ParamShiftX": 0,
+        "ParamShiftY": 0,
+        "ParamSitPose": 1,
+        "ParamSmileOpen": 0,
+        "ParamWristRA": 0
+      },
+      "time": 1.2666666666666666,
+      "parameter_range_check": {
+        "unknown_ids": [],
+        "unexpected_out_of_range": [],
+        "known_runtime_exceptions": [
+          {
+            "id": "ParamMouthGape",
+            "value": 0,
+            "minimum": 1.0,
+            "maximum": 2.0,
+            "default": 1.0,
+            "logical_range": [
+              0,
+              1
+            ],
+            "reason": "Known post-Core renderer mouth visibility gate; not a Native range match."
+          }
+        ]
+      },
+      "authored_keyframe_interval": [
+        0.8,
+        1.02
+      ]
+    },
+    {
+      "frame_index": 40,
+      "event": "",
+      "foot_not_head": true,
+      "head_center_hit": true,
+      "interaction": "",
+      "interaction_time": 0,
+      "parameters": {
+        "ParamAngleX": -0.9829080993340849,
+        "ParamAngleY": 0.32637440123375705,
+        "ParamAngleZ": -0.8939663938072258,
+        "ParamArmLA": -39.99999999999907,
+        "ParamArmRA": -39.99999999999907,
+        "ParamBodyAngleX": -0.2718641921847908,
+        "ParamBodyAngleY": -0.028786727034104988,
+        "ParamBodyAngleZ": 8.22292309446725e-09,
+        "ParamBreath": 0.13555654655450744,
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamBusyLaptop": 1,
+        "ParamBusyTypingL": 3.4209791712694866e-09,
+        "ParamBusyTypingR": 2.0735506034056696e-09,
+        "ParamCheek": 0.0020625622173702325,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamEyeBallX": -0.004809032692774176,
+        "ParamEyeBallY": 0.0016502933756627099,
+        "ParamEyeLOpen": 0.99997862800239,
+        "ParamEyeROpen": 0.99997862800239,
+        "ParamEyeSmile": 1.707837476343006e-05,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamGrassTipBend": 0,
+        "ParamGrassVisible": 0,
+        "ParamHairBack": 0.0036127203950249804,
+        "ParamHairFront": 0.0022310502370068534,
+        "ParamHandRGrip": 0,
+        "ParamLaptopRock": 0.010931882485706361,
+        "ParamLaptopVisible": 0.035673993347229045,
+        "ParamMouthForm": 0.003159516770993453,
+        "ParamMouthGape": 0,
+        "ParamMouthOpenY": 0,
+        "ParamShiftX": 0,
+        "ParamShiftY": 0,
+        "ParamSitPose": 1,
+        "ParamSmileOpen": 0,
+        "ParamWristRA": 0
+      },
+      "time": 2.6666666666666665,
+      "parameter_range_check": {
+        "unknown_ids": [],
+        "unexpected_out_of_range": [],
+        "known_runtime_exceptions": [
+          {
+            "id": "ParamMouthGape",
+            "value": 0,
+            "minimum": 1.0,
+            "maximum": 2.0,
+            "default": 1.0,
+            "logical_range": [
+              0,
+              1
+            ],
+            "reason": "Known post-Core renderer mouth visibility gate; not a Native range match."
+          }
+        ]
+      },
+      "authored_keyframe_interval": null,
+      "authored_keyframe_interval_reason": "No short interaction is active; parameters belong to background posture release/idle."
+    },
+    {
+      "frame_index": 41,
+      "event": "",
+      "foot_not_head": true,
+      "head_center_hit": true,
+      "interaction": "",
+      "interaction_time": 0,
+      "parameters": {
+        "ParamAngleX": -1.1494371722772263,
+        "ParamAngleY": 0.2529500734951,
+        "ParamAngleZ": -0.8859678774811095,
+        "ParamArmLA": -22.950136829496774,
+        "ParamArmRA": -22.950136829496774,
+        "ParamBodyAngleX": -0.3064734135097504,
+        "ParamBodyAngleY": -0.08393991659978978,
+        "ParamBodyAngleZ": 4.717930253911421e-09,
+        "ParamBreath": 0.18382648833362283,
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamBusyLaptop": 0.788127627745311,
+        "ParamBusyTypingL": 1.962798501787376e-09,
+        "ParamBusyTypingR": 1.1897067517761708e-09,
+        "ParamCheek": 0.0011834021276999553,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamEyeBallX": -0.002759198957917331,
+        "ParamEyeBallY": 0.0009468614695068049,
+        "ParamEyeLOpen": 0.9999943664025942,
+        "ParamEyeROpen": 0.9999943664025942,
+        "ParamEyeSmile": 4.501810711308015e-06,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamGrassTipBend": 0,
+        "ParamGrassVisible": 0,
+        "ParamHairBack": 0.002072810684813472,
+        "ParamHairFront": 0.0012800727053197422,
+        "ParamHandRGrip": 0,
+        "ParamLaptopRock": 0.0062722049712736535,
+        "ParamLaptopVisible": 0.020468075714337085,
+        "ParamMouthForm": 0.0018127835552347814,
+        "ParamMouthGape": 0,
+        "ParamMouthOpenY": 0,
+        "ParamShiftX": 0,
+        "ParamShiftY": 0,
+        "ParamSitPose": 0.788127627745311,
+        "ParamSmileOpen": 0,
+        "ParamWristRA": 0
+      },
+      "time": 2.7333333333333334,
+      "parameter_range_check": {
+        "unknown_ids": [],
+        "unexpected_out_of_range": [],
+        "known_runtime_exceptions": [
+          {
+            "id": "ParamMouthGape",
+            "value": 0,
+            "minimum": 1.0,
+            "maximum": 2.0,
+            "default": 1.0,
+            "logical_range": [
+              0,
+              1
+            ],
+            "reason": "Known post-Core renderer mouth visibility gate; not a Native range match."
+          }
+        ]
+      },
+      "authored_keyframe_interval": null,
+      "authored_keyframe_interval_reason": "No short interaction is active; parameters belong to background posture release/idle."
+    },
+    {
+      "frame_index": 74,
+      "event": "",
+      "foot_not_head": true,
+      "head_center_hit": true,
+      "interaction": "",
+      "interaction_time": 0,
+      "parameters": {
+        "ParamAngleX": -1.6208356343054957,
+        "ParamAngleY": -1.272189380213583,
+        "ParamAngleZ": 0.7501714654080698,
+        "ParamArmLA": -2.504492742890685e-07,
+        "ParamArmRA": -2.504492742890685e-07,
+        "ParamBodyAngleX": -0.7565753548381086,
+        "ParamBodyAngleY": 0.34140020195854753,
+        "ParamBodyAngleZ": 5.1485628038604783e-17,
+        "ParamBreath": 0.16265667451213608,
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamBusyLaptop": 0.00030498800950192145,
+        "ParamBusyTypingL": 2.1419543770062037e-17,
+        "ParamBusyTypingR": 1.2982981095615559e-17,
+        "ParamCheek": 1.291418026291096e-11,
+        "ParamElbowLA": 0,
+        "ParamElbowRA": 0,
+        "ParamEyeBallX": -3.011046869844312e-11,
+        "ParamEyeBallY": 1.0332869457469806e-11,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 3.502918446924005e-25,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamGrassTipBend": 0,
+        "ParamGrassVisible": 0,
+        "ParamHairBack": 2.2620080028583597e-11,
+        "ParamHairFront": 1.3969122819020833e-11,
+        "ParamHandRGrip": 0,
+        "ParamLaptopRock": 6.844705087896498e-11,
+        "ParamLaptopVisible": 2.2336314362016946e-10,
+        "ParamMouthForm": 1.978246705998674e-11,
+        "ParamMouthGape": 0,
+        "ParamMouthOpenY": 0,
+        "ParamShiftX": 0,
+        "ParamShiftY": 0,
+        "ParamSitPose": 0.00030498800950192145,
+        "ParamSmileOpen": 0,
+        "ParamWristRA": 0
+      },
+      "time": 4.933333333333334,
+      "parameter_range_check": {
+        "unknown_ids": [],
+        "unexpected_out_of_range": [],
+        "known_runtime_exceptions": [
+          {
+            "id": "ParamMouthGape",
+            "value": 0,
+            "minimum": 1.0,
+            "maximum": 2.0,
+            "default": 1.0,
+            "logical_range": [
+              0,
+              1
+            ],
+            "reason": "Known post-Core renderer mouth visibility gate; not a Native range match."
+          }
+        ]
+      },
+      "authored_keyframe_interval": null,
+      "authored_keyframe_interval_reason": "No short interaction is active; parameters belong to background posture release/idle."
+    }
+  ],
+  "busy_sequence_trace": {
+    "status": "unknown",
+    "reason": "The final --render-motion busy-laptop source run did not store per-frame parameters."
+  },
+  "nominal_busy_timing": {
+    "step_seconds": 0.06666666666666667,
+    "origin": "frame 0 is sampler state after advance(0.001) and forceLaptopBusy; relative sequence time = frame_index / 15",
+    "idle_event_frame": 150,
+    "timing_source": "src/main.cpp --render-motion implementation; nominal simulation timing, not wall clock"
+  }
+}

@@ -102,6 +102,8 @@ private slots:
     void invalidReactionConfigurationIsRejected();
     void seatedReactionContextSurvivesUserAndLastStopHandoffs();
     void earlyHeadPatReleaseDoesNotForceClosedEyes();
+    void headPatReleaseRestoresAuthoredFacePace();
+    void headPatReleaseDoesNotAccelerateUnownedBackgroundChannels();
     void grassInteractionRespondsOnlyDuringHold();
     void grassInteractionTimeoutSkipsResponse();
     void grassInteractionIgnoresLegacyCompletionDeadline();
@@ -442,6 +444,96 @@ void ParameterMotionTest::headPatHoldReleaseDirectionAndCooldown() {
     advanceFrames(motion, 25);
     QVERIFY(!motion.interactionActive());
     QVERIFY(!motion.beginHeadPat());
+}
+
+void ParameterMotionTest::headPatReleaseRestoresAuthoredFacePace() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 50);
+    QVERIFY(motion.beginHeadPat());
+    advanceFrames(motion, 70); // Settled into the closed-eye hold.
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.98);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.03);
+
+    const QString eyeOpen = QStringLiteral("ParamEyeLOpen");
+    const QString eyeSmile = QStringLiteral("ParamEyeSmile");
+    motion.endHeadPat();
+    // The release is part of the interaction: endHeadPat() jumps the clip to the
+    // authored recovery segment and the interaction retires once it plays out.
+    QVERIFY(motion.headPatReleasing());
+    QVERIFY(motion.interactionTime() >= 1.6);
+
+    // The authored head-pat recovery opens the eyes over about 0.18s. Exponential
+    // blending needs about three time constants to settle, so a slow release
+    // leaves the face half-open ("drowsy") across several frames the clip never
+    // asked for. The release therefore hands the reaction's own channels back on
+    // kExpressionReleaseBlend. The effect is verified end-to-end by capturing the
+    // scene and counting half-blended frames after release: 3 -> 1
+    // (tools/review_interactions.py head-pat; build/_zoom_review/drowsy_window.py).
+    // This test guards that a release still settles; it is deliberately not
+    // sensitive enough to separate 45ms from 120ms, because in that window the
+    // authored curve dominates the value.
+    //
+    // Settle in a window clear of the procedural blink (4.3s period, ~0.2s long,
+    // and it multiplies the eye values after the blend), so this measures the
+    // release rather than a blink.
+    const double settledOpen = motion.values().value(eyeOpen);
+    const double settledSmile = motion.values().value(eyeSmile);
+    advanceFrames(motion, 80); // 1.6s: past any blink, well inside recovery.
+    const double movedOpen = motion.values().value(eyeOpen) - settledOpen;
+    const double movedSmile = settledSmile - motion.values().value(eyeSmile);
+    QVERIFY2(movedOpen > 0.5 && movedSmile > 0.4,
+             qPrintable(QStringLiteral("released face barely moved: eyeOpen +%1 eyeSmile -%2")
+                            .arg(movedOpen).arg(movedSmile)));
+
+    advanceFrames(motion, 40);
+    QVERIFY(motion.values().value(eyeOpen) > 0.9);
+    QVERIFY(motion.values().value(eyeSmile) < 0.1);
+}
+
+void ParameterMotionTest::headPatReleaseDoesNotAccelerateUnownedBackgroundChannels() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    QFile busy(dir.filePath(QStringLiteral("busy-stand.motion.json")));
+    QVERIFY(busy.open(QIODevice::WriteOnly));
+    busy.write(R"({"duration":12,"mode":"additive","loop":true,"channels":{
+        "ParamBodyAngleX":[{"type":"sine","amplitude":5,"frequency":7}],
+        "ParamBodyAngleZ":[{"type":"sine","amplitude":4,"frequency":5}],
+        "ParamShiftX":[{"type":"sine","amplitude":15,"frequency":3}],
+        "ParamHairFront":[{"type":"sine","amplitude":0.8,"frequency":4}],
+        "ParamHairBack":[{"type":"sine","amplitude":0.6,"frequency":5}]},
+        "constants":{"ParamArmLA":9,"ParamArmRA":-9}})");
+    busy.close();
+    for (const bool working : {false, true}) {
+        ParameterMotion reaction, reference;
+        for (auto* motion : {&reaction, &reference}) {
+            QVERIFY(motion->loadMotionLibrary(dir.path()));
+            if (working) motion->forceStandingBusy();
+            advanceFrames(*motion, 50);
+        }
+        QVERIFY(reaction.beginHeadPat(1));
+        for (int frame = 0; frame < 45; ++frame) {
+            reaction.advance(0.02);
+            reference.advance(0.02);
+        }
+        reaction.endHeadPat();
+        QVERIFY(reaction.headPatReleasing());
+        // The fixture owns head/face only. The activity continues moving these
+        // other channels: their values must match the player without a pat on
+        // every release frame, including an ordinary Idle background.
+        for (int frame = 0; frame < 45; ++frame) {
+            reaction.advance(0.02);
+            reference.advance(0.02);
+            for (const auto& id : {QStringLiteral("ParamBodyAngleX"), QStringLiteral("ParamBodyAngleY"),
+                 QStringLiteral("ParamBodyAngleZ"), QStringLiteral("ParamShiftX"),
+                 QStringLiteral("ParamHairFront"), QStringLiteral("ParamHairBack"),
+                 QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA"), QStringLiteral("ParamBreath")})
+                QCOMPARE(reaction.values().value(id), reference.values().value(id));
+        }
+        QVERIFY(!reaction.interactionActive());
+    }
 }
 
 void ParameterMotionTest::headPatWhileBusyLeavesHandsAndComputerAlone() {

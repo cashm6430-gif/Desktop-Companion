@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "kind": "auxiliary_neck_lower_skin_coverage",
+  "source_inputs": {
+    "E:\\projects\\Desktop-Companion\\art\\live2d\\neck-component-r1\\neck-authoring.png": "1b2f973538225bceb8183bb35880f7767dec5519b1ea6044da037239829ed180",
+    "E:\\projects\\Desktop-Companion\\art\\live2d\\neck-component-r1\\neck-design.json": "43f0cfcba54aab1e65bb3d4d26d8c6fd05fc4e4308556732d7c56ac68b57e640",
+    "E:\\projects\\Desktop-Companion\\art\\live2d\\neck-component-r1\\neck-source.json": "3a4750053a9268c02db27a6aafb24614a9c2d1efcc5832d702fea6a2e0c8741e"
+  },
+  "source_canvas": [
+    1254,
+    1254
+  ],
+  "source_bbox": [
+    555,
+    562,
+    682,
+    598
+  ],
+  "retained_upper_rows": [
+    0,
+    574
+  ],
+  "replacement_rows": [
+    574,
+    598
+  ],
+  "skin_polygon_source": [
+    [
+      610,
+      574
+    ],
+    [
+      613,
+      581
+    ],
+    [
+      616,
+      589
+    ],
+    [
+      616,
+      598
+    ],
+    [
+      644,
+      598
+    ],
+    [
+      645,
+      589
+    ],
+    [
+      650,
+      581
+    ],
+    [
+      654,
+      574
+    ]
+  ],
+  "colour_source_profile": [
+    612,
+    574,
+    644,
+    575
+  ],
+  "colour_source_lower": [
+    625,
+    578,
+    633,
+    582
+  ],
+  "required_opaque_corner_samples": {
+    "left": [
+      618,
+      586
+    ],
+    "right": [
+      641,
+      586
+    ],
+    "left_lower": [
+      619,
+      592
+    ],
+    "right_lower": [
+      640,
+      592
+    ]
+  },
+  "lower_interior_required_opaque": [
+    618,
+    581,
+    642,
+    598
+  ],
+  "old_V_contour_replaced": true,
+  "upper_jaw_rgba_identical": true,
+  "mesh_design_byte_identical": true,
+  "decoded_PSD_RGBA_equals_PNG": true,
+  "visual_review": "pending",
+  "standing_visible_protection": "Existing foreground standing collar occludes added skin; Native comparison required.",
+  "outputs": {
+    "neck-authoring.png": "b13f7d27474a42c07d32d30e06d8ab6c1a8cdc63728d7eed7a1a80ed7cd20408",
+    "neck-authoring.psd": "a724453724d5e312ee43e96d7916a36c4293e761f6b1d7c882472078b3fac9c6",
+    "neck-design.json": "43f0cfcba54aab1e65bb3d4d26d8c6fd05fc4e4308556732d7c56ac68b57e640"
+  },
+  "outside_replacement_rows_rgba_identical": true,
+  "replacement_rows_original_art_limited_to_neck": [
+    555,
+    574,
+    682,
+    598
+  ],
+  "preparation_tool_sha256": "0f37e1d080f132ca286a945b8095606821fc61fa83dc8b91704ca7d69d44ac26"
+}

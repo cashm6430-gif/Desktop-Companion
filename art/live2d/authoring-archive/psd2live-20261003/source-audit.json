@@ -1,0 +1,2180 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-03T08:59:12.565853+00:00",
+  "kind": "read_only_authoring_source_correspondence_audit",
+  "protected_snapshot": {
+    "path": "E:/projects/Desktop-Companion/build/roundtrip-work/protected-before.json",
+    "sha256": "b61092fc393cd74f149f3a319d603d90ecdb12d0ce7875c65b771c336a2b84b7",
+    "objects": 407
+  },
+  "fixed_input_hashes": {
+    "art/live2d/whale-girl-layered-draft.psd": "b88f11240a8dd9b8b9e304746d20727aa2e4d9f9ad5b71db70049d127029710f",
+    "art/live2d/whale-girl-layered-draft.cmo3": "523b8289f235fa0c3312c6638806fb90cbd62d69212d4876e598590040f6e952",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+    "art/live2d/layers/manifest.json": "94ccba1e5a0761b4ba2c387566991b1249da2310d30fb6255f1a8695bc6c5d4b"
+  },
+  "PSD_vs_original_HEAD": {
+    "status": "same_raster_source_generation",
+    "scope": "Decoded source layer RGBA pixels and source bounds only; does not establish equivalent authored deformation, parameters, CMO3 or runtime rendering.",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "PSD_layer_count": 34,
+    "HEAD_layer_count": 34,
+    "all_34_decoded_RGBA_equal": true,
+    "all_34_bounds_equal": true,
+    "evidence": [
+      {
+        "source_layer_id": "back hair#0",
+        "source_name": "back hair",
+        "PSD_bbox": [
+          0,
+          14,
+          1016,
+          1194
+        ],
+        "snapshot_bounds": [
+          0,
+          14,
+          1016,
+          1194
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "40ffa508081355298cdf2db6023bc44b83f71d05fd2fb5ccc7d0db33515ab36e",
+        "snapshot_decoded_RGBA_sha256": "40ffa508081355298cdf2db6023bc44b83f71d05fd2fb5ccc7d0db33515ab36e",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/2c5963fc41a0fe188aa699bab9cd07d4e93688b5eaac38b5699f9480f79206d7-1016x1180.png",
+        "snapshot_blob_file_sha256": "33eee278879cddcfc090168ed8b0cf624171f3b319dc38172c957276cb05ed65"
+      },
+      {
+        "source_layer_id": "arm backing#1",
+        "source_name": "arm backing",
+        "PSD_bbox": [
+          288,
+          558,
+          967,
+          908
+        ],
+        "snapshot_bounds": [
+          288,
+          558,
+          967,
+          908
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "01770ac90cca204c04eca115c63b083a78b334c305a2bf930d739fcbb5e69f92",
+        "snapshot_decoded_RGBA_sha256": "01770ac90cca204c04eca115c63b083a78b334c305a2bf930d739fcbb5e69f92",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/58319bc4e5c7f8e5b9d8c76de5eaa47bc10288b45399e503525342fba215f85e-679x350.png",
+        "snapshot_blob_file_sha256": "c75ad740a3c5ad4f0c2d8a47450642896228485b8023b23f52e9236a256ffc7e"
+      },
+      {
+        "source_layer_id": "headwear#2",
+        "source_name": "headwear",
+        "PSD_bbox": [
+          247,
+          86,
+          1011,
+          656
+        ],
+        "snapshot_bounds": [
+          247,
+          86,
+          1011,
+          656
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "5ab3ac566d93b1e9ed14fe8ff748479276ab2835ef45af6f51a76dbb8972d0a6",
+        "snapshot_decoded_RGBA_sha256": "5ab3ac566d93b1e9ed14fe8ff748479276ab2835ef45af6f51a76dbb8972d0a6",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/1ca902549ae43fe9a528abaaf156849957a5fbe49f43be662443b86ef63456f3-764x570.png",
+        "snapshot_blob_file_sha256": "007d546c8946f205050cb570966c4a4e13d4cf4b8ff3d72a43039fc3eb4b54e7"
+      },
+      {
+        "source_layer_id": "topwear#3",
+        "source_name": "topwear",
+        "PSD_bbox": [
+          450,
+          587,
+          796,
+          766
+        ],
+        "snapshot_bounds": [
+          450,
+          587,
+          796,
+          766
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "cd91701fb31600a1932930d8b6594f337ee9b45466967955452557b9f99c9df1",
+        "snapshot_decoded_RGBA_sha256": "cd91701fb31600a1932930d8b6594f337ee9b45466967955452557b9f99c9df1",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/8b5636d4e9ba41acbefac734e53c5b2430f421b6009657b5ed4bb3f19dbb581f-346x179.png",
+        "snapshot_blob_file_sha256": "9e7570c61a35bd0c461232cd95797f28308cfd26940652f7c7ae2308ba4e5509"
+      },
+      {
+        "source_layer_id": "bottomwear#4",
+        "source_name": "bottomwear",
+        "PSD_bbox": [
+          267,
+          741,
+          980,
+          1025
+        ],
+        "snapshot_bounds": [
+          267,
+          741,
+          980,
+          1025
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "e48fb95b108afcbfb9c0d466fdde04d4bde4413efee01d1e280cd29f8d2410b7",
+        "snapshot_decoded_RGBA_sha256": "e48fb95b108afcbfb9c0d466fdde04d4bde4413efee01d1e280cd29f8d2410b7",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/6ec04d09d539a69c7080d76a8f9d96fc392946d72c537dcaa4daecf1c50750ba-713x284.png",
+        "snapshot_blob_file_sha256": "27f6a73a5a498955287fdf80991fbc60011be0c7855b7081057b81bd9956c8b6"
+      },
+      {
+        "source_layer_id": "footwear-r#5",
+        "source_name": "footwear-r",
+        "PSD_bbox": [
+          617,
+          920,
+          777,
+          1237
+        ],
+        "snapshot_bounds": [
+          617,
+          920,
+          777,
+          1237
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "251038032cd5dfac930cf270215226fa612e37ed598802722833094eb6758ad4",
+        "snapshot_decoded_RGBA_sha256": "251038032cd5dfac930cf270215226fa612e37ed598802722833094eb6758ad4",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/cf0c2b72f8d9ecd647e7c5074b70416a2fae5dbc46c20b69b9cad162f9865db2-160x317.png",
+        "snapshot_blob_file_sha256": "335ef206c9acf9b5ead9711ee6053d377b718a72a717f0b728bcdfa42cf59cb3"
+      },
+      {
+        "source_layer_id": "footwear-l#6",
+        "source_name": "footwear-l",
+        "PSD_bbox": [
+          475,
+          920,
+          641,
+          1237
+        ],
+        "snapshot_bounds": [
+          475,
+          920,
+          641,
+          1237
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "527c6db724818ab206a68abcc8f16db76d083064d81f34caebe2ebba68d2cda8",
+        "snapshot_decoded_RGBA_sha256": "527c6db724818ab206a68abcc8f16db76d083064d81f34caebe2ebba68d2cda8",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/c432c434fa59629e49e41c8150f886842d4c65a159ce786c6e7a20c110160b6a-166x317.png",
+        "snapshot_blob_file_sha256": "5aab660fbe65c621ce9baf795abee446de3ec6f3990e159fda48d5f9babfa8e7"
+      },
+      {
+        "source_layer_id": "tail#7",
+        "source_name": "tail",
+        "PSD_bbox": [
+          899,
+          568,
+          1179,
+          999
+        ],
+        "snapshot_bounds": [
+          899,
+          568,
+          1179,
+          999
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "c1c16150f14004e2e476076acf34266ac3c4a0de7c5a8df80d1da1de50cb8bff",
+        "snapshot_decoded_RGBA_sha256": "c1c16150f14004e2e476076acf34266ac3c4a0de7c5a8df80d1da1de50cb8bff",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/4928585c2535052aa71b96f16f28f683918d85bb2f53a095cc5a052c5d877e20-280x431.png",
+        "snapshot_blob_file_sha256": "f0739eb0a72941e6621534936d5125ce68a6f4fa6e623e77f86bea755cda6c5b"
+      },
+      {
+        "source_layer_id": "upperarm-r#8",
+        "source_name": "upperarm-r",
+        "PSD_bbox": [
+          700,
+          606,
+          800,
+          756
+        ],
+        "snapshot_bounds": [
+          700,
+          606,
+          800,
+          756
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "ea4e57cb92cba919b397e2ba7cb4c2b729f73205a0dabc3bd1f9762e22e80193",
+        "snapshot_decoded_RGBA_sha256": "ea4e57cb92cba919b397e2ba7cb4c2b729f73205a0dabc3bd1f9762e22e80193",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/a757c8e5ecd759e4e5e91513d1346bfa06696bd371f6679b27ab88bf2f0fb2c2-100x150.png",
+        "snapshot_blob_file_sha256": "e63a3a7209780ab4b47ac5f1ba1e0b81cd84dc39dccc88178c1b05634b7b16e6"
+      },
+      {
+        "source_layer_id": "upperarm-l#9",
+        "source_name": "upperarm-l",
+        "PSD_bbox": [
+          455,
+          606,
+          555,
+          756
+        ],
+        "snapshot_bounds": [
+          455,
+          606,
+          555,
+          756
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "b7364c53cc222ba47baffebdaea7bb1f5ba2083b9733008cbeb751fa369fadd5",
+        "snapshot_decoded_RGBA_sha256": "b7364c53cc222ba47baffebdaea7bb1f5ba2083b9733008cbeb751fa369fadd5",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/8a2a245428caa311b68ca7a437fa929341954ddca4f1109881c512e684ca7693-100x150.png",
+        "snapshot_blob_file_sha256": "8ead440f14ce601da29af5ef4bda9f61349c303d06c34367fc8071c85460a8f1"
+      },
+      {
+        "source_layer_id": "face#10",
+        "source_name": "face",
+        "PSD_bbox": [
+          412,
+          330,
+          838,
+          611
+        ],
+        "snapshot_bounds": [
+          412,
+          330,
+          838,
+          611
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "42187b59cd20f38e1aa373efc44da3843e31e66e4369ae341f2d36b24da31ea9",
+        "snapshot_decoded_RGBA_sha256": "42187b59cd20f38e1aa373efc44da3843e31e66e4369ae341f2d36b24da31ea9",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/5b1f20a701db17b80d83fa3ac46736c3d203d93403e1057995007fe7ab56b839-426x281.png",
+        "snapshot_blob_file_sha256": "432619727b288d73091b4ea54656f75387bddd1e155e941abc0cf92c4eaa768c"
+      },
+      {
+        "source_layer_id": "front hair#11",
+        "source_name": "front hair",
+        "PSD_bbox": [
+          275,
+          86,
+          961,
+          600
+        ],
+        "snapshot_bounds": [
+          275,
+          86,
+          961,
+          600
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "1a4882f5b522cfadc48e5eaa2a5d6aa6e03ad3a8a5c51e12af94a45da6c1af07",
+        "snapshot_decoded_RGBA_sha256": "1a4882f5b522cfadc48e5eaa2a5d6aa6e03ad3a8a5c51e12af94a45da6c1af07",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/ccbc4ff917dd7b564cf89ffcabcd98f75c3d9f9d2f63a03c0ed999b23372459e-686x514.png",
+        "snapshot_blob_file_sha256": "ffbb5cdb9c85d111380d3815364ec601c17ca75f0776e21b2db141cb26977fc2"
+      },
+      {
+        "source_layer_id": "mouth#12",
+        "source_name": "mouth",
+        "PSD_bbox": [
+          610,
+          517,
+          651,
+          523
+        ],
+        "snapshot_bounds": [
+          610,
+          517,
+          651,
+          523
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "8fcf2c13e98f61fd4fe120c9dceb19af74cfd2759e5dccc9de18bb1c11a03105",
+        "snapshot_decoded_RGBA_sha256": "8fcf2c13e98f61fd4fe120c9dceb19af74cfd2759e5dccc9de18bb1c11a03105",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/9497728a4689ae80ac6a02d7d4b1c5dbfd82c7d16c1557701773584b0f3acc3d-41x6.png",
+        "snapshot_blob_file_sha256": "c7bc5d5a82cdaa3d6b35011bf5e51ba6bdd66f056f73bcba068ab8e2748dbf8e"
+      },
+      {
+        "source_layer_id": "eyewhite-r#13",
+        "source_name": "eyewhite-r",
+        "PSD_bbox": [
+          659,
+          408,
+          775,
+          497
+        ],
+        "snapshot_bounds": [
+          659,
+          408,
+          775,
+          497
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "dde0db76d719fc916d1551a990cffe8571b9a89da666ebb59eea346f1fd2a37c",
+        "snapshot_decoded_RGBA_sha256": "dde0db76d719fc916d1551a990cffe8571b9a89da666ebb59eea346f1fd2a37c",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/5a216b389eefdea0f2c936acfac1f1fc027e0b8166c8d278cf28953d0fc07e54-116x89.png",
+        "snapshot_blob_file_sha256": "7b28f0fc3c6577ee25eef39a0fe8731361d6d562d7df8b5b033b4a50a2aabd9b"
+      },
+      {
+        "source_layer_id": "eyewhite-l#14",
+        "source_name": "eyewhite-l",
+        "PSD_bbox": [
+          484,
+          421,
+          601,
+          507
+        ],
+        "snapshot_bounds": [
+          484,
+          421,
+          601,
+          507
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "9633b0000135d63c04be8b5defa3d5fe0568f3962023acc0ab625526c5da63ff",
+        "snapshot_decoded_RGBA_sha256": "9633b0000135d63c04be8b5defa3d5fe0568f3962023acc0ab625526c5da63ff",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/fb520ef49dbac6b3bcf01d4220cb3beee3387123fa5c41e41e0f102ee572931b-117x86.png",
+        "snapshot_blob_file_sha256": "2fb0fdc08956b89759f6bbe82d393f550fb9553a8ae0f62610ccada93c265f7c"
+      },
+      {
+        "source_layer_id": "irides-r#15",
+        "source_name": "irides-r",
+        "PSD_bbox": [
+          683,
+          430,
+          745,
+          493
+        ],
+        "snapshot_bounds": [
+          683,
+          430,
+          745,
+          493
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "90ce18b6b774f88cbb8c78c8530c5e0c00f322688151b77a5ecdd0f60636a6b7",
+        "snapshot_decoded_RGBA_sha256": "90ce18b6b774f88cbb8c78c8530c5e0c00f322688151b77a5ecdd0f60636a6b7",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/487ec5e167dfc453b882e8b9faec9a3ca22cdde4e7021fa2dba8954a5fe21850-62x63.png",
+        "snapshot_blob_file_sha256": "b1d2644e8ee40521cca6b046794428b072118cb54361c35792724752e2e32c8e"
+      },
+      {
+        "source_layer_id": "irides-l#16",
+        "source_name": "irides-l",
+        "PSD_bbox": [
+          513,
+          438,
+          577,
+          502
+        ],
+        "snapshot_bounds": [
+          513,
+          438,
+          577,
+          502
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "25da9be72dc3779691fe39e2d2be95dbdb4fc21318f3d7d850c8c138663d5d23",
+        "snapshot_decoded_RGBA_sha256": "25da9be72dc3779691fe39e2d2be95dbdb4fc21318f3d7d850c8c138663d5d23",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/5d7f10a67d8564c161b3f2e24d34d971327205d4e3708cdf786abc550fdd2b51-64x64.png",
+        "snapshot_blob_file_sha256": "6bd32c9b6230e06d99c673f2023c57afde0ea8515392b93c89704a4b87dae47d"
+      },
+      {
+        "source_layer_id": "eyelash-r#17",
+        "source_name": "eyelash-r",
+        "PSD_bbox": [
+          659,
+          410,
+          791,
+          468
+        ],
+        "snapshot_bounds": [
+          659,
+          410,
+          791,
+          468
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "2b9151f369806e8366aab84d420cec73a925e46a8fc4a7e32cc3fc00e5a59a38",
+        "snapshot_decoded_RGBA_sha256": "2b9151f369806e8366aab84d420cec73a925e46a8fc4a7e32cc3fc00e5a59a38",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/1f6ef672680427c33711080e91379be3b2a7fee3ea1a7bb40ab740d4fbf5cc9b-132x58.png",
+        "snapshot_blob_file_sha256": "37088bb08ee0ec7bce6b1f8701b9972a50770baacd0ed726af6bb6b43fba6e09"
+      },
+      {
+        "source_layer_id": "eyelash-l#18",
+        "source_name": "eyelash-l",
+        "PSD_bbox": [
+          469,
+          422,
+          602,
+          491
+        ],
+        "snapshot_bounds": [
+          469,
+          422,
+          602,
+          491
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "e2a6afe83648307d5abb8b0e85a35fb895e7820a8d09f9bc9fae5e94261b64ca",
+        "snapshot_decoded_RGBA_sha256": "e2a6afe83648307d5abb8b0e85a35fb895e7820a8d09f9bc9fae5e94261b64ca",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/89e4d2f43da41d9d9d09abff633d9b78951a8c735c307e11bd3d55115a279d41-133x69.png",
+        "snapshot_blob_file_sha256": "2a3e3092674046c9bf2f7dc805faaf28bfa1a77ceb1d915d0ec1e6f638bfa5d7"
+      },
+      {
+        "source_layer_id": "handwear-r#19",
+        "source_name": "handwear-r",
+        "PSD_bbox": [
+          733,
+          686,
+          911,
+          844
+        ],
+        "snapshot_bounds": [
+          733,
+          686,
+          911,
+          844
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "a4ad25ba87d9b0242f2dc81579b004208cb0c9dbbc1f5ba6c22e8783127ecf18",
+        "snapshot_decoded_RGBA_sha256": "a4ad25ba87d9b0242f2dc81579b004208cb0c9dbbc1f5ba6c22e8783127ecf18",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/6eb7c6c1851ab1c90343aa31e6fc32d7e5a39b3e177c3a02e59835e995237556-178x158.png",
+        "snapshot_blob_file_sha256": "8c2a5e191adf815f0f8ab22fe1d57cbeedc94489bdbe9ea88c5ef380136e845f"
+      },
+      {
+        "source_layer_id": "handwear-l#20",
+        "source_name": "handwear-l",
+        "PSD_bbox": [
+          336,
+          686,
+          522,
+          860
+        ],
+        "snapshot_bounds": [
+          336,
+          686,
+          522,
+          860
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "422723a05dfedf66bd2fd710b1ba2ebc1808e6e884898f9849387bc206de76d0",
+        "snapshot_decoded_RGBA_sha256": "422723a05dfedf66bd2fd710b1ba2ebc1808e6e884898f9849387bc206de76d0",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/32028d9f603bc738c6c882322abf53ac9ac088cf99b600ce3d0da5fbed37e31c-186x174.png",
+        "snapshot_blob_file_sha256": "ec72a2a8035085cd0e737540997861c9c815e46bbbff9c5cdab1185916f087db"
+      },
+      {
+        "source_layer_id": "handwear_r#21",
+        "source_name": "handwear_r",
+        "PSD_bbox": [
+          825,
+          788,
+          919,
+          860
+        ],
+        "snapshot_bounds": [
+          825,
+          788,
+          919,
+          860
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "b23eca857f6da699c3ddaf2867c64d008ff8c35d41872814db95eb4b4c82bb86",
+        "snapshot_decoded_RGBA_sha256": "b23eca857f6da699c3ddaf2867c64d008ff8c35d41872814db95eb4b4c82bb86",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/993f80542d17ed6e7710d7c8bf223b7512091f8f23142ecfe5d59632870945f3-94x72.png",
+        "snapshot_blob_file_sha256": "c90a2067d5d103c03f073cde52d179b7666d0ca8c3829cdbacac09a276b27adf"
+      },
+      {
+        "source_layer_id": "mouth open#22",
+        "source_name": "mouth open",
+        "PSD_bbox": [
+          572,
+          494,
+          692,
+          550
+        ],
+        "snapshot_bounds": [
+          572,
+          494,
+          692,
+          550
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "e29cec438a151515d3a091a564f788b408eadfa50f726cec4db6052fba048468",
+        "snapshot_decoded_RGBA_sha256": "e29cec438a151515d3a091a564f788b408eadfa50f726cec4db6052fba048468",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/4b4d9e8b9c6ac82d6332a6f9ee7fad4de0654c502b0bc7422eccd5ce85878dd5-120x56.png",
+        "snapshot_blob_file_sha256": "b83cab502e2225616ec352b4beb4728cfb0dbbfdc34455526114031237e655b6"
+      },
+      {
+        "source_layer_id": "bite mouth#23",
+        "source_name": "bite mouth",
+        "PSD_bbox": [
+          572,
+          497,
+          712,
+          567
+        ],
+        "snapshot_bounds": [
+          572,
+          497,
+          712,
+          567
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "3ac74af8c051030c59283721e2a56af70d1412f1b14bbd07f85d041598dd71b8",
+        "snapshot_decoded_RGBA_sha256": "3ac74af8c051030c59283721e2a56af70d1412f1b14bbd07f85d041598dd71b8",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/bc90aa3aa7bac19168f87d2c34d3b64f6d0cabe28521511be8a5bb316bf86131-140x70.png",
+        "snapshot_blob_file_sha256": "75a08df7a4d5b1e4dda4a4a73bbccfc2e7fd09bad54ca52047fcbe3ef455ff06"
+      },
+      {
+        "source_layer_id": "handwear right#24",
+        "source_name": "handwear right",
+        "PSD_bbox": [
+          797,
+          494,
+          922,
+          896
+        ],
+        "snapshot_bounds": [
+          797,
+          494,
+          922,
+          896
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "e97cbb0473462e17b05772141ec0ba8479fd1aa54733262b6779656598b79041",
+        "snapshot_decoded_RGBA_sha256": "e97cbb0473462e17b05772141ec0ba8479fd1aa54733262b6779656598b79041",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/37e74709ccfb038e8b3a605f2942b84d20ff6ee58eb4c19399a4d9779b12a8bf-125x402.png",
+        "snapshot_blob_file_sha256": "da6b045cf687310a5ad8a67823cbcd40841a44a7a5e608d7e22ffba90ffeea21"
+      },
+      {
+        "source_layer_id": "handwear.right#25",
+        "source_name": "handwear.right",
+        "PSD_bbox": [
+          827,
+          790,
+          929,
+          885
+        ],
+        "snapshot_bounds": [
+          827,
+          790,
+          929,
+          885
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "e643e67c6fd7588b85e878eba654d4766fb9c404450bf3af71153d29c0f0c04c",
+        "snapshot_decoded_RGBA_sha256": "e643e67c6fd7588b85e878eba654d4766fb9c404450bf3af71153d29c0f0c04c",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/185910a6b757492dcd1afccdc7b0488a46d576fb1741cc960a2de45a6567fe74-102x95.png",
+        "snapshot_blob_file_sha256": "c12697d597c1e47a7ccbd0e0017205dd75e15d11fcf889332fbe1f27110b0682"
+      },
+      {
+        "source_layer_id": "busy torso#26",
+        "source_name": "busy torso",
+        "PSD_bbox": [
+          432,
+          566,
+          795,
+          818
+        ],
+        "snapshot_bounds": [
+          432,
+          566,
+          795,
+          818
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "19f7b52e4f6cacfd9fb317947621a3f4e42db9770595eba3f5e1a4fb42c186e9",
+        "snapshot_decoded_RGBA_sha256": "19f7b52e4f6cacfd9fb317947621a3f4e42db9770595eba3f5e1a4fb42c186e9",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/d6cbe708cc7a4ecb3ebded71c8ae779047bcae79106c3a4802b16f59f7a7b91a-363x252.png",
+        "snapshot_blob_file_sha256": "d5d19d70e555e2e024cb8f3db3fe9af6cb665c66bca669f5f4b881c63cb5437b"
+      },
+      {
+        "source_layer_id": "busy skirt#27",
+        "source_name": "busy skirt",
+        "PSD_bbox": [
+          221,
+          699,
+          983,
+          1035
+        ],
+        "snapshot_bounds": [
+          221,
+          699,
+          983,
+          1035
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "d9eed50d1c8a4ed805c2d4fca91afa849ac2f970ecaff407ef065e02d54f6627",
+        "snapshot_decoded_RGBA_sha256": "d9eed50d1c8a4ed805c2d4fca91afa849ac2f970ecaff407ef065e02d54f6627",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/63e9c5bc25ae6c4a797567727525b3458aba9609612908e7c8bc0e95007cf832-762x336.png",
+        "snapshot_blob_file_sha256": "3aa50a284162339832882119f52b05cde7953ab5b57fee089e69d50088544085"
+      },
+      {
+        "source_layer_id": "busy leg r#28",
+        "source_name": "busy leg r",
+        "PSD_bbox": [
+          499,
+          819,
+          703,
+          1140
+        ],
+        "snapshot_bounds": [
+          499,
+          819,
+          703,
+          1140
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "38dc0e17682baf82544362a3a18b90d69471b1adc3f84bd25bae792a869a410e",
+        "snapshot_decoded_RGBA_sha256": "38dc0e17682baf82544362a3a18b90d69471b1adc3f84bd25bae792a869a410e",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/da2663a854423548bf38ee5686257d04256c0cef5092f378b414d81152da801b-204x321.png",
+        "snapshot_blob_file_sha256": "786e28a3ebc8697067b094315f9bc6f5d08e5030bd8359287951da20cff9dfd7"
+      },
+      {
+        "source_layer_id": "busy leg l#29",
+        "source_name": "busy leg l",
+        "PSD_bbox": [
+          319,
+          815,
+          558,
+          1126
+        ],
+        "snapshot_bounds": [
+          319,
+          815,
+          558,
+          1126
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "936906552aba7c4fa728deb36ee2a6f1a846237f1ab5e93d98fd4591d66ac34b",
+        "snapshot_decoded_RGBA_sha256": "936906552aba7c4fa728deb36ee2a6f1a846237f1ab5e93d98fd4591d66ac34b",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/2abb5ddfd826d5ba320654dc51cd6cf8d6b887943c5f43af13acd11f2f9c8ae5-239x311.png",
+        "snapshot_blob_file_sha256": "a3dca8081f03ad9a4cfaecd86e7c8ff3b01edbbf13024891092347e399d172ed"
+      },
+      {
+        "source_layer_id": "busy laptop base#30",
+        "source_name": "busy laptop base",
+        "PSD_bbox": [
+          391,
+          794,
+          729,
+          829
+        ],
+        "snapshot_bounds": [
+          391,
+          794,
+          729,
+          829
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "e9b4a0d74aa86b435bb1676ceac466811249e4dc7b8bd35f030980032f86e014",
+        "snapshot_decoded_RGBA_sha256": "e9b4a0d74aa86b435bb1676ceac466811249e4dc7b8bd35f030980032f86e014",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/73593fe9305e7aa0b3196eb9dd651fd2de4b3f3c63ce4dcb974b4a18375963c4-338x35.png",
+        "snapshot_blob_file_sha256": "af3614a084e5e7963e88888a73949398db1c56b76f01eb82d6a9820a4feb618b"
+      },
+      {
+        "source_layer_id": "busy sleeve l#31",
+        "source_name": "busy sleeve l",
+        "PSD_bbox": [
+          342,
+          619,
+          511,
+          810
+        ],
+        "snapshot_bounds": [
+          342,
+          619,
+          511,
+          810
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "ffa4ad94d0d5176621c45489f20aeb94fea6e09ccb19fd4ba444350f86455fa7",
+        "snapshot_decoded_RGBA_sha256": "ffa4ad94d0d5176621c45489f20aeb94fea6e09ccb19fd4ba444350f86455fa7",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/a00a5fef017f56b15ea25aa10bde7f135926823ffdaed7b2834f0e77dd3541ac-169x191.png",
+        "snapshot_blob_file_sha256": "5469c863d404ab6dbb57af978ecc671a6f86172ed1506da9270e9938ccc2f6aa"
+      },
+      {
+        "source_layer_id": "busy sleeve r#32",
+        "source_name": "busy sleeve r",
+        "PSD_bbox": [
+          673,
+          615,
+          823,
+          831
+        ],
+        "snapshot_bounds": [
+          673,
+          615,
+          823,
+          831
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "0b10111a09ca542105ec14168573f643883b4b330289e4dd802bfad45475a06b",
+        "snapshot_decoded_RGBA_sha256": "0b10111a09ca542105ec14168573f643883b4b330289e4dd802bfad45475a06b",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/e86ad273052f7626797879a8afce793d66d6c783dbbd03a1366eac33765b5417-150x216.png",
+        "snapshot_blob_file_sha256": "4ccf58d6a18374f962c476326655bb9d2ebc9bf72e28698e4add160c61aba751"
+      },
+      {
+        "source_layer_id": "busy laptop lid#33",
+        "source_name": "busy laptop lid",
+        "PSD_bbox": [
+          344,
+          641,
+          694,
+          817
+        ],
+        "snapshot_bounds": [
+          344,
+          641,
+          694,
+          817
+        ],
+        "bounds_equal": true,
+        "PSD_decoded_RGBA_sha256": "a845e7ab0499cab764d2d59f3b6e899f6d5dc78fc0ac79953f3fdf58328250f5",
+        "snapshot_decoded_RGBA_sha256": "a845e7ab0499cab764d2d59f3b6e899f6d5dc78fc0ac79953f3fdf58328250f5",
+        "pixels_equal": true,
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/8a56b84398e374acf47ec0f6eaa637977b16fffa0eaee16de8307a00780bc078-350x176.png",
+        "snapshot_blob_file_sha256": "07c41b189e80a79d143ca5497a9039158bf9ff9d0464f52c8062e6d74c864f06"
+      }
+    ]
+  },
+  "HEAD_vs_current_Native": {
+    "status": "different_authored_rig_mapping",
+    "original_HEAD": "history-333a085d-b53d-470b-84f3-ddd822704b3e",
+    "original_snapshot": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/history/snapshots/259e22423adaa0d30ec45012ce002a8fb755896ce0d18d3e521daa93f7e22b8c.json",
+    "snapshot_sha256": "1d079b22affa65d94727f81dbac43d6c75822b255b275bbb1a9d541d4bc48b25",
+    "journal_count": 112,
+    "HEAD_bite_layer": {
+      "id": "bite mouth#23",
+      "name": "bite mouth",
+      "groupPath": "",
+      "kind": "Raster",
+      "visible": true,
+      "order": 10,
+      "left": 572,
+      "top": 497,
+      "width": 140,
+      "height": 70,
+      "opacity": 1.0,
+      "clipped": false,
+      "blend": "Normal",
+      "channelRed": true,
+      "channelGreen": true,
+      "channelBlue": true,
+      "channelAlpha": true,
+      "rasterWidth": 140,
+      "rasterHeight": 70,
+      "rgbaBlob": "3ac74af8c051030c59283721e2a56af70d1412f1b14bbd07f85d041598dd71b8",
+      "derived": false
+    },
+    "HEAD_bite_override": {
+      "type": "SWITCH",
+      "tag": "FACE_DETAIL",
+      "side": "NONE",
+      "parameter": "ParamMouthGape",
+      "switchId": 1
+    },
+    "journal_mesh_targets": [
+      "ArtMeshEyelashL",
+      "ArtMeshEyelashR",
+      "ArtMeshEyewhiteL",
+      "ArtMeshEyewhiteR",
+      "ArtMeshFaceDetail"
+    ],
+    "journal_mesh_targets_not_in_current_Native": [
+      "ArtMeshFaceDetail"
+    ],
+    "Native_parameter_count": 40,
+    "Native_drawable_count": 34,
+    "Native_drawable_ids": [
+      "ArtMeshObjects",
+      "ArtMeshObjects2",
+      "ArtMeshObjects3",
+      "ArtMeshObjects4",
+      "ArtMeshObjects5",
+      "ArtMeshObjects6",
+      "ArtMeshObjects7",
+      "ArtMeshObjects8",
+      "ArtMeshHandwearR",
+      "ArtMeshHandwearR2",
+      "ArtMeshMouthOpen",
+      "ArtMeshMouthOpen2",
+      "ArtMeshHandwearR3",
+      "ArtMeshHandwearL",
+      "ArtMeshHandwearR4",
+      "ArtMeshEyelashL",
+      "ArtMeshEyelashR",
+      "ArtMeshIridesL",
+      "ArtMeshIridesR",
+      "ArtMeshEyewhiteL",
+      "ArtMeshEyewhiteR",
+      "ArtMeshMouthClose",
+      "ArtMeshFrontHair",
+      "ArtMeshFace",
+      "ArtMeshHandwearL2",
+      "ArtMeshHandwearR5",
+      "ArtMeshTail",
+      "ArtMeshFootwearL",
+      "ArtMeshFootwearR",
+      "ArtMeshBottomwear",
+      "ArtMeshTopwear",
+      "ArtMeshHeadwear",
+      "ArtMeshBackHair",
+      "ArtMeshBackHair2"
+    ],
+    "Native_ParamMouthGape": {
+      "min": 1.0,
+      "max": 2.0,
+      "default": 1.0,
+      "type": 0,
+      "default_in_range": true
+    },
+    "Native_core_path": "E:/projects/Desktop-Companion/build/Live2DCubismCore.dll",
+    "Native_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "Native_scope": "Core MOC deserialize and metadata reads; no rendering, Qt patches, physics or editor used.",
+    "current_runtime_mouth_metadata": [
+      {
+        "source": "mouth",
+        "type": "switch",
+        "tag": "mouth_close",
+        "side": "NONE",
+        "parameter": "ParamSmileOpen",
+        "switchId": 0,
+        "drawable": "ArtMeshMouthClose"
+      },
+      {
+        "source": "mouth open",
+        "type": "switch",
+        "tag": "mouth_open",
+        "side": "NONE",
+        "parameter": "ParamSmileOpen",
+        "switchId": 1,
+        "drawable": "ArtMeshMouthOpen2"
+      },
+      {
+        "source": "mouth open gape",
+        "type": "switch",
+        "tag": "mouth_open",
+        "side": "NONE",
+        "parameter": "ParamMouthGape",
+        "switchId": 1,
+        "drawable": "ArtMeshMouthOpen"
+      }
+    ],
+    "metadata_drawables_not_in_Native": [],
+    "conclusion": "Current HEAD journal refers to ArtMeshFaceDetail while current MOC has no such drawable; runtime metadata instead maps mouth open gape to ArtMeshMouthOpen. A direct HEAD export must be treated as a new candidate, never as an already equivalent no-op source."
+  },
+  "CMO3_generation": {
+    "status": "not_proven",
+    "path": "E:/projects/Desktop-Companion/art/live2d/whale-girl-layered-draft.cmo3",
+    "sha256": "523b8289f235fa0c3312c6638806fb90cbd62d69212d4876e598590040f6e952",
+    "file_format_signature": "CAFF",
+    "scope": "CMO3 was not loaded by Cubism Editor or re-exported. No immutable export manifest linking these CMO3 bytes to the current MOC was found.",
+    "timestamp_rule": "mtime is context only and is not used to label the CMO3 stale or equivalent.",
+    "mtime_context_utc": {
+      "PSD": "2026-10-01T08:52:32.121940+00:00",
+      "CMO3": "2026-10-01T08:56:16.233096+00:00",
+      "MOC": "2026-10-01T13:53:51.877288+00:00",
+      "HEAD_last_edit": "2026-10-01T13:49:37.310449700Z"
+    }
+  },
+  "layer_manifest_audit": {
+    "current_entries": 29,
+    "source_layers": 34,
+    "missing_manifest_targets": [],
+    "source_layers_missing_from_manifest": [
+      "arm backing",
+      "mouth open",
+      "bite mouth",
+      "handwear right",
+      "handwear.right"
+    ],
+    "existing_layer_PNG_count": 32,
+    "existing_PNG_all_32_crops_match_PSD": true,
+    "needs_PSD_extraction": [
+      "mouth open",
+      "bite mouth"
+    ],
+    "proposed_manifest": {
+      "back hair": "20-back-hair.png",
+      "arm backing": "arm-backing.png",
+      "headwear": "19-headwear.png",
+      "topwear": "18-topwear.png",
+      "bottomwear": "17-bottomwear.png",
+      "footwear-r": "16-footwear-r.png",
+      "footwear-l": "15-footwear-l.png",
+      "tail": "14-tail.png",
+      "upperarm-r": "13-upperarm-r.png",
+      "upperarm-l": "12-upperarm-l.png",
+      "face": "11-face.png",
+      "front hair": "10-front-hair.png",
+      "mouth": "09-mouth.png",
+      "eyewhite-r": "08-eyewhite-r.png",
+      "eyewhite-l": "07-eyewhite-l.png",
+      "irides-r": "06-irides-r.png",
+      "irides-l": "05-irides-l.png",
+      "eyelash-r": "04-eyelash-r.png",
+      "eyelash-l": "03-eyelash-l.png",
+      "handwear-r": "02-handwear-r.png",
+      "handwear-l": "01-handwear-l.png",
+      "handwear_r": "00-handwear_r.png",
+      "mouth open": "mouth-open.png",
+      "bite mouth": "bite-mouth.png",
+      "handwear right": "grass-prop.png",
+      "handwear.right": "hand-grip-registered.png",
+      "busy torso": "busy-torso.png",
+      "busy skirt": "busy-skirt.png",
+      "busy leg r": "busy-leg-r.png",
+      "busy leg l": "busy-leg-l.png",
+      "busy laptop base": "busy-laptop-base.png",
+      "busy sleeve l": "busy-sleeve-l.png",
+      "busy sleeve r": "busy-sleeve-r.png",
+      "busy laptop lid": "busy-laptop-lid.png"
+    },
+    "source_layer_mapping": [
+      {
+        "source_layer_id": "back hair#0",
+        "source_name": "back hair",
+        "manifest_key": "back hair",
+        "recommended_manifest_value": "20-back-hair.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/20-back-hair.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          0,
+          14,
+          1016,
+          1194
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "40ffa508081355298cdf2db6023bc44b83f71d05fd2fb5ccc7d0db33515ab36e",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/2c5963fc41a0fe188aa699bab9cd07d4e93688b5eaac38b5699f9480f79206d7-1016x1180.png",
+        "existing_PNG_sha256": "a0d7a960a0fa397137f28edc67693f4475febee3345addf20f8776fc65ed0e95",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "40ffa508081355298cdf2db6023bc44b83f71d05fd2fb5ccc7d0db33515ab36e",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          0,
+          14,
+          1016,
+          1194
+        ]
+      },
+      {
+        "source_layer_id": "arm backing#1",
+        "source_name": "arm backing",
+        "manifest_key": "arm backing",
+        "recommended_manifest_value": "arm-backing.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/arm-backing.png",
+        "present_in_current_manifest": false,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          288,
+          558,
+          967,
+          908
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "01770ac90cca204c04eca115c63b083a78b334c305a2bf930d739fcbb5e69f92",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/58319bc4e5c7f8e5b9d8c76de5eaa47bc10288b45399e503525342fba215f85e-679x350.png",
+        "existing_PNG_sha256": "4f91caa999466784e9d44e26a7c7d21dcf492f90fa012d290b4a540b2e5bb82c",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "01770ac90cca204c04eca115c63b083a78b334c305a2bf930d739fcbb5e69f92",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          288,
+          558,
+          967,
+          908
+        ]
+      },
+      {
+        "source_layer_id": "headwear#2",
+        "source_name": "headwear",
+        "manifest_key": "headwear",
+        "recommended_manifest_value": "19-headwear.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/19-headwear.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          247,
+          86,
+          1011,
+          656
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "5ab3ac566d93b1e9ed14fe8ff748479276ab2835ef45af6f51a76dbb8972d0a6",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/1ca902549ae43fe9a528abaaf156849957a5fbe49f43be662443b86ef63456f3-764x570.png",
+        "existing_PNG_sha256": "8a54ab96ceaf2d43fbe0afd151bdfee2032ac87f5d71f09b629ed31046772fec",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "5ab3ac566d93b1e9ed14fe8ff748479276ab2835ef45af6f51a76dbb8972d0a6",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          247,
+          86,
+          1011,
+          656
+        ]
+      },
+      {
+        "source_layer_id": "topwear#3",
+        "source_name": "topwear",
+        "manifest_key": "topwear",
+        "recommended_manifest_value": "18-topwear.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/18-topwear.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          450,
+          587,
+          796,
+          766
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "cd91701fb31600a1932930d8b6594f337ee9b45466967955452557b9f99c9df1",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/8b5636d4e9ba41acbefac734e53c5b2430f421b6009657b5ed4bb3f19dbb581f-346x179.png",
+        "existing_PNG_sha256": "4668ecd64379e258ba8222abc7edfa2f358c5d8932bc2d262f72ab7aa2ea052d",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "cd91701fb31600a1932930d8b6594f337ee9b45466967955452557b9f99c9df1",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          450,
+          587,
+          796,
+          766
+        ]
+      },
+      {
+        "source_layer_id": "bottomwear#4",
+        "source_name": "bottomwear",
+        "manifest_key": "bottomwear",
+        "recommended_manifest_value": "17-bottomwear.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/17-bottomwear.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          267,
+          741,
+          980,
+          1025
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "e48fb95b108afcbfb9c0d466fdde04d4bde4413efee01d1e280cd29f8d2410b7",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/6ec04d09d539a69c7080d76a8f9d96fc392946d72c537dcaa4daecf1c50750ba-713x284.png",
+        "existing_PNG_sha256": "695aea48359eaf9a944f4fe123437b12e36e9c2627d1d406fa97dd1247eb5d75",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "e48fb95b108afcbfb9c0d466fdde04d4bde4413efee01d1e280cd29f8d2410b7",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          267,
+          741,
+          980,
+          1025
+        ]
+      },
+      {
+        "source_layer_id": "footwear-r#5",
+        "source_name": "footwear-r",
+        "manifest_key": "footwear-r",
+        "recommended_manifest_value": "16-footwear-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/16-footwear-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          617,
+          920,
+          777,
+          1237
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "251038032cd5dfac930cf270215226fa612e37ed598802722833094eb6758ad4",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/cf0c2b72f8d9ecd647e7c5074b70416a2fae5dbc46c20b69b9cad162f9865db2-160x317.png",
+        "existing_PNG_sha256": "424ea322bf5d3c609c7607f0cefab4a0137918aeab9d7f529fa31f61157ff8ac",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "251038032cd5dfac930cf270215226fa612e37ed598802722833094eb6758ad4",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          617,
+          920,
+          777,
+          1237
+        ]
+      },
+      {
+        "source_layer_id": "footwear-l#6",
+        "source_name": "footwear-l",
+        "manifest_key": "footwear-l",
+        "recommended_manifest_value": "15-footwear-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/15-footwear-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          475,
+          920,
+          641,
+          1237
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "527c6db724818ab206a68abcc8f16db76d083064d81f34caebe2ebba68d2cda8",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/c432c434fa59629e49e41c8150f886842d4c65a159ce786c6e7a20c110160b6a-166x317.png",
+        "existing_PNG_sha256": "f83ad28772308da8f024fde38ece95f805c010dd4d8218facab805e20525d06f",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "527c6db724818ab206a68abcc8f16db76d083064d81f34caebe2ebba68d2cda8",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          475,
+          920,
+          641,
+          1237
+        ]
+      },
+      {
+        "source_layer_id": "tail#7",
+        "source_name": "tail",
+        "manifest_key": "tail",
+        "recommended_manifest_value": "14-tail.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/14-tail.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          899,
+          568,
+          1179,
+          999
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "c1c16150f14004e2e476076acf34266ac3c4a0de7c5a8df80d1da1de50cb8bff",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/4928585c2535052aa71b96f16f28f683918d85bb2f53a095cc5a052c5d877e20-280x431.png",
+        "existing_PNG_sha256": "6ae466f453a7ecf586f54bbedec6f52a0fb4b123c8914b11f1b2015a4634a7d6",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "c1c16150f14004e2e476076acf34266ac3c4a0de7c5a8df80d1da1de50cb8bff",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          899,
+          568,
+          1179,
+          999
+        ]
+      },
+      {
+        "source_layer_id": "upperarm-r#8",
+        "source_name": "upperarm-r",
+        "manifest_key": "upperarm-r",
+        "recommended_manifest_value": "13-upperarm-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/13-upperarm-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          700,
+          606,
+          800,
+          756
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "ea4e57cb92cba919b397e2ba7cb4c2b729f73205a0dabc3bd1f9762e22e80193",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/a757c8e5ecd759e4e5e91513d1346bfa06696bd371f6679b27ab88bf2f0fb2c2-100x150.png",
+        "existing_PNG_sha256": "966761b81c0eea6f5da1e448cd2e1e770ae929414f231de3c892a275507b31f1",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "ea4e57cb92cba919b397e2ba7cb4c2b729f73205a0dabc3bd1f9762e22e80193",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          700,
+          606,
+          800,
+          756
+        ]
+      },
+      {
+        "source_layer_id": "upperarm-l#9",
+        "source_name": "upperarm-l",
+        "manifest_key": "upperarm-l",
+        "recommended_manifest_value": "12-upperarm-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/12-upperarm-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          455,
+          606,
+          555,
+          756
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "b7364c53cc222ba47baffebdaea7bb1f5ba2083b9733008cbeb751fa369fadd5",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/8a2a245428caa311b68ca7a437fa929341954ddca4f1109881c512e684ca7693-100x150.png",
+        "existing_PNG_sha256": "607d756af4326f737bdaf0c4804ad2fa95547683723e2b5141a2f00bfb759add",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "b7364c53cc222ba47baffebdaea7bb1f5ba2083b9733008cbeb751fa369fadd5",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          455,
+          606,
+          555,
+          756
+        ]
+      },
+      {
+        "source_layer_id": "face#10",
+        "source_name": "face",
+        "manifest_key": "face",
+        "recommended_manifest_value": "11-face.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/11-face.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          412,
+          330,
+          838,
+          611
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "42187b59cd20f38e1aa373efc44da3843e31e66e4369ae341f2d36b24da31ea9",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/5b1f20a701db17b80d83fa3ac46736c3d203d93403e1057995007fe7ab56b839-426x281.png",
+        "existing_PNG_sha256": "8d9d8df7b51e070e94a9a815d7db3e1ebf914fd3c14e457b1dea49fc1f9c812e",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "42187b59cd20f38e1aa373efc44da3843e31e66e4369ae341f2d36b24da31ea9",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          412,
+          330,
+          838,
+          611
+        ]
+      },
+      {
+        "source_layer_id": "front hair#11",
+        "source_name": "front hair",
+        "manifest_key": "front hair",
+        "recommended_manifest_value": "10-front-hair.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/10-front-hair.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          275,
+          86,
+          961,
+          600
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "1a4882f5b522cfadc48e5eaa2a5d6aa6e03ad3a8a5c51e12af94a45da6c1af07",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/ccbc4ff917dd7b564cf89ffcabcd98f75c3d9f9d2f63a03c0ed999b23372459e-686x514.png",
+        "existing_PNG_sha256": "9480997b19db7bfa77568911f7c0c0ddeef051dba3bd6f657304ddb95396b0c6",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "1a4882f5b522cfadc48e5eaa2a5d6aa6e03ad3a8a5c51e12af94a45da6c1af07",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          275,
+          86,
+          961,
+          600
+        ]
+      },
+      {
+        "source_layer_id": "mouth#12",
+        "source_name": "mouth",
+        "manifest_key": "mouth",
+        "recommended_manifest_value": "09-mouth.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/09-mouth.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          610,
+          517,
+          651,
+          523
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "8fcf2c13e98f61fd4fe120c9dceb19af74cfd2759e5dccc9de18bb1c11a03105",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/9497728a4689ae80ac6a02d7d4b1c5dbfd82c7d16c1557701773584b0f3acc3d-41x6.png",
+        "existing_PNG_sha256": "f87f30d0a6ce8c94537b98a6671982de0b6d5abee7c752edc6b6660533e6b82a",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "8fcf2c13e98f61fd4fe120c9dceb19af74cfd2759e5dccc9de18bb1c11a03105",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          610,
+          517,
+          651,
+          523
+        ]
+      },
+      {
+        "source_layer_id": "eyewhite-r#13",
+        "source_name": "eyewhite-r",
+        "manifest_key": "eyewhite-r",
+        "recommended_manifest_value": "08-eyewhite-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/08-eyewhite-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          659,
+          408,
+          775,
+          497
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "dde0db76d719fc916d1551a990cffe8571b9a89da666ebb59eea346f1fd2a37c",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/5a216b389eefdea0f2c936acfac1f1fc027e0b8166c8d278cf28953d0fc07e54-116x89.png",
+        "existing_PNG_sha256": "5bb1444cd963ba7a719de60da5f351b7c77617ae661994b31730f227e2a8fc72",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "dde0db76d719fc916d1551a990cffe8571b9a89da666ebb59eea346f1fd2a37c",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          659,
+          408,
+          775,
+          497
+        ]
+      },
+      {
+        "source_layer_id": "eyewhite-l#14",
+        "source_name": "eyewhite-l",
+        "manifest_key": "eyewhite-l",
+        "recommended_manifest_value": "07-eyewhite-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/07-eyewhite-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          484,
+          421,
+          601,
+          507
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "9633b0000135d63c04be8b5defa3d5fe0568f3962023acc0ab625526c5da63ff",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/fb520ef49dbac6b3bcf01d4220cb3beee3387123fa5c41e41e0f102ee572931b-117x86.png",
+        "existing_PNG_sha256": "9b7ca83408f4c32b53d8efac58fa4cb9d36580b14df54be717d9806c255db542",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "9633b0000135d63c04be8b5defa3d5fe0568f3962023acc0ab625526c5da63ff",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          484,
+          421,
+          601,
+          507
+        ]
+      },
+      {
+        "source_layer_id": "irides-r#15",
+        "source_name": "irides-r",
+        "manifest_key": "irides-r",
+        "recommended_manifest_value": "06-irides-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/06-irides-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          683,
+          430,
+          745,
+          493
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "90ce18b6b774f88cbb8c78c8530c5e0c00f322688151b77a5ecdd0f60636a6b7",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/487ec5e167dfc453b882e8b9faec9a3ca22cdde4e7021fa2dba8954a5fe21850-62x63.png",
+        "existing_PNG_sha256": "d0893df897d9fec67493564a7117f6354d1426d7c2b6234809d89dfd3584c520",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "90ce18b6b774f88cbb8c78c8530c5e0c00f322688151b77a5ecdd0f60636a6b7",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          683,
+          430,
+          745,
+          493
+        ]
+      },
+      {
+        "source_layer_id": "irides-l#16",
+        "source_name": "irides-l",
+        "manifest_key": "irides-l",
+        "recommended_manifest_value": "05-irides-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/05-irides-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          513,
+          438,
+          577,
+          502
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "25da9be72dc3779691fe39e2d2be95dbdb4fc21318f3d7d850c8c138663d5d23",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/5d7f10a67d8564c161b3f2e24d34d971327205d4e3708cdf786abc550fdd2b51-64x64.png",
+        "existing_PNG_sha256": "e467763530f324b2ec62011183107cda3fd74056e35d9c260250fad2894eade6",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "25da9be72dc3779691fe39e2d2be95dbdb4fc21318f3d7d850c8c138663d5d23",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          513,
+          438,
+          577,
+          502
+        ]
+      },
+      {
+        "source_layer_id": "eyelash-r#17",
+        "source_name": "eyelash-r",
+        "manifest_key": "eyelash-r",
+        "recommended_manifest_value": "04-eyelash-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/04-eyelash-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          659,
+          410,
+          791,
+          468
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "2b9151f369806e8366aab84d420cec73a925e46a8fc4a7e32cc3fc00e5a59a38",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/1f6ef672680427c33711080e91379be3b2a7fee3ea1a7bb40ab740d4fbf5cc9b-132x58.png",
+        "existing_PNG_sha256": "fd7f7222c7ba04e3de762b29209fe2a980d96cd123deb30ae484c8042063206f",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "2b9151f369806e8366aab84d420cec73a925e46a8fc4a7e32cc3fc00e5a59a38",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          659,
+          410,
+          791,
+          468
+        ]
+      },
+      {
+        "source_layer_id": "eyelash-l#18",
+        "source_name": "eyelash-l",
+        "manifest_key": "eyelash-l",
+        "recommended_manifest_value": "03-eyelash-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/03-eyelash-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          469,
+          422,
+          602,
+          491
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "e2a6afe83648307d5abb8b0e85a35fb895e7820a8d09f9bc9fae5e94261b64ca",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/89e4d2f43da41d9d9d09abff633d9b78951a8c735c307e11bd3d55115a279d41-133x69.png",
+        "existing_PNG_sha256": "9924f382f9be96a3d8c6712f3c261f454e859f31d44e0cdfd9ceb3f5abc5b25b",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "e2a6afe83648307d5abb8b0e85a35fb895e7820a8d09f9bc9fae5e94261b64ca",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          469,
+          422,
+          602,
+          491
+        ]
+      },
+      {
+        "source_layer_id": "handwear-r#19",
+        "source_name": "handwear-r",
+        "manifest_key": "handwear-r",
+        "recommended_manifest_value": "02-handwear-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/02-handwear-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          733,
+          686,
+          911,
+          844
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "a4ad25ba87d9b0242f2dc81579b004208cb0c9dbbc1f5ba6c22e8783127ecf18",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/6eb7c6c1851ab1c90343aa31e6fc32d7e5a39b3e177c3a02e59835e995237556-178x158.png",
+        "existing_PNG_sha256": "e8df96a069ed17c2935ea5082c6482a2723e9fae0405f86b5ce0a9cb967f9274",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "a4ad25ba87d9b0242f2dc81579b004208cb0c9dbbc1f5ba6c22e8783127ecf18",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          733,
+          686,
+          911,
+          844
+        ]
+      },
+      {
+        "source_layer_id": "handwear-l#20",
+        "source_name": "handwear-l",
+        "manifest_key": "handwear-l",
+        "recommended_manifest_value": "01-handwear-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/01-handwear-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          336,
+          686,
+          522,
+          860
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "422723a05dfedf66bd2fd710b1ba2ebc1808e6e884898f9849387bc206de76d0",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/32028d9f603bc738c6c882322abf53ac9ac088cf99b600ce3d0da5fbed37e31c-186x174.png",
+        "existing_PNG_sha256": "2b5d109022634b512b9660f26bca54016b46b2e7535f0b41525a1aa73f8fccc5",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "422723a05dfedf66bd2fd710b1ba2ebc1808e6e884898f9849387bc206de76d0",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          336,
+          686,
+          522,
+          860
+        ]
+      },
+      {
+        "source_layer_id": "handwear_r#21",
+        "source_name": "handwear_r",
+        "manifest_key": "handwear_r",
+        "recommended_manifest_value": "00-handwear_r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/00-handwear_r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          825,
+          788,
+          919,
+          860
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "b23eca857f6da699c3ddaf2867c64d008ff8c35d41872814db95eb4b4c82bb86",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/993f80542d17ed6e7710d7c8bf223b7512091f8f23142ecfe5d59632870945f3-94x72.png",
+        "existing_PNG_sha256": "796ca0341dc82df89b0656c95ddfbb71fa5d8f55ff55e24b55d89506db2c0a81",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "b23eca857f6da699c3ddaf2867c64d008ff8c35d41872814db95eb4b4c82bb86",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          825,
+          788,
+          919,
+          860
+        ]
+      },
+      {
+        "source_layer_id": "mouth open#22",
+        "source_name": "mouth open",
+        "manifest_key": "mouth open",
+        "recommended_manifest_value": "mouth-open.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/mouth-open.png",
+        "present_in_current_manifest": false,
+        "existing_PNG": false,
+        "needed_action": "extract_from_PSD_layer_read_only_then_save_new_PNG",
+        "PSD_bbox": [
+          572,
+          494,
+          692,
+          550
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "e29cec438a151515d3a091a564f788b408eadfa50f726cec4db6052fba048468",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/4b4d9e8b9c6ac82d6332a6f9ee7fad4de0654c502b0bc7422eccd5ce85878dd5-120x56.png",
+        "target_does_not_exist": true,
+        "extraction_contract": "Full transparent 1254x1254 RGBA canvas; copy raw decoded layer RGBA into its original PSD bbox without trimming, rescaling, compositing against a background or changing alpha."
+      },
+      {
+        "source_layer_id": "bite mouth#23",
+        "source_name": "bite mouth",
+        "manifest_key": "bite mouth",
+        "recommended_manifest_value": "bite-mouth.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/bite-mouth.png",
+        "present_in_current_manifest": false,
+        "existing_PNG": false,
+        "needed_action": "extract_from_PSD_layer_read_only_then_save_new_PNG",
+        "PSD_bbox": [
+          572,
+          497,
+          712,
+          567
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "3ac74af8c051030c59283721e2a56af70d1412f1b14bbd07f85d041598dd71b8",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/bc90aa3aa7bac19168f87d2c34d3b64f6d0cabe28521511be8a5bb316bf86131-140x70.png",
+        "target_does_not_exist": true,
+        "extraction_contract": "Full transparent 1254x1254 RGBA canvas; copy raw decoded layer RGBA into its original PSD bbox without trimming, rescaling, compositing against a background or changing alpha.",
+        "critical_alpha_contract": "Retain 140x70 alpha=2 backing at original bbox; it deliberately separates atlas bounds from the smile mouth."
+      },
+      {
+        "source_layer_id": "handwear right#24",
+        "source_name": "handwear right",
+        "manifest_key": "handwear right",
+        "recommended_manifest_value": "grass-prop.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/grass-prop.png",
+        "present_in_current_manifest": false,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          797,
+          494,
+          922,
+          896
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "e97cbb0473462e17b05772141ec0ba8479fd1aa54733262b6779656598b79041",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/37e74709ccfb038e8b3a605f2942b84d20ff6ee58eb4c19399a4d9779b12a8bf-125x402.png",
+        "existing_PNG_sha256": "90dd2ad1d4f87872a703f6a9abff333ed7e66b04c5f23b1be2b1c4573c61dda6",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "e97cbb0473462e17b05772141ec0ba8479fd1aa54733262b6779656598b79041",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          797,
+          494,
+          922,
+          896
+        ]
+      },
+      {
+        "source_layer_id": "handwear.right#25",
+        "source_name": "handwear.right",
+        "manifest_key": "handwear.right",
+        "recommended_manifest_value": "hand-grip-registered.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/hand-grip-registered.png",
+        "present_in_current_manifest": false,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          827,
+          790,
+          929,
+          885
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "e643e67c6fd7588b85e878eba654d4766fb9c404450bf3af71153d29c0f0c04c",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/185910a6b757492dcd1afccdc7b0488a46d576fb1741cc960a2de45a6567fe74-102x95.png",
+        "existing_PNG_sha256": "3a947805ed569d6b620741fb93cbdd6da6533a11e224a1c252fd472c5dbfab37",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "e643e67c6fd7588b85e878eba654d4766fb9c404450bf3af71153d29c0f0c04c",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          827,
+          790,
+          929,
+          885
+        ]
+      },
+      {
+        "source_layer_id": "busy torso#26",
+        "source_name": "busy torso",
+        "manifest_key": "busy torso",
+        "recommended_manifest_value": "busy-torso.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-torso.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          432,
+          566,
+          795,
+          818
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "19f7b52e4f6cacfd9fb317947621a3f4e42db9770595eba3f5e1a4fb42c186e9",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/d6cbe708cc7a4ecb3ebded71c8ae779047bcae79106c3a4802b16f59f7a7b91a-363x252.png",
+        "existing_PNG_sha256": "832e09b9f7ba8c98b20fe9ffe6ffa14a69258b0a90b84ccd6970e16bd39fdd61",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "19f7b52e4f6cacfd9fb317947621a3f4e42db9770595eba3f5e1a4fb42c186e9",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          432,
+          566,
+          795,
+          818
+        ]
+      },
+      {
+        "source_layer_id": "busy skirt#27",
+        "source_name": "busy skirt",
+        "manifest_key": "busy skirt",
+        "recommended_manifest_value": "busy-skirt.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-skirt.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          221,
+          699,
+          983,
+          1035
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "d9eed50d1c8a4ed805c2d4fca91afa849ac2f970ecaff407ef065e02d54f6627",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/63e9c5bc25ae6c4a797567727525b3458aba9609612908e7c8bc0e95007cf832-762x336.png",
+        "existing_PNG_sha256": "51d0c60ee05d2fc09e7f362ab42369b9a3cbef02215eb04608ab63afb5c3e878",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "d9eed50d1c8a4ed805c2d4fca91afa849ac2f970ecaff407ef065e02d54f6627",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          221,
+          699,
+          983,
+          1035
+        ]
+      },
+      {
+        "source_layer_id": "busy leg r#28",
+        "source_name": "busy leg r",
+        "manifest_key": "busy leg r",
+        "recommended_manifest_value": "busy-leg-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-leg-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          499,
+          819,
+          703,
+          1140
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "38dc0e17682baf82544362a3a18b90d69471b1adc3f84bd25bae792a869a410e",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/da2663a854423548bf38ee5686257d04256c0cef5092f378b414d81152da801b-204x321.png",
+        "existing_PNG_sha256": "900b93cda616c4980597dc4f36b0c8a95890c5f692b5f9aaf17182533ade4426",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "38dc0e17682baf82544362a3a18b90d69471b1adc3f84bd25bae792a869a410e",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          499,
+          819,
+          703,
+          1140
+        ]
+      },
+      {
+        "source_layer_id": "busy leg l#29",
+        "source_name": "busy leg l",
+        "manifest_key": "busy leg l",
+        "recommended_manifest_value": "busy-leg-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-leg-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          319,
+          815,
+          558,
+          1126
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "936906552aba7c4fa728deb36ee2a6f1a846237f1ab5e93d98fd4591d66ac34b",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/2abb5ddfd826d5ba320654dc51cd6cf8d6b887943c5f43af13acd11f2f9c8ae5-239x311.png",
+        "existing_PNG_sha256": "d3519bddf6363c18431f94138bd37339019fa96b04068c627406a9ce05553c82",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "936906552aba7c4fa728deb36ee2a6f1a846237f1ab5e93d98fd4591d66ac34b",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          319,
+          815,
+          558,
+          1126
+        ]
+      },
+      {
+        "source_layer_id": "busy laptop base#30",
+        "source_name": "busy laptop base",
+        "manifest_key": "busy laptop base",
+        "recommended_manifest_value": "busy-laptop-base.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-laptop-base.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          391,
+          794,
+          729,
+          829
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "e9b4a0d74aa86b435bb1676ceac466811249e4dc7b8bd35f030980032f86e014",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/73593fe9305e7aa0b3196eb9dd651fd2de4b3f3c63ce4dcb974b4a18375963c4-338x35.png",
+        "existing_PNG_sha256": "8293be009c60745e10ca4507301cd956a7bc39281cb9d4c4dc99e87628a469ab",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "e9b4a0d74aa86b435bb1676ceac466811249e4dc7b8bd35f030980032f86e014",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          391,
+          794,
+          729,
+          829
+        ]
+      },
+      {
+        "source_layer_id": "busy sleeve l#31",
+        "source_name": "busy sleeve l",
+        "manifest_key": "busy sleeve l",
+        "recommended_manifest_value": "busy-sleeve-l.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-sleeve-l.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          342,
+          619,
+          511,
+          810
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "ffa4ad94d0d5176621c45489f20aeb94fea6e09ccb19fd4ba444350f86455fa7",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/a00a5fef017f56b15ea25aa10bde7f135926823ffdaed7b2834f0e77dd3541ac-169x191.png",
+        "existing_PNG_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "ffa4ad94d0d5176621c45489f20aeb94fea6e09ccb19fd4ba444350f86455fa7",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          342,
+          619,
+          511,
+          810
+        ]
+      },
+      {
+        "source_layer_id": "busy sleeve r#32",
+        "source_name": "busy sleeve r",
+        "manifest_key": "busy sleeve r",
+        "recommended_manifest_value": "busy-sleeve-r.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-sleeve-r.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          673,
+          615,
+          823,
+          831
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "0b10111a09ca542105ec14168573f643883b4b330289e4dd802bfad45475a06b",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/e86ad273052f7626797879a8afce793d66d6c783dbbd03a1366eac33765b5417-150x216.png",
+        "existing_PNG_sha256": "d26921db8334aff7c35f0b91d174c9ecbc4403403705224793be3f42af97b961",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "0b10111a09ca542105ec14168573f643883b4b330289e4dd802bfad45475a06b",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          673,
+          615,
+          823,
+          831
+        ]
+      },
+      {
+        "source_layer_id": "busy laptop lid#33",
+        "source_name": "busy laptop lid",
+        "manifest_key": "busy laptop lid",
+        "recommended_manifest_value": "busy-laptop-lid.png",
+        "PNG_path": "E:/projects/Desktop-Companion/art/live2d/layers/busy-laptop-lid.png",
+        "present_in_current_manifest": true,
+        "existing_PNG": true,
+        "needed_action": "use_existing_file",
+        "PSD_bbox": [
+          344,
+          641,
+          694,
+          817
+        ],
+        "expected_canvas": [
+          1254,
+          1254
+        ],
+        "RGBA_crop_sha256": "a845e7ab0499cab764d2d59f3b6e899f6d5dc78fc0ac79953f3fdf58328250f5",
+        "snapshot_blob_path": "C:/Users/Administrator/AppData/Local/PSD2Live/agent-workspaces/4ae60355-9263-4254-87c8-3da505ed157c/blobs/8a56b84398e374acf47ec0f6eaa637977b16fffa0eaee16de8307a00780bc078-350x176.png",
+        "existing_PNG_sha256": "afaef4eea176d6815324590f6f239bd0545cd61434c491e22965ed10d1d27c98",
+        "existing_PNG_canvas": [
+          1254,
+          1254
+        ],
+        "existing_PNG_crop_RGBA_sha256": "a845e7ab0499cab764d2d59f3b6e899f6d5dc78fc0ac79953f3fdf58328250f5",
+        "existing_PNG_crop_matches_PSD": true,
+        "existing_PNG_alpha_bbox": [
+          344,
+          641,
+          694,
+          817
+        ]
+      }
+    ],
+    "no_material_files_changed": true
+  },
+  "Cubism_Editor_installation": {
+    "current_status": "awaiting_user_provided_path",
+    "user_has_reported_installed": true,
+    "earlier_limited_scan": {
+      "found": false,
+      "scope": [
+        "D:/tool immediate directories",
+        "HKCU standard uninstall",
+        "HKLM standard uninstall",
+        "HKLM WOW6432Node uninstall",
+        "C:/Program Files immediate Cubism/Live2D directories",
+        "C:/Program Files (x86) immediate Cubism/Live2D directories"
+      ],
+      "found_related_installation": {
+        "name": "PSD2Live",
+        "version": "2.0.2",
+        "location": "D:/tool/psd2live"
+      },
+      "limitation": "No full disk scan; portable or nonstandard Cubism Editor installation remains unverified."
+    },
+    "scope": "No editor launch or installation mutation performed."
+  },
+  "writes_this_audit": [
+    "build/roundtrip-work/source-audit.json"
+  ],
+  "not_performed": [
+    "editor start",
+    "editor mutation",
+    "PSD2Live mutate",
+    "Native rendering",
+    "PNG extraction or editing",
+    "manifest modification",
+    "Obsidian edit"
+  ]
+}

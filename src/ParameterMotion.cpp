@@ -26,17 +26,61 @@ const QString mouth = QStringLiteral("ParamMouthOpenY");
 const QString cheek = QStringLiteral("ParamCheek");
 constexpr double pi = 3.14159265358979323846;
 
-// Reactions own only the face and head. A draft must not steal a seated hand
-// or a grass prop channel from the activity underneath it.
+// What a short reaction may own. Two groups, and nothing else:
+//
+//  1. The face and head -- the expressive layer. Head rotation barely moves the
+//     chibi silhouette (measured: ParamAngleX 30 moves the outline 0.3px at
+//     280px), so most of the "head" performance is really carried here by the
+//     eyelids, the eye smile and the gaze.
+//  2. The silhouette levers a gesture needs to read at desktop size. Measured at
+//     280px: ParamShiftX 60 moves 15.5px, ParamBodyAngleX 12 moves 4.8px,
+//     ParamAngleZ 18 moves 2.8px, ParamBodyAngleZ 8 moves 2.4px, ParamHairBack 1
+//     moves 1.6px. These are the only axes that relocate the outline, which is
+//     what a viewer reads as "the pet did something".
+//
+// Deliberately NOT owned (see reactionReservedParameters): the sitting/standing
+// posture, the laptop and grass prop channels, the arms (a raised arm moves the
+// outline 0.2px, so it is only meaningful while holding a prop, which belongs to
+// the activity), and vertical shift (the grounding contract cancels it).
 const QSet<QString>& reactionParameters() {
     static const QSet<QString> ids{
         angleX, angleY, angleZ, leftEye, rightEye, cheek, mouth,
         QStringLiteral("ParamEyeSmile"), QStringLiteral("ParamEyeBallX"),
         QStringLiteral("ParamEyeBallY"), QStringLiteral("ParamMouthForm"),
         QStringLiteral("ParamSmileOpen"), QStringLiteral("ParamMouthGape"),
-        QStringLiteral("ParamBrowLY"), QStringLiteral("ParamBrowRY")
+        QStringLiteral("ParamBrowLY"), QStringLiteral("ParamBrowRY"),
+        bodyX, bodyZ, QStringLiteral("ParamHairFront"), QStringLiteral("ParamHairBack"),
+        QStringLiteral("ParamShiftX")
     };
     return ids;
+}
+
+// Channels that belong to the activity underneath, listed explicitly so the
+// refusal explains itself instead of reading as a typo. Releasing these would let
+// a two-second reaction strand the pet mid-crouch, drop a held prop, or fight the
+// ground line.
+const QHash<QString, QString>& reactionReservedParameters() {
+    static const QHash<QString, QString> reserved{
+        {QStringLiteral("ParamBusyLaptop"), QStringLiteral("seated/standing posture is the activity's")},
+        {QStringLiteral("ParamSitPose"), QStringLiteral("seated/standing posture is the activity's")},
+        {QStringLiteral("ParamLaptopVisible"), QStringLiteral("the laptop is a held prop")},
+        {QStringLiteral("ParamLaptopRock"), QStringLiteral("the laptop is a held prop")},
+        {QStringLiteral("ParamBusyTypingL"), QStringLiteral("the activity animates the hands")},
+        {QStringLiteral("ParamBusyTypingR"), QStringLiteral("the activity animates the hands")},
+        {QStringLiteral("ParamGrassVisible"), QStringLiteral("the grass is a held prop")},
+        {QStringLiteral("ParamGrassReach"), QStringLiteral("the grass is a held prop")},
+        {QStringLiteral("ParamGrassSwing"), QStringLiteral("the grass is a held prop")},
+        {QStringLiteral("ParamGrassTipBend"), QStringLiteral("the grass is a held prop")},
+        {QStringLiteral("ParamHandRGrip"), QStringLiteral("the grass grip is a held prop")},
+        {QStringLiteral("ParamShiftY"), QStringLiteral("the grounding contract cancels vertical shift")},
+        {QStringLiteral("ParamBreath"), QStringLiteral("breathing belongs to the idle base")},
+        {leftArm, QStringLiteral("arms read only while holding a prop, which the activity owns")},
+        {rightArm, QStringLiteral("arms read only while holding a prop, which the activity owns")},
+        {QStringLiteral("ParamElbowLA"), QStringLiteral("arms read only while holding a prop")},
+        {QStringLiteral("ParamElbowRA"), QStringLiteral("arms read only while holding a prop")},
+        {QStringLiteral("ParamWristRA"), QStringLiteral("arms read only while holding a prop")}
+    };
+    return reserved;
 }
 
 bool validateReaction(const MotionClip& clip, QString* error) {
@@ -47,10 +91,16 @@ bool validateReaction(const MotionClip& clip, QString* error) {
     }
     const auto first = clip.sample(0.0);
     for (auto it = first.cbegin(); it != first.cend(); ++it) {
-        if (!reactionParameters().contains(it.key())) {
-            if (error) *error = QStringLiteral("Reaction %1 cannot own parameter %2").arg(clip.id(), it.key());
-            return false;
+        if (reactionParameters().contains(it.key())) continue;
+        const auto reserved = reactionReservedParameters().constFind(it.key());
+        if (error) {
+            *error = reserved == reactionReservedParameters().constEnd()
+                ? QStringLiteral("Reaction %1 cannot own parameter %2; it is not an expressive or "
+                                 "silhouette axis").arg(clip.id(), it.key())
+                : QStringLiteral("Reaction %1 cannot own parameter %2: %3")
+                      .arg(clip.id(), it.key(), reserved.value());
         }
+        return false;
     }
     return true;
 }
@@ -200,6 +250,12 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
     return configureGrassInteraction(directory, error);
 }
 
+double ParameterMotion::clipEventTime(const QString& clipId, const QString& event,
+                                      double fallback) const {
+    const MotionClip* clip = library_.clip(clipId);
+    return clip == nullptr ? fallback : clip->eventTime(event, fallback);
+}
+
 bool ParameterMotion::configureInteractions(QString* error) {
     const MotionClip* turnEnded = library_.clip(QStringLiteral("turn-ended"));
     const MotionClip* headPat = library_.clip(QStringLiteral("head-pat"));
@@ -251,6 +307,7 @@ void ParameterMotion::cancelInteraction() {
     interaction_ = Interaction::None;
     interactionTime_ = interactionElapsed_ = 0.0;
     headPatHeld_ = headPatReleasing_ = false;
+    releasingReaction_ = false;
     interactionSeat_.clear();
     // Keep the current values: the background recovers through the same
     // expression-before-blink filter as a normal state transition.
@@ -603,6 +660,9 @@ void ParameterMotion::advance(double seconds) {
     blinkClock_ += seconds;
     advanceInteraction(seconds);
     advanceGrassInteraction(seconds);
+    // The reaction face releases at the authored pace once the pat is over; see
+    // kExpressionReleaseBlend. Cleared below when the interaction ends.
+    releasingReaction_ = headPatReleasing_;
 
     Parameters desired{
         {angleX, 0.0},
@@ -773,12 +833,21 @@ void ParameterMotion::advance(double seconds) {
     const double eye = 1.0 - pulse(blinkPhase, 0.0, 0.075, 0.16);
     // Time-based exponential blending is stable at both 30 and 60 Hz.
     const double alpha = 1.0 - qExp(-seconds / kDefaultBlend);
+    const Parameters releasingChannels = releasingReaction_ ? headPatClip_.sample(interactionTime_) : Parameters{};
     for (auto it = desired.cbegin(); it != desired.cend(); ++it) {
         double previous = values_.contains(it.key()) ? values_.value(it.key()) : it.value();
         if (it.key() == leftEye) previous = leftEyeExpression_;
         if (it.key() == rightEye) previous = rightEyeExpression_;
         const auto tau = blendSeconds_.constFind(it.key());
-        const double weight = tau == blendSeconds_.constEnd() ? alpha : 1.0 - qExp(-seconds / tau.value());
+        double weight = tau == blendSeconds_.constEnd() ? alpha : 1.0 - qExp(-seconds / tau.value());
+        if (releasingChannels.contains(it.key())) {
+            // See kExpressionReleaseBlend: hand the reaction's own channels back
+            // at the authored pace instead of dwelling in the middle of the
+            // cross-fade. Only channels this clip actually declares receive the
+            // faster filter; its allowed but unused body/shift/hair channels
+            // still belong to the background and keep their existing filter.
+            weight = 1.0 - qExp(-seconds / kExpressionReleaseBlend);
+        }
         const double blended = previous + (it.value() - previous) * weight;
         if (it.key() == leftEye) leftEyeExpression_ = blended;
         if (it.key() == rightEye) rightEyeExpression_ = blended;

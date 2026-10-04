@@ -1,0 +1,15 @@
+# Authoring and review receipts hash exact bytes, including JSON and tool source.
+# Keep those bytes unchanged on checkout on every platform.
+* -text
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+*.psd binary
+*.cmo3 binary
+*.moc3 binary
+*.psd2live binary
+*.png binary
+*.gif binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.zip binary

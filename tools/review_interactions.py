@@ -36,7 +36,7 @@ def check_grass_scene(evidence, scenario):
     hold = [frame for frame in frames if frame['grass_phase'] == 'hold']
     assert all(frame['tip_center_hit'] for frame in hold), 'Grass tip target missed its rendered center'
     assert all(frame['foot_not_tip'] for frame in frames), 'Feet entered the tip target'
-    assert all(frame['parameters']['ParamHandRGrip'] >= 0.99 for frame in hold), 'Grass root lost the palm'
+    assert all(frame['parameters']['ParamHandRGrip'] >= 0.99 for frame in hold), 'Grass grip parameter was not held'
     for axis in ('ParamArmRA', 'ParamElbowRA', 'ParamWristRA', 'ParamGrassReach'):
         # Leave five 120ms blend constants for the arriving wrist pose to settle.
         # Its remaining approach to the fixed target is not hover-driven motion.
@@ -64,8 +64,11 @@ def check_grass_scene(evidence, scenario):
     if scenario != 'grass-delete-busy':
         assert frames[-1]['state'] == 0 and frames[-1]['active_turns'] == 0 and not phases[-1]
         assert frames[-1]['parameters']['ParamGrassVisible'] < 0.01
-    return {'frames': len(frames), 'branch': scenario, 'tip_and_palm': 'passed',
-            'qt_pointer_arbitration': 'passed', 'background_and_interrupt': 'passed', 'scope': GRASS_SCOPE}
+    return {'frames': len(frames), 'branch': scenario, 'tip_hit_alignment': 'passed',
+            'hand_grip_parameter_held': 'passed', 'palm_to_grass_contact_distance': 'unmeasured',
+            'qt_pointer_arbitration': 'passed', 'background_restore': 'passed',
+            'higher_priority_interruption': ('passed' if scenario == 'grass-delete-busy' else 'not_exercised'),
+            'visual_expression_and_naturalness': 'pending', 'scope': GRASS_SCOPE}
 
 
 def check_scene(path, scenario):
@@ -99,7 +102,9 @@ def check_scene(path, scenario):
         # floating-point zero after a working expression was interrupted.
         assert abs(frames[-1]['parameters']['ParamMouthOpenY']) < 1e-4
     return {'frames': len(frames), 'player_started': True, 'head_region_aligned': True,
-            'priority_and_release': 'passed', 'scope': SCOPE}
+            'higher_priority_interruption': ('passed' if scenario.endswith('interrupt') else 'not_exercised'),
+            'reaction_release': ('not_exercised' if scenario.endswith('interrupt') else 'passed'),
+            'visual_expression_and_naturalness': 'pending', 'scope': SCOPE}
 
 
 def review(scenario):

@@ -109,12 +109,12 @@ void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
 // Flight of the deleted file's icon from its desktop position towards the
 // pet's fist. A QWidget can only paint inside itself, and the deleted file
 // usually sits outside the pet window, so the first leg of the eat
-// choreography (up to drawFedProp's grip moment, 0.62 s) rides on this small
+// choreography (up to drawFedProp's grip moment) rides on this small
 // transparent, click-through overlay; there it hands the icon over to the
 // in-window wrap sequence at the very same global position and size.
-// The grip moment is duplicated here and in drawFedProp on purpose: both are
-// annotations of delete.motion.json's authored grip frame, and a shared
-// constant would not keep them in sync with the clip either.
+// The flight duration is `delete.grip` from delete.motion.json, passed in by the
+// window that owns the motion: the handover has to land on the authored grip, so
+// a second hard-coded copy here would drift away from the clip.
 // Defined at global scope (not in an anonymous namespace) so it matches the
 // forward declaration in PetWindow.h.
 class DeleteOverlay final : public QWidget {
@@ -129,7 +129,7 @@ public:
         tick_.setInterval(16);
         connect(&tick_, &QTimer::timeout, this, [this] {
             const double t = clock_.elapsed() / 1000.0;
-            if (t >= 0.62) { hide(); tick_.stop(); return; }
+            if (t >= duration_) { hide(); tick_.stop(); return; }
             step();
             update();
         });
@@ -137,11 +137,12 @@ public:
 
     // `from`/`to` in logical global coordinates; the clock starts now, in the
     // same event-loop beat as the pet's fed clock so both stay in step.
-    void launch(const QPixmap& icon, const QPointF& from, const QPointF& to) {
+    void launch(const QPixmap& icon, const QPointF& from, const QPointF& to, double duration) {
         if (icon.isNull()) return;
         icon_ = icon;
         from_ = from;
         to_ = to;
+        duration_ = qMax(0.05, duration);
         clock_.restart();
         step();
         show();
@@ -167,7 +168,7 @@ protected:
 private:
     void step() {
         const double t = clock_.elapsed() / 1000.0;
-        const double k = qBound(0.0, t / 0.62, 1.0);
+        const double k = qBound(0.0, t / duration_, 1.0);
         const double ease = k * k * (3.0 - 2.0 * k);
         const QPointF p = from_ + (to_ - from_) * ease
             - QPointF(0.0, 46.0 * qSin(M_PI * k));  // a slight arc over the desktop
@@ -179,6 +180,7 @@ private:
     QPixmap icon_;
     QPointF from_;
     QPointF to_;
+    double duration_ = 0.65; // replaced by delete.grip at launch
     double iconSize_ = 64.0;
     double fadeAlpha_ = 0.0;
     QElapsedTimer clock_;
@@ -522,7 +524,9 @@ void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, co
             const double w = width();
             const double h = height();
             const QPointF fist(lungeMirrored_ ? 0.25 * w : 0.75 * w, 0.50 * h);
-            deleteOverlay_->launch(pixmap, sourcePos, pos() + fist);
+            deleteOverlay_->launch(pixmap, sourcePos, pos() + fist,
+                                   motion_.clipEventTime(QStringLiteral("delete"),
+                                                         QStringLiteral("delete.grip"), 0.65));
         }
     }
 
@@ -849,19 +853,26 @@ QPixmap makeWrapProp() {
 void PetWindow::drawFedProp(QPainter& painter) {
     if (fedIcon_.isNull() || !fedClock_.isValid()) return;
     if (wrapProp_.isNull()) wrapProp_ = makeWrapProp();
-    // Choreography mirrors delete.motion.json (3.2 s): the hand reaches out and
-    // the grip closes at 0.62 s, the file is rolled into a wrap while the arm
-    // settles, the mouth lunges forward between 1.30-1.45 s, and the bite
-    // consumes the wrap right after. Anchors were measured on the 840 px probe
-    // renders (fist at grip 0.75w/0.50h, fist raised 0.77w/0.44h, mouth once
-    // the ShiftX=80 lunge lands 0.545w/0.44h).
+    // The moments of this prop choreography are authored markers on
+    // delete.motion.json, so the wrap and the pose share one timeline instead of
+    // two copies of the same numbers (previously 0.62/0.80/0.95/1.30/1.45/1.62
+    // lived here and disagreed with the clip: the roll started at 0.80 in code
+    // but at 1.05 in the authored contract). Fallbacks keep the drawn sequence
+    // usable when the clip is missing.
+    const auto marker = [this](const char* name, double fallback) {
+        return motion_.clipEventTime(QStringLiteral("delete"), QLatin1String(name), fallback);
+    };
+    // Phases read straight off the authored markers. The old code used 0.62/0.80/
+    // 0.95 for the first three, which rolled the file flat at 0.80 s while the
+    // authored contract rolls it together with the arm rise up to 1.05 s: the prop
+    // finished forming a quarter of a second before the pose it belongs to.
+    const double gripT = marker("delete.grip", 0.65);
+    const double rollT = marker("delete.roll_formed", 1.05);
+    const double wrapT = rollT + 0.15; // strip unrolls into the drawn wrap
+    const double raiseT = marker("delete.lunge", 1.30);
+    const double biteT = marker("delete.bite", 1.45);
+    const double goneT = marker("delete.consumed", 1.60);
     const double t = fedClock_.elapsed() / 1000.0;
-    const double gripT = 0.62;
-    const double rollT = 0.80;   // file has spun flat
-    const double wrapT = 0.95;   // wrap fully formed
-    const double raiseT = 1.30;
-    const double biteT = 1.45;
-    const double goneT = 1.62;
     if (t < gripT || t >= goneT) return; // hand still reaching / already swallowed
     const double w = width();
     const double h = height();

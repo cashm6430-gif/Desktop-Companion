@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "status": "archived_not_runtime_equivalent",
+  "runtime_adoption": false,
+  "source_CMO_already_in_Git": "art/live2d/whale-girl-layered-draft.cmo3",
+  "source_CMO_sha256": "523b8289f235fa0c3312c6638806fb90cbd62d69212d4876e598590040f6e952",
+  "known_differences": [
+    "Mouth IDs/keyforms and neutral position differ from the deployed model.",
+    "Head-Z geometry differs; this branch is not a replacement for production."
+  ],
+  "old_comparison": "reports/comparison.json is retained for its original SHA; diagnostics superseded by comparison-r2.json.",
+  "purpose": "Restore the manually exported Editor branch and reproduce its 29-pose comparison without the ignored run."
+}

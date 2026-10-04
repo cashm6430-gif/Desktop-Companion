@@ -6,20 +6,87 @@
 #include <QApplication>
 #include <QFile>
 #include <QDir>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMouseEvent>
 #include <QTimer>
+#include <QVariant>
 #include <algorithm>
 #include <cmath>
+#include <vector>
+
+namespace {
+QJsonObject captureContext(const PetWindow& window) {
+    const QString overridePath = qApp->property("desktopCompanionReviewModelPath").toString();
+    const QString modelPath = overridePath.isEmpty()
+        ? QDir(QCoreApplication::applicationDirPath()).filePath(
+              QStringLiteral("assets/live2d/whale-girl/whale-girl-layered-draft.model3.json"))
+        : overridePath;
+    const bool raw = qApp->property("desktopCompanionReviewRawExport").toBool();
+    return QJsonObject{{QStringLiteral("model_manifest_path"), QFileInfo(modelPath).absoluteFilePath()},
+        {QStringLiteral("isolated_model_override"), !overridePath.isEmpty()},
+        {QStringLiteral("raw_export_only"), raw},
+        {QStringLiteral("runtime_patches_applied"), !raw},
+        {QStringLiteral("render_backend"), window.renderBackend()},
+        {QStringLiteral("render_error"), window.renderError()},
+        {QStringLiteral("adoption"), QStringLiteral("not_requested")}};
+}
+
+bool staticParameters(const QJsonObject& object, ParameterMotion::Parameters* parameters) {
+    for (auto it = object.begin(); it != object.end(); ++it) {
+        if (!it.value().isDouble() || !std::isfinite(it.value().toDouble())) return false;
+        parameters->insert(it.key(), it.value().toDouble());
+    }
+    return true;
+}
+}
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
+    // These are per-process review overrides. Parse before constructing the
+    // canvas, never save them to settings or enable them in the live pet.
+    QStringList arguments = app.arguments();
+    const QString command = arguments.value(1);
+    const QStringList captureCommands{QStringLiteral("--render-pose"), QStringLiteral("--review-motion"),
+        QStringLiteral("--render-motion"), QStringLiteral("--render-interaction"),
+        QStringLiteral("--render-smoke"), QStringLiteral("--dump-parameters")};
+    const bool reviewCommand = captureCommands.contains(command);
+    const QString modelFlag = QStringLiteral("--review-model");
+    const QString rawFlag = QStringLiteral("--review-raw-export");
+    if (arguments.count(modelFlag) > 1 || arguments.count(rawFlag) > 1) return 2;
+    if ((arguments.contains(modelFlag) || arguments.contains(rawFlag)) && !reviewCommand) return 2;
+    const int modelArgument = arguments.indexOf(modelFlag);
+    if (modelArgument >= 0) {
+        if (modelArgument + 1 >= arguments.size()) return 2;
+        const QFileInfo model(arguments.value(modelArgument + 1));
+        if (!model.isFile() || !model.fileName().endsWith(QStringLiteral(".model3.json"), Qt::CaseInsensitive)) return 2;
+        app.setProperty("desktopCompanionReviewModelPath", model.canonicalFilePath());
+        arguments.removeAt(modelArgument + 1);
+        arguments.removeAt(modelArgument);
+    }
+    if (arguments.contains(rawFlag)) {
+        if (command != QStringLiteral("--render-pose") && command != QStringLiteral("--review-motion")) return 2;
+        app.setProperty("desktopCompanionReviewRawExport", true);
+        arguments.removeOne(rawFlag);
+    }
+    // Existing capture argument positions remain unchanged after removing the
+    // optional flags. QByteArray storage lives until the application exits.
+    std::vector<QByteArray> argumentBytes;
+    std::vector<char*> argumentPointers;
+    argumentBytes.reserve(arguments.size());
+    argumentPointers.reserve(arguments.size() + 1);
+    for (const auto& argument : arguments) argumentBytes.push_back(argument.toLocal8Bit());
+    for (auto& argument : argumentBytes) argumentPointers.push_back(argument.data());
+    argumentPointers.push_back(nullptr);
+    argc = static_cast<int>(arguments.size());
+    argv = argumentPointers.data();
     PetController controller;
     PetWindow window(&controller);
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
+    if (reviewCommand) window.move(-10000, -10000);
     window.show();
 
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
@@ -140,6 +207,7 @@ int main(int argc, char** argv) {
                     QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
                     if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
                     evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                        {QStringLiteral("capture"), captureContext(window)},
                         {QStringLiteral("scope"), QStringLiteral("window_player_and_synthetic_qt_pointer_with_native_model")},
                         {QStringLiteral("frames"), trace}}).toJson());
                     app.exit(0);
@@ -219,6 +287,7 @@ int main(int argc, char** argv) {
                 QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
                 if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
                 evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                    {QStringLiteral("capture"), captureContext(window)},
                     {QStringLiteral("scope"), QStringLiteral("real_interaction_player_and_native_model")},
                     {QStringLiteral("frames"), trace}}).toJson());
                 app.exit(0);
@@ -233,14 +302,26 @@ int main(int argc, char** argv) {
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-pose")) {
         QFile poseFile(QString::fromLocal8Bit(argv[2]));
         if (!poseFile.open(QIODevice::ReadOnly)) return 2;
-        const auto object = QJsonDocument::fromJson(poseFile.readAll()).object();
+        QJsonParseError parseError;
+        const auto document = QJsonDocument::fromJson(poseFile.readAll(), &parseError);
+        if (parseError.error != QJsonParseError::NoError || !document.isObject()) return 2;
+        const auto object = document.object();
         ParameterMotion::Parameters pose;
-        for (auto it = object.begin(); it != object.end(); ++it) pose.insert(it.key(), it.value().toDouble());
+        if (!staticParameters(object, &pose)) return 2;
         window.setPreviewPose(pose);
         window.move(-10000, -10000);
         const QString path = QString::fromLocal8Bit(argv[3]);
-        QTimer::singleShot(1500, &app, [&] { app.exit(window.renderBackend() == QStringLiteral("cubism_native")
-                                                    && window.saveRenderFrame(path) ? 0 : 1); });
+        QTimer::singleShot(1500, &app, [&] {
+            const bool saved = window.renderBackend() == QStringLiteral("cubism_native") && window.saveRenderFrame(path);
+            QJsonObject report = captureContext(window);
+            report.insert(QStringLiteral("scope"), QStringLiteral("static_requested_pose_native_capture"));
+            report.insert(QStringLiteral("requested_parameters"), object);
+            report.insert(QStringLiteral("physics_evaluated"), false);
+            report.insert(QStringLiteral("frame_saved"), saved);
+            QFile evidence(path + QStringLiteral(".json"));
+            const bool recorded = evidence.open(QIODevice::WriteOnly) && evidence.write(QJsonDocument(report).toJson()) > 0;
+            app.exit(saved && recorded ? 0 : 1);
+        });
         return app.exec();
     }
 
@@ -320,6 +401,7 @@ int main(int argc, char** argv) {
         window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);
         int frame = 0;
+        QJsonArray frameTrace;
         QTimer captureTimer;
         captureTimer.setInterval(100);
         QObject::connect(&captureTimer, &QTimer::timeout, &app, [&] {
@@ -332,7 +414,22 @@ int main(int argc, char** argv) {
                        sampler.bubblePulse())) {
                 app.exit(1); return;
             }
-            if (++frame == frameCount) { app.exit(0); return; }
+            QJsonObject requested;
+            for (auto it = pose.begin(); it != pose.end(); ++it) requested.insert(it.key(), it.value());
+            frameTrace.append(QJsonObject{{QStringLiteral("index"), frame},
+                {QStringLiteral("time"), frame * step}, {QStringLiteral("requested_parameters"), requested}});
+            if (++frame == frameCount) {
+                QJsonObject report = captureContext(window);
+                report.insert(QStringLiteral("scope"), QStringLiteral("sampled_motion_player_native_capture"));
+                report.insert(QStringLiteral("clip"), clipId);
+                report.insert(QStringLiteral("fixed_step_seconds"), step);
+                report.insert(QStringLiteral("physics_evaluated"), true);
+                report.insert(QStringLiteral("frames"), frameTrace);
+                QFile evidence(QDir(output).filePath(QStringLiteral("capture.json")));
+                const bool saved = evidence.open(QIODevice::WriteOnly)
+                    && evidence.write(QJsonDocument(report).toJson()) > 0;
+                app.exit(saved ? 0 : 1); return;
+            }
             if (directClip) return; // The pose above already advanced one frame.
             // Fixed motion time gives a reproducible 15 FPS review even when
             // writing a large PNG takes longer than the desktop frame interval.
@@ -358,17 +455,38 @@ int main(int argc, char** argv) {
         const QString prefix = argc >= 5 ? QString::fromLocal8Bit(argv[4]) : QStringLiteral("grass");
         const auto frames = QJsonDocument::fromJson(motionFile.readAll()).object().value(QStringLiteral("keyframes")).toArray();
         if (frames.isEmpty()) return 2;
+        for (const auto& frame : frames) {
+            if (!frame.isObject() || !frame.toObject().value(QStringLiteral("parameters")).isObject()) return 2;
+            ParameterMotion::Parameters values;
+            if (!staticParameters(frame.toObject().value(QStringLiteral("parameters")).toObject(), &values)) return 2;
+        }
         window.move(-10000, -10000);
         window.setPreviewPose({});
         int index = 0;
         bool savedAll = true;
+        QJsonArray captures;
         QTimer reviewTimer;
         reviewTimer.setInterval(240);
         QObject::connect(&reviewTimer, &QTimer::timeout, &app, [&] {
-            if (index > 0) savedAll &= window.renderBackend() == QStringLiteral("cubism_native")
-                && window.saveRenderFrame(QDir(output).filePath(
-                    QStringLiteral("%1-%2.png").arg(prefix, QString::number(index - 1).rightJustified(2, QChar('0')))));
-            if (index == frames.size()) { app.exit(savedAll ? 0 : 1); return; }
+            if (index > 0) {
+                const QString filename = QStringLiteral("%1-%2.png").arg(prefix, QString::number(index - 1).rightJustified(2, QChar('0')));
+                const bool saved = window.renderBackend() == QStringLiteral("cubism_native")
+                    && window.saveRenderFrame(QDir(output).filePath(filename));
+                savedAll &= saved;
+                captures.append(QJsonObject{{QStringLiteral("file"), filename},
+                    {QStringLiteral("index"), index - 1}, {QStringLiteral("frame_saved"), saved},
+                    {QStringLiteral("source_keyframe"), frames[index - 1]}});
+            }
+            if (index == frames.size()) {
+                QJsonObject report = captureContext(window);
+                report.insert(QStringLiteral("scope"), QStringLiteral("static_requested_pose_native_capture"));
+                report.insert(QStringLiteral("physics_evaluated"), false);
+                report.insert(QStringLiteral("source_manifest"), QFileInfo(motionFile).absoluteFilePath());
+                report.insert(QStringLiteral("captures"), captures);
+                QFile evidence(QDir(output).filePath(prefix + QStringLiteral(".capture.json")));
+                savedAll &= evidence.open(QIODevice::WriteOnly) && evidence.write(QJsonDocument(report).toJson()) > 0;
+                app.exit(savedAll ? 0 : 1); return;
+            }
             ParameterMotion::Parameters pose;
             const auto parameters = frames[index++].toObject().value(QStringLiteral("parameters")).toObject();
             for (auto it = parameters.begin(); it != parameters.end(); ++it) pose.insert(it.key(), it.value().toDouble());
@@ -389,11 +507,11 @@ int main(int argc, char** argv) {
         QTimer::singleShot(1500, &app, [&] {
             const QJsonObject ranges = window.modelParameterRanges();
             QFile out(path);
+            QJsonObject report = captureContext(window);
+            report.insert(QStringLiteral("parameter_count"), ranges.size());
+            report.insert(QStringLiteral("parameters"), ranges);
             const bool saved = !ranges.isEmpty() && out.open(QIODevice::WriteOnly)
-                && out.write(QJsonDocument(QJsonObject{
-                       {QStringLiteral("render_backend"), window.renderBackend()},
-                       {QStringLiteral("parameter_count"), ranges.size()},
-                       {QStringLiteral("parameters"), ranges}}).toJson()) > 0;
+                && out.write(QJsonDocument(report).toJson()) > 0;
             app.exit(saved ? 0 : 1);
         });
         return app.exec();
@@ -432,6 +550,12 @@ int main(int argc, char** argv) {
         QJsonArray runtime;
         for (auto it = base.values().cbegin(); it != base.values().cend(); ++it)
             runtime.append(it.key());
+        // Authored prop markers, so a review can line the window-layer moments up
+        // with the frames it is looking at instead of trusting a comment.
+        QJsonArray events;
+        for (const auto& event : clip->events())
+            events.append(QJsonObject{{QStringLiteral("name"), event.name},
+                                      {QStringLiteral("time"), event.time}});
         QFile out(path);
         const bool saved = out.open(QIODevice::WriteOnly)
             && out.write(QJsonDocument(QJsonObject{
@@ -442,6 +566,7 @@ int main(int argc, char** argv) {
                    {QStringLiteral("loop_end"), clip->loopEnd()},
                    {QStringLiteral("additive"), clip->isAdditive()},
                    {QStringLiteral("step"), step},
+                   {QStringLiteral("events"), events},
                    {QStringLiteral("runtime_parameters"), runtime},
                    {QStringLiteral("samples"), samples}}).toJson()) > 0;
         return saved ? 0 : 2;

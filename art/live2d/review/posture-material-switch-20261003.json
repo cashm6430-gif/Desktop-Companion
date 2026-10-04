@@ -1,0 +1,162 @@
+{
+  "status": "runtime_material_transition_verified",
+  "date": "2026-10-03",
+  "scope": "Native geometry and exclusive body material; authored motion approvals unchanged",
+  "renderer_sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+  "strategy": {
+    "continuous_mix": "smoothstep((ParamBusyLaptop - 0.74) / 0.19)",
+    "body_material": "seatedMix >= 0.5 selects seated, otherwise standing; opacities 0/1",
+    "collar_path": "lerp(grounded standing collar, grounded seated collar, seatedMix)",
+    "floor_map": "p += ((p.y-floor)/(collar.y-floor))*(target-collar)",
+    "groups": {
+      "standing_part_body": 11,
+      "seated_busy_sources": 8
+    },
+    "shared_geometry": "head, eyes, sidehair, tail remain unchanged",
+    "navy_support": "original body reference geometry covers the shared jaw; collar alone aligns temporarily",
+    "neck": "single skin surface reaches the visible collar after body alignment",
+    "state_history": "none; arbitrary pose, reverse and interruption use current resolved parameters"
+  },
+  "verification": {
+    "ctest": {
+      "passed": 9,
+      "failed": 0,
+      "log": ".local/review-archive/diagnostics/posture-material-fix/ctest-final.log"
+    },
+    "native_pose_captures": 37,
+    "laptop_authored_key_captures": 6,
+    "native_sequences": {
+      "busy-laptop": {
+        "directory": "build\\review-runs\\busy-laptop-v2-20261002T160341Z-b556bf4d",
+        "frames": 195,
+        "validation": {
+          "clip": "busy-laptop",
+          "revision": 2,
+          "sequence_frames": 195,
+          "native_poses": 6,
+          "alpha_border_failures": 0,
+          "floor_y_range": [
+            806,
+            806
+          ],
+          "floor_drift_pixels": 0,
+          "legibility": {
+            "window": 280,
+            "energy": 1.803,
+            "median": 0.777,
+            "p90": 2.744,
+            "peak": 18.81,
+            "still_ratio": 0.278
+          },
+          "metric_policy": "diagnostic_only; quiet holds do not fail approval",
+          "capture_scope": "native_model_and_thought_bubble"
+        }
+      },
+      "turn-ended-laptop": {
+        "directory": "build\\review-runs\\turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+        "frames": 75,
+        "validation": {
+          "clip": "turn-ended-laptop",
+          "revision": 9,
+          "sequence_frames": 75,
+          "native_poses": 0,
+          "alpha_border_failures": 0,
+          "floor_y_range": [
+            806,
+            806
+          ],
+          "floor_drift_pixels": 0,
+          "legibility": {
+            "window": 280,
+            "energy": 2.171,
+            "median": 0.947,
+            "p90": 4.747,
+            "peak": 18.999,
+            "still_ratio": 0.135
+          },
+          "metric_policy": "diagnostic_only; quiet holds do not fail approval",
+          "capture_scope": "real_interaction_player_and_native_model",
+          "scene_contracts": {
+            "frames": 75,
+            "player_started": true,
+            "head_region_aligned": true,
+            "priority_and_release": "passed",
+            "scope": "real_interaction_player_and_native_model"
+          }
+        }
+      }
+    },
+    "independent_native_frames_reviewed": 105,
+    "endpoint_poses_pixel_identical_to_neck_fix": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "native_integration_updates": 90,
+    "material_binary_and_collar_floor_neck_constraints": "passed",
+    "source_and_deployed_assets": "all hashes match in isolated session manifests"
+  },
+  "candidate_history": {
+    "busy-laptop-v2-20261002T155435Z-98434461": "superseded: transformed navy support exposed jaw corner alpha wedges",
+    "turn-ended-laptop-v9-20261002T155555Z-bac8e2ed": "superseded: same navy support issue"
+  },
+  "motion_approvals": {
+    "busy-laptop": "approved",
+    "grass": "approved",
+    "grass-touch": "approved",
+    "turn-ended": "pending",
+    "busy-stand": "pending"
+  },
+  "limitations": [
+    "Lower body and sleeves still select two different painted poses during deep knee folding.",
+    "A dedicated neck mesh and authored intermediate crouch/support poses remain future model work."
+  ],
+  "source_sha256": {
+    "src/CubismCanvas.cpp": "a83cfaa8e4f96f1c93382c723a3267223d2129f70a196ce2312bec30d3b9bdc1",
+    "src/CubismNeckBinding.h": "406b0525e4e553102146776ad0f89e1927a54e39697bf0ea0f762f9874961794",
+    "src/CubismNeckBinding.cpp": "3bdb8254de66541dee3db009c19af48a57045e0bc7a3ec41599bee12a4ab905d",
+    "src/CubismPostureTransition.h": "74dea69f2f9856ee594bbea3a42b9a2dfb55495177755eab6da1efe1df607cb5",
+    "tests/CubismNeckBindingTest.cpp": "fb6787c6c11216dfd5c7e0ee396c065ce119ee59814301221f3ffffe2aac46c5",
+    "tests/CubismPostureTransitionTest.cpp": "304f7958728637aefe29cc74713402d61ebeb3450a231ec73a91c92437fa603b",
+    "CMakeLists.txt": "8ec464c8bcee93b3b34df426aa24f90742f920415ab096711683fb99a602d957",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+    "assets/live2d/whale-girl/material-ownership/ownership.json": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+  },
+  "artifacts": {
+    "art\\live2d\\review\\posture-material-switch-20261003.png": "34c555ace2b5739bac5339f755ed7ec92966dbcfdac0608ae6186ebe1b3247d7",
+    "art\\live2d\\review\\posture-single-material-20261003.gif": "5fc93e1a15c3fa36e0b59dd5120655957e45c124e98fdd035086633011ba73e6"
+  },
+  "cleanup_storage": {
+    "date": "2026-10-03",
+    "index": "art/live2d/review/cleanup-index-20261003.json",
+    "session_summaries": ".local/review-archive/sessions",
+    "original_build_diagnostics_archive": ".local/diagnostics/historical-build-20261003.zip",
+    "current_and_comparison_native_frames_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+    "provenance": "Original capture/input hashes preserved; only storage moved."
+  }
+}

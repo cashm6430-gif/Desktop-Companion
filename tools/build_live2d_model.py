@@ -1,13 +1,15 @@
 """Rebuild the authored model through a running local PSD2Live instance.
 
 Run prepare_live2d_psd.py first. No credentials are printed. Generated model
-files are staged under build/psd2live/whale-seam-fixed-output for visual review.
+files are staged under build/model-export for visual review.
 The user's existing .psd2live archive is never overwritten.
 """
 import json
 import sys
 from itertools import product
 from pathlib import Path
+from live2d_paths import EXPORT, LAYERS, STATE, enable_authoring_dependencies
+enable_authoring_dependencies()
 import numpy as np
 from PIL import Image
 from psd2live_client import call, initialize
@@ -16,14 +18,14 @@ from live2d_face_rig import cheek_operations
 from live2d_laptop_rig import laptop_operations, leg_operations
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "build/psd2live/whale-seam-fixed-output"
+OUTPUT = EXPORT
 # The workspace lives in the running editor, not on disk, so the state handle
 # is the only way to keep shaping a finished rig without paying for the whole
 # classification and arm sweep again.
-STATE = ROOT / "build/psd2live/state.json"
 
 
 def main():
+    STATE.parent.mkdir(parents=True, exist_ok=True)
     _, session = initialize()
     state = None
     ident = 2
@@ -129,9 +131,10 @@ def main():
         ("ParamLaptopRock", "抱电脑轻摆", -1, 1),
         ("ParamSitPose", "屈腿坐姿过渡", 0, 1),
         ("ParamCheek", "脸颊鼓起", 0, 1),
-        # ParamMouthGape is auto-created by the mouth_open switch binding on
-        # "mouth open gape" (min 0 / max 1 / default 0); creating it here too
-        # fails with "Parameter already exists".
+        # ParamMouthGape already exists from the "bite mouth" face_detail
+        # switch_id=1 binding. Current MOC and the isolated 2.0.2 probe both
+        # read [1,2], default 1; CubismCanvas supplies the logical 0/1 gate.
+        # Do not assume the Native domain is [0,1] or create a duplicate.
         ("ParamShiftX", "整体位移 X", -100, 100),
         # ParamShiftY exists for symmetry with the export history, but the
         # renderer's ground contract (CubismCanvas presses the lowest foot
@@ -176,7 +179,7 @@ def main():
         a, b, c, d = polynomial
         return [float(a), float(a + b / 3), float(a + 2 * b / 3 + c / 3), float(a + b + c + d)]
 
-    preview_folder = ROOT / "build/psd2live/layer-previews"
+    preview_folder = LAYERS
     preview_manifest = json.loads((preview_folder / "manifest.json").read_text(encoding="utf8"))
     for side, parameter, edge_y in (("l", "ParamEyeLOpen", 472), ("r", "ParamEyeROpen", 468)):
         lash_name = "eyelash-" + side

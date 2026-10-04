@@ -4,6 +4,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QSet>
 #include <QtMath>
 #include <algorithm>
 #include <cmath>
@@ -173,6 +174,49 @@ bool MotionClip::parseJson(const QByteArray& json, QString* error) {
         blendSecondsPerParameter.insert(it.key(), value);
     }
 
+    // Authored markers for window-layer props. Each must name a moment and sit on
+    // a time some parameter is actually authored at (a shared key, or a point on a
+    // parameter track): a prop handover in between two poses is a timing nobody
+    // drew, so it could not be reviewed against the character.
+    QSet<double> authoredTimes;
+    for (const auto& key : keys) authoredTimes.insert(key.time);
+    for (auto it = tracks.begin(); it != tracks.end(); ++it) {
+        for (double time : it.value().times) authoredTimes.insert(time);
+    }    QVector<Event> events;
+    const auto eventArray = root.value(QStringLiteral("events")).toArray();
+    for (const auto& entry : eventArray) {
+        const auto object = entry.toObject();
+        const QString name = object.value(QStringLiteral("name")).toString();
+        const double time = object.value(QStringLiteral("time")).toDouble(-1.0);
+        if (name.isEmpty() || !qIsFinite(time) || time < 0.0) {
+            if (error) *error = QStringLiteral("Each event needs a name and a non-negative time");
+            return false;
+        }
+        bool authored = false;
+        for (double candidate : authoredTimes) {
+            if (qAbs(candidate - time) < 1e-6) {
+                authored = true;
+                break;
+            }
+        }
+        if (!authored) {
+            if (error) *error = QStringLiteral("Event %1 is not on an authored time; a prop moment "
+                                               "must coincide with a drawn pose").arg(name);
+            return false;
+        }
+        for (const auto& existing : events) {
+            if (existing.name == name) {
+                if (error) *error = QStringLiteral("Duplicate event %1").arg(name);
+                return false;
+            }
+            if (existing.time > time) {
+                if (error) *error = QStringLiteral("Events must be ordered by time");
+                return false;
+            }
+        }
+        events.append(Event{name, time});
+    }
+
     if (keys.isEmpty() && tracks.isEmpty() && constants.isEmpty()
         && channels.isEmpty() && pulses.isEmpty()) {
         if (error) *error = QStringLiteral("Motion needs keyframes, tracks or curves");
@@ -208,6 +252,7 @@ bool MotionClip::parseJson(const QByteArray& json, QString* error) {
     channels_ = channels;
     pulses_ = pulses;
     blendSecondsPerParameter_ = blendSecondsPerParameter;
+    events_ = events;
     additive_ = mode == QLatin1String("additive");
     duration_ = duration;
     loop_ = loop;
@@ -226,13 +271,23 @@ bool MotionClip::parseJson(const QByteArray& json, QString* error) {
     return true;
 }
 
-bool MotionClip::loadJson(const QString& path, QString* error) {
-    QFile file(path);
+bool MotionClip::loadJson(const QString& path, QString* error) {    QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         if (error) *error = file.errorString();
         return false;
     }
     return parseJson(file.readAll(), error);
+}
+
+QVector<double> MotionClip::authoredTimes() const {
+    QSet<double> unique;
+    for (const auto& key : keys_) unique.insert(key.time);
+    for (auto it = tracks_.cbegin(); it != tracks_.cend(); ++it) {
+        for (double time : it.value().times) unique.insert(time);
+    }
+    QVector<double> ordered(unique.cbegin(), unique.cend());
+    std::sort(ordered.begin(), ordered.end());
+    return ordered;
 }
 
 void MotionClip::setKeys(QVector<Key> keys, double duration) {

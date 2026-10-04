@@ -4,5 +4,10 @@
 /CubismSdkForNative-5-r.5/
 /.workbuddy/
 /nul
+/.local/
 __pycache__/
 *.pyc
+
+# Incomplete/rejected review attempts; the final review and author sources are kept.
+/art/live2d/review/neck-refinement-20261004/
+/art/live2d/review/neck-refinement-20261004-r2/

@@ -348,6 +348,24 @@ class ReviewWorkflowTest(unittest.TestCase):
         self.assertIn("--draft requires fresh Native captures", diagnostic.getvalue())
         self.assertFalse((self.build / "review-runs").exists())
 
+    def test_review_tool_change_during_capture_is_rejected(self):
+        profile, evidence = self.start_session()
+        self.write(self.root / 'tools/review_session.py', b'changed capture rules')
+        with self.assertRaisesRegex(SystemExit, 'Review tool changed during capture'):
+            review_session.finish_session(profile, evidence)
+
+    def test_draft_emits_report_and_text_summary_without_visual_approval(self):
+        profile, evidence = self.start_session()
+        self.write(profile['output'] / 'preview.gif', b'captured preview')
+        evidence['validation'] = {'sequence_frames': 2, 'alpha_border_failures': 0,
+                                  'floor_drift_pixels': 0}
+        review_session.finish_session(profile, evidence)
+        report = json.loads((profile['run'] / 'review-report.json').read_text(encoding='utf8'))
+        self.assertEqual(report['engineering']['status'], 'passed')
+        self.assertEqual(report['visual']['status'], 'pending')
+        self.assertEqual(report['adoption']['status'], 'pending')
+        self.assertTrue((profile['run'] / 'review-summary.txt').is_file())
+
 
 if __name__ == "__main__":
     unittest.main()

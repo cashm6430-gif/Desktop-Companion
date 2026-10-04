@@ -1,0 +1,719 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-03T08:39:55.815410+00:00",
+  "kind": "isolated_authoring_capability_probe",
+  "scope": {
+    "raw_cubism_core": true,
+    "analytical_fixture": true,
+    "formal_model_replaced": false,
+    "runtime_patches_removed": [],
+    "physics_evaluated": false,
+    "character_visual_or_adoption_approval": "not_exercised",
+    "manual_skin_weights": "not_tested"
+  },
+  "psd2live": {
+    "version": "2.0.2",
+    "installed_jar": "D:\\tool\\psd2live\\app\\psd2live-2.0.2-2ad13515cfa82896b5e2819475e01d.jar",
+    "sha256": "f1e1663887a6ceefd57dd5cfa25f09b958fb45fbe5a0aa27a72e866bf7b5e3d4"
+  },
+  "run": "build/authoring-probes/psd2live-2.0.2/probe-20261003T040623Z-689ba717",
+  "source_state": "history-0d17d31e-1ec5-410c-bdfa-1bf5f4fd9516",
+  "last_probe_state": "history-32928e6f-8605-4a5a-bab0-801a78e30b27",
+  "hidden_probe_process": "ownership checked, stopped after all exports; history and inputs archived",
+  "evidence_counts": {
+    "core_reports": 12,
+    "poses": 75,
+    "exports": 12,
+    "operations": 115
+  },
+  "results": {
+    "paired_switch_precreated": {
+      "status": "verified",
+      "native_range": {
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "type": 0
+      },
+      "samples": [
+        {
+          "pose": "switch-0",
+          "input": {
+            "raw": 0.0,
+            "clamped": 0.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.0,
+            "native_value": 0.0
+          },
+          "opacities": {
+            "mouth-open": 0.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-0.5",
+          "input": {
+            "raw": 0.5,
+            "clamped": 0.5,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.5,
+            "native_value": 0.5
+          },
+          "opacities": {
+            "mouth-open": 0.5,
+            "mouth-closed": 0.5
+          }
+        },
+        {
+          "pose": "switch-1",
+          "input": {
+            "raw": 1.0,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 0.0
+          }
+        }
+      ]
+    },
+    "paired_switch_automatic": {
+      "status": "verified",
+      "native_range": {
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "type": 0,
+        "default_in_range": true
+      },
+      "samples": [
+        {
+          "pose": "switch-0",
+          "input": {
+            "raw": 0.0,
+            "clamped": 0.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.0,
+            "native_value": 0.0
+          },
+          "opacities": {
+            "mouth-open": 0.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-0.25",
+          "input": {
+            "raw": 0.25,
+            "clamped": 0.25,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.25,
+            "native_value": 0.25
+          },
+          "opacities": {
+            "mouth-open": 0.25,
+            "mouth-closed": 0.75
+          }
+        },
+        {
+          "pose": "switch-0.5",
+          "input": {
+            "raw": 0.5,
+            "clamped": 0.5,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.5,
+            "native_value": 0.5
+          },
+          "opacities": {
+            "mouth-open": 0.5,
+            "mouth-closed": 0.5
+          }
+        },
+        {
+          "pose": "switch-0.75",
+          "input": {
+            "raw": 0.75,
+            "clamped": 0.75,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.75,
+            "native_value": 0.75
+          },
+          "opacities": {
+            "mouth-open": 0.75,
+            "mouth-closed": 0.25
+          }
+        },
+        {
+          "pose": "switch-1",
+          "input": {
+            "raw": 1.0,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 0.0
+          }
+        }
+      ]
+    },
+    "single_switch_one": {
+      "status": "incompatible_with_logical_0_1_visibility",
+      "native_range": {
+        "min": 1.0,
+        "max": 2.0,
+        "default": 1.0,
+        "type": 0,
+        "default_in_range": true
+      },
+      "samples": [
+        {
+          "pose": "switch-0",
+          "input": {
+            "raw": 0.0,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": true,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-0.25",
+          "input": {
+            "raw": 0.25,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": true,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-0.5",
+          "input": {
+            "raw": 0.5,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": true,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-0.75",
+          "input": {
+            "raw": 0.75,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": true,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-1",
+          "input": {
+            "raw": 1.0,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-1.5",
+          "input": {
+            "raw": 1.5,
+            "clamped": 1.5,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 1.5,
+            "native_value": 1.5
+          },
+          "opacities": {
+            "mouth-open": 0.5,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "switch-2",
+          "input": {
+            "raw": 2.0,
+            "clamped": 2.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 2.0,
+            "native_value": 2.0
+          },
+          "opacities": {
+            "mouth-open": 0.0,
+            "mouth-closed": 1.0
+          }
+        }
+      ]
+    },
+    "single_toggle": {
+      "status": "verified",
+      "native_range": {
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "type": 0,
+        "default_in_range": true
+      },
+      "samples": [
+        {
+          "pose": "toggle-0",
+          "input": {
+            "raw": 0.0,
+            "clamped": 0.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.0,
+            "native_value": 0.0
+          },
+          "opacities": {
+            "mouth-open": 0.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "toggle-0.25",
+          "input": {
+            "raw": 0.25,
+            "clamped": 0.25,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.25,
+            "native_value": 0.25
+          },
+          "opacities": {
+            "mouth-open": 0.25,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "toggle-0.5",
+          "input": {
+            "raw": 0.5,
+            "clamped": 0.5,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.5,
+            "native_value": 0.5
+          },
+          "opacities": {
+            "mouth-open": 0.5,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "toggle-0.75",
+          "input": {
+            "raw": 0.75,
+            "clamped": 0.75,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 0.75,
+            "native_value": 0.75
+          },
+          "opacities": {
+            "mouth-open": 0.75,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "toggle-1",
+          "input": {
+            "raw": 1.0,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": false,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "toggle-1.5",
+          "input": {
+            "raw": 1.5,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": true,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        },
+        {
+          "pose": "toggle-2",
+          "input": {
+            "raw": 2.0,
+            "clamped": 1.0,
+            "specified": true,
+            "was_clamped": true,
+            "native_input": 1.0,
+            "native_value": 1.0
+          },
+          "opacities": {
+            "mouth-open": 1.0,
+            "mouth-closed": 1.0
+          }
+        }
+      ]
+    },
+    "manual_opacity": {
+      "status": "authoring_noop",
+      "applied": false,
+      "operation": "operations/026-manual-opacity-keys.json",
+      "native": {
+        "native_range": {
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.0,
+          "type": 0
+        },
+        "samples": [
+          {
+            "pose": "opacity-0",
+            "input": {
+              "raw": 0.0,
+              "clamped": 0.0,
+              "specified": true,
+              "was_clamped": false,
+              "native_input": 0.0,
+              "native_value": 0.0
+            },
+            "opacities": {
+              "mouth-open": 1.0,
+              "mouth-closed": 1.0
+            }
+          },
+          {
+            "pose": "opacity-0.5",
+            "input": {
+              "raw": 0.5,
+              "clamped": 0.5,
+              "specified": true,
+              "was_clamped": false,
+              "native_input": 0.5,
+              "native_value": 0.5
+            },
+            "opacities": {
+              "mouth-open": 1.0,
+              "mouth-closed": 1.0
+            }
+          },
+          {
+            "pose": "opacity-1",
+            "input": {
+              "raw": 1.0,
+              "clamped": 1.0,
+              "specified": true,
+              "was_clamped": false,
+              "native_input": 1.0,
+              "native_value": 1.0
+            },
+            "opacities": {
+              "mouth-open": 1.0,
+              "mouth-closed": 1.0
+            }
+          }
+        ]
+      },
+      "export_fidelity": "not_measured_after_successful_manual_write",
+      "mechanism": "Installed bytecode audit: RigCommandDelta.isSetNoOp checks geometry only and ignores channels."
+    },
+    "range_update": {
+      "status": "verified",
+      "created": {
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.25,
+        "type": 0,
+        "default_in_range": true
+      },
+      "updated": {
+        "min": -1.0,
+        "max": 2.0,
+        "default": 0.5,
+        "type": 0,
+        "default_in_range": true
+      },
+      "old_key_1_preserved": true,
+      "new_range_endpoints": "neutral, not a remap of old key 1",
+      "dense_samples": [
+        {
+          "value": -1.0,
+          "tail_displacement_from_default_px": 0.0
+        },
+        {
+          "value": 0.0,
+          "tail_displacement_from_default_px": 0.0
+        },
+        {
+          "value": 0.25,
+          "tail_displacement_from_default_px": 0.0
+        },
+        {
+          "value": 0.5,
+          "tail_displacement_from_default_px": 0.0
+        },
+        {
+          "value": 0.75,
+          "tail_displacement_from_default_px": 25.389690399169922
+        },
+        {
+          "value": 1.0,
+          "tail_displacement_from_default_px": 50.779361724853516
+        },
+        {
+          "value": 1.5,
+          "tail_displacement_from_default_px": 25.389690399169922
+        },
+        {
+          "value": 2.0,
+          "tail_displacement_from_default_px": 0.0
+        }
+      ]
+    },
+    "bound_parameter_delete": {
+      "status": "failed_and_rolled_back",
+      "operation": "operations/042-parameter.json",
+      "error": "Parameter not found: ParamProbeRange",
+      "mechanism": "Installed bytecode audit: deletion leaves old authoringJournal geometry references; rebuild replays them after deleting the parameter."
+    },
+    "unbound_parameter_delete": {
+      "status": "verified",
+      "operation": "operations/092-parameter.json",
+      "parameter_absent_in_core": true
+    },
+    "shoulder_elbow_chain": {
+      "status": "verified_for_fixture",
+      "pose_count": 25,
+      "neutral_pose": "shoulder-0-elbow-0",
+      "max_shoulder_anchor_error_px": 9.238933236983031e-06,
+      "max_elbow_gap_px": 6.355287432313019e-14,
+      "max_upper_length_error_px": 7.807614863963863e-06,
+      "max_lower_length_error_px": 1.2765840693873542e-05,
+      "flipped_triangles": 0,
+      "collapsed_triangles": 0,
+      "fk_conventions": {
+        "positive_clockwise_canvas": {
+          "max_wrist_error_px": 6.780089644354622e-05,
+          "rms_wrist_error_px": 3.32512909103972e-05,
+          "max_elbow_error_px": 3.544649645969898e-05
+        },
+        "positive_counterclockwise_native": {
+          "max_wrist_error_px": 322.5037071402061,
+          "rms_wrist_error_px": 179.10138063306405,
+          "max_elbow_error_px": 110.00002341999779
+        }
+      },
+      "closest_fk_convention_inferred_from_samples": "positive_clockwise_canvas"
+    },
+    "tail_lateral": {
+      "status": "reject_for_flexible_tail_baseline",
+      "pose_count": 5,
+      "neutral_pose": "tail-0",
+      "max_root_displacement_px": 0.19634633324583078,
+      "max_middle_displacement_px": 12.98692271111273,
+      "max_tip_displacement_px": 74.95403857922774,
+      "max_centerline_turn_degrees": 0.006681006894990698,
+      "max_middle_distance_from_chord_px": 0.0038679461407484417,
+      "max_first_segment_length_error_px": 12.79071807361521,
+      "max_second_segment_length_error_px": 61.96716431245893,
+      "segment_lengths_are_chords_not_material_arc_lengths": true,
+      "neutral_source_centerline_arc_length_px": 230.0,
+      "centerline_arc_method": "piecewise affine material sampling at every neutral triangle-edge crossing",
+      "centerline_sample_count": 86,
+      "max_centerline_arc_length_error_px": 74.77863329658749,
+      "centerline_arc_length_min_px": 158.27313366882302,
+      "centerline_arc_length_max_px": 304.7786332965875,
+      "measurable_bending_pose_count": 0,
+      "flipped_triangles": 0,
+      "collapsed_triangles": 0,
+      "displacement_is_not_proof_of_flexible_bending": true
+    },
+    "tail_vertical_parallel_zero": {
+      "status": "candidate_static_bend_with_measured_length_loss",
+      "pose_count": 5,
+      "neutral_pose": "tail-0",
+      "max_root_displacement_px": 0.04057101727260735,
+      "max_middle_displacement_px": 8.547590705603621,
+      "max_tip_displacement_px": 81.27133502242994,
+      "max_centerline_turn_degrees": 36.065209110252596,
+      "max_middle_distance_from_chord_px": 34.21306510568287,
+      "max_first_segment_length_error_px": 0.39283652959771587,
+      "max_second_segment_length_error_px": 10.902559399081497,
+      "segment_lengths_are_chords_not_material_arc_lengths": true,
+      "neutral_source_centerline_arc_length_px": 230.0,
+      "centerline_arc_method": "piecewise affine material sampling at every neutral triangle-edge crossing",
+      "centerline_sample_count": 86,
+      "max_centerline_arc_length_error_px": 9.723108598255436,
+      "centerline_arc_length_min_px": 220.27689140174456,
+      "centerline_arc_length_max_px": 230.0,
+      "measurable_bending_pose_count": 4,
+      "flipped_triangles": 0,
+      "collapsed_triangles": 0,
+      "displacement_is_not_proof_of_flexible_bending": true
+    }
+  },
+  "verification": {
+    "python_tests": 66,
+    "python_tests_status": "passed",
+    "log_sha256": "87d8a2cae174464faf91687362d354d100dd62f4e83386e3bd61321a064a3024",
+    "formal_protected_objects": 31,
+    "formal_inputs_sha_unchanged": true,
+    "independent_review": {
+      "path": "build/verification/authoring-protected-after.json",
+      "sha256": "0a46e68d83b8a88149cc600b9e4165fe5428899e681649fea8d9371821848afb"
+    },
+    "cpp_tests": "not_rerun; no C++ changes in this experiment"
+  },
+  "tool_sources_at_finalize": [
+    {
+      "path": "tools/probe_psd2live.py",
+      "sha256": "417984eedfc2fbdfba721a9255e7abd8f3f954c343cb7603d3bfe73787508d54"
+    },
+    {
+      "path": "tools/probe_cubism_core.py",
+      "sha256": "9fb26795b62f5605ef8977e481d9722e2113db17eed087587e5b6a8bdd9f5345"
+    },
+    {
+      "path": "tools/analyze_authoring_probe.py",
+      "sha256": "c0ff703ef95774aabf83d894d1d83109dfdd432e2b4d3396057577d94179a4db"
+    },
+    {
+      "path": "tools/psd2live_client.py",
+      "sha256": "f20fdd172c2224674b4a3585e030f4fb63da2447b875482b82067dd93d8b5f56"
+    },
+    {
+      "path": "tests/test_cubism_probe.py",
+      "sha256": "4a0872cb3c7463574d7714d1782a2911180f225d29a4c53e17d8f3196d8c2403"
+    },
+    {
+      "path": "tests/test_authoring_probe.py",
+      "sha256": "2c684f2ad3015ed7cafd9b3ef4dc2d34597e081327c10e2dd67c95cbdfef8959"
+    },
+    {
+      "path": "tests/test_authoring_isolation.py",
+      "sha256": "893349843638000d07e83a41d974a6e863104b7aa39310e5203a4e6337094b67"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "auto-switch.core.json",
+      "sha256": "7a152e2f34eec00a1c16357d11f1e47485504ffaf8490a54e3bbe5fe6a4fbf1b"
+    },
+    {
+      "path": "manual-opacity.core.json",
+      "sha256": "98ea7478cd86f68012add530fa6a65f5539861f7c900094aafa9c0a76989d11a"
+    },
+    {
+      "path": "range-created.core.json",
+      "sha256": "b6f6ef5ea93548ae3797681a1a4371959d6bc16db9dbd00b155c6430f75144dc"
+    },
+    {
+      "path": "range-updated-dense.core.json",
+      "sha256": "ff46dc2c3d00f8ae67c7f5be7a80eb6afd4262260e3c5fa8911f7ec9eee10d8f"
+    },
+    {
+      "path": "range-updated.core.json",
+      "sha256": "f46463c59a436885b897d8fb32402821b2cbd039f471ea8fce555711e0b720ed"
+    },
+    {
+      "path": "single-switch-one.core.json",
+      "sha256": "e29f5bbfe631cdbdf2efa3953853120f0da9a543ba2ca48a90e0837f752c4ff3"
+    },
+    {
+      "path": "single-toggle.core.json",
+      "sha256": "5e0b5002c0cd104bb191c1871123bb17bc544092061f81e43243c6b353df9b34"
+    },
+    {
+      "path": "skeleton.analysis.json",
+      "sha256": "6e39f2a1e84904e902067403560062f5dc9a57bcc9a2f4cda8deb180e2b77c6d"
+    },
+    {
+      "path": "skeleton.core.json",
+      "sha256": "74ae22a078bba97ad327720650743c150e022aed4cbd38e175120662cd44ce06"
+    },
+    {
+      "path": "switch-generated-range.core.json",
+      "sha256": "5fff461ca791a0679cf77a37590891e7b1ff6573261659d01e78e1c30e064c0a"
+    },
+    {
+      "path": "tail-bend.analysis.json",
+      "sha256": "2e8909c14893d24fa292124e8f5c81a99ebf6cf86d0352305d90ac57d5528e53"
+    },
+    {
+      "path": "tail-bend.core.json",
+      "sha256": "cfa2abe92b86d15c44b6f6358cf15b4ff70df71ee2c61abf497a4f7142811187"
+    },
+    {
+      "path": "tail-swing.analysis.json",
+      "sha256": "c6deda933a5616a4a89c47781f95456b0b6abcaa205409af7df16d62ab708e3f"
+    },
+    {
+      "path": "tail-swing.core.json",
+      "sha256": "734ae62985720e34708e06fca9e5760bc5c67a4dc11b0d15cc4b9d8b901d18cc"
+    },
+    {
+      "path": "unbound-deleted.core.json",
+      "sha256": "fb8709c32fd4191a7b1e6f27f7d96b48eb7e68c47af4d40430f07341f994f598"
+    }
+  ],
+  "next_gate": "Copy formal author sources into isolation; prove existing binding roundtrip fidelity. Refine single-layer mouth toggle and independent neck/joint/occlusion in Cubism Editor when the tool cannot preserve authoring. Regress approved Native scenes before replacing assets or removing any specific runtime patch.",
+  "archive": {
+    "path": ".local/authoring/probe-archives/probe-20261003T040623Z-689ba717.zip",
+    "sha256": "2cd8dab5ef438f2205b8f52d9d8665d9b79420ef3c017204aa62488557a11682",
+    "bytes": 1971255,
+    "manifest": ".local/authoring/probe-archives/probe-20261003T040623Z-689ba717.manifest.json",
+    "manifest_sha256": "5882c9e00a772c1a76911cc69b8a711116e2a2a6721c5c49ed7621d53604d0aa",
+    "member_hashes_verified": true,
+    "contains": "fixture, API operations, states, exports, Core and geometry reports, source tools, tests and protection snapshots; no SDK binaries",
+    "relocation_note": "Historical absolute paths are retained as provenance; restore at original run path for reusing existing pose/fixture references, or create new evidence after explicit relocation."
+  }
+}

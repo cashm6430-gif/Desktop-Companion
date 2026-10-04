@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "date": "2026-10-04",
+  "preserved_author_history": "art/live2d/authoring-archive/psd2live-20261003",
+  "complete_layer_manifest": "art/live2d/layers/complete-manifest.json",
+  "layer_count": 34,
+  "new_missing_sources": [
+    "mouth-open.png",
+    "bite-mouth.png"
+  ],
+  "legacy_layer_manifest_unchanged": true,
+  "editor_snapshot": "art/live2d/authoring-archive/editor-candidate-20261003",
+  "editor_snapshot_runtime_equivalence": false,
+  "neck_verified_source": "art/live2d/neck-component-r2",
+  "retained_neck_base_source": "art/live2d/neck-component-r1",
+  "reviewed_images_preserved": 2,
+  "historical_verification_sources": {
+    "audit_neck_surface.py": {
+      "restore_to": ".local/authoring/neck-refinement/audit_neck_surface.py",
+      "sha256": "c314cc440854a3db4b2e391f502f7490e508ea8fa5cab9522b0d23933597f68d"
+    },
+    "derive_neck_regions.py": {
+      "restore_to": ".local/authoring/neck-refinement/derive_neck_regions.py",
+      "sha256": "40670a88ab095a0df35eacba13c2167bd9b8c4f424848cf6a34124a8eaf3fc53"
+    },
+    "prepare_neck_authoring.py": {
+      "restore_to": ".local/authoring/neck-refinement/prepare_neck_authoring.py",
+      "sha256": "7d777a448ac2a727568e03a48b936daf86cfd3ef0fe70aa09d9a64853273f785"
+    }
+  },
+  "all_copies_byte_identical": true,
+  "excluded_from_Git": [
+    "build/",
+    ".local/ temporary workspaces and full captures",
+    "SDK/toolchain and installed third-party applications",
+    "two incomplete/rejected neck review attempts"
+  ]
+}

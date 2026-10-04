@@ -1,0 +1,340 @@
+{
+  "kind": "isolated_exact_neck_source_extraction",
+  "full_canvas": [
+    1254,
+    1254
+  ],
+  "cropped_bbox_source": [
+    555,
+    568,
+    682,
+    592
+  ],
+  "cropped_size": [
+    127,
+    24
+  ],
+  "atlas": "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_00.png",
+  "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+  "mask": "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\material-ownership\\neck-mask.png",
+  "mask_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+  "rgba_colour_repainted": false,
+  "jaw_overlap_rows": [
+    568,
+    570
+  ],
+  "main_erased_from_y": 570,
+  "neck_tip_source": [
+    628,
+    588
+  ],
+  "source_row_statistics": [
+    {
+      "source_y": 568,
+      "painted_count": 127,
+      "painted_x_bounds": [
+        555,
+        681
+      ],
+      "warm_count": 56,
+      "warm_x_bounds": [
+        577,
+        659
+      ]
+    },
+    {
+      "source_y": 569,
+      "painted_count": 117,
+      "painted_x_bounds": [
+        560,
+        676
+      ],
+      "warm_count": 53,
+      "warm_x_bounds": [
+        586,
+        653
+      ]
+    },
+    {
+      "source_y": 570,
+      "painted_count": 111,
+      "painted_x_bounds": [
+        563,
+        675
+      ],
+      "warm_count": 41,
+      "warm_x_bounds": [
+        601,
+        651
+      ]
+    },
+    {
+      "source_y": 571,
+      "painted_count": 97,
+      "painted_x_bounds": [
+        566,
+        665
+      ],
+      "warm_count": 46,
+      "warm_x_bounds": [
+        610,
+        655
+      ]
+    },
+    {
+      "source_y": 572,
+      "painted_count": 79,
+      "painted_x_bounds": [
+        582,
+        660
+      ],
+      "warm_count": 38,
+      "warm_x_bounds": [
+        617,
+        654
+      ]
+    },
+    {
+      "source_y": 573,
+      "painted_count": 64,
+      "painted_x_bounds": [
+        594,
+        658
+      ],
+      "warm_count": 45,
+      "warm_x_bounds": [
+        610,
+        654
+      ]
+    },
+    {
+      "source_y": 574,
+      "painted_count": 58,
+      "painted_x_bounds": [
+        601,
+        658
+      ],
+      "warm_count": 44,
+      "warm_x_bounds": [
+        610,
+        653
+      ]
+    },
+    {
+      "source_y": 575,
+      "painted_count": 52,
+      "painted_x_bounds": [
+        606,
+        658
+      ],
+      "warm_count": 40,
+      "warm_x_bounds": [
+        610,
+        652
+      ]
+    },
+    {
+      "source_y": 576,
+      "painted_count": 49,
+      "painted_x_bounds": [
+        606,
+        654
+      ],
+      "warm_count": 35,
+      "warm_x_bounds": [
+        612,
+        646
+      ]
+    },
+    {
+      "source_y": 577,
+      "painted_count": 40,
+      "painted_x_bounds": [
+        608,
+        647
+      ],
+      "warm_count": 32,
+      "warm_x_bounds": [
+        614,
+        645
+      ]
+    },
+    {
+      "source_y": 578,
+      "painted_count": 35,
+      "painted_x_bounds": [
+        612,
+        646
+      ],
+      "warm_count": 32,
+      "warm_x_bounds": [
+        614,
+        645
+      ]
+    },
+    {
+      "source_y": 579,
+      "painted_count": 33,
+      "painted_x_bounds": [
+        613,
+        645
+      ],
+      "warm_count": 24,
+      "warm_x_bounds": [
+        615,
+        638
+      ]
+    },
+    {
+      "source_y": 580,
+      "painted_count": 32,
+      "painted_x_bounds": [
+        614,
+        645
+      ],
+      "warm_count": 17,
+      "warm_x_bounds": [
+        620,
+        636
+      ]
+    },
+    {
+      "source_y": 581,
+      "painted_count": 25,
+      "painted_x_bounds": [
+        614,
+        638
+      ],
+      "warm_count": 14,
+      "warm_x_bounds": [
+        622,
+        635
+      ]
+    },
+    {
+      "source_y": 582,
+      "painted_count": 18,
+      "painted_x_bounds": [
+        620,
+        637
+      ],
+      "warm_count": 13,
+      "warm_x_bounds": [
+        623,
+        635
+      ]
+    },
+    {
+      "source_y": 583,
+      "painted_count": 16,
+      "painted_x_bounds": [
+        621,
+        636
+      ],
+      "warm_count": 11,
+      "warm_x_bounds": [
+        624,
+        634
+      ]
+    },
+    {
+      "source_y": 584,
+      "painted_count": 14,
+      "painted_x_bounds": [
+        622,
+        635
+      ],
+      "warm_count": 9,
+      "warm_x_bounds": [
+        624,
+        632
+      ]
+    },
+    {
+      "source_y": 585,
+      "painted_count": 13,
+      "painted_x_bounds": [
+        623,
+        635
+      ],
+      "warm_count": 6,
+      "warm_x_bounds": [
+        625,
+        630
+      ]
+    },
+    {
+      "source_y": 586,
+      "painted_count": 9,
+      "painted_x_bounds": [
+        624,
+        632
+      ],
+      "warm_count": 5,
+      "warm_x_bounds": [
+        626,
+        630
+      ]
+    },
+    {
+      "source_y": 587,
+      "painted_count": 7,
+      "painted_x_bounds": [
+        625,
+        631
+      ],
+      "warm_count": 3,
+      "warm_x_bounds": [
+        627,
+        629
+      ]
+    },
+    {
+      "source_y": 588,
+      "painted_count": 5,
+      "painted_x_bounds": [
+        626,
+        630
+      ],
+      "warm_count": 1,
+      "warm_x_bounds": [
+        628,
+        628
+      ]
+    },
+    {
+      "source_y": 589,
+      "painted_count": 4,
+      "painted_x_bounds": [
+        627,
+        630
+      ],
+      "warm_count": 0,
+      "warm_x_bounds": null
+    },
+    {
+      "source_y": 590,
+      "painted_count": 3,
+      "painted_x_bounds": [
+        627,
+        629
+      ],
+      "warm_count": 0,
+      "warm_x_bounds": null
+    },
+    {
+      "source_y": 591,
+      "painted_count": 3,
+      "painted_x_bounds": [
+        627,
+        629
+      ],
+      "warm_count": 0,
+      "warm_x_bounds": null
+    }
+  ],
+  "outputs": {
+    "neck-original.png": "492536efd1b570a584369076493179ef03be6232b4065532751367c04e3b4c99",
+    "neck-original-crop.png": "8805f3d54f7567e43c8bc19d347a07f24e3c848d7301b5f6cd36b3de1143b42c"
+  }
+}

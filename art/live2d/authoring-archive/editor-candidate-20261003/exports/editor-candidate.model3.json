@@ -1,0 +1,11 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "editor-candidate.moc3",
+		"Textures": [
+			"editor-candidate.4096/texture_00.png"
+		],
+		"Physics": "editor-candidate.physics3.json",
+		"DisplayInfo": "editor-candidate.cdi3.json"
+	}
+}

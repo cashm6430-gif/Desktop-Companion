@@ -1,0 +1,772 @@
+{
+  "schema_version": 1,
+  "clip": "neck",
+  "scenario": "neck-regression",
+  "motion_revision": 1,
+  "review_approval": "pending",
+  "authored_approval": "not_a_motion",
+  "adoption": "not_requested",
+  "capture_status": "complete",
+  "capture_scope": "static_requested_poses_and_runtime_scenes",
+  "model_manifest_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.model3.json",
+  "raw_export_only": false,
+  "created_utc": "2026-10-04T02:08:13.995945+00:00",
+  "inputs": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\material-ownership\\body-clothing-mask.png",
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\material-ownership\\body-underpaint.png",
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\material-ownership\\duplicate-mask.png",
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\material-ownership\\neck-erase-mask.png",
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\material-ownership\\neck-mask.png",
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\material-ownership\\ownership.json",
+      "bytes": 6979,
+      "sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\neck-component-r2\\neck-surface.moc3",
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\neck-component-r2\\neck-surface.model3.json",
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\neck-component-r2\\neck-surface.rig.json",
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\neck-component-r2\\texture_0.png",
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.4096\\texture_00.png",
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.blink.motion3.json",
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.cdi3.json",
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.idle.motion3.json",
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.moc3",
+      "bytes": 11999360,
+      "sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.model3.json",
+      "bytes": 869,
+      "sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.nod.motion3.json",
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.physics3.json",
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.psd2live.json",
+      "bytes": 10088,
+      "sha256": "db3b27f50dba424d76e5309f097646ae901b7353e3173a75ad5f0d6c528d4c21"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\neck-refinement\\candidate-r2\\whale-girl\\whale-girl-layered-draft.shake.motion3.json",
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    }
+  ],
+  "source_deployment_inputs": [
+    {
+      "path": "assets/live2d/whale-girl/hit-mask.png",
+      "source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+      "deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png",
+      "source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+      "deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-underpaint.png",
+      "source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+      "deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/duplicate-mask.png",
+      "source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+      "deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png",
+      "source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+      "deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-mask.png",
+      "source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+      "deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/ownership.json",
+      "source_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+      "deployed_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png",
+      "source_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+      "deployed_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json",
+      "source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+      "deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json",
+      "source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+      "deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json",
+      "source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+      "deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+      "source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+      "deployed_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+      "source_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+      "deployed_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json",
+      "source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+      "deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json",
+      "source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+      "deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",
+      "source_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+      "deployed_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json",
+      "source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+      "deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    {
+      "path": "assets/motions/busy-laptop.motion.json",
+      "source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+      "deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+    },
+    {
+      "path": "assets/motions/busy-stand.motion.json",
+      "source_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+      "deployed_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
+    },
+    {
+      "path": "assets/motions/delete.motion.json",
+      "source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+      "deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+    },
+    {
+      "path": "assets/motions/grass-touch.motion.json",
+      "source_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+      "deployed_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322"
+    },
+    {
+      "path": "assets/motions/grass.motion.json",
+      "source_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+      "deployed_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a"
+    },
+    {
+      "path": "assets/motions/head-pat.motion.json",
+      "source_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+      "deployed_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+    },
+    {
+      "path": "assets/motions/idle.motion.json",
+      "source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+      "deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+    },
+    {
+      "path": "assets/motions/turn-ended.motion.json",
+      "source_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+      "deployed_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
+    }
+  ],
+  "pinned_files": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\workflow\\neck-review-fixture.json",
+      "bytes": 3376,
+      "sha256": "77762f44582905520bda4ddb1fbdbe77524cb431cf4af1ea71459e2e6ba309a3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-laptop.motion.json",
+      "bytes": 4834,
+      "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-stand.motion.json",
+      "bytes": 10084,
+      "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\delete.motion.json",
+      "bytes": 9638,
+      "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json",
+      "bytes": 24063,
+      "sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\grass.motion.json",
+      "bytes": 11851,
+      "sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\head-pat.motion.json",
+      "bytes": 5276,
+      "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\idle.motion.json",
+      "bytes": 929,
+      "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\turn-ended.motion.json",
+      "bytes": 12435,
+      "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\build\\DesktopCompanion.exe",
+      "bytes": 1161728,
+      "sha256": "1516c29bd53819e4aebbd2aa34cf8b08dd7b214b9b2304021e96a9f5f5c9121e"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll",
+      "bytes": 249800,
+      "sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\tools\\probe_cubism_core.py",
+      "bytes": 25342,
+      "sha256": "9fb26795b62f5605ef8977e481d9722e2113db17eed087587e5b6a8bdd9f5345"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\tools\\review_interactions.py",
+      "bytes": 10126,
+      "sha256": "d15211ada9b337f39e9c110ce3f48cfe4a04026cb6b689c0eaa86f33c5f6e0ff"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\tools\\review_motion.py",
+      "bytes": 41638,
+      "sha256": "93386c2c7ffe8dadf97b8ba0464f16b77dbce096ae6f9caf0752d37d79e3fb10"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\tools\\review_neck.py",
+      "bytes": 19273,
+      "sha256": "3ded25dbad48e73dc493900bdb2bb134ccb4e653a12dc2ed1af3f2e4a2f6eedd"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\tools\\review_report.py",
+      "bytes": 14508,
+      "sha256": "b87e4d6a491787882df675015f11a396df7f48af13a793cfb3744ceb887f6d20"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\tools\\review_session.py",
+      "bytes": 6020,
+      "sha256": "01fb74d90549a377410102fa336ae422a61fd5162ebecd810dc4433fad7da498"
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\build\\review-runs\\neck-v1-20261004T020813Z-8f395f32\\poses.json",
+      "bytes": 80615,
+      "sha256": "3f450ff22ec9fc6c29d3236320b88175eb9cc861bbe187599e7b2e8e7049f797"
+    }
+  ],
+  "renderer_sha256": "1516c29bd53819e4aebbd2aa34cf8b08dd7b214b9b2304021e96a9f5f5c9121e",
+  "cubism_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tools": {
+    "review_neck.py": "3ded25dbad48e73dc493900bdb2bb134ccb4e653a12dc2ed1af3f2e4a2f6eedd",
+    "review_motion.py": "93386c2c7ffe8dadf97b8ba0464f16b77dbce096ae6f9caf0752d37d79e3fb10",
+    "review_session.py": "01fb74d90549a377410102fa336ae422a61fd5162ebecd810dc4433fad7da498",
+    "review_report.py": "b87e4d6a491787882df675015f11a396df7f48af13a793cfb3744ceb887f6d20",
+    "review_interactions.py": "d15211ada9b337f39e9c110ce3f48cfe4a04026cb6b689c0eaa86f33c5f6e0ff",
+    "probe_cubism_core.py": "9fb26795b62f5605ef8977e481d9722e2113db17eed087587e5b6a8bdd9f5345"
+  },
+  "not_captured": [
+    "Native clamped parameter values",
+    "neck contact distance/triangle geometry",
+    "physical desktop pointer routing",
+    "new model/motion adoption"
+  ],
+  "artifacts": {
+    "artifacts/busy-laptop-desktop-scale.png": "387ebd3b88802745fd357eb8316c68e6cfc532bb16f11b19aea84cb0bc75e21f",
+    "artifacts/busy-laptop-frames-v1.png": "eae0987906d24ce64cb2208cd803f5c18f84616a37aa19b47c3b01644a103d07",
+    "artifacts/busy-laptop-motion-v1.gif": "29b0aa87f396ecada2d2bd0b172eca9fa4f9c956c887f810a6e8dc797aa59055",
+    "artifacts/busy-laptop-neck-frames.png": "c2b880ff1e8a28531ebf60a5286ff5fa5a07799e9f2cc5d39f6aa97dd3342925",
+    "artifacts/busy-laptop-neck-motion.gif": "5fa5e286d9e28ebaa0aa8f85ca807cf4402471e2063547996892bffb229e0ac5",
+    "artifacts/neck-check.json": "cee59bde2b92f44cbbb5ce74220e1190096d015a9486b1329074175ea51ff1df",
+    "artifacts/neck-static.png": "218d6cd4fe5661ccbc9ceaffa59b3ac2ad32327801dda998b459d1c56aebebc0",
+    "artifacts/turn-ended-laptop-desktop-scale.png": "fbbf176db78af7694a9d665332fda6eb8549935c5f8d43605b69564429c15472",
+    "artifacts/turn-ended-laptop-frames-v1.png": "1cd2ad236f0da2449e05b93cf20ead9dbda3d30271d604c11931cfc7d376394d",
+    "artifacts/turn-ended-laptop-motion-v1.gif": "1547fd1ddb70723180f43c2effb945d44c390fee940fc2f75a08d56253372c08",
+    "artifacts/turn-ended-laptop-neck-frames.png": "06161a282632aca64dafdcf5403319164211a6fca5ccc405e6181bad623c87d4",
+    "artifacts/turn-ended-laptop-neck-motion.gif": "88ba84a129fa198a861c2e6b0fd37a59daef268b06f95728cb07fd79327d34e7",
+    "busy-laptop/capture.json": "f48cddbd083cd8527a415dca2ccd2bd44e5bd80f231b84476c9d396945b241d6",
+    "busy-laptop/frame-000.png": "7094e923efe658a52b04c658e06ee1ccba55911c9ea1d15cc9034e23b38df27b",
+    "busy-laptop/frame-001.png": "44fe6fced63d7f5f3fb984ddc816439023e68bcec4f45ca856b80cfc3f30d060",
+    "busy-laptop/frame-002.png": "455ed54dd6613ae4119e3625708f5e498983367734da3ef00ccee5c0f49074ee",
+    "busy-laptop/frame-003.png": "ab3499ecaa27fc0d4c719da0e76ab48ce2762c5190fc0fe60e3932728642df1b",
+    "busy-laptop/frame-004.png": "4514682d63fb1f29f555c9a016e2dda8a9442884ab9e77f5a24e1affd190269b",
+    "busy-laptop/frame-005.png": "a7b61868e4fa85d9dcdd324806fe72ac7dc2c4d1b584d224c91aba5a2abfd6fb",
+    "busy-laptop/frame-006.png": "63b2e82bdf3a823c6fcf903ededd2415215b059d1fd83efff60bf4f06c75027b",
+    "busy-laptop/frame-007.png": "e20893514cb3398e723a6a43ef1ae7b0909e556fe924de9d80718572931551b9",
+    "busy-laptop/frame-008.png": "024d8f95d7a09fd970827292d4be28415ecdeb6fc20fd8c0ec4f9f05f233da7f",
+    "busy-laptop/frame-009.png": "121c3e336b322bf37451aea4c2770026067c0b78fe4c9142703b8d5973f2d6f1",
+    "busy-laptop/frame-010.png": "527e418b379b335adfc60d8c00acf9b5623d3ff69d1d0b3e3c3c534125ad168f",
+    "busy-laptop/frame-011.png": "5ab8b2e2f5f3ee257932f52f555e0bd653e0deff6d2d1e69b872db8179d7523b",
+    "busy-laptop/frame-012.png": "e4f86c1bb3fda622c477aee7ffe0bc4e06c0cc323b24048703a0b733d23a6b22",
+    "busy-laptop/frame-013.png": "d7922bed79ace96a49a5eb5317b522ed9ce3840164ae56ccc336143384faeb69",
+    "busy-laptop/frame-014.png": "95967540ddd2332a55f429020c6d578e1b96cac8041702f813e60c39b587d0f0",
+    "busy-laptop/frame-015.png": "57c6efa0973526b2654f4dafed668429917b55b75c8c5da3c3b133f40361ec11",
+    "busy-laptop/frame-016.png": "fc3d402075ef55aade0739051a2a765122b8a82d0a0ed95207e58dc00f9bb98a",
+    "busy-laptop/frame-017.png": "cd8c033e0a6986360596a07ce53f6bba7d93efe2bb848d983f094449b3ec2770",
+    "busy-laptop/frame-018.png": "c7371a8fe456f4b46edf0d94876e9f7c8fd0e23cbbeabc1cbe6d7e8d8693ce89",
+    "busy-laptop/frame-019.png": "0cc3ce517ee968d08d94ba08674db972c1bf0d757c08b61f30639564ae8edc02",
+    "busy-laptop/frame-020.png": "25f28b6208237222a095dec9fe90ad3e01cd58058aae266b5138ff1864b18766",
+    "busy-laptop/frame-021.png": "71f7a78a92cf3ea88e641de5d3a5dfd2aade64d657180fc88098a68ddd7c04bc",
+    "busy-laptop/frame-022.png": "659f942957bf1ac0294577282c56e60232c72fa39856ab5b6ffc4d223c371906",
+    "busy-laptop/frame-023.png": "10c327bf07f1e895c53315b769060953dc209df77990060f2fb099d497c777e5",
+    "busy-laptop/frame-024.png": "ab616d229d7e3c7ab03d69d339b15029423b86e22e613e7fd67caa93fa267c55",
+    "busy-laptop/frame-025.png": "e49cf994d02ae58e46dded3eac1ee6aae655f58518716fa38370058974db817b",
+    "busy-laptop/frame-026.png": "30047b841bd93f8cfd3632bf8aec1afc14036d9c8b1aa9cedf947b033bbb1383",
+    "busy-laptop/frame-027.png": "e744d72d6c3cae29e0200c3dc1dac6012ce58eefb458020433079b1a643c1d2c",
+    "busy-laptop/frame-028.png": "aa795b110b156d7bebfda48f4bebe5d951b0e42db2b8a10a02e3b7211654b3a9",
+    "busy-laptop/frame-029.png": "1b8ebd176c382c023b37038ff318894afea2ff0cc35c1d626c28463b323dc6a8",
+    "busy-laptop/frame-030.png": "116fac2a94be365e47069671454d35ef0511be5fda4d52f8e00c006a73b64314",
+    "busy-laptop/frame-031.png": "efb6288ab5d7bf3f6e431ad3aceeb5db41cd6415fc7685be574cc42c47b33ebb",
+    "busy-laptop/frame-032.png": "7169da2ec8f5317712480de66853fad295fa6e9b30d913a800070925ae1a54bf",
+    "busy-laptop/frame-033.png": "116d3f520a349cb19aa23d4cc48513b1486fb94b4dd12ca95f2e030f5ba313ff",
+    "busy-laptop/frame-034.png": "d1c39c4b9fb6609ecb489082c0004daa7921fd3e35d34222501c1696b789d453",
+    "busy-laptop/frame-035.png": "d5571a3d98fb620461d04ca198ae53c6789ddb291485f2e5c5fd052fe74f30e8",
+    "busy-laptop/frame-036.png": "e5d5c1de41693d030fd98fe14d184070a0a95cb4bf297f4f6b740e67a513de6c",
+    "busy-laptop/frame-037.png": "8d98b6bcf18bb486a74deeb1ad5d1241bd0356900243a5833585a3623ad8f509",
+    "busy-laptop/frame-038.png": "abbf0cad79c5378ce3609238cf3764190f7685f0f0958e6bb69f9f8e2072c5e8",
+    "busy-laptop/frame-039.png": "6fbb67cbd681cdc84630cf74f011805746c6a53d72697d5d60e82f55aaa4abed",
+    "busy-laptop/frame-040.png": "52fa528df0f448d80a544b7ff36eeb191e30e5b91135146cb8e142b4c3eb61a5",
+    "busy-laptop/frame-041.png": "0a386d333c14a66735bb7fc957ade1673848c1156344a80726bc3ec893fab880",
+    "busy-laptop/frame-042.png": "0aaaf8576183d6e70ca6bacce0dd65643ff912f921534b73b93803eb21112c5e",
+    "busy-laptop/frame-043.png": "7237ce6d90c85c18a50a7bc862c7cf74cfce669002960c1cceb2a7bbe89f153f",
+    "busy-laptop/frame-044.png": "bab1392924fc980828fb3c82f0cdd282bc6af632870380662f1852dd8a4376aa",
+    "busy-laptop/frame-045.png": "136b962343fd9cf4effb72987782f1508bdd39866283353bcb3d029a9e5145a0",
+    "busy-laptop/frame-046.png": "3b2f7c1869a5b0341aab1e4ccbefe515ce3296e02f4970f5a09cfd2eda7a5c97",
+    "busy-laptop/frame-047.png": "a74fc72bb71dde830f2fc5f3649da66f02ae1d311d52851e68c1d4c1f17cb71f",
+    "busy-laptop/frame-048.png": "db422ca4373f753e81b8ca2abaa12ccdb1e18c2e0385a6fc683c61cb12d1620d",
+    "busy-laptop/frame-049.png": "8ac850985f3a75063ddc053ac379ec64f7c265c3ea2a6f093c8016c1b959ae89",
+    "busy-laptop/frame-050.png": "684e0061b3b3e82d19a745869dda9ddf78d4e22495ec403a4a13d22c63e604c0",
+    "busy-laptop/frame-051.png": "0a67f6ff860b5e4a0c3a5865489c266e6fbb1f13dcf44c292ae500960db1a2cf",
+    "busy-laptop/frame-052.png": "207f61e5232f84e28aec30e359ad0cd55e5a5141cf280c63856d0f066f4b62b7",
+    "busy-laptop/frame-053.png": "55e791cd140fe5c8e31e0e20441db14bcbbc1a23fde15b788de8df421452d379",
+    "busy-laptop/frame-054.png": "41dae41993821fd9e6b88a02209f06b62bc1e1574f4a6acc768a610cfff26e72",
+    "busy-laptop/frame-055.png": "46e3c771d2ed99473d42b1617c085c18222de14fb33779dc32d96bffb0eb745b",
+    "busy-laptop/frame-056.png": "5cba771047b2c1021959c9fb18811d4ac559a6092cdc63a1664972d27abf8c19",
+    "busy-laptop/frame-057.png": "9df86b10a7bd7733d14c2a286953e4c5bce787de5a631e74953526bb864f391c",
+    "busy-laptop/frame-058.png": "97b21da50576a81f99544cccd146bcc628f2640c5a544b7baf0803494f26c7e5",
+    "busy-laptop/frame-059.png": "9d18044587e5aed87adcc97e88033e4009cb804a76e75fc6d1431415434817a4",
+    "busy-laptop/frame-060.png": "bb11406ecb42d585512e9465c471981822270049d40e706077e66a7eab4ec8e7",
+    "busy-laptop/frame-061.png": "3e03ca2d350ac831ce6c00aa0a78e44945372448a9a62799cae4d885db39cb09",
+    "busy-laptop/frame-062.png": "09bc2a9d6025f42707ccd6b1ea2887c4d82334ae7a9af5bcecf6e1fef2f6652a",
+    "busy-laptop/frame-063.png": "05a2473e0d859cc7f0607fdecf179c46bc976915f435decbfd5af40c30c6c3f5",
+    "busy-laptop/frame-064.png": "5e6bd00f9daf97acd4aeeda9e92c946d27ad228cc54d25a6086d61e218766f9a",
+    "busy-laptop/frame-065.png": "12dfacd34f0c9ac31d4d8b9959642daab95f08a4942f9f55219cdafcd0da8e0a",
+    "busy-laptop/frame-066.png": "63e86caec1c945153a8427713fdef90809ce7626777ef2f2aa97f2e319785ce6",
+    "busy-laptop/frame-067.png": "8ec5ff69b4b65ba55e71d898de5d6c535b5fb7aec649fc5ce73ba6713d77ca5c",
+    "busy-laptop/frame-068.png": "83e0ba3dff01cc29c61b4961d65fb0555a3df18d535cd0127ea5472561f18fd8",
+    "busy-laptop/frame-069.png": "2b115c6ef90027dd134040b960574259cb7a780a4243c4e74a0995bb1c34b18e",
+    "busy-laptop/frame-070.png": "dfefd3f0951527a759d4d007fe9535cfebb68b24ae95fff7daf500e4bb654c40",
+    "busy-laptop/frame-071.png": "8a473a26dd642eda1b6d52d746e7c1dec675d07d66bf288bfb78787c124a3ccd",
+    "busy-laptop/frame-072.png": "81e23acc98b64b18b263a2ba0faa67a2e095c52b193df00cc1c47ff5a2cdb7b5",
+    "busy-laptop/frame-073.png": "fce315e3d425edf25ba3ea9a5bb881a7e7d1a1c426e6138e897a0e819da7b3a6",
+    "busy-laptop/frame-074.png": "c29e5a87116564c58e2aedf411cf0e91ae3b4535808d21a51c2895d67ebcd2c1",
+    "busy-laptop/frame-075.png": "7767b3cba91145619a79cef29b73a8ef9a4f20239233f56772c7319fa0524cce",
+    "busy-laptop/frame-076.png": "8301c7bf5080a08c5687757a8d907bdec5860789df6641839e75b647ac8d12e5",
+    "busy-laptop/frame-077.png": "e844cb90f0177ecbc58c646176a123ed408921c05865658942387d3a176882cf",
+    "busy-laptop/frame-078.png": "d05e848d0d581547512879efcb77b41edd3ddd33e6166a9b0ac7f5c6b81a6c5d",
+    "busy-laptop/frame-079.png": "29cacc82fc3cc85f1f527b3abd16ab9b5e32574c9f56861c45c41d55de6137c0",
+    "busy-laptop/frame-080.png": "814fa8129cb6720e1646a6023689055cde541c54e4d612eb35a82df13c8b257f",
+    "busy-laptop/frame-081.png": "ae904f415152630cdd8ce40fb985350bf7a937af4aa0ae16a4764953b3d188d6",
+    "busy-laptop/frame-082.png": "0f0e7394f1daf6c79827152e541caf1a161b6939b8ff40c3c0ae5d0b5e03b02a",
+    "busy-laptop/frame-083.png": "e01718c517cdff3bfecc1dfc722a1fcb24c28d563c880f8a17d540eecaf3c387",
+    "busy-laptop/frame-084.png": "4bdc792c0c3d6ea8fc06b55ddb4755fa07611eec6efc648d20e0d30552db9dcf",
+    "busy-laptop/frame-085.png": "b04936ca4f28dd7a7f94b158f85b9bf01efb395dbd1120af907ceb051a0c3154",
+    "busy-laptop/frame-086.png": "959a696fc3b95e85ee5348120e374ea8384a74bf0c35826d3dd0c121afacd9ef",
+    "busy-laptop/frame-087.png": "91314d79ce607ab37b9d7b63f5b88796e72ef70f50fd75bd132f809a8e975d65",
+    "busy-laptop/frame-088.png": "2bf9c8df25ea495310087f9e1a646abd0e3c1d6e6acf3bf75d1b6a3c4be4332a",
+    "busy-laptop/frame-089.png": "1d7932bc3aef670f6cd29aeee58ce59fb9cfe4410b49240ac26224318a65fbd7",
+    "busy-laptop/frame-090.png": "1a92379f2a66a62a93b286c14651f63f4148bfbcce5d0f50bcd425ad45096f5a",
+    "busy-laptop/frame-091.png": "eab7bf1f923e071758c7df5bf3fa2d098fc23b57990fe6b562d9aa81b9dff9f4",
+    "busy-laptop/frame-092.png": "aa3e76c115e01b9daf79f762b850a3b96cd93b53de13e301db0a1b878608ca69",
+    "busy-laptop/frame-093.png": "273aaf0e5f59933d01f6d3817e8f0cea137db4e20c793933f89668e326ebf09f",
+    "busy-laptop/frame-094.png": "6d704c83103c3793893703331a949f039383460acea8dd33824358d7f81b1dd3",
+    "busy-laptop/frame-095.png": "de03b3005d807dc9fae86012cfa1e35c89edd56ddd592b0c30be6aba40b6dc1a",
+    "busy-laptop/frame-096.png": "a55634e02661c606d4866bfbd98f85b1c5ab4a1153a93f427a670fa57bf8ec57",
+    "busy-laptop/frame-097.png": "4460cb34bb3066811ba6b137788aa55931158d05a5ad5ba1fd8c89d58fa813d0",
+    "busy-laptop/frame-098.png": "27fa95d2db1169c23b8c46ccbaf3073205b6ed286e85dee501701282b045cd55",
+    "busy-laptop/frame-099.png": "1c847ccff0c8f5870285530eb146651371968195b4e3ddc21248d94423942cd5",
+    "busy-laptop/frame-100.png": "222c783118170bff66f339020533c1dea519be2347f924a943ba5dd949a24ce3",
+    "busy-laptop/frame-101.png": "49a857202d6ab694beaf3e66f1908a518b7dfe1f766169c2961669e877de1133",
+    "busy-laptop/frame-102.png": "5741e6e0dfc2caeca7e0703d1d815e35e7c27497e4f4e3d8bb1ce22c10eb532e",
+    "busy-laptop/frame-103.png": "a878259c5255c086d2399e6227f2e4e625ed288da3deb3438c7fd21a8cfc5df2",
+    "busy-laptop/frame-104.png": "24cb11f292e34001b9096d83ff78e7ef4e3da162e9238dff68ac387f9a3cfb24",
+    "busy-laptop/frame-105.png": "2ecf96c4c5f29798847ea78706d0a0527d270290c58f2bb5e9c65d7b5bd984ea",
+    "busy-laptop/frame-106.png": "7d9d766c4882fdae9ac0fc0721265c88f459d8d5e9ba41b7c44e6a4c0f8f5ccc",
+    "busy-laptop/frame-107.png": "c9753da67e36fffb4c8feb9ac0bf07d4af088dd5983ec307afe9400f4d9d4ed8",
+    "busy-laptop/frame-108.png": "5d719f2b1dea9718def7f7552e403072124c578c202bb6da22e55bce1dc03d1b",
+    "busy-laptop/frame-109.png": "b78136ac9438ab299f55bc51ef786d8c759eb77a566a33094185fb6707b61ec5",
+    "busy-laptop/frame-110.png": "a8099ea3232d1aa91879ac0ba5ceb80a23a8f6cd3861a92e543202360b12df1b",
+    "busy-laptop/frame-111.png": "3426326b63ad72ca6ed812dc161bd61c77105a7b7fe31873c56422381ec7011e",
+    "busy-laptop/frame-112.png": "e9e56c77e3a6ec80c2bc807c5111275528bacb072db6057c9bc5d54e0025924d",
+    "busy-laptop/frame-113.png": "d3a850e375991de6f4102231d809dca46c0929d068a7350dbecf10c6da87f467",
+    "busy-laptop/frame-114.png": "f6c21a50f6c67de167194d5bd86ae7301dda45739a1b8155dcb1b2a253e1e1f6",
+    "busy-laptop/frame-115.png": "62a7046f091a59495e36fa27222c4eeceaa5b87386cd4b7233f13e11aad7f51b",
+    "busy-laptop/frame-116.png": "b1880776bf27ea01fc2ff11d8cc71a8a78bdb798af96ddb6d1510365d10c8f26",
+    "busy-laptop/frame-117.png": "3e33aa907ebc263bb8de7e16ee7dc1221fbf4a0ed3c43b8a02d59da341a7dd3a",
+    "busy-laptop/frame-118.png": "2aa7a679acf34b0708c043dfbfa92cf8c79cdd7ccc2296ce76f0fe7b585d8d54",
+    "busy-laptop/frame-119.png": "42dcee5b67c5b340bce4b3a8063e368614c28edcc1c6b62929cc431425332bca",
+    "busy-laptop/frame-120.png": "73420f45c5b3e60ee3c3257d698e6467215adb8f9730c0a21a279e484fd721bb",
+    "busy-laptop/frame-121.png": "578a9e5608e256b4256b2b87c30dca9c1e3e5ae368a9f0ab6e96611ecd579133",
+    "busy-laptop/frame-122.png": "74ca56827600ca775dc8fb2e507bf46311b6dc03da8bea8cc48df18077c3bc4a",
+    "busy-laptop/frame-123.png": "f5962497bbbe1820a63ab683eb72559840a772acf6ccbc04af5cc0483598f5d7",
+    "busy-laptop/frame-124.png": "94fbf4720361c1c147e7d711c202cb433777148f7a404feda20b986b2538a743",
+    "busy-laptop/frame-125.png": "cf43f47682c631d4f04acacdb09d456a41bc1844bcd1e9af81719eb896e8850c",
+    "busy-laptop/frame-126.png": "d5610f2e68dd03db0f96ae6194ed4af101fae4e558707918f1be5517e0fc8816",
+    "busy-laptop/frame-127.png": "1ef9a038142dd14b2ca15b7fc82b1e4c898cfbe9e59074bd49b3af74ab898876",
+    "busy-laptop/frame-128.png": "fe10086229e10315bc3fd7b7308ac3b003b223e4814b1323980ff50829b4a525",
+    "busy-laptop/frame-129.png": "7496ba1e078bbe5080b45f312f9f7c7c710f28e1412e627e0ad7c8849c885e69",
+    "busy-laptop/frame-130.png": "04c3aaedaa2b17d5bd5296b6e3b5d91fea29257d2845741f800d33463b4531d7",
+    "busy-laptop/frame-131.png": "808b782f8176cb7acb1148dd6b27c25e7110abfac7bbff3922fe556df7ef9098",
+    "busy-laptop/frame-132.png": "9f409a8ff09d03b6eba276c9c6747995b24eb9d9fa06252829308f4ed0fef47a",
+    "busy-laptop/frame-133.png": "77d80cfc2f9da36fa8838ce1156ddacf429f9f5d0bac1f676812646fd7795697",
+    "busy-laptop/frame-134.png": "4950a57ea99930a34967cc33925a900781b084fb8556ea103654427dca9b1211",
+    "busy-laptop/frame-135.png": "0e3148e0a41d9815f7cb786a7f8552c2b90b723f4dda0c9e15b4da014ac1d356",
+    "busy-laptop/frame-136.png": "acf29efaa28f5f2ccd09f334ccc41d9cfb17298996788de75e426d5880d00c77",
+    "busy-laptop/frame-137.png": "d9b3548b28b8227716fba0ee6692a36cb85e8c046686d49fdfed4c5bef34b743",
+    "busy-laptop/frame-138.png": "c3ad48e31abd90ecf555a0ccff9dc15665d5188e2240fbf5179ece2cbf3e286a",
+    "busy-laptop/frame-139.png": "7bf010a556490e99c50c43bffc7a7c64b2c797e6d65691c326052d3be7fb8d32",
+    "busy-laptop/frame-140.png": "5d8b9fd7b847b4499a368ad2edb565ac635510d19938c07f2edac691730b0384",
+    "busy-laptop/frame-141.png": "06764e1add38b3b1ba06999be651b0e787f0e230ce2ade570f9e7f265ccf2d3a",
+    "busy-laptop/frame-142.png": "063b20b960afd35fafd18bf930252038ac0dd73054473a63117fd3df3d89ed9d",
+    "busy-laptop/frame-143.png": "09a0b529b47d729b6a43f63cee0d018a5b5c93884c4641e849b063c2a2519d2e",
+    "busy-laptop/frame-144.png": "9fee14c28fc4058f1b5abdf8c97f643a981fd3f695d1e78562fcc2fe1811dac3",
+    "busy-laptop/frame-145.png": "75e7271801d4a9219055e277674a6b1ef717025e6d2093d9ab3b54bcdee9e367",
+    "busy-laptop/frame-146.png": "fe6caae2cb47e7082f2424108dfc31de04a04cd914e737e3fe30fca27bb1e20f",
+    "busy-laptop/frame-147.png": "2fb60d548913acb8b5a465114a517cf7f335f3ad911d17a49b14eb4405f35883",
+    "busy-laptop/frame-148.png": "d8640cef95e8ce7c9d27d03d31cefd2baba28b2f2c7e8b87538f60ce77851b5a",
+    "busy-laptop/frame-149.png": "85c13f3bd8acf358141074b775848eb3483d85f14a6a447430dbb238b47394bb",
+    "busy-laptop/frame-150.png": "6b8efe329af618b1c135aa63445f51c6cbbb304c2ea5b21c96103862eb894ff4",
+    "busy-laptop/frame-151.png": "76c0129c5431871228afc88fc57f4879f895806b77b2a07d3c35210a95a85ac8",
+    "busy-laptop/frame-152.png": "978d2c1bacb3d8a894fafd5f3dee3e86bf62530abe96f9049af577cb7b8f049d",
+    "busy-laptop/frame-153.png": "9331fadb4cd71af25b6757b4189d8c464e9f30d11978c8ab98f7ee65a5e4dd62",
+    "busy-laptop/frame-154.png": "4049558c5d2b6896cfa005f01db18534280c7169a5ccf061439fb991f58e5fb7",
+    "busy-laptop/frame-155.png": "7182466ade8902d27761b1f14844d79bf360079c5c81e934142a8c65dab9fe88",
+    "busy-laptop/frame-156.png": "7d287ab3958d7ddb4172399ebd44b9ef0fe184f6c280cdf231431b8827c01ddc",
+    "busy-laptop/frame-157.png": "bc521ce0b5449ce23ac0547fc342f86290e39d6b27af1bb25ec4a9f8a7efde76",
+    "busy-laptop/frame-158.png": "9e20dd806337160ed8662c0b803b57914bc09e81e9d5428961012f84459d49c6",
+    "busy-laptop/frame-159.png": "48d8fc262b55fe04ab55260e7bba398a0587d697df33645ca5dfcf2738349b80",
+    "busy-laptop/frame-160.png": "f36dba4db2be398ab0836e39eb60bac08c816fea7cda1e76dd225cc982bb44d2",
+    "busy-laptop/frame-161.png": "f0e155b87e4b87a8f40c1229ae0fc16cf6ea2e6b50c7b0c18ec2a1cd2ec46b72",
+    "busy-laptop/frame-162.png": "978aa4a73fa873efa4f0d6bfcf551e31d439711785f272ce6298184c8cff03b8",
+    "busy-laptop/frame-163.png": "d65e7eb5c2e201696c22299a0127959beeb9e2686575399b7c937eb29dba0e0e",
+    "busy-laptop/frame-164.png": "49717ff8b0fe31d6194b88ac95ee4755d664b7c91f1e54c1c25b0b6bed2b5cff",
+    "busy-laptop/frame-165.png": "784780071bb1df4828122a81a7fb7a1ac2140ab99f17d43c6e046357b55b8d74",
+    "busy-laptop/frame-166.png": "7209d2224af9524b3bdf83ec65ab3baa54662bb0cc8c2f2d1008bcbd3ec8291d",
+    "busy-laptop/frame-167.png": "b5807bb74345cfaf23de10e172b4dd3e66167cb3b237eef67998a517c1002f89",
+    "busy-laptop/frame-168.png": "9195d021ede3931384aa3654b119d634a139beee4ace3bbd32b869c0b198c300",
+    "busy-laptop/frame-169.png": "27c545202d029eab419d174ae49ecde65fb9eef22be575e250c0be26e3aca034",
+    "busy-laptop/frame-170.png": "53f6f0002b22854243a20344a0d1a327ad9da9f0a9a89b147571eca1f87c90fc",
+    "busy-laptop/frame-171.png": "f7de72ec0e42e95cfa9bf6aba77af57df9f34e55e9584cc76b2861584e020a74",
+    "busy-laptop/frame-172.png": "f85f7633bf917c6259914d7c12c0de9f333d1c8cfd7446173a552fe5b945ce2b",
+    "busy-laptop/frame-173.png": "74e0e4b0902da5807d8745b058b87dd02d953f2311366bd6efcae8a4d619a1cd",
+    "busy-laptop/frame-174.png": "3f1c337b7e43835907b02c6975b7c790e7c300d111563385ac5af91be5c1e959",
+    "busy-laptop/frame-175.png": "13e42be3370117fe5e69871ddc3e5bb4b2d8b5120052d0004424d7cf3840f830",
+    "busy-laptop/frame-176.png": "d2738e78c1ebc2641c2efefb344453a3c8871fbd4a2fa9fda6cf309b7350a59e",
+    "busy-laptop/frame-177.png": "54978d20a764a5e2f90cb35a7dfed30cbc27d207a45cb9ea3b68bf0eca14c760",
+    "busy-laptop/frame-178.png": "68547a9f3176316a5648d7101e0c72862026de9466b7680779a021a6f284989f",
+    "busy-laptop/frame-179.png": "bcdb225ffcbd60d3a61c090d9a966685c57c1573b35ee26a1dd66d234b9a2f65",
+    "busy-laptop/frame-180.png": "81f49e6f2c06a57d52453c9a056012f9fcc16f74f5f47ca2c3c1f85dac2cf4a7",
+    "busy-laptop/frame-181.png": "30488955b11b493285dba1234e6ffe5728d4807b08e29a3828ebb8ae349a0a62",
+    "busy-laptop/frame-182.png": "6b6eb67798a55e6b611ee84ef1aa7baeaffbf2081d4e4d5662092187c195af89",
+    "busy-laptop/frame-183.png": "5cf818eecbfb793c7f765cee0a2fa1f399b2d134b803cfd23bc3df3668530f62",
+    "busy-laptop/frame-184.png": "f05c7bc87d8885cfec795f1191549fcb16b738d15f76f22b77b1f47907dacc95",
+    "busy-laptop/frame-185.png": "14527780d05cadabefa738b63bfdbf711c1f1c84946353f88dcf71850b7b6767",
+    "busy-laptop/frame-186.png": "b5201f9939d86ac8bf7feaf451e7c4c91848fcfba020bb94e5c9e4bde2d3fe62",
+    "busy-laptop/frame-187.png": "0d2b44f2f8d5e24b7f99d5a7acaa59bdd9cb1c3de6ea5a83cae8bed0de361b71",
+    "busy-laptop/frame-188.png": "87ed18329bb74a2f5162ad81cc7b935d46ca073ec5b660275eedea9b2dd5896a",
+    "busy-laptop/frame-189.png": "8a76c71abdf317a049392d3237547bab21dc84485c900a078206358a38e98e0d",
+    "busy-laptop/frame-190.png": "0858d9c7f72df6392445b469b0d849efa99146740aac9c71d128e3849ea6d1ef",
+    "busy-laptop/frame-191.png": "3602dbec97892c6239ddead8079df1708ce2498c8eb08f7aaae4b3294a63664a",
+    "busy-laptop/frame-192.png": "b9c1dfe5d8811436c8277b5a63cf9a5b5cf4790e9db6dd1d7905a94d2c39ab73",
+    "busy-laptop/frame-193.png": "403439bfcd728ffea8785f476becae81870a57f0672be195a7ece6cbba523b16",
+    "busy-laptop/frame-194.png": "87d8c2583b03b181927aea736dce1bd9a96ae98ea2bf8499c0b6631ef808f7fe",
+    "poses/neck-00.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-01.png": "bac30a55ecc0dbe5f9f1301671b8cd877882bf93b47afde15703fa0159110cab",
+    "poses/neck-02.png": "0d2a822e9fdd998500f28dac1fd0d730c0f19dd5a69fdda2f6b175de6031e3de",
+    "poses/neck-03.png": "4d9328ca68a66c5a93c153dc4b11f4e8a3e3643c41a827697a0ce37931b2d910",
+    "poses/neck-04.png": "a09a296cf787eb0452d4a5467590424f50e1fa7cc714c3edc6430ee08f5896e4",
+    "poses/neck-05.png": "e20a79813eae548cde339ef890d0b0fc95346ffe82bef17743c70d7a68c01d29",
+    "poses/neck-06.png": "d3a564ebfb8f65cbb7d654df0204168eac522f32dfa3a852ec8b11492e2a3e02",
+    "poses/neck-07.png": "019dc5e3826841526e098e963ddfc0344a89100529f67a4b1466f4eb4fa1f3cb",
+    "poses/neck-08.png": "94b0e72817c1310f826ba4821c9b319e7416d16093e1aba789f19205978c8919",
+    "poses/neck-09.png": "ef9b1d134c834c66aa1c0bded381203103b31eaf003e4a17574ba60df0dccf71",
+    "poses/neck-10.png": "07de525dee3a213dff5c623fa0cd32d23c21bb72c8fd0beca7e3d1e2efde1fe2",
+    "poses/neck-11.png": "b706b17d86acc9f1eae81b5eb90c8b9f076dde499f844c5a29e944dfffe50bef",
+    "poses/neck-12.png": "70214144f4bfb0413f9e12b9fc9522be49091d86035623779ab1156f2f209a19",
+    "poses/neck-13.png": "85f565ee4824c8e377d101d16dd559a2d164d8212ff32b08ce5b236da6d9b0c8",
+    "poses/neck-14.png": "91e086f2d4436db0fc2c62b91a0e4138068aef3c58e2f44ccc2ae4c2a244b119",
+    "poses/neck-15.png": "10943584a3c001daac694338a22766203d7126178eb1ad7e8c8470782c23ac80",
+    "poses/neck-16.png": "74e3add57e1416c429cbfe27016fc8f68ded7a4581746b31ec8acf5198aff885",
+    "poses/neck-17.png": "ea81fb270591169e5f16436fa8a69da1728f8553760140d4c52ee236b80ef4de",
+    "poses/neck-18.png": "18bf1d81e2e4dd706eef5975d19f1e71df98d5b1a7b5a0e1023a424fda27b432",
+    "poses/neck-19.png": "3738b81173b6a068d32ca2b6ff234ede741e5c94e5dabffd21e46c52ef79725d",
+    "poses/neck-20.png": "4ee8a9bfd355bddf2003cb070a99c55f5ef6cec4f89438fe32c257ffa987e9b5",
+    "poses/neck-21.png": "74e3add57e1416c429cbfe27016fc8f68ded7a4581746b31ec8acf5198aff885",
+    "poses/neck-22.png": "74e3add57e1416c429cbfe27016fc8f68ded7a4581746b31ec8acf5198aff885",
+    "poses/neck-23.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-24.png": "4a9c891c20cea70719c76de4dc1be2c4c0d3de52be80b35db0e5201d40f6a976",
+    "poses/neck-25.png": "e2fecf9f6aa4bf1b59e906a78a41ad56e62b96ac18927192a1c764362a3ca5c8",
+    "poses/neck-26.png": "df0dd8feee424659639968bdbf9a72d5f69cc26be0b396d3de86eb9b372ed1b9",
+    "poses/neck-27.png": "eca296200228aa2b7e3c70fe05c9e6ab0e12860e7e38b8647488221f8fa66b31",
+    "poses/neck-28.png": "eca296200228aa2b7e3c70fe05c9e6ab0e12860e7e38b8647488221f8fa66b31",
+    "poses/neck-29.png": "17448efd936ea5fb92e6cd772382c98c514c12ea776204dc7964e33ad46b3267",
+    "poses/neck-30.png": "16e892ffbd65be3e4253b1bdc1e2cf93f399a7c1e17d990c3928332837d496c6",
+    "poses/neck-31.png": "a74d3437788988311f3fbf7cacb28d889fe034ff640a41b755b99b6c236c6e68",
+    "poses/neck-32.png": "f736038d4e424ec580b72b8590519d65a8d35d97aea74854a9a20aafda314939",
+    "poses/neck-33.png": "9b763e6787e7324ff28cf801da92f6fc736b5d7a448afc72611a884649f1c8b3",
+    "poses/neck-34.png": "a74d3437788988311f3fbf7cacb28d889fe034ff640a41b755b99b6c236c6e68",
+    "poses/neck-35.png": "9b3ef196bfb6a84ed5b4c9d11390d187e2f1c18311e64faf9b84f0a72556909f",
+    "poses/neck-36.png": "61aa38d2b46f181518898cdd824d20b5d7d560da195c5d41b0bea74363b814e3",
+    "poses/neck-37.png": "1e3a53ce98a6b42dba347a26f3c682a5dd5e0406106929844b07d19a24872dab",
+    "poses/neck-38.png": "c3b2d54b9cb026361bd07882ac3727d4a68b71c395d5212f925a7cc95c91eb94",
+    "poses/neck-39.png": "a74d3437788988311f3fbf7cacb28d889fe034ff640a41b755b99b6c236c6e68",
+    "poses/neck-40.png": "a376e30915a1a0f3843346ab884457544cebc71e16b4b4dbd93626839588f675",
+    "poses/neck-41.png": "60d725930d7d7fe50cded2e18fd873a9834abf3a2935a997ab6a0ecfc0553e83",
+    "poses/neck-42.png": "4e01414acbe4dc78b5c622beecc3ff1dc928f249f30b090bdbe71d5e91188006",
+    "poses/neck-43.png": "a74d3437788988311f3fbf7cacb28d889fe034ff640a41b755b99b6c236c6e68",
+    "poses/neck-44.png": "6b4222c33e436011ef950038ff987cb6cf57ade16c7e9429650fc1ffc7cdd7cc",
+    "poses/neck-45.png": "64570a287aee8aa610c73defce0244b4661ad39f95765433189ca88c437c4e18",
+    "poses/neck-46.png": "cff7f03bc278f1c54b547feac01cc994b930c95a0acbce28f36499bb61d3e3bf",
+    "poses/neck-47.png": "4b4bdbaeb867da96fdbe0b889e719f15022a47ec48aa9d0015d4a6fbabaa1ac3",
+    "poses/neck-48.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-49.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-50.png": "d4896203164de111cb2abdc62beeb74ba74f690a4430e028610a723e0750b440",
+    "poses/neck-51.png": "85d84dffcf785cb4dc2745741439e35d9723b1d89891e1c15e9305db35bec4b2",
+    "poses/neck-52.png": "f40b5ba9afa3ff752bc5255b8c1db5ce5671e0de30acdd8b26ddb513e0487003",
+    "poses/neck-53.png": "99ec25d3cf4846849022874aa8b564ac34dee6eb2ec74d7c36e3d180668dcff2",
+    "poses/neck-54.png": "e7caa693b4c106d49306ebdbc5e81ab069735ad0b41e4cd42380b28a0edee488",
+    "poses/neck-55.png": "359bfc8ac71ba34306fcd10292e45f7c3c04e53bb35dde66a44eb10109beef68",
+    "poses/neck-56.png": "fbc2f9235e6972356407b81311cfa075d73f68ed6fb3b84f77d4b383498533b1",
+    "poses/neck-57.png": "fbc2f9235e6972356407b81311cfa075d73f68ed6fb3b84f77d4b383498533b1",
+    "poses/neck-58.png": "340140941cc192124e0506f53cbd04af94fa7c3701ba9d95754b009dbd8baec3",
+    "poses/neck-59.png": "9748c491929b053d3765343abfc57a5043fb9025a199e62fd92f215c620e1168",
+    "poses/neck-60.png": "de6ecb7230a7792f8afbc3870784ffc2b3caf10b07a6d6ed4a6cddf2519570c3",
+    "poses/neck-61.png": "3239b73c146e6293db34dc7eac1e02f0c8168313b6bdc7ff54b45eadc5a5db6b",
+    "poses/neck-62.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-63.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-64.png": "8b03ac241fb7fd29af0b9c80665f60b4968fa7c2bc40bcbb0b4dad371d9bbff3",
+    "poses/neck-65.png": "db873772bb4d10201ee9c13d063a24eaaa76c1c77aa9daf4c542b27ee420b055",
+    "poses/neck-66.png": "dbf763bc2da31103b172a10287326c88a0d43e338b9a06b74afbd69da0dc1bc6",
+    "poses/neck-67.png": "6461ed56130a8be7b0087bf6b618ded3427bdb442c95db09a960dead6f7f564d",
+    "poses/neck-68.png": "4735d6875a1c986780b903eb97c03a69e08cb2b287aded7ee4b195c721cc623b",
+    "poses/neck-69.png": "6461ed56130a8be7b0087bf6b618ded3427bdb442c95db09a960dead6f7f564d",
+    "poses/neck-70.png": "01c63c535724d070551cae036affda5a22a6494c87584e5282b1898d220630ad",
+    "poses/neck-71.png": "5a98910e77152dfcfcde0604aa6255c05ffade5262bfffc121e1517a59a2a494",
+    "poses/neck-72.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-73.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck-74.png": "75dc8a131f48d49308eda52f9c33e761189458a274451a71612e7ceb1ff91a9d",
+    "poses/neck-75.png": "dfbbda3ee9bcbb75e658a4d20934bc5c5e735b3a0f0382e37d0cc451da7cc6e9",
+    "poses/neck-76.png": "6aea81748bcd7c3321e413a41aaae8a8847b5568602343b101dd97c07e710484",
+    "poses/neck-77.png": "47d70ccab7973592cca434f59e097029df5a36731ebefac189b50115913c3f74",
+    "poses/neck-78.png": "ef62f733513555b0bd887b01570c463291cc309b1ded79fd869a5f3bf30b532a",
+    "poses/neck-79.png": "56d660bcb0ddcb0b2ae4123b8effe6d5a4452b7475e5b026eb4983c3bf8a8b12",
+    "poses/neck-80.png": "2157f5eef11219c31c763e2ff76c5b945461649f72a774202671461de8ad633a",
+    "poses/neck-81.png": "ff232b12300cd169c9fb0b0f2b771efc1de1ce1adeb364426fbd2e16c8589496",
+    "poses/neck-82.png": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+    "poses/neck.capture.json": "ab93d87d8b6ab89d127d303d15e661423242b193953cafcea860e1799d4bf488",
+    "poses.json": "3f450ff22ec9fc6c29d3236320b88175eb9cc861bbe187599e7b2e8e7049f797",
+    "turn-ended-laptop/frame-000.png": "3df5d87ca8341567ce7e61704055a59ccb4418da24bc126bceef9d683747afa4",
+    "turn-ended-laptop/frame-001.png": "a287a7b061e6aee8625b4dc5700ce2aa14dc5e28f10d13193bec9d1cbcddfb48",
+    "turn-ended-laptop/frame-002.png": "3f94afed3cab5bc813673a81bef976825ae8d076557ac63d76d4d088d4a96780",
+    "turn-ended-laptop/frame-003.png": "023cb7056d3e62fcd2bebd7ddea199807bce9e27d0112755232ccd0ed494c5fe",
+    "turn-ended-laptop/frame-004.png": "6d81323d60f6a83c385b99ea1e406fbccc69e98e35b9a8052d589817e6db8d2e",
+    "turn-ended-laptop/frame-005.png": "bb31fde4ef6c609c6ec0c0911b07259458787fb74605a1c2a259ff1f8a7f3f5c",
+    "turn-ended-laptop/frame-006.png": "b1c1d8b28f78d28373eff1ae4591c2eb688736ffae161e90c79c7ac0f3118a75",
+    "turn-ended-laptop/frame-007.png": "a50b9ee66b5fde908c1df1b34c9ff34b127f16f9481bfc1a6eb355eaebb68104",
+    "turn-ended-laptop/frame-008.png": "94401d70bad14988d49c119759d782eca2a3810a86fd974ab85dd6265ee17af9",
+    "turn-ended-laptop/frame-009.png": "0cf374c7f0b4bf275c01e6ccbbc46c68848b04711eca6219d54eaeb012bd769d",
+    "turn-ended-laptop/frame-010.png": "c50b39ba339c10d58b70e5c8161e7c04c214ff0ad6a74a329cb38358328898d8",
+    "turn-ended-laptop/frame-011.png": "e1706270e175a8c18742a4178c8bb9ab117dddd0bde4a2f8e934cce08ea445e8",
+    "turn-ended-laptop/frame-012.png": "8378f50acd50e7627c60bff17e79df46b209cb683ef8fd695026330885f46d94",
+    "turn-ended-laptop/frame-013.png": "3ef6a450841639e647373ce44e2d36464f29aa055f64b3716d65c5b842af6ada",
+    "turn-ended-laptop/frame-014.png": "0289c85c883f6c20f8027c86f553fa9a5465227b92ef32013856562b8bde5b82",
+    "turn-ended-laptop/frame-015.png": "16d76093c946277500e721167b077fba3c969e17973bf2746f8ebb3898699b4b",
+    "turn-ended-laptop/frame-016.png": "5661bc288e7f0a453c1928016c2bd1633522404a3107e73cb07fe810e9311da5",
+    "turn-ended-laptop/frame-017.png": "eebd2db8dd3b7733f1e42b47f1c841ff72240d4a110fbd547dcc33f8d2b9d8e1",
+    "turn-ended-laptop/frame-018.png": "034b5f095b9d296cbb7996099176854c8b748f7cea030c4d83e17a13427aa468",
+    "turn-ended-laptop/frame-019.png": "5af6510ca62674713130b31df185383b211ee26ad61fcb3e63f46ea57fee6e8e",
+    "turn-ended-laptop/frame-020.png": "1b5e5d9d8244c3e0d2357380ba1fb3f7428e3179332ed78a359e0c2b0cc4eb5d",
+    "turn-ended-laptop/frame-021.png": "e98731f7cfe3eaefa17e37305d273bff14ec0f4822567b4b275d48774c9ece55",
+    "turn-ended-laptop/frame-022.png": "32b67d01084b5662748ff264457ddc9b907f41a52ef1975e5c3ab625f140f925",
+    "turn-ended-laptop/frame-023.png": "82c1a63ac6c0f55936abc04827a787be6e8287acc76caaa0dbd946d40375fe03",
+    "turn-ended-laptop/frame-024.png": "eee4bd8c2ba616df14b4880642826dd58da83ed8395e2d87107dbacceff6dbec",
+    "turn-ended-laptop/frame-025.png": "7092ea8f8cd8b50d828410f97865a444365f5baa8f8bf2a18633bb4a2d510d1c",
+    "turn-ended-laptop/frame-026.png": "9e1819c939a4743deac1f5b0d235800ee6eac4772d3373b0646b13499f75aae7",
+    "turn-ended-laptop/frame-027.png": "5884908c6272dcdf870b1ce2b72fbf02c3930141e6d470f9e10ff9909e2c58ed",
+    "turn-ended-laptop/frame-028.png": "6e539fbbc47264ca9e86d5411a53e0bf36763faec0910875cfd90ca2a7cb67dd",
+    "turn-ended-laptop/frame-029.png": "9dfdac56e84712d853be9bcc8177b654b89ed23ee9617df832396cdc146c7fb4",
+    "turn-ended-laptop/frame-030.png": "00dff06d6c88df902f0ad9ccc235d5cc6a24925c362a88624889af4e80f09483",
+    "turn-ended-laptop/frame-031.png": "5a0ab94abf062ff230039b418328d6107f8aeecf1ec05793cf2ab421b8cd5890",
+    "turn-ended-laptop/frame-032.png": "d5f63deb87b2fbb8b0189666f430e9a497520eec8ae9b222121dbea150f2d421",
+    "turn-ended-laptop/frame-033.png": "9e5f5fb9bb46779e43cd2c913cdb188465ed6a554e37c6c4f7a5233d57a6f70e",
+    "turn-ended-laptop/frame-034.png": "dcd098fdd72262d54e8fcf5f7fe21a0eaf49217b46f0b734251329abaca7bcde",
+    "turn-ended-laptop/frame-035.png": "7a50e96c3759f7b9c7e97c7c4e19c6f86bfdadde7e214e5da9040239516fdc77",
+    "turn-ended-laptop/frame-036.png": "9bd55487d77494ec73ee45274fe4035ba10ec0fe6f87c871d66f8aff3307b5e3",
+    "turn-ended-laptop/frame-037.png": "9abcee26c0b4a4f61a424acbb969c01ef911b55c50dea893c26c451df64776ee",
+    "turn-ended-laptop/frame-038.png": "af79c037c7317e7d235bac39b2c06ac3df90e6811efcee3e322f16b08c0ebb24",
+    "turn-ended-laptop/frame-039.png": "21b20d02ade8e5ca91371b011cce2ba6006bc2c78760188d8014cf1c2c041659",
+    "turn-ended-laptop/frame-040.png": "3ebb4d30a8fe2843d3ade0313c16880ceff82a3b5bbc04c78815efad8058f33d",
+    "turn-ended-laptop/frame-041.png": "8933f95fb1da6229f616395ef8d6785747ca78b76622f21adfd13a25e1f1398c",
+    "turn-ended-laptop/frame-042.png": "6ccc53ad8148223746b5533a2b747bd0e901742c24398136260a2185ea9d0ccc",
+    "turn-ended-laptop/frame-043.png": "177a230a9d09735a44345ea8abb1f8c2c389c582d9fe7364b75e06fbb383cbe8",
+    "turn-ended-laptop/frame-044.png": "fe702573eea976a94b7f9b20dfbd037aec83398ed5a82eda070b455fe79a5ca1",
+    "turn-ended-laptop/frame-045.png": "58638239453fa23b88b846847a1fa977c213de36473c7de8ea026621e9542ab9",
+    "turn-ended-laptop/frame-046.png": "f1f2ea5e121cc8f0b810a040ee320511da6dcc5ad63c615991e87a3517606d3c",
+    "turn-ended-laptop/frame-047.png": "76caa9248bdb8d616bde607834101c89e636443656fad04f595fcd0bd9f23e4a",
+    "turn-ended-laptop/frame-048.png": "982f4107ba6669e03f2d62f6bd3f851a354fc618cad116940c13fc4322c661b3",
+    "turn-ended-laptop/frame-049.png": "d834d0920a412b8ed138833d1946ee0928e01b39ae5118cc7a77b76c4c118a42",
+    "turn-ended-laptop/frame-050.png": "be5a315580f763fdb25242ea68798e6438ff61ae4e30391f19f9c518893e3d65",
+    "turn-ended-laptop/frame-051.png": "e2cb2d3f44dc2762eeb0e3a6cba2e9040add85ee2dacd1e68526a4ea31236978",
+    "turn-ended-laptop/frame-052.png": "9e5f45ffd50358f9676cf1d5ab91532d87045660903f8a7f16ff1a5a8f65ed7c",
+    "turn-ended-laptop/frame-053.png": "a431adaf29570721c197039deb0e39e11e5f2d236f89af43b985aede7e79f2d3",
+    "turn-ended-laptop/frame-054.png": "83f8769adc1820773c455cf21a50a2e81c7430eb0b0d9e337957619e86e7c7af",
+    "turn-ended-laptop/frame-055.png": "ea2b8a4910c89215f88f87d2b2056e46e70e42355878341ff863f438d3fd3bc9",
+    "turn-ended-laptop/frame-056.png": "bd3d6d9e9e10ac5af9b593703a7dd5742fadd1a54ccb2b679381022526007934",
+    "turn-ended-laptop/frame-057.png": "e1f6b9823273c0426062daf4fc0e8311a2b74135b6f49a571d532382943bc7a1",
+    "turn-ended-laptop/frame-058.png": "7d48a92decb8fc32c72168923d84826f9a50034ac7c9ad16f570d1b950cc3436",
+    "turn-ended-laptop/frame-059.png": "03241b3f2320cb0daeb808e5459ed576975aba421eef61ee41b54b28b0ca294b",
+    "turn-ended-laptop/frame-060.png": "5e7edc8be4321dbd69bf2c93f4264f6bae8d91c0c777cb6704afc959fc9bf26b",
+    "turn-ended-laptop/frame-061.png": "3b3c914330d069ccedfdc4225705cec7886c753c6c4158f74d2152cb7c2f33f5",
+    "turn-ended-laptop/frame-062.png": "c12656282989393f196bedc1c5af63802d9120b0efb8eab64b1c05184d473613",
+    "turn-ended-laptop/frame-063.png": "0d7bad4a2f3e56d4f64325a955874d7bf3d54a279d26be3339c3d1531ef8185a",
+    "turn-ended-laptop/frame-064.png": "9ade440e26957ba4cd8e5b4c9a8c023eac49fc4835e21d34c8a4ece663c9c848",
+    "turn-ended-laptop/frame-065.png": "4fc0b94e6547d4551f89b496fd9fc8aaa1d5c4ee545c970776724ef8d76b06b2",
+    "turn-ended-laptop/frame-066.png": "d5781ffa081a7852d2c7b32b921e378bffd85821320b9014086876b2dc877065",
+    "turn-ended-laptop/frame-067.png": "14f261280ba7cc1664190ae817c9d659defc8fc17f15ed3deaa5340064ced274",
+    "turn-ended-laptop/frame-068.png": "5ecfa40560f6777ebe8c80d65ba4125665527abb17b06a2aa55cb9456ca4204a",
+    "turn-ended-laptop/frame-069.png": "6ac43922cf2d358cfff01be300bd36803625fa3d258e70d96afa0c0304b51050",
+    "turn-ended-laptop/frame-070.png": "562f00fd02ded5409d17b806406f82cf25cfb1a2254473536e435539afd311a0",
+    "turn-ended-laptop/frame-071.png": "ec237d667d89574fc1bab9a8a1e923e95583176bf303a2caaf71d8a92724f29d",
+    "turn-ended-laptop/frame-072.png": "d6f68d25d512ebb0c0035f111dd43d17d72a6cb91138af53c194fe6f159194c7",
+    "turn-ended-laptop/frame-073.png": "8db724cd22f2f9ee95c7e018df9aa9fa23d2873aac53f128924981d0e3996a0f",
+    "turn-ended-laptop/frame-074.png": "056efcfaffc7c867ebe008efac874e1e83ee7b87cbe38011c4e43d57f14aa104",
+    "turn-ended-laptop/scene.json": "27dac506e474025cb63c90478b3fa8c295def7fe36ea20c11d3b7dc112b40b31"
+  },
+  "validation": {
+    "sequence_frames": 270,
+    "native_poses": 83,
+    "alpha_border_failures": 0,
+    "floor_drift_pixels": 0,
+    "static_poses": {
+      "native_poses": 83,
+      "alpha_border_failures": 0,
+      "scope": "requested_parameters; Native clamps are not sampled by this image report",
+      "physics_evaluated": false
+    },
+    "scene_contracts": {
+      "turn-ended-laptop": {
+        "sequence_frames": 75,
+        "alpha_border_failures": 0,
+        "floor_y_range": [
+          806,
+          806
+        ],
+        "floor_drift_pixels": 0,
+        "player_contracts": {
+          "frames": 75,
+          "player_started": true,
+          "head_region_aligned": true,
+          "higher_priority_interruption": "not_exercised",
+          "reaction_release": "passed",
+          "visual_expression_and_naturalness": "pending",
+          "scope": "real_interaction_player_and_native_model"
+        }
+      },
+      "busy-laptop": {
+        "sequence_frames": 195,
+        "alpha_border_failures": 0,
+        "floor_y_range": [
+          806,
+          806
+        ],
+        "floor_drift_pixels": 0
+      }
+    },
+    "floor_scope": "each continuous scene only; static fixture floor changes are not measured",
+    "continuous_player_exercised": true,
+    "visual_neck_continuity": "pending"
+  },
+  "provenance_checks": {
+    "source_deployment_inputs": "passed",
+    "renderer": "passed",
+    "cubism_core": "passed",
+    "review_tools": "passed"
+  }
+}

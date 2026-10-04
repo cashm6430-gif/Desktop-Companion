@@ -1,0 +1,299 @@
+{
+  "version": 1,
+  "kind": "isolated_auxiliary_neck_rebuild_recipe",
+  "working_directory": "E:/projects/Desktop-Companion",
+  "scope": "Rebuild auxiliary neck only; preserve the complete main character and all motion assets.",
+  "status": {
+    "engineering": "r2 Core and public CMO readback passed",
+    "visual": "pending",
+    "adoption": "not_automatic"
+  },
+  "tokens": {
+    "python": "C:/Users/Administrator/.workbuddy/binaries/python/envs/default/Scripts/python.exe",
+    "jdk": "E:/projects/Desktop-Companion/.local/toolchains/jdk-21.0.12.1+1",
+    "install": "D:/tool/psd2live",
+    "run_abs": "E:/projects/Desktop-Companion/.local/authoring/neck-refinement/rebuild-{fresh_run_id}"
+  },
+  "token_policy": "Replace all tokens before execution. fresh_run_id must be unique; run_abs and every output file/directory must not already exist. Never reuse neck-model-20261004-r2, candidate-r2, or any approval capture directory.",
+  "pinned_inputs": {
+    "installed_public_api_jar": {
+      "path": "D:/tool/psd2live/app/psd2live-2.0.2-2ad13515cfa82896b5e2819475e01d.jar",
+      "sha256": "f1e1663887a6ceefd57dd5cfa25f09b958fb45fbe5a0aa27a72e866bf7b5e3d4"
+    },
+    "prepare_tool": {
+      "path": "tools/prepare_neck_component.py",
+      "sha256": "0f37e1d080f132ca286a945b8095606821fc61fa83dc8b91704ca7d69d44ac26"
+    },
+    "author_helper": {
+      "path": "tools/PSD2LiveNeckAuthor.java",
+      "sha256": "c00285dc1838251d486939f6d0769e87966d17b6d85d7d736aa71a6ad40c86c9"
+    },
+    "base_source_files": {
+      "art/live2d/neck-component-r1/neck-authoring.png": "1b2f973538225bceb8183bb35880f7767dec5519b1ea6044da037239829ed180",
+      "art/live2d/neck-component-r1/neck-design.json": "43f0cfcba54aab1e65bb3d4d26d8c6fd05fc4e4308556732d7c56ac68b57e640",
+      "art/live2d/neck-component-r1/neck-source.json": "3a4750053a9268c02db27a6aafb24614a9c2d1efcc5832d702fea6a2e0c8741e"
+    },
+    "unchanged_geometry_moc_sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+  },
+  "steps": [
+    {
+      "id": "prepare_source",
+      "argv": [
+        "{python}",
+        "tools/prepare_neck_component.py",
+        "--source",
+        "art/live2d/neck-component-r1",
+        "--output",
+        "{run_abs}/source"
+      ],
+      "gates": [
+        "SHA inputs unchanged before/after",
+        "source rows before574 and after597 retained",
+        "replacement source limited to neck ROI",
+        "four missing corners and lower interior opaque",
+        "PSD actual single-layer RGBA channels equal PNG",
+        "mesh design byte-identical"
+      ]
+    },
+    {
+      "id": "create_java_directories",
+      "shell": "powershell",
+      "command_template": "New-Item -ItemType Directory -Path '{run_abs}/tmp','{run_abs}/classes' -ErrorAction Stop | Out-Null",
+      "reason": "ImageIO requires the java.io.tmpdir directory to exist before export."
+    },
+    {
+      "id": "compile_public_helper",
+      "argv": [
+        "{jdk}/bin/javac.exe",
+        "-cp",
+        "{install}/app/*",
+        "-d",
+        "{run_abs}/classes",
+        "tools/PSD2LiveNeckAuthor.java"
+      ]
+    },
+    {
+      "id": "public_library_export",
+      "argv": [
+        "{jdk}/bin/java.exe",
+        "-Djava.io.tmpdir={run_abs}/tmp",
+        "-Dpsd2live.agent.store={run_abs}/store",
+        "-cp",
+        "{run_abs}/classes;{install}/app/*",
+        "PSD2LiveNeckAuthor",
+        "--install",
+        "{install}",
+        "--input",
+        "{run_abs}/source/neck-authoring.psd",
+        "--design",
+        "{run_abs}/source/neck-design.json",
+        "--output",
+        "{run_abs}/export",
+        "--store",
+        "{run_abs}/store",
+        "--timeout-seconds",
+        "120"
+      ],
+      "isolation": "Fresh standalone process and store. Do not edit or initialize a running PSD2Live editor/MCP workspace.",
+      "contracts": {
+        "moc_writer": "V50; V53 writer not validated on this fixture",
+        "pixels_per_unit": 1254,
+        "vertices": 63,
+        "triangles": 96,
+        "geometry_axes": 3,
+        "geometry_keyforms": 27
+      }
+    },
+    {
+      "id": "write_core_poses",
+      "operation": "write_new_json",
+      "path": "{run_abs}/neck-core-poses.json",
+      "document": {
+        "poses": [
+          {
+            "name": "neutral",
+            "parameters": {}
+          },
+          {
+            "name": "bottomX+24",
+            "parameters": {
+              "ParamNeckBottomX": 24,
+              "ParamNeckBottomY": 0,
+              "ParamNeckCurve": 0
+            }
+          },
+          {
+            "name": "bottomX-24",
+            "parameters": {
+              "ParamNeckBottomX": -24,
+              "ParamNeckBottomY": 0,
+              "ParamNeckCurve": 0
+            }
+          },
+          {
+            "name": "bottomY+60",
+            "parameters": {
+              "ParamNeckBottomX": 0,
+              "ParamNeckBottomY": 60,
+              "ParamNeckCurve": 0
+            }
+          },
+          {
+            "name": "bottomY-60",
+            "parameters": {
+              "ParamNeckBottomX": 0,
+              "ParamNeckBottomY": -60,
+              "ParamNeckCurve": 0
+            }
+          },
+          {
+            "name": "curve+1",
+            "parameters": {
+              "ParamNeckBottomX": 0,
+              "ParamNeckBottomY": 0,
+              "ParamNeckCurve": 1
+            }
+          },
+          {
+            "name": "curve-1",
+            "parameters": {
+              "ParamNeckBottomX": 0,
+              "ParamNeckBottomY": 0,
+              "ParamNeckCurve": -1
+            }
+          },
+          {
+            "name": "combined",
+            "parameters": {
+              "ParamNeckBottomX": 24,
+              "ParamNeckBottomY": -60,
+              "ParamNeckCurve": 1
+            }
+          }
+        ],
+        "drawables": [
+          "ArtMeshNeck"
+        ]
+      }
+    },
+    {
+      "id": "raw_core_probe",
+      "argv": [
+        "{python}",
+        "tools/probe_cubism_core.py",
+        "--model",
+        "{run_abs}/export/neck-surface.model3.json",
+        "--poses",
+        "{run_abs}/neck-core-poses.json",
+        "--output",
+        "{run_abs}/raw-core-report.json",
+        "--drawables",
+        "ArtMeshNeck"
+      ],
+      "required_checks": {
+        "parameter_count": 3,
+        "drawable_count": 1,
+        "vertex_count": 63,
+        "index_count": 288,
+        "canvas_size": [
+          1254,
+          1254
+        ],
+        "canvas_origin": [
+          627,
+          627
+        ],
+        "pixels_per_unit": 1254,
+        "domains": {
+          "ParamNeckBottomX": [
+            -120,
+            120
+          ],
+          "ParamNeckBottomY": [
+            -120,
+            120
+          ],
+          "ParamNeckCurve": [
+            -1,
+            1
+          ]
+        },
+        "all_native_defaults": 0,
+        "axis_delta_formula": "t=clamp((sourceY-570)/18,0,1); w=t*t*(3-2*t); delta=[(w*bottomX+8*t*(1-t)*curve)/1254,w*bottomY/1254]",
+        "maximum_native_delta_error": 2e-07,
+        "reference": "Use vertexSourcePoints in the newly exported rig; neutral is the first probe pose. Current r2 MOC is byte-identical to r1; reject unexpected geometry MOC hash changes on this texture-only rebuild."
+      }
+    },
+    {
+      "id": "write_cmo_reader",
+      "operation": "write_new_text",
+      "path": "{run_abs}/NeckCmoReadback.java",
+      "content_key": "public_cmo_reader_source"
+    },
+    {
+      "id": "public_cmo_readback",
+      "argv": [
+        "{jdk}/bin/java.exe",
+        "-Djava.io.tmpdir={run_abs}/tmp",
+        "-Dpsd2live.agent.store={run_abs}/readback-store",
+        "-cp",
+        "{install}/app/*",
+        "{run_abs}/NeckCmoReadback.java",
+        "{run_abs}/export/neck-surface.cmo3"
+      ],
+      "stdout_new_file": "{run_abs}/public-cmo-readback.json",
+      "required": "exit0 and passed=true; params3, drawable1, deformers0, vertices63, triangles96, three axes,27 cells,126 delta floats per cell"
+    },
+    {
+      "id": "stage_isolated_candidate",
+      "operation": "copy_main_model_family_and_replace_auxiliary_component_only",
+      "source": "assets/live2d/whale-girl",
+      "destination": "{run_abs}/candidate/whale-girl",
+      "auxiliary_source": "{run_abs}/export",
+      "auxiliary_destination": "{run_abs}/candidate/whale-girl/neck-component",
+      "metadata_patch": {
+        "file": "whale-girl-layered-draft.psd2live.json",
+        "field": "runtimeNeckConnection.independentSurface",
+        "value": {
+          "model": "neck-component/neck-surface.model3.json",
+          "rig": "neck-component/neck-surface.rig.json",
+          "mocSha256": "SHA256 of newly exported neck-surface.moc3",
+          "rigSha256": "SHA256 of newly exported neck-surface.rig.json",
+          "atlasSha256": "SHA256 of newly exported texture_0.png"
+        }
+      },
+      "gates": [
+        "Preserve every other main model/atlas/mask/anchor/material/motion byte.",
+        "Patch only the fresh candidate metadata; never source or deployed metadata.",
+        "Main and auxiliary Core canvas/origin/PPU must match."
+      ]
+    },
+    {
+      "id": "capture_isolated_candidate",
+      "argv": [
+        "{python}",
+        "tools/review_neck.py",
+        "--model",
+        "{run_abs}/candidate/whale-girl/whale-girl-layered-draft.model3.json",
+        "--scenes",
+        "all"
+      ],
+      "outputs": "Tool creates a unique fresh review run automatically.",
+      "current_capture_scope": {
+        "diagnostic_poses": 16,
+        "authored_motion_keyposes": 67,
+        "exit_sequence_frames": 75,
+        "busy_sequence_frames": 195
+      },
+      "gates": [
+        "Native backend with isolated model override verified",
+        "input/exe/Core/tool hashes unchanged across capture",
+        "alpha borders clear and continuous-scene floor drift<=4px",
+        "visual neck continuity and standing collar occlusion remain pending human review"
+      ]
+    }
+  ],
+  "public_cmo_reader_source": "import io.github.psd2live.core.Cmo3ModelImport;\nimport org.umamo.runtime.model.*;\nimport java.nio.file.*;\nimport java.util.*;\npublic class NeckCmoReadback {\n public static void main(String[] args) throws Exception {\n  Path file=Path.of(args[0]);\n  PuppetModel model=Cmo3ModelImport.INSTANCE.read(Files.readAllBytes(file)).getPuppet();\n  if(model.getDrawables().size()!=1 || model.getParameters().size()!=3 || !model.getDeformers().isEmpty())throw new IllegalStateException(\"Incorrect editable CMO structure\");\n  Drawable d=model.getDrawables().getFirst();\n  if(d.getMesh().getVertexCount()!=63 || d.getMesh().getTriangleCount()!=96 || d.getGeometryGrid().getAxes().size()!=3 || d.getGeometryGrid().getCells().size()!=27)throw new IllegalStateException(\"CMO lost dense mesh or geometry grid\");\n  Set<String> axes=new HashSet<>();\n  for(var a:d.getGeometryGrid().getAxes()) {\n   var getter=Arrays.stream(a.getClass().getMethods()).filter(m->m.getName().startsWith(\"getParameterId-\")).findFirst().orElseThrow();\n   axes.add((String)getter.invoke(a));\n   if(a.getKeys().length!=3 || a.getKeys()[1]!=0)throw new IllegalStateException(\"CMO axes not neutral-centered\");\n  }\n  if(!axes.equals(Set.of(\"ParamNeckBottomX\",\"ParamNeckBottomY\",\"ParamNeckCurve\")))throw new IllegalStateException(\"CMO axes changed\");\n  for(var cell:d.getGeometryGrid().getCells()) {\n   Object form=cell.getForm();\n   var getter=form.getClass().getMethod(\"getPositionDeltas\");\n   if(((float[])getter.invoke(form)).length!=126)throw new IllegalStateException(\"CMO keyform has wrong topology\");\n  }\n  System.out.println(\"{\\\"passed\\\":true,\\\"kind\\\":\\\"public_cmo3_readback\\\",\\\"parameters\\\":3,\\\"drawables\\\":1,\\\"deformers\\\":0,\\\"vertices\\\":63,\\\"triangles\\\":96,\\\"geometry_axes\\\":3,\\\"geometry_cells\\\":27,\\\"each_keyform_float_count\\\":126,\\\"visual_approval\\\":\\\"unreviewed\\\"}\");\n }\n}\n",
+  "public_cmo_reader_sha256": "706d17524fdf7e055316dd125883ea5f32ed78a1b5cf7fc2e5c2db815113cb70",
+  "promotion_policy": "Engineering reports do not approve visible quality or adopt assets. Review 280px light/dark and neck crops, especially standing, seated lower corners, posture switching and exit. Keep visual/adoption pending until separately confirmed."
+}

@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-02",
+  "status": "seated_skin_connection_native_reviewed",
+  "independent_visual_review": {
+    "result": "passed_for_continuous_skin_connection",
+    "frames_viewed_contiguously": 123,
+    "busy_entry_frames": [
+      0,
+      35
+    ],
+    "busy_exit_frames": [
+      150,
+      185
+    ],
+    "turn_ended_frames": [
+      0,
+      50
+    ],
+    "checks": [
+      "warm skin touches jaw and V collar",
+      "no second fixed skin",
+      "no skin break",
+      "no sudden neck kink"
+    ],
+    "evidence": [
+      ".local/review-archive/diagnostics/seated-neck-fix/dense-entry.png",
+      ".local/review-archive/diagnostics/seated-neck-fix/dense-exit.png",
+      ".local/review-archive/diagnostics/seated-neck-fix/dense-reaction.png"
+    ]
+  },
+  "extends": "art/live2d/review/neck-ownership-fix-20261002.json",
+  "cause": "Sole grounding lowers the seated torso by approximately 24 source pixels, while the shared Face skin stays at its original length. Cloth padding hid transparency but did not connect skin to the seated collar.",
+  "fix": "Separate the original Face neck skin into one flexible surface. Cache Native UV barycentric anchors, hold sourceY570 at the main head, and place source(628,588) at the blend of grounded standing/seated collar anchors. Only the neck pass receives the affine UV-y displacement; main geometry is unchanged.",
+  "binding": {
+    "headSource": "face",
+    "standingSource": "topwear",
+    "seatedSource": "busy torso",
+    "headAnchor": [
+      628,
+      588
+    ],
+    "standingAnchor": [
+      628,
+      588
+    ],
+    "seatedAnchor": [
+      628,
+      588
+    ],
+    "stretchStartY": 570
+  },
+  "mask_ownership": {
+    "source": "face",
+    "drawable": "ArtMeshFace",
+    "mask_rule": "Complete neck_skin(face,589) contour guard intersected with source Y>=568; no narrow central rectangle.",
+    "main_erase_rule": "The same complete guard intersected with source Y>=570.",
+    "geometry": "Head anchor starts at Y=570; collar anchor at Y=588. Y=568..569 overlaps the jaw and follows the same head endpoint. The original dark tip to Y=591 is retained.",
+    "visible_pixel_count": 1011,
+    "source_bbox": [
+      555,
+      568,
+      682,
+      592
+    ],
+    "erased_from_main": {
+      "visible_pixel_count": 767,
+      "source_bbox": [
+        563,
+        570,
+        676,
+        592
+      ]
+    },
+    "validation": {
+      "source_pixels_above_y568_modified": 0,
+      "body_clothing_pixels_copied_to_neck": 0,
+      "neck_skin_erased_without_flexible_owner": 0,
+      "jaw_overlap_source_y": [
+        568,
+        570
+      ],
+      "jaw_overlap_visible_pixel_count": 244,
+      "original_warm_skin_pixel_count": 539,
+      "neck_tip_y591_visible_pixel_count": 3
+    }
+  },
+  "render_order": [
+    "hidden body cloth",
+    "standing collar (1-seatedMix)",
+    "one flexible neck (main Face opacity/colour)",
+    "main character"
+  ],
+  "main_and_body_safety": "Main Native state is read-only. Body Face vertices, colours, opacity and texture are restored after the isolated neck pass.",
+  "ctest": {
+    "passed": 8,
+    "failed": 0,
+    "log": ".local/review-archive/diagnostics/seated-neck-flexible/ctest.log",
+    "neck_specific_checks": [
+      "top stays attached",
+      "tip reaches collar",
+      "mirrored head/body/posture anchors",
+      "61-frame round trip without drift",
+      "neck triangles do not flip",
+      "main state unchanged"
+    ]
+  },
+  "native_regression_pose_count": 31,
+  "pose_manifest": ".local/review-archive/diagnostics/seated-neck-flexible/poses.json",
+  "sequence_frames": 270,
+  "sequences": {
+    "busy-laptop": {
+      "run": ".local/review-archive/sessions/busy-laptop-v2-20261002T152712Z-c48a1007",
+      "frames": 195,
+      "validation": {
+        "clip": "busy-laptop",
+        "revision": 2,
+        "sequence_frames": 195,
+        "native_poses": 6,
+        "alpha_border_failures": 0,
+        "floor_y_range": [
+          805,
+          806
+        ],
+        "floor_drift_pixels": 1,
+        "legibility": {
+          "window": 280,
+          "energy": 1.75,
+          "median": 0.777,
+          "p90": 2.744,
+          "peak": 18.248,
+          "still_ratio": 0.278
+        },
+        "metric_policy": "diagnostic_only; quiet holds do not fail approval",
+        "capture_scope": "native_model_and_thought_bubble"
+      },
+      "capture_scope": "native_model_and_thought_bubble"
+    },
+    "turn-ended-laptop": {
+      "run": ".local/review-archive/sessions/turn-ended-laptop-v9-20261002T152832Z-7af9f191",
+      "frames": 75,
+      "validation": {
+        "clip": "turn-ended-laptop",
+        "revision": 9,
+        "sequence_frames": 75,
+        "native_poses": 0,
+        "alpha_border_failures": 0,
+        "floor_y_range": [
+          806,
+          806
+        ],
+        "floor_drift_pixels": 0,
+        "legibility": {
+          "window": 280,
+          "energy": 2.134,
+          "median": 0.947,
+          "p90": 4.747,
+          "peak": 18.436,
+          "still_ratio": 0.135
+        },
+        "metric_policy": "diagnostic_only; quiet holds do not fail approval",
+        "capture_scope": "real_interaction_player_and_native_model",
+        "scene_contracts": {
+          "frames": 75,
+          "player_started": true,
+          "head_region_aligned": true,
+          "priority_and_release": "passed",
+          "scope": "real_interaction_player_and_native_model"
+        }
+      },
+      "capture_scope": "real_interaction_player_and_native_model"
+    }
+  },
+  "comparison": "art/live2d/review/seated-neck-connection-20261002.png",
+  "transition_preview": "art/live2d/review/seated-neck-transition-20261002.gif",
+  "unchanged_originals": {
+    "moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+  },
+  "motion_approvals": {
+    "busy-laptop": "approved",
+    "turn-ended": "pending",
+    "busy-stand": "pending",
+    "grass": "approved"
+  },
+  "limits": [
+    "Uses the existing triangular neck painting; a future PSD export should supply a dedicated neck mesh and completed hidden collar.",
+    "The existing two-body material crossfade can briefly show two collars/gems in the middle of the stand/sit transition.",
+    "Existing extreme head/hair raster seams remain outside this change.",
+    "Desktop deletion and physical Windows input were not part of this render regression."
+  ],
+  "sha256": {
+    "src/CubismCanvas.cpp": "5f1769d47d573b22dd89a16539cf4e008b9c9dbd6db7f3849c55982d85702a1d",
+    "src/CubismNeckBinding.h": "99480703793d3f0965be49bf2ac98b3c60951aecee29e66244e9d50160088326",
+    "src/CubismNeckBinding.cpp": "911b725eb7249b0f63d614dfe60418cb3dcbcc4d806f1b1e7a681b23b891725a",
+    "src/CubismMaterialTexture.cpp": "80777e265acce0cef9bbee112f52ba5fc0768a46d7497197548f8fd8dd5c1c75",
+    "tests/CubismNeckBindingTest.cpp": "c2a218d6baaf09c3c4726d27da7258b97b2ae26d009b0aae35b7ee2862ca117c",
+    "tests/CubismMaterialTextureTest.cpp": "7c1b37a139c95639fb9357a972e143398cb1b6fa84cdac4a25f88ea95f6b17d9",
+    "tools/prepare_material_ownership.py": "aadb4955149297a5ab44fb2538501cce1408d6ad2ef86bcc431704d7f068ecff",
+    "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+    "assets/live2d/whale-girl/material-ownership/ownership.json": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+    "build/DesktopCompanion.exe": "fef05f49a8dc7c3c4a58cd94ccdb0ea777684731170e7b9c7c673659e2d89273"
+  },
+  "cleanup_storage": {
+    "date": "2026-10-03",
+    "index": "art/live2d/review/cleanup-index-20261003.json",
+    "session_summaries": ".local/review-archive/sessions",
+    "original_build_diagnostics_archive": ".local/diagnostics/historical-build-20261003.zip",
+    "current_and_comparison_native_frames_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+    "provenance": "Original capture/input hashes preserved; only storage moved."
+  }
+}

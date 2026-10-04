@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "kind": "public_cmo3_readback",
+  "parameters": 3,
+  "drawables": 1,
+  "deformers": 0,
+  "vertices": 63,
+  "triangles": 96,
+  "geometry_axes": 3,
+  "geometry_cells": 27,
+  "each_keyform_float_count": 126,
+  "moc_sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8",
+  "cmo_sha256": "db51e0e6065786ebad687208a85f0a6e4b3a5ab4d38ae64bf2e30dbdfc1d4ed4",
+  "visual_approval": "pending"
+}

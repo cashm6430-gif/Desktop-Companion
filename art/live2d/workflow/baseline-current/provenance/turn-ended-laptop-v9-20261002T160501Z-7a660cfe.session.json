@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "clip": "turn-ended-laptop",
+  "motion_file": "turn-ended",
+  "review_revision": 9,
+  "motion_revision": 9,
+  "authored_approval": "pending",
+  "review_approval": "pending",
+  "capture_status": "complete",
+  "git_commit": "36c62ea3e70195eba8e7acaa4d564dceeadac90e",
+  "created_utc": "2026-10-02T16:05:01.462417+00:00",
+  "renderer_sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+  "cubism_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tools": {
+    "review_motion.py": "498b1b8be76664f887296ed6acd9897000a6ab39343eb10116172f066e3ec846",
+    "review_session.py": "7657d68dc1091b8fefa3feba7cebac7674b07cd43dc497498381e08f521f0c06",
+    "review_interactions.py": "843c38e5e1e1fc845446cb7bb15dfcb3c7e7b075d5f135571f29efc777e1efe4"
+  },
+  "fixed_step_seconds": 0.06666666666666667,
+  "frames_expected": 75,
+  "capture_scope": "real_interaction_player_and_native_model",
+  "not_captured": [
+    "physical Windows pointer routing",
+    "desktop icon flight overlay",
+    "fed-file wrap prop"
+  ],
+  "inputs": [
+    {
+      "path": "assets/live2d/whale-girl/hit-mask.png",
+      "source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+      "deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png",
+      "source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+      "deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-underpaint.png",
+      "source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+      "deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/duplicate-mask.png",
+      "source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+      "deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png",
+      "source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+      "deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-mask.png",
+      "source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+      "deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/ownership.json",
+      "source_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a",
+      "deployed_sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png",
+      "source_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+      "deployed_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json",
+      "source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+      "deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json",
+      "source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+      "deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json",
+      "source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+      "deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+      "source_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+      "deployed_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+      "source_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018",
+      "deployed_sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json",
+      "source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+      "deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json",
+      "source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+      "deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",
+      "source_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb",
+      "deployed_sha256": "ab61f8db2bcaec82c29b1770ea645d0c8c7ba8a9f9c3efa8106136a1be9557eb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json",
+      "source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+      "deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    {
+      "path": "assets/motions/busy-laptop.motion.json",
+      "source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+      "deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+    },
+    {
+      "path": "assets/motions/busy-stand.motion.json",
+      "source_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3",
+      "deployed_sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
+    },
+    {
+      "path": "assets/motions/delete.motion.json",
+      "source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+      "deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+    },
+    {
+      "path": "assets/motions/grass-touch.motion.json",
+      "source_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322",
+      "deployed_sha256": "268531e6986658ad69cb129b1deb401f00f301af51584cf6ad36ef75cdd74322"
+    },
+    {
+      "path": "assets/motions/grass.motion.json",
+      "source_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a",
+      "deployed_sha256": "9caf8d75f89082d99d14abbdaf49710a03086da3a2e239f2cec898258766bf7a"
+    },
+    {
+      "path": "assets/motions/head-pat.motion.json",
+      "source_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57",
+      "deployed_sha256": "4b6aa202c46d3967add688ef1af425e2a9bbfce088ccbf2fc10794c3bfb67e57"
+    },
+    {
+      "path": "assets/motions/idle.motion.json",
+      "source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+      "deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+    },
+    {
+      "path": "assets/motions/turn-ended.motion.json",
+      "source_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a",
+      "deployed_sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
+    }
+  ],
+  "human_checks": {
+    "intent_readable": "pending",
+    "contact_and_occlusion": "pending",
+    "expression": "pending",
+    "interrupt_and_response": "pending",
+    "comfortable_on_desktop": "pending"
+  },
+  "metric_policy": "Motion energy is diagnostic; a quiet hold is valid.",
+  "scenario": "turn-ended-laptop",
+  "validation": {
+    "clip": "turn-ended-laptop",
+    "revision": 9,
+    "sequence_frames": 75,
+    "native_poses": 0,
+    "alpha_border_failures": 0,
+    "floor_y_range": [
+      806,
+      806
+    ],
+    "floor_drift_pixels": 0,
+    "legibility": {
+      "window": 280,
+      "energy": 2.171,
+      "median": 0.947,
+      "p90": 4.747,
+      "peak": 18.999,
+      "still_ratio": 0.135
+    },
+    "metric_policy": "diagnostic_only; quiet holds do not fail approval",
+    "capture_scope": "real_interaction_player_and_native_model",
+    "scene_contracts": {
+      "frames": 75,
+      "player_started": true,
+      "head_region_aligned": true,
+      "priority_and_release": "passed",
+      "scope": "real_interaction_player_and_native_model"
+    }
+  },
+  "artifacts": {
+    "artifacts/scene-check.json": "1fcb3dbe0b42745d7f0a27bfbd350d472989a9c639b485b6de11e6b357574037",
+    "artifacts/scene.json": "db4bc38723d4e8e4e0ff13e2693c07a855daca38686c3aafe3ac4a2239a4ab87",
+    "artifacts/turn-ended-laptop-desktop-scale.png": "c58c567a0b13f6c9cd69e75b6e18b83c8659069bc6baca4f902c0311822e2ea8",
+    "artifacts/turn-ended-laptop-frames-v9.png": "b954804df75c7ee6e38cf3575aed53e9c89c2bf31572fcc46105d31af2415c10",
+    "artifacts/turn-ended-laptop-motion-v9.gif": "b73e30a08aef6010b29d1fe1dbdabe684779243dd93381856476e9a736589951"
+  }
+}

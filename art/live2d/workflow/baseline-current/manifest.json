@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "id": "whale-girl-current-native-baseline-20261003",
+  "created_utc": "2026-10-03T03:41:17.343673+00:00",
+  "purpose": "A small, handoff-ready baseline for neck/collar ownership, standing-seated material selection, grounded posture and seated glance/exit regression.",
+  "status": "current_engineering_regression_baseline",
+  "no_new_rendering_or_image_edits": true,
+  "image_count": 8,
+  "composite_image_count": 0,
+  "reference_composite_not_copied": "art/live2d/review/posture-material-switch-20261003.png",
+  "images": [
+    {
+      "file": "frames/standing.png",
+      "sha256": "3666a74ae11e772b1a751d46205e11706a8fd993b5182bc194e87c7c92bc0a02",
+      "bytes": 574091,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "站立基座：检查颈部、衣领、头身位置及地面",
+      "source_run": "busy-laptop-v2-20261002T160341Z-b556bf4d",
+      "source_session_sha256": "1d08cc62abddc3ed6490528bf10885037b44f07d9e851032488739021042b137",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/busy-laptop-v2-20261002T160341Z-b556bf4d/sequence/frame-000.png",
+      "source_member_crc32": "172132d4",
+      "source_file_sha256": "3666a74ae11e772b1a751d46205e11706a8fd993b5182bc194e87c7c92bc0a02",
+      "source_file_bytes_preserved": true,
+      "frame_index": 0,
+      "time_seconds": 0.0,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "native_model_and_thought_bubble",
+      "motion_approval": "approved",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "unknown_source_sequence_has_no_trace",
+      "parameter_excerpt_file": null,
+      "interaction_time_seconds": null,
+      "exact_static_pose_replay_supported": false
+    },
+    {
+      "file": "frames/sit-before-material-switch.png",
+      "sha256": "67721f7a306326acde034095d0b01e8af4384191e556daba964f5fcf9f5cd97b",
+      "bytes": 569782,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "入座切换前：深折膝，站姿材质，衣领连续",
+      "source_run": "busy-laptop-v2-20261002T160341Z-b556bf4d",
+      "source_session_sha256": "1d08cc62abddc3ed6490528bf10885037b44f07d9e851032488739021042b137",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/busy-laptop-v2-20261002T160341Z-b556bf4d/sequence/frame-007.png",
+      "source_member_crc32": "c1c7ff30",
+      "source_file_sha256": "67721f7a306326acde034095d0b01e8af4384191e556daba964f5fcf9f5cd97b",
+      "source_file_bytes_preserved": true,
+      "frame_index": 7,
+      "time_seconds": 0.4666666666666667,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "native_model_and_thought_bubble",
+      "motion_approval": "approved",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "unknown_source_sequence_has_no_trace",
+      "parameter_excerpt_file": null,
+      "interaction_time_seconds": null,
+      "exact_static_pose_replay_supported": false
+    },
+    {
+      "file": "frames/sit-after-material-switch.png",
+      "sha256": "11ec02dd5c0ea6924e632d1b94203b201e9337f5870610f1faf385eb69d8bbad",
+      "bytes": 591637,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "入座切换后：坐姿材质，单一衣领与蝴蝶结",
+      "source_run": "busy-laptop-v2-20261002T160341Z-b556bf4d",
+      "source_session_sha256": "1d08cc62abddc3ed6490528bf10885037b44f07d9e851032488739021042b137",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/busy-laptop-v2-20261002T160341Z-b556bf4d/sequence/frame-008.png",
+      "source_member_crc32": "8670e4e0",
+      "source_file_sha256": "11ec02dd5c0ea6924e632d1b94203b201e9337f5870610f1faf385eb69d8bbad",
+      "source_file_bytes_preserved": true,
+      "frame_index": 8,
+      "time_seconds": 0.5333333333333333,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "native_model_and_thought_bubble",
+      "motion_approval": "approved",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "unknown_source_sequence_has_no_trace",
+      "parameter_excerpt_file": null,
+      "interaction_time_seconds": null,
+      "exact_static_pose_replay_supported": false
+    },
+    {
+      "file": "frames/seated-working.png",
+      "sha256": "863bc6a476c3474d4842eef52f85dd6fb54115c314d0615f0d50bb7e26ee5ca1",
+      "bytes": 571566,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "坐稳工作：电脑、双手、颈部与衣领连接",
+      "source_run": "busy-laptop-v2-20261002T160341Z-b556bf4d",
+      "source_session_sha256": "1d08cc62abddc3ed6490528bf10885037b44f07d9e851032488739021042b137",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/busy-laptop-v2-20261002T160341Z-b556bf4d/sequence/frame-019.png",
+      "source_member_crc32": "6bb0fd12",
+      "source_file_sha256": "863bc6a476c3474d4842eef52f85dd6fb54115c314d0615f0d50bb7e26ee5ca1",
+      "source_file_bytes_preserved": true,
+      "frame_index": 19,
+      "time_seconds": 1.2666666666666666,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "native_model_and_thought_bubble",
+      "motion_approval": "approved",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "unknown_source_sequence_has_no_trace",
+      "parameter_excerpt_file": null,
+      "interaction_time_seconds": null,
+      "exact_static_pose_replay_supported": false
+    },
+    {
+      "file": "frames/seated-glance-hold.png",
+      "sha256": "e9db0ff8562a9aa4ef2d77bf2f5c9a703d8b51d25e03701258262ae6aaece70a",
+      "bytes": 576786,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "坐姿回望保持：颈部随转头连接，保留电脑与坐姿",
+      "source_run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "source_session_sha256": "22aad6bc89eefcad231ef7ac1ecc4a0286912d82b260dedea693295fcec4a905",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/turn-ended-laptop-v9-20261002T160501Z-7a660cfe/sequence/frame-019.png",
+      "source_member_crc32": "1f7102cd",
+      "source_file_sha256": "e9db0ff8562a9aa4ef2d77bf2f5c9a703d8b51d25e03701258262ae6aaece70a",
+      "source_file_bytes_preserved": true,
+      "frame_index": 19,
+      "time_seconds": 1.2666666666666666,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "real_interaction_player_and_native_model",
+      "motion_approval": "pending",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "known_existing_visual_issue": "The pending glance pose shows an existing sharp horizontal notch in the exported front-hair/antenna geometry. This frame records the current rig for regression; it does not accept that art defect or approve the motion.",
+      "parameter_status": "recorded_in_source_scene",
+      "parameter_excerpt_file": "scene-excerpt.json",
+      "parameter_excerpt_frame_index": 19,
+      "interaction": "turn-ended",
+      "interaction_time_seconds": 0.8666666666666666
+    },
+    {
+      "file": "frames/exit-before-material-switch.png",
+      "sha256": "01b7a738cd879e120e5b8c05c614bc26cdbf746b7b64595112c458075f01b3e7",
+      "bytes": 588077,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "收电脑后起身前：坐姿材质与柔性颈部",
+      "source_run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "source_session_sha256": "22aad6bc89eefcad231ef7ac1ecc4a0286912d82b260dedea693295fcec4a905",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/turn-ended-laptop-v9-20261002T160501Z-7a660cfe/sequence/frame-040.png",
+      "source_member_crc32": "f5273e2a",
+      "source_file_sha256": "01b7a738cd879e120e5b8c05c614bc26cdbf746b7b64595112c458075f01b3e7",
+      "source_file_bytes_preserved": true,
+      "frame_index": 40,
+      "time_seconds": 2.6666666666666665,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "real_interaction_player_and_native_model",
+      "motion_approval": "pending",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "recorded_in_source_scene",
+      "parameter_excerpt_file": "scene-excerpt.json",
+      "parameter_excerpt_frame_index": 40,
+      "interaction": "",
+      "interaction_time_seconds": 0
+    },
+    {
+      "file": "frames/exit-after-material-switch.png",
+      "sha256": "4bd308da510470b353d6408bb4b6af6c6a82d5a552a2e4cb44e0053fd7d9bd07",
+      "bytes": 568921,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "起身切换后：站姿材质、单一衣领，膝盖仍弯曲",
+      "source_run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "source_session_sha256": "22aad6bc89eefcad231ef7ac1ecc4a0286912d82b260dedea693295fcec4a905",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/turn-ended-laptop-v9-20261002T160501Z-7a660cfe/sequence/frame-041.png",
+      "source_member_crc32": "e746ec5e",
+      "source_file_sha256": "4bd308da510470b353d6408bb4b6af6c6a82d5a552a2e4cb44e0053fd7d9bd07",
+      "source_file_bytes_preserved": true,
+      "frame_index": 41,
+      "time_seconds": 2.7333333333333334,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "real_interaction_player_and_native_model",
+      "motion_approval": "pending",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "recorded_in_source_scene",
+      "parameter_excerpt_file": "scene-excerpt.json",
+      "parameter_excerpt_frame_index": 41,
+      "interaction": "",
+      "interaction_time_seconds": 0
+    },
+    {
+      "file": "frames/standing-after-exit.png",
+      "sha256": "973308f582aa530f80532a0914c3cc93ac0931fec9750dc031cdc82c84a645da",
+      "bytes": 573667,
+      "dimensions": [
+        840,
+        840
+      ],
+      "mode": "RGBA",
+      "kind": "original_native_capture",
+      "description": "退出完成后站立：电脑隐藏，身体回到站姿",
+      "source_run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "source_session_sha256": "22aad6bc89eefcad231ef7ac1ecc4a0286912d82b260dedea693295fcec4a905",
+      "source_archive": ".local/review-archive/captures/material-transition-20261003.zip",
+      "source_archive_member": "build/review-runs/turn-ended-laptop-v9-20261002T160501Z-7a660cfe/sequence/frame-074.png",
+      "source_member_crc32": "e7877021",
+      "source_file_sha256": "973308f582aa530f80532a0914c3cc93ac0931fec9750dc031cdc82c84a645da",
+      "source_file_bytes_preserved": true,
+      "frame_index": 74,
+      "time_seconds": 4.933333333333334,
+      "time_basis": "fixed simulation step, relative to captured sequence",
+      "capture_scope": "real_interaction_player_and_native_model",
+      "motion_approval": "pending",
+      "visual_status": "previously checked current Native runtime regression baseline; no new human motion approval",
+      "package_visual_check": "Original copied frame inspected; single collar/bow, connected neck skin and preserved floor contact.",
+      "parameter_status": "recorded_in_source_scene",
+      "parameter_excerpt_file": "scene-excerpt.json",
+      "parameter_excerpt_frame_index": 74,
+      "interaction": "",
+      "interaction_time_seconds": 0
+    }
+  ],
+  "source_sessions": {
+    "busy-laptop-v2-20261002T160341Z-b556bf4d": {
+      "original_session_path": ".local/review-archive/sessions/busy-laptop-v2-20261002T160341Z-b556bf4d/session.json",
+      "original_session_sha256": "1d08cc62abddc3ed6490528bf10885037b44f07d9e851032488739021042b137",
+      "local_session_copy": "provenance/busy-laptop-v2-20261002T160341Z-b556bf4d.session.json",
+      "original_run_directory": "build/review-runs/busy-laptop-v2-20261002T160341Z-b556bf4d",
+      "created_utc": "2026-10-02T16:03:41.307406+00:00",
+      "git_commit_at_capture": "36c62ea3e70195eba8e7acaa4d564dceeadac90e",
+      "renderer_sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+      "cubism_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "review_tools_at_capture": {
+        "review_motion.py": "498b1b8be76664f887296ed6acd9897000a6ab39343eb10116172f066e3ec846",
+        "review_session.py": "7657d68dc1091b8fefa3feba7cebac7674b07cd43dc497498381e08f521f0c06"
+      },
+      "capture_status": "complete",
+      "capture_scope": "native_model_and_thought_bubble",
+      "not_captured": [
+        "desktop icon flight overlay",
+        "fed-file wrap prop",
+        "input interaction",
+        "left/right event scene"
+      ],
+      "motion_file": "busy-laptop",
+      "motion_revision": 2,
+      "authored_motion_approval_at_capture": "approved",
+      "session_review_approval": "pending",
+      "fixed_step_seconds": 0.06666666666666667,
+      "frames_expected": 195
+    },
+    "turn-ended-laptop-v9-20261002T160501Z-7a660cfe": {
+      "original_session_path": ".local/review-archive/sessions/turn-ended-laptop-v9-20261002T160501Z-7a660cfe/session.json",
+      "original_session_sha256": "22aad6bc89eefcad231ef7ac1ecc4a0286912d82b260dedea693295fcec4a905",
+      "local_session_copy": "provenance/turn-ended-laptop-v9-20261002T160501Z-7a660cfe.session.json",
+      "original_run_directory": "build/review-runs/turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "created_utc": "2026-10-02T16:05:01.462417+00:00",
+      "git_commit_at_capture": "36c62ea3e70195eba8e7acaa4d564dceeadac90e",
+      "renderer_sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+      "cubism_core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "review_tools_at_capture": {
+        "review_motion.py": "498b1b8be76664f887296ed6acd9897000a6ab39343eb10116172f066e3ec846",
+        "review_session.py": "7657d68dc1091b8fefa3feba7cebac7674b07cd43dc497498381e08f521f0c06",
+        "review_interactions.py": "843c38e5e1e1fc845446cb7bb15dfcb3c7e7b075d5f135571f29efc777e1efe4"
+      },
+      "capture_status": "complete",
+      "capture_scope": "real_interaction_player_and_native_model",
+      "not_captured": [
+        "physical Windows pointer routing",
+        "desktop icon flight overlay",
+        "fed-file wrap prop"
+      ],
+      "motion_file": "turn-ended",
+      "motion_revision": 9,
+      "authored_motion_approval_at_capture": "pending",
+      "session_review_approval": "pending",
+      "fixed_step_seconds": 0.06666666666666667,
+      "frames_expected": 75
+    }
+  },
+  "source_archive": {
+    "path": ".local/review-archive/captures/material-transition-20261003.zip",
+    "sha256": "6d565ca0ad2e440d6bfee9c9a8ecaff991c50870d463b6cf65c7b92a068a0b48"
+  },
+  "current_renderer": {
+    "path": "build/DesktopCompanion.exe",
+    "sha256": "4911a30d41c2673cd438ff6d54f60f9400921b578cccd3085bf8a856575e6e75",
+    "matches_both_captured_renderers": true
+  },
+  "input_verification": {
+    "file": "input-hashes.json",
+    "sha256": "e1a634f38be0e839dfb7fde80b14d7c282026b76010d82327bfd91fd669eb52e",
+    "captured_inputs_per_run": 25,
+    "current_hash_matches_per_run": 24,
+    "all_captured_input_bytes_equal_current": false,
+    "difference": "Only head-pat approvedEvidence URLs were relocated; the exact original byte hash is reproducible by reversing those URLs.",
+    "model_and_selected_motion_bytes_match_captured": true,
+    "all_current_source_input_bytes_equal_deployed": true
+  },
+  "parameter_reference": {
+    "file": "parameter-reference.json",
+    "sha256": "65638a63b22dfded91073c956bab0c293ff5e6fe6fdaf1c4e8507d0843739f90",
+    "bytes": 17229
+  },
+  "scene_excerpt": {
+    "file": "scene-excerpt.json",
+    "sha256": "d63539e2eea40fdd57bcd4daf4568be62be6180c3d10cd2e7a1ab3d579abdc11",
+    "bytes": 12644
+  },
+  "motion_approval_status": {
+    "busy-laptop": {
+      "revision": 2,
+      "authored_approval": "approved"
+    },
+    "turn-ended": {
+      "revision": 9,
+      "authored_approval": "pending"
+    }
+  },
+  "visual_and_adoption_status": {
+    "evidence_report": "art/live2d/review/posture-material-switch-20261003.json",
+    "report_sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b",
+    "report_status": "runtime_material_transition_verified",
+    "scope": "The current material/neck runtime fix has prior Native engineering verification; this package reuses that evidence.",
+    "new_human_motion_approval": false,
+    "pending_turn_ended_is_not_approved_by_this_package": true,
+    "source_session_review_approval_is_preserved_as_pending": true
+  },
+  "acceptance_use": [
+    "Compare jaw-to-neck-to-collar contact in matching Native poses, including the entry 7/8 and exit 40/41 material boundary.",
+    "Confirm one body/collar/bow, unchanged sole floor and shared head geometry.",
+    "Use the recorded turn-ended scene samples for parameter/scene comparisons; use the full isolated Native review for new motion or interruption changes."
+  ],
+  "limitations": [
+    "Eight static snapshots cannot certify continuous motion, loop seams, interrupts or desktop comfort.",
+    "Busy sequence per-frame parameters are unknown in the saved source; do not substitute authored keyframe parameters or claim exact static replay.",
+    "OS pointer routing, desktop icon flight and file-wrap overlays are outside these Native captures.",
+    "The source input bytes are not all equal to current assets; the unrelated head-pat evidence URL difference is recorded and byte-hash proven.",
+    "Pending turn-ended revision 9 still needs its own human approval; selecting a frame here does not approve a motion.",
+    "The seated-glance-hold sample records an existing front-hair/antenna edge notch at head turn. Treat it as a known rig defect, not approved art quality."
+  ],
+  "size_limit_bytes": 5000000,
+  "package_bytes": 4711963,
+  "is_perfect_golden": false,
+  "known_issues": [
+    {
+      "id": "existing-hair-edge-notch-at-glance",
+      "scene": "turn-ended-laptop",
+      "source_run": "turn-ended-laptop-v9-20261002T160501Z-7a660cfe",
+      "sample_file": "frames/seated-glance-hold.png",
+      "frame_index": 19,
+      "scene_time_seconds": 1.2666666666666666,
+      "interaction_time_seconds": 0.8666666666666666,
+      "authored_keyframe_interval_seconds": [
+        0.8,
+        1.02
+      ],
+      "parts": [
+        "front-hair edge",
+        "antenna curl contour"
+      ],
+      "candidate_source_layers": [
+        "front hair",
+        "headwear"
+      ],
+      "candidate_drawables": [
+        "ArtMeshFrontHair",
+        "ArtMeshHeadwear"
+      ],
+      "attribution_status": "Visual localization; exact per-drawable ownership of the notch is not confirmed by this package.",
+      "observed": "An existing sharp horizontal edge/notch interrupts the antenna/front-hair contour near the top of the head while the seated glance turns horizontally. The original Native bytes intentionally retain this current-rig symptom.",
+      "observed_region_pixels_approx": [
+        326,
+        115,
+        487,
+        158
+      ],
+      "expected": "The antenna and hair outline remain continuous under the same head turn, without a hard horizontal cut or detached-looking strip.",
+      "recheck": "After changing head/front-hair/headwear meshes or binding, capture the real Native turn-ended-laptop scene and inspect frames 12 through 22 plus the mirrored look. At frame 19 recorded ParamAngleX=12.474447499997353, ParamAngleY=-0.63472818082342, ParamAngleZ=0.0025571954104893664; keep the one-neck/collar and seated laptop constraints intact.",
+      "not_adopted": true,
+      "adoption_scope": "This artifact is a current regression reference, not a perfect golden. The hair defect is not adopted as finished art; turn-ended revision 9 remains pending and receives no new approval."
+    }
+  ]
+}

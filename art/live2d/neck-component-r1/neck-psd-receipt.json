@@ -1,0 +1,16 @@
+{
+  "canvas": [
+    1254,
+    1254
+  ],
+  "layer_count": 1,
+  "layer_name": "neck",
+  "bbox": [
+    555,
+    562,
+    682,
+    598
+  ],
+  "decoded_full_RGBA_equals_authoring_PNG": true,
+  "psd_sha256": "77e20f767758950bf8670d8cadba1be581675af7709f21f59dd5aadae1fa17e3"
+}

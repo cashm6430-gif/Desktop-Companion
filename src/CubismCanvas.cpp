@@ -1,6 +1,10 @@
 #include <GL/glew.h>
 
 #include "CubismCanvas.h"
+#include "CubismMaterialBinding.h"
+#include "CubismMaterialTexture.h"
+#include "CubismNeckBinding.h"
+#include "CubismPostureTransition.h"
 
 #include <CubismFramework.hpp>
 #include <Id/CubismId.hpp>
@@ -8,6 +12,7 @@
 #include <Math/CubismMatrix44.hpp>
 #include <Math/CubismModelMatrix.hpp>
 #include <Model/CubismModel.hpp>
+#include <Model/CubismModelMultiplyAndScreenColor.hpp>
 #include <Model/CubismUserModel.hpp>
 #include <Live2DCubismCore.hpp>
 #include <Physics/CubismPhysics.hpp>
@@ -15,8 +20,10 @@
 #include <Rendering/OpenGL/CubismRenderer_OpenGLES2.hpp>
 
 #include <QCoreApplication>
+#include <QCryptographicHash>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QImage>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -80,13 +87,36 @@ Csm::csmByte* loadShaderBytes(const std::string path, Csm::csmSizeInt* outSize) 
     return result;
 }
 void releaseShaderBytes(Csm::csmByte* bytes) { delete[] bytes; }
+
+bool alignDrawable(Live2D::Cubism::Core::csmModel* model, int drawable,
+                   const CubismPostureTransition::FloorPinnedTransform& transform) {
+    auto* vertices = const_cast<Live2D::Cubism::Core::csmVector2*>(
+        Live2D::Cubism::Core::csmGetDrawableVertexPositions(model)[drawable]);
+    const int count = Live2D::Cubism::Core::csmGetDrawableVertexCounts(model)[drawable];
+    for (int i = 0; i < count; ++i) {
+        CubismPostureTransition::Point point;
+        if (!transform.apply({vertices[i].X, vertices[i].Y}, &point)) return false;
+        vertices[i].X = static_cast<float>(point.x);
+        vertices[i].Y = static_cast<float>(point.y);
+    }
+    return true;
+}
 }
 
 struct CubismCanvas::Impl {
     CubismAllocator allocator;
     Csm::CubismFramework::Option frameworkOption{};
     std::unique_ptr<PetCubismModel> model;
+    std::unique_ptr<PetCubismModel> bodyModel;
+    std::unique_ptr<PetCubismModel> neckModel;
+    CubismMaterialBinding materialBinding;
+    CubismNeckBinding neckBinding;
     std::vector<GLuint> textures;
+    std::vector<GLuint> bodyTextures;
+    std::vector<GLuint> neckTextures;
+    GLuint bodyUnderpaintTexture = 0;
+    GLuint neckTexture = 0;
+    int bodyTextureIndex = -1;
     QHash<QString, int> parameterIndices;
     std::vector<int> standingFeet;
     std::vector<int> seatedFeet;
@@ -106,8 +136,12 @@ struct CubismCanvas::Impl {
     // instead of sole-to-sole, so the soles sit ~64 px above the standing
     // shoes; they are shifted onto the standing floor each frame.
     std::vector<int> seatedMeshes;
+    std::vector<int> standingMeshes;
     float standingFloor = 0;
     bool frameworkStarted = false;
+    bool rawExportReview = false;
+
+    bool hasNeck() const { return neckTexture != 0 || neckModel != nullptr; }
 
     float footFloor(const std::vector<int>& feet) const {
         float floor = std::numeric_limits<float>::infinity();
@@ -125,6 +159,18 @@ struct CubismCanvas::Impl {
         for (size_t i = 0; i < textures.size(); ++i)
             renderer->BindTexture(static_cast<Csm::csmUint32>(i), textures[i]);
         renderer->IsPremultipliedAlpha(true);
+        if (bodyModel) {
+            auto* bodyRenderer = bodyModel->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
+            for (size_t i = 0; i < bodyTextures.size(); ++i)
+                bodyRenderer->BindTexture(static_cast<Csm::csmUint32>(i), bodyTextures[i]);
+            bodyRenderer->IsPremultipliedAlpha(true);
+        }
+        if (neckModel) {
+            auto* neckRenderer = neckModel->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
+            for (size_t i = 0; i < neckTextures.size(); ++i)
+                neckRenderer->BindTexture(static_cast<Csm::csmUint32>(i), neckTextures[i]);
+            neckRenderer->IsPremultipliedAlpha(true);
+        }
     }
 };
 
@@ -142,8 +188,18 @@ CubismCanvas::CubismCanvas(const ParameterMotion* motion, QWidget* parent)
 CubismCanvas::~CubismCanvas() {
     if (context()) makeCurrent();
     impl_->model.reset();
+    impl_->bodyModel.reset();
+    impl_->neckModel.reset();
     if (!impl_->textures.empty())
         glDeleteTextures(static_cast<GLsizei>(impl_->textures.size()), impl_->textures.data());
+    if (!impl_->bodyTextures.empty())
+        glDeleteTextures(static_cast<GLsizei>(impl_->bodyTextures.size()), impl_->bodyTextures.data());
+    if (!impl_->neckTextures.empty())
+        glDeleteTextures(static_cast<GLsizei>(impl_->neckTextures.size()), impl_->neckTextures.data());
+    if (impl_->bodyUnderpaintTexture)
+        glDeleteTextures(1, &impl_->bodyUnderpaintTexture);
+    if (impl_->neckTexture)
+        glDeleteTextures(1, &impl_->neckTexture);
     if (impl_->frameworkStarted) {
         Csm::CubismFramework::Dispose();
         Csm::CubismFramework::CleanUp();
@@ -188,9 +244,15 @@ void CubismCanvas::initializeGL() {
     impl_->frameworkStarted = true;
     Csm::CubismFramework::Initialize();
 
-    const QString directory = QDir(QCoreApplication::applicationDirPath()).filePath(
-        QStringLiteral("assets/live2d/whale-girl"));
-    const QString settingsPath = QDir(directory).filePath(QStringLiteral("whale-girl-layered-draft.model3.json"));
+    const QString reviewModel = QCoreApplication::instance()->property(
+        "desktopCompanionReviewModelPath").toString();
+    const QString settingsPath = reviewModel.isEmpty()
+        ? QDir(QCoreApplication::applicationDirPath()).filePath(
+            QStringLiteral("assets/live2d/whale-girl/whale-girl-layered-draft.model3.json"))
+        : reviewModel;
+    const QString directory = QFileInfo(settingsPath).absolutePath();
+    impl_->rawExportReview = QCoreApplication::instance()->property(
+        "desktopCompanionReviewRawExport").toBool();
     const auto settings = QJsonDocument::fromJson(readFile(settingsPath));
     const QJsonObject refs = settings.object().value(QStringLiteral("FileReferences")).toObject();
     const QString mocName = refs.value(QStringLiteral("Moc")).toString();
@@ -227,19 +289,92 @@ void CubismCanvas::initializeGL() {
             impl_->gapeDrawable = i;
     }
 
+    QString metadataName = QFileInfo(settingsPath).fileName();
+    metadataName.chop(QStringLiteral("model3.json").size());
+    metadataName += QStringLiteral("psd2live.json");
+    const auto metadata = impl_->rawExportReview ? QJsonDocument(QJsonObject{})
+        : QJsonDocument::fromJson(readFile(QDir(directory).filePath(metadataName)));
+    const QJsonObject separation = metadata.object().value(QStringLiteral("runtimeMaterialSeparation")).toObject();
     const QJsonArray textures = refs.value(QStringLiteral("Textures")).toArray();
     if (textures.isEmpty()) {
         error_ = QStringLiteral("Cubism texture list is empty");
         return;
     }
-    for (const QJsonValue& entry : textures) {
-        const QImage image = QImage(QDir(directory).filePath(entry.toString()))
-                                 .convertToFormat(QImage::Format_RGBA8888_Premultiplied);
-        if (image.isNull()) {
-            error_ = QStringLiteral("Cubism texture is missing: %1").arg(entry.toString());
+    int bodyTextureIndex = -1;
+    QImage bodyMask, duplicateMask, underpaint, neckMask, neckEraseMask;
+    const bool connectNeck = metadata.object().contains(QStringLiteral("runtimeNeckConnection"));
+    const auto independentNeck = metadata.object().value(QStringLiteral("runtimeNeckConnection")).toObject()
+        .value(QStringLiteral("independentSurface")).toObject();
+    QJsonObject ownership;
+    const auto verifiedBytes = [&](const QByteArray& bytes, const char* hashKey) {
+        const auto expected = ownership.value(QString::fromLatin1(hashKey)).toString().toLatin1();
+        return !bytes.isEmpty() && expected.size() == 64
+            && QCryptographicHash::hash(bytes, QCryptographicHash::Sha256).toHex() == expected;
+    };
+    if (metadata.object().contains(QStringLiteral("runtimeMaterialSeparation"))) {
+        bodyTextureIndex = separation.value(QStringLiteral("textureIndex")).toInt(-1);
+        if (bodyTextureIndex < 0 || bodyTextureIndex >= textures.size()
+            || separation.value(QStringLiteral("textureIndex")).toDouble(-1) != bodyTextureIndex) {
+            error_ = QStringLiteral("Material separation texture index is invalid");
             return;
         }
-        GLuint texture = 0;
+        ownership = QJsonDocument::fromJson(readFile(QDir(directory).filePath(
+            separation.value(QStringLiteral("ownership")).toString()))).object();
+        const QByteArray bodyMaskBytes = readFile(QDir(directory).filePath(
+            separation.value(QStringLiteral("bodyMask")).toString()));
+        const QByteArray duplicateMaskBytes = readFile(QDir(directory).filePath(
+            separation.value(QStringLiteral("duplicateMask")).toString()));
+        const QByteArray underpaintBytes = readFile(QDir(directory).filePath(
+            separation.value(QStringLiteral("underpaint")).toString()));
+        if (!verifiedBytes(moc, "moc_sha256")
+            || !verifiedBytes(bodyMaskBytes, "body_mask_sha256")
+            || !verifiedBytes(duplicateMaskBytes, "duplicate_mask_sha256")
+            || !verifiedBytes(underpaintBytes, "underpaint_sha256")) {
+            error_ = QStringLiteral("Material ownership masks do not match the current model");
+            return;
+        }
+        bodyMask = QImage::fromData(bodyMaskBytes);
+        duplicateMask = QImage::fromData(duplicateMaskBytes);
+        underpaint = QImage::fromData(underpaintBytes).convertToFormat(QImage::Format_RGBA8888_Premultiplied);
+        impl_->bodyTextureIndex = bodyTextureIndex;
+        impl_->bodyModel = std::make_unique<PetCubismModel>();
+        impl_->bodyModel->LoadModel(reinterpret_cast<const Csm::csmByte*>(moc.constData()),
+                                   static_cast<Csm::csmSizeInt>(moc.size()));
+        if (!impl_->bodyModel->GetModel()
+            || !impl_->materialBinding.configure(model->GetModel(),
+                impl_->bodyModel->GetModel()->GetModel(), metadata.object(), &error_)) {
+            if (error_.isEmpty()) error_ = QStringLiteral("Could not load body material reference");
+            return;
+        }
+        if (Live2D::Cubism::Core::csmGetDrawableTextureIndices(model->GetModel())[
+                impl_->materialBinding.bodyDrawableIndex()] != bodyTextureIndex) {
+            error_ = QStringLiteral("Body material drawable uses a different atlas page");
+            return;
+        }
+        if (connectNeck) {
+            const QByteArray neckBytes = readFile(QDir(directory).filePath(
+                separation.value(QStringLiteral("neckMask")).toString()));
+            const QByteArray neckEraseBytes = readFile(QDir(directory).filePath(
+                separation.value(QStringLiteral("neckEraseMask")).toString()));
+            if (!verifiedBytes(neckBytes, "neck_mask_sha256")
+                || !verifiedBytes(neckEraseBytes, "neck_erase_mask_sha256")) {
+                error_ = QStringLiteral("Neck ownership masks do not match the current model");
+                return;
+            }
+            neckMask = QImage::fromData(neckBytes);
+            neckEraseMask = QImage::fromData(neckEraseBytes);
+            if (!impl_->neckBinding.configure(model->GetModel(), metadata.object(), ownership, &error_)) return;
+            if (impl_->neckBinding.faceDrawableIndex() != impl_->materialBinding.bodyDrawableIndex()) {
+                error_ = QStringLiteral("Neck and body material references must use the same Face drawable");
+                return;
+            }
+        }
+    } else if (connectNeck) {
+        error_ = QStringLiteral("Neck connection requires separated body materials");
+        return;
+    }
+    const auto upload = [](const QImage& image) {
+        GLuint texture;
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -249,12 +384,94 @@ void CubismCanvas::initializeGL() {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0,
                      GL_RGBA, GL_UNSIGNED_BYTE, image.constBits());
         glGenerateMipmap(GL_TEXTURE_2D);
-        impl_->textures.push_back(texture);
+        return texture;
+    };
+    for (int textureIndex = 0; textureIndex < textures.size(); ++textureIndex) {
+        const QString path = textures[textureIndex].toString();
+        const QByteArray textureBytes = readFile(QDir(directory).filePath(path));
+        QImage image = QImage::fromData(textureBytes);
+        if (image.isNull()) {
+            error_ = QStringLiteral("Cubism texture is missing: %1").arg(path);
+            return;
+        }
+        QImage clothing;
+        if (textureIndex == bodyTextureIndex) {
+            if (!verifiedBytes(textureBytes, "atlas_sha256")) {
+                error_ = QStringLiteral("Material ownership masks do not match the current atlas");
+                return;
+            }
+            if (underpaint.isNull() || underpaint.size() != image.size()) {
+                error_ = QStringLiteral("Hidden clothing underpaint must match the current atlas dimensions");
+                return;
+            }
+            const QImage originalAtlas = image;
+            if (!splitCubismMaterialTexture(image, bodyMask, duplicateMask, &image, &clothing, &error_)) return;
+            if (connectNeck) {
+                QImage neck;
+                if (!splitCubismNeckTexture(originalAtlas, neckMask, neckEraseMask, &image, &neck, &error_)) return;
+                if (independentNeck.isEmpty()) impl_->neckTexture = upload(neck);
+            }
+            impl_->bodyUnderpaintTexture = upload(underpaint);
+        } else {
+            image = image.convertToFormat(QImage::Format_RGBA8888_Premultiplied);
+            if (impl_->bodyModel) {
+                clothing = QImage(image.size(), QImage::Format_RGBA8888_Premultiplied);
+                clothing.fill(Qt::transparent);
+            }
+        }
+        impl_->textures.push_back(upload(image));
+        if (impl_->bodyModel) impl_->bodyTextures.push_back(upload(clothing));
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+    if (!independentNeck.isEmpty()) {
+        if (!connectNeck || !impl_->bodyModel) {
+            error_ = QStringLiteral("Independent neck requires the existing exclusive skin ownership masks");
+            return;
+        }
+        const QString neckSettingsPath = QDir(directory).filePath(independentNeck.value(QStringLiteral("model")).toString());
+        const QString neckDirectory = QFileInfo(neckSettingsPath).absolutePath();
+        const auto neckSettings = QJsonDocument::fromJson(readFile(neckSettingsPath)).object();
+        const auto neckRefs = neckSettings.value(QStringLiteral("FileReferences")).toObject();
+        const auto neckMoc = readFile(QDir(neckDirectory).filePath(neckRefs.value(QStringLiteral("Moc")).toString()));
+        const auto rigBytes = readFile(QDir(directory).filePath(independentNeck.value(QStringLiteral("rig")).toString()));
+        const auto matches = [&](const QByteArray& bytes, const char* key) {
+            const auto expected = independentNeck.value(QString::fromLatin1(key)).toString().toLatin1();
+            return !bytes.isEmpty() && expected.size() == 64
+                && QCryptographicHash::hash(bytes, QCryptographicHash::Sha256).toHex() == expected;
+        };
+        if (!matches(neckMoc, "mocSha256") || !matches(rigBytes, "rigSha256")) {
+            error_ = QStringLiteral("Independent neck MOC or rig does not match the declared component");
+            return;
+        }
+        impl_->neckModel = std::make_unique<PetCubismModel>();
+        impl_->neckModel->LoadModel(reinterpret_cast<const Csm::csmByte*>(neckMoc.constData()),
+                                    static_cast<Csm::csmSizeInt>(neckMoc.size()), true);
+        if (!impl_->neckModel->GetModel()) {
+            error_ = QStringLiteral("Cubism Core rejected the independent neck MOC");
+            return;
+        }
+        if (!impl_->neckBinding.configureSurface(impl_->neckModel->GetModel()->GetModel(),
+                QJsonDocument::fromJson(rigBytes).object(), &error_)) return;
+        const auto neckTextureRefs = neckRefs.value(QStringLiteral("Textures")).toArray();
+        if (neckTextureRefs.size() != 1) {
+            error_ = QStringLiteral("Independent neck must use exactly one atlas page");
+            return;
+        }
+        const auto bytes = readFile(QDir(neckDirectory).filePath(neckTextureRefs[0].toString()));
+        const auto texture = QImage::fromData(bytes).convertToFormat(QImage::Format_RGBA8888_Premultiplied);
+        if (!matches(bytes, "atlasSha256") || texture.isNull()) {
+            error_ = QStringLiteral("Independent neck atlas does not match its component");
+            return;
+        }
+        impl_->neckTextures.push_back(upload(texture));
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
     impl_->model->GetModelMatrix()->SetHeight(1.90f);
-    const auto metadata = QJsonDocument::fromJson(readFile(QDir(directory).filePath(
-        QStringLiteral("whale-girl-layered-draft.psd2live.json"))));
+    const int bodyPart = model->GetPartIndex(Csm::CubismFramework::GetIdManager()->GetId("PartBody"));
+    const auto* parentParts = Live2D::Cubism::Core::csmGetDrawableParentPartIndices(model->GetModel());
+    for (int index = 0; index < model->GetDrawableCount(); ++index) {
+        if (bodyPart >= 0 && parentParts[index] == bodyPart) impl_->standingMeshes.push_back(index);
+    }
     for (const auto& layer : metadata.object().value(QStringLiteral("layers")).toArray()) {
         const auto entry = layer.toObject();
         const auto source = entry.value(QStringLiteral("source")).toString();
@@ -292,6 +509,12 @@ void CubismCanvas::initializeGL() {
     impl_->standingFloor = impl_->footFloor(impl_->standingFeet);
     impl_->model->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
                                  static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+    if (impl_->bodyModel)
+        impl_->bodyModel->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
+                                        static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+    if (impl_->neckModel)
+        impl_->neckModel->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
+                                        static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
     impl_->bindTextures();
     ready_ = true;
     emit readyChanged(true);
@@ -301,6 +524,12 @@ void CubismCanvas::resizeGL(int width, int height) {
     if (!ready_ || !impl_->model || width <= 0 || height <= 0) return;
     impl_->model->CreateRenderer(static_cast<Csm::csmUint32>(width),
                                  static_cast<Csm::csmUint32>(height));
+    if (impl_->bodyModel)
+        impl_->bodyModel->CreateRenderer(static_cast<Csm::csmUint32>(width),
+                                        static_cast<Csm::csmUint32>(height));
+    if (impl_->neckModel)
+        impl_->neckModel->CreateRenderer(static_cast<Csm::csmUint32>(width),
+                                        static_cast<Csm::csmUint32>(height));
     impl_->bindTextures();
 }
 
@@ -318,21 +547,35 @@ void CubismCanvas::paintGL() {
 
     auto* model = impl_->model->GetModel();
     model->LoadParameters();
-    // Cross-fade the two painted bodies instead of swapping them on one frame:
-    // the seated art is ~21 px shorter than the crouched standing body, so a
-    // hard swap always read as a single snapping frame. ParamBusyLaptop drives
-    // the seated drawables' opacity, so fading it in fades the art in too.
-    // Smoothstep keeps the half-and-half overlap brief: two stacked silhouettes
-    // read as ghosting, so get through the middle quickly.
-    const double fade = std::clamp(
-        (motion_->values().value(QStringLiteral("ParamBusyLaptop")) - 0.74) / 0.19, 0.0, 1.0);
-    const double seatedMix = fade * fade * (3.0 - 2.0 * fade);
-    const double sitProgress = std::clamp(motion_->values().value(QStringLiteral("ParamSitPose")) / 0.9, 0.0, 1.0);
-    // Finish most of the knee bend before the material changes, including on
-    // the first frame of unfolding. This keeps the shared head's height close
-    // across the two painted silhouettes while the soles remain grounded.
-    const double standingFold = (0.93 * sitProgress * sitProgress * (3.0 - 2.0 * sitProgress))
-        * (1.0 - seatedMix) + seatedMix;
+    if (impl_->rawExportReview) {
+        for (auto it = motion_->values().cbegin(); it != motion_->values().cend(); ++it) {
+            const auto index = impl_->parameterIndices.constFind(it.key());
+            if (index != impl_->parameterIndices.cend())
+                model->SetParameterValue(*index, static_cast<float>(it.value()));
+        }
+        frameSeconds_ = 0.0;
+        model->Update();
+        headHitPath_ = QPainterPath();
+        grassTipHitPath_ = QPainterPath();
+        Csm::CubismMatrix44 rawMatrix;
+        rawMatrix.MultiplyByMatrix(impl_->model->GetModelMatrix());
+        auto* renderer = impl_->model->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
+        renderer->SetMvpMatrix(&rawMatrix);
+        auto* offscreen = Csm::Rendering::CubismOffscreenManager_OpenGLES2::GetInstance();
+        offscreen->BeginFrameProcess();
+        renderer->DrawModel();
+        offscreen->EndFrameProcess();
+        return;
+    }
+    // The pose remains continuous, but the two painted bodies are exclusive.
+    // After grounding, their collars are aligned to the same moving target;
+    // selecting the material there avoids both ghosting and a collar jump.
+    const auto posture = CubismPostureTransition::sample(
+        motion_->values().value(QStringLiteral("ParamBusyLaptop")),
+        motion_->values().value(QStringLiteral("ParamSitPose")));
+    if (!posture.valid) return;
+    const double seatedMix = posture.seatedMix;
+    const double seatedMaterial = posture.nativeMaterial();
     // MouthOpenY only ever shapes the bite art while its switch is on (or the
     // open-smile art, its legacy consumer). Two failure modes live on this
     // parameter, both fixed at the single write site:
@@ -353,8 +596,8 @@ void CubismCanvas::paintGL() {
         const auto index = impl_->parameterIndices.constFind(it.key());
         if (index == impl_->parameterIndices.cend()) continue;
         float value = static_cast<float>(it.value());
-        if (it.key() == QStringLiteral("ParamBusyLaptop")) value = static_cast<float>(seatedMix);
-        else if (it.key() == QStringLiteral("ParamSitPose")) value = static_cast<float>(standingFold);
+        if (it.key() == QStringLiteral("ParamBusyLaptop")) value = static_cast<float>(seatedMaterial);
+        else if (it.key() == QStringLiteral("ParamSitPose")) value = static_cast<float>(posture.standingFold);
         else if (it.key() == QStringLiteral("ParamMouthOpenY")) {
             if (gapeOn) value = 1.0f;
             else if (!smileArtOn) value = 0.0f;
@@ -378,8 +621,9 @@ void CubismCanvas::paintGL() {
     // the laptop has its own native visibility parameter. Existing grip/grass
     // tracks stay intact; head, hair and tail are shared by both poses.
     model->SetPartOpacity(Csm::CubismFramework::GetIdManager()->GetId("PartBody"),
-        static_cast<float>(1.0 - seatedMix));
+        static_cast<float>(1.0 - seatedMaterial));
     model->Update();
+    impl_->materialBinding.apply();
     // The bite art's switch-opacity keyforms never made it into the exported
     // moc3 (the layer stays fully opaque no matter what ParamMouthGape says),
     // so gate its visibility here instead: Core keeps the live per-drawable
@@ -396,10 +640,11 @@ void CubismCanvas::paintGL() {
     // registered chin-to-head so its soles float higher still. Cancel the knee
     // lift with the model transform, then bring only the seated meshes down onto
     // the same floor. Both silhouettes then keep ground contact all the way
-    // through the cross-fade; shifting the whole model instead pulled one of
+    // through the posture change; shifting the whole model instead pulled one of
     // them off the desktop, and dropping the transform let the shoes float.
     const float standingFoot = impl_->footFloor(impl_->standingFeet);
     const float seatedFoot = impl_->footFloor(impl_->seatedFeet);
+    CubismPostureTransition::FloorPinnedTransform bodyClothTransform;
     Csm::CubismMatrix44 matrix;
     matrix.MultiplyByMatrix(impl_->model->GetModelMatrix());
     if (std::isfinite(standingFoot) && std::isfinite(seatedFoot)
@@ -418,6 +663,43 @@ void CubismCanvas::paintGL() {
             const int count = model->GetDrawableVertexCount(index);
             for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
         }
+    }
+    if (impl_->hasNeck()) {
+        std::array<double, 2> standing{}, seated{};
+        CubismPostureTransition::Point target;
+        const bool anchorsReady = impl_->neckBinding.collarPositions(&standing, &seated, &error_)
+            && CubismPostureTransition::collarTarget({standing[0], standing[1]},
+                {seated[0], seated[1]}, seatedMix, &target);
+        const CubismPostureTransition::FloorPinnedTransform standingTransform{
+            {standing[0], standing[1]}, target, standingFoot};
+        const CubismPostureTransition::FloorPinnedTransform seatedTransform{
+            {seated[0], seated[1]}, target, standingFoot};
+        bodyClothTransform = standingTransform;
+        bool aligned = anchorsReady && standingTransform.valid() && seatedTransform.valid();
+        if (aligned) {
+            // Each group's affine map pins its sole and reaches the common
+            // collar exactly. Shared head/hair/tail geometry stays untouched.
+            for (int index : impl_->standingMeshes)
+                aligned = alignDrawable(model->GetModel(), index, standingTransform) && aligned;
+            for (int index : impl_->seatedMeshes)
+                aligned = alignDrawable(model->GetModel(), index, seatedTransform) && aligned;
+        }
+        if (!aligned) {
+            if (error_.isEmpty()) error_ = QStringLiteral("Posture collar alignment is invalid");
+            qWarning() << "Posture connection:" << error_;
+            ready_ = false;
+            emit readyChanged(false);
+            return;
+        }
+    }
+    // Resolve the neck after floor and collar alignment. Its top remains on
+    // the main head; its tip follows the exclusively visible collar. Both
+    // materials already meet the continuous target before selection.
+    if (impl_->hasNeck() && !impl_->neckBinding.update(seatedMaterial, &error_)) {
+        qWarning() << "Neck connection:" << error_;
+        ready_ = false;
+        emit readyChanged(false);
+        return;
     }
     // Input geometry is captured after Update and after grounding, at the
     // exact pose that is about to be rendered. Front hair extends below the
@@ -525,6 +807,107 @@ void CubismCanvas::paintGL() {
     renderer->SetMvpMatrix(&matrix);
     auto* offscreen = Csm::Rendering::CubismOffscreenManager_OpenGLES2::GetInstance();
     offscreen->BeginFrameProcess();
+    if (impl_->bodyModel) {
+        // Cloth hidden by the original jaw must also exist when the head
+        // turns. This pass contains navy fabric only, never a second neck,
+        // and stays behind the head in both standing and seated postures.
+        auto* body = impl_->bodyModel->GetModel();
+        auto* opacities = const_cast<float*>(Live2D::Cubism::Core::csmGetDrawableOpacities(body->GetModel()));
+        const int cloth = impl_->materialBinding.bodyDrawableIndex();
+        for (int index = 0; index < body->GetDrawableCount(); ++index)
+            opacities[index] = index == cloth ? 1.0f : 0.0f;
+        auto* bodyRenderer = impl_->bodyModel->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
+        bodyRenderer->SetMvpMatrix(&matrix);
+        bodyRenderer->BindTexture(impl_->bodyTextureIndex, impl_->bodyUnderpaintTexture);
+        bodyRenderer->DrawModel();
+        if (impl_->neckModel) {
+            // Skin sits above the hidden navy backing and below both visible
+            // collars. The independent MOC's own keyforms provide the bend;
+            // attach their deltas to the main Native jaw for this draw only.
+            auto* neck = impl_->neckModel->GetModel();
+            const int surface = impl_->neckBinding.surfaceDrawableIndex();
+            auto* vertices = const_cast<Core::csmVector2*>(neck->GetDrawableVertexPositions(surface));
+            const auto& positions = impl_->neckBinding.positions();
+            const std::vector<Core::csmVector2> saved(vertices, vertices + positions.size());
+            std::copy(positions.begin(), positions.end(), vertices);
+            auto& colors = neck->GetOverrideMultiplyAndScreenColor();
+            const auto& headColors = model->GetOverrideMultiplyAndScreenColor();
+            const int face = impl_->neckBinding.faceDrawableIndex();
+            const auto multiply = colors.GetDrawableMultiplyColor(surface);
+            const auto screen = colors.GetDrawableScreenColor(surface);
+            const bool multiplyEnabled = colors.GetDrawableMultiplyColorEnabled(surface);
+            const bool screenEnabled = colors.GetDrawableScreenColorEnabled(surface);
+            auto* neckOpacities = const_cast<float*>(Core::csmGetDrawableOpacities(neck->GetModel()));
+            const float opacity = neckOpacities[surface];
+            neckOpacities[surface] = model->GetDrawableOpacity(face);
+            colors.SetDrawableMultiplyColor(surface, headColors.GetDrawableMultiplyColor(face));
+            colors.SetDrawableScreenColor(surface, headColors.GetDrawableScreenColor(face));
+            colors.SetDrawableMultiplyColorEnabled(surface, true);
+            colors.SetDrawableScreenColorEnabled(surface, true);
+            auto* neckRenderer = impl_->neckModel->GetRenderer<Csm::Rendering::CubismRenderer_OpenGLES2>();
+            neckRenderer->SetMvpMatrix(&matrix);
+            neckRenderer->DrawModel();
+            std::copy(saved.begin(), saved.end(), vertices);
+            neckOpacities[surface] = opacity;
+            colors.SetDrawableMultiplyColor(surface, multiply);
+            colors.SetDrawableScreenColor(surface, screen);
+            colors.SetDrawableMultiplyColorEnabled(surface, multiplyEnabled);
+            colors.SetDrawableScreenColorEnabled(surface, screenEnabled);
+        }
+        // The transferred standing collar switches with the standing posture;
+        // the seated torso supplies its own visible collar above the padding.
+        opacities[cloth] = static_cast<float>(1.0 - seatedMaterial);
+        bodyRenderer->BindTexture(impl_->bodyTextureIndex, impl_->bodyTextures[impl_->bodyTextureIndex]);
+        // The hidden navy support must still cover the shared jaw boundary.
+        // Align only the visible standing collar, then restore the reference
+        // vertices before drawing the independently attached neck surface.
+        using CorePosition = Live2D::Cubism::Core::csmVector2;
+        auto* clothVertices = const_cast<CorePosition*>(
+            Live2D::Cubism::Core::csmGetDrawableVertexPositions(body->GetModel())[cloth]);
+        std::vector<CorePosition> savedClothVertices;
+        if (impl_->hasNeck() && !posture.seatedMaterial) {
+            savedClothVertices.assign(clothVertices, clothVertices + body->GetDrawableVertexCount(cloth));
+            if (!alignDrawable(body->GetModel(), cloth, bodyClothTransform)) {
+                std::copy(savedClothVertices.begin(), savedClothVertices.end(), clothVertices);
+                qWarning() << "Standing collar alignment failed";
+                offscreen->EndFrameProcess();
+                return;
+            }
+        }
+        bodyRenderer->DrawModel();
+        if (!savedClothVertices.empty())
+            std::copy(savedClothVertices.begin(), savedClothVertices.end(), clothVertices);
+        if (impl_->neckTexture && !impl_->neckModel) {
+            // Reuse the Face topology for a skin-only pass. The sparse mesh's
+            // affine UV deformation affects only the isolated neck texture;
+            // the visible face, eyes and hair keep their original geometry.
+            auto* vertices = const_cast<CorePosition*>(
+                Live2D::Cubism::Core::csmGetDrawableVertexPositions(body->GetModel())[cloth]);
+            const auto& neckPositions = impl_->neckBinding.positions();
+            const std::vector<CorePosition> savedVertices(vertices, vertices + neckPositions.size());
+            std::copy(neckPositions.begin(), neckPositions.end(), vertices);
+            auto& colors = body->GetOverrideMultiplyAndScreenColor();
+            const auto savedMultiply = colors.GetDrawableMultiplyColor(cloth);
+            const auto savedScreen = colors.GetDrawableScreenColor(cloth);
+            const auto multiplyEnabled = colors.GetDrawableMultiplyColorEnabled(cloth);
+            const auto screenEnabled = colors.GetDrawableScreenColorEnabled(cloth);
+            const auto& headColors = model->GetOverrideMultiplyAndScreenColor();
+            colors.SetDrawableMultiplyColor(cloth, headColors.GetDrawableMultiplyColor(cloth));
+            colors.SetDrawableScreenColor(cloth, headColors.GetDrawableScreenColor(cloth));
+            colors.SetDrawableMultiplyColorEnabled(cloth, true);
+            colors.SetDrawableScreenColorEnabled(cloth, true);
+            opacities[cloth] = model->GetDrawableOpacity(cloth);
+            bodyRenderer->BindTexture(impl_->bodyTextureIndex, impl_->neckTexture);
+            bodyRenderer->DrawModel();
+            std::copy(savedVertices.begin(), savedVertices.end(), vertices);
+            colors.SetDrawableMultiplyColor(cloth, savedMultiply);
+            colors.SetDrawableScreenColor(cloth, savedScreen);
+            colors.SetDrawableMultiplyColorEnabled(cloth, multiplyEnabled);
+            colors.SetDrawableScreenColorEnabled(cloth, screenEnabled);
+            opacities[cloth] = static_cast<float>(1.0 - seatedMix);
+            bodyRenderer->BindTexture(impl_->bodyTextureIndex, impl_->bodyTextures[impl_->bodyTextureIndex]);
+        }
+    }
     renderer->DrawModel();
     offscreen->EndFrameProcess();
 }

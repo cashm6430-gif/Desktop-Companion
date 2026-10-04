@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "purpose": "Text-readable authoring policy, not a visual capability certificate. Native ranges and existing approved motions alone never establish an axis effect.",
+  "limitations": [
+    "No independent tail-joint parameter is currently documented; do not invent a tail capability from its drawable name.",
+    "Palm/back-of-hand turns and large shoulder lifts require appropriate artwork and independent contact/occlusion review.",
+    "The seated sleeves have typing/rock controls; standing arm controls cannot be assumed to lift seated hands.",
+    "Current posture transition chooses two painted bodies and aligns collar/neck geometry; it is not a complete anatomical stand/sit rig.",
+    "This policy does not approve new expressions, parameter combinations, motion revisions, or model changes.",
+    "Historical axis reports below have no complete model-input binding. They remain references, not current measured capabilities."
+  ],
+  "channels": {
+    "head_pose": {
+      "current_writers": ["ParameterMotion::advance idle/state curves", "ParameterMotion::applyInteraction short reactions", "CubismCanvas::paintGL Native write and head/body ownership"],
+      "posture_constraints": ["Short reactions may own this head channel plus the explicitly allowed silhouette channels; preserve standing/seated support and held props."]
+    },
+    "body_pose": {
+      "current_writers": ["ParameterMotion::advance idle/state curves", "ParameterMotion::applyInteraction allowed BodyAngleX/BodyAngleZ silhouette channels", "CubismCanvas::paintGL Native write and posture grounding"],
+      "posture_constraints": ["Short reactions may own BodyAngleX and BodyAngleZ; BodyAngleY is not allowed and Breath is reserved for the idle base.", "Full posture/held-prop/arm support remains owned by the activity; allowed silhouette axes do not authorize support changes."]
+    },
+    "gaze": {
+      "current_writers": ["ParameterMotion::advance authored gaze", "ParameterMotion::applyInteraction short reactions", "ParameterMotion grass hold look input", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["Gaze does not prove eye art, occlusion, or contact correctness at combined head extremes."]
+    },
+    "eyelid_expression": {
+      "current_writers": ["ParameterMotion::advance expression blend then procedural blink", "ParameterMotion::applyInteraction short reactions", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["Blink multiplies the blended authored eye expression; do not implement a competing blink writer."]
+    },
+    "mouth": {
+      "current_writers": ["ParameterMotion::advance authored curves and releases", "ParameterMotion::applyInteraction whitelisted face channels", "CubismCanvas::paintGL binary mouth gating and drawable opacity patch"],
+      "posture_constraints": ["Mouth selectors and opening controls are coupled by the current renderer; direct Native writes bypass this contract."]
+    },
+    "arm_pose": {
+      "current_writers": ["ParameterMotion::advance state curves and seated arm hold", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["Standing arm rig and seated sleeve/hand art are different controls.", "Arm channels are reserved from short reactions; do not move held props with a short-reaction overlay."]
+    },
+    "grass_prop": {
+      "current_writers": ["ParameterMotion::advance grass clip or interaction phase", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["Use the grass player enter/hold/respond/timeout/release contract.", "Keep palm grip and visibility in agreement; a grip value is not a measured grass-root contact distance."]
+    },
+    "grass_flex": {
+      "current_writers": ["ParameterMotion::advance authored flex target", "ParameterMotion::updateGrassFlex spring lag/rebound", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["The spring player owns final flex values; do not add a second final-value writer.", "Grass root must remain fixed at the palm; geometric contact is separately measured."]
+    },
+    "hair_secondary": {
+      "current_writers": ["ParameterMotion::advance authored hair accent", "ParameterMotion::applyInteraction allowed hair silhouette channels", "CubismCanvas physics evaluation", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["Short reactions may own HairFront/HairBack according to the extracted whitelist.", "Authored curves and Native physics share this channel; effective output depends on physics order and freeze mode."]
+    },
+    "seated_posture": {
+      "current_writers": ["ParameterMotion::advance busy-laptop and put-away", "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold", "CubismCanvas::paintGL CubismPostureTransition/material/collar/neck resolution"],
+      "posture_constraints": ["Do not independently animate posture/material drivers during a short face reaction.", "Ground and collar alignment are runtime constraints, not unrestricted vertical travel."]
+    },
+    "laptop_prop": {
+      "current_writers": ["ParameterMotion::advance busy-laptop visibility and typing", "ParameterMotion::captureInteractionSeat/applyInteraction seated support hold", "CubismCanvas::paintGL Native write"],
+      "posture_constraints": ["Valid only with the matching seated torso/sleeve/hand art; standalone prop movement is unmeasured."]
+    },
+    "root_translation": {
+      "current_writers": ["ParameterMotion::advance authored state motion", "ParameterMotion::applyInteraction allowed ShiftX silhouette channel", "CubismCanvas::paintGL Native shift/ground resolution"],
+      "posture_constraints": ["Short reactions may own ShiftX; ShiftY remains reserved and policy-blocked.", "Window position is separate from model displacement; the current grounded renderer cancels model Y travel."]
+    },
+    "disabled": {
+      "current_writers": [],
+      "posture_constraints": ["Do not author this parameter until a model-bound probe and the current validator allow it."]
+    }
+  },
+  "evidence": {
+    "historical_inert_axis_report": {
+      "kind": "historical_code_report",
+      "scope": "The asset validator records earlier zero-pixel eyebrow probes and blocks the grounded Y axis. This is an enforcement source, not a fresh visual measurement.",
+      "model_inputs": null,
+      "sources": [{"path": "tools/validate_live2d_assets.py", "sha256": "fea67461328a26a94577abb289f7cadc7a6c86c025ab3cceef95322efc3f6ef8"}]
+    },
+    "historical_posture_geometry_report": {
+      "kind": "historical_native_geometry_report",
+      "scope": "Recorded posture/material/collar/neck verification on 2026-10-03; does not establish arbitrary axis combinations, visible effect of each individual axis, or new visual approval.",
+      "model_inputs": null,
+      "sources": [{"path": "art/live2d/review/posture-material-switch-20261003.json", "sha256": "0f82897e5216b17b540f9d8c2a195db528710555a071eda974ed27a72f5d739b"}]
+    }
+  },
+  "parameters": {
+    "ParamAngleX": {"purpose": "Head horizontal angle; use measured small reactions before exploring combined extremes.", "recommended_channel": "head_pose"},
+    "ParamAngleY": {"purpose": "Head vertical angle, looking up/down.", "recommended_channel": "head_pose"},
+    "ParamAngleZ": {"purpose": "Head tilt and short-reaction directional tilt.", "recommended_channel": "head_pose"},
+    "ParamBodyAngleX": {"purpose": "Body horizontal pose angle; support and silhouette are separate from head gaze.", "recommended_channel": "body_pose"},
+    "ParamBodyAngleY": {"purpose": "Body vertical pose angle.", "recommended_channel": "body_pose", "current_writers": ["ParameterMotion::advance idle/state curves", "CubismCanvas::paintGL Native write"], "posture_constraints": ["Not allowed in the current short-reaction whitelist."]},
+    "ParamBodyAngleZ": {"purpose": "Body lean/roll for full-body accents.", "recommended_channel": "body_pose"},
+    "ParamEyeLOpen": {"purpose": "Left eyelid expression, multiplied by procedural blink.", "recommended_channel": "eyelid_expression"},
+    "ParamEyeROpen": {"purpose": "Right eyelid expression, multiplied by procedural blink.", "recommended_channel": "eyelid_expression"},
+    "ParamEyeSmile": {"purpose": "Smile-eye material/shape driver; review with eye-open controls.", "recommended_channel": "eyelid_expression"},
+    "ParamEyeBallX": {"purpose": "Horizontal gaze; grass hover and head pat may own its offset.", "recommended_channel": "gaze"},
+    "ParamEyeBallY": {"purpose": "Vertical gaze.", "recommended_channel": "gaze"},
+    "ParamEyeBallForm": {"purpose": "Declared jelly-eye axis; eye-jelly physics disabled in current metadata and no current visible-effect probe.", "recommended_channel": "disabled", "prohibited_reasons": ["Current authoring policy excludes the unverified jelly-eye axis."]},
+    "ParamBrowLY": {"purpose": "Declared left eyebrow Y; earlier validator reports no drawn/keyed eyebrow effect.", "recommended_channel": "disabled", "current_writers": ["ParameterMotion::advance zero skeleton", "CubismCanvas::paintGL Native write"], "posture_constraints": ["The reaction whitelist contains this name, but the asset validator still prohibits authoring it."], "evidence": ["historical_inert_axis_report"]},
+    "ParamBrowRY": {"purpose": "Declared right eyebrow Y; earlier validator reports no drawn/keyed eyebrow effect.", "recommended_channel": "disabled", "current_writers": ["ParameterMotion::advance zero skeleton", "CubismCanvas::paintGL Native write"], "posture_constraints": ["The reaction whitelist contains this name, but the asset validator still prohibits authoring it."], "evidence": ["historical_inert_axis_report"]},
+    "ParamMouthForm": {"purpose": "Opening shape when selected mouth art is visible.", "recommended_channel": "mouth", "posture_constraints": ["A closed-mouth probe alone cannot establish this shape axis's effect."]},
+    "ParamMouthOpenY": {"purpose": "Mouth opening driver subject to Native mouth selector gating.", "recommended_channel": "mouth", "posture_constraints": ["Gape forces fully open MY; closed selectors force MY=0 to suppress a ghost grin."]},
+    "ParamSmileOpen": {"purpose": "Select resting omega or open-smile art; do not use it as a third gape state.", "recommended_channel": "mouth"},
+    "ParamMouthGape": {
+      "purpose": "Neutral bite-mouth selector; renderer quantizes it and patches drawable opacity.",
+      "recommended_channel": "mouth",
+      "runtime_input_domain": {"type": "logical_selector", "min": 0, "max": 1, "native_range_is_authoring_domain": false},
+      "resolution_contract": {
+        "kind": "threshold_and_post_update_opacity_patch",
+        "source": "src/CubismCanvas.cpp",
+        "threshold": 0.5,
+        "native_write": {"off": 0, "on": 1, "sdk_may_clamp_to_native_range": true},
+        "post_update_drawable_opacity": {"off": 0, "on": 1},
+        "maps_to_native_1_2": false,
+        "prohibited_operation": "Do not clamp MotionClip/ParameterMotion logical values to MOC min=1; this would make every pose appear gape-on."
+      },
+      "posture_constraints": ["Logical 0/1 selector is a runtime contract; Native range alone does not establish correct art visibility."]
+    },
+    "ParamCheek": {"purpose": "Cheek puff/accent for chewing or short expressions.", "recommended_channel": "mouth"},
+    "ParamBreath": {"purpose": "Idle breathing base shared across states.", "recommended_channel": "body_pose", "current_writers": ["ParameterMotion::advance idle base breathing curve", "CubismCanvas::paintGL Native write"]},
+    "ParamHairFront": {"purpose": "Front-hair secondary motion/accent.", "recommended_channel": "hair_secondary"},
+    "ParamHairBack": {"purpose": "Back-hair secondary motion/accent.", "recommended_channel": "hair_secondary"},
+    "ParamArmLA": {"purpose": "Standing left shoulder/arm pose; not a seated typing-hand lift control.", "recommended_channel": "arm_pose"},
+    "ParamArmRA": {"purpose": "Standing right shoulder/arm pose, including grass hand.", "recommended_channel": "arm_pose"},
+    "ParamElbowLA": {"purpose": "Standing left elbow bend.", "recommended_channel": "arm_pose"},
+    "ParamElbowRA": {"purpose": "Standing right elbow bend.", "recommended_channel": "arm_pose"},
+    "ParamWristRA": {"purpose": "Right wrist planar angle; does not establish palm/back-of-hand turning.", "recommended_channel": "arm_pose"},
+    "ParamHandRGrip": {"purpose": "Complementary open/gripping right-hand art selector.", "recommended_channel": "grass_prop"},
+    "ParamGrassVisible": {"purpose": "Held grass art visibility.", "recommended_channel": "grass_prop"},
+    "ParamGrassReach": {"purpose": "Authored right-hand/grass forward perspective; not unrestricted 3D reach.", "recommended_channel": "grass_prop"},
+    "ParamGrassSwing": {"purpose": "Grass stem bending from authored target and spring lag.", "recommended_channel": "grass_flex"},
+    "ParamGrassTipBend": {"purpose": "Grass tip bending relative to the stem with lag and rebound.", "recommended_channel": "grass_flex"},
+    "ParamBusyLaptop": {
+      "purpose": "Standing/seated painted-body transition driver.",
+      "recommended_channel": "seated_posture",
+      "runtime_input_domain": {"type": "continuous_driver", "min": 0, "max": 1, "native_range_is_authoring_domain": false},
+      "resolution_contract": {
+        "kind": "coupled_posture_and_exclusive_body_material",
+        "source": "src/CubismPostureTransition.h",
+        "seated_mix": "smoothstep(clamp((rawBusyLaptop - 0.74) / 0.19, 0, 1))",
+        "native_write": "seated_mix >= 0.5 ? 1 : 0",
+        "dependencies": ["ParamSitPose"],
+        "effects": ["exclusive standing/seated body material", "collar interpolation", "floor-pinned body transform", "single neck-skin connection"]
+      },
+      "evidence": ["historical_posture_geometry_report"]
+    },
+    "ParamSitPose": {
+      "purpose": "Standing knee-fold driver resolved together with ground/material/collar constraints.",
+      "recommended_channel": "seated_posture",
+      "runtime_input_domain": {"type": "continuous_driver", "min": 0, "max": 1, "native_range_is_authoring_domain": false},
+      "resolution_contract": {
+        "kind": "coupled_standing_fold",
+        "source": "src/CubismPostureTransition.h",
+        "native_write": "0.93 * smoothstep(clamp(rawSitPose / 0.9, 0, 1)) * (1 - seated_mix) + seated_mix",
+        "dependencies": ["ParamBusyLaptop"],
+        "grounding": "CubismCanvas resolves floor/collar/neck after Native model update; this is not an unrestricted root-Y axis."
+      },
+      "evidence": ["historical_posture_geometry_report"]
+    },
+    "ParamLaptopVisible": {"purpose": "Laptop lid/base visibility after seated support is established.", "recommended_channel": "laptop_prop"},
+    "ParamBusyTypingL": {"purpose": "Small left seated sleeve/hand typing deformation.", "recommended_channel": "laptop_prop"},
+    "ParamBusyTypingR": {"purpose": "Small right seated sleeve/hand typing deformation.", "recommended_channel": "laptop_prop"},
+    "ParamLaptopRock": {"purpose": "Shared laptop/supporting hand rock.", "recommended_channel": "laptop_prop"},
+    "ParamShiftX": {"purpose": "Model-relative horizontal shift inside the pet window; window movement is separate.", "recommended_channel": "root_translation"},
+    "ParamShiftY": {"purpose": "Declared model-relative vertical shift cancelled by current ground contract.", "recommended_channel": "disabled", "current_writers": ["ParameterMotion::advance zero skeleton", "CubismCanvas::paintGL ground resolution cancels vertical travel"], "evidence": ["historical_inert_axis_report"]}
+  }
+}

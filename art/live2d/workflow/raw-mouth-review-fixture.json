@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "isolated_raw_mouth_diagnostic",
+  "revision": 1,
+  "approval": "pending",
+  "adoption": "not_requested",
+  "description": "Raw Native mouth gating diagnostic, independent of neck acceptance. ParamMouthGape uses the actual current Native 1..2 range. No runtime mouth correction or physics is applied.",
+  "neck_crop_normalized": [0.37, 0.34, 0.28, 0.19],
+  "keyframes": [
+    {"name":"native-closed","phase":"mouth-diagnostic","parameters":{"ParamSmileOpen":0,"ParamMouthGape":1,"ParamMouthOpenY":0}},
+    {"name":"native-smile-open","phase":"mouth-diagnostic","parameters":{"ParamSmileOpen":1,"ParamMouthGape":1,"ParamMouthOpenY":0}},
+    {"name":"native-gape-open","phase":"mouth-diagnostic","parameters":{"ParamSmileOpen":0,"ParamMouthGape":2,"ParamMouthOpenY":0}},
+    {"name":"native-mouth-shape","phase":"mouth-diagnostic","parameters":{"ParamSmileOpen":1,"ParamMouthGape":1,"ParamMouthOpenY":1}}
+  ]
+}
