@@ -1,0 +1,3781 @@
+{
+  "schema_version": 1,
+  "kind": "actual_original_busy_warm_hand_return_geometry",
+  "adopted": false,
+  "source_pins": {
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\geometry\\support-ground-arms-r7-handoff-plan.json": "08bd4558f4eb08b1677be8aae239ca526a0fd26f9b6f5d45195ba9f6a05b6d5f",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\ground-handoff-busy-left-r2b\\busy-left-bridge-fragment.json": "18697e43b4befda9de603115180e2152aaf865150c515f27e8553586deeccc88",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\edited.cmo3": "28c17ac41fbda59b4e730f277fdd95de902beefa581f38f653b9c36f6d4f0ef5",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\edited.moc3": "a1202a0ad631f0b1b7b25e37efca6615367fed8bdcceb0b0bbaec5ae602eb5df",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_01.png": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_02.png": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_03.png": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_04.png": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_05.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-complete-20261005T020741Z-17f3fa95\\export\\texture_06.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+  },
+  "generator_sha256": "d603d7cb7915264edb78bcad33b9312e852f517c406a7f3e85b17c0edc31cece",
+  "plan_sha256": "e810d5ab0378406cdc967f657d1aab2493215aebf9788a370cd57bf6a429d952",
+  "busy_wrist_anchor": {
+    "drawable": "ArtMeshObjects3",
+    "source_xy": [
+      379.0,
+      764.0
+    ],
+    "triangle": 28,
+    "vertices": [
+      41,
+      20,
+      19
+    ],
+    "weights": [
+      0.1861400171064136,
+      0.5933347876536209,
+      0.22052519523996544
+    ],
+    "virtual_opening_center": false,
+    "minimum_weight": 0.1861400171064136,
+    "source_page": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+    "source_png_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+    "source_pixel_alpha": 253,
+    "requested_source_xy": [
+      379.0,
+      764.0
+    ],
+    "selection": "Nearest opaque warm wrist pixel in fixed source ROI, then original mesh barycentric registration."
+  },
+  "busy_hand_forward_anchor": {
+    "drawable": "ArtMeshObjects3",
+    "source_xy": [
+      379.0,
+      782.0
+    ],
+    "triangle": 25,
+    "vertices": [
+      22,
+      21,
+      41
+    ],
+    "weights": [
+      0.5403689453214803,
+      0.061504667361426305,
+      0.3981263873170933
+    ],
+    "virtual_opening_center": false,
+    "minimum_weight": 0.061504667361426305,
+    "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+    "source_png_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+    "source_pixel_rgba": [
+      253,
+      232,
+      217,
+      254
+    ],
+    "meaning": "Opaque warm hand distal anchor, 18 source pixels beyond original wrist."
+  },
+  "ground_wrist_real_TypingL_Rock_driver": true,
+  "source_domain": "Existing parent-local DeformBodyZBreath; same original source drawing UVs and ordered seven PNG pages.",
+  "unchanged": [
+    "all legs and parents",
+    "all opacity channels",
+    "all existing parts",
+    "all mesh UV/index/base arrays",
+    "all original PNG bytes",
+    "right hand trajectory",
+    "protected Sit0 forms"
+  ],
+  "mesh_proofs": [
+    {
+      "id": "ArtMeshGroundUpperarmL",
+      "kind": "upper",
+      "vertices": 41,
+      "triangles": 45,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 12960,
+      "protected_Sit0_delta_bits_copied": true,
+      "opacity_UV_page_part_and_base_unchanged": true,
+      "maximum_f32_forward_error_source_px": 4.3095236264889536e-05,
+      "minimum_local_interval_area_ratio": 0.23398078978061676,
+      "longitudinal_stretch_or_palm_scale_range": [
+        0.5354709736697687,
+        1.8172077006724607
+      ],
+      "neutral_body_Arm0_return_keys": [
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88476668415615,
+            790.5332739028446
+          ],
+          "wrist": [
+            377.80549578724214,
+            890.4906115099777
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847476158391,
+            790.5332844291054
+          ],
+          "wrist": [
+            377.80548809602396,
+            890.4906217038017
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847442918125,
+            790.5332603743666
+          ],
+          "wrist": [
+            377.80548874534765,
+            890.4905975329622
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88474045125946,
+            790.5332733339535
+          ],
+          "wrist": [
+            377.80548438908136,
+            890.4906105076182
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88477998694657,
+            790.5332324262806
+          ],
+          "wrist": [
+            377.80548466254413,
+            890.490570747176
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88475991891687,
+            790.5332674181612
+          ],
+          "wrist": [
+            377.8054896688009,
+            890.4906050063951
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004934641294,
+            783.9999676829627
+          ],
+          "wrist": [
+            379.00001007674894,
+            883.999967682955
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99999344675297,
+            783.9999678187346
+          ],
+          "wrist": [
+            378.9999995481065,
+            883.9999678187344
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997151563434,
+            783.9999677520906
+          ],
+          "wrist": [
+            379.0000007637569,
+            883.9999677520863
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999802943625,
+            783.9999553130625
+          ],
+          "wrist": [
+            378.9999992079799,
+            883.9999553130607
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000319093886,
+            783.9999566374491
+          ],
+          "wrist": [
+            379.00000020130017,
+            883.9999566374491
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037842013,
+            783.9999761007895
+          ],
+          "wrist": [
+            379.00000289952436,
+            883.9999761007895
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443166839984,
+            777.6323421827104
+          ],
+          "wrist": [
+            380.4061694126079,
+            877.5861798336848
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443226706593,
+            777.6323200204577
+          ],
+          "wrist": [
+            380.4061647986778,
+            877.5861573492211
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443199093234,
+            777.6323263026923
+          ],
+          "wrist": [
+            380.40616450541273,
+            877.5861637064743
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44433808248243,
+            777.6323034730293
+          ],
+          "wrist": [
+            380.40616262824364,
+            877.5861402673678
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.444340827477,
+            777.6323380927447
+          ],
+          "wrist": [
+            380.40616214731506,
+            877.5861747890287
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443430955636,
+            777.632332938817
+          ],
+          "wrist": [
+            380.4061680103617,
+            877.5861697443726
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8722970422317,
+            789.4956625947785
+          ],
+          "wrist": [
+            377.8054957872421,
+            889.4526350635476
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228871600115,
+            789.4956463897577
+          ],
+          "wrist": [
+            377.80548809602396,
+            889.4526188398926
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227281796834,
+            789.4956399671321
+          ],
+          "wrist": [
+            377.8054887453477,
+            889.4526119316897
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227300389037,
+            789.495634315435
+          ],
+          "wrist": [
+            377.80548438908136,
+            889.4526064132822
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87230322405895,
+            789.4956566009109
+          ],
+          "wrist": [
+            377.80548466254413,
+            889.4526295775319
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228982744006,
+            789.4956516549187
+          ],
+          "wrist": [
+            377.8054896688009,
+            889.4526240915159
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004951401974,
+            782.962005201133
+          ],
+          "wrist": [
+            379.00001007674905,
+            882.9620052011253
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999934207233,
+            782.9619927213266
+          ],
+          "wrist": [
+            378.99999954810653,
+            882.9619927213264
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997139081313,
+            782.9619793687448
+          ],
+          "wrist": [
+            379.0000007637568,
+            882.9619793687405
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99998021365616,
+            782.9619677629726
+          ],
+          "wrist": [
+            378.99999920797995,
+            882.9619677629707
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000320369514,
+            782.9619709546303
+          ],
+          "wrist": [
+            379.00000020130017,
+            882.9619709546303
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037879763,
+            782.9619951859104
+          ],
+          "wrist": [
+            379.00000289952436,
+            882.9619951859104
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495577538509,
+            776.5489632166122
+          ],
+          "wrist": [
+            380.4061694126079,
+            876.5026414250922
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495613137649,
+            776.5489369140959
+          ],
+          "wrist": [
+            380.40616479867776,
+            876.5026148736985
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495566899355,
+            776.5489109036877
+          ],
+          "wrist": [
+            380.40616450541273,
+            876.5025889951476
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44958109855855,
+            776.5489314932531
+          ],
+          "wrist": [
+            380.40616262824364,
+            876.502608784359
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44957711384086,
+            776.5489024907373
+          ],
+          "wrist": [
+            380.406162147315,
+            876.5025798885275
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495795035545,
+            776.5489298350365
+          ],
+          "wrist": [
+            380.4061680103617,
+            876.5026073385836
+          ],
+          "stage": "computer_handoff"
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshGroundForearmL",
+      "kind": "forearm",
+      "vertices": 49,
+      "triangles": 53,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 12960,
+      "protected_Sit0_delta_bits_copied": true,
+      "opacity_UV_page_part_and_base_unchanged": true,
+      "maximum_f32_forward_error_source_px": 4.6777078068771516e-05,
+      "minimum_local_interval_area_ratio": 0.2752416431903839,
+      "longitudinal_stretch_or_palm_scale_range": [
+        0.65,
+        1.846910596755219
+      ],
+      "neutral_body_Arm0_return_keys": [
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88476668415615,
+            790.5332739028446
+          ],
+          "wrist": [
+            377.80549578724214,
+            890.4906115099777
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847476158391,
+            790.5332844291054
+          ],
+          "wrist": [
+            377.80548809602396,
+            890.4906217038017
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847442918125,
+            790.5332603743666
+          ],
+          "wrist": [
+            377.80548874534765,
+            890.4905975329622
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88474045125946,
+            790.5332733339535
+          ],
+          "wrist": [
+            377.80548438908136,
+            890.4906105076182
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88477998694657,
+            790.5332324262806
+          ],
+          "wrist": [
+            377.80548466254413,
+            890.490570747176
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88475991891687,
+            790.5332674181612
+          ],
+          "wrist": [
+            377.8054896688009,
+            890.4906050063951
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004934641294,
+            783.9999676829627
+          ],
+          "wrist": [
+            379.00001007674894,
+            883.999967682955
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99999344675297,
+            783.9999678187346
+          ],
+          "wrist": [
+            378.9999995481065,
+            883.9999678187344
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997151563434,
+            783.9999677520906
+          ],
+          "wrist": [
+            379.0000007637569,
+            883.9999677520863
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999802943625,
+            783.9999553130625
+          ],
+          "wrist": [
+            378.9999992079799,
+            883.9999553130607
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000319093886,
+            783.9999566374491
+          ],
+          "wrist": [
+            379.00000020130017,
+            883.9999566374491
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037842013,
+            783.9999761007895
+          ],
+          "wrist": [
+            379.00000289952436,
+            883.9999761007895
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443166839984,
+            777.6323421827104
+          ],
+          "wrist": [
+            380.4061694126079,
+            877.5861798336848
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443226706593,
+            777.6323200204577
+          ],
+          "wrist": [
+            380.4061647986778,
+            877.5861573492211
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443199093234,
+            777.6323263026923
+          ],
+          "wrist": [
+            380.40616450541273,
+            877.5861637064743
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44433808248243,
+            777.6323034730293
+          ],
+          "wrist": [
+            380.40616262824364,
+            877.5861402673678
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.444340827477,
+            777.6323380927447
+          ],
+          "wrist": [
+            380.40616214731506,
+            877.5861747890287
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443430955636,
+            777.632332938817
+          ],
+          "wrist": [
+            380.4061680103617,
+            877.5861697443726
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8722970422317,
+            789.4956625947785
+          ],
+          "wrist": [
+            377.8054957872421,
+            889.4526350635476
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228871600115,
+            789.4956463897577
+          ],
+          "wrist": [
+            377.80548809602396,
+            889.4526188398926
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227281796834,
+            789.4956399671321
+          ],
+          "wrist": [
+            377.8054887453477,
+            889.4526119316897
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227300389037,
+            789.495634315435
+          ],
+          "wrist": [
+            377.80548438908136,
+            889.4526064132822
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87230322405895,
+            789.4956566009109
+          ],
+          "wrist": [
+            377.80548466254413,
+            889.4526295775319
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228982744006,
+            789.4956516549187
+          ],
+          "wrist": [
+            377.8054896688009,
+            889.4526240915159
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004951401974,
+            782.962005201133
+          ],
+          "wrist": [
+            379.00001007674905,
+            882.9620052011253
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999934207233,
+            782.9619927213266
+          ],
+          "wrist": [
+            378.99999954810653,
+            882.9619927213264
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997139081313,
+            782.9619793687448
+          ],
+          "wrist": [
+            379.0000007637568,
+            882.9619793687405
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99998021365616,
+            782.9619677629726
+          ],
+          "wrist": [
+            378.99999920797995,
+            882.9619677629707
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000320369514,
+            782.9619709546303
+          ],
+          "wrist": [
+            379.00000020130017,
+            882.9619709546303
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037879763,
+            782.9619951859104
+          ],
+          "wrist": [
+            379.00000289952436,
+            882.9619951859104
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495577538509,
+            776.5489632166122
+          ],
+          "wrist": [
+            380.4061694126079,
+            876.5026414250922
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495613137649,
+            776.5489369140959
+          ],
+          "wrist": [
+            380.40616479867776,
+            876.5026148736985
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495566899355,
+            776.5489109036877
+          ],
+          "wrist": [
+            380.40616450541273,
+            876.5025889951476
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44958109855855,
+            776.5489314932531
+          ],
+          "wrist": [
+            380.40616262824364,
+            876.502608784359
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44957711384086,
+            776.5489024907373
+          ],
+          "wrist": [
+            380.406162147315,
+            876.5025798885275
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495795035545,
+            776.5489298350365
+          ],
+          "wrist": [
+            380.4061680103617,
+            876.5026073385836
+          ],
+          "stage": "computer_handoff"
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshGroundPalmL",
+      "kind": "palm",
+      "vertices": 42,
+      "triangles": 60,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 12960,
+      "protected_Sit0_delta_bits_copied": true,
+      "opacity_UV_page_part_and_base_unchanged": true,
+      "maximum_f32_forward_error_source_px": 5.7491472830406565e-05,
+      "minimum_local_interval_area_ratio": 0.27367377281188965,
+      "longitudinal_stretch_or_palm_scale_range": [
+        0.55,
+        1.0
+      ],
+      "neutral_body_Arm0_return_keys": [
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88476668415615,
+            790.5332739028446
+          ],
+          "wrist": [
+            377.80549578724214,
+            890.4906115099777
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847476158391,
+            790.5332844291054
+          ],
+          "wrist": [
+            377.80548809602396,
+            890.4906217038017
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847442918125,
+            790.5332603743666
+          ],
+          "wrist": [
+            377.80548874534765,
+            890.4905975329622
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88474045125946,
+            790.5332733339535
+          ],
+          "wrist": [
+            377.80548438908136,
+            890.4906105076182
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88477998694657,
+            790.5332324262806
+          ],
+          "wrist": [
+            377.80548466254413,
+            890.490570747176
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88475991891687,
+            790.5332674181612
+          ],
+          "wrist": [
+            377.8054896688009,
+            890.4906050063951
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004934641294,
+            783.9999676829627
+          ],
+          "wrist": [
+            379.00001007674894,
+            883.999967682955
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99999344675297,
+            783.9999678187346
+          ],
+          "wrist": [
+            378.9999995481065,
+            883.9999678187344
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997151563434,
+            783.9999677520906
+          ],
+          "wrist": [
+            379.0000007637569,
+            883.9999677520863
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999802943625,
+            783.9999553130625
+          ],
+          "wrist": [
+            378.9999992079799,
+            883.9999553130607
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000319093886,
+            783.9999566374491
+          ],
+          "wrist": [
+            379.00000020130017,
+            883.9999566374491
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037842013,
+            783.9999761007895
+          ],
+          "wrist": [
+            379.00000289952436,
+            883.9999761007895
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443166839984,
+            777.6323421827104
+          ],
+          "wrist": [
+            380.4061694126079,
+            877.5861798336848
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443226706593,
+            777.6323200204577
+          ],
+          "wrist": [
+            380.4061647986778,
+            877.5861573492211
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443199093234,
+            777.6323263026923
+          ],
+          "wrist": [
+            380.40616450541273,
+            877.5861637064743
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44433808248243,
+            777.6323034730293
+          ],
+          "wrist": [
+            380.40616262824364,
+            877.5861402673678
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.444340827477,
+            777.6323380927447
+          ],
+          "wrist": [
+            380.40616214731506,
+            877.5861747890287
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443430955636,
+            777.632332938817
+          ],
+          "wrist": [
+            380.4061680103617,
+            877.5861697443726
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8722970422317,
+            789.4956625947785
+          ],
+          "wrist": [
+            377.8054957872421,
+            889.4526350635476
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228871600115,
+            789.4956463897577
+          ],
+          "wrist": [
+            377.80548809602396,
+            889.4526188398926
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227281796834,
+            789.4956399671321
+          ],
+          "wrist": [
+            377.8054887453477,
+            889.4526119316897
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227300389037,
+            789.495634315435
+          ],
+          "wrist": [
+            377.80548438908136,
+            889.4526064132822
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87230322405895,
+            789.4956566009109
+          ],
+          "wrist": [
+            377.80548466254413,
+            889.4526295775319
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228982744006,
+            789.4956516549187
+          ],
+          "wrist": [
+            377.8054896688009,
+            889.4526240915159
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004951401974,
+            782.962005201133
+          ],
+          "wrist": [
+            379.00001007674905,
+            882.9620052011253
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999934207233,
+            782.9619927213266
+          ],
+          "wrist": [
+            378.99999954810653,
+            882.9619927213264
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997139081313,
+            782.9619793687448
+          ],
+          "wrist": [
+            379.0000007637568,
+            882.9619793687405
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99998021365616,
+            782.9619677629726
+          ],
+          "wrist": [
+            378.99999920797995,
+            882.9619677629707
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000320369514,
+            782.9619709546303
+          ],
+          "wrist": [
+            379.00000020130017,
+            882.9619709546303
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037879763,
+            782.9619951859104
+          ],
+          "wrist": [
+            379.00000289952436,
+            882.9619951859104
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495577538509,
+            776.5489632166122
+          ],
+          "wrist": [
+            380.4061694126079,
+            876.5026414250922
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495613137649,
+            776.5489369140959
+          ],
+          "wrist": [
+            380.40616479867776,
+            876.5026148736985
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495566899355,
+            776.5489109036877
+          ],
+          "wrist": [
+            380.40616450541273,
+            876.5025889951476
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44958109855855,
+            776.5489314932531
+          ],
+          "wrist": [
+            380.40616262824364,
+            876.502608784359
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44957711384086,
+            776.5489024907373
+          ],
+          "wrist": [
+            380.406162147315,
+            876.5025798885275
+          ],
+          "stage": "computer_handoff"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495795035545,
+            776.5489298350365
+          ],
+          "wrist": [
+            380.4061680103617,
+            876.5026073385836
+          ],
+          "stage": "computer_handoff"
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshBusyUpperarmBridgeL",
+      "kind": "upper",
+      "vertices": 41,
+      "triangles": 45,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 1296,
+      "protected_Sit0_delta_bits_copied": true,
+      "opacity_UV_page_part_and_base_unchanged": true,
+      "maximum_f32_forward_error_source_px": 4.3095236264889536e-05,
+      "minimum_local_interval_area_ratio": 1.0,
+      "longitudinal_stretch_or_palm_scale_range": [
+        1.0,
+        1.2560129119560222
+      ],
+      "neutral_body_Arm0_return_keys": [
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88476668415615,
+            790.5332739028446
+          ],
+          "wrist": [
+            377.80549578724214,
+            890.4906115099777
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847476158391,
+            790.5332844291054
+          ],
+          "wrist": [
+            377.80548809602396,
+            890.4906217038017
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847442918125,
+            790.5332603743666
+          ],
+          "wrist": [
+            377.80548874534765,
+            890.4905975329622
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88474045125946,
+            790.5332733339535
+          ],
+          "wrist": [
+            377.80548438908136,
+            890.4906105076182
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88477998694657,
+            790.5332324262806
+          ],
+          "wrist": [
+            377.80548466254413,
+            890.490570747176
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88475991891687,
+            790.5332674181612
+          ],
+          "wrist": [
+            377.8054896688009,
+            890.4906050063951
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004934641294,
+            783.9999676829627
+          ],
+          "wrist": [
+            379.00001007674894,
+            883.999967682955
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99999344675297,
+            783.9999678187346
+          ],
+          "wrist": [
+            378.9999995481065,
+            883.9999678187344
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997151563434,
+            783.9999677520906
+          ],
+          "wrist": [
+            379.0000007637569,
+            883.9999677520863
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999802943625,
+            783.9999553130625
+          ],
+          "wrist": [
+            378.9999992079799,
+            883.9999553130607
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000319093886,
+            783.9999566374491
+          ],
+          "wrist": [
+            379.00000020130017,
+            883.9999566374491
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037842013,
+            783.9999761007895
+          ],
+          "wrist": [
+            379.00000289952436,
+            883.9999761007895
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443166839984,
+            777.6323421827104
+          ],
+          "wrist": [
+            380.4061694126079,
+            877.5861798336848
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443226706593,
+            777.6323200204577
+          ],
+          "wrist": [
+            380.4061647986778,
+            877.5861573492211
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443199093234,
+            777.6323263026923
+          ],
+          "wrist": [
+            380.40616450541273,
+            877.5861637064743
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44433808248243,
+            777.6323034730293
+          ],
+          "wrist": [
+            380.40616262824364,
+            877.5861402673678
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.444340827477,
+            777.6323380927447
+          ],
+          "wrist": [
+            380.40616214731506,
+            877.5861747890287
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443430955636,
+            777.632332938817
+          ],
+          "wrist": [
+            380.4061680103617,
+            877.5861697443726
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8722970422317,
+            789.4956625947785
+          ],
+          "wrist": [
+            377.8054957872421,
+            889.4526350635476
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228871600115,
+            789.4956463897577
+          ],
+          "wrist": [
+            377.80548809602396,
+            889.4526188398926
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227281796834,
+            789.4956399671321
+          ],
+          "wrist": [
+            377.8054887453477,
+            889.4526119316897
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227300389037,
+            789.495634315435
+          ],
+          "wrist": [
+            377.80548438908136,
+            889.4526064132822
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87230322405895,
+            789.4956566009109
+          ],
+          "wrist": [
+            377.80548466254413,
+            889.4526295775319
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228982744006,
+            789.4956516549187
+          ],
+          "wrist": [
+            377.8054896688009,
+            889.4526240915159
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004951401974,
+            782.962005201133
+          ],
+          "wrist": [
+            379.00001007674905,
+            882.9620052011253
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999934207233,
+            782.9619927213266
+          ],
+          "wrist": [
+            378.99999954810653,
+            882.9619927213264
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997139081313,
+            782.9619793687448
+          ],
+          "wrist": [
+            379.0000007637568,
+            882.9619793687405
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99998021365616,
+            782.9619677629726
+          ],
+          "wrist": [
+            378.99999920797995,
+            882.9619677629707
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000320369514,
+            782.9619709546303
+          ],
+          "wrist": [
+            379.00000020130017,
+            882.9619709546303
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037879763,
+            782.9619951859104
+          ],
+          "wrist": [
+            379.00000289952436,
+            882.9619951859104
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495577538509,
+            776.5489632166122
+          ],
+          "wrist": [
+            380.4061694126079,
+            876.5026414250922
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495613137649,
+            776.5489369140959
+          ],
+          "wrist": [
+            380.40616479867776,
+            876.5026148736985
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495566899355,
+            776.5489109036877
+          ],
+          "wrist": [
+            380.40616450541273,
+            876.5025889951476
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44958109855855,
+            776.5489314932531
+          ],
+          "wrist": [
+            380.40616262824364,
+            876.502608784359
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44957711384086,
+            776.5489024907373
+          ],
+          "wrist": [
+            380.406162147315,
+            876.5025798885275
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495795035545,
+            776.5489298350365
+          ],
+          "wrist": [
+            380.4061680103617,
+            876.5026073385836
+          ],
+          "stage": "busy-source"
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshBusyForearmBridgeL",
+      "kind": "forearm",
+      "vertices": 49,
+      "triangles": 53,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 1296,
+      "protected_Sit0_delta_bits_copied": true,
+      "opacity_UV_page_part_and_base_unchanged": true,
+      "maximum_f32_forward_error_source_px": 4.3076696783828083e-05,
+      "minimum_local_interval_area_ratio": 0.8714728355407715,
+      "longitudinal_stretch_or_palm_scale_range": [
+        0.9523809523809511,
+        1.0
+      ],
+      "neutral_body_Arm0_return_keys": [
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88476668415615,
+            790.5332739028446
+          ],
+          "wrist": [
+            377.80549578724214,
+            890.4906115099777
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847476158391,
+            790.5332844291054
+          ],
+          "wrist": [
+            377.80548809602396,
+            890.4906217038017
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8847442918125,
+            790.5332603743666
+          ],
+          "wrist": [
+            377.80548874534765,
+            890.4905975329622
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88474045125946,
+            790.5332733339535
+          ],
+          "wrist": [
+            377.80548438908136,
+            890.4906105076182
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88477998694657,
+            790.5332324262806
+          ],
+          "wrist": [
+            377.80548466254413,
+            890.490570747176
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.88475991891687,
+            790.5332674181612
+          ],
+          "wrist": [
+            377.8054896688009,
+            890.4906050063951
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004934641294,
+            783.9999676829627
+          ],
+          "wrist": [
+            379.00001007674894,
+            883.999967682955
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99999344675297,
+            783.9999678187346
+          ],
+          "wrist": [
+            378.9999995481065,
+            883.9999678187344
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997151563434,
+            783.9999677520906
+          ],
+          "wrist": [
+            379.0000007637569,
+            883.9999677520863
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999802943625,
+            783.9999553130625
+          ],
+          "wrist": [
+            378.9999992079799,
+            883.9999553130607
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000319093886,
+            783.9999566374491
+          ],
+          "wrist": [
+            379.00000020130017,
+            883.9999566374491
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037842013,
+            783.9999761007895
+          ],
+          "wrist": [
+            379.00000289952436,
+            883.9999761007895
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443166839984,
+            777.6323421827104
+          ],
+          "wrist": [
+            380.4061694126079,
+            877.5861798336848
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443226706593,
+            777.6323200204577
+          ],
+          "wrist": [
+            380.4061647986778,
+            877.5861573492211
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443199093234,
+            777.6323263026923
+          ],
+          "wrist": [
+            380.40616450541273,
+            877.5861637064743
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44433808248243,
+            777.6323034730293
+          ],
+          "wrist": [
+            380.40616262824364,
+            877.5861402673678
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.444340827477,
+            777.6323380927447
+          ],
+          "wrist": [
+            380.40616214731506,
+            877.5861747890287
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 0,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4443430955636,
+            777.632332938817
+          ],
+          "wrist": [
+            380.4061680103617,
+            877.5861697443726
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.8722970422317,
+            789.4956625947785
+          ],
+          "wrist": [
+            377.8054957872421,
+            889.4526350635476
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228871600115,
+            789.4956463897577
+          ],
+          "wrist": [
+            377.80548809602396,
+            889.4526188398926
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227281796834,
+            789.4956399671321
+          ],
+          "wrist": [
+            377.8054887453477,
+            889.4526119316897
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87227300389037,
+            789.495634315435
+          ],
+          "wrist": [
+            377.80548438908136,
+            889.4526064132822
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87230322405895,
+            789.4956566009109
+          ],
+          "wrist": [
+            377.80548466254413,
+            889.4526295775319
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": -1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            374.87228982744006,
+            789.4956516549187
+          ],
+          "wrist": [
+            377.8054896688009,
+            889.4526240915159
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00004951401974,
+            782.962005201133
+          ],
+          "wrist": [
+            379.00001007674905,
+            882.9620052011253
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.9999934207233,
+            782.9619927213266
+          ],
+          "wrist": [
+            378.99999954810653,
+            882.9619927213264
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99997139081313,
+            782.9619793687448
+          ],
+          "wrist": [
+            379.0000007637568,
+            882.9619793687405
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            378.99998021365616,
+            782.9619677629726
+          ],
+          "wrist": [
+            378.99999920797995,
+            882.9619677629707
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.00000320369514,
+            782.9619709546303
+          ],
+          "wrist": [
+            379.00000020130017,
+            882.9619709546303
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 0,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            379.0000037879763,
+            782.9619951859104
+          ],
+          "wrist": [
+            379.00000289952436,
+            882.9619951859104
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.92,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495577538509,
+            776.5489632166122
+          ],
+          "wrist": [
+            380.4061694126079,
+            876.5026414250922
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.93,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495613137649,
+            776.5489369140959
+          ],
+          "wrist": [
+            380.40616479867776,
+            876.5026148736985
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.94,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495566899355,
+            776.5489109036877
+          ],
+          "wrist": [
+            380.40616450541273,
+            876.5025889951476
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.95,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44958109855855,
+            776.5489314932531
+          ],
+          "wrist": [
+            380.40616262824364,
+            876.502608784359
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 0.96,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.44957711384086,
+            776.5489024907373
+          ],
+          "wrist": [
+            380.406162147315,
+            876.5025798885275
+          ],
+          "stage": "busy-source"
+        },
+        {
+          "sit": 1.0,
+          "typing": 1,
+          "rock": 1,
+          "shoulder": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow": [
+            383.4495795035545,
+            776.5489298350365
+          ],
+          "wrist": [
+            380.4061680103617,
+            876.5026073385836
+          ],
+          "stage": "busy-source"
+        }
+      ]
+    }
+  ],
+  "pending": [
+    "Unmodified public CMO/readback/Native closure",
+    "Actual Core all named palm/sleeve coverage groups unchanged thresholds",
+    "Native grey-matte proportion/transition review"
+  ]
+}

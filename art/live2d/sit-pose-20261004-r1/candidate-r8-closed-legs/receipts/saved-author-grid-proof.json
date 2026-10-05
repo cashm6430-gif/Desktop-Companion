@@ -1,0 +1,419 @@
+{
+  "kind": "public_saved_CMO_actual_axis_expansion",
+  "source_cmo_sha256": "28c17ac41fbda59b4e730f277fdd95de902beefa581f38f653b9c36f6d4f0ef5",
+  "source_diagnostic_sha256": "a83849a41f2d611d532abcc23f1e1aa0c854a985363cbedf27eca7c3e69f1dcf",
+  "input_plan_sha256": "e810d5ab0378406cdc967f657d1aab2493215aebf9788a370cd57bf6a429d952",
+  "output_plan_sha256": "1bb49e866dada4b020324b0268912c29e2aeac5418b569c6343427464597df38",
+  "effective_plan_sha256": "7795292ad85fa81463136aa44524ab0fd121b013a2f6c212ff201c4af6cd93f5",
+  "records": [
+    {
+      "id": "ArtMeshGroundUpperarmL",
+      "actual_source_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "replicated_readback_axes": [],
+      "target_forms": 12960,
+      "source_Sit0_delta_float32_bits_exact": true,
+      "maximum_generator_vs_saved_source_delta_normalization": 3.3973159785372076e-08
+    },
+    {
+      "id": "ArtMeshGroundForearmL",
+      "actual_source_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "replicated_readback_axes": [],
+      "target_forms": 12960,
+      "source_Sit0_delta_float32_bits_exact": true,
+      "maximum_generator_vs_saved_source_delta_normalization": 4.429283140261475e-08
+    },
+    {
+      "id": "ArtMeshGroundPalmL",
+      "actual_source_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamArmLA",
+          "keys": [
+            -65.0,
+            -35.0,
+            0.0,
+            35.0,
+            65.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "replicated_readback_axes": [],
+      "target_forms": 12960,
+      "source_Sit0_delta_float32_bits_exact": true,
+      "maximum_generator_vs_saved_source_delta_normalization": 4.440892098500626e-16
+    },
+    {
+      "id": "ArtMeshBusyUpperarmBridgeL",
+      "actual_source_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "replicated_readback_axes": [
+        {
+          "parameter": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "target_forms": 5184,
+      "source_Sit0_delta_float32_bits_exact": true,
+      "maximum_generator_vs_saved_source_delta_normalization": 3.1280136106315304e-08
+    },
+    {
+      "id": "ArtMeshBusyForearmBridgeL",
+      "actual_source_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "replicated_readback_axes": [
+        {
+          "parameter": "ParamBusyLaptop",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamHandGround",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "target_forms": 5184,
+      "source_Sit0_delta_float32_bits_exact": true,
+      "maximum_generator_vs_saved_source_delta_normalization": 3.0691146849642914e-08
+    }
+  ]
+}

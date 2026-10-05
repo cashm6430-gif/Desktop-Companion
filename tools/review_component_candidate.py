@@ -11,9 +11,11 @@ the component reports. Existing files/directories are never overwritten.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 from datetime import datetime, timezone
 import json
+import itertools
 from pathlib import Path
 import re
 
@@ -23,7 +25,9 @@ from verify_component_coverage import run as run_coverage
 
 
 EDIT_KIND='public_parent_local_CMO_edit_closed_loop'
+EDIT_KINDS={EDIT_KIND,'public_multipage_parent_local_CMO_edit_closed_loop'}
 DENSE_KIND='independent_full_ancestor_raw_core_sit_gate'
+CLOSED_LEG_DENSE_KIND='independent_closed_leg_authored_target_raw_core_gate'
 EDIT_BOOLEANS=['inputs_rechecked_after','baseline_MOC_byte_exact',
                'direct_vs_saved_CMO_readback_all_runtime_values_exact',
                'untargeted_runtime_nodes_equal','saved_CMO_atlas_binding_matches_declared',
@@ -40,7 +44,7 @@ def sha(value):
 def validate_edit_report(document,moc_sha256,texture_sha256):
     if not isinstance(document,dict):return ['Author roundtrip report must be a JSON object.']
     reasons=[]
-    if document.get('kind')!=EDIT_KIND:reasons.append('Unsupported author roundtrip report kind.')
+    if document.get('kind') not in EDIT_KINDS:reasons.append('Unsupported author roundtrip report kind.')
     reasons += [field+' must be exactly true.' for field in EDIT_BOOLEANS if document.get(field) is not True]
     outputs=document.get('output_sha256',{})
     if not isinstance(outputs,dict):outputs={}
@@ -62,7 +66,21 @@ def validate_edit_report(document,moc_sha256,texture_sha256):
 def validate_dense_report(document,moc_sha256):
     if not isinstance(document,dict):return ['Dense Core report must be a JSON object.'],[]
     reasons=[]
-    if document.get('kind')!=DENSE_KIND:reasons.append('A full ancestor actual Core dense report is required.')
+    if document.get('kind') not in {DENSE_KIND,CLOSED_LEG_DENSE_KIND}:reasons.append('A full ancestor actual Core dense report is required.')
+    if document.get('kind')==CLOSED_LEG_DENSE_KIND:
+        scope=document.get('scope',{});result=document.get('results',{})
+        if scope.get('phase')!='full' or scope.get('ancestor_contexts')!=625 or scope.get('primary_201_sit_poses',0)<125625:
+            reasons.append('Closed-leg target evidence must cover the full ancestor/Sit domain.')
+        requirements={'original_sit0_bitexact':True,'original_sit0_opacity_float32_bits_exact':True,
+                      'new_leg_inversion_occurrences':0,'local_sit_interval_crossing_occurrences':0}
+        if any(result.get(key)!=value for key,value in requirements.items()):
+            reasons.append('Closed-leg dense geometry or standing preservation failed.')
+        for key in ['maximum_shoe_heel_error_source_px','maximum_shoe_vertex_error_to_authored_target_source_px',
+                    'maximum_hidden_footwear_minY_difference_to_same_context_sit0_px']:
+            value=result.get(key)
+            if type(value) not in (int,float) or not 0<=value<.1:reasons.append('Closed-leg strict contact threshold failed: '+key)
+        value=result.get('minimum_stocking_length_ratio_to_same_context_sit0')
+        if type(value) not in (int,float) or not value>=.995:reasons.append('Closed-leg strict stocking length threshold failed.')
     if document.get('engineering_passed_within_scope') is not True:reasons.append('Dense Core engineering gate did not pass.')
     inputs=document.get('inputs',{})
     if not isinstance(inputs,dict):inputs={}
@@ -77,11 +95,63 @@ def report_reference(path,document):
     return {'path':str(path),'sha256':digest(path),'kind':document.get('kind')}
 
 
+def source_ground_nodes(plan,ids,pins,depth=0):
+    """Reconstruct a geometry continuation from its verified source export.
+
+    This permits direct multipage CMO edits while keeping the fixture tied to
+    the full original charts and every later geometry replacement.
+    """
+    children={child['id']:copy.deepcopy(child) for child in plan.get('insert_meshes',[])}
+    if all(name in children for name in ids):return children
+    if depth>=8:raise ValueError('Author continuation chain exceeds eight exports.')
+    binding=plan.get('provenance',{}).get('source_edit_report',{})
+    path=Path(binding.get('path',''))
+    if not path.is_file() or digest(path)!=binding.get('sha256'):
+        raise ValueError('Incremental author plan needs its hash-bound source edit report.')
+    pins[str(path.resolve())]=digest(path);report=read(path)
+    if report.get('kind') not in EDIT_KINDS or any(report.get(k) is not True for k in EDIT_BOOLEANS):
+        raise ValueError('Source author export did not pass its closed-loop gates.')
+    for filename,key in [('edited.cmo3','cmo_sha256'),('edited.moc3','moc_sha256')]:
+        artifact=path.parent/filename;expected=plan.get('source',{}).get(key)
+        if report.get('output_sha256',{}).get(filename)!=expected or not artifact.is_file() or digest(artifact)!=expected:
+            raise ValueError('Incremental source author artifact is stale: '+filename)
+        pins[str(artifact.resolve())]=expected
+    sources=[]
+    for filename,pin in report.get('input_sha256',{}).items():
+        source=Path(filename)
+        if not source.is_file() or digest(source)!=pin:raise ValueError('Source export input is stale: '+filename)
+        pins[str(source.resolve())]=pin
+        if filename.lower().endswith('-plan.json'):sources.append(read(source))
+    if len(sources)!=1:raise ValueError('Source export needs one hash-bound author plan.')
+    children=source_ground_nodes(sources[0],ids,pins,depth+1)
+    for patch in plan.get('mesh_grids',[]):
+        if patch['id'] not in ids:continue
+        if set(patch)-{'id','append_axes','keyforms'}:
+            raise ValueError('Ground continuation supports complete geometry replacements only.')
+        node=children[patch['id']]
+        axes=node['axes']+copy.deepcopy(patch.get('append_axes',[]))
+        if len({a['parameter'] for a in axes})!=len(axes):raise ValueError('Duplicate continued Ground axis.')
+        coordinates={tuple(v) for v in itertools.product(*(range(len(a['keys'])) for a in axes))}
+        cells=patch.get('keyforms',[])
+        if len(cells)!=len(coordinates) or {tuple(c['coordinate']) for c in cells}!=coordinates:
+            raise ValueError('Continued Ground replacement must cover its complete Cartesian grid.')
+        node['axes']=axes;node['keyforms']=copy.deepcopy(cells)
+    return children
+
+
 def validate_fixture_motion(fixture_document,edit_document):
     """A changed sleeve/palm trajectory must not reuse old opacity-phase ROIs."""
     ids=[name for name in fixture_document.get('expected_topology',{}) if name.startswith('ArtMeshGround')]
     if not ids:return [],{},{}
     reasons=[];pins={};plans=[]
+    binding=fixture_document.get('author_motion_binding',{})
+    if binding.get('kind')=='candidate-moc-pinned':
+        moc=Path(binding.get('moc_path',''));expected=edit_document.get('output_sha256',{}).get('edited.moc3')
+        if not sha(expected) or binding.get('moc_sha256')!=expected or not moc.is_file() or digest(moc)!=expected:
+            reasons.append('Fixture actual candidate MOC binding is missing or stale.')
+        elif fixture_document.get('inputs',{}).get(str(moc))!=expected:
+            reasons.append('Fixture candidate MOC must also be an explicit hashed input.')
+        else:pins[str(moc.resolve())]=expected
     for label,records in [('fixture',fixture_document.get('inputs',{})),('current_author',edit_document.get('input_sha256',{}))]:
         found=[]
         for name,pin in records.items():
@@ -90,6 +160,12 @@ def validate_fixture_motion(fixture_document,edit_document):
             if not path.is_file() or digest(path)!=pin:
                 reasons.append(label+' author plan evidence is missing or stale: '+name);continue
             document=read(path);children={child['id']:child for child in document.get('insert_meshes',[])}
+            if label=='current_author' and not all(name in children for name in ids):
+                if binding.get('kind')!='candidate-moc-pinned':
+                    reasons.append('Regenerated incremental-author fixture must bind the actual candidate MOC.');continue
+                try:children=source_ground_nodes(document,ids,pins)
+                except (ValueError,KeyError,TypeError,OSError) as error:
+                    reasons.append(str(error));continue
             if all(name in children for name in ids):
                 found.append((path,children));pins[str(path.resolve())]=pin
         if len(found)!=1:reasons.append(label+' needs one hash-bound author plan containing all ground sleeve/palm components.')

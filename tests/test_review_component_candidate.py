@@ -91,5 +91,62 @@ class CandidateReviewTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'fresh'):self.review()
         self.assertEqual(tool.digest(self.directory/'gate.json'),pin)
 
+    def test_multipage_roundtrip_kind_has_the_same_required_gates(self):
+        edit=tool.read(self.edit);edit['kind']='public_multipage_parent_local_CMO_edit_closed_loop';self.save(self.edit,edit)
+        self.assertTrue(self.review()['engineering_passed_within_scope'])
+
+    def test_closed_leg_fast_probe_cannot_replace_full_dense_contact_gate(self):
+        result={'original_sit0_bitexact':True,'original_sit0_opacity_float32_bits_exact':True,
+                'new_leg_inversion_occurrences':0,'local_sit_interval_crossing_occurrences':0,
+                'maximum_shoe_heel_error_source_px':.02,'maximum_shoe_vertex_error_to_authored_target_source_px':.06,
+                'maximum_hidden_footwear_minY_difference_to_same_context_sit0_px':.02,
+                'minimum_stocking_length_ratio_to_same_context_sit0':.999}
+        document={'kind':tool.CLOSED_LEG_DENSE_KIND,'engineering_passed_within_scope':True,
+                  'scope':{'phase':'full','ancestor_contexts':625,'primary_201_sit_poses':125625},
+                  'results':result,'inputs':{str(self.moc):tool.digest(self.moc)}}
+        self.assertEqual(tool.validate_dense_report(document,tool.digest(self.moc))[0],[])
+        document['scope']['phase']='targeted'
+        self.assertTrue(tool.validate_dense_report(document,tool.digest(self.moc))[0])
+        document['scope']['phase']='full';result['maximum_shoe_heel_error_source_px']=.1
+        self.assertTrue(tool.validate_dense_report(document,tool.digest(self.moc))[0])
+
+    def continuation_fixture(self):
+        folder=self.directory/'source';folder.mkdir()
+        cmo=folder/'edited.cmo3';cmo.write_bytes(b'source author')
+        moc=folder/'edited.moc3';moc.write_bytes(b'source native')
+        identifier='ArtMeshGroundForearmL'
+        node={'id':identifier,'axes':[{'parameter':'ParamSitPose','keys':[0,1]}],
+              'keyforms':[{'coordinate':[i],'position_deltas':[float(i),0]} for i in range(2)]}
+        original=folder/'original-plan.json';self.save(original,{'insert_meshes':[node]})
+        report=folder/'edit-report.json';self.save(report,{'kind':tool.EDIT_KIND,**{field:True for field in tool.EDIT_BOOLEANS},
+            'output_sha256':{'edited.cmo3':tool.digest(cmo),'edited.moc3':tool.digest(moc)},
+            'input_sha256':{str(original):tool.digest(original)}})
+        incremental=self.directory/'continued-plan.json'
+        patch={'id':identifier,'append_axes':[{'parameter':'ParamBusyTypingL','keys':[0,1]}],
+               'keyforms':[{'coordinate':[i,j],'position_deltas':[float(i+j),0]} for i in range(2) for j in range(2)]}
+        plan={'schema_version':2,'source':{'cmo_sha256':tool.digest(cmo),'moc_sha256':tool.digest(moc)},
+              'mesh_grids':[patch],'provenance':{'source_edit_report':{'path':str(report),'sha256':tool.digest(report)}}}
+        self.save(incremental,plan)
+        effective=self.directory/'effective-plan.json';self.save(effective,{'insert_meshes':[dict(node,
+            axes=node['axes']+patch['append_axes'],keyforms=patch['keyforms'])]})
+        self.save(self.fixture,{'poses':[],'expected_topology':{identifier:{'vertices':1,'triangles':0}},
+            'inputs':{str(effective):tool.digest(effective),str(incremental):tool.digest(incremental),str(self.moc):tool.digest(self.moc)},
+            'author_motion_binding':{'kind':'candidate-moc-pinned','moc_path':str(self.moc),'moc_sha256':tool.digest(self.moc)}})
+        edit=tool.read(self.edit);edit['kind']='public_multipage_parent_local_CMO_edit_closed_loop'
+        edit['input_sha256']={str(incremental):tool.digest(incremental)};self.save(self.edit,edit)
+        return original
+
+    def test_actual_MOC_pinned_continuation_reconstructs_changed_geometry(self):
+        self.continuation_fixture()
+        gate=self.review();self.assertTrue(gate['engineering_passed_within_scope'])
+        stage=next(s for s in gate['stages'] if s['id']=='fixture_author_motion_binding')
+        self.assertTrue(stage['passed'])
+
+    def test_continuation_cannot_hide_stale_source_or_reuse_another_MOC_fixture(self):
+        original=self.continuation_fixture();original.write_text('{}',encoding='utf8')
+        gate=self.review();self.assertFalse(gate['engineering_passed_within_scope'])
+        stage=next(s for s in gate['stages'] if s['id']=='fixture_author_motion_binding')
+        self.assertTrue(any('stale' in r for r in stage['reasons']))
+
 
 if __name__=='__main__':unittest.main()

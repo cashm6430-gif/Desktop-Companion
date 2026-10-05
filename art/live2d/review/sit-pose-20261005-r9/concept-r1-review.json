@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "concept_only",
+  "image": "skirt-support-concept-r1-rejected.png",
+  "sha256": "584fd533b2485f4c2b8c6cdab453fb7f8a9e7aa34f030a3b4405590e724b4ad6",
+  "generation": "built-in image_gen",
+  "status": "rejected_0.65_arm_anatomy",
+  "user_feedback": "0.65图手臂长度过长，伸出位置与肩臂脱节",
+  "approved": false,
+  "runtime_asset": false,
+  "next_revision": "Preserve0.35/1.00reference, rebuild0.65 lowforwardcrouch with original shoulder-elbow-wrist lengths and planted palms besidefeet"
+}

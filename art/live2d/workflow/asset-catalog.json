@@ -783,6 +783,14 @@
       "bytes": 1787559,
       "sha256": "b31dbd46c439d3ec56d2bb223de850c3469f8a2d96e2ea28c35b3a9ce76c751b"
     },
+    "art/live2d/review/sit-pose-20261005-r9/concept-r1-review.json": {
+      "bytes": 551,
+      "sha256": "6fc812d27d82c02ea96a2ad3771072fd7d7944eb165d39dd81e9c0b573217ce5"
+    },
+    "art/live2d/review/sit-pose-20261005-r9/skirt-support-concept-r1-rejected.png": {
+      "bytes": 2025877,
+      "sha256": "584fd533b2485f4c2b8c6cdab453fb7f8a9e7aa34f030a3b4405590e724b4ad6"
+    },
     "art/live2d/review/torso-alignment-fix-20261002.json": {
       "bytes": 3799,
       "sha256": "5af88aa918af1801c1139e1b5257d80ab11a63c6c18853876551b9692810a266"
@@ -794,6 +802,246 @@
     "art/live2d/review/wrist-occlusion-v7.png": {
       "bytes": 441754,
       "sha256": "f734a019aa3ca6e1a8b0e11844a2c975c35e2207100ea42d6ef8fbc22060b844"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/author.cmo3": {
+      "bytes": 68499733,
+      "sha256": "10906cf918cb0030ddc206bd82e1b2b8a967edc1832aa4886e0402f1a3331b6a"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/continuation-template.json": {
+      "bytes": 1920,
+      "sha256": "9347aed7f205310e9cdf1a29efd6696bb5f4fcf4b7866c69bcd944d389a61ee1"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/manifest.json": {
+      "bytes": 21914,
+      "sha256": "6e261213c7fcc5e3babe596fc88f9efa7a89c53e6506aca24e13421278eea04e"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/preview/closed-leg-keyposes.png": {
+      "bytes": 366301,
+      "sha256": "a541e1f0d3460e7ca095c00064a14117801b82bb8885c44561b629f4573e45da"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/preview/sit-enter.gif": {
+      "bytes": 2545148,
+      "sha256": "6ab20194c95a629259d302afae986bd98444da6f351d1af5b6c1e29f835623b8"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/preview/sit-exit.gif": {
+      "bytes": 4606628,
+      "sha256": "bc92f106b0213c7c4c994d6d1ce1af68403d50d8647e5cf8b9a13a505df00411"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/preview/sit-interrupt.gif": {
+      "bytes": 4855963,
+      "sha256": "13c1381152fccf157d3cf0d922f4957398f717612ac735a86abc9d95552b1d4e"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/preview/transitions-contact.png": {
+      "bytes": 868652,
+      "sha256": "0aa547dc741bfffdff237ce99bcbdc0d26cf1e651f1cbe44919c57059792d8d7"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/base-author-plan.json.gz": {
+      "bytes": 16841564,
+      "sha256": "d55e8fc00de5ee86a67960dfd29910139532692bcb9c7410b99e44b4fa951fc5"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/base-author-roundtrip.json": {
+      "bytes": 30267,
+      "sha256": "ce4854b4016ad85ad5f22bd99563a87ae5f13cf6027aaba5c8f3a4b5b6691679"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/busy-left-sleeve-proof.json": {
+      "bytes": 26067,
+      "sha256": "5f4cd4ee17d3dece312140bcad03a9b9e54680655d87891fc86dff6764783035"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/closed-leg-author-proof.json": {
+      "bytes": 3904515,
+      "sha256": "0a7252603cf46db9185a2b5c9096985badac00911b700d393b1bcc9c63ad1a06"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/closed-leg-contact-contract.json": {
+      "bytes": 3720,
+      "sha256": "66fe33c0ad50b4827af6b3c79a73265a2361a1c9cef99b81aef4e92100f52fec"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/component-candidate-review.json.gz": {
+      "bytes": 3999,
+      "sha256": "c572ad866435492cc40ce9ccb8921e5c2dcb334463fcbed8d3e6edfbf26b7c15"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/component-coverage.json.gz": {
+      "bytes": 66727,
+      "sha256": "fe1eb1a879960f4864e923ac75ff65ce3cb6390731ee1ec9c0aaafa8bd18fc25"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/component-fixture.json.gz": {
+      "bytes": 42047,
+      "sha256": "c29277a043144fc18d99c00192f390733a66ae0addd83b4e3c4a14fd6a197539"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/dense-core.json.gz": {
+      "bytes": 5748,
+      "sha256": "cd06b9deb9f1709f31b0b646879f58f7ba00e9941a447340e04d088f46fb3826"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/effective-author-plan.json.gz": {
+      "bytes": 25599612,
+      "sha256": "77aea00dd22997a82d90b754d841c0c73f98f194a2638d0eb78d13695357cbef"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/final-author-roundtrip.json": {
+      "bytes": 17737,
+      "sha256": "a3611038544d0e91439d2fe2dfa9e87b3fc1a10626cc672c26f377b96a9082d1"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/front-cloth-semantic-mask.png": {
+      "bytes": 17883,
+      "sha256": "20924c9fac1705d8a82ec49aa23dbeefdc466ac41b4ce5b319c471a67929ef23"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/incremental-return-plan.json.gz": {
+      "bytes": 12805820,
+      "sha256": "d9cc725fd072bae7a638916512dd8e258e7d3f7ffbf65ea0c5b6616c47ac7d1b"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/native-candidate-capture.json.gz": {
+      "bytes": 635174,
+      "sha256": "9cf9c0b82507e3f64c5f1d6d6952e635d41a6196ef951b1e156f367bb37749e1"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/native-candidate-verification.json.gz": {
+      "bytes": 911,
+      "sha256": "e06aa4f991ee1c6288b4ba412857803427fc8d73bce86f44023545ce43e2b71d"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/native-reference-capture.json.gz": {
+      "bytes": 635633,
+      "sha256": "3cf4140fa221f5a63cd5a00fc2d7ffa18c5f9d4930c6401afd63b7ec9b240c49"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/native-reference-verification.json.gz": {
+      "bytes": 904,
+      "sha256": "d10a6141ccb021f866fe71f7e07bcea08e0f78e45fba0f661c4352d50b6626c3"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/native-regression-classification.json.gz": {
+      "bytes": 343529,
+      "sha256": "9d902841a3227bd393472d6fbd24d9ccfdf416aad57c2cbe803c16d79b0a41db"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/saved-author-grid-proof.json": {
+      "bytes": 8993,
+      "sha256": "dc9ee3842ee18cd83122e03976e0871f18082acddb57d7a651aa9d97a1ccda9d"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/tool-snapshots/adapt_return_readback_grid.py": {
+      "bytes": 4022,
+      "sha256": "5cab5819076c919af59467dc2dfba4c6daf6c9dd89595f7557280ad72fe4cc8e"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/tool-snapshots/generate_ground_return_r3.py": {
+      "bytes": 9903,
+      "sha256": "d603d7cb7915264edb78bcad33b9312e852f517c406a7f3e85b17c0edc31cece"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/tool-snapshots/prepare_r8_component_fixture.py": {
+      "bytes": 10315,
+      "sha256": "868c605d0a7f1487c6733add2b350ef7d6cbae84ab24e47ac5cd7945ceb7ef85"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/tool-snapshots/run-closed-leg-gate.py": {
+      "bytes": 22357,
+      "sha256": "fd83686b618205684f6b378ca1607945cd19d407d7d5313678367023b91716bb"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/tool-snapshots/run-sit-gate.py": {
+      "bytes": 24055,
+      "sha256": "a85d313329919a3ce2c8fed8f24f2852efd3ccff61c14e7e5c9fa707d4f7e513"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/receipts/warm-hand-return-proof.json": {
+      "bytes": 91989,
+      "sha256": "65e1ea6c879da780674c856c57db7b9c7270af6631b6581419d0672108e8674d"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/material-ownership/ownership.json": {
+      "bytes": 7201,
+      "sha256": "0e636b8937bc4b7543f3fe3cdfcfe7e1202a373a9bcf63714b3c7ddea63c254c"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 635728,
+      "sha256": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 678520,
+      "sha256": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_03.png": {
+      "bytes": 698611,
+      "sha256": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_04.png": {
+      "bytes": 594135,
+      "sha256": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_05.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.4096/texture_06.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.moc3": {
+      "bytes": 52916992,
+      "sha256": "7e24a0ffef40cd3064ab99a5a91ee0731579dfd8fd4faca2590ed16a1209dc87"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1392,
+      "sha256": "c01500cb2c190f875fde8a6f02cd5de33ddcf328f641d1ed6a4d646b947fa44d"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 10622,
+      "sha256": "309f868dfa2ae0aa331a8672a1bd386295e0d91a8df1a798f75dc6680457183c"
+    },
+    "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/review-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
     },
     "art/live2d/sit-pose-20261004-r1/generation-clean-leg-r2.json": {
       "bytes": 2116,
@@ -1480,8 +1728,8 @@
       "sha256": "cb162c41d9de3448e97c8cb60195ccae2123b4cc08b0eebafd44796c1f650019"
     },
     "tests/test_review_component_candidate.py": {
-      "bytes": 6337,
-      "sha256": "c947eecfec6d0aff2642eb27ff29b4e49a9dc3405a52cc50962153d702eb2433"
+      "bytes": 10732,
+      "sha256": "c0f1a06a6b9bc9e1cb34ccb392900a3fd1929ac8a6ececf970a84e8ccc020e87"
     },
     "tests/test_review_interactions.py": {
       "bytes": 2710,
@@ -1490,6 +1738,10 @@
     "tests/test_review_report.py": {
       "bytes": 10360,
       "sha256": "4cd0f9f5acf130543b98182c2854e898108a72219df486455eece30d00e07468"
+    },
+    "tests/test_review_sit_candidate.py": {
+      "bytes": 2164,
+      "sha256": "04422b66927469a160c6a03c6f412889904d6f621ed70e13779e47ceddd3ea10"
     },
     "tests/test_review_workflow.py": {
       "bytes": 20789,
@@ -1636,8 +1888,8 @@
       "sha256": "4a2ad1630d176d8153b078f822b6d9271c45e13e7a18d45c6ff2684351d2c15e"
     },
     "tools/review_component_candidate.py": {
-      "bytes": 14208,
-      "sha256": "660dfeec9d35c5713b391163ce058aa8ec7a898ab331999eba6caff48bac768b"
+      "bytes": 19646,
+      "sha256": "7fb3f5f379a3f68211a4e4840cf8ccbff79dd41e71468f4acbd473e5924f0874"
     },
     "tools/review_interactions.py": {
       "bytes": 10126,
@@ -1666,6 +1918,10 @@
     "tools/review_session.py": {
       "bytes": 6020,
       "sha256": "01fb74d90549a377410102fa336ae422a61fd5162ebecd810dc4433fad7da498"
+    },
+    "tools/review_sit_candidate.py": {
+      "bytes": 4473,
+      "sha256": "7c4274fe69dfffa8f3da50cc979800b521c0d0b1825acefcfb602929cc335f26"
     },
     "tools/validate_laptop_review.py": {
       "bytes": 873,

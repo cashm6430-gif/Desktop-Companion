@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "kind": "authored_closed_knees_r8_ground_contact_contract",
+  "adopted": false,
+  "units": "source pixel, x right and y down on1254x1254 canvas",
+  "logical_to_native": "identity",
+  "standing_source_reference": "Original formal standing Sit0 within the same complete BodyX/Y/Z/Breath context.",
+  "standing_Sit0_original_34_geometry_and_opacity_float32_bit_exact": true,
+  "R5_nonzero_default_slice_preservation_required": false,
+  "shoe_translation": {
+    "keys": [
+      0.0,
+      0.65,
+      0.8,
+      1.0
+    ],
+    "interpolation": "piecewise linear in native ParamSitPose",
+    "dy_source_pixels": 0.0,
+    "by_side": {
+      "L": [
+        0.0,
+        0.0,
+        4.5,
+        9.5
+      ],
+      "R": [
+        0.0,
+        0.0,
+        -4.5,
+        -9.5
+      ]
+    },
+    "whole_shoe_vertex_error_max_source_pixels": 0.1,
+    "heel_error_max_source_pixels": 0.1,
+    "target_definition": "All compiled Core shoe vertices are same-context formal Sit0 child geometry plus the one side-specific world X translation. No shoe rotation or scale.",
+    "drawables": [
+      {
+        "id": "ArtMeshSitShoeL",
+        "standing_target_id": "ArtMeshFootwearL"
+      },
+      {
+        "id": "ArtMeshSitShoeR",
+        "standing_target_id": "ArtMeshFootwearR"
+      }
+    ]
+  },
+  "stocking_rotation": {
+    "keys": [
+      0.0,
+      0.35,
+      0.65,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "left_world_degrees": [
+      0.0,
+      -12.0,
+      -8.0,
+      -4.0,
+      -1.0,
+      0.5
+    ],
+    "right_world_degrees": [
+      0.0,
+      12.0,
+      8.0,
+      4.0,
+      1.0,
+      -0.5
+    ],
+    "interpolation": "piecewise linear degrees sampled into geometry support cells; actual runtime geometry interpolates public keyforms",
+    "pivot": "Same-context source ankle point plus identical side shoe X translation",
+    "pivots_source_xy": {
+      "L": [
+        555.0,
+        1134.0
+      ],
+      "R": [
+        698.0,
+        1134.0
+      ]
+    },
+    "same_context_Sit0_centerline_minimum_ratio": 0.995,
+    "target_definition": "All material vertices are rigid world rotation about same-context ankle, followed by shoe translation. No axial compression."
+  },
+  "final_neutral_material_gap_targets_source_pixels": {
+    "knee_inner_edges": [
+      2.0,
+      6.0
+    ],
+    "shoe_alpha128_min_same_row_gap": [
+      4.0,
+      10.0
+    ]
+  },
+  "measured_existing_material": {
+    "shoe_alpha128_minimum_same_row_gap_source_px": 25.0,
+    "sample_y": 1191.5,
+    "left_inner_x": 615.0,
+    "right_inner_x": 640.0,
+    "shoe_inward_translation_each": 9.5,
+    "predicted_final_alpha_gap": 6.0,
+    "material_width_report": ".local/geometry/r8-leg-material-widths.json",
+    "shoe_row_gap_report": ".local/geometry/r8-shoe-alpha-row-gaps.json"
+  },
+  "hidden_runtime_floor_reference": {
+    "ids": [
+      "ArtMeshFootwearL",
+      "ArtMeshFootwearR"
+    ],
+    "definition": "Each original hidden Footwear minimum native Y remains same complete context formal Sit0. New visible shoes do not redefine floor.",
+    "min_native_Y_drift_source_pixels_max": 0.1,
+    "world_X_not_modified": true
+  },
+  "required_proofs": [
+    "All original Sit0 float32 geometry/channels unchanged",
+    "Generic public exterior-perimeter warp inverse over every BodyZ/Breath slice",
+    "Continuous local signed-area polynomial no zero crossings",
+    "Independent actual Core target-contact and sock-length gate",
+    "Named alpha knee/sock and ankle/shoe coverage",
+    "Native final legs visibly closed and no collision/hole; user visual acceptance pending"
+  ]
+}

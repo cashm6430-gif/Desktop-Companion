@@ -1,0 +1,1049 @@
+{
+  "schema_version": 1,
+  "kind": "actual_missing_busy_left_sleeve_author_repair",
+  "adopted": false,
+  "input_plan": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\geometry\\support-ground-arms-r7-handoff-plan.json",
+  "input_plan_sha256": "08bd4558f4eb08b1677be8aae239ca526a0fd26f9b6f5d45195ba9f6a05b6d5f",
+  "generator_sha256": "e43af13e6437f43d5f5bdcf5314be0bd856ed7a7e2d5787c392d2ce00c5f7edf",
+  "fragment_sha256": "18697e43b4befda9de603115180e2152aaf865150c515f27e8553586deeccc88",
+  "source_alpha_evidence": {
+    "source_png": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+    "source_png_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+    "interior_source_roi_xyxy": [
+      400,
+      660,
+      470,
+      700
+    ],
+    "samples": 2800,
+    "pixels_alpha_ge_128": 0,
+    "maximum_alpha": 0,
+    "meaning": "Original sleeve-interior material is absent. This is not a geometry rectangle coverage claim."
+  },
+  "busy_wrist_anchor": {
+    "drawable": "ArtMeshObjects3",
+    "source_xy": [
+      379.0,
+      764.0
+    ],
+    "triangle": 28,
+    "vertices": [
+      41,
+      20,
+      19
+    ],
+    "weights": [
+      0.1861400171064136,
+      0.5933347876536209,
+      0.22052519523996544
+    ],
+    "virtual_opening_center": false,
+    "minimum_weight": 0.1861400171064136,
+    "source_page": "E:\\projects\\Desktop-Companion\\art\\live2d\\layers\\busy-sleeve-l.png",
+    "source_png_sha256": "2a09fc50a553295f8e31ed702d1451b4e85f64c033fa64f16aae401eaca1a718",
+    "source_pixel_alpha": 253,
+    "requested_source_xy": [
+      379.0,
+      764.0
+    ],
+    "selection": "Nearest opaque warm wrist pixel in fixed source ROI, then original mesh barycentric registration."
+  },
+  "targeted_new_meshes": [
+    "ArtMeshBusyUpperarmBridgeL",
+    "ArtMeshBusyForearmBridgeL"
+  ],
+  "all_existing_model_rows_unchanged": true,
+  "Ground_H0_stays_hidden": true,
+  "original_busy_hand_and_hair_unchanged": true,
+  "additional_page_index": 6,
+  "opacity_contract": {
+    "Sit0": 0,
+    "Busy0": 0,
+    "H1": 0,
+    "Sit_ge_.93_Busy1_H0": 1,
+    "Sit_.92_to_.93": "linear, masked by automatic H1"
+  },
+  "component_coverage_groups": {
+    "left_forearm": [
+      "ArtMeshGroundForearmL",
+      "ArtMeshObjects3",
+      "ArtMeshBusyForearmBridgeL"
+    ],
+    "left_elbow": [
+      "ArtMeshGroundUpperarmL",
+      "ArtMeshGroundForearmL",
+      "ArtMeshBusyUpperarmBridgeL",
+      "ArtMeshBusyForearmBridgeL",
+      "ArtMeshObjects3"
+    ]
+  },
+  "mesh_proofs": [
+    {
+      "id": "ArtMeshBusyUpperarmBridgeL",
+      "kind": "upper",
+      "vertices": 41,
+      "triangles": 45,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 1296,
+      "texture_page": 6,
+      "part": "PartExtra",
+      "source_material_contract": {
+        "clipped": false,
+        "original_indices_retained": true,
+        "atlas_page": 0
+      },
+      "UV_indices_and_base_unchanged_from_Ground_chart": true,
+      "exact_busy_wrist_driver": [
+        "ParamBusyTypingL",
+        "ParamLaptopRock"
+      ],
+      "maximum_f32_inverse_error_source_px": 4.526962055006151e-05,
+      "longitudinal_stretch_ratio_range": [
+        0.8296407210462442,
+        0.9028953734374409
+      ],
+      "minimum_local_interval_area_ratio": 0.9999866485595703,
+      "cuff_overlap_source_px": null,
+      "neutral_body_typing1_rock0_pose_keys": [
+        {
+          "sit": 0.0,
+          "shoulder_source_xy": [
+            529.0,
+            614.0
+          ],
+          "elbow_source_xy": [
+            438.9999999518202,
+            685.5017691142722
+          ],
+          "wrist_source_xy": [
+            378.99999989962544,
+            762.9620189880673
+          ]
+        },
+        {
+          "sit": 0.1,
+          "shoulder_source_xy": [
+            529.0000018670031,
+            631.1428660023546
+          ],
+          "elbow_source_xy": [
+            438.99999779019385,
+            702.644636987706
+          ],
+          "wrist_source_xy": [
+            378.99999337365045,
+            780.1048888885033
+          ]
+        },
+        {
+          "sit": 0.25,
+          "shoulder_source_xy": [
+            529.0000046675077,
+            656.8571650058868
+          ],
+          "elbow_source_xy": [
+            439.0000034074609,
+            728.3589313440069
+          ],
+          "wrist_source_xy": [
+            379.00000204241024,
+            805.8191782103036
+          ]
+        },
+        {
+          "sit": 0.3,
+          "shoulder_source_xy": [
+            529.0000056010094,
+            665.428598007064
+          ],
+          "elbow_source_xy": [
+            439.0000040985892,
+            736.9303711168442
+          ],
+          "wrist_source_xy": [
+            379.00000247096733,
+            814.3906253191062
+          ]
+        },
+        {
+          "sit": 0.32,
+          "shoulder_source_xy": [
+            529.0000059744101,
+            668.8571712075347
+          ],
+          "elbow_source_xy": [
+            439.0000012242392,
+            740.3589334120608
+          ],
+          "wrist_source_xy": [
+            378.99999607822076,
+            817.8191758002974
+          ]
+        },
+        {
+          "sit": 0.34,
+          "shoulder_source_xy": [
+            529.0000063478108,
+            672.2857444080058
+          ],
+          "elbow_source_xy": [
+            439.0000085229209,
+            743.7875170688342
+          ],
+          "wrist_source_xy": [
+            379.00001087929024,
+            821.2477707847318
+          ]
+        },
+        {
+          "sit": 0.35,
+          "shoulder_source_xy": [
+            529.0000065345109,
+            674.0000310082414
+          ],
+          "elbow_source_xy": [
+            439.0000000645406,
+            745.5017855575061
+          ],
+          "wrist_source_xy": [
+            378.9999930554059,
+            822.962019652543
+          ]
+        },
+        {
+          "sit": 0.36,
+          "shoulder_source_xy": [
+            529.000006534511,
+            676.0000295419437
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            747.5017967113228
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            824.9620444781499
+          ]
+        },
+        {
+          "sit": 0.4,
+          "shoulder_source_xy": [
+            529.000006534511,
+            684.0000236767528
+          ],
+          "elbow_source_xy": [
+            439.00000951489426,
+            755.5017993648579
+          ],
+          "wrist_source_xy": [
+            379.00001274364274,
+            832.9620563603053
+          ]
+        },
+        {
+          "sit": 0.45,
+          "shoulder_source_xy": [
+            529.000006534511,
+            694.0000163452645
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            765.5017811370266
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            842.9620263281022
+          ]
+        },
+        {
+          "sit": 0.5,
+          "shoulder_source_xy": [
+            529.000006534511,
+            704.0000090137761
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            775.5017735875896
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            852.9620185425542
+          ]
+        },
+        {
+          "sit": 0.575,
+          "shoulder_source_xy": [
+            529.000006534511,
+            718.9999980165434
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            790.5017622634341
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            867.9620068642323
+          ]
+        },
+        {
+          "sit": 0.65,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000000645406,
+            805.5017402608838
+          ],
+          "wrist_source_xy": [
+            378.9999930554059,
+            882.961972939255
+          ]
+        },
+        {
+          "sit": 0.7,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            805.501758266169
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            882.9620104502656
+          ]
+        },
+        {
+          "sit": 0.8,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000715230584,
+            805.5017489515851
+          ],
+          "wrist_source_xy": [
+            379.0000078215835,
+            882.9619910448828
+          ]
+        },
+        {
+          "sit": 0.84,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            438.99999934288763,
+            805.5017459096384
+          ],
+          "wrist_source_xy": [
+            378.9999915519623,
+            882.9619847074939
+          ]
+        },
+        {
+          "sit": 0.88,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000273938065,
+            805.501757121119
+          ],
+          "wrist_source_xy": [
+            378.9999986279894,
+            882.962008064745
+          ]
+        },
+        {
+          "sit": 0.9,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000012458348,
+            805.5017539208181
+          ],
+          "wrist_source_xy": [
+            378.99999551643555,
+            882.9620013974517
+          ]
+        },
+        {
+          "sit": 0.92,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000823478524,
+            805.5017557465816
+          ],
+          "wrist_source_xy": [
+            379.00001007674905,
+            882.9620052011253
+          ]
+        },
+        {
+          "sit": 0.93,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000318103685,
+            805.5017497562781
+          ],
+          "wrist_source_xy": [
+            378.99999954810653,
+            882.9619927213264
+          ]
+        },
+        {
+          "sit": 0.94,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000376454904,
+            805.5017433470368
+          ],
+          "wrist_source_xy": [
+            379.0000007637568,
+            882.9619793687405
+          ]
+        },
+        {
+          "sit": 0.95,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000030177761,
+            805.5017377762673
+          ],
+          "wrist_source_xy": [
+            378.99999920797995,
+            882.9619677629707
+          ]
+        },
+        {
+          "sit": 0.96,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000349456985,
+            805.501739308264
+          ],
+          "wrist_source_xy": [
+            379.00000020130017,
+            882.9619709546303
+          ]
+        },
+        {
+          "sit": 1.0,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            805.5017509392785
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            882.9619951859104
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshBusyForearmBridgeL",
+      "kind": "forearm",
+      "vertices": 49,
+      "triangles": 53,
+      "geometry_axes": [
+        {
+          "parameter": "ParamSitPose",
+          "keys": [
+            0.0,
+            0.1,
+            0.25,
+            0.3,
+            0.32,
+            0.34,
+            0.35,
+            0.36,
+            0.4,
+            0.45,
+            0.5,
+            0.575,
+            0.65,
+            0.7,
+            0.8,
+            0.84,
+            0.88,
+            0.9,
+            0.92,
+            0.93,
+            0.94,
+            0.95,
+            0.96,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleX",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBodyAngleY",
+          "keys": [
+            -10.0,
+            0.0,
+            10.0
+          ]
+        },
+        {
+          "parameter": "ParamBusyTypingL",
+          "keys": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "parameter": "ParamLaptopRock",
+          "keys": [
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "forms": 1296,
+      "texture_page": 6,
+      "part": "PartExtra",
+      "source_material_contract": {
+        "clipped": true,
+        "original_indices_retained": false,
+        "atlas_page": 0,
+        "halfplane_aX_bY_c_ge0": [
+          0.6722491348810338,
+          -0.7403249966411385,
+          312.6732241054232
+        ],
+        "original_triangle_per_child_triangle": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          23,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          36,
+          37,
+          37,
+          38,
+          38,
+          39,
+          48,
+          53,
+          54,
+          59,
+          60,
+          62,
+          62,
+          63,
+          70,
+          70,
+          71,
+          72,
+          75,
+          75,
+          78
+        ],
+        "policy": "Left distal old-hand region removed by UV halfplane; cuff is partially trimmed and the new palm wrist must cover its seam."
+      },
+      "UV_indices_and_base_unchanged_from_Ground_chart": true,
+      "exact_busy_wrist_driver": [
+        "ParamBusyTypingL",
+        "ParamLaptopRock"
+      ],
+      "maximum_f32_inverse_error_source_px": 4.313177437664662e-05,
+      "longitudinal_stretch_ratio_range": [
+        0.8878064595304622,
+        0.9873263873937809
+      ],
+      "minimum_local_interval_area_ratio": 0.9998816251754761,
+      "cuff_overlap_source_px": 10.0,
+      "neutral_body_typing1_rock0_pose_keys": [
+        {
+          "sit": 0.0,
+          "shoulder_source_xy": [
+            529.0,
+            614.0
+          ],
+          "elbow_source_xy": [
+            438.9999999518202,
+            685.5017691142722
+          ],
+          "wrist_source_xy": [
+            378.99999989962544,
+            762.9620189880673
+          ]
+        },
+        {
+          "sit": 0.1,
+          "shoulder_source_xy": [
+            529.0000018670031,
+            631.1428660023546
+          ],
+          "elbow_source_xy": [
+            438.99999779019385,
+            702.644636987706
+          ],
+          "wrist_source_xy": [
+            378.99999337365045,
+            780.1048888885033
+          ]
+        },
+        {
+          "sit": 0.25,
+          "shoulder_source_xy": [
+            529.0000046675077,
+            656.8571650058868
+          ],
+          "elbow_source_xy": [
+            439.0000034074609,
+            728.3589313440069
+          ],
+          "wrist_source_xy": [
+            379.00000204241024,
+            805.8191782103036
+          ]
+        },
+        {
+          "sit": 0.3,
+          "shoulder_source_xy": [
+            529.0000056010094,
+            665.428598007064
+          ],
+          "elbow_source_xy": [
+            439.0000040985892,
+            736.9303711168442
+          ],
+          "wrist_source_xy": [
+            379.00000247096733,
+            814.3906253191062
+          ]
+        },
+        {
+          "sit": 0.32,
+          "shoulder_source_xy": [
+            529.0000059744101,
+            668.8571712075347
+          ],
+          "elbow_source_xy": [
+            439.0000012242392,
+            740.3589334120608
+          ],
+          "wrist_source_xy": [
+            378.99999607822076,
+            817.8191758002974
+          ]
+        },
+        {
+          "sit": 0.34,
+          "shoulder_source_xy": [
+            529.0000063478108,
+            672.2857444080058
+          ],
+          "elbow_source_xy": [
+            439.0000085229209,
+            743.7875170688342
+          ],
+          "wrist_source_xy": [
+            379.00001087929024,
+            821.2477707847318
+          ]
+        },
+        {
+          "sit": 0.35,
+          "shoulder_source_xy": [
+            529.0000065345109,
+            674.0000310082414
+          ],
+          "elbow_source_xy": [
+            439.0000000645406,
+            745.5017855575061
+          ],
+          "wrist_source_xy": [
+            378.9999930554059,
+            822.962019652543
+          ]
+        },
+        {
+          "sit": 0.36,
+          "shoulder_source_xy": [
+            529.000006534511,
+            676.0000295419437
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            747.5017967113228
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            824.9620444781499
+          ]
+        },
+        {
+          "sit": 0.4,
+          "shoulder_source_xy": [
+            529.000006534511,
+            684.0000236767528
+          ],
+          "elbow_source_xy": [
+            439.00000951489426,
+            755.5017993648579
+          ],
+          "wrist_source_xy": [
+            379.00001274364274,
+            832.9620563603053
+          ]
+        },
+        {
+          "sit": 0.45,
+          "shoulder_source_xy": [
+            529.000006534511,
+            694.0000163452645
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            765.5017811370266
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            842.9620263281022
+          ]
+        },
+        {
+          "sit": 0.5,
+          "shoulder_source_xy": [
+            529.000006534511,
+            704.0000090137761
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            775.5017735875896
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            852.9620185425542
+          ]
+        },
+        {
+          "sit": 0.575,
+          "shoulder_source_xy": [
+            529.000006534511,
+            718.9999980165434
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            790.5017622634341
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            867.9620068642323
+          ]
+        },
+        {
+          "sit": 0.65,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000000645406,
+            805.5017402608838
+          ],
+          "wrist_source_xy": [
+            378.9999930554059,
+            882.961972939255
+          ]
+        },
+        {
+          "sit": 0.7,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            805.501758266169
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            882.9620104502656
+          ]
+        },
+        {
+          "sit": 0.8,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000715230584,
+            805.5017489515851
+          ],
+          "wrist_source_xy": [
+            379.0000078215835,
+            882.9619910448828
+          ]
+        },
+        {
+          "sit": 0.84,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            438.99999934288763,
+            805.5017459096384
+          ],
+          "wrist_source_xy": [
+            378.9999915519623,
+            882.9619847074939
+          ]
+        },
+        {
+          "sit": 0.88,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000273938065,
+            805.501757121119
+          ],
+          "wrist_source_xy": [
+            378.9999986279894,
+            882.962008064745
+          ]
+        },
+        {
+          "sit": 0.9,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000012458348,
+            805.5017539208181
+          ],
+          "wrist_source_xy": [
+            378.99999551643555,
+            882.9620013974517
+          ]
+        },
+        {
+          "sit": 0.92,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000823478524,
+            805.5017557465816
+          ],
+          "wrist_source_xy": [
+            379.00001007674905,
+            882.9620052011253
+          ]
+        },
+        {
+          "sit": 0.93,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000318103685,
+            805.5017497562781
+          ],
+          "wrist_source_xy": [
+            378.99999954810653,
+            882.9619927213264
+          ]
+        },
+        {
+          "sit": 0.94,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000376454904,
+            805.5017433470368
+          ],
+          "wrist_source_xy": [
+            379.0000007637568,
+            882.9619793687405
+          ]
+        },
+        {
+          "sit": 0.95,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000030177761,
+            805.5017377762673
+          ],
+          "wrist_source_xy": [
+            378.99999920797995,
+            882.9619677629707
+          ]
+        },
+        {
+          "sit": 0.96,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.00000349456985,
+            805.501739308264
+          ],
+          "wrist_source_xy": [
+            379.00000020130017,
+            882.9619709546303
+          ]
+        },
+        {
+          "sit": 1.0,
+          "shoulder_source_xy": [
+            529.000006534511,
+            733.9999870193104
+          ],
+          "elbow_source_xy": [
+            439.0000047897174,
+            805.5017509392785
+          ],
+          "wrist_source_xy": [
+            379.00000289952436,
+            882.9619951859104
+          ]
+        }
+      ]
+    }
+  ],
+  "pending": [
+    "Actual saved CMO/readback/Native closure",
+    "Actual Core unchanged thresholds for .95/.96 typing/rock return",
+    "Grey-matte Native silhouette/cloth seam review",
+    "R8 closed-leg palm-side spacing"
+  ]
+}

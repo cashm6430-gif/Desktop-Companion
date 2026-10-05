@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "source": {
+    "cmo_sha256": "10906cf918cb0030ddc206bd82e1b2b8a967edc1832aa4886e0402f1a3331b6a",
+    "moc_sha256": "7e24a0ffef40cd3064ab99a5a91ee0731579dfd8fd4faca2590ed16a1209dc87",
+    "atlas_pages": [
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_00.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      },
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_01.png",
+        "sha256": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8"
+      },
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_02.png",
+        "sha256": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c"
+      },
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_03.png",
+        "sha256": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22"
+      },
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_04.png",
+        "sha256": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5"
+      },
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_05.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      },
+      {
+        "path": "{CANDIDATE_ROOT}/review-model/whale-girl-layered-draft.4096/texture_06.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      }
+    ]
+  },
+  "description": "Continue the saved seven-page R8 author; supply only actual parent-local edits. Resolve CANDIDATE_ROOT before calling public editor.",
+  "parameters": [],
+  "deformer_grids": [],
+  "mesh_grids": [],
+  "insert_meshes": [],
+  "append_pages": []
+}
