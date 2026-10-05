@@ -50,8 +50,10 @@ inline double authoredSkirtSpread(double sit) {
 
 inline double authoredHandGround(double sit) {
     if (!std::isfinite(sit)) return 0.0;
-    return smoothUnit((sit - 0.28) / 0.30)
-        * (1.0 - smoothUnit((sit - 0.80) / 0.16));
+    // Select the support rig only while its wrists coincide with the old
+    // hands. Its Sit keyforms author the reach, plant and return trajectory.
+    return smoothUnit((sit - 0.32) / 0.04)
+        * (1.0 - smoothUnit((sit - 0.94) / 0.02));
 }
 
 inline bool collarTarget(Point standing, Point seated, double seatedMix, Point* result) {

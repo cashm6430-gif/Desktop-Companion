@@ -2,6 +2,13 @@
   "schema_version": 1,
   "status": "approved conceptual pose; generated material sources, rig acceptance pending",
   "approved_by": "user 2026-10-04: 通过，按这两姿势制作",
+  "latest_pose_direction": {
+    "date": "2026-10-05",
+    "instruction": "坐稳时双腿合拢；双膝并拢、双脚靠近，下蹲后半程连续收腿",
+    "supersedes": "approved concept leg spacing and rejected R7 seated pose",
+    "preserve": "original standing pose, rigid stocking length, shoe floor contact and material coverage",
+    "acceptance": "actual Live2D continuous preview and full component regression pending"
+  },
   "concept": {
     "path": "art/live2d/review/sit-pose-20261004-r1/keypose-concept-approved.png",
     "sha256": "b31dbd46c439d3ec56d2bb223de850c3469f8a2d96e2ea28c35b3a9ce76c751b",
@@ -61,6 +68,26 @@
       "RGBA_sha256": "00da3d74a6acd8d9cd3d669f8cdd583c8cbb8ee1defdb38fd2630a5a5e044529",
       "transparent_padding": true,
       "standalone_texture_page": true
+    },
+    "clean-leg-pair-r2.png": {
+      "path": "art/live2d/sit-pose-20261004-r1/materials/clean-leg-pair-r2.png",
+      "sha256": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5",
+      "size": [
+        1774,
+        887
+      ],
+      "alpha128_bbox": [
+        506,
+        49,
+        1268,
+        840
+      ],
+      "RGBA_sha256": "ba34e1fc91c12fc50686045a71c44085b52f5920d5000d2e4f3ee4695bac1853",
+      "transparent_padding": true,
+      "standalone_texture_page": true,
+      "use": "Only clean knee UV contours; preserve original stocking and shoe materials",
+      "generation_record": "art/live2d/sit-pose-20261004-r1/generation-clean-leg-r2.json",
+      "runtime_adoption": "pending"
     }
   },
   "binding_constraints": [

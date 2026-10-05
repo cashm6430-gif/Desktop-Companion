@@ -44,6 +44,10 @@ private slots:
         QCOMPARE(Posture::authoredHandGround(0), 0.0);
         QCOMPARE(Posture::authoredHandGround(1), 0.0);
         QCOMPARE(Posture::authoredHandGround(0.65), 1.0);
+        QCOMPARE(Posture::authoredHandGround(0.32), 0.0);
+        QCOMPARE(Posture::authoredHandGround(0.36), 1.0);
+        QCOMPARE(Posture::authoredHandGround(0.93), 1.0);
+        QCOMPARE(Posture::authoredHandGround(0.94), 1.0);
         QCOMPARE(Posture::authoredSkirtSpread(0), 0.0);
         QCOMPARE(Posture::authoredSkirtSpread(0.65), 1.0);
         for (int frame = 0; frame <= 1000; ++frame) {

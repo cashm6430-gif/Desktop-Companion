@@ -658,10 +658,14 @@ void CubismCanvas::paintGL() {
             model->SetParameterValue(impl_->skirtSpreadParameter,
                 static_cast<float>(motion_->values().value(QStringLiteral("ParamSkirtSpread"),
                     CubismPostureTransition::authoredSkirtSpread(posture.standingFold))));
-        if (impl_->handGroundParameter >= 0)
-            model->SetParameterValue(impl_->handGroundParameter,
-                static_cast<float>(motion_->values().value(QStringLiteral("ParamHandGround"),
-                    CubismPostureTransition::authoredHandGround(posture.standingFold))));
+        if (impl_->handGroundParameter >= 0) {
+            // Keep the existing grass grip while its prop is visible. The
+            // ground support arms share those hand materials.
+            const double handGround = motion_->values().value(QStringLiteral("ParamGrassVisible")) > 0.01
+                ? 0.0 : motion_->values().value(QStringLiteral("ParamHandGround"),
+                    CubismPostureTransition::authoredHandGround(posture.standingFold));
+            model->SetParameterValue(impl_->handGroundParameter, static_cast<float>(handGround));
+        }
     }
     const double physicsSeconds = std::exchange(frameSeconds_, 0.0);
     if (!motion_->frozenPhysics() && physicsSeconds > 0)
@@ -686,32 +690,33 @@ void CubismCanvas::paintGL() {
         const_cast<float*>(opacities)[impl_->gapeDrawable] = gapeOn ? 1.0f : 0.0f;
     }
 
-    // Folded knees lift the standing shoes off the floor, and the seated art is
-    // registered chin-to-head so its soles float higher still. Cancel the knee
-    // lift with the model transform, then bring only the seated meshes down onto
-    // the same floor. Both silhouettes then keep ground contact all the way
-    // through the posture change; shifting the whole model instead pulled one of
-    // them off the desktop, and dropping the transform let the shoes float.
+    // Keep the original global floor reference while BodyY/breath changes.
+    // Authored legs already keep their complete shoes in the same Body context
+    // as Sit0, so this single model translation cancels only that existing
+    // context offset. Legacy material registration needs its additional seated
+    // mesh translation; authored Sit geometry must never receive that shift.
     const float standingFoot = impl_->footFloor(impl_->standingFeet);
     const float seatedFoot = impl_->footFloor(impl_->seatedFeet);
     CubismPostureTransition::FloorPinnedTransform bodyClothTransform;
     Csm::CubismMatrix44 matrix;
     matrix.MultiplyByMatrix(impl_->model->GetModelMatrix());
-    if (!impl_->authoredSitPose && std::isfinite(standingFoot) && std::isfinite(seatedFoot)
-        && std::isfinite(impl_->standingFloor)) {
+    if (std::isfinite(standingFoot) && std::isfinite(impl_->standingFloor)
+        && (impl_->authoredSitPose || std::isfinite(seatedFoot))) {
         auto* modelMatrix = impl_->model->GetModelMatrix();
         const float grounded = modelMatrix->TransformY(impl_->standingFloor)
             - modelMatrix->TransformY(standingFoot);
         matrix.Translate(matrix.GetTranslateX(), matrix.GetTranslateY() + grounded);
-        // The SDK exposes the vertex buffer as const, but Update() rebuilds it
-        // every frame, so a write here only affects this draw call.
-        using Position = std::remove_const_t<std::remove_pointer_t<
-            decltype(model->GetDrawableVertexPositions(0))>>;
-        const float seatedShift = standingFoot - seatedFoot;
-        for (int index : impl_->seatedMeshes) {
-            auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(index));
-            const int count = model->GetDrawableVertexCount(index);
-            for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
+        if (!impl_->authoredSitPose) {
+            // Update() rebuilds this buffer every frame. The legacy correction
+            // changes only this draw call and never the author model.
+            using Position = std::remove_const_t<std::remove_pointer_t<
+                decltype(model->GetDrawableVertexPositions(0))>>;
+            const float seatedShift = standingFoot - seatedFoot;
+            for (int index : impl_->seatedMeshes) {
+                auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(index));
+                const int count = model->GetDrawableVertexCount(index);
+                for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
+            }
         }
     }
     if (impl_->hasNeck() && !impl_->authoredSitPose) {

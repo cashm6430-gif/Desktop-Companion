@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "built-in image_gen",
+  "asset": "art/live2d/sit-pose-20261004-r1/materials/clean-leg-pair-r2.png",
+  "reference_images": [
+    "art/live2d/review/sit-pose-20261004-r1/keypose-concept-approved.png",
+    "art/live2d/layers/15-footwear-l.png"
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: transparent costume layer artwork for a parameter-controlled Live2D character model. Input image 1 is the approved pair of poses, reference only; use the right-side deep crouch's outfit and the same illustration style. Input image 2 is the original left stocking and shoe artwork, reference only for exact colors and costume design. Draw a clean separated pair of COMPLETE LOWER-LEG COSTUME CUTOUTS side by side, upright and front facing, screen-left leg on left and screen-right leg on right, on a genuinely transparent background. Each cutout includes the small round kneecap at its top, the neat white lace at the navy stocking cuff beneath it, the whole long opaque white stocking, its small gold-and-navy bow ornament, and the complete glossy navy Mary Jane shoe and dark sole. Clothing game-sprite illustration, same chibi scale, delicate dark blue outlines, soft pink skin color, opaque white stocking, full five-finger-sized shoe proportions matching the reference. The kneecap must have a smooth complete curved outline and uniform painted interior with no cut-off straight sides, copied skirt fragments, blue hair fragments or transparent holes. The leg and cuff must meet seamlessly, and stocking must meet shoe with overlap, no gaps. The two cutouts must not touch or overlap. No head, no torso, no skirt, no arms, no text, no grass, no computer, no scenery, no drop shadow, no gray or checkerboard backdrop. These are costume pieces for the already-approved poses, not a new character design. Preserve costume details and the original shoe design. The stockings are full length; do not squash them into short stubs.",
+  "use": "Clean knee contours via new UV child meshes; existing stockings and shoes continue to use original atlas",
+  "runtime_adoption": "pending"
+}
