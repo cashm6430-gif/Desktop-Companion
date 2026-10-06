@@ -1,0 +1,514 @@
+{
+  "version": 1,
+  "model": "whale-girl-layered-draft",
+  "generator": "PSD2Live 1.4.2",
+  "runtimeTarget": "Cubism50",
+  "mocVersion": 5,
+  "cmo3TargetVersionNo": 5000000,
+  "cmo3FileFormatVersion": "500000005",
+  "canvas": {
+    "width": 1254,
+    "height": 1254
+  },
+  "config": {
+    "atlasSize": 4096,
+    "meshSpacing": 32,
+    "headTurnStrength": 0.65,
+    "bodyStrength": 0.6,
+    "meshOnly": false,
+    "generateDeformers": true,
+    "exportMotions": true
+  },
+  "faceRig": {
+    "algorithm": "perspective-parallelogram-nine-pose-v2",
+    "angleX": [
+      -45,
+      0,
+      45
+    ],
+    "angleY": [
+      -30,
+      0,
+      30
+    ],
+    "initialAngleZ": -3.854725,
+    "centerX": 631.73865,
+    "centerY": 486.2785,
+    "radiusX": 245.38327,
+    "radiusY": 183.0574
+  },
+  "deformerHierarchy": {
+    "head": "DeformHeadContainer",
+    "face": "DeformFaceNinePose",
+    "frontHair": [
+      "DeformHairFrontFollow",
+      "DeformHairFrontPhysics"
+    ],
+    "backHair": [
+      "DeformHairBackFollow",
+      "DeformHairBackPhysics"
+    ]
+  },
+  "physics": {
+    "enabled": true,
+    "frontHair": true,
+    "backHair": true,
+    "eyeJelly": false,
+    "groups": [
+      "PhysicsHairBack",
+      "PhysicsHairFront"
+    ]
+  },
+  "summary": {
+    "layers": 34,
+    "drawables": 34,
+    "deformers": 22,
+    "parameters": 40,
+    "atlasPages": 1
+  },
+  "runtimeMaterialSeparation": {
+    "bodySource": "face",
+    "headOnlyParameters": [
+      "ParamAngleX",
+      "ParamAngleY",
+      "ParamAngleZ",
+      "ParamHairFront",
+      "ParamHairBack",
+      "ParamCheek"
+    ],
+    "textureIndex": 0,
+    "underpaint": "material-ownership/body-underpaint.png",
+    "neckMask": "material-ownership/neck-mask.png",
+    "neckEraseMask": "material-ownership/neck-erase-mask.png",
+    "bodyMask": "material-ownership/body-clothing-mask.png",
+    "duplicateMask": "material-ownership/duplicate-mask.png",
+    "ownership": "material-ownership/ownership.json"
+  },
+  "runtimeNeckConnection": {
+    "headSource": "face",
+    "standingSource": "topwear",
+    "seatedSource": "busy torso",
+    "headAnchor": [
+      628,
+      588
+    ],
+    "standingAnchor": [
+      628,
+      588
+    ],
+    "seatedAnchor": [
+      628,
+      588
+    ],
+    "stretchStartY": 570,
+    "independentSurface": {
+      "model": "neck-component/neck-surface.model3.json",
+      "rig": "neck-component/neck-surface.rig.json",
+      "mocSha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8",
+      "atlasSha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47",
+      "rigSha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    }
+  },
+  "layers": [
+    {
+      "source": "back hair",
+      "type": "preset",
+      "tag": "back hair",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshBackHair2"
+    },
+    {
+      "source": "arm backing",
+      "type": "preset",
+      "tag": "back hair",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshBackHair"
+    },
+    {
+      "source": "headwear",
+      "type": "preset",
+      "tag": "headwear",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshHeadwear"
+    },
+    {
+      "source": "topwear",
+      "type": "preset",
+      "tag": "topwear",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshTopwear"
+    },
+    {
+      "source": "bottomwear",
+      "type": "preset",
+      "tag": "bottomwear",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshBottomwear"
+    },
+    {
+      "source": "footwear-r",
+      "type": "preset",
+      "tag": "footwear",
+      "side": "RIGHT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshFootwearR"
+    },
+    {
+      "source": "footwear-l",
+      "type": "preset",
+      "tag": "footwear",
+      "side": "LEFT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshFootwearL"
+    },
+    {
+      "source": "tail",
+      "type": "preset",
+      "tag": "tail",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshTail"
+    },
+    {
+      "source": "upperarm-r",
+      "type": "preset",
+      "tag": "handwear",
+      "side": "RIGHT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshHandwearR5"
+    },
+    {
+      "source": "upperarm-l",
+      "type": "preset",
+      "tag": "handwear",
+      "side": "LEFT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshHandwearL2"
+    },
+    {
+      "source": "face",
+      "type": "preset",
+      "tag": "face",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshFace"
+    },
+    {
+      "source": "front hair",
+      "type": "preset",
+      "tag": "front hair",
+      "side": "NONE",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshFrontHair"
+    },
+    {
+      "source": "mouth",
+      "type": "switch",
+      "tag": "mouth_close",
+      "side": "NONE",
+      "parameter": "ParamSmileOpen",
+      "switchId": 0,
+      "drawable": "ArtMeshMouthClose"
+    },
+    {
+      "source": "eyewhite-r",
+      "type": "preset",
+      "tag": "eyewhite",
+      "side": "RIGHT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshEyewhiteR"
+    },
+    {
+      "source": "eyewhite-l",
+      "type": "preset",
+      "tag": "eyewhite",
+      "side": "LEFT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshEyewhiteL"
+    },
+    {
+      "source": "irides-r",
+      "type": "preset",
+      "tag": "irides",
+      "side": "RIGHT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshIridesR"
+    },
+    {
+      "source": "irides-l",
+      "type": "preset",
+      "tag": "irides",
+      "side": "LEFT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshIridesL"
+    },
+    {
+      "source": "eyelash-r",
+      "type": "preset",
+      "tag": "eyelash",
+      "side": "RIGHT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshEyelashR"
+    },
+    {
+      "source": "eyelash-l",
+      "type": "preset",
+      "tag": "eyelash",
+      "side": "LEFT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshEyelashL"
+    },
+    {
+      "source": "handwear-r",
+      "type": "preset",
+      "tag": "handwear",
+      "side": "RIGHT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshHandwearR4"
+    },
+    {
+      "source": "handwear-l",
+      "type": "preset",
+      "tag": "handwear",
+      "side": "LEFT",
+      "parameter": "",
+      "switchId": 0,
+      "drawable": "ArtMeshHandwearL"
+    },
+    {
+      "source": "handwear_r",
+      "type": "switch",
+      "tag": "handwear",
+      "side": "RIGHT",
+      "parameter": "ParamHandRGrip",
+      "switchId": 0,
+      "drawable": "ArtMeshHandwearR3"
+    },
+    {
+      "source": "mouth open",
+      "type": "switch",
+      "tag": "mouth_open",
+      "side": "NONE",
+      "parameter": "ParamSmileOpen",
+      "switchId": 1,
+      "drawable": "ArtMeshMouthOpen2"
+    },
+    {
+      "source": "mouth open gape",
+      "type": "switch",
+      "tag": "mouth_open",
+      "side": "NONE",
+      "parameter": "ParamMouthGape",
+      "switchId": 1,
+      "drawable": "ArtMeshMouthOpen"
+    },
+    {
+      "source": "handwear right",
+      "type": "toggle",
+      "tag": "handwear",
+      "side": "RIGHT",
+      "parameter": "ParamGrassVisible",
+      "switchId": 0,
+      "drawable": "ArtMeshHandwearR2"
+    },
+    {
+      "source": "handwear.right",
+      "type": "switch",
+      "tag": "handwear",
+      "side": "RIGHT",
+      "parameter": "ParamHandRGrip",
+      "switchId": 1,
+      "drawable": "ArtMeshHandwearR"
+    },
+    {
+      "source": "busy torso",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamBusyLaptop",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects8"
+    },
+    {
+      "source": "busy skirt",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamBusyLaptop",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects7"
+    },
+    {
+      "source": "busy leg r",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamBusyLaptop",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects6"
+    },
+    {
+      "source": "busy leg l",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamBusyLaptop",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects5"
+    },
+    {
+      "source": "busy laptop base",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamLaptopVisible",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects4"
+    },
+    {
+      "source": "busy sleeve l",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamBusyLaptop",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects3"
+    },
+    {
+      "source": "busy sleeve r",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamBusyLaptop",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects2"
+    },
+    {
+      "source": "busy laptop lid",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "parameter": "ParamLaptopVisible",
+      "switchId": 0,
+      "drawable": "ArtMeshObjects"
+    },
+    {
+      "source": "busy workstation laptop",
+      "drawable": "ArtMeshWorkstationLaptop",
+      "parameter": "ParamLaptopVisible",
+      "type": "scene-prop"
+    },
+    {
+      "source": "busy workstation sleeve r",
+      "drawable": "ArtMeshWorkstationSleeveR",
+      "parameter": "ParamBusyLaptop",
+      "type": "toggle",
+      "tag": "objects",
+      "side": "NONE",
+      "switchId": 0
+    },
+    {
+      "source": "workstation ArtMeshWorkstationDesk",
+      "drawable": "ArtMeshWorkstationDesk",
+      "parameter": "ParamDeskVisible",
+      "type": "scene-prop"
+    },
+    {
+      "source": "workstation ArtMeshWorkstationDeskTop",
+      "drawable": "ArtMeshWorkstationDeskTop",
+      "parameter": "ParamDeskVisible",
+      "type": "scene-prop"
+    }
+  ],
+  "warnings": [
+    "检测到同名图层：footwear, upperarm, eyewhite, irides, eyelash, handwear；已通过稳定图层 ID 区分。"
+  ],
+  "runtimeDeskWorkMode": {
+    "version": 1,
+    "stage": "preview",
+    "adopted": false,
+    "mocSha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "parameter": "ParamDeskVisible",
+    "drawableIds": [
+      "ArtMeshWorkstationDesk",
+      "ArtMeshWorkstationDeskTop"
+    ],
+    "floorOwner": "runtime",
+    "bodySource": "formal-equivalent master; legacy approved registration retained",
+    "replacementLaptop": "ArtMeshWorkstationLaptop",
+    "replacementSleeves": {
+      "ArtMeshObjects2": "ArtMeshWorkstationSleeveR"
+    },
+    "hiddenLeftHand": true
+  },
+  "runtimeHairBacking": {
+    "version": 1,
+    "stage": "preview",
+    "adopted": false,
+    "mocSha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "drawable": "ArtMeshHairBackingPure",
+    "template": "ArtMeshBackHair",
+    "texturePage": 4,
+    "pureHairPage": {
+      "file": "whale-girl-layered-draft.4096/texture_04.png",
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    "mechanism": "authored mesh; verbatim backing vertices/grid; remapped UVs",
+    "legacyBacking": "untouched (preservation proofs remain valid)"
+  },
+  "runtimeBackdropCleanup": {
+    "version": 1,
+    "mocSha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "atlasSha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "backHairOnly": "ArtMeshBackHair2",
+    "backingMaterial": "ArtMeshBackHair",
+    "keepStrongComponents": 3,
+    "supportScale": [
+      1,
+      1
+    ],
+    "status": "island_cleanup_only; backing carried by authored mesh",
+    "backingTexture": {
+      "file": "material-ownership/arm-backing-hair-only.png",
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20",
+      "sourceRects": [
+        [
+          130,
+          603,
+          593,
+          1114
+        ],
+        [
+          661,
+          602,
+          1124,
+          1114
+        ]
+      ]
+    }
+  }
+}

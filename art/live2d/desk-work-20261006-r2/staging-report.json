@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "pending",
+  "adopted": false,
+  "candidate_base_moc_sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e",
+  "staged_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "source_edit_report_sha256": "f7a1f76b6483bec0ca644119b1f6af7c9166ebdcd237b8f23857510c835a6174",
+  "old38_geometry_opacity_bit_exact_contexts": 483,
+  "old38_topology_exact": true,
+  "old38_relative_render_order_exact": true,
+  "authored_backing_render_order_exact": true,
+  "native_counts": {
+    "parameters": 41,
+    "meshes": 39,
+    "pages": 5
+  },
+  "visual_review": "pending",
+  "full_native_regression": "not_run",
+  "production_replaced": false
+}

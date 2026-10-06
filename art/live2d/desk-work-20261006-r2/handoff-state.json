@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "pending_user_visual_review",
+  "production_replaced": false,
+  "push_requested": false,
+  "route": "R19 authored pure-hair backing",
+  "base_candidate": "art/live2d/desk-work-20261006-r1 (R15 desk materials, scene approval pending)",
+  "author_source": "art/live2d/desk-work-20261006-r2/author-source/edited.cmo3",
+  "staged_moc_sha256_prefix": "see staging-report.json",
+  "mechanism": "ArtMeshHairBackingPure inserted mesh: verbatim ArtMeshBackHair vertices/parent/keyforms, UVs remapped to the generated pure-hair wing page (texture page 4); legacy backing untouched; island cleanup (keep 3) retained with supportScale [1,1]",
+  "engineering_evidence": [
+    "public CMO edit validated: save/readback/direct export; old 38 drawables bit-exact across 483 contexts",
+    "old relative render order exact; authored mesh renders above ArtMeshBackHair, below body drawables",
+    "R19 captures vs R17 runtime-only experiment: ~400px anti-aliasing differences only",
+    "R19 vs R15 baseline: intended cloth-to-hair replacement plus duplicate ear tip and speck removal; ahoge intact"
+  ],
+  "visual_review_targets": [
+    "art/live2d/desk-work-20261006-r2/review-r19/ (default/raised-arm/delete/turn-ended)",
+    "the R17 content question (hair in the raised-arm negative space) goes to the user"
+  ],
+  "next_steps": [
+    "user visual review at desktop size and bright/dark backgrounds",
+    "if approved: scene approval flow and full regression before replacing the registered bundle",
+    "if the negative-space content is rejected: regenerate the wing page with per-region fill policy and re-run this plan pipeline"
+  ]
+}
