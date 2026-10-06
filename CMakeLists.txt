@@ -46,6 +46,10 @@ qt_add_executable(DesktopCompanion WIN32
 )
 target_link_libraries(DesktopCompanion PRIVATE Qt6::Widgets Qt6::Network shell32)
 target_compile_definitions(DesktopCompanion PRIVATE UNICODE _UNICODE)
+if(WIN32)
+    # Application icon + VERSIONINFO (resources/app.rc references whale-girl.ico).
+    target_sources(DesktopCompanion PRIVATE resources/app.rc)
+endif()
 if(HAVE_CUBISM)
     target_sources(DesktopCompanion PRIVATE src/CubismCanvas.h src/CubismCanvas.cpp
         src/CubismMaterialBinding.h src/CubismMaterialBinding.cpp

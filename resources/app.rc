@@ -1,0 +1,25 @@
+// DesktopCompanion application resources (Windows only).
+1 ICON "whale-girl.ico"
+
+1 VERSIONINFO
+FILEVERSION     0,1,0,0
+PRODUCTVERSION  0,1,0,0
+FILEOS          0x40004L   // VOS_NT_WINDOWS32
+FILETYPE        0x1L       // VFT_APP
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "FileDescription", "DeepSeek Whale Companion"
+      VALUE "ProductName",      "DesktopCompanion"
+      VALUE "FileVersion",      "0.1.0.0"
+      VALUE "ProductVersion",   "0.1.0.0"
+      VALUE "OriginalFilename", "DesktopCompanion.exe"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 1200
+  END
+END

@@ -9,6 +9,7 @@ class PetControllerTest final : public QObject {
     Q_OBJECT
 private slots:
     void concurrentTurns();
+    void stopWithoutTurnIdEndsLatestSessionTurn();
     void deleteReturnsToCurrentBackground();
     void sessionEndCleansOnlyItsTurns();
     void eatTriggeredCarriesSourcePayload();
@@ -35,6 +36,31 @@ void PetControllerTest::concurrentTurns() {
     QCOMPARE(controller.state(), PetController::State::Busy);
     QCOMPARE(completed.size(), 0);
     controller.turnStopped("b", "2");
+    QCOMPARE(controller.state(), PetController::State::Idle);
+    QCOMPARE(completed.size(), 1);
+}
+
+void PetControllerTest::stopWithoutTurnIdEndsLatestSessionTurn() {
+    PetController controller;
+    QSignalSpy completed(&controller, &PetController::allTurnsStopped);
+    controller.turnStarted("s", "1");
+    QTest::qWait(5);
+    controller.turnStarted("s", "2");
+    QTest::qWait(5);
+    controller.turnStarted("o", "3");
+    QCOMPARE(controller.state(), PetController::State::Busy);
+    // WorkBuddy Stop hooks carry session_id only, no turn_id.
+    controller.turnStopped("s", QString());
+    QCOMPARE(controller.state(), PetController::State::Busy);
+    QCOMPARE(completed.size(), 0);
+    // The session's latest turn ("2") was removed: an explicit stop for it is
+    // now a silent duplicate, while "1" still holds the state busy.
+    controller.turnStopped("s", "2");
+    QCOMPARE(completed.size(), 0);
+    controller.turnStopped("s", "1");
+    QCOMPARE(controller.state(), PetController::State::Busy);
+    QCOMPARE(completed.size(), 0);
+    controller.turnStopped("o", "3");
     QCOMPARE(controller.state(), PetController::State::Idle);
     QCOMPARE(completed.size(), 1);
 }
