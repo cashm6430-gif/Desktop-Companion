@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "assets": [
+    {
+      "tool": "image_gen built-in",
+      "source_path": "C:/Users/Administrator/.codex/generated_images/01a0ed6c-2659-7f12-9350-10b1290d7228/exec-c6edb78e-47c8-4433-be68-80e7fa9e576f.png",
+      "asset": "desk-closed-panel.png",
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+      "prompt_summary": "Draw only one compact cute workstation desk on transparent background, no character/computer/chair/text; front-facing, shallow tabletop depth; pale warm wood rounded top, navy closed opaque front panel to a flat grounded base; no leg openings, holes or arches; pale-blue whale emblem and wave trim; crisp anime outlines and restrained cel shading; no cast shadow, glow, or painted checkerboard.",
+      "bitmap_retouching_used": false
+    },
+    {
+      "tool": "image_gen built-in",
+      "source_path": "C:/Users/Administrator/.codex/generated_images/01a0ed6c-2659-7f12-9350-10b1290d7228/exec-4cc953a1-6b01-4df7-b131-b7d6dbe3cd8c.png",
+      "asset": "laptop-complete.png",
+      "sha256": "359f30c8e04030f1f09d8eaba5d7df0faf6aaf57df80f4442bb88279eb300166",
+      "prompt_summary": "Complete navy laptop in rear view, lid, hinge, keyboard deck and base as one connected rigid object; transparent background; match anime whale-girl workstation.",
+      "status": "pending_scene_review",
+      "bitmap_retouching_used": false
+    }
+  ],
+  "superseded_reference_assets": [
+    "laptop-lid-complete.png"
+  ]
+}

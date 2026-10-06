@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "moc_sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e",
+  "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+  "body_mask_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+  "duplicate_mask_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+  "underpaint_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+  "neck_mask_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+  "neck_erase_mask_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+  "body_mask": "material-ownership/body-clothing-mask.png",
+  "duplicate_mask": "material-ownership/duplicate-mask.png",
+  "underpaint": "material-ownership/body-underpaint.png",
+  "neck_mask": "material-ownership/neck-mask.png",
+  "neck_erase_mask": "material-ownership/neck-erase-mask.png",
+  "atlas_size": [
+    4096,
+    4096
+  ],
+  "mask_format": "8-bit grayscale, 255 means transfer/erase; no raster pixels are repainted",
+  "source_canvas": [
+    1254,
+    1254
+  ],
+  "source_to_atlas_proof": "Native Core UV bounds and full chart RGBA equality measured 2026-10-02; source=(4096*u+offsetX,4096*(1-v)+offsetY)",
+  "source_charts": {
+    "face": {
+      "drawable": "ArtMeshFace",
+      "atlas": [
+        2348,
+        1196,
+        2774,
+        1477
+      ],
+      "offset": [
+        -1936,
+        -866
+      ]
+    },
+    "front hair": {
+      "drawable": "ArtMeshFrontHair",
+      "atlas": [
+        1820,
+        8,
+        2506,
+        522
+      ],
+      "offset": [
+        -1545,
+        78
+      ]
+    },
+    "arm backing": {
+      "drawable": "ArtMeshBackHair",
+      "atlas": [
+        2959,
+        8,
+        3638,
+        358
+      ],
+      "offset": [
+        -2671,
+        550
+      ]
+    },
+    "busy torso": {
+      "drawable": "ArtMeshObjects8",
+      "atlas": [
+        2790,
+        1196,
+        3153,
+        1448
+      ],
+      "offset": [
+        -2358,
+        -630
+      ]
+    },
+    "topwear": {
+      "drawable": "ArtMeshTopwear",
+      "atlas": [
+        3520,
+        1196,
+        3866,
+        1375
+      ],
+      "offset": [
+        -3070,
+        -609
+      ]
+    }
+  },
+  "body_clothing": {
+    "source": "face",
+    "drawable": "ArtMeshFace",
+    "garment_polygon": [
+      [
+        515,
+        549
+      ],
+      [
+        546,
+        557
+      ],
+      [
+        590,
+        566
+      ],
+      [
+        624,
+        572
+      ],
+      [
+        657,
+        569
+      ],
+      [
+        700,
+        557
+      ],
+      [
+        738,
+        546
+      ],
+      [
+        739,
+        589
+      ],
+      [
+        738,
+        614
+      ],
+      [
+        519,
+        614
+      ]
+    ],
+    "skin_guard": "Warm face/neck source pixels plus adjacent 3-4 pixel dark jaw contour; limited to Y=540..591. No side hair transferred.",
+    "visible_pixel_count": 8970,
+    "source_bbox": [
+      515,
+      550,
+      740,
+      611
+    ]
+  },
+  "duplicates": [
+    {
+      "source": "front hair",
+      "drawable": "ArtMeshFrontHair",
+      "visible_pixel_count": 4450,
+      "source_bbox": [
+        515,
+        549,
+        740,
+        600
+      ]
+    },
+    {
+      "source": "arm backing",
+      "drawable": "ArtMeshBackHair",
+      "visible_pixel_count": 8781,
+      "source_bbox": [
+        516,
+        558,
+        740,
+        615
+      ]
+    },
+    {
+      "source": "busy torso",
+      "drawable": "ArtMeshObjects8",
+      "visible_pixel_count": 950,
+      "source_bbox": [
+        560,
+        566,
+        665,
+        585
+      ]
+    },
+    {
+      "source": "topwear",
+      "drawable": "ArtMeshTopwear",
+      "visible_pixel_count": 22,
+      "source_bbox": [
+        625,
+        587,
+        632,
+        592
+      ]
+    }
+  ],
+  "hidden_cloth_support": {
+    "source": "face",
+    "drawable": "ArtMeshFace",
+    "polygon": [
+      [
+        526,
+        536
+      ],
+      [
+        554,
+        535
+      ],
+      [
+        704,
+        535
+      ],
+      [
+        729,
+        536
+      ],
+      [
+        738,
+        548
+      ],
+      [
+        739,
+        610
+      ],
+      [
+        519,
+        610
+      ],
+      [
+        515,
+        586
+      ],
+      [
+        515,
+        551
+      ]
+    ],
+    "source_bbox": [
+      515,
+      535,
+      740,
+      611
+    ],
+    "visible_pixel_count": 16782,
+    "original_navy_sample_pixel_count": 2539,
+    "original_navy_sample_bbox": [
+      515,
+      550,
+      740,
+      587
+    ],
+    "method": "Per-column median of original navy collar pixels (at least three samples), nearest sampled column across the neck hole and seven-column noise median. No skin or facial pixels are painted.",
+    "purpose": "Hidden cloth behind the moving jaw and neck. Render beneath the main head in both standing and seated postures; transferred standing collar remains separately gated.",
+    "warm_skin_pixel_count": 0,
+    "pixels_above_source_y535": 0,
+    "pixels_outside_central_support": 0
+  },
+  "flexible_neck": {
+    "source": "face",
+    "drawable": "ArtMeshFace",
+    "mask_rule": "Complete neck_skin(face,589) contour guard intersected with source Y>=568; no narrow central rectangle.",
+    "main_erase_rule": "The same complete guard intersected with source Y>=570.",
+    "geometry": "Head anchor starts at Y=570; collar anchor at Y=588. Y=568..569 overlaps the jaw and follows the same head endpoint. The original dark tip to Y=591 is retained.",
+    "visible_pixel_count": 1011,
+    "source_bbox": [
+      555,
+      568,
+      682,
+      592
+    ],
+    "erased_from_main": {
+      "visible_pixel_count": 767,
+      "source_bbox": [
+        563,
+        570,
+        676,
+        592
+      ]
+    },
+    "validation": {
+      "source_pixels_above_y568_modified": 0,
+      "body_clothing_pixels_copied_to_neck": 0,
+      "neck_skin_erased_without_flexible_owner": 0,
+      "jaw_overlap_source_y": [
+        568,
+        570
+      ],
+      "jaw_overlap_visible_pixel_count": 244,
+      "original_warm_skin_pixel_count": 539,
+      "neck_tip_y591_visible_pixel_count": 3
+    }
+  },
+  "preserved": "Face above source Y=568 remains unchanged. One original neck skin material connects the moving jaw to the collar, with a two-source-pixel jaw overlap. Chest below the bow at source Y>=607 and original side-hair surfaces are retained.",
+  "generator": "tools/prepare_material_ownership.py",
+  "validation": {
+    "neck_skin_transferred_to_body": 0,
+    "bright_side_hair_transferred_to_body": 0,
+    "seated_chest_at_or_below_source_y607_erased": 0,
+    "face_features_above_source_y535_changed": 0
+  },
+  "moc_rebinding_evidence": {
+    "old34_UV_and_indices_exact": true,
+    "source_atlas_byte_exact": true,
+    "source_edit_report_sha256": "b906409a948bf2ef61300b1851e6982e86f5cfcf269cc71c3f408708ed9a3df6"
+  }
+}

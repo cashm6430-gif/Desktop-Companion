@@ -1,0 +1,43 @@
+{
+  "keyframes": [
+    {
+      "time": 0,
+      "name": "default-hidden",
+      "parameters": {}
+    },
+    {
+      "time": 1,
+      "name": "standing-covered",
+      "parameters": {
+        "ParamDeskVisible": 1
+      }
+    },
+    {
+      "time": 2,
+      "name": "working",
+      "parameters": {
+        "ParamDeskVisible": 1,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamArmLA": -40,
+        "ParamArmRA": -40,
+        "ParamAngleY": -8
+      }
+    },
+    {
+      "time": 3,
+      "name": "working-glance",
+      "parameters": {
+        "ParamDeskVisible": 1,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamArmLA": -40,
+        "ParamArmRA": -40,
+        "ParamAngleZ": -7,
+        "ParamEyeBallX": 0.5
+      }
+    }
+  ]
+}

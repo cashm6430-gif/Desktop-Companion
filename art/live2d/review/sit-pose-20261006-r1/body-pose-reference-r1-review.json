@@ -1,0 +1,17 @@
+{
+  "kind": "posture_and_material_reference_pending",
+  "image": "body-pose-reference-r1-pending.png",
+  "sha256": "137cfa0710aa77df5728c7d82b1d47f2a7ca2e15de3fee903db606cc89c7ad1d",
+  "generated_from": [
+    "../sit-pose-20261005-r9/skirt-support-concept-r2-approved.png",
+    "../../whale-girl-busy-laptop-clean-plate-v1.png"
+  ],
+  "approved": false,
+  "runtime_asset": false,
+  "review": [
+    "Right illustrates true forward thighs and soles for the seated variant.",
+    "Left body/long cuffs still need proportion review and coordination with formal head.",
+    "Exterior glow needs removal before using as a texture."
+  ],
+  "current_candidate_route": "Reuse genuine existing seated knee/stocking/sole atlas material; retain formal head. This concept is not automatically used as a whole-body frame."
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "kind": "common_scale_Native_capture_review_matte",
+  "created_utc": "2026-10-05T13:20:27.356084+00:00",
+  "source_capture_directory": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\neutral-native",
+  "inputs": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\neutral-native\\sit-00.png",
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+      "native_canvas_size": [
+        840,
+        840
+      ],
+      "alpha_bbox": [
+        100,
+        29,
+        770,
+        808
+      ],
+      "sit_label": 0.0,
+      "same_sheet_origin": [
+        12,
+        58
+      ]
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\neutral-native\\sit-01.png",
+      "sha256": "afec07cbd45d070d33ef04793dc73f6963308c9b3a6e2c9be228336a240d5d7b",
+      "native_canvas_size": [
+        840,
+        840
+      ],
+      "alpha_bbox": [
+        100,
+        68,
+        770,
+        808
+      ],
+      "sit_label": 0.35,
+      "same_sheet_origin": [
+        349,
+        58
+      ]
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\neutral-native\\sit-02.png",
+      "sha256": "df1c79523cad5ec0a92bd1f88c81414d4794b1412585d3021b4d24a1ad9b00ba",
+      "native_canvas_size": [
+        840,
+        840
+      ],
+      "alpha_bbox": [
+        95,
+        238,
+        770,
+        808
+      ],
+      "sit_label": 0.65,
+      "same_sheet_origin": [
+        686,
+        58
+      ]
+    },
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\neutral-native\\sit-03.png",
+      "sha256": "04fc39f2c9051080475993745564c761ccf981d1603e3504018d26f39e38df9e",
+      "native_canvas_size": [
+        840,
+        840
+      ],
+      "alpha_bbox": [
+        100,
+        106,
+        770,
+        808
+      ],
+      "sit_label": 1.0,
+      "same_sheet_origin": [
+        1023,
+        58
+      ]
+    }
+  ],
+  "capture_parameter_receipts": {
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\neutral-native\\sit.capture.json": "9414e1cb7ec5fa2a78cf30f1991f67b143465b4e51dc3deaf6a416a84f72479a"
+  },
+  "sit_label_source": "capture source_keyframe parameters",
+  "sit_values_verified_against_capture_receipt": true,
+  "common_native_canvas": [
+    840,
+    840
+  ],
+  "union_alpha_bbox": [
+    95,
+    29,
+    770,
+    808
+  ],
+  "common_crop": [
+    83,
+    17,
+    782,
+    820
+  ],
+  "common_scale": 0.44831880448318806,
+  "common_resized_dimensions": [
+    313,
+    360
+  ],
+  "source_floor_y": 807.0,
+  "floor_reference": "explicit source floor",
+  "floor_y_in_sheet": 412.17185554171857,
+  "per_pose_fit_or_vertical_shift": false,
+  "source_images_unchanged": true,
+  "source_transparent_background_required": true,
+  "output": {
+    "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\native-common-scale.png",
+    "sha256": "298c1cba68f81439fbc43fdfcad6b5134261669e53649d8777f0465b058b395b",
+    "size": [
+      1348,
+      460
+    ]
+  },
+  "tool": {
+    "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\review_common_scale.py",
+    "sha256": "d39d9f37a9dafaed10a8c3ce412ec99ebe22cb980d7806af6155566297d2c665"
+  },
+  "visual_review": "pending",
+  "adoption": "pending",
+  "limits": [
+    "This is a matte derived from supplied PNG bytes, not a new Native render.",
+    "Common source dimensions are checked; source renderer scale/model identity still belongs to the original capture receipt.",
+    "Physical foot/palm contact is not proved by an alpha-bottom reference line."
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "status": "rejected",
+  "adopted": false,
+  "reason": "User observed missing fingertips and sleeve/cuff. Sparse fixtures certify mapping only, not complete anatomy. Full source alpha restored; no hand keep-contour trim in current candidate.",
+  "patch_sha256": "6955bec6675ad54bef2712b406d79e32287de5b2a13367ebe5b6dfec81d9e439"
+}

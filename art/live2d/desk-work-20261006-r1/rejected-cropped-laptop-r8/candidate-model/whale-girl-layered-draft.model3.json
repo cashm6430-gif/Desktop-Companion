@@ -1,0 +1,51 @@
+{
+  "Version": 3,
+  "FileReferences": {
+    "Moc": "whale-girl-layered-draft.moc3",
+    "Textures": [
+      "whale-girl-layered-draft.4096/texture_00.png",
+      "whale-girl-layered-draft.4096/texture_01.png"
+    ],
+    "Physics": "whale-girl-layered-draft.physics3.json",
+    "DisplayInfo": "whale-girl-layered-draft.cdi3.json",
+    "Motions": {
+      "Idle": [
+        {
+          "File": "whale-girl-layered-draft.idle.motion3.json"
+        }
+      ],
+      "Blink": [
+        {
+          "File": "whale-girl-layered-draft.blink.motion3.json"
+        }
+      ],
+      "Nod": [
+        {
+          "File": "whale-girl-layered-draft.nod.motion3.json"
+        }
+      ],
+      "Shake": [
+        {
+          "File": "whale-girl-layered-draft.shake.motion3.json"
+        }
+      ]
+    }
+  },
+  "Groups": [
+    {
+      "Target": "Parameter",
+      "Name": "EyeBlink",
+      "Ids": [
+        "ParamEyeLOpen",
+        "ParamEyeROpen"
+      ]
+    },
+    {
+      "Target": "Parameter",
+      "Name": "LipSync",
+      "Ids": [
+        "ParamMouthOpenY"
+      ]
+    }
+  ]
+}

@@ -24,8 +24,8 @@
   ],
   "files": {
     ".gitattributes": {
-      "bytes": 356,
-      "sha256": "b2b6e4fb086526a3f5eaa5ef59f09e1e4e3d54bb9b07227f7dac5a3198636025"
+      "bytes": 446,
+      "sha256": "b47c64a49fdc4e5592d5d3ebf8a1b3d696e5e9ffaf06b5a3eddb7aa7c5c202e2"
     },
     ".gitignore": {
       "bytes": 275,
@@ -94,6 +94,902 @@
     "art/live2d/authoring-archive/psd2live-20261003/source-audit.json": {
       "bytes": 85842,
       "sha256": "d5825e62f5b37e843bc1f4de76393356b49e5cc9a47db325fd6e5aa9d7f2a6f4"
+    },
+    "art/live2d/desk-work-20261006-r1/arm-backing-hair-only.png": {
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    "art/live2d/desk-work-20261006-r1/author-plan.json": {
+      "bytes": 53727,
+      "sha256": "63dc94ad945f4793c7efe3273a6fc07913805a9432b213b5e1cc3e3e72eb7f90"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "140da2b0c01759ff86a35dcce51610e984fa878c93dc5d56c21636dcced82357"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.4096/texture_03.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.moc3": {
+      "bytes": 12008128,
+      "sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1227,
+      "sha256": "1707e9e4c31afbf7ead936d71b2c42cda4ccee9315d69f4bc2c2c388a93a74ac"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11484,
+      "sha256": "8f6734b931a37c9b0d5df56b65209e65b532d21a93b3f1c42718e8beebccd0fa"
+    },
+    "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "art/live2d/desk-work-20261006-r1/complete-arm-r-r2.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "art/live2d/desk-work-20261006-r1/complete-sleeve-l-r2-reference.png": {
+      "bytes": 814787,
+      "sha256": "51c076e06e8f82b9272aa1e886623309bc8c855898f74a6d6f49df49866602c3"
+    },
+    "art/live2d/desk-work-20261006-r1/complete-sleeve-l.png": {
+      "bytes": 598171,
+      "sha256": "2b4cf735e1ee1c6cae89d545ae58358ff2137d2c9bd0771c1ba7606577827c0e"
+    },
+    "art/live2d/desk-work-20261006-r1/complete-sleeve-r.png": {
+      "bytes": 663912,
+      "sha256": "2c9cd1f5bee819f458f001e12469e2e1f7d31ed2d6f51b28e23a9f3877136e52"
+    },
+    "art/live2d/desk-work-20261006-r1/component-margin-report.json": {
+      "bytes": 1509,
+      "sha256": "8b4be3279ea0b91b543b3d80340b9bd611888f21588805811629435f23949533"
+    },
+    "art/live2d/desk-work-20261006-r1/desk-closed-panel.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "art/live2d/desk-work-20261006-r1/edit-report.json": {
+      "bytes": 9650,
+      "sha256": "b906409a948bf2ef61300b1851e6982e86f5cfcf269cc71c3f408708ed9a3df6"
+    },
+    "art/live2d/desk-work-20261006-r1/edited.cmo3": {
+      "bytes": 26764569,
+      "sha256": "e85fe232b94d279e568a819ae236062aa87eacd6a8233b0c50a6074a0c3fe6b3"
+    },
+    "art/live2d/desk-work-20261006-r1/edited.moc3": {
+      "bytes": 12008128,
+      "sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/arm-backing-hair-only.png": {
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "140da2b0c01759ff86a35dcce51610e984fa878c93dc5d56c21636dcced82357"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.4096/texture_03.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.moc3": {
+      "bytes": 12008128,
+      "sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.model3.json": {
+      "bytes": 1227,
+      "sha256": "1707e9e4c31afbf7ead936d71b2c42cda4ccee9315d69f4bc2c2c388a93a74ac"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 12304,
+      "sha256": "909c86d74497ca5974f7a8e380e49ccd8a2e9b0f03a72beba965c45226e49685"
+    },
+    "art/live2d/desk-work-20261006-r1/experiment-model-r18/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "art/live2d/desk-work-20261006-r1/generation-complete-hands.json": {
+      "bytes": 1622,
+      "sha256": "565f75fb8756053bcd0ff245a07ab21c53ca35385e526b476d46f811e21ae4d9"
+    },
+    "art/live2d/desk-work-20261006-r1/generation-connected-right.json": {
+      "bytes": 2297,
+      "sha256": "1977893f2294232472d63a4d446253d4adbf9baedda87e88b95c4565bd5507fd"
+    },
+    "art/live2d/desk-work-20261006-r1/generation-hair-backing.json": {
+      "bytes": 1131,
+      "sha256": "96dedd1252a1e11a202b3d8df375ac7b4a09cc07fe91e45ed0e677c752c997ef"
+    },
+    "art/live2d/desk-work-20261006-r1/generation.json": {
+      "bytes": 1517,
+      "sha256": "54257e726e2833f22d6afd6514de06c0f8ef87710e3db9a062b4b262f2366eb2"
+    },
+    "art/live2d/desk-work-20261006-r1/handoff-state.json": {
+      "bytes": 2853,
+      "sha256": "32af4b96dd9ed3e12d7e5a72c4ab407cf55a4b5e8ffe2d0a7b811b5855e50078"
+    },
+    "art/live2d/desk-work-20261006-r1/keyposes.json": {
+      "bytes": 885,
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772"
+    },
+    "art/live2d/desk-work-20261006-r1/laptop-complete.png": {
+      "bytes": 879115,
+      "sha256": "359f30c8e04030f1f09d8eaba5d7df0faf6aaf57df80f4442bb88279eb300166"
+    },
+    "art/live2d/desk-work-20261006-r1/laptop-lid-complete.png": {
+      "bytes": 850748,
+      "sha256": "edde6633ff68152c1eff049674962a5ed59c522c4931c6c7ff3bf123b5b26cfc"
+    },
+    "art/live2d/desk-work-20261006-r1/laptop-uniform-navy.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "art/live2d/desk-work-20261006-r1/protection-manifest.json": {
+      "bytes": 40730,
+      "sha256": "1f36c816eef12de43f0bdab0a1395f2c59320f9aab9544047557bd0ada6760ec"
+    },
+    "art/live2d/desk-work-20261006-r1/rebuild-recipe.json": {
+      "bytes": 2966,
+      "sha256": "5bb0d96f16ecaee4034cd6cdc221f069859109580cd82ecd05e249840d2bd5b6"
+    },
+    "art/live2d/desk-work-20261006-r1/reference-equivalent.moc3": {
+      "bytes": 11999360,
+      "sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-contact-trim/contact-trim-r5-final-whole-laptop.json": {
+      "bytes": 87155,
+      "sha256": "d6a89af814f60d88141ce892e64d8a56f0d2760c6cf04a21fe27084e762870c6"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-contact-trim/mask-contract-r4-final-whole-laptop.json": {
+      "bytes": 130053,
+      "sha256": "12b4cec9d27a8a26f56439a7b08f434c80cef4c50a2595725710fb2a453cdd40"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-contact-trim/prepare_desk_contact_trim.py": {
+      "bytes": 5419,
+      "sha256": "149e3fd1ae9ded37eed45fb6a62a6da99a8bb7123574100fd0342cab1a47fe2c"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-contact-trim/rejection.json": {
+      "bytes": 340,
+      "sha256": "e1abc21ab5f3dd31415a733ed70a8a60e1e9d8e6ab4309651fa897fb23fa83df"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-contact-trim/runtime-material-experiment.patch": {
+      "bytes": 17431,
+      "sha256": "6955bec6675ad54bef2712b406d79e32287de5b2a13367ebe5b6dfec81d9e439"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-contact-trim/working-cut-fingers-sleeves.png": {
+      "bytes": 526828,
+      "sha256": "495d743a2d3df37fc0b0296786fb2101587be57257b1ef135313a66e3143e954"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/author-plan.json": {
+      "bytes": 8091,
+      "sha256": "ed9cae8724492340b5618f61226fab5c014288a4876ecbe6868b4e9af0473f64"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/desk-contact-trim.json": {
+      "bytes": 151860,
+      "sha256": "9329bc01ff80b165925f39769b52a3c8126bca951df4089b1a2e79fdefa905f4"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "db0ea4660dbdb0960a448128fe1193382baa706850cb036eeae1869a20e52e5e"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.moc3": {
+      "bytes": 12000128,
+      "sha256": "59a95e60bffaaadcf2d8171f5c8231a5f335a64cf268e95d868f746a6e1070e2"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1117,
+      "sha256": "9a15e567958a415765284703471f505a4be64b91337a79fd684d7341e9007ff0"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11047,
+      "sha256": "5e099e863b327bced093fa0d9ff9d6d27280a76a63a1c6a1f2b8eba4f9a61d1b"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/desk-contact-trim.json": {
+      "bytes": 151860,
+      "sha256": "9329bc01ff80b165925f39769b52a3c8126bca951df4089b1a2e79fdefa905f4"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/edit-report.json": {
+      "bytes": 8157,
+      "sha256": "8a418fe65d5caf7515126b0973e4736e918f5293a08fb913e39b1c5c62a5e713"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/edited.cmo3": {
+      "bytes": 23217753,
+      "sha256": "7b8d0839a8bcaea7be0b4a1707dea86f725b4c94039d07d8b527fb8309823237"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/edited.moc3": {
+      "bytes": 12000128,
+      "sha256": "59a95e60bffaaadcf2d8171f5c8231a5f335a64cf268e95d868f746a6e1070e2"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/rebuild-recipe.json": {
+      "bytes": 2038,
+      "sha256": "1abbc048d2a405e455ebbb17bbde6d3deeae703530731ad62ca99323170a4b3d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/rejection.json": {
+      "bytes": 318,
+      "sha256": "463e8055e481ee26b584a27828fc2476e75a0677220a9e408bb2ce0fa5548a99"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/source-contact-audit.json": {
+      "bytes": 177757,
+      "sha256": "d4858a3ba8347e2d11bc137af980a11da3b4982c16b369b3ae7add4804c3439b"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-cropped-laptop-r8/staging-report.json": {
+      "bytes": 724,
+      "sha256": "2e2c6b3245b09f547a17d497215b3ec742d9ed757dc2d963cf4843107ae95dfb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/author-plan-r13-complete-hands.json": {
+      "bytes": 84319,
+      "sha256": "b93aedbfe2f848543e93aa67fb63f60aa37b0e737f5b8f04ed962e8669e3daa9"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/edit-report.json": {
+      "bytes": 10421,
+      "sha256": "7b7c64bf814ed1b970e7b1a6633f9d4e3361dbe9ad9bb9b5eaecd264c80e8dcd"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/edited.cmo3": {
+      "bytes": 27932747,
+      "sha256": "da260a55e7c4b950bb3ad40003049478d39b4b8b1986d1d12ce62d871248fb8e"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/edited.moc3": {
+      "bytes": 12013440,
+      "sha256": "440bb5b17d049801e8f213e38d888214e93b07cc80147bd30ca8780d447669ef"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/keyposes.json": {
+      "bytes": 885,
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/native/desk-02.png": {
+      "bytes": 526341,
+      "sha256": "502acc9f3edde7c59865304058adb0404ef4c8389a2e098879f5f254e06f1c10"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/native/desk-03.png": {
+      "bytes": 521970,
+      "sha256": "5c6968c496ff968debf3d225997cae5f69dfa466cad7b1fa4bf400e4a4a166ad"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/native/desk.capture.json": {
+      "bytes": 2425,
+      "sha256": "b1bf7bce09e8f6df63343c986414c31379436bbe59d620dcf1481e4d9d59dfcc"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/protection-manifest.json": {
+      "bytes": 5108,
+      "sha256": "aba25eb3c2f02f6154aaffd8f2f4c780e3a5074d81248cb316424bfcd8984db3"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/rejection.json": {
+      "bytes": 2383,
+      "sha256": "f669f74eee1821d4e76060985844580617bff81c4e7e7bcef4fb804be6f9e12a"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/restoration-r12/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/restoration-r12/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/restoration-r12/native/desk-02.png": {
+      "bytes": 529005,
+      "sha256": "0c4167ffa5005b9abbe3f0d90aa0036ab0418733f2334e888cc55f19faaaeb94"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/restoration-r12/native/desk-03.png": {
+      "bytes": 525002,
+      "sha256": "05a40832a20047afefdc97445aae0606be91e8545071ad7e4a03bfa192814fdc"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/restoration-r12/staging-report.json": {
+      "bytes": 724,
+      "sha256": "094cbe588f964198790390c12703abaf3696d99f805d7c40182db1f12c2c79df"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-geometry-r13/staging-report.json": {
+      "bytes": 982,
+      "sha256": "b554433539a997c3482a0c60e37a9ac8f33b9a751aa766748ce7b38b41c4fa44"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/author-plan.json": {
+      "bytes": 22093,
+      "sha256": "aae1a9905ec551605404cec45682288a99c2ec090a17722179811fcbe1c87c33"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "e3ea8ee861546f0a2744bc99514c1dbe5f3d56508858e3a7bc8666fa22da85bb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 879115,
+      "sha256": "359f30c8e04030f1f09d8eaba5d7df0faf6aaf57df80f4442bb88279eb300166"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.moc3": {
+      "bytes": 12002816,
+      "sha256": "8a53aadf89cb3fb21f6f832a7acd81edc0bff523fd9998658c4b78bac84730bd"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1172,
+      "sha256": "a17121c07b641de5f03e3627e0a4f5765205c689994160b2a5740ae7c7df07c2"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11122,
+      "sha256": "6657181bdedcac1f6045e7138cd3852da80fa096e2d95a706dcd0ab30c0feb02"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/edit-report.json": {
+      "bytes": 8869,
+      "sha256": "0796813097d2af5ad10c819271cabd7e0facb6d55d9755d9b3ace4d04f4f2bbc"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/edited.cmo3": {
+      "bytes": 25222117,
+      "sha256": "21382cb9ed3be6ef0a11fe6d8cae5608c8f6ab3a9772a8d08b9d00448ad33fc6"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/edited.moc3": {
+      "bytes": 12002816,
+      "sha256": "8a53aadf89cb3fb21f6f832a7acd81edc0bff523fd9998658c4b78bac84730bd"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/keyposes.json": {
+      "bytes": 885,
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/rebuild-recipe.json": {
+      "bytes": 2661,
+      "sha256": "3f06a4147432103bdd65e333f69ce8db30cb558f1ad4fafeedc312176a722cf1"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/rejection.json": {
+      "bytes": 227,
+      "sha256": "35f0fe122b46adcd771653b3e8213db2883c9cfe74e76bff9f111a2178500e66"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/review-r12-complete-sleeves/native-command.json": {
+      "bytes": 846,
+      "sha256": "528424b0479a1547fff7b157b5dcde53384577b090d0ba50cb639756f62a94db"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-02.png": {
+      "bytes": 529005,
+      "sha256": "0c4167ffa5005b9abbe3f0d90aa0036ab0418733f2334e888cc55f19faaaeb94"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-03.png": {
+      "bytes": 525002,
+      "sha256": "05a40832a20047afefdc97445aae0606be91e8545071ad7e4a03bfa192814fdc"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/review-r12-complete-sleeves/native/desk.capture.json": {
+      "bytes": 2429,
+      "sha256": "913af184e7521445966c88b69a17ddaf7578899619b0d83acae8df7e33ce1e63"
+    },
+    "art/live2d/desk-work-20261006-r1/rejected-restore-only-r12/staging-report.json": {
+      "bytes": 724,
+      "sha256": "094cbe588f964198790390c12703abaf3696d99f805d7c40182db1f12c2c79df"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/desk-delete-command.json": {
+      "bytes": 745,
+      "sha256": "394c4cd123f8c523e664aa1366737e3d972064ada759258fbcf68bb5a07b4f0a"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/desk-delete-native/frame-000.png": {
+      "bytes": 529924,
+      "sha256": "c7f257e090c458500555dd9bf716203f4a52d8d91289e69b551ecd80c1c1bd15"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/desk-delete-native/frame-025.png": {
+      "bytes": 594245,
+      "sha256": "06ddb6a47e75cc82b203fba77371afc620e3b4c20c0957f6558b9e025676f5f7"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/desk-delete-native/frame-030.png": {
+      "bytes": 577819,
+      "sha256": "442069577d978cf01adc7df447e03269fa961a9e29b678f4bbcd4bc84da39d36"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/desk-delete-native/frame-074.png": {
+      "bytes": 522519,
+      "sha256": "08e7927dca0e4c3ee29c0181fbc76ac91ad809588098cfdaa97b5211b427f2d1"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/desk-delete-native/scene.json": {
+      "bytes": 158035,
+      "sha256": "c2ac6bb470b68faa8a7d037b9b8c5fc61c3a3202e9ab984ea0ddca6942bb4487"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/head-pat-command.json": {
+      "bytes": 744,
+      "sha256": "4efb2891d82e07bb54e63c5e50825d77678a009f304eacf3209cf7d93630565d"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/head-pat-native/frame-000.png": {
+      "bytes": 529924,
+      "sha256": "c7f257e090c458500555dd9bf716203f4a52d8d91289e69b551ecd80c1c1bd15"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/head-pat-native/frame-025.png": {
+      "bytes": 518280,
+      "sha256": "7fa4fb99a28ea19690d775dcda1af5eb00798829421cb587497cbef2f4c07539"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/head-pat-native/frame-030.png": {
+      "bytes": 517064,
+      "sha256": "d0d5d369b337a18de53440974ab801ef279b8269bb8d8bf809a0df1824b74df6"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/head-pat-native/frame-074.png": {
+      "bytes": 522797,
+      "sha256": "e028ee3a974b63b6e4d8a71f1cb64e75d3db00effb52400333759b2c39b3bfe9"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/head-pat-native/scene.json": {
+      "bytes": 156511,
+      "sha256": "b90d8b539190b7a14e5bc461d60d923e4456d933db465152a290a1a41ccf3aa0"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-command.json": {
+      "bytes": 735,
+      "sha256": "e20fbebd1627a74b2be214f613ba295f6c7a7de84e71438856c681b3750d2b66"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-native/capture.json": {
+      "bytes": 369545,
+      "sha256": "af8113c7c81563f9c8d6b5d55dfbb282ba672c38f32d87b227d4c7c07b1cd064"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-native/frame-000.png": {
+      "bytes": 573912,
+      "sha256": "7094e923efe658a52b04c658e06ee1ccba55911c9ea1d15cc9034e23b38df27b"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-native/frame-030.png": {
+      "bytes": 521942,
+      "sha256": "c1d03e3225685cbdd4c2924820b7fe954d9a347ab423219dae70d965a3d2d1c5"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-native/frame-100.png": {
+      "bytes": 527303,
+      "sha256": "4093ed2ecd9eb8eede11a3b115083d6f4f61fc1e9606feca88ad69ae333a0560"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-native/frame-150.png": {
+      "bytes": 526111,
+      "sha256": "d6c997cd8acc15d30e8e1530840f12ca7f4bc015591e732f675d2227495654a1"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/motion-native/frame-194.png": {
+      "bytes": 572661,
+      "sha256": "87d8c2583b03b181927aea736dce1bd9a96ae98ea2bf8499c0b6631ef808f7fe"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/native-command.json": {
+      "bytes": 760,
+      "sha256": "79abd541b934deede5153b37c91802bded32ac0f7d847fe03ebdbc04cf40ecf8"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/native/desk-02.png": {
+      "bytes": 522728,
+      "sha256": "4b30a637826bb7d4146b81a3889eddd57a54d602290d559ec309370af8d321d6"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/native/desk-03.png": {
+      "bytes": 519115,
+      "sha256": "5bb8b6f3be7957102dd81cbfae49f656a97cae6f3d60b214ac3f4623aeb7dc38"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/native/desk.capture.json": {
+      "bytes": 2429,
+      "sha256": "b3cac6c5edad49b0de0e07e15f0e05301680a3dab00e8587942c25f098a75cc2"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate-verification.json": {
+      "bytes": 1077,
+      "sha256": "0511d63485e2727bb4032d1a661c4c34fb91d303055ece473a1874b47cacd0cb"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/capture-receipt.json": {
+      "bytes": 20260,
+      "sha256": "451ce0f0b0b361286fd52d4f4bfa29068ce6003ead6430499153e3b721f08bbb"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/static/pose-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/static/pose-01.png": {
+      "bytes": 575952,
+      "sha256": "e175ff00785323570d89562a6d04fdce4ee18cd7a30aa7e2215a11a18d64548c"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/static/pose-02.png": {
+      "bytes": 586297,
+      "sha256": "0dd690cc78fa77800e20094ecba05e37abd80771565f900cdb0937ac0edc7e95"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/static/pose-03.png": {
+      "bytes": 570111,
+      "sha256": "e20a79813eae548cde339ef890d0b0fc95346ffe82bef17743c70d7a68c01d29"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/static/pose-04.png": {
+      "bytes": 576462,
+      "sha256": "3b5e114f942efeec5aa5798d47f116d25491bf210917f51be616b348b732a279"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-candidate/static/pose.capture.json": {
+      "bytes": 2675,
+      "sha256": "3feba3684df7cae7f5fad05520b4cd32dd92fbb8fed58095052f57d03053ce86"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-comparison.json": {
+      "bytes": 663,
+      "sha256": "4a21a90a652afa7e3d6b14c68cbfacd2768ce4ac23a6b9d5adb0f68a0b0ea440"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal-verification.json": {
+      "bytes": 1074,
+      "sha256": "d1ca707a8183925023f42f1d43f130128898556ff125f3948c7d11f698f85168"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/capture-receipt.json": {
+      "bytes": 17819,
+      "sha256": "9c0da565f740e928f1024e0a5b4d19ecd157adf604a4c740b27594310bf258a1"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/static/pose-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/static/pose-01.png": {
+      "bytes": 575952,
+      "sha256": "e175ff00785323570d89562a6d04fdce4ee18cd7a30aa7e2215a11a18d64548c"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/static/pose-02.png": {
+      "bytes": 586297,
+      "sha256": "0dd690cc78fa77800e20094ecba05e37abd80771565f900cdb0937ac0edc7e95"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/static/pose-03.png": {
+      "bytes": 570111,
+      "sha256": "e20a79813eae548cde339ef890d0b0fc95346ffe82bef17743c70d7a68c01d29"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/static/pose-04.png": {
+      "bytes": 576462,
+      "sha256": "3b5e114f942efeec5aa5798d47f116d25491bf210917f51be616b348b732a279"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/preservation-formal/static/pose.capture.json": {
+      "bytes": 2610,
+      "sha256": "2df7e5b4834b27d1c5b326bbd80bd4acfe7811efa09a0926a4b2a3f34a7c14ce"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/turn-ended-command.json": {
+      "bytes": 750,
+      "sha256": "56275b2b5664cafe29dc90aa75769324cd281b32459b42daa67bf8c718439705"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/turn-ended-native/frame-000.png": {
+      "bytes": 529924,
+      "sha256": "c7f257e090c458500555dd9bf716203f4a52d8d91289e69b551ecd80c1c1bd15"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/turn-ended-native/frame-025.png": {
+      "bytes": 524982,
+      "sha256": "64eccb3aef507a4a94f32197104636f03df71238abd280112c7d42dacf42ee63"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/turn-ended-native/frame-030.png": {
+      "bytes": 524148,
+      "sha256": "2faed01abe189b8036f023f95b95335b26a361bb83cd103aafe24e7f253faf3f"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/turn-ended-native/frame-074.png": {
+      "bytes": 612211,
+      "sha256": "e17b36237a37259f841f1c1c3fb76cbc9429b3d87cc71d367683bc6474b21034"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r15-connected-typing/turn-ended-native/scene.json": {
+      "bytes": 157442,
+      "sha256": "198553b3f9751e3104e6101ba609428ebce92b100186527de7226a6476d8a064"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-command.json": {
+      "bytes": 749,
+      "sha256": "d0a63c7cbb8c4680c5cef6f9ef9911e818541b044a6e0ccc449a0ba95c025fb3"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-native/cleanup-00.png": {
+      "bytes": 570353,
+      "sha256": "9716f5ff8a67490e73b8e1c65dcc57fc56109c36d545fab9821ef05d84ebed84"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-native/cleanup-01.png": {
+      "bytes": 593630,
+      "sha256": "bf2aabfb9fa1579ba510ac143da3316c3d1340d65f72ff93f7b899e3ea626b94"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-native/cleanup-02.png": {
+      "bytes": 573697,
+      "sha256": "629533073faf54647afb61d858615092efa158147595c963603c5d94d87af27c"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-native/cleanup-03.png": {
+      "bytes": 521734,
+      "sha256": "284ef19ca77c15163a6ddccb762b71a821e59906dc4d6ad0e8cc73bf9d7c1fe1"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-native/cleanup.capture.json": {
+      "bytes": 4197,
+      "sha256": "b8f4ac901c95275d6b7edcd1313c9f7d71ba2ebea6144bbcb6512c76804d7737"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/cleanup-poses.json": {
+      "bytes": 2269,
+      "sha256": "c7339ef27be6b2d3faf5742f6cb39e7f02088839a643ad456f69802a04fe201f"
+    },
+    "art/live2d/desk-work-20261006-r1/review-r18-handoff/staging-report.json": {
+      "bytes": 1256,
+      "sha256": "3c1274aeb286d5c6ade19becd859d8d6f2724d15155032728611e18d92df662a"
+    },
+    "art/live2d/desk-work-20261006-r1/source-laptop-rig.json": {
+      "bytes": 98541,
+      "sha256": "66c5589bc76a26397d4da78dbfbeace9f4f9dd14714232b799a332aa6517513d"
+    },
+    "art/live2d/desk-work-20261006-r1/source-sleeve-rig.json": {
+      "bytes": 227037,
+      "sha256": "4eded10f79f6c8dd79bdae5eda38e4160d129ec7579080f00c7acb8dc2a5a281"
+    },
+    "art/live2d/desk-work-20261006-r1/staging-report.json": {
+      "bytes": 956,
+      "sha256": "7fe5fc8d792fc6e3a0b3ae0945435e52f455688772674b53fd794f016a5552f9"
     },
     "art/live2d/layers/00-handwear_r.png": {
       "bytes": 17365,
@@ -787,9 +1683,25 @@
       "bytes": 551,
       "sha256": "6fc812d27d82c02ea96a2ad3771072fd7d7944eb165d39dd81e9c0b573217ce5"
     },
+    "art/live2d/review/sit-pose-20261005-r9/concept-r2-approval.json": {
+      "bytes": 1006,
+      "sha256": "d6788b7558270b7cc12ea0bfeee8372bcdbaa86402748533cf3e528580e21dc6"
+    },
     "art/live2d/review/sit-pose-20261005-r9/skirt-support-concept-r1-rejected.png": {
       "bytes": 2025877,
       "sha256": "584fd533b2485f4c2b8c6cdab453fb7f8a9e7aa34f030a3b4405590e724b4ad6"
+    },
+    "art/live2d/review/sit-pose-20261005-r9/skirt-support-concept-r2-approved.png": {
+      "bytes": 2080509,
+      "sha256": "73bd864d795970a091117d17b1b4dabe24837e35cf61a8e861e23abaa244a242"
+    },
+    "art/live2d/review/sit-pose-20261006-r1/body-pose-reference-r1-pending.png": {
+      "bytes": 1847628,
+      "sha256": "137cfa0710aa77df5728c7d82b1d47f2a7ca2e15de3fee903db606cc89c7ad1d"
+    },
+    "art/live2d/review/sit-pose-20261006-r1/body-pose-reference-r1-review.json": {
+      "bytes": 828,
+      "sha256": "60aec99acd7ed4e5822b8249fd6eb6bab0346cb0a183ab3783e6f90c45737a35"
     },
     "art/live2d/review/torso-alignment-fix-20261002.json": {
       "bytes": 3799,
@@ -1070,6 +1982,490 @@
     "art/live2d/sit-pose-20261004-r1/source-manifest.json": {
       "bytes": 3868,
       "sha256": "5a7d0763cbc865a327ff97a8815203c2cb7abb76b8a82247760fd042a12fe7f5"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/edit-report.json": {
+      "bytes": 20923,
+      "sha256": "3977f1af75b8aa06102455eefb9c09c0f47082f10b436a477ee6b1c96b9f4263"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/edited.cmo3": {
+      "bytes": 72103761,
+      "sha256": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/edited.moc3": {
+      "bytes": 52404224,
+      "sha256": "ba02f0c9d320f61c167ec01323e1e18298e66ae076bc13eb61ba894c803871fa"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/edited.model3.json": {
+      "bytes": 202,
+      "sha256": "8fb302c79d4c89b191cb09644a536f71f58f49a97915830c90ee23c124ae4a42"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/commands.json": {
+      "bytes": 2388,
+      "sha256": "5fac28a69c91730f4241dc05bad0bfc8dab9d137eb1dee19fa8171e2c58319d9"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/core-standing-report.json": {
+      "bytes": 1840,
+      "sha256": "ad292c6003c59e0e6179b3af3db185004032b83a9139fcdf8f833fc602fac6fb"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/native-r8-regression-classification.json": {
+      "bytes": 2404512,
+      "sha256": "c84fde3a6ca4df628e80ea1d8c69877bb341a74f9af61f1eedc4abc997a8ee1f"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/source/PSD2LiveStandingRestore.java": {
+      "bytes": 59245,
+      "sha256": "62f7d4707e1dbd5eafe8d69b796b2caad8b0e4c3401b1f045a6ef0d623066e35"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/source/check_core_standing.py": {
+      "bytes": 6805,
+      "sha256": "3670b0ac21f7f30ae4a261c03b4c155d50b4434cf111b5c120295cfd3e73a4b6"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/source/run_restore_probe.py": {
+      "bytes": 4366,
+      "sha256": "1e25ec32923245e6fec370402306a030bfee66489876cf4987cc4b4857c4e634"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/standing-restore-plan.json": {
+      "bytes": 9134,
+      "sha256": "e40efa894b02d7ac6a6317c5f27110857254fad4acb85c5bc4fa6c1d5d81d9cd"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/step-0.log": {
+      "bytes": 270,
+      "sha256": "f338e9a7331b3a6f852a1833cc241d73968a3b16c38154a4eef9a9c859461f22"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/evidence/restoration/step-1.log": {
+      "bytes": 388,
+      "sha256": "dc7c5b700bce3d52a969e523b28de33a621fea7f83b7befd4aa5c2c691e1c52b"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/protection-manifest.json": {
+      "bytes": 18129,
+      "sha256": "b11daeab1ad84f973d2bc3ca665f12e624c8dba2d3a5ccd350fb3a3bebaa2e47"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_01.png": {
+      "bytes": 635728,
+      "sha256": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_02.png": {
+      "bytes": 678520,
+      "sha256": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_03.png": {
+      "bytes": 698611,
+      "sha256": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_04.png": {
+      "bytes": 594135,
+      "sha256": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_05.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_06.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/authoring-base-restored/texture_07.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/generation-front-skirt.json": {
+      "bytes": 1391,
+      "sha256": "8cb4e0a370d6d9e163687e4cdbd9e57e1eb04c8b136116d36d64b90139524d36"
+    },
+    "art/live2d/sit-pose-20261005-r9/materials/complete-front-skirt.png": {
+      "bytes": 853113,
+      "sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    "art/live2d/sit-pose-20261005-r9/materials/generation-navy-backing.json": {
+      "bytes": 795,
+      "sha256": "346dc6bea640b2d33f034e5d6ea2d5da4b6fd8b2bd76fd63bf4cd4b014b8ace2"
+    },
+    "art/live2d/sit-pose-20261005-r9/materials/navy-front-backing.png": {
+      "bytes": 651666,
+      "sha256": "a219c637dbcb28b353cad01510b727554979079be69f4456face49d01fd09cc2"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/core/core-actual-scope-report.json": {
+      "bytes": 111279,
+      "sha256": "8a2dec8e0d9707591fdbbc654bc35ac41ef58bea565c2a1ecf10eeefd2f85108"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/core/core-old-contract-audit.json": {
+      "bytes": 38745,
+      "sha256": "4739bfbdef48f6259395ecb4d9e2ce3cd96e4b9ebf87f296775743e2c9af6c50"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/editor/commands.json": {
+      "bytes": 2391,
+      "sha256": "15fd92e54f7289eaa49ffabfbb9107f13dd33467f0c65df32a5fc118840bd584"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/editor/step-0.log": {
+      "bytes": 214,
+      "sha256": "a21dd6f0bda693d62ef3234e6bfcf239ba743ee4698163cfdb7fba48dc237327"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/editor/step-1.log": {
+      "bytes": 376,
+      "sha256": "9cbff1f632c16374558f92a869ffd1684acbf7a99c18382325d29e8cd642534c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/author-plan-with-hair.json.gz": {
+      "bytes": 22024637,
+      "sha256": "a149d646dea6057f09632ef70fb7e105774d0155fb81e2dc87b3572c25f3d6f0"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/body_context_geometry.py": {
+      "bytes": 5061,
+      "sha256": "d3d9d9668b3c54e882803e848ffd61e82262d8d506dedf34b00c5c8f0d39c916"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/full_context_geometry.py": {
+      "bytes": 19863,
+      "sha256": "6948b059976ee46655fa6e221c9054703d11a1da384685f318d41635315c0d6d"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/generate_body_context_plan.py": {
+      "bytes": 8164,
+      "sha256": "1490ead565db4799561be7b11402e2fe7aa40584e7b29fd6178d38d37a2951c4"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/generate_first_geometry.py": {
+      "bytes": 16057,
+      "sha256": "bcef7f649ab041d92b1f98b7dc7ef33cfc1a756ef6e04edd797118a12e15a088"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/generate_folded_legs.py": {
+      "bytes": 12370,
+      "sha256": "7f675761ff05be834c8f2a25265ae7aa3a9fe464c5cc1876a97abf70a3fe8d40"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/arm-reach-feasibility.json": {
+      "bytes": 16109,
+      "sha256": "e0b371ac2b6d809af51014348611a10c63a83f29169802bb84175ca94053f8d6"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/body_crouch_r9.py": {
+      "bytes": 13594,
+      "sha256": "d98646e2e88171339b9a14d6dd6808b70a0df932d33c01d91601f9ba140bf57c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/build_source_contract.py": {
+      "bytes": 19484,
+      "sha256": "8175460a2168ef4ee0734be60ca20fb60f48f8b6c83fb7d37ed6cfc7b90e2fc8"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/old-cloth-UV-fragments.json": {
+      "bytes": 133316,
+      "sha256": "4e492adc2b649783c9762e259f2687b784f1a6317fd85acb7084266ea2e33131"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/r9-authoring-contract.json": {
+      "bytes": 6419,
+      "sha256": "e0728ee809ddca36c8da413bd1544416d3b6517aee97ddf7bcb1242255ed5922"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/r9-body-CP-and-contact-targets-v2.json": {
+      "bytes": 795470,
+      "sha256": "c733e02adf14afe7f898916c87ad03d28a7369f98de61db92cf18ef2297af895"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/geometry/r9-source-design/source-material-anchors.json": {
+      "bytes": 9109,
+      "sha256": "a5d61493505f93b0e59525fe15c93103bd73045434faeaeeeaceaae7344cc1bd"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/ground-handoff-proof.json": {
+      "bytes": 3010256,
+      "sha256": "42da56c9e8491a498e795f17218b62e503e3e9d005689eaaa2840a71c794e90d"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/build_hair_fold_fragment.py": {
+      "bytes": 12883,
+      "sha256": "7cdb9d1f279da060761240ecf231351d5ab53f56a268f888716127f9b1e259d3"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/build_structural_prototype.py": {
+      "bytes": 19678,
+      "sha256": "66dd0af8bfd2a60f458171b9b6a3a3031730fce6e5b4ac9b83c628ec9e8edf58"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/capture_neutral_sweep.py": {
+      "bytes": 3373,
+      "sha256": "3949d8821a895b5dc9de533d4aafb0716f1e203baaa5135b1e3838d58de0a100"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/check_r4_actual_scope.py": {
+      "bytes": 9281,
+      "sha256": "e720bc6f890ad27fa94607db75ab41a6c62f9fe3100dfce6147977a33769a3c2"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/check_structural_prototype.py": {
+      "bytes": 15779,
+      "sha256": "22d34a1320943dfef2b97087d6b6f85461b03786815d4a7762bb88a241129e0c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/extend_prototype_arm_scope.py": {
+      "bytes": 1940,
+      "sha256": "29f6494e48c224962fe5a5173581bf05b4a2f67f11974160bdc27252c588f390"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/front-cloth/build_uv_fragments.py": {
+      "bytes": 11130,
+      "sha256": "6cdf4699775f75f7e98911479b0a3a2bfe7a6dda9349a6ce677f0ba37730f00d"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/front-cloth/uv-anchors-r1.json": {
+      "bytes": 8587,
+      "sha256": "7299f9428684579f7815f01920ef1ed715b2368f435bb4a9dfdc0a03d37ae69c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/front-cloth/uv-fragments-r1.json": {
+      "bytes": 250096,
+      "sha256": "fa512a14e893e1f796610fca4d881cf853eae30f94d3ae559a6da28cb2567b90"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/front-cloth/uv-layer-execution-table-r2.json": {
+      "bytes": 8078,
+      "sha256": "cf0a8d3aa48f37c5b5c5af146d6ca7664aafee098b3b376058958996c7516815"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/front-cloth/uv-layer-execution-table.json": {
+      "bytes": 7249,
+      "sha256": "a9b7efa9366112191b29428ce305477541b5a492b0b859d4e6bb1589eb3f1e4d"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/front-cloth/uv-ownership-proof-r1.json": {
+      "bytes": 3049,
+      "sha256": "cf1bb85032fc58039b24d07d1297e98a1672a29e2a1813aceeef92f67d809d04"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/hair-fold-r1-plan-proof.json": {
+      "bytes": 214747,
+      "sha256": "a72ae4bc01cc16b656924d0cfbab892acc5ac54f097fe90e86e56ad729887708"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/hair-fold-r1-plan.json": {
+      "bytes": 48194,
+      "sha256": "d6314f7cf90a4406ce580364aa159c042f580e6a07c8d7aeab7e7a42de3a49e6"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/head-parent-core-report-r1.json": {
+      "bytes": 415351,
+      "sha256": "1d8f631fcc356dd86b0d623550a1b3316cea5566bf29ae59d1113e3bab43b097"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/head_parent_geometry.py": {
+      "bytes": 12879,
+      "sha256": "f86c5979eafdbdac93ff0e837ea4103103df954ef029410d827598f81c3216b4"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/refine_layered_surfaces.py": {
+      "bytes": 8599,
+      "sha256": "23c3dcbc7c4253ca921c83f1ecd424925781e4a041d676552674d25d3648b7b0"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/review_common_scale.py": {
+      "bytes": 11114,
+      "sha256": "d39d9f37a9dafaed10a8c3ce412ec99ebe22cb980d7806af6155566297d2c665"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/r9/stage_prototype.py": {
+      "bytes": 3160,
+      "sha256": "170355a280465cf2d4c8d1b283c86d8d2b525f5e9ad6184cc101dc9ae0bac473"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/saved-graphs/readback-20261005-r2-zero-slices/public-graph-receipt.json": {
+      "bytes": 4064,
+      "sha256": "491d93b7d61ad9a460734782321ed5b7862d29058150daa9447cdbcbee731d1c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/saved-graphs/readback-20261005-r2-zero-slices/saved-CMO-public-graph.json.gz": {
+      "bytes": 3774235,
+      "sha256": "47fc99f3744e6e0486d22b9765ba5500612bad5684e9b2c5d07e1765c043e65b"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/saved-graphs/readback-20261005-r3-static-hair/public-graph-receipt.json": {
+      "bytes": 4064,
+      "sha256": "7f60e741bf93401be6519dd6a4a28f074c05a5a9c20a9904718aa01156dfe334"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/saved-graphs/readback-20261005-r3-static-hair/saved-CMO-public-graph.json.gz": {
+      "bytes": 3775314,
+      "sha256": "c7f53f030dee0d4ba27161ab1a54814f5574527c6bfaa814c71ade9e6a083a26"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/generation-snapshot/stage_material_review.py": {
+      "bytes": 6288,
+      "sha256": "917f5278bf5c544cbad8e74f41e5d93b503654a1087d521eccc7986869b50123"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/neutral-sweep-r1/command.json": {
+      "bytes": 1131,
+      "sha256": "56a6c4470ad7aaa9a2cd6a2750cd0057ca252d9398d376526d82cac0efdd9fb1"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/neutral-sweep-r1/gif-sources.json": {
+      "bytes": 7377,
+      "sha256": "06a3ec3f9ba54a6892256e8c83b6da94b11cc336f3847b0ea23cddeb063a430a"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/neutral-sweep-r1/native-neutral-enter-exit.gif": {
+      "bytes": 5084057,
+      "sha256": "01ef698177d5a8a1229a21dafe46201ab67e4e56e472c0ebebac3f07bffbf1e1"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/neutral-sweep-r1/native/sit.capture.json": {
+      "bytes": 80587,
+      "sha256": "a29af34dd043dd684a096a203a5e748c0766c0ea3074ae47da30e116ec932b76"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/neutral-sweep-r1/poses.json": {
+      "bytes": 52797,
+      "sha256": "0b9ea861e853de359821ad8d9d487fa086faaf44d42812440ded820aab583f70"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/native-common-scale.json": {
+      "bytes": 4022,
+      "sha256": "45f30ff45f42b374dbd7948966c0ccba877098a9490e6d0aff558dac0d59a346"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/native-common-scale.png": {
+      "bytes": 461284,
+      "sha256": "298c1cba68f81439fbc43fdfcad6b5134261669e53649d8777f0465b058b395b"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/neutral-native/sit-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/neutral-native/sit-01.png": {
+      "bytes": 542564,
+      "sha256": "afec07cbd45d070d33ef04793dc73f6963308c9b3a6e2c9be228336a240d5d7b"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/neutral-native/sit-02.png": {
+      "bytes": 418851,
+      "sha256": "df1c79523cad5ec0a92bd1f88c81414d4794b1412585d3021b4d24a1ad9b00ba"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/neutral-native/sit-03.png": {
+      "bytes": 517721,
+      "sha256": "04fc39f2c9051080475993745564c761ccf981d1603e3504018d26f39e38df9e"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/review-four-poses/neutral-native/sit.capture.json": {
+      "bytes": 3557,
+      "sha256": "9414e1cb7ec5fa2a78cf30f1991f67b143465b4e51dc3deaf6a416a84f72479a"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/material-ownership/ownership.json": {
+      "bytes": 7201,
+      "sha256": "b6822c6f429f6bdae1e8ed0fe39147da64388a3244a8605152a1641d78e1d4b2"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.model3.json": {
+      "bytes": 1557,
+      "sha256": "86506f5d5b540ac6a44c4c751aaab5a850763c6ef628cb4bad4eef11ec8cc9e4"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11095,
+      "sha256": "f48c829484326ee91a6d5545ab8b1c5695d1d701c21e318b20b5b7784ffd7ddb"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/model-auxiliary/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/neutral-command.json": {
+      "bytes": 1027,
+      "sha256": "98f58cf2d671f765085f208ea32336a8de03f2cded229864041ac39739201b20"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/neutral-poses.json": {
+      "bytes": 1842,
+      "sha256": "9217b83c4dfb29c3f7eb546661eaf653bd5e782dff7f3e26d29fb2a053962dc9"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/poses.json": {
+      "bytes": 2795,
+      "sha256": "49d11863e1b08e18a0097a998c56f5f2ecfc632808d1ab00ff7d49d044a66b58"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/evidence/staging/topology-and-staging.json": {
+      "bytes": 17547,
+      "sha256": "6a0b6966f015b96429e3841372fa939f3b2523e74cb8a524b450b4ae9aaee360"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/edit-report.json": {
+      "bytes": 47834,
+      "sha256": "fc87622a9500187714854b3e779dce2498977266f59213d707e922922f715fea"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/edited.cmo3": {
+      "bytes": 83250154,
+      "sha256": "f13b6d3480c832f2f1abf8abdab2e1448f6879ec6deea687cd2626025b0c2a63"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/edited.moc3": {
+      "bytes": 59293120,
+      "sha256": "3aa1b4360596c9cb621fb311736cd1548384e099bc45d3b590705886d0c3e5f9"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/edited.model3.json": {
+      "bytes": 236,
+      "sha256": "4a66074b3a35896173a966f168d4d46f404f68c9b6fb426265d0618508b993b8"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_01.png": {
+      "bytes": 635728,
+      "sha256": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_02.png": {
+      "bytes": 678520,
+      "sha256": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_03.png": {
+      "bytes": 698611,
+      "sha256": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_04.png": {
+      "bytes": 594135,
+      "sha256": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_05.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_06.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_07.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_08.png": {
+      "bytes": 853113,
+      "sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/export/texture_09.png": {
+      "bytes": 651666,
+      "sha256": "a219c637dbcb28b353cad01510b727554979079be69f4456face49d01fd09cc2"
+    },
+    "art/live2d/sit-pose-20261005-r9/rejected-r4/protection-manifest.json": {
+      "bytes": 76038,
+      "sha256": "c49dd1440bbed7721ca85536ac765eaa659c3e511eff8fa9f393cf0bf79a998e"
+    },
+    "art/live2d/sit-pose-20261005-r9/runtime-compatibility-experiment.patch": {
+      "bytes": 9535,
+      "sha256": "98aae49fb2677b858cbc7c9f88c65926934e94a5f9d55ee86d344467215bb158"
+    },
+    "art/live2d/sit-pose-20261005-r9/runtime-compatibility-experiment.patch.json": {
+      "bytes": 249,
+      "sha256": "49990d02b46241fc561070c6f906c5cde35c58f8f54a552cf4a3a5a92b2195e0"
     },
     "art/live2d/whale-girl-busy-laptop-clean-plate-v1.png": {
       "bytes": 1468219,
@@ -1552,8 +2948,8 @@
       "sha256": "a0cff5edf81c83e90483fe47bf09a7339ad23d75a4b520454019dfa5199de9da"
     },
     "src/CubismCanvas.cpp": {
-      "bytes": 53951,
-      "sha256": "248c8ecd0dfd485bc7d7077d43a143bce292223f7751056dc4e83a6ebfbfec36"
+      "bytes": 67760,
+      "sha256": "bfcf9031a379a81ba25a6d4fb190b5d3d8c98c53bde14cbf0904547739f4d8d6"
     },
     "src/CubismCanvas.h": {
       "bytes": 1590,
@@ -1568,12 +2964,12 @@
       "sha256": "f23661e9b25cfc30166666b3c195fafab2ce53c785cf6df3eb22cc9b6302e600"
     },
     "src/CubismMaterialTexture.cpp": {
-      "bytes": 5683,
-      "sha256": "80777e265acce0cef9bbee112f52ba5fc0768a46d7497197548f8fd8dd5c1c75"
+      "bytes": 10573,
+      "sha256": "c485d2f4b379ec05e0a57e8d71a77d691236e6002c5fbde6130123d119f87307"
     },
     "src/CubismMaterialTexture.h": {
-      "bytes": 939,
-      "sha256": "36eb81d541bff14f82aab0fa1ab8b17aa198c93230c76960e541a3c1594d5df5"
+      "bytes": 1558,
+      "sha256": "e3f2c958e35481996a305ae713c95adc1c886ec54fe008dfeaacde3618eefae9"
     },
     "src/CubismNeckBinding.cpp": {
       "bytes": 19960,
@@ -1612,12 +3008,12 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 44551,
-      "sha256": "9e4c2d4e340e913cecaa91dfb426348d408838f42d837ec6bfa213f1822b1db8"
+      "bytes": 51575,
+      "sha256": "2c2a5288421f6c66798b9bb7157093a903bbe190d110290185e77966632c2d83"
     },
     "src/ParameterMotion.h": {
-      "bytes": 8688,
-      "sha256": "bcfb0b8c3fd6f97bde2dec685a30107813e42b24bc97db9b2075b5d0abd2f880"
+      "bytes": 9234,
+      "sha256": "24f4970c286117c934601f20633258ee15a9f73bb75ea34878a6fe0f581cda14"
     },
     "src/PetController.cpp": {
       "bytes": 5518,
@@ -1636,8 +3032,8 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 41180,
-      "sha256": "323d5273e5d30beb7b93f3b70839a2ba5109b737be0fc280fa725cebf6b3d4a0"
+      "bytes": 41267,
+      "sha256": "f966cef9917eb5e958ba45d152aabbf8baaf7e59dbf3b91c8234b12430727b3d"
     },
     "src/PetWindow.h": {
       "bytes": 6627,
@@ -1648,8 +3044,8 @@
       "sha256": "34b2bdc2a4df8dfe3c586fc888fac5d373957fed941c12e086b863bfad63306b"
     },
     "src/main.cpp": {
-      "bytes": 37219,
-      "sha256": "062fb93faf359858ddbdc5b27fd1b41372325c81f33c925206ac1702c0303df4"
+      "bytes": 40253,
+      "sha256": "a3557f52cec52ebd903e9c1cc01a19125c9ad1f862610acb0d74ddadac731bba"
     },
     "tests/CodexHookTest.ps1": {
       "bytes": 2736,
@@ -1660,8 +3056,8 @@
       "sha256": "f06a69404c118c6ea0635dbf6c090694bf154f8964597acb5347d265bd6938b3"
     },
     "tests/CubismMaterialTextureTest.cpp": {
-      "bytes": 27113,
-      "sha256": "7c1b37a139c95639fb9357a972e143398cb1b6fa84cdac4a25f88ea95f6b17d9"
+      "bytes": 37727,
+      "sha256": "f7fcd3248edca95519b90e41c62dedcc1d74a296f2bd0032bf12d5fe13f3a43c"
     },
     "tests/CubismNeckBindingTest.cpp": {
       "bytes": 51315,
@@ -1676,8 +3072,8 @@
       "sha256": "eeb76ce3a6c6baea98636dcb31a64fac05722a82cbf8b97b5bd83ed1d1ee55be"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 48344,
-      "sha256": "9043e4a7496a147a9e0f926288ab79910f39b747f749ac5bf5776a19e2918e17"
+      "bytes": 61957,
+      "sha256": "e353d84b522c8c83dc632436ac0e2a8c73c00427c78eb9ea5cf6dd767a6d3c31"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 12164,
@@ -1851,6 +3247,10 @@
       "bytes": 12482,
       "sha256": "b575af39e6a1788d62c9b022b1592a933303164a97d46efdbaff52a00368a536"
     },
+    "tools/prepare_desk_work.py": {
+      "bytes": 14499,
+      "sha256": "481a1e7a5829a734b7b7d057d5ce952c6126c9bffcbb807363142e75435b6c97"
+    },
     "tools/prepare_live2d_psd.py": {
       "bytes": 22666,
       "sha256": "2193acb318808480bb4bde0704995e77e2ff5d7bff8a14f130811b2fdb911582"
@@ -1922,6 +3322,10 @@
     "tools/review_sit_candidate.py": {
       "bytes": 4473,
       "sha256": "7c4274fe69dfffa8f3da50cc979800b521c0d0b1825acefcfb602929cc335f26"
+    },
+    "tools/stage_desk_work.py": {
+      "bytes": 10613,
+      "sha256": "7ea394de001e17aec099ede497df1c75b6a833a38de74453c63bb9a9c8221075"
     },
     "tools/validate_laptop_review.py": {
       "bytes": 873,

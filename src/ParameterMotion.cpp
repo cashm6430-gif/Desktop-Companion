@@ -24,7 +24,19 @@ const QString leftArm = QStringLiteral("ParamArmLA");
 const QString rightArm = QStringLiteral("ParamArmRA");
 const QString mouth = QStringLiteral("ParamMouthOpenY");
 const QString cheek = QStringLiteral("ParamCheek");
+const QString deskVisible = QStringLiteral("ParamDeskVisible");
 constexpr double pi = 3.14159265358979323846;
+
+const QStringList& deskPostureChannels() {
+    static const QStringList ids{
+        QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+        QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamBusyTypingL"),
+        QStringLiteral("ParamBusyTypingR"), QStringLiteral("ParamLaptopRock"),
+        leftArm, rightArm, QStringLiteral("ParamElbowLA"),
+        QStringLiteral("ParamElbowRA"), QStringLiteral("ParamWristRA")
+    };
+    return ids;
+}
 
 // What a short reaction may own. Two groups, and nothing else:
 //
@@ -62,6 +74,7 @@ const QSet<QString>& reactionParameters() {
 const QHash<QString, QString>& reactionReservedParameters() {
     static const QHash<QString, QString> reserved{
         {QStringLiteral("ParamBusyLaptop"), QStringLiteral("seated/standing posture is the activity's")},
+        {deskVisible, QStringLiteral("the work desk belongs to the activity")},
         {QStringLiteral("ParamSitPose"), QStringLiteral("seated/standing posture is the activity's")},
         {QStringLiteral("ParamLaptopVisible"), QStringLiteral("the laptop is a held prop")},
         {QStringLiteral("ParamLaptopRock"), QStringLiteral("the laptop is a held prop")},
@@ -325,12 +338,15 @@ bool ParameterMotion::playTurnEnded() {
 }
 
 void ParameterMotion::captureInteractionSeat() {
-    if (values_.value(QStringLiteral("ParamBusyLaptop")) >= 0.9) {
+    if (values_.value(QStringLiteral("ParamBusyLaptop")) >= 0.9
+        || (deskWorkMode_ && deskVisible_ > 0.0)) {
         for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
              QStringLiteral("ParamLaptopVisible"), leftArm, rightArm,
              QStringLiteral("ParamElbowLA"), QStringLiteral("ParamElbowRA"),
              QStringLiteral("ParamWristRA"), QStringLiteral("ParamLaptopRock")})
             interactionSeat_.insert(id, values_.value(id));
+        if (deskWorkMode_)
+            interactionSeat_.insert(deskVisible, deskVisible_);
     }
 }
 
@@ -614,6 +630,126 @@ void ParameterMotion::forceStandingBusy() {
     nextBusyChoice_ = 40;
 }
 
+void ParameterMotion::setDeskWorkMode(bool enabled) {
+    if (deskWorkMode_ == enabled) return;
+    deskWorkMode_ = enabled;
+    deskPhase_ = DeskPhase::Hidden;
+    deskVisible_ = 0.0;
+    if (!enabled) {
+        values_.remove(deskVisible);
+        interactionSeat_.remove(deskVisible);
+        return;
+    }
+    // Enabling on an already moving laptop pose must cover it immediately.
+    // Normal configuration at standing still uses the gradual cover entry.
+    if (values_.value(QStringLiteral("ParamBusyLaptop")) > 0.0
+        || values_.value(QStringLiteral("ParamSitPose")) > 0.0) {
+        deskVisible_ = 1.0;
+        deskPhase_ = state_ == PetController::State::Busy && laptopBusy_
+            ? DeskPhase::Work : DeskPhase::ExitWork;
+    }
+    values_[deskVisible] = deskVisible_;
+}
+
+void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous) {
+    constexpr double coverSeconds = 0.18;
+    constexpr double settled = 0.001;
+    const bool interrupted = state_ == PetController::State::Delete
+        || state_ == PetController::State::Grass;
+    const bool keepReactionDesk = interactionActive() && deskVisible_ > 0.0;
+    const bool workWanted = (state_ == PetController::State::Busy && laptopBusy_)
+        || keepReactionDesk;
+    const auto holdPosture = [&] {
+        for (const QString& id : deskPostureChannels())
+            values_[id] = previous.value(id);
+    };
+    const auto recover = [&](const QString& id, double tau) {
+        const double value = previous.value(id) * qExp(-seconds / tau);
+        values_[id] = std::abs(value) <= settled ? 0.0 : value;
+    };
+
+    if (workWanted) {
+        if (deskPhase_ == DeskPhase::Hidden || deskPhase_ == DeskPhase::ExitCover)
+            deskPhase_ = DeskPhase::EnterCover;
+        else if (deskPhase_ == DeskPhase::ExitWork)
+            deskPhase_ = DeskPhase::Work; // Cover is already opaque on reversal.
+    } else if (deskPhase_ == DeskPhase::EnterCover) {
+        deskPhase_ = DeskPhase::ExitCover; // A short task never starts its pose.
+    } else if (deskPhase_ == DeskPhase::Work) {
+        deskPhase_ = DeskPhase::ExitWork;
+    }
+
+    switch (deskPhase_) {
+    case DeskPhase::Hidden:
+        deskVisible_ = 0.0;
+        break;
+    case DeskPhase::EnterCover:
+        holdPosture();
+        deskVisible_ = std::min(1.0, deskVisible_ + seconds / coverSeconds);
+        // Hold the posture on this complete-cover frame too; it starts moving
+        // on the next frame, when the renderer has already seen opaque cover.
+        if (deskVisible_ == 1.0) deskPhase_ = DeskPhase::Work;
+        break;
+    case DeskPhase::Work:
+        deskVisible_ = 1.0;
+        if (values_.value(QStringLiteral("ParamLaptopVisible")) < 0.99) {
+            values_[QStringLiteral("ParamBusyTypingL")] = 0.0;
+            values_[QStringLiteral("ParamBusyTypingR")] = 0.0;
+        }
+        break;
+    case DeskPhase::ExitWork: {
+        deskVisible_ = 1.0;
+        values_[QStringLiteral("ParamBusyTypingL")] = 0.0;
+        values_[QStringLiteral("ParamBusyTypingR")] = 0.0;
+        recover(QStringLiteral("ParamLaptopVisible"), kDefaultBlend);
+        recover(QStringLiteral("ParamLaptopRock"), kDefaultBlend);
+        const bool computerAway = values_.value(QStringLiteral("ParamLaptopVisible")) <= 0.01;
+        if (!interrupted && !computerAway) {
+            for (const QString& id : {QStringLiteral("ParamBusyLaptop"),
+                 QStringLiteral("ParamSitPose"), leftArm, rightArm,
+                 QStringLiteral("ParamElbowLA"), QStringLiteral("ParamElbowRA"),
+                 QStringLiteral("ParamWristRA")})
+                values_[id] = previous.value(id);
+            break;
+        }
+        for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose")})
+            recover(id, interrupted ? kDefaultBlend : blendSeconds_.value(id, 0.28));
+        // A foreground action starts on its original clock and owns its hands
+        // immediately. Recovery of the covered posture adds no action delay.
+        if (!interrupted) {
+            for (const QString& id : {leftArm, rightArm, QStringLiteral("ParamElbowLA"),
+                 QStringLiteral("ParamElbowRA"), QStringLiteral("ParamWristRA")})
+                recover(id, kDefaultBlend);
+        }
+        bool neutral = values_.value(QStringLiteral("ParamBusyLaptop")) == 0.0
+            && values_.value(QStringLiteral("ParamSitPose")) == 0.0
+            && values_.value(QStringLiteral("ParamLaptopVisible")) == 0.0
+            && values_.value(QStringLiteral("ParamLaptopRock")) == 0.0;
+        if (!interrupted) {
+            for (const QString& id : {leftArm, rightArm, QStringLiteral("ParamElbowLA"),
+                 QStringLiteral("ParamElbowRA"), QStringLiteral("ParamWristRA")})
+                neutral = neutral && values_.value(id) == 0.0;
+        }
+        if (neutral) deskPhase_ = DeskPhase::ExitCover;
+        break;
+    }
+    case DeskPhase::ExitCover:
+        // Foreground hands continue their action. All laptop/posture channels
+        // remain neutral while the last cover leaves.
+        for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+             QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamBusyTypingL"),
+             QStringLiteral("ParamBusyTypingR"), QStringLiteral("ParamLaptopRock")})
+            values_[id] = 0.0;
+        // Background/action hands have already reached their safe standing
+        // context, or work never began. Let that owner blend continuously;
+        // canceling a partial entry must not snap standing gesture arms to zero.
+        deskVisible_ = std::max(0.0, deskVisible_ - seconds / coverSeconds);
+        if (deskVisible_ == 0.0) deskPhase_ = DeskPhase::Hidden;
+        break;
+    }
+    values_[deskVisible] = deskVisible_;
+}
+
 ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
     return grassClip_.sample(seconds);
 }
@@ -653,6 +789,7 @@ void ParameterMotion::advance(double seconds) {
     if (preview_) return;
     if (!qIsFinite(seconds) || seconds <= 0.0) return;
     seconds = std::min(seconds, 0.1); // Avoid a leap after suspend or debugger pause.
+    const Parameters deskPrevious = deskWorkMode_ ? values_ : Parameters{};
     clock_ += seconds;
     if (interaction_ != Interaction::TurnEnded
         && !(interactionActive() && state_ == PetController::State::Idle && !interactionSeat_.isEmpty()))
@@ -857,6 +994,9 @@ void ParameterMotion::advance(double seconds) {
     // blink values through the general 120ms filter prevents full closure.
     values_[leftEye] = leftEyeExpression_ * eye;
     values_[rightEye] = rightEyeExpression_ * eye;
+    // Resolve final activity hands before remembering the grip for the grass
+    // spring. Covered poses must not create an unrendered hand-speed impulse.
+    if (deskWorkMode_) advanceDeskWork(seconds, deskPrevious);
     const double reach = values_.value(QStringLiteral("ParamGrassReach"));
     const double gripAngle = -values_.value(rightArm)
         - values_.value(QStringLiteral("ParamElbowRA"))

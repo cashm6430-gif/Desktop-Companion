@@ -1,0 +1,356 @@
+diff --git a/src/CubismMaterialTexture.cpp b/src/CubismMaterialTexture.cpp
+index bd7b9f7..6bfda50 100644
+--- a/src/CubismMaterialTexture.cpp
++++ b/src/CubismMaterialTexture.cpp
+@@ -1,6 +1,12 @@
+ #include "CubismMaterialTexture.h"
+ 
++#include <QJsonArray>
++#include <QPainter>
++#include <QPainterPath>
++#include <QRegion>
++#include <QVector>
+ #include <algorithm>
++#include <cmath>
+ #include <utility>
+ 
+ bool splitCubismMaterialTexture(const QImage& atlas, const QImage& bodyMask,
+@@ -117,3 +123,116 @@ bool splitCubismNeckTexture(const QImage& atlas, const QImage& neckMask,
+     *neck = std::move(flexible);
+     return true;
+ }
++
++bool trimCubismDeskTexture(const QImage& source, const QJsonObject& contract,
++                           QImage* trimmed, QString* error) {
++    if (error) error->clear();
++    const auto fail = [error](const QString& reason) {
++        if (error) *error = reason;
++        return false;
++    };
++    if (!trimmed || source.isNull()
++        || source.format() != QImage::Format_RGBA8888_Premultiplied) {
++        return fail(QStringLiteral("Desk material requires a premultiplied RGBA source and an output."));
++    }
++    const auto version = contract.value(QStringLiteral("version"));
++    if (!version.isDouble() || version.toDouble() != 1.0) {
++        return fail(QStringLiteral("Desk material contract version must be 1."));
++    }
++    const auto integerWithin = [](const QJsonValue& value, int maximum) {
++        const double number = value.toDouble(-1.0);
++        return value.isDouble() && std::isfinite(number) && number >= 0.0
++            && number <= maximum && std::floor(number) == number;
++    };
++    const auto sizeValue = contract.value(QStringLiteral("atlas_size"));
++    const auto size = sizeValue.toArray();
++    if (!sizeValue.isArray() || size.size() != 2
++        || !integerWithin(size[0], source.width()) || !integerWithin(size[1], source.height())
++        || size[0].toInt() != source.width() || size[1].toInt() != source.height()) {
++        return fail(QStringLiteral("Desk material atlas_size must match the source image."));
++    }
++    const auto regionsValue = contract.value(QStringLiteral("regions"));
++    if (!regionsValue.isArray()) {
++        return fail(QStringLiteral("Desk material regions must be an array."));
++    }
++    struct Region {
++        QRect rect;
++        QPainterPath keep;
++    };
++    QVector<Region> regions;
++    for (const auto& value : regionsValue.toArray()) {
++        if (!value.isObject()) return fail(QStringLiteral("Desk material region must be an object."));
++        const auto object = value.toObject();
++        const auto drawable = object.value(QStringLiteral("drawableId"));
++        if (!drawable.isString() || drawable.toString().trimmed().isEmpty()) {
++            return fail(QStringLiteral("Desk material region requires a drawableId."));
++        }
++        const auto rectValue = object.value(QStringLiteral("atlas_rect"));
++        const auto bounds = rectValue.toArray();
++        if (!rectValue.isArray() || bounds.size() != 4
++            || !integerWithin(bounds[0], source.width()) || !integerWithin(bounds[2], source.width())
++            || !integerWithin(bounds[1], source.height()) || !integerWithin(bounds[3], source.height())
++            || bounds[0].toInt() >= bounds[2].toInt() || bounds[1].toInt() >= bounds[3].toInt()) {
++            return fail(QStringLiteral("Desk material atlas_rect must be a nonempty integer region inside the atlas."));
++        }
++        const int left = bounds[0].toInt(), top = bounds[1].toInt();
++        const int right = bounds[2].toInt(), bottom = bounds[3].toInt();
++        Region region{QRect(left, top, right - left, bottom - top), {}};
++        for (const auto& previous : regions) {
++            if (region.rect.intersects(previous.rect)) {
++                return fail(QStringLiteral("Desk material regions must not overlap."));
++            }
++        }
++        const auto polygonsValue = object.value(QStringLiteral("keep_polygons"));
++        if (!polygonsValue.isArray()) {
++            return fail(QStringLiteral("Desk material keep_polygons must be an array."));
++        }
++        for (const auto& polygonValue : polygonsValue.toArray()) {
++            if (!polygonValue.isArray() || polygonValue.toArray().size() < 3) {
++                return fail(QStringLiteral("Desk material keep polygon requires at least three points."));
++            }
++            QPolygonF polygon;
++            for (const auto& pointValue : polygonValue.toArray()) {
++                const auto point = pointValue.toArray();
++                if (!pointValue.isArray() || point.size() != 2
++                    || !point[0].isDouble() || !point[1].isDouble()
++                    || !std::isfinite(point[0].toDouble()) || !std::isfinite(point[1].toDouble())
++                    || point[0].toDouble() < left || point[0].toDouble() > right
++                    || point[1].toDouble() < top || point[1].toDouble() > bottom) {
++                    return fail(QStringLiteral("Desk material keep points must be finite coordinates inside their region."));
++                }
++                polygon.append(QPointF(point[0].toDouble(), point[1].toDouble()));
++            }
++            QPainterPath path;
++            path.addPolygon(polygon);
++            path.closeSubpath();
++            region.keep = region.keep.united(path);
++        }
++        regions.append(std::move(region));
++    }
++
++    // Validate the complete contract before painting a detached copy. Cutting
++    // premultiplied RGB and alpha together preserves coloured antialias edges.
++    QImage result = source.copy();
++    if (result.isNull()) return fail(QStringLiteral("Could not allocate the desk material image."));
++    // Contract coordinates are physical atlas pixels, even for a HiDPI image.
++    const qreal sourceRatio = result.devicePixelRatio();
++    result.setDevicePixelRatio(1.0);
++    QPainter painter(&result);
++    if (!painter.isActive()) return fail(QStringLiteral("Could not paint the desk material image."));
++    painter.setRenderHint(QPainter::Antialiasing, true);
++    painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
++    for (const auto& region : regions) {
++        QPainterPath extent;
++        extent.addRect(QRectF(region.rect));
++        painter.save();
++        // Integer clipping confines AA coverage to this chart's pixel bounds.
++        painter.setClipRegion(QRegion(region.rect), Qt::ReplaceClip);
++        painter.fillPath(extent.subtracted(region.keep), Qt::black);
++        painter.restore();
++    }
++    painter.end();
++    result.setDevicePixelRatio(sourceRatio);
++    *trimmed = std::move(result);
++    return true;
++}
+diff --git a/src/CubismMaterialTexture.h b/src/CubismMaterialTexture.h
+index b1f3d3c..3f57a48 100644
+--- a/src/CubismMaterialTexture.h
++++ b/src/CubismMaterialTexture.h
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include <QImage>
++#include <QJsonObject>
+ #include <QString>
+ 
+ // Separate body-owned artwork and erase duplicate backing pixels without
+@@ -16,3 +17,9 @@ bool splitCubismMaterialTexture(const QImage& atlas, const QImage& bodyMask,
+ bool splitCubismNeckTexture(const QImage& atlas, const QImage& neckMask,
+                            const QImage& neckEraseMask, QImage* visible,
+                            QImage* neck, QString* error = nullptr);
++
++// Derive a desk-only material from atlas-coordinate keep polygons. The source
++// and pixels outside the declared integer regions stay unchanged. Both images
++// use RGBA8888_Premultiplied; failed contracts never replace trimmed.
++bool trimCubismDeskTexture(const QImage& source, const QJsonObject& contract,
++                           QImage* trimmed, QString* error = nullptr);
+diff --git a/tests/CubismMaterialTextureTest.cpp b/tests/CubismMaterialTextureTest.cpp
+index 017b326..2ef5721 100644
+--- a/tests/CubismMaterialTextureTest.cpp
++++ b/tests/CubismMaterialTextureTest.cpp
+@@ -10,6 +10,8 @@
+ #include <QtTest/QTest>
+ #include <algorithm>
+ #include <cmath>
++#include <cstring>
++#include <limits>
+ 
+ namespace {
+ QImage mask(QSize size, uchar value = 0) {
+@@ -43,6 +45,18 @@ void verifyPremultiplied(const QImage& image) {
+         }
+     }
+ }
++
++QJsonObject deskContract(QSize size, const QJsonArray& regions) {
++    return {{QStringLiteral("version"), 1},
++            {QStringLiteral("atlas_size"), QJsonArray{size.width(), size.height()}},
++            {QStringLiteral("regions"), regions}};
++}
++
++QJsonObject deskRegion(const QJsonArray& rect, const QJsonArray& polygons) {
++    return {{QStringLiteral("drawableId"), QStringLiteral("ArtMeshObjects3")},
++            {QStringLiteral("atlas_rect"), rect},
++            {QStringLiteral("keep_polygons"), polygons}};
++}
+ } // namespace
+ 
+ class CubismMaterialTextureTest final : public QObject {
+@@ -56,6 +70,10 @@ private slots:
+     void neckJawOverlapAndPremultipliedMainArePreserved();
+     void neckOutputMayAliasOriginalAtlas();
+     void invalidNeckMasksLeaveOutputsIntact();
++    void deskTrimPreservesSourceAndOutsideBytes();
++    void deskAntialiasKeepsPremultipliedColour();
++    void deskEmptyKeepClearsOnlyItsRegion();
++    void invalidDeskContractsLeaveOutputIntact();
+     void exportedWhaleGirlHasOneNeckAndSeparateClothing();
+ };
+ 
+@@ -262,6 +280,156 @@ void CubismMaterialTextureTest::invalidNeckMasksLeaveOutputsIntact() {
+     }
+ }
+ 
++void CubismMaterialTextureTest::deskTrimPreservesSourceAndOutsideBytes() {
++    QImage source(10, 6, QImage::Format_RGBA8888_Premultiplied);
++    for (int y = 0; y < source.height(); ++y) {
++        for (int x = 0; x < source.width(); ++x)
++            source.setPixelColor(x, y, QColor(30 + x * 11, 40 + y * 18, 190, 100 + x * 12));
++    }
++    source.setDevicePixelRatio(2.0); // Atlas coordinates must remain physical pixels.
++    const QImage original = source.copy();
++    const QJsonArray first{QJsonArray{2, 2}, QJsonArray{5, 2}, QJsonArray{5, 4}, QJsonArray{2, 4}};
++    // Opposite polygon winding must still mean the union of kept material.
++    const QJsonArray second{QJsonArray{3, 2}, QJsonArray{3, 4}, QJsonArray{6, 4}, QJsonArray{6, 2}};
++    auto contract = deskContract(source.size(), QJsonArray{
++        deskRegion(QJsonArray{1, 1, 7, 5}, QJsonArray{first, second})});
++    contract.insert(QStringLiteral("source_sha256"), QStringLiteral("extra provenance is permitted"));
++    QImage trimmed;
++    QString error;
++    QVERIFY2(trimCubismDeskTexture(source, contract, &trimmed, &error), qPrintable(error));
++    QVERIFY(error.isEmpty());
++    QCOMPARE(source, original);
++    QCOMPARE(trimmed.devicePixelRatio(), source.devicePixelRatio());
++    verifyPremultiplied(trimmed);
++    for (int y = 0; y < source.height(); ++y) {
++        for (int x = 0; x < source.width(); ++x) {
++            if (x >= 1 && x < 7 && y >= 1 && y < 5) continue;
++            QVERIFY(std::memcmp(source.constScanLine(y) + 4 * x,
++                                trimmed.constScanLine(y) + 4 * x, 4) == 0);
++        }
++    }
++    QCOMPARE(trimmed.pixel(3, 2), source.pixel(3, 2)); // Overlapping keep polygons do not cancel.
++    QCOMPARE(trimmed.pixel(5, 2), source.pixel(5, 2));
++    for (int channel = 0; channel < 4; ++channel)
++        QCOMPARE(trimmed.constScanLine(1)[4 + channel], uchar(0));
++}
++
++void CubismMaterialTextureTest::deskAntialiasKeepsPremultipliedColour() {
++    QImage source(8, 8, QImage::Format_RGBA8888_Premultiplied);
++    source.fill(QColor(80, 140, 230, 173));
++    const auto original = source.copy();
++    const QJsonArray triangle{QJsonArray{1.25, 1.25}, QJsonArray{6.75, 1.25}, QJsonArray{1.25, 6.75}};
++    const auto contract = deskContract(source.size(), QJsonArray{
++        deskRegion(QJsonArray{0, 0, 8, 8}, QJsonArray{QJsonValue(triangle)})});
++    QImage trimmed;
++    QString error;
++    QVERIFY2(trimCubismDeskTexture(source, contract, &trimmed, &error), qPrintable(error));
++    QCOMPARE(source, original);
++    verifyPremultiplied(trimmed);
++    int antialiasedSamples = 0;
++    for (int y = 0; y < trimmed.height(); ++y) {
++        for (int x = 0; x < trimmed.width(); ++x) {
++            const auto* pixel = trimmed.constScanLine(y) + 4 * x;
++            const auto* before = source.constScanLine(y) + 4 * x;
++            QVERIFY(pixel[3] <= before[3]);
++            if (pixel[3] == 0) {
++                for (int channel = 0; channel < 3; ++channel) QCOMPARE(pixel[channel], uchar(0));
++            }
++            if (pixel[3] >= 32 && pixel[3] < before[3]) {
++                ++antialiasedSamples;
++                const auto colour = trimmed.pixelColor(x, y);
++                const auto painted = source.pixelColor(x, y);
++                QVERIFY(std::abs(colour.red() - painted.red()) <= 4);
++                QVERIFY(std::abs(colour.green() - painted.green()) <= 4);
++                QVERIFY(std::abs(colour.blue() - painted.blue()) <= 4);
++            }
++        }
++    }
++    QVERIFY(antialiasedSamples > 0);
++}
++
++void CubismMaterialTextureTest::deskEmptyKeepClearsOnlyItsRegion() {
++    auto source = sampleAtlas().convertToFormat(QImage::Format_RGBA8888_Premultiplied);
++    const auto original = source.copy();
++    const auto contract = deskContract(source.size(), QJsonArray{
++        deskRegion(QJsonArray{1, 0, 3, 1}, QJsonArray{})});
++    // Staging the copy also makes an explicitly aliased output safe.
++    QVERIFY(trimCubismDeskTexture(source, contract, &source));
++    for (int x = 1; x < 3; ++x) {
++        for (int channel = 0; channel < 4; ++channel)
++            QCOMPARE(source.constScanLine(0)[4 * x + channel], uchar(0));
++    }
++    for (int x : {0, 3}) {
++        QVERIFY(std::memcmp(source.constScanLine(0) + 4 * x,
++                            original.constScanLine(0) + 4 * x, 4) == 0);
++    }
++    QImage unchanged;
++    QVERIFY(trimCubismDeskTexture(original, deskContract(original.size(), QJsonArray{}), &unchanged));
++    QCOMPARE(unchanged, original);
++    verifyPremultiplied(source);
++}
++
++void CubismMaterialTextureTest::invalidDeskContractsLeaveOutputIntact() {
++    QImage source(4, 4, QImage::Format_RGBA8888_Premultiplied);
++    source.fill(QColor(80, 140, 230, 173));
++    const auto original = source.copy();
++    const QJsonArray polygon{QJsonArray{1, 1}, QJsonArray{3, 1}, QJsonArray{1, 3}};
++    const auto region = deskRegion(QJsonArray{1, 1, 3, 3}, QJsonArray{QJsonValue(polygon)});
++    const auto valid = deskContract(source.size(), QJsonArray{region});
++    QImage trimmed(1, 1, QImage::Format_RGBA8888);
++    trimmed.fill(QColor(20, 30, 40, 255));
++    const auto sentinel = trimmed.copy();
++    QString error;
++    const auto verifyFailure = [&](const QJsonObject& contract, const QImage& input) {
++        error.clear();
++        QVERIFY(!trimCubismDeskTexture(input, contract, &trimmed, &error));
++        QVERIFY(!error.isEmpty());
++        QCOMPARE(trimmed, sentinel);
++        QCOMPARE(source, original);
++    };
++    auto bad = valid;
++    bad.insert(QStringLiteral("version"), 2);
++    verifyFailure(bad, source);
++    bad = valid;
++    bad.insert(QStringLiteral("atlas_size"), QJsonArray{5, 4});
++    verifyFailure(bad, source);
++    bad = valid;
++    bad.insert(QStringLiteral("regions"), QStringLiteral("invalid"));
++    verifyFailure(bad, source);
++    bad = valid;
++    bad.insert(QStringLiteral("regions"), QJsonArray{42});
++    verifyFailure(bad, source);
++    for (const QJsonArray rect : {QJsonArray{-1, 1, 3, 3}, QJsonArray{1, 1, 5, 3},
++         QJsonArray{3, 1, 1, 3}, QJsonArray{1, 1, 1, 3}, QJsonArray{1.25, 1, 3, 3},
++         QJsonArray{1, 1, 3}, QJsonArray{1, "bad", 3, 3}}) {
++        auto invalid = region;
++        invalid.insert(QStringLiteral("atlas_rect"), rect);
++        // A valid first region must not be published before the later failure.
++        verifyFailure(deskContract(source.size(), QJsonArray{region, invalid}), source);
++    }
++    for (const QJsonArray points : {QJsonArray{QJsonArray{1, 1}, QJsonArray{2, 2}},
++         QJsonArray{QJsonArray{0, 1}, QJsonArray{3, 1}, QJsonArray{1, 3}},
++         QJsonArray{QJsonArray{1, 1, 0}, QJsonArray{3, 1}, QJsonArray{1, 3}},
++         QJsonArray{QJsonArray{1, "bad"}, QJsonArray{3, 1}, QJsonArray{1, 3}},
++         QJsonArray{QJsonArray{1, std::numeric_limits<double>::infinity()}, QJsonArray{3, 1}, QJsonArray{1, 3}}}) {
++        auto invalid = region;
++        invalid.insert(QStringLiteral("keep_polygons"), QJsonArray{QJsonValue(points)});
++        verifyFailure(deskContract(source.size(), QJsonArray{invalid}), source);
++    }
++    auto invalid = region;
++    invalid.insert(QStringLiteral("drawableId"), QStringLiteral(""));
++    verifyFailure(deskContract(source.size(), QJsonArray{invalid}), source);
++    invalid = region;
++    invalid.insert(QStringLiteral("keep_polygons"), QStringLiteral("invalid"));
++    verifyFailure(deskContract(source.size(), QJsonArray{invalid}), source);
++    verifyFailure(deskContract(source.size(), QJsonArray{region, region}), source);
++    verifyFailure(valid, QImage());
++    verifyFailure(valid, source.convertToFormat(QImage::Format_RGBA8888));
++    QVERIFY(!trimCubismDeskTexture(source, valid, nullptr, &error));
++    QVERIFY(!error.isEmpty());
++    QCOMPARE(trimmed, sentinel);
++}
++
+ void CubismMaterialTextureTest::exportedWhaleGirlHasOneNeckAndSeparateClothing() {
+     const QDir directory(QDir(QCoreApplication::applicationDirPath())
+         .filePath(QStringLiteral("assets/live2d/whale-girl")));

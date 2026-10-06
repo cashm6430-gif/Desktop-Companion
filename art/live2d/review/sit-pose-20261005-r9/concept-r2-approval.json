@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "approved_authoring_concept",
+  "image": "skirt-support-concept-r2-approved.png",
+  "sha256": "73bd864d795970a091117d17b1b4dabe24837e35cf61a8e861e23abaa244a242",
+  "generation": "built-in image_gen edit of rejectedr1",
+  "approval": {
+    "date": "2026-10-05",
+    "by": "user",
+    "message": "可以，按修正版制作",
+    "scope": "修正0.65低前倾撑地姿势作为分层与Live2D绑定基准；竖腿合拢、膝顶裙布"
+  },
+  "runtime_asset": false,
+  "constraints": [
+    "keep formal head/face source, concept only guides body/cloth construction",
+    "shoulder-elbow-wrist continuous with existing character limb lengths",
+    "body lower/lean forward for reachable palm target, never elongate arms",
+    "waist attachments, knee-supported folded front cloth and upperknee occlusion",
+    "same standing geometry and colors; proper floor and sock contracts",
+    "actualNativecontinuousreview stillrequired before adoption"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\renderer-build\\DesktopCompanion.exe",
+    "--render-motion",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r15-connected-typing\\motion-native",
+    "busy-laptop",
+    "--review-model",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r15-connected-typing\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json"
+  ],
+  "returncode": 0,
+  "exe_sha256": "757c90bf9fb3d85f26d65a94d25a18b9ec3aa2f330d1abf11e2088a4d6b27a0b",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "stdout": "",
+  "stderr": ""
+}

@@ -76,6 +76,10 @@ public:
     // without depending on the 40% random laptop choice.
     void forceStandingBusy();
     bool isLaptopBusy() const { return laptopBusy_; }
+    // Enable only for a model with an opaque ParamDeskVisible cover. The desk
+    // covers before laptop posture changes and leaves after recovery. Disabled
+    // by default; preview/sequence poses keep their explicitly supplied values.
+    void setDeskWorkMode(bool enabled);
     void setPreviewPose(const Parameters& parameters);
     bool isPreview() const { return preview_; }
     bool frozenPhysics() const { return preview_ && !sequencePhysics_; }
@@ -113,6 +117,12 @@ private:
     bool configureGrassInteraction(const QString& directory, QString* error);
     void resetGrassInteraction();
     void advanceGrassInteraction(double seconds);
+    void advanceDeskWork(double seconds, const Parameters& previous);
+
+    enum class DeskPhase { Hidden, EnterCover, Work, ExitWork, ExitCover };
+    bool deskWorkMode_ = false;
+    DeskPhase deskPhase_ = DeskPhase::Hidden;
+    double deskVisible_ = 0.0;
 
     enum class GrassPhase { Inactive, Enter, Hold, Respond, Timeout, Release, Finished };
     MotionClip grassTouchClip_;

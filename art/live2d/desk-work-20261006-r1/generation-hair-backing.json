@@ -1,0 +1,42 @@
+{
+  "tool": "image_gen built-in",
+  "source_path": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0ed6c-2659-7f12-9350-10b1290d7228\\exec-a3cbd133-b3e0-43e3-b95e-a3697dc525c3.png",
+  "asset": "arm-backing-hair-only.png",
+  "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "generated_wing_alpha_bbox": [
+    [
+      130,
+      603,
+      593,
+      1114
+    ],
+    [
+      661,
+      602,
+      1124,
+      1114
+    ]
+  ],
+  "target_source_wing_bbox": [
+    [
+      288,
+      558,
+      603,
+      908
+    ],
+    [
+      652,
+      558,
+      967,
+      908
+    ]
+  ],
+  "status": "pending_native_review",
+  "prompt_summary": "Replace all navy/white/gold clothing in mixed arm-backing two wings with continuous cobalt/cyan hair; keep transparent central funnel, no anatomy, clothes, ahoge, ears or detached fragments.",
+  "registration_note": "Generator did not retain exact placement; runtime maps each full wing into its original source bbox. No raw bitmap retouch.",
+  "bitmap_retouching_used": false
+}

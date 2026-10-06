@@ -1,0 +1,72 @@
+{
+  "keyframes": [
+    {
+      "time": 0.0,
+      "name": "R9-Sit0.00-default",
+      "parameters": {
+        "ParamSitPose": 0.0,
+        "ParamBusyLaptop": 0.0,
+        "ParamLaptopVisible": 0.0,
+        "ParamArmLA": 0.0,
+        "ParamArmRA": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamBreath": 0.0,
+        "ParamBusyTypingL": 0.0,
+        "ParamLaptopRock": 0.0
+      }
+    },
+    {
+      "time": 1.0,
+      "name": "R9-Sit0.35-default",
+      "parameters": {
+        "ParamSitPose": 0.35,
+        "ParamBusyLaptop": 0.0,
+        "ParamLaptopVisible": 0.0,
+        "ParamArmLA": 0.0,
+        "ParamArmRA": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamBreath": 0.0,
+        "ParamBusyTypingL": 0.0,
+        "ParamLaptopRock": 0.0
+      }
+    },
+    {
+      "time": 2.0,
+      "name": "R9-Sit0.65-default",
+      "parameters": {
+        "ParamSitPose": 0.65,
+        "ParamBusyLaptop": 0.0,
+        "ParamLaptopVisible": 0.0,
+        "ParamArmLA": 0.0,
+        "ParamArmRA": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamBreath": 0.0,
+        "ParamBusyTypingL": 0.0,
+        "ParamLaptopRock": 0.0
+      }
+    },
+    {
+      "time": 3.0,
+      "name": "R9-Sit1.00-default",
+      "parameters": {
+        "ParamSitPose": 1.0,
+        "ParamBusyLaptop": 0.0,
+        "ParamLaptopVisible": 0.0,
+        "ParamArmLA": 0.0,
+        "ParamArmRA": 0.0,
+        "ParamBodyAngleX": 0.0,
+        "ParamBodyAngleY": 0.0,
+        "ParamBodyAngleZ": 0.0,
+        "ParamBreath": 0.0,
+        "ParamBusyTypingL": 0.0,
+        "ParamLaptopRock": 0.0
+      }
+    }
+  ]
+}

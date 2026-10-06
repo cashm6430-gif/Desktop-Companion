@@ -1,0 +1,5 @@
+{
+  "status": "archive_not_adopted",
+  "reason": "crouch direction abandoned; optional authored floor / laptop compatibility code is retained only as experiment",
+  "sha256": "98aae49fb2677b858cbc7c9f88c65926934e94a5f9d55ee86d344467215bb158"
+}

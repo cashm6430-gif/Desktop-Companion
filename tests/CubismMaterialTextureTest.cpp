@@ -1,5 +1,6 @@
 #include "../src/CubismMaterialTexture.h"
 
+#include <QByteArray>
 #include <QCoreApplication>
 #include <QCryptographicHash>
 #include <QDir>
@@ -29,6 +30,10 @@ QImage sampleAtlas() {
 
 int storedAlpha(const QImage& image, int x) { return image.constScanLine(0)[4 * x + 3]; }
 
+QByteArray storedBytes(const QImage& image) {
+    return QByteArray(reinterpret_cast<const char*>(image.constBits()), image.sizeInBytes());
+}
+
 void verifyPremultiplied(const QImage& image) {
     QCOMPARE(image.format(), QImage::Format_RGBA8888_Premultiplied);
     for (int y = 0; y < image.height(); ++y) {
@@ -56,6 +61,10 @@ private slots:
     void neckJawOverlapAndPremultipliedMainArePreserved();
     void neckOutputMayAliasOriginalAtlas();
     void invalidNeckMasksLeaveOutputsIntact();
+    void backdropKeepsTwoLargestStrongIslandsAndTheirAntialiasing();
+    void backdropSupportsRequestedStrongComponentCount();
+    void backdropNeedsTwoStrongComponents();
+    void invalidBackdropArgumentsLeaveOutputIntact();
     void exportedWhaleGirlHasOneNeckAndSeparateClothing();
 };
 
@@ -260,6 +269,236 @@ void CubismMaterialTextureTest::invalidNeckMasksLeaveOutputsIntact() {
         QCOMPARE(visible, badMain);
         QCOMPARE(neck, neckSentinel);
     }
+}
+
+void CubismMaterialTextureTest::backdropKeepsTwoLargestStrongIslandsAndTheirAntialiasing() {
+    QImage source(32, 22, QImage::Format_RGBA8888_Premultiplied);
+    const QRect chart(4, 3, 24, 16);
+    auto retained = mask(source.size());
+    // An opaque border outside the chart must not connect separate islands
+    // that touch the chart's edges, or contribute to their measured areas.
+    for (int y = 0; y < source.height(); ++y) {
+        auto* row = source.scanLine(y);
+        for (int x = 0; x < source.width(); ++x) {
+            auto* pixel = row + 4 * x;
+            pixel[0] = uchar((5 * x + 3 * y) % 129);
+            pixel[1] = uchar((7 * x + y) % 129);
+            pixel[2] = uchar((x + 11 * y) % 129);
+            pixel[3] = 128;
+            if (chart.contains(x, y)) std::fill(pixel, pixel + 4, uchar(0));
+        }
+    }
+    const auto paint = [&](int x, int y, int alpha, bool keep) {
+        auto* pixel = source.scanLine(y) + 4 * x;
+        pixel[0] = uchar((5 * x + 3 * y) % (alpha + 1));
+        pixel[1] = uchar((7 * x + y) % (alpha + 1));
+        pixel[2] = uchar((x + 11 * y) % (alpha + 1));
+        pixel[3] = uchar(alpha);
+        retained.scanLine(y)[x] = keep ? 255 : 0;
+    };
+    // The two genuine cores have areas 10 and 8. Their alpha-16 pixels are
+    // attached diagonally, so four-neighbour connectivity would split them.
+    for (int y = 3; y <= 5; ++y) {
+        for (int x = 4; x <= 6; ++x) paint(x, y, 207, true);
+    }
+    paint(7, 6, 16, true);
+    paint(8, 7, 1, true);
+    paint(9, 8, 15, true);
+    paint(10, 9, 1, true); // Requires propagation through more than one AA pixel.
+    for (int y = 3; y <= 4; ++y) {
+        for (int x = 20; x <= 22; ++x) paint(x, y, 173, true);
+    }
+    paint(23, 5, 16, true);
+    paint(24, 6, 16, true);
+    paint(25, 7, 1, true);
+    paint(26, 8, 15, true);
+    paint(27, 9, 1, true);
+    // Three redundant cores have areas 4, 3 and 1, with their own AA edges.
+    for (int y = 12; y <= 13; ++y) {
+        for (int x = 4; x <= 5; ++x) paint(x, y, 255, false);
+    }
+    paint(6, 14, 1, false);
+    paint(7, 15, 15, false);
+    // This island has 25 nonzero pixels, exceeding either genuine island's
+    // total coverage. Its large alpha-15 skirt must not affect core ranking.
+    for (int y = 11; y <= 15; ++y) {
+        for (int x = 12; x <= 16; ++x) paint(x, y, 15, false);
+    }
+    for (int x = 14; x <= 16; ++x) paint(x, 12, 255, false);
+    paint(22, 14, 255, false);
+    paint(23, 15, 1, false);
+    paint(24, 16, 15, false);
+    paint(25, 17, 1, false);
+    const auto originalBytes = storedBytes(source);
+    QImage isolated;
+    QString error;
+    QVERIFY2(removeCubismBackdropIslands(source, chart, &isolated, &error), qPrintable(error));
+    QCOMPARE(isolated.size(), source.size());
+    verifyPremultiplied(isolated);
+    for (int y = 0; y < source.height(); ++y) {
+        const auto* original = source.constScanLine(y);
+        const auto* actual = isolated.constScanLine(y);
+        for (int x = 0; x < source.width(); ++x) {
+            const bool keep = !chart.contains(x, y) || retained.constScanLine(y)[x] != 0;
+            for (int channel = 0; channel < 4; ++channel) {
+                QCOMPARE(int(actual[4 * x + channel]), keep ? int(original[4 * x + channel]) : 0);
+            }
+        }
+    }
+    QCOMPARE(storedBytes(source), originalBytes);
+}
+
+void CubismMaterialTextureTest::backdropSupportsRequestedStrongComponentCount() {
+    QImage source(30, 18, QImage::Format_RGBA8888_Premultiplied);
+    source.fill(QColor(64, 80, 100, 128));
+    const QRect chart(1, 1, 28, 16);
+    auto componentRank = mask(source.size());
+    for (int y = chart.top(); y <= chart.bottom(); ++y) {
+        auto* row = source.scanLine(y);
+        std::fill(row + 4 * chart.left(), row + 4 * (chart.right() + 1), uchar(0));
+    }
+    const auto paint = [&](int x, int y, int alpha, int rank) {
+        auto* pixel = source.scanLine(y) + 4 * x;
+        pixel[0] = uchar(alpha / 2);
+        pixel[1] = uchar(alpha / 3);
+        pixel[2] = uchar(alpha / 4);
+        pixel[3] = uchar(alpha);
+        componentRank.scanLine(y)[x] = uchar(rank);
+    };
+    // Genuine islands have strong areas 6, 5 and 4. The third is an arc
+    // joined diagonally, with a multi-pixel alpha-15/alpha-1 AA tail.
+    for (int y = 2; y <= 3; ++y) {
+        for (int x = 2; x <= 4; ++x) paint(x, y, 207, 1);
+    }
+    paint(5, 4, 15, 1);
+    paint(6, 5, 1, 1);
+    for (int x = 11; x <= 14; ++x) paint(x, 2, 173, 2);
+    paint(15, 3, 16, 2);
+    paint(16, 4, 1, 2);
+    paint(17, 5, 15, 2);
+    paint(22, 3, 255, 3);
+    paint(23, 4, 16, 3);
+    paint(23, 5, 16, 3);
+    paint(22, 6, 255, 3);
+    paint(21, 7, 15, 3);
+    paint(20, 8, 1, 3);
+    // A small ear tip and noise core have strong areas 2 and 1.
+    paint(3, 10, 255, 4);
+    paint(4, 11, 255, 4);
+    paint(5, 12, 15, 4);
+    paint(6, 13, 1, 4);
+    paint(11, 11, 16, 5);
+    paint(12, 12, 15, 5);
+    // Even when all five strong components are kept, a weak-only island
+    // has no selected core from which AA coverage can propagate.
+    paint(26, 11, 15, 0);
+    paint(27, 12, 1, 0);
+    const auto originalBytes = storedBytes(source);
+    for (const int keepComponents : {1, 3, 5}) {
+        QImage isolated;
+        QString error;
+        QVERIFY2(removeCubismBackdropIslands(source, chart, &isolated, &error,
+            keepComponents), qPrintable(error));
+        QCOMPARE(isolated.size(), source.size());
+        verifyPremultiplied(isolated);
+        for (int y = 0; y < source.height(); ++y) {
+            const auto* original = source.constScanLine(y);
+            const auto* actual = isolated.constScanLine(y);
+            for (int x = 0; x < source.width(); ++x) {
+                const int rank = componentRank.constScanLine(y)[x];
+                const bool keep = !chart.contains(x, y) || (rank > 0 && rank <= keepComponents);
+                for (int channel = 0; channel < 4; ++channel) {
+                    QCOMPARE(int(actual[4 * x + channel]), keep ? int(original[4 * x + channel]) : 0);
+                }
+            }
+        }
+        QCOMPARE(storedBytes(source), originalBytes);
+    }
+    QImage isolated(2, 1, QImage::Format_RGBA8888);
+    isolated.fill(QColor(20, 30, 40, 173));
+    const auto sentinel = isolated;
+    const auto sentinelBytes = storedBytes(isolated);
+    for (const int keepComponents : {-1, 0, 6}) {
+        QString error;
+        QVERIFY(!removeCubismBackdropIslands(source, chart, &isolated, &error, keepComponents));
+        QVERIFY(!error.isEmpty());
+        QCOMPARE(isolated, sentinel);
+        QCOMPARE(storedBytes(isolated), sentinelBytes);
+        QCOMPARE(storedBytes(source), originalBytes);
+    }
+}
+
+void CubismMaterialTextureTest::backdropNeedsTwoStrongComponents() {
+    QImage source(12, 10, QImage::Format_RGBA8888_Premultiplied);
+    source.fill(QColor(30, 40, 50, 255));
+    const QRect chart(2, 2, 8, 6);
+    for (int y = chart.top(); y <= chart.bottom(); ++y) {
+        auto* row = source.scanLine(y);
+        std::fill(row + 4 * chart.left(), row + 4 * (chart.right() + 1), uchar(0));
+    }
+    QImage isolated(2, 1, QImage::Format_RGBA8888);
+    isolated.fill(QColor(20, 30, 40, 173));
+    const auto sentinel = isolated;
+    const auto sentinelBytes = storedBytes(isolated);
+    const auto verifyFailure = [&] {
+        const auto originalBytes = storedBytes(source);
+        QString error;
+        QVERIFY(!removeCubismBackdropIslands(source, chart, &isolated, &error));
+        QVERIFY(!error.isEmpty());
+        QCOMPARE(isolated, sentinel);
+        QCOMPARE(storedBytes(isolated), sentinelBytes);
+        QCOMPARE(storedBytes(source), originalBytes);
+    };
+    verifyFailure(); // Opaque pixels outside the chart cannot supply a core.
+    source.setPixelColor(3, 3, QColor(40, 50, 60, 16));
+    source.setPixelColor(4, 4, QColor(40, 50, 60, 16));
+    source.setPixelColor(5, 5, QColor(40, 50, 60, 16));
+    source.setPixelColor(6, 6, QColor(40, 50, 60, 1));
+    source.setPixelColor(8, 3, QColor(40, 50, 60, 15));
+    source.setPixelColor(9, 4, QColor(40, 50, 60, 1));
+    verifyFailure(); // One diagonal core plus a separate weak island is still insufficient.
+}
+
+void CubismMaterialTextureTest::invalidBackdropArgumentsLeaveOutputIntact() {
+    QImage source(10, 8, QImage::Format_RGBA8888_Premultiplied);
+    source.fill(Qt::transparent);
+    source.setPixelColor(2, 2, QColor(80, 140, 230, 173));
+    source.setPixelColor(7, 5, QColor(216, 150, 80, 255));
+    const QRect chart(1, 1, 8, 6);
+    QImage isolated(2, 1, QImage::Format_RGBA8888);
+    isolated.fill(QColor(20, 30, 40, 173));
+    const auto sentinel = isolated;
+    const auto sentinelBytes = storedBytes(isolated);
+    const auto sourceBytes = storedBytes(source);
+    QString error;
+    const auto verifyFailure = [&](const QImage& input, const QRect& bounds) {
+        const auto inputBytes = storedBytes(input);
+        error.clear();
+        QVERIFY(!removeCubismBackdropIslands(input, bounds, &isolated, &error));
+        QVERIFY(!error.isEmpty());
+        QCOMPARE(isolated, sentinel);
+        QCOMPARE(storedBytes(isolated), sentinelBytes);
+        QCOMPARE(storedBytes(input), inputBytes);
+    };
+    verifyFailure(QImage(), chart);
+    verifyFailure(source.convertToFormat(QImage::Format_RGBA8888), chart);
+    verifyFailure(source.convertToFormat(QImage::Format_RGB32), chart);
+    verifyFailure(source.convertToFormat(QImage::Format_ARGB32_Premultiplied), chart);
+    for (const auto bounds : {QRect(), QRect(1, 1, 0, 6), QRect(1, 1, 8, 0),
+                              QRect(1, 1, -2, 6), QRect(1, 1, 8, -2),
+                              QRect(-1, 1, 8, 6), QRect(1, -1, 8, 6),
+                              QRect(3, 1, 8, 6), QRect(1, 3, 8, 6), QRect(20, 20, 1, 1)}) {
+        verifyFailure(source, bounds);
+    }
+    error.clear();
+    QVERIFY(!removeCubismBackdropIslands(source, chart, nullptr, &error));
+    QVERIFY(!error.isEmpty());
+    QCOMPARE(isolated, sentinel);
+    QCOMPARE(storedBytes(isolated), sentinelBytes);
+    QCOMPARE(storedBytes(source), sourceBytes);
+    QVERIFY(!removeCubismBackdropIslands(QImage(), chart, &isolated));
+    QCOMPARE(isolated, sentinel);
+    QCOMPARE(storedBytes(isolated), sentinelBytes);
 }
 
 void CubismMaterialTextureTest::exportedWhaleGirlHasOneNeckAndSeparateClothing() {

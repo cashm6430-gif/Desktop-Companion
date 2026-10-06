@@ -1,0 +1,318 @@
+{
+  "schema_version": 2,
+  "source": {
+    "cmo_sha256": "10906cf918cb0030ddc206bd82e1b2b8a967edc1832aa4886e0402f1a3331b6a",
+    "moc_sha256": "7e24a0ffef40cd3064ab99a5a91ee0731579dfd8fd4faca2590ed16a1209dc87",
+    "atlas_pages": [
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_00.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      },
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_01.png",
+        "sha256": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8"
+      },
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_02.png",
+        "sha256": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c"
+      },
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_03.png",
+        "sha256": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22"
+      },
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_04.png",
+        "sha256": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5"
+      },
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_05.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      },
+      {
+        "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\texture_06.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      }
+    ]
+  },
+  "master_source": {
+    "cmo": "E:\\projects\\Desktop-Companion\\art\\live2d\\whale-girl-layered-draft.cmo3",
+    "cmo_sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+    "moc": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\export\\cmo-parent-corrected.moc3",
+    "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+    "atlas": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\export\\texture_00.png",
+    "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+  },
+  "restore_meshes": [
+    {
+      "id": "ArtMeshFootwearL",
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "append_axes": [
+            {
+              "parameter": "ParamSitPose",
+              "keys": [
+                0.0,
+                0.0875,
+                1.0
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0
+              ],
+              "value": 1.0
+            },
+            {
+              "coordinate": [
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                2
+              ],
+              "value": 0.0
+            }
+          ],
+          "initial_value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshFootwearR",
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "append_axes": [
+            {
+              "parameter": "ParamSitPose",
+              "keys": [
+                0.0,
+                0.0875,
+                1.0
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0
+              ],
+              "value": 1.0
+            },
+            {
+              "coordinate": [
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                2
+              ],
+              "value": 0.0
+            }
+          ],
+          "initial_value": 1.0
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshObjects5",
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "append_axes": [
+            {
+              "parameter": "ParamSitPose",
+              "keys": [
+                0.0,
+                0.0875,
+                1.0
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0,
+                0
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                0,
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                0,
+                2
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                1,
+                0
+              ],
+              "value": 1.0
+            },
+            {
+              "coordinate": [
+                1,
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                1,
+                2
+              ],
+              "value": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshObjects6",
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "append_axes": [
+            {
+              "parameter": "ParamSitPose",
+              "keys": [
+                0.0,
+                0.0875,
+                1.0
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0,
+                0
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                0,
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                0,
+                2
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                1,
+                0
+              ],
+              "value": 1.0
+            },
+            {
+              "coordinate": [
+                1,
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                1,
+                2
+              ],
+              "value": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ArtMeshBottomwear",
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "append_axes": [
+            {
+              "parameter": "ParamSitPose",
+              "keys": [
+                0.0,
+                0.0875,
+                1.0
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0
+              ],
+              "value": 1.0
+            },
+            {
+              "coordinate": [
+                1
+              ],
+              "value": 0.0
+            },
+            {
+              "coordinate": [
+                2
+              ],
+              "value": 0.0
+            }
+          ],
+          "initial_value": 1.0
+        }
+      ]
+    }
+  ],
+  "append_pages": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\whole-model-migration-20261004-r1\\api-audit\\moc-recovery-20261004T082620Z\\export\\texture_00.png",
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    }
+  ],
+  "floor_clones": [
+    {
+      "id": "ArtMeshAuthorFloorReferenceL",
+      "name": "Invisible author floor L",
+      "source_id": "ArtMeshFootwearL",
+      "part_id": "PartExtra",
+      "texture_page": 7
+    },
+    {
+      "id": "ArtMeshAuthorFloorReferenceR",
+      "name": "Invisible author floor R",
+      "source_id": "ArtMeshFootwearR",
+      "part_id": "PartExtra",
+      "texture_page": 7
+    }
+  ],
+  "authoredSitPose": {
+    "floorReferenceDrawableIds": [
+      "ArtMeshAuthorFloorReferenceL",
+      "ArtMeshAuthorFloorReferenceR"
+    ],
+    "floorReferenceContract": "Sit0 reads original FootwearL/R; positive Sit reads hidden author plates. Renderer common matrix only."
+  },
+  "description": "Experiment only: restore original old5 geometry/all source channels; minimal Sit opacity; current expanded geometry moves to forever-hidden floor plates."
+}

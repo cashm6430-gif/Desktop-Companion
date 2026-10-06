@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "pending",
+  "adopted": false,
+  "source_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "candidate_moc_sha256": "59a95e60bffaaadcf2d8171f5c8231a5f335a64cf268e95d868f746a6e1070e2",
+  "source_edit_report_sha256": "8a418fe65d5caf7515126b0973e4736e918f5293a08fb913e39b1c5c62a5e713",
+  "old34_geometry_opacity_bit_exact_contexts": 483,
+  "old34_topology_exact": true,
+  "old34_relative_render_order_exact": true,
+  "desk_between_legs_and_laptop": true,
+  "native_counts": {
+    "parameters": 41,
+    "meshes": 36,
+    "pages": 2
+  },
+  "visual_review": "pending",
+  "full_native_regression": "not_run",
+  "production_replaced": false
+}

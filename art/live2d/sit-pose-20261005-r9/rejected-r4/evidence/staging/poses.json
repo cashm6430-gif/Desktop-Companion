@@ -1,0 +1,125 @@
+{
+  "keyframes": [
+    {
+      "time": 0,
+      "name": "busy0-sit0",
+      "parameters": {
+        "ParamBusyLaptop": 0,
+        "ParamSitPose": 0,
+        "ParamArmLA": 0,
+        "ParamArmRA": 0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 1,
+      "name": "busy1-sit0.1",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.1,
+        "ParamArmLA": -4.0,
+        "ParamArmRA": -4.0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 2,
+      "name": "busy1-sit0.2",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.2,
+        "ParamArmLA": -8.0,
+        "ParamArmRA": -8.0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 3,
+      "name": "busy1-sit0.35",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.35,
+        "ParamArmLA": -14.0,
+        "ParamArmRA": -14.0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 4,
+      "name": "busy1-sit0.5",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.5,
+        "ParamArmLA": -20.0,
+        "ParamArmRA": -20.0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 5,
+      "name": "busy1-sit0.65",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.65,
+        "ParamArmLA": -26.0,
+        "ParamArmRA": -26.0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 6,
+      "name": "busy1-sit0.8",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.8,
+        "ParamArmLA": -32.0,
+        "ParamArmRA": -32.0,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 7,
+      "name": "busy1-sit0.929",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.929,
+        "ParamArmLA": -37.160000000000004,
+        "ParamArmRA": -37.160000000000004,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 8,
+      "name": "busy1-sit0.93",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.93,
+        "ParamArmLA": -37.2,
+        "ParamArmRA": -37.2,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 9,
+      "name": "busy1-sit0.98",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 0.98,
+        "ParamArmLA": -39.2,
+        "ParamArmRA": -39.2,
+        "ParamLaptopVisible": 0
+      }
+    },
+    {
+      "time": 10,
+      "name": "busy1-sit1",
+      "parameters": {
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamArmLA": -40,
+        "ParamArmRA": -40,
+        "ParamLaptopVisible": 1
+      }
+    }
+  ]
+}

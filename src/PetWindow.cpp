@@ -224,6 +224,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 #endif
 
     QString motionError;
+    motion_.setDeskWorkMode(qApp->property("desktopCompanionDeskWorkMode").toBool());
     if (!motion_.loadMotionLibrary(imagePath("motions"), &motionError))
         qWarning() << "Motion library:" << motionError;
     // The state machine gets its durations from the same clips that drive the

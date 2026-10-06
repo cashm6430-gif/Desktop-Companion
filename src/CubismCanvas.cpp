@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QImage>
+#include <QPainter>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -141,6 +142,11 @@ struct CubismCanvas::Impl {
     bool frameworkStarted = false;
     bool rawExportReview = false;
     bool authoredSitPose = false;
+    std::vector<int> deskDrawables;
+    std::vector<int> deskLegacyMaterials;
+    int hairSupportDrawable = -1;
+    float hairSupportScaleX = 1.0f;
+    float hairSupportScaleY = 1.0f;
     int skirtSpreadParameter = -1;
     int handGroundParameter = -1;
 
@@ -297,6 +303,135 @@ void CubismCanvas::initializeGL() {
     metadataName += QStringLiteral("psd2live.json");
     const auto metadata = impl_->rawExportReview ? QJsonDocument(QJsonObject{})
         : QJsonDocument::fromJson(readFile(QDir(directory).filePath(metadataName)));
+    QRect backdropChart;
+    QByteArray backdropAtlasSha;
+    QImage hairBacking;
+    QList<QRect> hairBackingSources;
+    const QList<QRect> hairBackingTargets{QRect(2959, 8, 315, 350), QRect(3323, 8, 315, 350)};
+    if (metadata.object().contains(QStringLiteral("runtimeBackdropCleanup"))) {
+        const auto cleanup = metadata.object().value(QStringLiteral("runtimeBackdropCleanup")).toObject();
+        const auto expected = cleanup.value(QStringLiteral("mocSha256")).toString().toLatin1();
+        backdropAtlasSha = cleanup.value(QStringLiteral("atlasSha256")).toString().toLatin1();
+        const int hair = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId("ArtMeshBackHair2"));
+        const int backing = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId("ArtMeshBackHair"));
+        if (cleanup.value(QStringLiteral("version")).toInt() != 1
+            || cleanup.value(QStringLiteral("backHairOnly")).toString() != QStringLiteral("ArtMeshBackHair2")
+            || cleanup.value(QStringLiteral("backingMaterial")).toString() != QStringLiteral("ArtMeshBackHair")
+            || expected.size() != 64 || backdropAtlasSha.size() != 64
+            || QCryptographicHash::hash(moc, QCryptographicHash::Sha256).toHex() != expected
+            || cleanup.value(QStringLiteral("keepStrongComponents")).toInt() != 3
+            || hair < 0 || backing < 0 || Core::csmGetDrawableTextureIndices(model->GetModel())[hair] != 0) {
+            error_ = QStringLiteral("Backdrop cleanup material identity is invalid");
+            return;
+        }
+        const auto* uv = model->GetDrawableVertexUvs(hair);
+        double left = 4096, top = 4096, right = 0, bottom = 0;
+        for (int i = 0; i < model->GetDrawableVertexCount(hair); ++i) {
+            left = std::min(left, uv[i].X * 4096.0); right = std::max(right, uv[i].X * 4096.0);
+            top = std::min(top, (1.0 - uv[i].Y) * 4096.0); bottom = std::max(bottom, (1.0 - uv[i].Y) * 4096.0);
+        }
+        backdropChart = QRect(QPoint(static_cast<int>(std::floor(left)) - 2, static_cast<int>(std::floor(top)) - 2),
+                              QPoint(static_cast<int>(std::ceil(right)) + 2, static_cast<int>(std::ceil(bottom)) + 2));
+        const auto material = cleanup.value(QStringLiteral("backingTexture")).toObject();
+        const auto bytes = readFile(QDir(directory).filePath(material.value(QStringLiteral("file")).toString()));
+        const auto materialSha = material.value(QStringLiteral("sha256")).toString().toLatin1();
+        hairBacking = QImage::fromData(bytes).convertToFormat(QImage::Format_RGBA8888_Premultiplied);
+        if (materialSha.size() != 64 || QCryptographicHash::hash(bytes, QCryptographicHash::Sha256).toHex() != materialSha
+            || hairBacking.size() != QSize(1254, 1254) || material.value(QStringLiteral("sourceRects")).toArray().size() != 2) {
+            error_ = QStringLiteral("Pure hair backing source does not match its declared material");
+            return;
+        }
+        for (const auto& value : material.value(QStringLiteral("sourceRects")).toArray()) {
+            const auto coordinates = value.toArray();
+            if (coordinates.size() != 4) { error_ = QStringLiteral("Hair backing registration is invalid"); return; }
+            const QRect rect(coordinates[0].toInt(), coordinates[1].toInt(),
+                             coordinates[2].toInt() - coordinates[0].toInt(), coordinates[3].toInt() - coordinates[1].toInt());
+            if (!rect.isValid() || !hairBacking.rect().contains(rect)) {
+                error_ = QStringLiteral("Hair backing source rectangle leaves the generated material"); return;
+            }
+            hairBackingSources.push_back(rect);
+        }
+        const auto supportScale = cleanup.value(QStringLiteral("supportScale")).toArray();
+        if (supportScale.size() != 2 || supportScale[0].toDouble() < 1.0 || supportScale[0].toDouble() > 2.0
+            || supportScale[1].toDouble() < 1.0 || supportScale[1].toDouble() > 2.0) {
+            error_ = QStringLiteral("Pure hair support extent is invalid"); return;
+        }
+        impl_->hairSupportDrawable = backing;
+        impl_->hairSupportScaleX = static_cast<float>(supportScale[0].toDouble());
+        impl_->hairSupportScaleY = static_cast<float>(supportScale[1].toDouble());
+    }
+    if (metadata.object().contains(QStringLiteral("runtimeDeskWorkMode"))) {
+        const auto desk = metadata.object().value(QStringLiteral("runtimeDeskWorkMode")).toObject();
+        const auto stage = desk.value(QStringLiteral("stage")).toString();
+        const auto expectedMoc = desk.value(QStringLiteral("mocSha256")).toString().toLatin1();
+        const auto ids = desk.value(QStringLiteral("drawableIds")).toArray();
+        const QStringList expectedIds{QStringLiteral("ArtMeshWorkstationDesk"), QStringLiteral("ArtMeshWorkstationDeskTop")};
+        bool meshesValid = ids.size() == expectedIds.size();
+        for (int i = 0; i < ids.size() && meshesValid; ++i) {
+            meshesValid = ids[i].toString() == expectedIds[i];
+            const auto name = ids[i].toString().toUtf8();
+            const int index = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(name.constData()));
+            meshesValid = meshesValid && index >= 0;
+            if (meshesValid) impl_->deskDrawables.push_back(index);
+        }
+        if (desk.value(QStringLiteral("version")).toInt() != 1
+            || desk.value(QStringLiteral("parameter")).toString() != QStringLiteral("ParamDeskVisible")
+            || desk.value(QStringLiteral("floorOwner")).toString() != QStringLiteral("runtime")
+            || (stage != QStringLiteral("complete")
+                && !(stage == QStringLiteral("preview") && !reviewModel.isEmpty()))
+            || expectedMoc.size() != 64
+            || QCryptographicHash::hash(moc, QCryptographicHash::Sha256).toHex() != expectedMoc
+            || !impl_->parameterIndices.contains(QStringLiteral("ParamDeskVisible"))
+            || !meshesValid
+            || metadata.object().contains(QStringLiteral("runtimePostureTransition"))) {
+            error_ = QStringLiteral("Desk work mode metadata or MOC identity is invalid");
+            return;
+        }
+        if (desk.contains(QStringLiteral("contactTrim"))) {
+            error_ = QStringLiteral("Desk hand trimming was rejected; use the complete sleeve materials");
+            return;
+        }
+        if (desk.contains(QStringLiteral("replacementLaptop"))) {
+            const auto id = desk.value(QStringLiteral("replacementLaptop")).toString().toUtf8();
+            const int replacement = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
+            for (const auto* name : {"ArtMeshObjects", "ArtMeshObjects4"}) {
+                const int legacy = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(name));
+                if (legacy < 0) { error_ = QStringLiteral("Legacy desk laptop material is missing"); return; }
+                impl_->deskLegacyMaterials.push_back(legacy);
+            }
+            if (id != QByteArray("ArtMeshWorkstationLaptop") || replacement < 0) {
+                error_ = QStringLiteral("Whole rigid desk laptop material is missing");
+                return;
+            }
+        }
+        if (desk.contains(QStringLiteral("replacementSleeves"))) {
+            const auto replacements = desk.value(QStringLiteral("replacementSleeves")).toObject();
+            const QJsonObject expected{
+                {QStringLiteral("ArtMeshObjects2"), QStringLiteral("ArtMeshWorkstationSleeveR")}
+            };
+            if (replacements != expected || !desk.contains(QStringLiteral("replacementLaptop"))
+                || !desk.value(QStringLiteral("hiddenLeftHand")).toBool()) {
+                error_ = QStringLiteral("Complete workstation sleeves require their matching rigid laptop");
+                return;
+            }
+            // The left arm stays behind the opaque laptop in this scene.
+            // Its incomplete legacy cutout is not a visible scene component.
+            const int left = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId("ArtMeshObjects3"));
+            if (left < 0) { error_ = QStringLiteral("Legacy left sleeve material is missing"); return; }
+            impl_->deskLegacyMaterials.push_back(left);
+            for (auto it = expected.begin(); it != expected.end(); ++it) {
+                const auto legacyId = it.key().toUtf8();
+                const auto replacementId = it.value().toString().toUtf8();
+                const int legacy = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(legacyId.constData()));
+                const int replacement = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(replacementId.constData()));
+                if (legacy < 0 || replacement < 0) {
+                    error_ = QStringLiteral("Complete workstation sleeve material is missing");
+                    return;
+                }
+                impl_->deskLegacyMaterials.push_back(legacy);
+            }
+        }
+    }
     if (metadata.object().contains(QStringLiteral("runtimePostureTransition"))) {
         const auto posture = metadata.object().value(QStringLiteral("runtimePostureTransition")).toObject();
         const auto stage = posture.value(QStringLiteral("stage")).toString();
@@ -455,6 +590,39 @@ void CubismCanvas::initializeGL() {
             if (impl_->bodyModel) {
                 clothing = QImage(image.size(), QImage::Format_RGBA8888_Premultiplied);
                 clothing.fill(Qt::transparent);
+            }
+        }
+        if (textureIndex == 0 && !backdropChart.isEmpty()) {
+            if (QCryptographicHash::hash(textureBytes, QCryptographicHash::Sha256).toHex() != backdropAtlasSha) {
+                error_ = QStringLiteral("Backdrop cleanup atlas identity is invalid");
+                return;
+            }
+            QImage cleaned;
+            // Two rear locks and the complete ahoge are genuine components.
+            // The smaller disconnected ear tips already belong to the head.
+            if (!removeCubismBackdropIslands(image, backdropChart, &cleaned, &error_, 3)) return;
+            image = std::move(cleaned);
+            const QImage beforeBacking = image.copy();
+            {
+                QPainter painter(&image);
+                painter.setRenderHint(QPainter::SmoothPixmapTransform);
+                painter.setCompositionMode(QPainter::CompositionMode_Source);
+                for (int i = 0; i < hairBackingTargets.size(); ++i)
+                    painter.drawImage(hairBackingTargets[i], hairBacking, hairBackingSources[i]);
+            }
+            // Keep ownership within the original backing silhouette. The
+            // generated material supplies hair; its chart never supplies skin
+            // or skirt pixels and never expands over another atlas tile.
+            for (const auto& rect : hairBackingTargets) {
+                for (int y = rect.top(); y <= rect.bottom(); ++y) {
+                    auto* row = image.scanLine(y);
+                    const auto* original = beforeBacking.constScanLine(y);
+                    for (int x = rect.left(); x <= rect.right(); ++x) {
+                        const int coverage = original[4*x+3];
+                        for (int channel = 0; channel < 4; ++channel)
+                            row[4*x+channel] = static_cast<uchar>((int(row[4*x+channel])*coverage+127)/255);
+                    }
+                }
             }
         }
         impl_->textures.push_back(upload(image));
@@ -678,6 +846,33 @@ void CubismCanvas::paintGL() {
         static_cast<float>(1.0 - seatedMaterial));
     model->Update();
     impl_->materialBinding.apply();
+    if (impl_->hairSupportDrawable >= 0) {
+        // The old backing was cropped around a neutral sleeve/skirt silhouette.
+        // Give only the pure hair support enough overlap under moving clothing;
+        // the real arms, body and outer hair keep their authored geometry.
+        const int index = impl_->hairSupportDrawable;
+        auto* vertices = const_cast<Core::csmVector2*>(Core::csmGetDrawableVertexPositions(model->GetModel())[index]);
+        const auto* uv = model->GetDrawableVertexUvs(index);
+        const int count = model->GetDrawableVertexCount(index);
+        for (int side = 0; side < 2; ++side) {
+            float left = std::numeric_limits<float>::infinity(), right = -left, top = -left;
+            for (int i = 0; i < count; ++i) {
+                if ((uv[i].X * 4096.0 < 3298.0) != (side == 0)) continue;
+                left = std::min(left, vertices[i].X); right = std::max(right, vertices[i].X);
+                top = std::max(top, vertices[i].Y);
+            }
+            const float centre = (left + right) * 0.5f;
+            for (int i = 0; i < count; ++i) {
+                if ((uv[i].X * 4096.0 < 3298.0) != (side == 0)) continue;
+                vertices[i].X = centre + (vertices[i].X - centre) * impl_->hairSupportScaleX;
+                vertices[i].Y = top + (vertices[i].Y - top) * impl_->hairSupportScaleY;
+            }
+        }
+    }
+    if (!impl_->deskLegacyMaterials.empty() && motion_->values().value(QStringLiteral("ParamDeskVisible")) > 0.0) {
+        auto* opacity = const_cast<float*>(Core::csmGetDrawableOpacities(model->GetModel()));
+        for (int legacy : impl_->deskLegacyMaterials) opacity[legacy] = 0.0f;
+    }
     // The bite art's switch-opacity keyforms never made it into the exported
     // moc3 (the layer stays fully opaque no matter what ParamMouthGape says),
     // so gate its visibility here instead: Core keeps the live per-drawable
@@ -706,6 +901,16 @@ void CubismCanvas::paintGL() {
         const float grounded = modelMatrix->TransformY(impl_->standingFloor)
             - modelMatrix->TransformY(standingFoot);
         matrix.Translate(matrix.GetTranslateX(), matrix.GetTranslateY() + grounded);
+        for (int deskDrawable : impl_->deskDrawables) {
+            // Furniture keeps its own ground. Cancel the character's global
+            // foot correction on this prop only; Core rebuilds it next frame.
+            using Position = std::remove_const_t<std::remove_pointer_t<
+                decltype(model->GetDrawableVertexPositions(0))>>;
+            auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(deskDrawable));
+            const int count = model->GetDrawableVertexCount(deskDrawable);
+            for (int i = 0; i < count; ++i)
+                vertices[i].Y += standingFoot - impl_->standingFloor;
+        }
         if (!impl_->authoredSitPose) {
             // Update() rebuilds this buffer every frame. The legacy correction
             // changes only this draw call and never the author model.

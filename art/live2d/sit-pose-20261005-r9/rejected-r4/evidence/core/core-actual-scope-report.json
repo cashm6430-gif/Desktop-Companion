@@ -1,0 +1,3550 @@
+{
+  "schema_version": 1,
+  "kind": "R4_actual_Core_scoped_evidence_not_overall_model_gate",
+  "candidate_model": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.model3.json",
+  "source_model": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.model3.json",
+  "input_sha256": {
+    "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\check_structural_prototype.py": "22d34a1320943dfef2b97087d6b6f85461b03786815d4a7762bb88a241129e0c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.cmo3": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.moc3": "ba02f0c9d320f61c167ec01323e1e18298e66ae076bc13eb61ba894c803871fa",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.model3.json": "8fb302c79d4c89b191cb09644a536f71f58f49a97915830c90ee23c124ae4a42",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_01.png": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_02.png": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_03.png": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_04.png": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_05.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_06.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_07.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.cmo3": "f13b6d3480c832f2f1abf8abdab2e1448f6879ec6deea687cd2626025b0c2a63",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.moc3": "3aa1b4360596c9cb621fb311736cd1548384e099bc45d3b590705886d0c3e5f9",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.model3.json": "4a66074b3a35896173a966f168d4d46f404f68c9b6fb426265d0618508b993b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_01.png": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_02.png": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_03.png": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_04.png": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_05.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_06.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_07.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_08.png": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_09.png": "a219c637dbcb28b353cad01510b727554979079be69f4456face49d01fd09cc2",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\core-old-contract-audit.json": "4739bfbdef48f6259395ecb4d9e2ce3cd96e4b9ebf87f296775743e2c9af6c50",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\check_r4_actual_scope.py": "e720bc6f890ad27fa94607db75ab41a6c62f9fe3100dfce6147977a33769a3c2"
+  },
+  "scoped_checks_passed": true,
+  "overall_model_pass": false,
+  "strict_old_contract": {
+    "evidence_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\core-old-contract-audit.json",
+    "sha256": "4739bfbdef48f6259395ecb4d9e2ce3cd96e4b9ebf87f296775743e2c9af6c50",
+    "passed": false,
+    "old_eight_leg_world_contract": {
+      "ids": [
+        "ArtMeshSitKneeFrontL",
+        "ArtMeshSitKneeFrontR",
+        "ArtMeshSitStockingL",
+        "ArtMeshSitStockingR",
+        "ArtMeshSitShoeL",
+        "ArtMeshSitShoeR",
+        "ArtMeshAuthorFloorReferenceL",
+        "ArtMeshAuthorFloorReferenceR"
+      ],
+      "sit_keys": [
+        0.35,
+        0.65,
+        0.8,
+        0.92,
+        1.0
+      ],
+      "maximum_allowed_residual_source_px": 0.1,
+      "worst": {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitKneeFrontL",
+        "maximum_residual_source_px": 95.70639906889815,
+        "maximum_component_residual_source_px": 88.62902936339378,
+        "worst_vertex": 26,
+        "source_world_xy": [
+          549.2676835432649,
+          922.352905780077
+        ],
+        "candidate_world_xy": [
+          585.3870685994625,
+          1010.9819351434708
+        ],
+        "passed": false
+      },
+      "all_rows": [
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshSitKneeFrontL",
+          "maximum_residual_source_px": 46.52633643156333,
+          "maximum_component_residual_source_px": 46.526336431503296,
+          "worst_vertex": 13,
+          "source_world_xy": [
+            511.4865942299366,
+            986.3773323297501
+          ],
+          "candidate_world_xy": [
+            558.0129306614399,
+            986.3772575855255
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshSitKneeFrontR",
+          "maximum_residual_source_px": 46.460921220481396,
+          "maximum_component_residual_source_px": 46.460921220481396,
+          "worst_vertex": 10,
+          "source_world_xy": [
+            709.661684051156,
+            985.7625237107277
+          ],
+          "candidate_world_xy": [
+            663.2007628306746,
+            985.7625237107277
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshSitStockingL",
+          "maximum_residual_source_px": 43.90800040640711,
+          "maximum_component_residual_source_px": 43.90800040634349,
+          "worst_vertex": 7,
+          "source_world_xy": [
+            581.3283077180386,
+            975.0526106357574
+          ],
+          "candidate_world_xy": [
+            625.236308124382,
+            975.0525358915329
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshSitStockingR",
+          "maximum_residual_source_px": 43.83657967206091,
+          "maximum_component_residual_source_px": 43.83657967206091,
+          "worst_vertex": 56,
+          "source_world_xy": [
+            674.6061008423567,
+            975.6763511896133
+          ],
+          "candidate_world_xy": [
+            630.7695211702958,
+            975.6763511896133
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshSitShoeL",
+          "maximum_residual_source_px": 4.17832917538991e-05,
+          "maximum_component_residual_source_px": 3.737211227416992e-05,
+          "worst_vertex": 27,
+          "source_world_xy": [
+            506.13859824836254,
+            1141.3234178423882
+          ],
+          "candidate_world_xy": [
+            506.1386169344187,
+            1141.3233804702759
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshSitShoeR",
+          "maximum_residual_source_px": 7.475334804236813e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 10,
+          "source_world_xy": [
+            644.3146818056703,
+            1229.6845825910568
+          ],
+          "candidate_world_xy": [
+            644.3146829735488,
+            1229.6845078468323
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceL",
+          "maximum_residual_source_px": 7.704458317942241e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 82,
+          "source_world_xy": [
+            487.61646553874016,
+            1037.3588356375694
+          ],
+          "candidate_world_xy": [
+            487.6164842247963,
+            1037.3587608933449
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.35
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceR",
+          "maximum_residual_source_px": 7.475334804236813e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 60,
+          "source_world_xy": [
+            644.3146818056703,
+            1229.6845825910568
+          ],
+          "candidate_world_xy": [
+            644.3146829735488,
+            1229.6845078468323
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshSitKneeFrontL",
+          "maximum_residual_source_px": 95.70639906889815,
+          "maximum_component_residual_source_px": 88.62902936339378,
+          "worst_vertex": 26,
+          "source_world_xy": [
+            549.2676835432649,
+            922.352905780077
+          ],
+          "candidate_world_xy": [
+            585.3870685994625,
+            1010.9819351434708
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshSitKneeFrontR",
+          "maximum_residual_source_px": 95.69539552501313,
+          "maximum_component_residual_source_px": 88.62897330522537,
+          "worst_vertex": 11,
+          "source_world_xy": [
+            689.8610794097185,
+            981.9516894221306
+          ],
+          "candidate_world_xy": [
+            653.7707231417298,
+            1070.580662727356
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshSitStockingL",
+          "maximum_residual_source_px": 80.84918366633043,
+          "maximum_component_residual_source_px": 74.27012193202972,
+          "worst_vertex": 7,
+          "source_world_xy": [
+            592.3517821580172,
+            977.2764008045197
+          ],
+          "candidate_world_xy": [
+            624.2977527799085,
+            1051.546485364437
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshSitStockingR",
+          "maximum_residual_source_px": 80.8347235536033,
+          "maximum_component_residual_source_px": 74.27008455991745,
+          "worst_vertex": 56,
+          "source_world_xy": [
+            663.6189801245928,
+            977.6939220428467
+          ],
+          "candidate_world_xy": [
+            631.7093620570377,
+            1051.9638944864273
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshSitShoeL",
+          "maximum_residual_source_px": 0.00011250495613966539,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 17,
+          "source_world_xy": [
+            569.899317830801,
+            1119.9999743700027
+          ],
+          "candidate_world_xy": [
+            569.8993084877729,
+            1119.999862253666
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshSitShoeR",
+          "maximum_residual_source_px": 7.830884488767841e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 0,
+          "source_world_xy": [
+            658.9863097295165,
+            1135.157692015171
+          ],
+          "candidate_world_xy": [
+            658.9862863719463,
+            1135.1576172709465
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceL",
+          "maximum_residual_source_px": 0.00011250495613966539,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 102,
+          "source_world_xy": [
+            558.582864716649,
+            1109.8306862711906
+          ],
+          "candidate_world_xy": [
+            558.582855373621,
+            1109.8305741548538
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.65
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceR",
+          "maximum_residual_source_px": 0.00011298885065726617,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 88,
+          "source_world_xy": [
+            639.4795199632645,
+            1060.5096259117126
+          ],
+          "candidate_world_xy": [
+            639.4795059487224,
+            1060.5095137953758
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshSitKneeFrontL",
+          "maximum_residual_source_px": 91.14579819313005,
+          "maximum_component_residual_source_px": 89.12542444467545,
+          "worst_vertex": 16,
+          "source_world_xy": [
+            518.3847013413906,
+            963.6960852742195
+          ],
+          "candidate_world_xy": [
+            537.4691255092621,
+            1052.821509718895
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshSitKneeFrontR",
+          "maximum_residual_source_px": 91.14426243250466,
+          "maximum_component_residual_source_px": 89.12538707256317,
+          "worst_vertex": 5,
+          "source_world_xy": [
+            724.1795444190502,
+            979.3908775448799
+          ],
+          "candidate_world_xy": [
+            705.1022816821933,
+            1068.516264617443
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshSitStockingL",
+          "maximum_residual_source_px": 76.45198888660111,
+          "maximum_component_residual_source_px": 74.66073524951935,
+          "worst_vertex": 7,
+          "source_world_xy": [
+            607.6932841725647,
+            980.2636658549309
+          ],
+          "candidate_world_xy": [
+            624.1456766040064,
+            1054.9244011044502
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshSitStockingR",
+          "maximum_residual_source_px": 76.4497642826665,
+          "maximum_component_residual_source_px": 74.66069787740707,
+          "worst_vertex": 56,
+          "source_world_xy": [
+            648.2993734963238,
+            980.4729496836662
+          ],
+          "candidate_world_xy": [
+            631.8569821924902,
+            1055.133610188961
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshSitShoeL",
+          "maximum_residual_source_px": 0.00011452357428411099,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 17,
+          "source_world_xy": [
+            574.399321898818,
+            1119.9999743700027
+          ],
+          "candidate_world_xy": [
+            574.3992985412478,
+            1119.999862253666
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshSitShoeR",
+          "maximum_residual_source_px": 7.982686681023377e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 12,
+          "source_world_xy": [
+            718.4283313751221,
+            1137.2824087142944
+          ],
+          "candidate_world_xy": [
+            718.4283033460379,
+            1137.2823339700699
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceL",
+          "maximum_residual_source_px": 0.00011556687476913362,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 37,
+          "source_world_xy": [
+            594.8452144525945,
+            1133.3663719296455
+          ],
+          "candidate_world_xy": [
+            594.8451864235103,
+            1133.3662598133087
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.8
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceR",
+          "maximum_residual_source_px": 0.00011298885065726617,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 78,
+          "source_world_xy": [
+            697.5513958856463,
+            1075.32535135746
+          ],
+          "candidate_world_xy": [
+            697.5513818711042,
+            1075.3252392411232
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshSitKneeFrontL",
+          "maximum_residual_source_px": 5.749692466109991,
+          "maximum_component_residual_source_px": 5.749692466109991,
+          "worst_vertex": 26,
+          "source_world_xy": [
+            583.706570841372,
+            923.3443692326546
+          ],
+          "candidate_world_xy": [
+            589.456263307482,
+            923.3443692326546
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshSitKneeFrontR",
+          "maximum_residual_source_px": 5.7495593284458515,
+          "maximum_component_residual_source_px": 5.749559327960014,
+          "worst_vertex": 6,
+          "source_world_xy": [
+            705.3611816614866,
+            981.7803009152412
+          ],
+          "candidate_world_xy": [
+            699.6116223335266,
+            981.7802261710167
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshSitStockingL",
+          "maximum_residual_source_px": 4.83629234937967,
+          "maximum_component_residual_source_px": 4.83629234880209,
+          "worst_vertex": 7,
+          "source_world_xy": [
+            619.4618761958554,
+            983.2958895564079
+          ],
+          "candidate_world_xy": [
+            624.2981685446575,
+            983.2958148121834
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshSitStockingR",
+          "maximum_residual_source_px": 4.8359793579394115,
+          "maximum_component_residual_source_px": 4.8359793573617935,
+          "worst_vertex": 56,
+          "source_world_xy": [
+            636.5378249483183,
+            983.3325515985489
+          ],
+          "candidate_world_xy": [
+            631.7018455909565,
+            983.3324768543243
+          ],
+          "passed": false
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshSitShoeL",
+          "maximum_residual_source_px": 7.532590043817744e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 32,
+          "source_world_xy": [
+            524.2595973908901,
+            1119.9999743700027
+          ],
+          "candidate_world_xy": [
+            524.259588047862,
+            1119.9998996257782
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshSitShoeR",
+          "maximum_residual_source_px": 0.00011214066498528336,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 8,
+          "source_world_xy": [
+            647.3256874904037,
+            1234.433793246746
+          ],
+          "candidate_world_xy": [
+            647.3256898261607,
+            1234.4336811304092
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceL",
+          "maximum_residual_source_px": 7.704458317942241e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 38,
+          "source_world_xy": [
+            597.6720316819847,
+            1144.9478026628494
+          ],
+          "candidate_world_xy": [
+            597.6720129959285,
+            1144.9477279186249
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 0.92
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceR",
+          "maximum_residual_source_px": 0.00011250495613966539,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 54,
+          "source_world_xy": [
+            714.9455308020115,
+            1232.8507479429245
+          ],
+          "candidate_world_xy": [
+            714.9455214589834,
+            1232.8506358265877
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshSitKneeFrontL",
+          "maximum_residual_source_px": 7.474422454833984e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 7,
+          "source_world_xy": [
+            598.0235701203346,
+            984.8509805202484
+          ],
+          "candidate_world_xy": [
+            598.0235701203346,
+            984.8509057760239
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshSitKneeFrontR",
+          "maximum_residual_source_px": 7.474422454833984e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 5,
+          "source_world_xy": [
+            706.9544388949871,
+            977.4603837132454
+          ],
+          "candidate_world_xy": [
+            706.9544388949871,
+            977.4603089690208
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshSitStockingL",
+          "maximum_residual_source_px": 0.0001494884490966797,
+          "maximum_component_residual_source_px": 0.0001494884490966797,
+          "worst_vertex": 23,
+          "source_world_xy": [
+            604.349220559001,
+            1133.7140446901321
+          ],
+          "candidate_world_xy": [
+            604.349220559001,
+            1133.713895201683
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshSitStockingR",
+          "maximum_residual_source_px": 0.00014978013415276463,
+          "maximum_component_residual_source_px": 0.0001494884490966797,
+          "worst_vertex": 17,
+          "source_world_xy": [
+            666.3150229901075,
+            1139.47585272789
+          ],
+          "candidate_world_xy": [
+            666.3150136470795,
+            1139.475703239441
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshSitShoeL",
+          "maximum_residual_source_px": 7.704458317942241e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 23,
+          "source_world_xy": [
+            515.847611412406,
+            1205.9383424520493
+          ],
+          "candidate_world_xy": [
+            515.8476300984621,
+            1205.9382677078247
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshSitShoeR",
+          "maximum_residual_source_px": 0.00011250495613966539,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 33,
+          "source_world_xy": [
+            716.9917193502188,
+            1227.7681780457497
+          ],
+          "candidate_world_xy": [
+            716.9917100071907,
+            1227.7680659294128
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceL",
+          "maximum_residual_source_px": 7.704458317942241e-05,
+          "maximum_component_residual_source_px": 7.474422454833984e-05,
+          "worst_vertex": 38,
+          "source_world_xy": [
+            597.6720316819847,
+            1144.9478026628494
+          ],
+          "candidate_world_xy": [
+            597.6720129959285,
+            1144.9477279186249
+          ],
+          "passed": true
+        },
+        {
+          "parameters": {
+            "ParamSitPose": 1.0
+          },
+          "drawable": "ArtMeshAuthorFloorReferenceR",
+          "maximum_residual_source_px": 0.00011250495613966539,
+          "maximum_component_residual_source_px": 0.00011211633682250977,
+          "worst_vertex": 54,
+          "source_world_xy": [
+            714.9455308020115,
+            1232.8507479429245
+          ],
+          "candidate_world_xy": [
+            714.9455214589834,
+            1232.8506358265877
+          ],
+          "passed": true
+        }
+      ],
+      "passed": false
+    },
+    "old_four_surface_common_rigid_contract": {
+      "source_surface_ids": {
+        "face": "ArtMeshFace",
+        "front_hair": "ArtMeshFrontHair",
+        "headwear": "ArtMeshHeadwear",
+        "back_hair": "ArtMeshBackHair2"
+      },
+      "source_sit": 0.0,
+      "candidate_sit": 0.65,
+      "other_parameters": "actual Native defaults",
+      "best_common_rigid_fit": {
+        "rotation_degrees": 1.0696038056119692,
+        "translation_source_px": [
+          8.29787400781504,
+          308.54292280615624
+        ],
+        "determinant": 1.0,
+        "best_rigid_rms_source_px": 25.364186793039654,
+        "best_rigid_maximum_source_px": 139.6509747910889,
+        "diagnostic_best_uniform_scale": 0.9696482964265281,
+        "source_rms_radius_px": 325.2251520076782,
+        "candidate_rms_radius_px": 316.2183693934227
+      },
+      "per_surface_rigid_fits": {
+        "ArtMeshFace": {
+          "rotation_degrees": -4.00409234412542e-07,
+          "translation_source_px": [
+            -5.383119059843011e-06,
+            327.9999987008018
+          ],
+          "determinant": 1.0000000000000004,
+          "best_rigid_rms_source_px": 1.6799710584964235e-05,
+          "best_rigid_maximum_source_px": 4.959207043712836e-05,
+          "diagnostic_best_uniform_scale": 0.9999999995471031,
+          "source_rms_radius_px": 184.0083389373398,
+          "candidate_rms_radius_px": 184.0083388540037
+        },
+        "ArtMeshFrontHair": {
+          "rotation_degrees": -1.4867639804182257e-08,
+          "translation_source_px": [
+            -2.213314473920036e-06,
+            327.99999093598683
+          ],
+          "determinant": 1.0000000000000002,
+          "best_rigid_rms_source_px": 1.8527014967714345e-05,
+          "best_rigid_maximum_source_px": 7.106857925834256e-05,
+          "diagnostic_best_uniform_scale": 1.0000000018292863,
+          "source_rms_radius_px": 259.6627922070922,
+          "candidate_rms_radius_px": 259.66279268209047
+        },
+        "ArtMeshHeadwear": {
+          "rotation_degrees": 6.82524263421548e-07,
+          "translation_source_px": [
+            2.301898121004342e-07,
+            327.9999830108063
+          ],
+          "determinant": 0.9999999999999997,
+          "best_rigid_rms_source_px": 1.8121270534572278e-05,
+          "best_rigid_maximum_source_px": 5.916095932428517e-05,
+          "diagnostic_best_uniform_scale": 1.000000002268181,
+          "source_rms_radius_px": 279.4447510180781,
+          "candidate_rms_radius_px": 279.44475165191
+        },
+        "ArtMeshBackHair2": {
+          "rotation_degrees": 1.4823621130095785,
+          "translation_source_px": [
+            15.088515717351015,
+            283.8642491701165
+          ],
+          "determinant": 1.0000000000000007,
+          "best_rigid_rms_source_px": 41.24268850647097,
+          "best_rigid_maximum_source_px": 116.79918374130821,
+          "diagnostic_best_uniform_scale": 0.9588189636199356,
+          "source_rms_radius_px": 391.4762249500691,
+          "candidate_rms_radius_px": 377.26954163354867
+        }
+      },
+      "edge_length_diagnostics": {
+        "ArtMeshFace": {
+          "nondegenerate_edges": 924,
+          "minimum_length_ratio": 0.9999937656770609,
+          "maximum_length_ratio": 1.0000086286401415,
+          "maximum_edge_length_change_source_px": 5.368803266136979e-05
+        },
+        "ArtMeshFrontHair": {
+          "nondegenerate_edges": 1338,
+          "minimum_length_ratio": 0.9999965103966438,
+          "maximum_length_ratio": 1.000002617972877,
+          "maximum_edge_length_change_source_px": 7.474422195130614e-05
+        },
+        "ArtMeshHeadwear": {
+          "nondegenerate_edges": 1427,
+          "minimum_length_ratio": 0.9999827019408549,
+          "maximum_length_ratio": 1.0001407453262388,
+          "maximum_edge_length_change_source_px": 7.26966341684232e-05
+        },
+        "ArtMeshBackHair2": {
+          "nondegenerate_edges": 1196,
+          "minimum_length_ratio": 0.16904897422456722,
+          "maximum_length_ratio": 1.0107192163086107,
+          "maximum_edge_length_change_source_px": 28.42936364683576
+        }
+      },
+      "declared_rigid_maximum_px": 0.01,
+      "declared_uniform_scale_tolerance": 0.0001,
+      "passed": false,
+      "head_angles_tested": false,
+      "raw_surface_scope": "All actual vertices, including invisible/mixed chart portions; no renderer material cuts."
+    },
+    "failures_preserved": true,
+    "tolerance_changed": false,
+    "explanation": "Projected knee/stocking author poses changed old world targets; BackHair2 is now deliberately folded. Neither old failure is converted to a pass."
+  },
+  "standing_original34_and_all_new_hidden": {
+    "contexts": 122,
+    "busy_keys": [
+      0.0,
+      1.0
+    ],
+    "poses": 244,
+    "original_native_ids": [
+      "ArtMeshObjects",
+      "ArtMeshObjects2",
+      "ArtMeshObjects3",
+      "ArtMeshObjects4",
+      "ArtMeshObjects5",
+      "ArtMeshObjects6",
+      "ArtMeshObjects7",
+      "ArtMeshObjects8",
+      "ArtMeshHandwearR",
+      "ArtMeshHandwearR2",
+      "ArtMeshMouthOpen",
+      "ArtMeshMouthOpen2",
+      "ArtMeshHandwearR3",
+      "ArtMeshHandwearL",
+      "ArtMeshHandwearR4",
+      "ArtMeshEyelashL",
+      "ArtMeshEyelashR",
+      "ArtMeshIridesL",
+      "ArtMeshIridesR",
+      "ArtMeshEyewhiteL",
+      "ArtMeshEyewhiteR",
+      "ArtMeshMouthClose",
+      "ArtMeshFrontHair",
+      "ArtMeshFace",
+      "ArtMeshHandwearL2",
+      "ArtMeshHandwearR5",
+      "ArtMeshTail",
+      "ArtMeshFootwearL",
+      "ArtMeshFootwearR",
+      "ArtMeshBottomwear",
+      "ArtMeshTopwear",
+      "ArtMeshHeadwear",
+      "ArtMeshBackHair",
+      "ArtMeshBackHair2"
+    ],
+    "float32_byte_comparison": true,
+    "maximum_numeric_differences": {
+      "vertices_native": 0.0,
+      "opacity": 0.0,
+      "multiply_or_screen": 0.0
+    },
+    "failures": [],
+    "new_mesh_nonzero_opacity_failures": [],
+    "passed": true
+  },
+  "cranium_only_rigid_neutral": {
+    "ids": [
+      "ArtMeshFace",
+      "ArtMeshFrontHair",
+      "ArtMeshHeadwear"
+    ],
+    "max_residual_px": 0.01,
+    "uniform_scale_tolerance": 0.0001,
+    "rows": [
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "actual_native_ids": [
+          "ArtMeshFace",
+          "ArtMeshFrontHair",
+          "ArtMeshHeadwear"
+        ],
+        "best_common_rigid_fit": {
+          "rotation_degrees": 2.967545780377082e-07,
+          "translation_source_px": [
+            -1.0983909533024416e-06,
+            327.99998828812124
+          ],
+          "determinant": 0.9999999999999996,
+          "best_rigid_rms_source_px": 1.815159199451332e-05,
+          "best_rigid_maximum_source_px": 7.22034611741494e-05,
+          "diagnostic_best_uniform_scale": 1.0000000025494868,
+          "source_rms_radius_px": 258.00396086659083,
+          "candidate_rms_radius_px": 258.0039615243692
+        },
+        "per_surface_fits": {
+          "ArtMeshFace": {
+            "rotation_degrees": -4.00409234412542e-07,
+            "translation_source_px": [
+              -5.383119059843011e-06,
+              327.9999987008018
+            ],
+            "determinant": 1.0000000000000004,
+            "best_rigid_rms_source_px": 1.6799710584964235e-05,
+            "best_rigid_maximum_source_px": 4.959207043712836e-05,
+            "diagnostic_best_uniform_scale": 0.9999999995471031,
+            "source_rms_radius_px": 184.0083389373398,
+            "candidate_rms_radius_px": 184.0083388540037
+          },
+          "ArtMeshFrontHair": {
+            "rotation_degrees": -1.4867639804182257e-08,
+            "translation_source_px": [
+              -2.213314473920036e-06,
+              327.99999093598683
+            ],
+            "determinant": 1.0000000000000002,
+            "best_rigid_rms_source_px": 1.8527014967714345e-05,
+            "best_rigid_maximum_source_px": 7.106857925834256e-05,
+            "diagnostic_best_uniform_scale": 1.0000000018292863,
+            "source_rms_radius_px": 259.6627922070922,
+            "candidate_rms_radius_px": 259.66279268209047
+          },
+          "ArtMeshHeadwear": {
+            "rotation_degrees": 6.82524263421548e-07,
+            "translation_source_px": [
+              2.301898121004342e-07,
+              327.9999830108063
+            ],
+            "determinant": 0.9999999999999997,
+            "best_rigid_rms_source_px": 1.8121270534572278e-05,
+            "best_rigid_maximum_source_px": 5.916095932428517e-05,
+            "diagnostic_best_uniform_scale": 1.000000002268181,
+            "source_rms_radius_px": 279.4447510180781,
+            "candidate_rms_radius_px": 279.44475165191
+          }
+        },
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "actual_native_ids": [
+          "ArtMeshFace",
+          "ArtMeshFrontHair",
+          "ArtMeshHeadwear"
+        ],
+        "best_common_rigid_fit": {
+          "rotation_degrees": 2.967545780377082e-07,
+          "translation_source_px": [
+            -1.0983909533024416e-06,
+            327.99998828812124
+          ],
+          "determinant": 0.9999999999999996,
+          "best_rigid_rms_source_px": 1.815159199451332e-05,
+          "best_rigid_maximum_source_px": 7.22034611741494e-05,
+          "diagnostic_best_uniform_scale": 1.0000000025494868,
+          "source_rms_radius_px": 258.00396086659083,
+          "candidate_rms_radius_px": 258.0039615243692
+        },
+        "per_surface_fits": {
+          "ArtMeshFace": {
+            "rotation_degrees": -4.00409234412542e-07,
+            "translation_source_px": [
+              -5.383119059843011e-06,
+              327.9999987008018
+            ],
+            "determinant": 1.0000000000000004,
+            "best_rigid_rms_source_px": 1.6799710584964235e-05,
+            "best_rigid_maximum_source_px": 4.959207043712836e-05,
+            "diagnostic_best_uniform_scale": 0.9999999995471031,
+            "source_rms_radius_px": 184.0083389373398,
+            "candidate_rms_radius_px": 184.0083388540037
+          },
+          "ArtMeshFrontHair": {
+            "rotation_degrees": -1.4867639804182257e-08,
+            "translation_source_px": [
+              -2.213314473920036e-06,
+              327.99999093598683
+            ],
+            "determinant": 1.0000000000000002,
+            "best_rigid_rms_source_px": 1.8527014967714345e-05,
+            "best_rigid_maximum_source_px": 7.106857925834256e-05,
+            "diagnostic_best_uniform_scale": 1.0000000018292863,
+            "source_rms_radius_px": 259.6627922070922,
+            "candidate_rms_radius_px": 259.66279268209047
+          },
+          "ArtMeshHeadwear": {
+            "rotation_degrees": 6.82524263421548e-07,
+            "translation_source_px": [
+              2.301898121004342e-07,
+              327.9999830108063
+            ],
+            "determinant": 0.9999999999999997,
+            "best_rigid_rms_source_px": 1.8121270534572278e-05,
+            "best_rigid_maximum_source_px": 5.916095932428517e-05,
+            "diagnostic_best_uniform_scale": 1.000000002268181,
+            "source_rms_radius_px": 279.4447510180781,
+            "candidate_rms_radius_px": 279.44475165191
+          }
+        },
+        "passed": true
+      }
+    ],
+    "folded_hair_excluded_from_this_new_scope": [
+      "ArtMeshBackHair2",
+      "ArtMeshBackHair"
+    ],
+    "old_four_surface_result_is_preserved_above": true,
+    "head_angle_rigidity_tested": false
+  },
+  "actual_hair_deep_bbox": {
+    "checked_pose_count": 54,
+    "rows": [
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          71.11591565608978,
+          342.90813383460045,
+          1008.8634222149849,
+          1163.324529826641
+        ],
+        "lowest_world_y_source_px": 1163.324529826641,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          230.16598230600357,
+          880.387405872345,
+          933.9003652632236,
+          1147.8270623087883
+        ],
+        "lowest_world_y_source_px": 1147.8270623087883,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          127.20424336194992,
+          342.9424601197243,
+          1022.399975001812,
+          1164.2611870765686
+        ],
+        "lowest_world_y_source_px": 1164.2611870765686,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          286.67743706703186,
+          883.8472039103508,
+          991.8025671243668,
+          1148.2156201601028
+        ],
+        "lowest_world_y_source_px": 1148.2156201601028,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          181.89937609434128,
+          342.8826647400856,
+          1035.7636070251465,
+          1159.0272974967957
+        ],
+        "lowest_world_y_source_px": 1159.0272974967957,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          332.83124828338623,
+          877.8158868849277,
+          1057.188067317009,
+          1142.5180921554565
+        ],
+        "lowest_world_y_source_px": 1142.5180921554565,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          70.99953889846802,
+          340.83435532450676,
+          1008.7754482626915,
+          1162.6902129650116
+        ],
+        "lowest_world_y_source_px": 1162.6902129650116,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          230.04870861768723,
+          879.0234172046185,
+          933.7893514037132,
+          1146.7888650298119
+        ],
+        "lowest_world_y_source_px": 1146.7888650298119,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          127.08584851026535,
+          340.86881241202354,
+          1022.3121131658554,
+          1163.742163181305
+        ],
+        "lowest_world_y_source_px": 1163.742163181305,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          286.5594533085823,
+          882.4906896650791,
+          991.6766231060028,
+          1147.2819900512695
+        ],
+        "lowest_world_y_source_px": 1147.2819900512695,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          181.78438210487366,
+          340.8088862299919,
+          1035.675334095955,
+          1158.3930180072784
+        ],
+        "lowest_world_y_source_px": 1158.3930180072784,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          332.7249619960785,
+          876.4511320888996,
+          1057.0637302994728,
+          1141.47989487648
+        ],
+        "lowest_world_y_source_px": 1141.47989487648,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          70.8832368850708,
+          338.7604833841324,
+          1008.6873995661736,
+          1162.0559334754944
+        ],
+        "lowest_world_y_source_px": 1162.0559334754944,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          229.93150967359543,
+          877.6593724787235,
+          933.6784122884274,
+          1145.7506303787231
+        ],
+        "lowest_world_y_source_px": 1145.7506303787231,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          126.96745365858078,
+          338.79507127404213,
+          1022.2242887020111,
+          1163.223101913929
+        ],
+        "lowest_world_y_source_px": 1163.223101913929,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          286.4415442943573,
+          881.1260469853878,
+          991.5507538318634,
+          1146.3482478260994
+        ],
+        "lowest_world_y_source_px": 1146.3482478260994,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          181.66953760385513,
+          338.7350329756737,
+          1035.5870611667633,
+          1157.7586637735367
+        ],
+        "lowest_world_y_source_px": 1157.7586637735367,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          332.61867570877075,
+          875.0863772928715,
+          1056.9394680261612,
+          1140.4416228532791
+        ],
+        "lowest_world_y_source_px": 1140.4416228532791,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          60.6214901804924,
+          343.15794771909714,
+          1000.618312060833,
+          1163.5824721455574
+        ],
+        "lowest_world_y_source_px": 1163.5824721455574,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          220.42453014850616,
+          880.8658249676228,
+          924.4072694778442,
+          1148.2315406799316
+        ],
+        "lowest_world_y_source_px": 1148.2315406799316,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          116.66975498199463,
+          343.19231137633324,
+          1014.0712260603905,
+          1164.4678174853325
+        ],
+        "lowest_world_y_source_px": 1164.4678174853325,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          277.13334703445435,
+          884.3132341504097,
+          981.4514636993408,
+          1148.5657221078873
+        ],
+        "lowest_world_y_source_px": 1148.5657221078873,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          171.80737352371216,
+          343.1325346827507,
+          1027.439230620861,
+          1159.2747756242752
+        ],
+        "lowest_world_y_source_px": 1159.2747756242752,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          324.05164217948914,
+          878.3068816959858,
+          1046.7770563960075,
+          1142.9067994952202
+        ],
+        "lowest_world_y_source_px": 1142.9067994952202,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          60.50507605075836,
+          341.0840570926666,
+          1000.5303007364273,
+          1162.9482300281525
+        ],
+        "lowest_world_y_source_px": 1162.9482300281525,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          220.30695748329163,
+          879.5018549859524,
+          924.296012699604,
+          1147.1933434009552
+        ],
+        "lowest_world_y_source_px": 1147.1933434009552,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          116.55124801397324,
+          341.1184954941273,
+          1013.9834015965462,
+          1163.9487188458443
+        ],
+        "lowest_world_y_source_px": 1163.9487188458443,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          277.0149148106575,
+          882.9655210375786,
+          981.3248469829559,
+          1147.6320172548294
+        ],
+        "lowest_world_y_source_px": 1147.6320172548294,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          171.69219267368317,
+          341.0586066842079,
+          1027.3509576916695,
+          1158.6404213905334
+        ],
+        "lowest_world_y_source_px": 1158.6404213905334,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          323.9450942873955,
+          876.9421268999577,
+          1046.6523082852364,
+          1141.8685648441315
+        ],
+        "lowest_world_y_source_px": 1141.8685648441315,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          60.38866192102432,
+          339.01003566384315,
+          1000.4422894120216,
+          1162.3138010501862
+        ],
+        "lowest_world_y_source_px": 1162.3138010501862,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          220.1893848180771,
+          878.1378102600574,
+          924.1846624910831,
+          1146.155034005642
+        ],
+        "lowest_world_y_source_px": 1146.155034005642,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          116.43277841806412,
+          339.0445861816406,
+          1013.8955771327019,
+          1163.4296575784683
+        ],
+        "lowest_world_y_source_px": 1163.4296575784683,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          276.89651995897293,
+          881.6070073843002,
+          981.1981555223465,
+          1146.6982750296593
+        ],
+        "lowest_world_y_source_px": 1146.6982750296593,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          171.57708656787872,
+          338.9846039414406,
+          1027.2626473903656,
+          1158.0061419010162
+        ],
+        "lowest_world_y_source_px": 1158.0061419010162,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          323.8386398255825,
+          875.5773721039295,
+          1046.5274854302406,
+          1140.8302928209305
+        ],
+        "lowest_world_y_source_px": 1140.8302928209305,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          50.099857807159424,
+          343.4054258465767,
+          992.3942424058914,
+          1163.8417224884033
+        ],
+        "lowest_world_y_source_px": 1163.8417224884033,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          210.62317049503326,
+          881.3390306532383,
+          914.9575066566467,
+          1148.63889670372
+        ],
+        "lowest_world_y_source_px": 1148.63889670372,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          106.1065274477005,
+          343.43977081775665,
+          1005.7623217105865,
+          1164.6756438016891
+        ],
+        "lowest_world_y_source_px": 1164.6756438016891,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          267.52123975753784,
+          884.7817122638226,
+          971.1631454229355,
+          1148.9212430119514
+        ],
+        "lowest_world_y_source_px": 1148.9212430119514,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          161.68024116754532,
+          343.3800314962864,
+          1019.1341382265091,
+          1159.5234870314598
+        ],
+        "lowest_world_y_source_px": 1159.5234870314598,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          315.2171364426613,
+          878.7875618040562,
+          1036.4114899635315,
+          1143.297861278057
+        ],
+        "lowest_world_y_source_px": 1143.297861278057,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          49.98340630531311,
+          341.33136704564095,
+          992.306268453598,
+          1163.2075177431107
+        ],
+        "lowest_world_y_source_px": 1163.2075177431107,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          210.5051867365837,
+          879.9749859273434,
+          914.8455958664417,
+          1147.6006994247437
+        ],
+        "lowest_world_y_source_px": 1147.6006994247437,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          105.98794573545456,
+          341.36582413315773,
+          1005.6744972467422,
+          1164.1566199064255
+        ],
+        "lowest_world_y_source_px": 1164.1566199064255,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          267.40232169628143,
+          883.4340178370476,
+          971.0370892882347,
+          1147.9852584600449
+        ],
+        "lowest_world_y_source_px": 1147.9852584600449,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          161.5649482011795,
+          341.30597269535065,
+          1019.0459026694298,
+          1158.8892449140549
+        ],
+        "lowest_world_y_source_px": 1158.8892449140549,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          315.1104203760624,
+          877.4235170781612,
+          1036.285321712494,
+          1142.259701371193
+        ],
+        "lowest_world_y_source_px": 1142.259701371193,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          49.86699217557907,
+          339.2571587562561,
+          992.2182945013046,
+          1162.573163509369
+        ],
+        "lowest_world_y_source_px": 1162.573163509369,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          210.38724035024643,
+          878.6109785735607,
+          914.7337598204613,
+          1146.5625395178795
+        ],
+        "lowest_world_y_source_px": 1146.5625395178795,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          105.86932665109634,
+          339.29174664616585,
+          1005.5867101550102,
+          1163.6375212669373
+        ],
+        "lowest_world_y_source_px": 1163.6375212669373,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          267.283403635025,
+          882.0819695591927,
+          970.9110705256462,
+          1147.051553606987
+        ],
+        "lowest_world_y_source_px": 1147.051553606987,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          161.44961786270142,
+          339.2317644059658,
+          1018.9576297402382,
+          1158.254890680313
+        ],
+        "lowest_world_y_source_px": 1158.254890680313,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          315.00372299551964,
+          876.0594910383224,
+          1036.1591534614563,
+          1141.221429347992
+        ],
+        "lowest_world_y_source_px": 1141.221429347992,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          71.11591565608978,
+          342.90813383460045,
+          1008.8634222149849,
+          1163.324529826641
+        ],
+        "lowest_world_y_source_px": 1163.324529826641,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          230.16598230600357,
+          880.387405872345,
+          933.9003652632236,
+          1147.8270623087883
+        ],
+        "lowest_world_y_source_px": 1147.8270623087883,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          127.20424336194992,
+          342.9424601197243,
+          1022.399975001812,
+          1164.2611870765686
+        ],
+        "lowest_world_y_source_px": 1164.2611870765686,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          286.67743706703186,
+          883.8472039103508,
+          991.8025671243668,
+          1148.2156201601028
+        ],
+        "lowest_world_y_source_px": 1148.2156201601028,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          181.89937609434128,
+          342.8826647400856,
+          1035.7636070251465,
+          1159.0272974967957
+        ],
+        "lowest_world_y_source_px": 1159.0272974967957,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          332.83124828338623,
+          877.8158868849277,
+          1057.188067317009,
+          1142.5180921554565
+        ],
+        "lowest_world_y_source_px": 1142.5180921554565,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          70.99953889846802,
+          340.83435532450676,
+          1008.7754482626915,
+          1162.6902129650116
+        ],
+        "lowest_world_y_source_px": 1162.6902129650116,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          230.04870861768723,
+          879.0234172046185,
+          933.7893514037132,
+          1146.7888650298119
+        ],
+        "lowest_world_y_source_px": 1146.7888650298119,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          127.08584851026535,
+          340.86881241202354,
+          1022.3121131658554,
+          1163.742163181305
+        ],
+        "lowest_world_y_source_px": 1163.742163181305,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          286.5594533085823,
+          882.4906896650791,
+          991.6766231060028,
+          1147.2819900512695
+        ],
+        "lowest_world_y_source_px": 1147.2819900512695,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          181.78438210487366,
+          340.8088862299919,
+          1035.675334095955,
+          1158.3930180072784
+        ],
+        "lowest_world_y_source_px": 1158.3930180072784,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          332.7249619960785,
+          876.4511320888996,
+          1057.0637302994728,
+          1141.47989487648
+        ],
+        "lowest_world_y_source_px": 1141.47989487648,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          70.8832368850708,
+          338.7604833841324,
+          1008.6873995661736,
+          1162.0559334754944
+        ],
+        "lowest_world_y_source_px": 1162.0559334754944,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          229.93150967359543,
+          877.6593724787235,
+          933.6784122884274,
+          1145.7506303787231
+        ],
+        "lowest_world_y_source_px": 1145.7506303787231,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          126.96745365858078,
+          338.79507127404213,
+          1022.2242887020111,
+          1163.223101913929
+        ],
+        "lowest_world_y_source_px": 1163.223101913929,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          286.4415442943573,
+          881.1260469853878,
+          991.5507538318634,
+          1146.3482478260994
+        ],
+        "lowest_world_y_source_px": 1146.3482478260994,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          181.66953760385513,
+          338.7350329756737,
+          1035.5870611667633,
+          1157.7586637735367
+        ],
+        "lowest_world_y_source_px": 1157.7586637735367,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": -45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          332.61867570877075,
+          875.0863772928715,
+          1056.9394680261612,
+          1140.4416228532791
+        ],
+        "lowest_world_y_source_px": 1140.4416228532791,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          60.6214901804924,
+          343.15794771909714,
+          1000.618312060833,
+          1163.5824721455574
+        ],
+        "lowest_world_y_source_px": 1163.5824721455574,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          220.42453014850616,
+          880.8658249676228,
+          924.4072694778442,
+          1148.2315406799316
+        ],
+        "lowest_world_y_source_px": 1148.2315406799316,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          116.66975498199463,
+          343.19231137633324,
+          1014.0712260603905,
+          1164.4678174853325
+        ],
+        "lowest_world_y_source_px": 1164.4678174853325,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          277.13334703445435,
+          884.3132341504097,
+          981.4514636993408,
+          1148.5657221078873
+        ],
+        "lowest_world_y_source_px": 1148.5657221078873,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          171.80737352371216,
+          343.1325346827507,
+          1027.439230620861,
+          1159.2747756242752
+        ],
+        "lowest_world_y_source_px": 1159.2747756242752,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          324.05164217948914,
+          878.3068816959858,
+          1046.7770563960075,
+          1142.9067994952202
+        ],
+        "lowest_world_y_source_px": 1142.9067994952202,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          60.50507605075836,
+          341.0840570926666,
+          1000.5303007364273,
+          1162.9482300281525
+        ],
+        "lowest_world_y_source_px": 1162.9482300281525,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          220.30695748329163,
+          879.5018549859524,
+          924.296012699604,
+          1147.1933434009552
+        ],
+        "lowest_world_y_source_px": 1147.1933434009552,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          116.55124801397324,
+          341.1184954941273,
+          1013.9834015965462,
+          1163.9487188458443
+        ],
+        "lowest_world_y_source_px": 1163.9487188458443,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          277.0149148106575,
+          882.9655210375786,
+          981.3248469829559,
+          1147.6320172548294
+        ],
+        "lowest_world_y_source_px": 1147.6320172548294,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          171.69219267368317,
+          341.0586066842079,
+          1027.3509576916695,
+          1158.6404213905334
+        ],
+        "lowest_world_y_source_px": 1158.6404213905334,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          323.9450942873955,
+          876.9421268999577,
+          1046.6523082852364,
+          1141.8685648441315
+        ],
+        "lowest_world_y_source_px": 1141.8685648441315,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          60.38866192102432,
+          339.01003566384315,
+          1000.4422894120216,
+          1162.3138010501862
+        ],
+        "lowest_world_y_source_px": 1162.3138010501862,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          220.1893848180771,
+          878.1378102600574,
+          924.1846624910831,
+          1146.155034005642
+        ],
+        "lowest_world_y_source_px": 1146.155034005642,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          116.43277841806412,
+          339.0445861816406,
+          1013.8955771327019,
+          1163.4296575784683
+        ],
+        "lowest_world_y_source_px": 1163.4296575784683,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          276.89651995897293,
+          881.6070073843002,
+          981.1981555223465,
+          1146.6982750296593
+        ],
+        "lowest_world_y_source_px": 1146.6982750296593,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          171.57708656787872,
+          338.9846039414406,
+          1027.2626473903656,
+          1158.0061419010162
+        ],
+        "lowest_world_y_source_px": 1158.0061419010162,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 0.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          323.8386398255825,
+          875.5773721039295,
+          1046.5274854302406,
+          1140.8302928209305
+        ],
+        "lowest_world_y_source_px": 1140.8302928209305,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          50.099857807159424,
+          343.4054258465767,
+          992.3942424058914,
+          1163.8417224884033
+        ],
+        "lowest_world_y_source_px": 1163.8417224884033,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          210.62317049503326,
+          881.3390306532383,
+          914.9575066566467,
+          1148.63889670372
+        ],
+        "lowest_world_y_source_px": 1148.63889670372,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          106.1065274477005,
+          343.43977081775665,
+          1005.7623217105865,
+          1164.6756438016891
+        ],
+        "lowest_world_y_source_px": 1164.6756438016891,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          267.52123975753784,
+          884.7817122638226,
+          971.1631454229355,
+          1148.9212430119514
+        ],
+        "lowest_world_y_source_px": 1148.9212430119514,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          161.68024116754532,
+          343.3800314962864,
+          1019.1341382265091,
+          1159.5234870314598
+        ],
+        "lowest_world_y_source_px": 1159.5234870314598,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": -30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          315.2171364426613,
+          878.7875618040562,
+          1036.4114899635315,
+          1143.297861278057
+        ],
+        "lowest_world_y_source_px": 1143.297861278057,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          49.98340630531311,
+          341.33136704564095,
+          992.306268453598,
+          1163.2075177431107
+        ],
+        "lowest_world_y_source_px": 1163.2075177431107,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          210.5051867365837,
+          879.9749859273434,
+          914.8455958664417,
+          1147.6006994247437
+        ],
+        "lowest_world_y_source_px": 1147.6006994247437,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          105.98794573545456,
+          341.36582413315773,
+          1005.6744972467422,
+          1164.1566199064255
+        ],
+        "lowest_world_y_source_px": 1164.1566199064255,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          267.40232169628143,
+          883.4340178370476,
+          971.0370892882347,
+          1147.9852584600449
+        ],
+        "lowest_world_y_source_px": 1147.9852584600449,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          161.5649482011795,
+          341.30597269535065,
+          1019.0459026694298,
+          1158.8892449140549
+        ],
+        "lowest_world_y_source_px": 1158.8892449140549,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 0.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          315.1104203760624,
+          877.4235170781612,
+          1036.285321712494,
+          1142.259701371193
+        ],
+        "lowest_world_y_source_px": 1142.259701371193,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          49.86699217557907,
+          339.2571587562561,
+          992.2182945013046,
+          1162.573163509369
+        ],
+        "lowest_world_y_source_px": 1162.573163509369,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": -1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          210.38724035024643,
+          878.6109785735607,
+          914.7337598204613,
+          1146.5625395178795
+        ],
+        "lowest_world_y_source_px": 1146.5625395178795,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          105.86932665109634,
+          339.29174664616585,
+          1005.5867101550102,
+          1163.6375212669373
+        ],
+        "lowest_world_y_source_px": 1163.6375212669373,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 0.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          267.283403635025,
+          882.0819695591927,
+          970.9110705256462,
+          1147.051553606987
+        ],
+        "lowest_world_y_source_px": 1147.051553606987,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair2",
+        "raw_all_vertex_bbox_source_px": [
+          161.44961786270142,
+          339.2317644059658,
+          1018.9576297402382,
+          1158.254890680313
+        ],
+        "lowest_world_y_source_px": 1158.254890680313,
+        "finite": true,
+        "cap1180_passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8,
+          "ParamAngleX": 45.0,
+          "ParamAngleY": 30.0,
+          "ParamHairBack": 1.0
+        },
+        "drawable": "ArtMeshBackHair",
+        "raw_all_vertex_bbox_source_px": [
+          315.00372299551964,
+          876.0594910383224,
+          1036.1591534614563,
+          1141.221429347992
+        ],
+        "lowest_world_y_source_px": 1141.221429347992,
+        "finite": true,
+        "cap1180_passed": true
+      }
+    ],
+    "worst_lowest_world_y": {
+      "parameters": {
+        "ParamSitPose": 0.65,
+        "ParamAngleX": 45.0,
+        "ParamAngleY": -30.0,
+        "ParamHairBack": 0.0
+      },
+      "drawable": "ArtMeshBackHair2",
+      "raw_all_vertex_bbox_source_px": [
+        106.1065274477005,
+        343.43977081775665,
+        1005.7623217105865,
+        1164.6756438016891
+      ],
+      "lowest_world_y_source_px": 1164.6756438016891,
+      "finite": true,
+      "cap1180_passed": true
+    },
+    "source_pixel_y_direction": "down",
+    "allowed_deep_raw_vertex_cap_y": 1180.0,
+    "BodyXYZ_Breath_Shift_and_HeadZ": "Native defaults",
+    "visible_alpha_contour_or_renderer_crop_certified": false
+  },
+  "shoe_and_hidden_floor_preservation_neutral": {
+    "rows": [
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "source_raw_all_vertex_bbox_source_px": [
+          502.5851363539696,
+          1119.9999743700027,
+          617.6588860843331,
+          1237.5167682766914
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          502.58514569699764,
+          1119.999862253666,
+          617.6588779091835,
+          1237.5167309045792
+        ],
+        "source_lowest_world_y_source_px": 1237.5167682766914,
+        "candidate_lowest_world_y_source_px": 1237.5167309045792,
+        "maximum_same_context_source_world_error_px": 0.00011250495613966539,
+        "worst_vertex": 17,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "source_raw_all_vertex_bbox_source_px": [
+          637.1679870821536,
+          1119.9999369978905,
+          751.7141768932343,
+          1237.0583993196487
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          637.1679637245834,
+          1119.999862253666,
+          751.7141955792904,
+          1237.0583993196487
+        ],
+        "source_lowest_world_y_source_px": 1237.0583993196487,
+        "candidate_lowest_world_y_source_px": 1237.0583993196487,
+        "maximum_same_context_source_world_error_px": 7.830884488767841e-05,
+        "worst_vertex": 0,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "source_raw_all_vertex_bbox_source_px": [
+          460.49154353141785,
+          1035.2033990621567,
+          643.5183942094445,
+          1237.5167682766914
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          460.49154353141785,
+          1035.2033990621567,
+          643.5183650124818,
+          1237.5167309045792
+        ],
+        "source_lowest_world_y_source_px": 1237.5167682766914,
+        "candidate_lowest_world_y_source_px": 1237.5167309045792,
+        "maximum_same_context_source_world_error_px": 0.00011250495613966539,
+        "worst_vertex": 102,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "source_raw_all_vertex_bbox_source_px": [
+          614.4936351813376,
+          1035.2033990621567,
+          793.1729483306408,
+          1237.0583993196487
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          614.493622334674,
+          1035.2033616900444,
+          793.1729483306408,
+          1237.0583993196487
+        ],
+        "source_lowest_world_y_source_px": 1237.0583993196487,
+        "candidate_lowest_world_y_source_px": 1237.0583993196487,
+        "maximum_same_context_source_world_error_px": 0.00011298885065726617,
+        "worst_vertex": 88,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "source_raw_all_vertex_bbox_source_px": [
+          507.0851404219866,
+          1119.9999743700027,
+          622.1588994953781,
+          1237.5167309045792
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          507.0851404219866,
+          1119.999862253666,
+          622.158895699773,
+          1237.5167309045792
+        ],
+        "source_lowest_world_y_source_px": 1237.5167309045792,
+        "candidate_lowest_world_y_source_px": 1237.5167309045792,
+        "maximum_same_context_source_world_error_px": 0.00011452357428411099,
+        "worst_vertex": 17,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "source_raw_all_vertex_bbox_source_px": [
+          632.6679859338328,
+          1120.000011742115,
+          747.2141821682453,
+          1237.0584740638733
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          632.6679713353515,
+          1119.9999369978905,
+          747.2141821682453,
+          1237.058436691761
+        ],
+        "source_lowest_world_y_source_px": 1237.0584740638733,
+        "candidate_lowest_world_y_source_px": 1237.058436691761,
+        "maximum_same_context_source_world_error_px": 7.982686681023377e-05,
+        "worst_vertex": 12,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "source_raw_all_vertex_bbox_source_px": [
+          460.49154353141785,
+          1035.2033990621567,
+          643.5184000488371,
+          1237.5167682766914
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          460.49154353141785,
+          1035.2033990621567,
+          643.518393041566,
+          1237.5167309045792
+        ],
+        "source_lowest_world_y_source_px": 1237.5167682766914,
+        "candidate_lowest_world_y_source_px": 1237.5167309045792,
+        "maximum_same_context_source_world_error_px": 0.00011556687476913362,
+        "worst_vertex": 37,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "source_raw_all_vertex_bbox_source_px": [
+          614.4936398528516,
+          1035.2033990621567,
+          793.1729857027531,
+          1237.0584740638733
+        ],
+        "candidate_raw_all_vertex_bbox_source_px": [
+          614.493622334674,
+          1035.2033616900444,
+          793.1729857027531,
+          1237.0583993196487
+        ],
+        "source_lowest_world_y_source_px": 1237.0584740638733,
+        "candidate_lowest_world_y_source_px": 1237.0583993196487,
+        "maximum_same_context_source_world_error_px": 0.00011298885065726617,
+        "worst_vertex": 78,
+        "maximum_allowed_error_source_px": 0.1,
+        "passed": true
+      }
+    ],
+    "worst": {
+      "parameters": {
+        "ParamSitPose": 0.8
+      },
+      "drawable": "ArtMeshAuthorFloorReferenceL",
+      "source_raw_all_vertex_bbox_source_px": [
+        460.49154353141785,
+        1035.2033990621567,
+        643.5184000488371,
+        1237.5167682766914
+      ],
+      "candidate_raw_all_vertex_bbox_source_px": [
+        460.49154353141785,
+        1035.2033990621567,
+        643.518393041566,
+        1237.5167309045792
+      ],
+      "source_lowest_world_y_source_px": 1237.5167682766914,
+      "candidate_lowest_world_y_source_px": 1237.5167309045792,
+      "maximum_same_context_source_world_error_px": 0.00011556687476913362,
+      "worst_vertex": 37,
+      "maximum_allowed_error_source_px": 0.1,
+      "passed": true
+    },
+    "expected": "Actual frozen source8 same Sit and neutral-body context, complete raw shoe/floor vertices.",
+    "Core_support_trajectory_preserved": true,
+    "common_floor_MVP_visual_contact_certified": false
+  },
+  "actual_positive_sit_winding": {
+    "evidence_path": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\core-old-contract-audit.json",
+    "sample_count": 201,
+    "sit_values": [
+      0.005,
+      0.01,
+      0.015,
+      0.02,
+      0.025,
+      0.030000000000000002,
+      0.034999999999999996,
+      0.04,
+      0.045,
+      0.049999999999999996,
+      0.055,
+      0.06,
+      0.065,
+      0.07,
+      0.07500000000000001,
+      0.08,
+      0.085,
+      0.09000000000000001,
+      0.095,
+      0.1,
+      0.10500000000000001,
+      0.11,
+      0.115,
+      0.12000000000000001,
+      0.125,
+      0.13,
+      0.135,
+      0.14,
+      0.14500000000000002,
+      0.15,
+      0.155,
+      0.16,
+      0.165,
+      0.17,
+      0.17500000000000002,
+      0.18000000000000002,
+      0.185,
+      0.19,
+      0.195,
+      0.2,
+      0.20500000000000002,
+      0.21000000000000002,
+      0.215,
+      0.22,
+      0.225,
+      0.23,
+      0.23500000000000001,
+      0.24000000000000002,
+      0.245,
+      0.25,
+      0.255,
+      0.26,
+      0.265,
+      0.27,
+      0.275,
+      0.28,
+      0.28500000000000003,
+      0.29000000000000004,
+      0.295,
+      0.3,
+      0.305,
+      0.31,
+      0.315,
+      0.32,
+      0.325,
+      0.33,
+      0.335,
+      0.34,
+      0.34500000000000003,
+      0.35,
+      0.35000000000000003,
+      0.35500000000000004,
+      0.36,
+      0.365,
+      0.37,
+      0.375,
+      0.38,
+      0.385,
+      0.39,
+      0.395,
+      0.4,
+      0.405,
+      0.41000000000000003,
+      0.41500000000000004,
+      0.42000000000000004,
+      0.425,
+      0.43,
+      0.435,
+      0.44,
+      0.445,
+      0.45,
+      0.455,
+      0.46,
+      0.465,
+      0.47000000000000003,
+      0.47500000000000003,
+      0.48000000000000004,
+      0.485,
+      0.49,
+      0.495,
+      0.5,
+      0.505,
+      0.51,
+      0.515,
+      0.52,
+      0.525,
+      0.53,
+      0.535,
+      0.54,
+      0.545,
+      0.55,
+      0.555,
+      0.56,
+      0.5650000000000001,
+      0.5700000000000001,
+      0.5750000000000001,
+      0.5800000000000001,
+      0.585,
+      0.59,
+      0.595,
+      0.6,
+      0.605,
+      0.61,
+      0.615,
+      0.62,
+      0.625,
+      0.63,
+      0.635,
+      0.64,
+      0.645,
+      0.65,
+      0.655,
+      0.66,
+      0.665,
+      0.67,
+      0.675,
+      0.68,
+      0.685,
+      0.6900000000000001,
+      0.6950000000000001,
+      0.7000000000000001,
+      0.7050000000000001,
+      0.71,
+      0.715,
+      0.72,
+      0.725,
+      0.73,
+      0.735,
+      0.74,
+      0.745,
+      0.75,
+      0.755,
+      0.76,
+      0.765,
+      0.77,
+      0.775,
+      0.78,
+      0.785,
+      0.79,
+      0.795,
+      0.8,
+      0.805,
+      0.81,
+      0.8150000000000001,
+      0.8200000000000001,
+      0.8250000000000001,
+      0.8300000000000001,
+      0.8350000000000001,
+      0.84,
+      0.845,
+      0.85,
+      0.855,
+      0.86,
+      0.865,
+      0.87,
+      0.875,
+      0.88,
+      0.885,
+      0.89,
+      0.895,
+      0.9,
+      0.905,
+      0.91,
+      0.915,
+      0.92,
+      0.925,
+      0.93,
+      0.935,
+      0.9400000000000001,
+      0.9450000000000001,
+      0.9500000000000001,
+      0.9550000000000001,
+      0.9600000000000001,
+      0.965,
+      0.97,
+      0.975,
+      0.98,
+      0.985,
+      0.99,
+      0.995,
+      1.0
+    ],
+    "area_epsilon_source_px2": 1e-08,
+    "nonfinite": [],
+    "zero_area_records": [],
+    "new_zero_triangle_count": 0,
+    "orientation_changes_vs_source_same_pose": [],
+    "new_material_orientation_reference_sit": 0.005,
+    "new_material_orientation_reference_ids": [
+      "ArtMeshR9BowR",
+      "ArtMeshR9BowL",
+      "ArtMeshR9Apron",
+      "ArtMeshR9FrillLowerR",
+      "ArtMeshR9FrillLowerC",
+      "ArtMeshR9FrillLowerL",
+      "ArtMeshR9FrillUpperR",
+      "ArtMeshR9FrillUpperC",
+      "ArtMeshR9FrillUpperL",
+      "ArtMeshR9FrontLapR",
+      "ArtMeshR9FrontLapL",
+      "ArtMeshR9WaistFoldUnder",
+      "ArtMeshR9NavyBacking"
+    ],
+    "new_material_winding_limit": "Neutral sampled actual Core orientation only; no claim of analytic interval or other Body/Arm/Typing/Rock contexts.",
+    "passed": true
+  },
+  "pending_contracts": [
+    "New projected 3D knee/stocking length, UV/textile deformation and full-domain authored pose contract.",
+    "Native alpha contour, hair appearance, apron/fold layering, skirt/knee contact and source-source seams.",
+    "Full-domain Body/Arm/Typing/Rock/head angles/physics and stable whole-model regression."
+  ],
+  "approval": {
+    "Native_visual": "pending_root_review",
+    "adoption": "not_adopted"
+  }
+}

@@ -1,0 +1,163 @@
+diff --git a/src/CubismCanvas.cpp b/src/CubismCanvas.cpp
+index 33a602d..25c0153 100644
+--- a/src/CubismCanvas.cpp
++++ b/src/CubismCanvas.cpp
+@@ -143,6 +143,8 @@ struct CubismCanvas::Impl {
+     bool authoredSitPose = false;
+     int skirtSpreadParameter = -1;
+     int handGroundParameter = -1;
++    std::vector<int> authoredFloorReferences;
++    std::vector<int> legacyStandingProps;
+ 
+     bool hasNeck() const { return neckTexture != 0 || neckModel != nullptr; }
+ 
+@@ -330,6 +332,51 @@ void CubismCanvas::initializeGL() {
+         }
+         impl_->skirtSpreadParameter = skirt.isEmpty() ? -1 : impl_->parameterIndices.value(skirt);
+         impl_->handGroundParameter = hand.isEmpty() ? -1 : impl_->parameterIndices.value(hand);
++        if (posture.contains(QStringLiteral("floorReferenceDrawableIds"))) {
++            const auto references = posture.value(QStringLiteral("floorReferenceDrawableIds")).toArray();
++            if (references.size() != 2) {
++                error_ = QStringLiteral("Authored floor requires two reference drawables");
++                return;
++            }
++            for (const auto& reference : references) {
++                const auto id = reference.toString().toUtf8();
++                const int index = id.isEmpty() ? -1 : model->GetDrawableIndex(
++                    Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
++                if (index < 0 || std::find(impl_->authoredFloorReferences.begin(),
++                                         impl_->authoredFloorReferences.end(), index)
++                                    != impl_->authoredFloorReferences.end()) {
++                    error_ = QStringLiteral("Authored floor reference is missing or duplicated");
++                    return;
++                }
++                impl_->authoredFloorReferences.push_back(index);
++            }
++        }
++        if (posture.contains(QStringLiteral("standingPropRegistration"))) {
++            const auto registration = posture.value(QStringLiteral("standingPropRegistration")).toObject();
++            const auto props = registration.value(QStringLiteral("drawables")).toArray();
++            if (registration.value(QStringLiteral("version")).toInt() != 1
++                || registration.value(QStringLiteral("owner")).toString() != QStringLiteral("legacy-runtime")
++                || registration.value(QStringLiteral("fadeEndSit")).toDouble() != 0.0875
++                || props.size() != 2) {
++                error_ = QStringLiteral("Standing prop registration contract is invalid");
++                return;
++            }
++            for (const auto& prop : props) {
++                const QString name = prop.toString();
++                if (name != QStringLiteral("ArtMeshObjects4") && name != QStringLiteral("ArtMeshObjects")) {
++                    error_ = QStringLiteral("Standing registration accepts only the two laptop props");
++                    return;
++                }
++                const auto id = name.toUtf8();
++                const int index = model->GetDrawableIndex(Csm::CubismFramework::GetIdManager()->GetId(id.constData()));
++                if (index < 0 || std::find(impl_->legacyStandingProps.begin(), impl_->legacyStandingProps.end(), index)
++                                      != impl_->legacyStandingProps.end()) {
++                    error_ = QStringLiteral("Standing laptop prop is missing or duplicated");
++                    return;
++                }
++                impl_->legacyStandingProps.push_back(index);
++            }
++        }
+         impl_->authoredSitPose = true;
+     }
+     const QJsonObject separation = metadata.object().value(QStringLiteral("runtimeMaterialSeparation")).toObject();
+@@ -544,6 +591,18 @@ void CubismCanvas::initializeGL() {
+         }
+     }
+     model->Update();
++    for (int index : impl_->legacyStandingProps) {
++        if (std::find(impl_->seatedMeshes.begin(), impl_->seatedMeshes.end(), index) == impl_->seatedMeshes.end()) {
++            error_ = QStringLiteral("Standing laptop prop needs its registered source layer");
++            return;
++        }
++    }
++    for (int index : impl_->authoredFloorReferences) {
++        if (model->GetDrawableOpacity(index) != 0.0f) {
++            error_ = QStringLiteral("Authored floor reference must be hidden");
++            return;
++        }
++    }
+     impl_->standingFloor = impl_->footFloor(impl_->standingFeet);
+     impl_->model->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
+                                  static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+@@ -695,7 +754,12 @@ void CubismCanvas::paintGL() {
+     // as Sit0, so this single model translation cancels only that existing
+     // context offset. Legacy material registration needs its additional seated
+     // mesh translation; authored Sit geometry must never receive that shift.
+-    const float standingFoot = impl_->footFloor(impl_->standingFeet);
++    // Keep original standing grids intact. Hidden author meshes carry the
++    // complete Sit compensation without adding interpolation axes to old art.
++    const bool useAuthoredFloor = impl_->authoredSitPose && posture.standingFold > 0.0
++        && !impl_->authoredFloorReferences.empty();
++    const float standingFoot = impl_->footFloor(useAuthoredFloor
++        ? impl_->authoredFloorReferences : impl_->standingFeet);
+     const float seatedFoot = impl_->footFloor(impl_->seatedFeet);
+     CubismPostureTransition::FloorPinnedTransform bodyClothTransform;
+     Csm::CubismMatrix44 matrix;
+@@ -747,6 +811,49 @@ void CubismCanvas::paintGL() {
+             return;
+         }
+     }
++    // The existing laptop has its own legacy registration. Preserve its exact
++    // standing appearance while the body transitions to author-owned geometry.
++    // The explicit ownership record prevents treating this adapter as a body fix.
++    const double propRegistration = impl_->authoredSitPose
++        ? CubismPostureTransition::standingPropRegistrationWeight(posture.standingFold) : 0.0;
++    if (propRegistration > 0.0 && !impl_->legacyStandingProps.empty()) {
++        using Position = std::remove_const_t<std::remove_pointer_t<decltype(model->GetDrawableVertexPositions(0))>>;
++        std::vector<std::pair<int, std::vector<Position>>> originals;
++        const float seatedShift = standingFoot - seatedFoot;
++        for (int index : impl_->seatedMeshes) {
++            auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(index));
++            const int count = model->GetDrawableVertexCount(index);
++            originals.emplace_back(index, std::vector<Position>(vertices, vertices + count));
++            for (int i = 0; i < count; ++i) vertices[i].Y += seatedShift;
++        }
++        std::array<double, 2> standing{}, seated{};
++        CubismPostureTransition::Point target;
++        const double legacyMix = CubismPostureTransition::sample(busyValue, sitValue).seatedMix;
++        bool aligned = impl_->neckBinding.collarPositions(&standing, &seated, &error_)
++            && CubismPostureTransition::collarTarget({standing[0], standing[1]},
++                {seated[0], seated[1]}, legacyMix, &target);
++        const CubismPostureTransition::FloorPinnedTransform transform{
++            {seated[0], seated[1]}, target, standingFoot};
++        aligned = aligned && transform.valid();
++        if (aligned) for (int index : impl_->legacyStandingProps)
++            aligned = alignDrawable(model->GetModel(), index, transform) && aligned;
++        for (const auto& [index, saved] : originals) {
++            auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(index));
++            const bool registered = aligned && std::find(impl_->legacyStandingProps.begin(),
++                impl_->legacyStandingProps.end(), index) != impl_->legacyStandingProps.end();
++            if (!registered) std::copy(saved.begin(), saved.end(), vertices);
++            else if (propRegistration < 1.0) for (size_t i = 0; i < saved.size(); ++i) {
++                vertices[i].X = static_cast<float>(saved[i].X + propRegistration * (vertices[i].X - saved[i].X));
++                vertices[i].Y = static_cast<float>(saved[i].Y + propRegistration * (vertices[i].Y - saved[i].Y));
++            }
++        }
++        if (!aligned) {
++            if (error_.isEmpty()) error_ = QStringLiteral("Standing laptop registration is invalid");
++            ready_ = false;
++            emit readyChanged(false);
++            return;
++        }
++    }
+     // Resolve the neck after floor and collar alignment. Its top remains on
+     // the main head; its tip follows the exclusively visible collar. Both
+     // materials already meet the continuous target before selection.
+diff --git a/src/CubismPostureTransition.h b/src/CubismPostureTransition.h
+index dc8ee8c..83673d1 100644
+--- a/src/CubismPostureTransition.h
++++ b/src/CubismPostureTransition.h
+@@ -48,6 +48,10 @@ inline double authoredSkirtSpread(double sit) {
+     return std::isfinite(sit) ? smoothUnit((sit - 0.10) / 0.55) : 0.0;
+ }
+ 
++inline double standingPropRegistrationWeight(double sit) {
++    return std::isfinite(sit) ? 1.0 - smoothUnit(sit / 0.0875) : 0.0;
++}
++
+ inline double authoredHandGround(double sit) {
+     if (!std::isfinite(sit)) return 0.0;
+     // Select the support rig only while its wrists coincide with the old

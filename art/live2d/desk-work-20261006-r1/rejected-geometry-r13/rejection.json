@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-06T10:40:23.338047+00:00",
+  "status": "rejected_archive",
+  "adopted": false,
+  "official_author_source": false,
+  "production_replaced": false,
+  "candidate": "desk-r13-complete-hands",
+  "candidate_moc_sha256": "440bb5b17d049801e8f213e38d888214e93b07cc80147bd30ca8780d447669ef",
+  "user_rejected": true,
+  "user_findings": [
+    "左手被拉伸；用户明确要求左手完全藏在电脑后，不制作新左臂或新L网格。",
+    "右手与躯干脱节，肩至键盘不连续；r13 拉伸/肩部脱节候选拒绝。"
+  ],
+  "evidence": {
+    "native_frames": [
+      "native/desk-00.png",
+      "native/desk-01.png",
+      "native/desk-02.png",
+      "native/desk-03.png"
+    ],
+    "native_receipt": "native/desk.capture.json",
+    "keyposes": "keyposes.json",
+    "original_staging_report": "staging-report.json",
+    "scope": "Actual Cubism Native captured pixels; engineering preservation checks do not imply visual approval.",
+    "raw_reports_preserved_without_status_rewrite": true
+  },
+  "author_protection": {
+    "saved_candidate_author": "edited.cmo3",
+    "saved_candidate_export": "edited.moc3",
+    "saved_edit_report": "edit-report.json",
+    "saved_plan": "author-plan-r13-complete-hands.json",
+    "atlas_pages_preserved_in_cmo": true,
+    "official_author_source": "art/live2d/whale-girl-layered-draft.cmo3",
+    "usage": "Rejected diagnostic candidate only; never substitute it for the official author source or production assets."
+  },
+  "restoration_r12": {
+    "status": "rejected_archive",
+    "adopted": false,
+    "user_findings": [
+      "恢复旧页0仍缺手指/指尖，电脑仍出现双色；原 atlas 一致不能替代完整可见组件。"
+    ],
+    "native_frames": [
+      "restoration-r12/native/desk-00.png",
+      "restoration-r12/native/desk-01.png",
+      "restoration-r12/native/desk-02.png",
+      "restoration-r12/native/desk-03.png"
+    ],
+    "original_staging_report": "restoration-r12/staging-report.json",
+    "duplicate_cmo_moc_not_copied": true
+  },
+  "excluded_bulk_files": [
+    "195-frame motion captures",
+    "five standalone exported textures"
+  ],
+  "next_candidate_status": "pending; right-arm repair proceeds independently and requires real Native shoulder/wrist/keyboard contact and motion review"
+}

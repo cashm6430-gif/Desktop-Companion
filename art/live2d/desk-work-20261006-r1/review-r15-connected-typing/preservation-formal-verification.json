@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "strict_saved_capture_binding_verification",
+  "status": "passed",
+  "created_utc": "2026-10-06T10:45:27.200686+00:00",
+  "scope": "saved receipt, pinned sources and planned decoded PNGs only",
+  "capture_scope": "static",
+  "raw_export_only": false,
+  "run": "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r15-connected-typing\\preservation-formal",
+  "receipt_version": 1,
+  "receipt_sha256": "9c0da565f740e928f1024e0a5b4d19ecd157adf604a4c740b27594310bf258a1",
+  "verifier_tool_sha256": "0c0cad25a86a9c64f29120590c5aeca6829773b21873bfd329158ddbcb4b899b",
+  "planned_motion_count": 0,
+  "planned_interaction_count": 0,
+  "sequence_count": 1,
+  "total_frames": 5,
+  "sequences": [
+    {
+      "kind": "static",
+      "name": "fixture",
+      "folder": "static",
+      "frames": 5,
+      "trace_rows": 5,
+      "png_hashes": 5
+    }
+  ],
+  "native_rendering_rerun": false,
+  "model_equivalence_tested": false,
+  "visual_approval": "pending",
+  "adoption": "not_requested"
+}

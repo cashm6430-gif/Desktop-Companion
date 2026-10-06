@@ -1,0 +1,898 @@
+{
+  "schema_version": 1,
+  "status": "handoff_not_adopted",
+  "purpose": "Recover author/model/materials, failed attempts and review evidence without relying on .local.",
+  "files": {
+    "arm-backing-hair-only.png": {
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    "author-plan.json": {
+      "bytes": 53727,
+      "sha256": "63dc94ad945f4793c7efe3273a6fc07913805a9432b213b5e1cc3e3e72eb7f90"
+    },
+    "candidate-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "candidate-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "candidate-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "candidate-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "candidate-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "candidate-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "candidate-model/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "140da2b0c01759ff86a35dcce51610e984fa878c93dc5d56c21636dcced82357"
+    },
+    "candidate-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "candidate-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "candidate-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "candidate-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "candidate-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "candidate-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "candidate-model/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "candidate-model/whale-girl-layered-draft.4096/texture_03.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "candidate-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "candidate-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "candidate-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "candidate-model/whale-girl-layered-draft.moc3": {
+      "bytes": 12008128,
+      "sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e"
+    },
+    "candidate-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1227,
+      "sha256": "1707e9e4c31afbf7ead936d71b2c42cda4ccee9315d69f4bc2c2c388a93a74ac"
+    },
+    "candidate-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "candidate-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "candidate-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11484,
+      "sha256": "8f6734b931a37c9b0d5df56b65209e65b532d21a93b3f1c42718e8beebccd0fa"
+    },
+    "candidate-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "complete-arm-r-r2.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "complete-sleeve-l-r2-reference.png": {
+      "bytes": 814787,
+      "sha256": "51c076e06e8f82b9272aa1e886623309bc8c855898f74a6d6f49df49866602c3"
+    },
+    "complete-sleeve-l.png": {
+      "bytes": 598171,
+      "sha256": "2b4cf735e1ee1c6cae89d545ae58358ff2137d2c9bd0771c1ba7606577827c0e"
+    },
+    "complete-sleeve-r.png": {
+      "bytes": 663912,
+      "sha256": "2c9cd1f5bee819f458f001e12469e2e1f7d31ed2d6f51b28e23a9f3877136e52"
+    },
+    "component-margin-report.json": {
+      "bytes": 1509,
+      "sha256": "8b4be3279ea0b91b543b3d80340b9bd611888f21588805811629435f23949533"
+    },
+    "desk-closed-panel.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "edit-report.json": {
+      "bytes": 9650,
+      "sha256": "b906409a948bf2ef61300b1851e6982e86f5cfcf269cc71c3f408708ed9a3df6"
+    },
+    "edited.cmo3": {
+      "bytes": 26764569,
+      "sha256": "e85fe232b94d279e568a819ae236062aa87eacd6a8233b0c50a6074a0c3fe6b3"
+    },
+    "edited.moc3": {
+      "bytes": 12008128,
+      "sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e"
+    },
+    "experiment-model-r18/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "experiment-model-r18/material-ownership/arm-backing-hair-only.png": {
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    "experiment-model-r18/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "experiment-model-r18/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "experiment-model-r18/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "experiment-model-r18/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "experiment-model-r18/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "experiment-model-r18/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "140da2b0c01759ff86a35dcce51610e984fa878c93dc5d56c21636dcced82357"
+    },
+    "experiment-model-r18/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "experiment-model-r18/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "experiment-model-r18/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "experiment-model-r18/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.4096/texture_03.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.moc3": {
+      "bytes": 12008128,
+      "sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.model3.json": {
+      "bytes": 1227,
+      "sha256": "1707e9e4c31afbf7ead936d71b2c42cda4ccee9315d69f4bc2c2c388a93a74ac"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 12304,
+      "sha256": "909c86d74497ca5974f7a8e380e49ccd8a2e9b0f03a72beba965c45226e49685"
+    },
+    "experiment-model-r18/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "generation-complete-hands.json": {
+      "bytes": 1622,
+      "sha256": "565f75fb8756053bcd0ff245a07ab21c53ca35385e526b476d46f811e21ae4d9"
+    },
+    "generation-connected-right.json": {
+      "bytes": 2297,
+      "sha256": "1977893f2294232472d63a4d446253d4adbf9baedda87e88b95c4565bd5507fd"
+    },
+    "generation-hair-backing.json": {
+      "bytes": 1131,
+      "sha256": "96dedd1252a1e11a202b3d8df375ac7b4a09cc07fe91e45ed0e677c752c997ef"
+    },
+    "generation.json": {
+      "bytes": 1517,
+      "sha256": "54257e726e2833f22d6afd6514de06c0f8ef87710e3db9a062b4b262f2366eb2"
+    },
+    "handoff-state.json": {
+      "bytes": 2853,
+      "sha256": "32af4b96dd9ed3e12d7e5a72c4ab407cf55a4b5e8ffe2d0a7b811b5855e50078"
+    },
+    "keyposes.json": {
+      "bytes": 885,
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772"
+    },
+    "laptop-complete.png": {
+      "bytes": 879115,
+      "sha256": "359f30c8e04030f1f09d8eaba5d7df0faf6aaf57df80f4442bb88279eb300166"
+    },
+    "laptop-lid-complete.png": {
+      "bytes": 850748,
+      "sha256": "edde6633ff68152c1eff049674962a5ed59c522c4931c6c7ff3bf123b5b26cfc"
+    },
+    "laptop-uniform-navy.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "rebuild-recipe.json": {
+      "bytes": 2966,
+      "sha256": "5bb0d96f16ecaee4034cd6cdc221f069859109580cd82ecd05e249840d2bd5b6"
+    },
+    "reference-equivalent.moc3": {
+      "bytes": 11999360,
+      "sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d"
+    },
+    "rejected-contact-trim/contact-trim-r5-final-whole-laptop.json": {
+      "bytes": 87155,
+      "sha256": "d6a89af814f60d88141ce892e64d8a56f0d2760c6cf04a21fe27084e762870c6"
+    },
+    "rejected-contact-trim/mask-contract-r4-final-whole-laptop.json": {
+      "bytes": 130053,
+      "sha256": "12b4cec9d27a8a26f56439a7b08f434c80cef4c50a2595725710fb2a453cdd40"
+    },
+    "rejected-contact-trim/prepare_desk_contact_trim.py": {
+      "bytes": 5419,
+      "sha256": "149e3fd1ae9ded37eed45fb6a62a6da99a8bb7123574100fd0342cab1a47fe2c"
+    },
+    "rejected-contact-trim/rejection.json": {
+      "bytes": 340,
+      "sha256": "e1abc21ab5f3dd31415a733ed70a8a60e1e9d8e6ab4309651fa897fb23fa83df"
+    },
+    "rejected-contact-trim/runtime-material-experiment.patch": {
+      "bytes": 17431,
+      "sha256": "6955bec6675ad54bef2712b406d79e32287de5b2a13367ebe5b6dfec81d9e439"
+    },
+    "rejected-contact-trim/working-cut-fingers-sleeves.png": {
+      "bytes": 526828,
+      "sha256": "495d743a2d3df37fc0b0296786fb2101587be57257b1ef135313a66e3143e954"
+    },
+    "rejected-cropped-laptop-r8/author-plan.json": {
+      "bytes": 8091,
+      "sha256": "ed9cae8724492340b5618f61226fab5c014288a4876ecbe6868b4e9af0473f64"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/desk-contact-trim.json": {
+      "bytes": 151860,
+      "sha256": "9329bc01ff80b165925f39769b52a3c8126bca951df4089b1a2e79fdefa905f4"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "db0ea4660dbdb0960a448128fe1193382baa706850cb036eeae1869a20e52e5e"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.moc3": {
+      "bytes": 12000128,
+      "sha256": "59a95e60bffaaadcf2d8171f5c8231a5f335a64cf268e95d868f746a6e1070e2"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1117,
+      "sha256": "9a15e567958a415765284703471f505a4be64b91337a79fd684d7341e9007ff0"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11047,
+      "sha256": "5e099e863b327bced093fa0d9ff9d6d27280a76a63a1c6a1f2b8eba4f9a61d1b"
+    },
+    "rejected-cropped-laptop-r8/candidate-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "rejected-cropped-laptop-r8/desk-contact-trim.json": {
+      "bytes": 151860,
+      "sha256": "9329bc01ff80b165925f39769b52a3c8126bca951df4089b1a2e79fdefa905f4"
+    },
+    "rejected-cropped-laptop-r8/edit-report.json": {
+      "bytes": 8157,
+      "sha256": "8a418fe65d5caf7515126b0973e4736e918f5293a08fb913e39b1c5c62a5e713"
+    },
+    "rejected-cropped-laptop-r8/edited.cmo3": {
+      "bytes": 23217753,
+      "sha256": "7b8d0839a8bcaea7be0b4a1707dea86f725b4c94039d07d8b527fb8309823237"
+    },
+    "rejected-cropped-laptop-r8/edited.moc3": {
+      "bytes": 12000128,
+      "sha256": "59a95e60bffaaadcf2d8171f5c8231a5f335a64cf268e95d868f746a6e1070e2"
+    },
+    "rejected-cropped-laptop-r8/rebuild-recipe.json": {
+      "bytes": 2038,
+      "sha256": "1abbc048d2a405e455ebbb17bbde6d3deeae703530731ad62ca99323170a4b3d"
+    },
+    "rejected-cropped-laptop-r8/rejection.json": {
+      "bytes": 318,
+      "sha256": "463e8055e481ee26b584a27828fc2476e75a0677220a9e408bb2ce0fa5548a99"
+    },
+    "rejected-cropped-laptop-r8/source-contact-audit.json": {
+      "bytes": 177757,
+      "sha256": "d4858a3ba8347e2d11bc137af980a11da3b4982c16b369b3ae7add4804c3439b"
+    },
+    "rejected-cropped-laptop-r8/staging-report.json": {
+      "bytes": 724,
+      "sha256": "2e2c6b3245b09f547a17d497215b3ec742d9ed757dc2d963cf4843107ae95dfb"
+    },
+    "rejected-geometry-r13/author-plan-r13-complete-hands.json": {
+      "bytes": 84319,
+      "sha256": "b93aedbfe2f848543e93aa67fb63f60aa37b0e737f5b8f04ed962e8669e3daa9"
+    },
+    "rejected-geometry-r13/edit-report.json": {
+      "bytes": 10421,
+      "sha256": "7b7c64bf814ed1b970e7b1a6633f9d4e3361dbe9ad9bb9b5eaecd264c80e8dcd"
+    },
+    "rejected-geometry-r13/edited.cmo3": {
+      "bytes": 27932747,
+      "sha256": "da260a55e7c4b950bb3ad40003049478d39b4b8b1986d1d12ce62d871248fb8e"
+    },
+    "rejected-geometry-r13/edited.moc3": {
+      "bytes": 12013440,
+      "sha256": "440bb5b17d049801e8f213e38d888214e93b07cc80147bd30ca8780d447669ef"
+    },
+    "rejected-geometry-r13/keyposes.json": {
+      "bytes": 885,
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772"
+    },
+    "rejected-geometry-r13/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "rejected-geometry-r13/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "rejected-geometry-r13/native/desk-02.png": {
+      "bytes": 526341,
+      "sha256": "502acc9f3edde7c59865304058adb0404ef4c8389a2e098879f5f254e06f1c10"
+    },
+    "rejected-geometry-r13/native/desk-03.png": {
+      "bytes": 521970,
+      "sha256": "5c6968c496ff968debf3d225997cae5f69dfa466cad7b1fa4bf400e4a4a166ad"
+    },
+    "rejected-geometry-r13/native/desk.capture.json": {
+      "bytes": 2425,
+      "sha256": "b1bf7bce09e8f6df63343c986414c31379436bbe59d620dcf1481e4d9d59dfcc"
+    },
+    "rejected-geometry-r13/rejection.json": {
+      "bytes": 2383,
+      "sha256": "f669f74eee1821d4e76060985844580617bff81c4e7e7bcef4fb804be6f9e12a"
+    },
+    "rejected-geometry-r13/restoration-r12/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "rejected-geometry-r13/restoration-r12/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "rejected-geometry-r13/restoration-r12/native/desk-02.png": {
+      "bytes": 529005,
+      "sha256": "0c4167ffa5005b9abbe3f0d90aa0036ab0418733f2334e888cc55f19faaaeb94"
+    },
+    "rejected-geometry-r13/restoration-r12/native/desk-03.png": {
+      "bytes": 525002,
+      "sha256": "05a40832a20047afefdc97445aae0606be91e8545071ad7e4a03bfa192814fdc"
+    },
+    "rejected-geometry-r13/restoration-r12/staging-report.json": {
+      "bytes": 724,
+      "sha256": "094cbe588f964198790390c12703abaf3696d99f805d7c40182db1f12c2c79df"
+    },
+    "rejected-geometry-r13/staging-report.json": {
+      "bytes": 982,
+      "sha256": "b554433539a997c3482a0c60e37a9ac8f33b9a751aa766748ce7b38b41c4fa44"
+    },
+    "rejected-restore-only-r12/author-plan.json": {
+      "bytes": 22093,
+      "sha256": "aae1a9905ec551605404cec45682288a99c2ec090a17722179811fcbe1c87c33"
+    },
+    "rejected-restore-only-r12/candidate-model/hit-mask.png": {
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    "rejected-restore-only-r12/candidate-model/material-ownership/body-clothing-mask.png": {
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    "rejected-restore-only-r12/candidate-model/material-ownership/body-underpaint.png": {
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    "rejected-restore-only-r12/candidate-model/material-ownership/duplicate-mask.png": {
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    "rejected-restore-only-r12/candidate-model/material-ownership/neck-erase-mask.png": {
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    "rejected-restore-only-r12/candidate-model/material-ownership/neck-mask.png": {
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    "rejected-restore-only-r12/candidate-model/material-ownership/ownership.json": {
+      "bytes": 7196,
+      "sha256": "e3ea8ee861546f0a2744bc99514c1dbe5f3d56508858e3a7bc8666fa22da85bb"
+    },
+    "rejected-restore-only-r12/candidate-model/neck-component/neck-surface.moc3": {
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    "rejected-restore-only-r12/candidate-model/neck-component/neck-surface.model3.json": {
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    "rejected-restore-only-r12/candidate-model/neck-component/neck-surface.rig.json": {
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    "rejected-restore-only-r12/candidate-model/neck-component/texture_0.png": {
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.4096/texture_00.png": {
+      "bytes": 3817559,
+      "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 879115,
+      "sha256": "359f30c8e04030f1f09d8eaba5d7df0faf6aaf57df80f4442bb88279eb300166"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.blink.motion3.json": {
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.cdi3.json": {
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.idle.motion3.json": {
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.moc3": {
+      "bytes": 12002816,
+      "sha256": "8a53aadf89cb3fb21f6f832a7acd81edc0bff523fd9998658c4b78bac84730bd"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.model3.json": {
+      "bytes": 1172,
+      "sha256": "a17121c07b641de5f03e3627e0a4f5765205c689994160b2a5740ae7c7df07c2"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.nod.motion3.json": {
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.physics3.json": {
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.psd2live.json": {
+      "bytes": 11122,
+      "sha256": "6657181bdedcac1f6045e7138cd3852da80fa096e2d95a706dcd0ab30c0feb02"
+    },
+    "rejected-restore-only-r12/candidate-model/whale-girl-layered-draft.shake.motion3.json": {
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    "rejected-restore-only-r12/edit-report.json": {
+      "bytes": 8869,
+      "sha256": "0796813097d2af5ad10c819271cabd7e0facb6d55d9755d9b3ace4d04f4f2bbc"
+    },
+    "rejected-restore-only-r12/edited.cmo3": {
+      "bytes": 25222117,
+      "sha256": "21382cb9ed3be6ef0a11fe6d8cae5608c8f6ab3a9772a8d08b9d00448ad33fc6"
+    },
+    "rejected-restore-only-r12/edited.moc3": {
+      "bytes": 12002816,
+      "sha256": "8a53aadf89cb3fb21f6f832a7acd81edc0bff523fd9998658c4b78bac84730bd"
+    },
+    "rejected-restore-only-r12/keyposes.json": {
+      "bytes": 885,
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772"
+    },
+    "rejected-restore-only-r12/rebuild-recipe.json": {
+      "bytes": 2661,
+      "sha256": "3f06a4147432103bdd65e333f69ce8db30cb558f1ad4fafeedc312176a722cf1"
+    },
+    "rejected-restore-only-r12/rejection.json": {
+      "bytes": 227,
+      "sha256": "35f0fe122b46adcd771653b3e8213db2883c9cfe74e76bff9f111a2178500e66"
+    },
+    "rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-02.png": {
+      "bytes": 529005,
+      "sha256": "0c4167ffa5005b9abbe3f0d90aa0036ab0418733f2334e888cc55f19faaaeb94"
+    },
+    "rejected-restore-only-r12/review-r12-complete-sleeves/native/desk-03.png": {
+      "bytes": 525002,
+      "sha256": "05a40832a20047afefdc97445aae0606be91e8545071ad7e4a03bfa192814fdc"
+    },
+    "rejected-restore-only-r12/review-r12-complete-sleeves/native/desk.capture.json": {
+      "bytes": 2429,
+      "sha256": "913af184e7521445966c88b69a17ddaf7578899619b0d83acae8df7e33ce1e63"
+    },
+    "rejected-restore-only-r12/review-r12-complete-sleeves/native-command.json": {
+      "bytes": 846,
+      "sha256": "528424b0479a1547fff7b157b5dcde53384577b090d0ba50cb639756f62a94db"
+    },
+    "rejected-restore-only-r12/staging-report.json": {
+      "bytes": 724,
+      "sha256": "094cbe588f964198790390c12703abaf3696d99f805d7c40182db1f12c2c79df"
+    },
+    "review-r15-connected-typing/desk-delete-command.json": {
+      "bytes": 745,
+      "sha256": "394c4cd123f8c523e664aa1366737e3d972064ada759258fbcf68bb5a07b4f0a"
+    },
+    "review-r15-connected-typing/desk-delete-native/frame-000.png": {
+      "bytes": 529924,
+      "sha256": "c7f257e090c458500555dd9bf716203f4a52d8d91289e69b551ecd80c1c1bd15"
+    },
+    "review-r15-connected-typing/desk-delete-native/frame-025.png": {
+      "bytes": 594245,
+      "sha256": "06ddb6a47e75cc82b203fba77371afc620e3b4c20c0957f6558b9e025676f5f7"
+    },
+    "review-r15-connected-typing/desk-delete-native/frame-030.png": {
+      "bytes": 577819,
+      "sha256": "442069577d978cf01adc7df447e03269fa961a9e29b678f4bbcd4bc84da39d36"
+    },
+    "review-r15-connected-typing/desk-delete-native/frame-074.png": {
+      "bytes": 522519,
+      "sha256": "08e7927dca0e4c3ee29c0181fbc76ac91ad809588098cfdaa97b5211b427f2d1"
+    },
+    "review-r15-connected-typing/desk-delete-native/scene.json": {
+      "bytes": 158035,
+      "sha256": "c2ac6bb470b68faa8a7d037b9b8c5fc61c3a3202e9ab984ea0ddca6942bb4487"
+    },
+    "review-r15-connected-typing/head-pat-command.json": {
+      "bytes": 744,
+      "sha256": "4efb2891d82e07bb54e63c5e50825d77678a009f304eacf3209cf7d93630565d"
+    },
+    "review-r15-connected-typing/head-pat-native/frame-000.png": {
+      "bytes": 529924,
+      "sha256": "c7f257e090c458500555dd9bf716203f4a52d8d91289e69b551ecd80c1c1bd15"
+    },
+    "review-r15-connected-typing/head-pat-native/frame-025.png": {
+      "bytes": 518280,
+      "sha256": "7fa4fb99a28ea19690d775dcda1af5eb00798829421cb587497cbef2f4c07539"
+    },
+    "review-r15-connected-typing/head-pat-native/frame-030.png": {
+      "bytes": 517064,
+      "sha256": "d0d5d369b337a18de53440974ab801ef279b8269bb8d8bf809a0df1824b74df6"
+    },
+    "review-r15-connected-typing/head-pat-native/frame-074.png": {
+      "bytes": 522797,
+      "sha256": "e028ee3a974b63b6e4d8a71f1cb64e75d3db00effb52400333759b2c39b3bfe9"
+    },
+    "review-r15-connected-typing/head-pat-native/scene.json": {
+      "bytes": 156511,
+      "sha256": "b90d8b539190b7a14e5bc461d60d923e4456d933db465152a290a1a41ccf3aa0"
+    },
+    "review-r15-connected-typing/motion-command.json": {
+      "bytes": 735,
+      "sha256": "e20fbebd1627a74b2be214f613ba295f6c7a7de84e71438856c681b3750d2b66"
+    },
+    "review-r15-connected-typing/motion-native/capture.json": {
+      "bytes": 369545,
+      "sha256": "af8113c7c81563f9c8d6b5d55dfbb282ba672c38f32d87b227d4c7c07b1cd064"
+    },
+    "review-r15-connected-typing/motion-native/frame-000.png": {
+      "bytes": 573912,
+      "sha256": "7094e923efe658a52b04c658e06ee1ccba55911c9ea1d15cc9034e23b38df27b"
+    },
+    "review-r15-connected-typing/motion-native/frame-030.png": {
+      "bytes": 521942,
+      "sha256": "c1d03e3225685cbdd4c2924820b7fe954d9a347ab423219dae70d965a3d2d1c5"
+    },
+    "review-r15-connected-typing/motion-native/frame-100.png": {
+      "bytes": 527303,
+      "sha256": "4093ed2ecd9eb8eede11a3b115083d6f4f61fc1e9606feca88ad69ae333a0560"
+    },
+    "review-r15-connected-typing/motion-native/frame-150.png": {
+      "bytes": 526111,
+      "sha256": "d6c997cd8acc15d30e8e1530840f12ca7f4bc015591e732f675d2227495654a1"
+    },
+    "review-r15-connected-typing/motion-native/frame-194.png": {
+      "bytes": 572661,
+      "sha256": "87d8c2583b03b181927aea736dce1bd9a96ae98ea2bf8499c0b6631ef808f7fe"
+    },
+    "review-r15-connected-typing/native/desk-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "review-r15-connected-typing/native/desk-01.png": {
+      "bytes": 583155,
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d"
+    },
+    "review-r15-connected-typing/native/desk-02.png": {
+      "bytes": 522728,
+      "sha256": "4b30a637826bb7d4146b81a3889eddd57a54d602290d559ec309370af8d321d6"
+    },
+    "review-r15-connected-typing/native/desk-03.png": {
+      "bytes": 519115,
+      "sha256": "5bb8b6f3be7957102dd81cbfae49f656a97cae6f3d60b214ac3f4623aeb7dc38"
+    },
+    "review-r15-connected-typing/native/desk.capture.json": {
+      "bytes": 2429,
+      "sha256": "b3cac6c5edad49b0de0e07e15f0e05301680a3dab00e8587942c25f098a75cc2"
+    },
+    "review-r15-connected-typing/native-command.json": {
+      "bytes": 760,
+      "sha256": "79abd541b934deede5153b37c91802bded32ac0f7d847fe03ebdbc04cf40ecf8"
+    },
+    "review-r15-connected-typing/preservation-candidate/capture-receipt.json": {
+      "bytes": 20260,
+      "sha256": "451ce0f0b0b361286fd52d4f4bfa29068ce6003ead6430499153e3b721f08bbb"
+    },
+    "review-r15-connected-typing/preservation-candidate/static/pose-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "review-r15-connected-typing/preservation-candidate/static/pose-01.png": {
+      "bytes": 575952,
+      "sha256": "e175ff00785323570d89562a6d04fdce4ee18cd7a30aa7e2215a11a18d64548c"
+    },
+    "review-r15-connected-typing/preservation-candidate/static/pose-02.png": {
+      "bytes": 586297,
+      "sha256": "0dd690cc78fa77800e20094ecba05e37abd80771565f900cdb0937ac0edc7e95"
+    },
+    "review-r15-connected-typing/preservation-candidate/static/pose-03.png": {
+      "bytes": 570111,
+      "sha256": "e20a79813eae548cde339ef890d0b0fc95346ffe82bef17743c70d7a68c01d29"
+    },
+    "review-r15-connected-typing/preservation-candidate/static/pose-04.png": {
+      "bytes": 576462,
+      "sha256": "3b5e114f942efeec5aa5798d47f116d25491bf210917f51be616b348b732a279"
+    },
+    "review-r15-connected-typing/preservation-candidate/static/pose.capture.json": {
+      "bytes": 2675,
+      "sha256": "3feba3684df7cae7f5fad05520b4cd32dd92fbb8fed58095052f57d03053ce86"
+    },
+    "review-r15-connected-typing/preservation-candidate-verification.json": {
+      "bytes": 1077,
+      "sha256": "0511d63485e2727bb4032d1a661c4c34fb91d303055ece473a1874b47cacd0cb"
+    },
+    "review-r15-connected-typing/preservation-comparison.json": {
+      "bytes": 663,
+      "sha256": "4a21a90a652afa7e3d6b14c68cbfacd2768ce4ac23a6b9d5adb0f68a0b0ea440"
+    },
+    "review-r15-connected-typing/preservation-formal/capture-receipt.json": {
+      "bytes": 17819,
+      "sha256": "9c0da565f740e928f1024e0a5b4d19ecd157adf604a4c740b27594310bf258a1"
+    },
+    "review-r15-connected-typing/preservation-formal/static/pose-00.png": {
+      "bytes": 571518,
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb"
+    },
+    "review-r15-connected-typing/preservation-formal/static/pose-01.png": {
+      "bytes": 575952,
+      "sha256": "e175ff00785323570d89562a6d04fdce4ee18cd7a30aa7e2215a11a18d64548c"
+    },
+    "review-r15-connected-typing/preservation-formal/static/pose-02.png": {
+      "bytes": 586297,
+      "sha256": "0dd690cc78fa77800e20094ecba05e37abd80771565f900cdb0937ac0edc7e95"
+    },
+    "review-r15-connected-typing/preservation-formal/static/pose-03.png": {
+      "bytes": 570111,
+      "sha256": "e20a79813eae548cde339ef890d0b0fc95346ffe82bef17743c70d7a68c01d29"
+    },
+    "review-r15-connected-typing/preservation-formal/static/pose-04.png": {
+      "bytes": 576462,
+      "sha256": "3b5e114f942efeec5aa5798d47f116d25491bf210917f51be616b348b732a279"
+    },
+    "review-r15-connected-typing/preservation-formal/static/pose.capture.json": {
+      "bytes": 2610,
+      "sha256": "2df7e5b4834b27d1c5b326bbd80bd4acfe7811efa09a0926a4b2a3f34a7c14ce"
+    },
+    "review-r15-connected-typing/preservation-formal-verification.json": {
+      "bytes": 1074,
+      "sha256": "d1ca707a8183925023f42f1d43f130128898556ff125f3948c7d11f698f85168"
+    },
+    "review-r15-connected-typing/turn-ended-command.json": {
+      "bytes": 750,
+      "sha256": "56275b2b5664cafe29dc90aa75769324cd281b32459b42daa67bf8c718439705"
+    },
+    "review-r15-connected-typing/turn-ended-native/frame-000.png": {
+      "bytes": 529924,
+      "sha256": "c7f257e090c458500555dd9bf716203f4a52d8d91289e69b551ecd80c1c1bd15"
+    },
+    "review-r15-connected-typing/turn-ended-native/frame-025.png": {
+      "bytes": 524982,
+      "sha256": "64eccb3aef507a4a94f32197104636f03df71238abd280112c7d42dacf42ee63"
+    },
+    "review-r15-connected-typing/turn-ended-native/frame-030.png": {
+      "bytes": 524148,
+      "sha256": "2faed01abe189b8036f023f95b95335b26a361bb83cd103aafe24e7f253faf3f"
+    },
+    "review-r15-connected-typing/turn-ended-native/frame-074.png": {
+      "bytes": 612211,
+      "sha256": "e17b36237a37259f841f1c1c3fb76cbc9429b3d87cc71d367683bc6474b21034"
+    },
+    "review-r15-connected-typing/turn-ended-native/scene.json": {
+      "bytes": 157442,
+      "sha256": "198553b3f9751e3104e6101ba609428ebce92b100186527de7226a6476d8a064"
+    },
+    "review-r18-handoff/cleanup-command.json": {
+      "bytes": 749,
+      "sha256": "d0a63c7cbb8c4680c5cef6f9ef9911e818541b044a6e0ccc449a0ba95c025fb3"
+    },
+    "review-r18-handoff/cleanup-native/cleanup-00.png": {
+      "bytes": 570353,
+      "sha256": "9716f5ff8a67490e73b8e1c65dcc57fc56109c36d545fab9821ef05d84ebed84"
+    },
+    "review-r18-handoff/cleanup-native/cleanup-01.png": {
+      "bytes": 593630,
+      "sha256": "bf2aabfb9fa1579ba510ac143da3316c3d1340d65f72ff93f7b899e3ea626b94"
+    },
+    "review-r18-handoff/cleanup-native/cleanup-02.png": {
+      "bytes": 573697,
+      "sha256": "629533073faf54647afb61d858615092efa158147595c963603c5d94d87af27c"
+    },
+    "review-r18-handoff/cleanup-native/cleanup-03.png": {
+      "bytes": 521734,
+      "sha256": "284ef19ca77c15163a6ddccb762b71a821e59906dc4d6ad0e8cc73bf9d7c1fe1"
+    },
+    "review-r18-handoff/cleanup-native/cleanup.capture.json": {
+      "bytes": 4197,
+      "sha256": "b8f4ac901c95275d6b7edcd1313c9f7d71ba2ebea6144bbcb6512c76804d7737"
+    },
+    "review-r18-handoff/cleanup-poses.json": {
+      "bytes": 2269,
+      "sha256": "c7339ef27be6b2d3faf5742f6cb39e7f02088839a643ad456f69802a04fe201f"
+    },
+    "review-r18-handoff/staging-report.json": {
+      "bytes": 1256,
+      "sha256": "3c1274aeb286d5c6ade19becd859d8d6f2724d15155032728611e18d92df662a"
+    },
+    "source-laptop-rig.json": {
+      "bytes": 98541,
+      "sha256": "66c5589bc76a26397d4da78dbfbeace9f4f9dd14714232b799a332aa6517513d"
+    },
+    "source-sleeve-rig.json": {
+      "bytes": 227037,
+      "sha256": "4eded10f79f6c8dd79bdae5eda38e4160d129ec7579080f00c7acb8dc2a5a281"
+    },
+    "staging-report.json": {
+      "bytes": 956,
+      "sha256": "7fe5fc8d792fc6e3a0b3ae0945435e52f455688772674b53fd794f016a5552f9"
+    }
+  },
+  "max_file_bytes": 27932747,
+  "source_formal_author_sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+  "source_formal_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+}

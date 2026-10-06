@@ -1,0 +1,1205 @@
+{
+  "schema_version": 1,
+  "kind": "actual_Core_R9_neutral_structural_prototype",
+  "passed_within_declared_scope": false,
+  "prototype_status": "prototype_pending",
+  "inputs": {
+    "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\check_structural_prototype.py": "22d34a1320943dfef2b97087d6b6f85461b03786815d4a7762bb88a241129e0c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.cmo3": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.moc3": "ba02f0c9d320f61c167ec01323e1e18298e66ae076bc13eb61ba894c803871fa",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.model3.json": "8fb302c79d4c89b191cb09644a536f71f58f49a97915830c90ee23c124ae4a42",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_01.png": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_02.png": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_03.png": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_04.png": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_05.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_06.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\texture_07.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.cmo3": "f13b6d3480c832f2f1abf8abdab2e1448f6879ec6deea687cd2626025b0c2a63",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.moc3": "3aa1b4360596c9cb621fb311736cd1548384e099bc45d3b590705886d0c3e5f9",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.model3.json": "4a66074b3a35896173a966f168d4d46f404f68c9b6fb426265d0618508b993b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_00.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_01.png": "6c823bc08670b0ed6764adc34de87d3dc72853b20e002913bd7694102d4a99b8",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_02.png": "5b4460ab4412878d73079e126e337bfa7af9bfbf974a3154e3dc947d907fa38c",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_03.png": "5672c0c9e64593b6b8ae27d926c7bb2ab2a5bbab30dc8da50ccbf04a7e79ac22",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_04.png": "48764a44043643036b921c68198db7bf1df18192caa24d9f055e2e547e46f9b5",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_05.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_06.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_07.png": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_08.png": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\texture_09.png": "a219c637dbcb28b353cad01510b727554979079be69f4456face49d01fd09cc2"
+  },
+  "source_model": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.model3.json",
+  "candidate_model": "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export\\edited.model3.json",
+  "canvas": {
+    "pixels_per_unit": 1254.0,
+    "origin": [
+      627.0,
+      627.0
+    ]
+  },
+  "standing": {
+    "contexts": 122,
+    "busy_keys": [
+      0.0,
+      1.0
+    ],
+    "poses": 244,
+    "original_native_ids": [
+      "ArtMeshObjects",
+      "ArtMeshObjects2",
+      "ArtMeshObjects3",
+      "ArtMeshObjects4",
+      "ArtMeshObjects5",
+      "ArtMeshObjects6",
+      "ArtMeshObjects7",
+      "ArtMeshObjects8",
+      "ArtMeshHandwearR",
+      "ArtMeshHandwearR2",
+      "ArtMeshMouthOpen",
+      "ArtMeshMouthOpen2",
+      "ArtMeshHandwearR3",
+      "ArtMeshHandwearL",
+      "ArtMeshHandwearR4",
+      "ArtMeshEyelashL",
+      "ArtMeshEyelashR",
+      "ArtMeshIridesL",
+      "ArtMeshIridesR",
+      "ArtMeshEyewhiteL",
+      "ArtMeshEyewhiteR",
+      "ArtMeshMouthClose",
+      "ArtMeshFrontHair",
+      "ArtMeshFace",
+      "ArtMeshHandwearL2",
+      "ArtMeshHandwearR5",
+      "ArtMeshTail",
+      "ArtMeshFootwearL",
+      "ArtMeshFootwearR",
+      "ArtMeshBottomwear",
+      "ArtMeshTopwear",
+      "ArtMeshHeadwear",
+      "ArtMeshBackHair",
+      "ArtMeshBackHair2"
+    ],
+    "float32_byte_comparison": true,
+    "maximum_numeric_differences": {
+      "vertices_native": 0.0,
+      "opacity": 0.0,
+      "multiply_or_screen": 0.0
+    },
+    "failures": [],
+    "new_mesh_nonzero_opacity_failures": [],
+    "passed": true
+  },
+  "leg_floor_neutral": {
+    "ids": [
+      "ArtMeshSitKneeFrontL",
+      "ArtMeshSitKneeFrontR",
+      "ArtMeshSitStockingL",
+      "ArtMeshSitStockingR",
+      "ArtMeshSitShoeL",
+      "ArtMeshSitShoeR",
+      "ArtMeshAuthorFloorReferenceL",
+      "ArtMeshAuthorFloorReferenceR"
+    ],
+    "sit_keys": [
+      0.35,
+      0.65,
+      0.8,
+      0.92,
+      1.0
+    ],
+    "maximum_allowed_residual_source_px": 0.1,
+    "worst": {
+      "parameters": {
+        "ParamSitPose": 0.65
+      },
+      "drawable": "ArtMeshSitKneeFrontL",
+      "maximum_residual_source_px": 95.70639906889815,
+      "maximum_component_residual_source_px": 88.62902936339378,
+      "worst_vertex": 26,
+      "source_world_xy": [
+        549.2676835432649,
+        922.352905780077
+      ],
+      "candidate_world_xy": [
+        585.3870685994625,
+        1010.9819351434708
+      ],
+      "passed": false
+    },
+    "all_rows": [
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshSitKneeFrontL",
+        "maximum_residual_source_px": 46.52633643156333,
+        "maximum_component_residual_source_px": 46.526336431503296,
+        "worst_vertex": 13,
+        "source_world_xy": [
+          511.4865942299366,
+          986.3773323297501
+        ],
+        "candidate_world_xy": [
+          558.0129306614399,
+          986.3772575855255
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshSitKneeFrontR",
+        "maximum_residual_source_px": 46.460921220481396,
+        "maximum_component_residual_source_px": 46.460921220481396,
+        "worst_vertex": 10,
+        "source_world_xy": [
+          709.661684051156,
+          985.7625237107277
+        ],
+        "candidate_world_xy": [
+          663.2007628306746,
+          985.7625237107277
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshSitStockingL",
+        "maximum_residual_source_px": 43.90800040640711,
+        "maximum_component_residual_source_px": 43.90800040634349,
+        "worst_vertex": 7,
+        "source_world_xy": [
+          581.3283077180386,
+          975.0526106357574
+        ],
+        "candidate_world_xy": [
+          625.236308124382,
+          975.0525358915329
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshSitStockingR",
+        "maximum_residual_source_px": 43.83657967206091,
+        "maximum_component_residual_source_px": 43.83657967206091,
+        "worst_vertex": 56,
+        "source_world_xy": [
+          674.6061008423567,
+          975.6763511896133
+        ],
+        "candidate_world_xy": [
+          630.7695211702958,
+          975.6763511896133
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "maximum_residual_source_px": 4.17832917538991e-05,
+        "maximum_component_residual_source_px": 3.737211227416992e-05,
+        "worst_vertex": 27,
+        "source_world_xy": [
+          506.13859824836254,
+          1141.3234178423882
+        ],
+        "candidate_world_xy": [
+          506.1386169344187,
+          1141.3233804702759
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "maximum_residual_source_px": 7.475334804236813e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 10,
+        "source_world_xy": [
+          644.3146818056703,
+          1229.6845825910568
+        ],
+        "candidate_world_xy": [
+          644.3146829735488,
+          1229.6845078468323
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "maximum_residual_source_px": 7.704458317942241e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 82,
+        "source_world_xy": [
+          487.61646553874016,
+          1037.3588356375694
+        ],
+        "candidate_world_xy": [
+          487.6164842247963,
+          1037.3587608933449
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.35
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "maximum_residual_source_px": 7.475334804236813e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 60,
+        "source_world_xy": [
+          644.3146818056703,
+          1229.6845825910568
+        ],
+        "candidate_world_xy": [
+          644.3146829735488,
+          1229.6845078468323
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitKneeFrontL",
+        "maximum_residual_source_px": 95.70639906889815,
+        "maximum_component_residual_source_px": 88.62902936339378,
+        "worst_vertex": 26,
+        "source_world_xy": [
+          549.2676835432649,
+          922.352905780077
+        ],
+        "candidate_world_xy": [
+          585.3870685994625,
+          1010.9819351434708
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitKneeFrontR",
+        "maximum_residual_source_px": 95.69539552501313,
+        "maximum_component_residual_source_px": 88.62897330522537,
+        "worst_vertex": 11,
+        "source_world_xy": [
+          689.8610794097185,
+          981.9516894221306
+        ],
+        "candidate_world_xy": [
+          653.7707231417298,
+          1070.580662727356
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitStockingL",
+        "maximum_residual_source_px": 80.84918366633043,
+        "maximum_component_residual_source_px": 74.27012193202972,
+        "worst_vertex": 7,
+        "source_world_xy": [
+          592.3517821580172,
+          977.2764008045197
+        ],
+        "candidate_world_xy": [
+          624.2977527799085,
+          1051.546485364437
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitStockingR",
+        "maximum_residual_source_px": 80.8347235536033,
+        "maximum_component_residual_source_px": 74.27008455991745,
+        "worst_vertex": 56,
+        "source_world_xy": [
+          663.6189801245928,
+          977.6939220428467
+        ],
+        "candidate_world_xy": [
+          631.7093620570377,
+          1051.9638944864273
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "maximum_residual_source_px": 0.00011250495613966539,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 17,
+        "source_world_xy": [
+          569.899317830801,
+          1119.9999743700027
+        ],
+        "candidate_world_xy": [
+          569.8993084877729,
+          1119.999862253666
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "maximum_residual_source_px": 7.830884488767841e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 0,
+        "source_world_xy": [
+          658.9863097295165,
+          1135.157692015171
+        ],
+        "candidate_world_xy": [
+          658.9862863719463,
+          1135.1576172709465
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "maximum_residual_source_px": 0.00011250495613966539,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 102,
+        "source_world_xy": [
+          558.582864716649,
+          1109.8306862711906
+        ],
+        "candidate_world_xy": [
+          558.582855373621,
+          1109.8305741548538
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.65
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "maximum_residual_source_px": 0.00011298885065726617,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 88,
+        "source_world_xy": [
+          639.4795199632645,
+          1060.5096259117126
+        ],
+        "candidate_world_xy": [
+          639.4795059487224,
+          1060.5095137953758
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitKneeFrontL",
+        "maximum_residual_source_px": 91.14579819313005,
+        "maximum_component_residual_source_px": 89.12542444467545,
+        "worst_vertex": 16,
+        "source_world_xy": [
+          518.3847013413906,
+          963.6960852742195
+        ],
+        "candidate_world_xy": [
+          537.4691255092621,
+          1052.821509718895
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitKneeFrontR",
+        "maximum_residual_source_px": 91.14426243250466,
+        "maximum_component_residual_source_px": 89.12538707256317,
+        "worst_vertex": 5,
+        "source_world_xy": [
+          724.1795444190502,
+          979.3908775448799
+        ],
+        "candidate_world_xy": [
+          705.1022816821933,
+          1068.516264617443
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitStockingL",
+        "maximum_residual_source_px": 76.45198888660111,
+        "maximum_component_residual_source_px": 74.66073524951935,
+        "worst_vertex": 7,
+        "source_world_xy": [
+          607.6932841725647,
+          980.2636658549309
+        ],
+        "candidate_world_xy": [
+          624.1456766040064,
+          1054.9244011044502
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitStockingR",
+        "maximum_residual_source_px": 76.4497642826665,
+        "maximum_component_residual_source_px": 74.66069787740707,
+        "worst_vertex": 56,
+        "source_world_xy": [
+          648.2993734963238,
+          980.4729496836662
+        ],
+        "candidate_world_xy": [
+          631.8569821924902,
+          1055.133610188961
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "maximum_residual_source_px": 0.00011452357428411099,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 17,
+        "source_world_xy": [
+          574.399321898818,
+          1119.9999743700027
+        ],
+        "candidate_world_xy": [
+          574.3992985412478,
+          1119.999862253666
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "maximum_residual_source_px": 7.982686681023377e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 12,
+        "source_world_xy": [
+          718.4283313751221,
+          1137.2824087142944
+        ],
+        "candidate_world_xy": [
+          718.4283033460379,
+          1137.2823339700699
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "maximum_residual_source_px": 0.00011556687476913362,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 37,
+        "source_world_xy": [
+          594.8452144525945,
+          1133.3663719296455
+        ],
+        "candidate_world_xy": [
+          594.8451864235103,
+          1133.3662598133087
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.8
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "maximum_residual_source_px": 0.00011298885065726617,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 78,
+        "source_world_xy": [
+          697.5513958856463,
+          1075.32535135746
+        ],
+        "candidate_world_xy": [
+          697.5513818711042,
+          1075.3252392411232
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshSitKneeFrontL",
+        "maximum_residual_source_px": 5.749692466109991,
+        "maximum_component_residual_source_px": 5.749692466109991,
+        "worst_vertex": 26,
+        "source_world_xy": [
+          583.706570841372,
+          923.3443692326546
+        ],
+        "candidate_world_xy": [
+          589.456263307482,
+          923.3443692326546
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshSitKneeFrontR",
+        "maximum_residual_source_px": 5.7495593284458515,
+        "maximum_component_residual_source_px": 5.749559327960014,
+        "worst_vertex": 6,
+        "source_world_xy": [
+          705.3611816614866,
+          981.7803009152412
+        ],
+        "candidate_world_xy": [
+          699.6116223335266,
+          981.7802261710167
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshSitStockingL",
+        "maximum_residual_source_px": 4.83629234937967,
+        "maximum_component_residual_source_px": 4.83629234880209,
+        "worst_vertex": 7,
+        "source_world_xy": [
+          619.4618761958554,
+          983.2958895564079
+        ],
+        "candidate_world_xy": [
+          624.2981685446575,
+          983.2958148121834
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshSitStockingR",
+        "maximum_residual_source_px": 4.8359793579394115,
+        "maximum_component_residual_source_px": 4.8359793573617935,
+        "worst_vertex": 56,
+        "source_world_xy": [
+          636.5378249483183,
+          983.3325515985489
+        ],
+        "candidate_world_xy": [
+          631.7018455909565,
+          983.3324768543243
+        ],
+        "passed": false
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "maximum_residual_source_px": 7.532590043817744e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 32,
+        "source_world_xy": [
+          524.2595973908901,
+          1119.9999743700027
+        ],
+        "candidate_world_xy": [
+          524.259588047862,
+          1119.9998996257782
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "maximum_residual_source_px": 0.00011214066498528336,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 8,
+        "source_world_xy": [
+          647.3256874904037,
+          1234.433793246746
+        ],
+        "candidate_world_xy": [
+          647.3256898261607,
+          1234.4336811304092
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "maximum_residual_source_px": 7.704458317942241e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 38,
+        "source_world_xy": [
+          597.6720316819847,
+          1144.9478026628494
+        ],
+        "candidate_world_xy": [
+          597.6720129959285,
+          1144.9477279186249
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 0.92
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "maximum_residual_source_px": 0.00011250495613966539,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 54,
+        "source_world_xy": [
+          714.9455308020115,
+          1232.8507479429245
+        ],
+        "candidate_world_xy": [
+          714.9455214589834,
+          1232.8506358265877
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshSitKneeFrontL",
+        "maximum_residual_source_px": 7.474422454833984e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 7,
+        "source_world_xy": [
+          598.0235701203346,
+          984.8509805202484
+        ],
+        "candidate_world_xy": [
+          598.0235701203346,
+          984.8509057760239
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshSitKneeFrontR",
+        "maximum_residual_source_px": 7.474422454833984e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 5,
+        "source_world_xy": [
+          706.9544388949871,
+          977.4603837132454
+        ],
+        "candidate_world_xy": [
+          706.9544388949871,
+          977.4603089690208
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshSitStockingL",
+        "maximum_residual_source_px": 0.0001494884490966797,
+        "maximum_component_residual_source_px": 0.0001494884490966797,
+        "worst_vertex": 23,
+        "source_world_xy": [
+          604.349220559001,
+          1133.7140446901321
+        ],
+        "candidate_world_xy": [
+          604.349220559001,
+          1133.713895201683
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshSitStockingR",
+        "maximum_residual_source_px": 0.00014978013415276463,
+        "maximum_component_residual_source_px": 0.0001494884490966797,
+        "worst_vertex": 17,
+        "source_world_xy": [
+          666.3150229901075,
+          1139.47585272789
+        ],
+        "candidate_world_xy": [
+          666.3150136470795,
+          1139.475703239441
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshSitShoeL",
+        "maximum_residual_source_px": 7.704458317942241e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 23,
+        "source_world_xy": [
+          515.847611412406,
+          1205.9383424520493
+        ],
+        "candidate_world_xy": [
+          515.8476300984621,
+          1205.9382677078247
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshSitShoeR",
+        "maximum_residual_source_px": 0.00011250495613966539,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 33,
+        "source_world_xy": [
+          716.9917193502188,
+          1227.7681780457497
+        ],
+        "candidate_world_xy": [
+          716.9917100071907,
+          1227.7680659294128
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceL",
+        "maximum_residual_source_px": 7.704458317942241e-05,
+        "maximum_component_residual_source_px": 7.474422454833984e-05,
+        "worst_vertex": 38,
+        "source_world_xy": [
+          597.6720316819847,
+          1144.9478026628494
+        ],
+        "candidate_world_xy": [
+          597.6720129959285,
+          1144.9477279186249
+        ],
+        "passed": true
+      },
+      {
+        "parameters": {
+          "ParamSitPose": 1.0
+        },
+        "drawable": "ArtMeshAuthorFloorReferenceR",
+        "maximum_residual_source_px": 0.00011250495613966539,
+        "maximum_component_residual_source_px": 0.00011211633682250977,
+        "worst_vertex": 54,
+        "source_world_xy": [
+          714.9455308020115,
+          1232.8507479429245
+        ],
+        "candidate_world_xy": [
+          714.9455214589834,
+          1232.8506358265877
+        ],
+        "passed": true
+      }
+    ],
+    "passed": false
+  },
+  "head_neutral_only": {
+    "source_surface_ids": {
+      "face": "ArtMeshFace",
+      "front_hair": "ArtMeshFrontHair",
+      "headwear": "ArtMeshHeadwear",
+      "back_hair": "ArtMeshBackHair2"
+    },
+    "source_sit": 0.0,
+    "candidate_sit": 0.65,
+    "other_parameters": "actual Native defaults",
+    "best_common_rigid_fit": {
+      "rotation_degrees": 1.0696038056119692,
+      "translation_source_px": [
+        8.29787400781504,
+        308.54292280615624
+      ],
+      "determinant": 1.0,
+      "best_rigid_rms_source_px": 25.364186793039654,
+      "best_rigid_maximum_source_px": 139.6509747910889,
+      "diagnostic_best_uniform_scale": 0.9696482964265281,
+      "source_rms_radius_px": 325.2251520076782,
+      "candidate_rms_radius_px": 316.2183693934227
+    },
+    "per_surface_rigid_fits": {
+      "ArtMeshFace": {
+        "rotation_degrees": -4.00409234412542e-07,
+        "translation_source_px": [
+          -5.383119059843011e-06,
+          327.9999987008018
+        ],
+        "determinant": 1.0000000000000004,
+        "best_rigid_rms_source_px": 1.6799710584964235e-05,
+        "best_rigid_maximum_source_px": 4.959207043712836e-05,
+        "diagnostic_best_uniform_scale": 0.9999999995471031,
+        "source_rms_radius_px": 184.0083389373398,
+        "candidate_rms_radius_px": 184.0083388540037
+      },
+      "ArtMeshFrontHair": {
+        "rotation_degrees": -1.4867639804182257e-08,
+        "translation_source_px": [
+          -2.213314473920036e-06,
+          327.99999093598683
+        ],
+        "determinant": 1.0000000000000002,
+        "best_rigid_rms_source_px": 1.8527014967714345e-05,
+        "best_rigid_maximum_source_px": 7.106857925834256e-05,
+        "diagnostic_best_uniform_scale": 1.0000000018292863,
+        "source_rms_radius_px": 259.6627922070922,
+        "candidate_rms_radius_px": 259.66279268209047
+      },
+      "ArtMeshHeadwear": {
+        "rotation_degrees": 6.82524263421548e-07,
+        "translation_source_px": [
+          2.301898121004342e-07,
+          327.9999830108063
+        ],
+        "determinant": 0.9999999999999997,
+        "best_rigid_rms_source_px": 1.8121270534572278e-05,
+        "best_rigid_maximum_source_px": 5.916095932428517e-05,
+        "diagnostic_best_uniform_scale": 1.000000002268181,
+        "source_rms_radius_px": 279.4447510180781,
+        "candidate_rms_radius_px": 279.44475165191
+      },
+      "ArtMeshBackHair2": {
+        "rotation_degrees": 1.4823621130095785,
+        "translation_source_px": [
+          15.088515717351015,
+          283.8642491701165
+        ],
+        "determinant": 1.0000000000000007,
+        "best_rigid_rms_source_px": 41.24268850647097,
+        "best_rigid_maximum_source_px": 116.79918374130821,
+        "diagnostic_best_uniform_scale": 0.9588189636199356,
+        "source_rms_radius_px": 391.4762249500691,
+        "candidate_rms_radius_px": 377.26954163354867
+      }
+    },
+    "edge_length_diagnostics": {
+      "ArtMeshFace": {
+        "nondegenerate_edges": 924,
+        "minimum_length_ratio": 0.9999937656770609,
+        "maximum_length_ratio": 1.0000086286401415,
+        "maximum_edge_length_change_source_px": 5.368803266136979e-05
+      },
+      "ArtMeshFrontHair": {
+        "nondegenerate_edges": 1338,
+        "minimum_length_ratio": 0.9999965103966438,
+        "maximum_length_ratio": 1.000002617972877,
+        "maximum_edge_length_change_source_px": 7.474422195130614e-05
+      },
+      "ArtMeshHeadwear": {
+        "nondegenerate_edges": 1427,
+        "minimum_length_ratio": 0.9999827019408549,
+        "maximum_length_ratio": 1.0001407453262388,
+        "maximum_edge_length_change_source_px": 7.26966341684232e-05
+      },
+      "ArtMeshBackHair2": {
+        "nondegenerate_edges": 1196,
+        "minimum_length_ratio": 0.16904897422456722,
+        "maximum_length_ratio": 1.0107192163086107,
+        "maximum_edge_length_change_source_px": 28.42936364683576
+      }
+    },
+    "declared_rigid_maximum_px": 0.01,
+    "declared_uniform_scale_tolerance": 0.0001,
+    "passed": false,
+    "head_angles_tested": false,
+    "raw_surface_scope": "All actual vertices, including invisible/mixed chart portions; no renderer material cuts."
+  },
+  "neutral_positive_sit_sweep": {
+    "sample_count": 201,
+    "sit_values": [
+      0.005,
+      0.01,
+      0.015,
+      0.02,
+      0.025,
+      0.030000000000000002,
+      0.034999999999999996,
+      0.04,
+      0.045,
+      0.049999999999999996,
+      0.055,
+      0.06,
+      0.065,
+      0.07,
+      0.07500000000000001,
+      0.08,
+      0.085,
+      0.09000000000000001,
+      0.095,
+      0.1,
+      0.10500000000000001,
+      0.11,
+      0.115,
+      0.12000000000000001,
+      0.125,
+      0.13,
+      0.135,
+      0.14,
+      0.14500000000000002,
+      0.15,
+      0.155,
+      0.16,
+      0.165,
+      0.17,
+      0.17500000000000002,
+      0.18000000000000002,
+      0.185,
+      0.19,
+      0.195,
+      0.2,
+      0.20500000000000002,
+      0.21000000000000002,
+      0.215,
+      0.22,
+      0.225,
+      0.23,
+      0.23500000000000001,
+      0.24000000000000002,
+      0.245,
+      0.25,
+      0.255,
+      0.26,
+      0.265,
+      0.27,
+      0.275,
+      0.28,
+      0.28500000000000003,
+      0.29000000000000004,
+      0.295,
+      0.3,
+      0.305,
+      0.31,
+      0.315,
+      0.32,
+      0.325,
+      0.33,
+      0.335,
+      0.34,
+      0.34500000000000003,
+      0.35,
+      0.35000000000000003,
+      0.35500000000000004,
+      0.36,
+      0.365,
+      0.37,
+      0.375,
+      0.38,
+      0.385,
+      0.39,
+      0.395,
+      0.4,
+      0.405,
+      0.41000000000000003,
+      0.41500000000000004,
+      0.42000000000000004,
+      0.425,
+      0.43,
+      0.435,
+      0.44,
+      0.445,
+      0.45,
+      0.455,
+      0.46,
+      0.465,
+      0.47000000000000003,
+      0.47500000000000003,
+      0.48000000000000004,
+      0.485,
+      0.49,
+      0.495,
+      0.5,
+      0.505,
+      0.51,
+      0.515,
+      0.52,
+      0.525,
+      0.53,
+      0.535,
+      0.54,
+      0.545,
+      0.55,
+      0.555,
+      0.56,
+      0.5650000000000001,
+      0.5700000000000001,
+      0.5750000000000001,
+      0.5800000000000001,
+      0.585,
+      0.59,
+      0.595,
+      0.6,
+      0.605,
+      0.61,
+      0.615,
+      0.62,
+      0.625,
+      0.63,
+      0.635,
+      0.64,
+      0.645,
+      0.65,
+      0.655,
+      0.66,
+      0.665,
+      0.67,
+      0.675,
+      0.68,
+      0.685,
+      0.6900000000000001,
+      0.6950000000000001,
+      0.7000000000000001,
+      0.7050000000000001,
+      0.71,
+      0.715,
+      0.72,
+      0.725,
+      0.73,
+      0.735,
+      0.74,
+      0.745,
+      0.75,
+      0.755,
+      0.76,
+      0.765,
+      0.77,
+      0.775,
+      0.78,
+      0.785,
+      0.79,
+      0.795,
+      0.8,
+      0.805,
+      0.81,
+      0.8150000000000001,
+      0.8200000000000001,
+      0.8250000000000001,
+      0.8300000000000001,
+      0.8350000000000001,
+      0.84,
+      0.845,
+      0.85,
+      0.855,
+      0.86,
+      0.865,
+      0.87,
+      0.875,
+      0.88,
+      0.885,
+      0.89,
+      0.895,
+      0.9,
+      0.905,
+      0.91,
+      0.915,
+      0.92,
+      0.925,
+      0.93,
+      0.935,
+      0.9400000000000001,
+      0.9450000000000001,
+      0.9500000000000001,
+      0.9550000000000001,
+      0.9600000000000001,
+      0.965,
+      0.97,
+      0.975,
+      0.98,
+      0.985,
+      0.99,
+      0.995,
+      1.0
+    ],
+    "area_epsilon_source_px2": 1e-08,
+    "nonfinite": [],
+    "zero_area_records": [],
+    "new_zero_triangle_count": 0,
+    "orientation_changes_vs_source_same_pose": [],
+    "new_material_orientation_reference_sit": 0.005,
+    "new_material_orientation_reference_ids": [
+      "ArtMeshR9BowR",
+      "ArtMeshR9BowL",
+      "ArtMeshR9Apron",
+      "ArtMeshR9FrillLowerR",
+      "ArtMeshR9FrillLowerC",
+      "ArtMeshR9FrillLowerL",
+      "ArtMeshR9FrillUpperR",
+      "ArtMeshR9FrillUpperC",
+      "ArtMeshR9FrillUpperL",
+      "ArtMeshR9FrontLapR",
+      "ArtMeshR9FrontLapL",
+      "ArtMeshR9WaistFoldUnder",
+      "ArtMeshR9NavyBacking"
+    ],
+    "new_material_winding_limit": "Neutral sampled actual Core orientation only; no claim of analytic interval or other Body/Arm/Typing/Rock contexts."
+  },
+  "approval": {
+    "visual": "pending_native_review",
+    "adoption": "not_requested"
+  },
+  "limits": [
+    "Not a full-domain Body/Arm/Typing/Rock/head-angle gate.",
+    "Core only: no GPU/Native screenshots, physics, renderer patches or common floor/prop registration matrix.",
+    "Source raw-native world comparisons do not certify knee/skirt contact, material ownership or seams.",
+    "Actual Native visual review and stable R9 full regression remain required."
+  ]
+}

@@ -1,0 +1,4 @@
+EXPORT_DIRECT_EDITED_MOC
+CMO_NOTICES ExportReport(format=Cmo3, notices=[MissingSourceArt(pageCount=10), UnsupportedChange(category=Document, subject=null, reason=AtlasPageNotRecomposed)])
+EXPORT_READBACK_MOC
+PUBLIC_PARENT_EDIT_VALIDATED E:\projects\Desktop-Companion\.local\authoring\sit-pose-20261005-r9\api\prototype-r4-20261005T131659Z-f31acae7\export\edit-report.json

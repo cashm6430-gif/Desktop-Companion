@@ -4,6 +4,7 @@
 #include "PetWindow.h"
 
 #include <QApplication>
+#include <QCryptographicHash>
 #include <QFile>
 #include <QDir>
 #include <QFileInfo>
@@ -18,6 +19,29 @@
 #include <vector>
 
 namespace {
+bool deskModeForModel(const QString& modelPath, bool isolatedReview) {
+    const QFileInfo modelInfo(modelPath);
+    QString metadataName = modelInfo.fileName();
+    metadataName.chop(QStringLiteral("model3.json").size());
+    metadataName += QStringLiteral("psd2live.json");
+    QFile metadata(QDir(modelInfo.absolutePath()).filePath(metadataName));
+    if (!metadata.open(QIODevice::ReadOnly)) return false;
+    const auto desk = QJsonDocument::fromJson(metadata.readAll()).object()
+        .value(QStringLiteral("runtimeDeskWorkMode")).toObject();
+    const auto stage = desk.value(QStringLiteral("stage")).toString();
+    if (desk.value(QStringLiteral("version")).toInt() != 1
+        || (stage != QStringLiteral("complete") && !(isolatedReview && stage == QStringLiteral("preview"))))
+        return false;
+    QFile manifest(modelPath);
+    if (!manifest.open(QIODevice::ReadOnly)) return false;
+    const auto mocName = QJsonDocument::fromJson(manifest.readAll()).object()
+        .value(QStringLiteral("FileReferences")).toObject().value(QStringLiteral("Moc")).toString();
+    QFile moc(QDir(QFileInfo(modelPath).absolutePath()).filePath(mocName));
+    if (mocName.isEmpty() || !moc.open(QIODevice::ReadOnly)) return false;
+    return QCryptographicHash::hash(moc.readAll(), QCryptographicHash::Sha256).toHex()
+        == desk.value(QStringLiteral("mocSha256")).toString().toLatin1();
+}
+
 QJsonObject captureContext(const PetWindow& window) {
     const QString overridePath = qApp->property("desktopCompanionReviewModelPath").toString();
     const QString modelPath = overridePath.isEmpty()
@@ -29,6 +53,7 @@ QJsonObject captureContext(const PetWindow& window) {
         {QStringLiteral("isolated_model_override"), !overridePath.isEmpty()},
         {QStringLiteral("raw_export_only"), raw},
         {QStringLiteral("runtime_patches_applied"), !raw},
+        {QStringLiteral("desk_work_mode"), qApp->property("desktopCompanionDeskWorkMode").toBool()},
         {QStringLiteral("render_backend"), window.renderBackend()},
         {QStringLiteral("render_error"), window.renderError()},
         {QStringLiteral("adoption"), QStringLiteral("not_requested")}};
@@ -83,6 +108,13 @@ int main(int argc, char** argv) {
     argumentPointers.push_back(nullptr);
     argc = static_cast<int>(arguments.size());
     argv = argumentPointers.data();
+    const QString reviewModelPath = app.property("desktopCompanionReviewModelPath").toString();
+    const QString activeModelPath = reviewModelPath.isEmpty()
+        ? QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/live2d/whale-girl/whale-girl-layered-draft.model3.json"))
+        : reviewModelPath;
+    app.setProperty("desktopCompanionDeskWorkMode",
+        !app.property("desktopCompanionReviewRawExport").toBool()
+            && deskModeForModel(activeModelPath, !reviewModelPath.isEmpty()));
     PetController controller;
     PetWindow window(&controller);
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
@@ -218,16 +250,20 @@ int main(int argc, char** argv) {
         }
         const QStringList scenarios{QStringLiteral("turn-ended-standing"), QStringLiteral("turn-ended-laptop"),
             QStringLiteral("turn-ended-interrupt"), QStringLiteral("head-pat"),
-            QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt")};
+            QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt"),
+            QStringLiteral("desk-delete")};
         if (!scenarios.contains(scenario) || !QDir().mkpath(output)) return 2;
+        const bool deskDelete = scenario == QStringLiteral("desk-delete");
+        if (deskDelete && !qApp->property("desktopCompanionDeskWorkMode").toBool()) return 2;
         ParameterMotion sampler;
+        sampler.setDeskWorkMode(qApp->property("desktopCompanionDeskWorkMode").toBool());
         QString error;
         if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &error)) {
             qWarning() << error;
             return 2;
         }
         const bool glance = scenario.startsWith(QStringLiteral("turn-ended"));
-        const bool laptop = scenario == QStringLiteral("turn-ended-laptop") || scenario == QStringLiteral("head-pat-busy");
+        const bool laptop = deskDelete || scenario == QStringLiteral("turn-ended-laptop") || scenario == QStringLiteral("head-pat-busy");
         const bool interrupted = scenario.endsWith(QStringLiteral("interrupt"));
         sampler.setBusyRandomSeed(20261002);
         if (laptop) sampler.forceLaptopBusy();
@@ -247,7 +283,10 @@ int main(int argc, char** argv) {
             QString event;
             if (!started && time >= 0.4) {
                 started = true;
-                if (glance) {
+                if (deskDelete) {
+                    sampler.setState(PetController::State::Delete);
+                    event = QStringLiteral("delete_from_desk");
+                } else if (glance) {
                     sampler.setState(PetController::State::Idle);
                     if (!sampler.playTurnEnded()) { app.exit(2); return; }
                     event = QStringLiteral("last_turn_stopped");
@@ -262,14 +301,20 @@ int main(int argc, char** argv) {
                 if (glance) sampler.forceStandingBusy();
                 event = glance ? QStringLiteral("new_turn_started") : QStringLiteral("delete_interrupt");
             }
-            if (!glance && !interrupted && !released && time >= 2.4) {
+            if (!deskDelete && !glance && !interrupted && !released && time >= 2.4) {
                 released = true;
                 sampler.endHeadPat();
                 event = QStringLiteral("head_pat_release");
             }
-            if (!glance && started && !released && !cancelled)
+            if (!deskDelete && !glance && started && !released && !cancelled)
                 sampler.updateHeadPat(std::cos((time - 0.4) * 2.0));
-            if (sampler.consumeActionFinished()) sampler.setState(PetController::State::Idle);
+            if (sampler.consumeActionFinished()) {
+                sampler.setState(deskDelete ? PetController::State::Busy : PetController::State::Idle);
+                if (deskDelete) {
+                    sampler.forceLaptopBusy();
+                    event = QStringLiteral("delete_finished_resume_busy");
+                }
+            }
             if (window.renderBackend() != QStringLiteral("cubism_native")
                 || !window.renderSequenceFrame(sampler.values(), step,
                     QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))),
@@ -339,6 +384,7 @@ int main(int argc, char** argv) {
         const bool turnEnded = clipId == QStringLiteral("turn-ended");
         const bool headPat = clipId == QStringLiteral("head-pat");
         ParameterMotion sampler;
+        sampler.setDeskWorkMode(qApp->property("desktopCompanionDeskWorkMode").toBool());
         QString motionError;
         if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &motionError)) {
             qWarning() << "Motion library:" << motionError;
@@ -526,6 +572,7 @@ int main(int argc, char** argv) {
         const QString clipId = QString::fromLocal8Bit(argv[2]);
         const QString path = QString::fromLocal8Bit(argv[3]);
         ParameterMotion sampler;
+        sampler.setDeskWorkMode(qApp->property("desktopCompanionDeskWorkMode").toBool());
         QString motionError;
         if (!sampler.loadMotionLibrary(QDir(app.applicationDirPath()).filePath(QStringLiteral("assets/motions")), &motionError)) {
             qWarning() << "Motion library:" << motionError;

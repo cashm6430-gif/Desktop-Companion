@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "status": "handoff_pending_scene_approval",
+  "adopted": false,
+  "source_author_path": "art/live2d/whale-girl-layered-draft.cmo3",
+  "source_author_sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+  "source_git_checkpoint": "c97ef7b",
+  "reference_equivalent_moc": "art/live2d/desk-work-20261006-r1/reference-equivalent.moc3",
+  "reference_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+  "author_plan": "art/live2d/desk-work-20261006-r1/author-plan.json",
+  "author_plan_sha256": "63dc94ad945f4793c7efe3273a6fc07913805a9432b213b5e1cc3e3e72eb7f90",
+  "candidate_model": "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.model3.json",
+  "candidate_moc_sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e",
+  "candidate_author_sha256": "e85fe232b94d279e568a819ae236062aa87eacd6a8233b0c50a6074a0c3fe6b3",
+  "counts": {
+    "meshes": 38,
+    "parameters": 41,
+    "pages": 4
+  },
+  "producer_tools": [
+    "tools/prepare_desk_work.py",
+    "tools/edit_live2d_author.py",
+    "tools/stage_desk_work.py"
+  ],
+  "steps": [
+    "prepare_desk_work --reference-moc <reference-equivalent.moc3> --output <fresh plan> --complete-hands",
+    "edit_live2d_author --plan <plan> --cmo <f7ee master> --reference-moc <reference-equivalent.moc3> --run-root <new API dir> --name desk-rebuild",
+    "stage_desk_work --export <fresh export> --output <new stage>",
+    "renderer --render-motion <new capture> busy-laptop --review-model <stage model3>",
+    "renderer --render-interaction <new capture> turn-ended-laptop|head-pat-busy|desk-delete --review-model <stage model3>"
+  ],
+  "component_contracts": {
+    "left_arm": "Fully behind opaque computer; no new L mesh or page; legacy left fragment hidden in desk mode.",
+    "right_arm": "Whole shoulder-upperarm-elbow-forearm-cuff-hand silhouette on full texture quad. Proportional scale; original typing/Sit/Rock axes reused.",
+    "computer": "One rigid ArtMeshWorkstationLaptop owns shell, hinge, base and uniform navy keyboard. No sleeve-embedded keys.",
+    "desk": "Opaque front panel; cover before body switch, recover before retract."
+  },
+  "right_arm_requested_source_bbox": [
+    700,
+    606,
+    815,
+    796
+  ],
+  "right_arm_actual_source_bbox": [
+    700,
+    606,
+    814.7493837304849,
+    796
+  ],
+  "limits": [
+    "Isolated candidate, pending scene approval; production not replaced.",
+    "No full 2465-frame model regression performed for this desk scene.",
+    "Absolute captured source paths require regenerating plan on another host.",
+    "Rejected cropped computer, restored fragments and stretched/disconnected arms are archives only.",
+    "R15 selected five-pose preservation was captured before backdrop cleanup. It does not validate the R18 background experiment."
+  ],
+  "handoff_state": "handoff-state.json"
+}

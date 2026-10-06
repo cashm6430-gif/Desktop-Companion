@@ -1,0 +1,459 @@
+{
+  "kind": "actual_material_bound_arm_reach_feasibility",
+  "joint_material_receipts": {
+    "L": {
+      "shoulder": {
+        "drawable": "ArtMeshHandwearL2",
+        "vertices": [
+          35,
+          0,
+          2
+        ],
+        "weights": [
+          0.33527471289697364,
+          0.49720914411935524,
+          0.16751614298367118
+        ],
+        "standing_source_xy": [
+          529.0,
+          614.0
+        ],
+        "triangle": 29,
+        "minimum_barycentric_weight": 0.16751614298367118,
+        "texture_page": 0,
+        "native_uv": [
+          0.20605346971573785,
+          0.622070674078215
+        ],
+        "PNG_texel_coordinate": [
+          843.9950119556622,
+          1547.9985189756312
+        ],
+        "actual_bilinear_texture_alpha": 0.996078431372549,
+        "source_PNG": "art/live2d/layers/12-upperarm-l.png",
+        "source_PNG_sha256": "607d756af4326f737bdaf0c4804ad2fa95547683723e2b5141a2f00bfb759add",
+        "source_PNG_RGBA": [
+          33,
+          39,
+          83,
+          254
+        ],
+        "requested_source_xy": [
+          529.0,
+          614.0
+        ],
+        "registration_adjustment_source_px": 0.0
+      },
+      "elbow": {
+        "drawable": "ArtMeshHandwearL",
+        "vertices": [
+          61,
+          5,
+          63
+        ],
+        "weights": [
+          0.47943572032388,
+          0.4605355130761296,
+          0.060028766599990534
+        ],
+        "standing_source_xy": [
+          493.0,
+          714.0
+        ],
+        "triangle": 19,
+        "minimum_barycentric_weight": 0.060028766599990534,
+        "texture_page": 0,
+        "native_uv": [
+          0.12963892570911445,
+          0.6171853756395392
+        ],
+        "PNG_texel_coordinate": [
+          531.0010397045328,
+          1568.0087013804473
+        ],
+        "actual_bilinear_texture_alpha": 0.9921568627450982,
+        "source_PNG": "art/live2d/layers/01-handwear-l.png",
+        "source_PNG_sha256": "2b5d109022634b512b9660f26bca54016b46b2e7535f0b41525a1aa73f8fccc5",
+        "source_PNG_RGBA": [
+          53,
+          59,
+          118,
+          253
+        ],
+        "requested_source_xy": [
+          493.0,
+          714.0
+        ],
+        "registration_adjustment_source_px": 0.0
+      },
+      "wrist": {
+        "drawable": "ArtMeshHandwearL",
+        "vertices": [
+          69,
+          62,
+          64
+        ],
+        "weights": [
+          0.6135511154948133,
+          0.3858564155972753,
+          0.0005924689079113463
+        ],
+        "standing_source_xy": [
+          412.0,
+          802.0
+        ],
+        "triangle": 78,
+        "minimum_barycentric_weight": 0.0005924689079113463,
+        "texture_page": 0,
+        "native_uv": [
+          0.1098632639082245,
+          0.595704054638982
+        ],
+        "PNG_texel_coordinate": [
+          449.99992896808754,
+          1655.9961921987297
+        ],
+        "actual_bilinear_texture_alpha": 0.996078431372549,
+        "source_PNG": "art/live2d/layers/01-handwear-l.png",
+        "source_PNG_sha256": "2b5d109022634b512b9660f26bca54016b46b2e7535f0b41525a1aa73f8fccc5",
+        "source_PNG_RGBA": [
+          226,
+          170,
+          161,
+          254
+        ],
+        "requested_source_xy": [
+          412.0,
+          802.0
+        ],
+        "registration_adjustment_source_px": 0.0
+      }
+    },
+    "R": {
+      "shoulder": {
+        "drawable": "ArtMeshHandwearR5",
+        "vertices": [
+          38,
+          34,
+          2
+        ],
+        "weights": [
+          0.0792494998883345,
+          0.5405332430119888,
+          0.3802172570996767
+        ],
+        "standing_source_xy": [
+          726.0,
+          614.0
+        ],
+        "triangle": 38,
+        "minimum_barycentric_weight": 0.0792494998883345,
+        "texture_page": 0,
+        "native_uv": [
+          0.2226573925166056,
+          0.6220704366621256
+        ],
+        "PNG_texel_coordinate": [
+          912.0046797480165,
+          1547.9994914319336
+        ],
+        "actual_bilinear_texture_alpha": 0.9921568627450981,
+        "source_PNG": "art/live2d/layers/13-upperarm-r.png",
+        "source_PNG_sha256": "966761b81c0eea6f5da1e448cd2e1e770ae929414f231de3c892a275507b31f1",
+        "source_PNG_RGBA": [
+          40,
+          48,
+          100,
+          253
+        ],
+        "requested_source_xy": [
+          726.0,
+          614.0
+        ],
+        "registration_adjustment_source_px": 0.0
+      },
+      "elbow": {
+        "drawable": "ArtMeshHandwearR4",
+        "vertices": [
+          57,
+          59,
+          52
+        ],
+        "weights": [
+          0.21987582889949484,
+          0.18267169767418906,
+          0.5974524734263161
+        ],
+        "standing_source_xy": [
+          762.0,
+          714.0
+        ],
+        "triangle": 58,
+        "minimum_barycentric_weight": 0.18267169767418906,
+        "texture_page": 0,
+        "native_uv": [
+          0.14770647521705912,
+          0.6171890765155801
+        ],
+        "PNG_texel_coordinate": [
+          605.0057224890742,
+          1567.993542592184
+        ],
+        "actual_bilinear_texture_alpha": 0.9921568627450981,
+        "source_PNG": "art/live2d/layers/02-handwear-r.png",
+        "source_PNG_sha256": "e8df96a069ed17c2935ea5082c6482a2723e9fae0405f86b5ce0a9cb967f9274",
+        "source_PNG_RGBA": [
+          55,
+          60,
+          120,
+          253
+        ],
+        "requested_source_xy": [
+          762.0,
+          714.0
+        ],
+        "registration_adjustment_source_px": 0.0
+      },
+      "wrist": {
+        "drawable": "ArtMeshHandwearR3",
+        "vertices": [
+          33,
+          29,
+          31
+        ],
+        "weights": [
+          0.1893151843904647,
+          0.6988627978963728,
+          0.11182201771316246
+        ],
+        "standing_source_xy": [
+          842.0,
+          804.0
+        ],
+        "triangle": 33,
+        "minimum_barycentric_weight": 0.11182201771316246,
+        "texture_page": 0,
+        "native_uv": [
+          0.3422878829132283,
+          0.6201170485841133
+        ],
+        "PNG_texel_coordinate": [
+          1402.0111684125832,
+          1556.0005689994719
+        ],
+        "actual_bilinear_texture_alpha": 0.996078431372549,
+        "source_PNG": "art/live2d/layers/00-handwear_r.png",
+        "source_PNG_sha256": "796ca0341dc82df89b0656c95ddfbb71fa5d8f55ff55e24b55d89506db2c0a81",
+        "source_PNG_RGBA": [
+          245,
+          188,
+          180,
+          254
+        ],
+        "requested_source_xy": [
+          842.0,
+          804.0
+        ],
+        "registration_adjustment_source_px": 0.0
+      }
+    }
+  },
+  "four_key_poses": [
+    {
+      "sit": 0.0,
+      "current_R8_body_drop_source_px": 0.0,
+      "sides": {
+        "L": {
+          "shoulder_source_world_xy": [
+            528.9999999846527,
+            614.0000000663462
+          ],
+          "target_wrist_source_world_xy": [
+            412.00000000000006,
+            802.0
+          ],
+          "gesture": "original standing hand",
+          "standing_upperarm_length_source_px": 106.2826420446914,
+          "standing_forearm_length_source_px": 119.60351165413155,
+          "maximum_reach_source_px": 225.88615369882297,
+          "minimum_reach_source_px": 13.320869609440152,
+          "actual_target_distance_source_px": 221.43396300356133,
+          "end_to_end_ratio": 0.9802901124200919,
+          "reachable_without_lengthening": true,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 0.0,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 0.0,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        },
+        "R": {
+          "shoulder_source_world_xy": [
+            726.0000047882043,
+            614.0000115416804
+          ],
+          "target_wrist_source_world_xy": [
+            842.0,
+            804.0000000000002
+          ],
+          "gesture": "original standing hand",
+          "standing_upperarm_length_source_px": 106.28264204469139,
+          "standing_forearm_length_source_px": 120.41594578792312,
+          "maximum_reach_source_px": 226.69858783261452,
+          "minimum_reach_source_px": 14.133303743231735,
+          "actual_target_distance_source_px": 222.61175733392503,
+          "end_to_end_ratio": 0.9819724042493505,
+          "reachable_without_lengthening": true,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 0.0,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 0.0,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        }
+      }
+    },
+    {
+      "sit": 0.35,
+      "current_R8_body_drop_source_px": 60.0,
+      "sides": {
+        "L": {
+          "shoulder_source_world_xy": [
+            528.9999899374001,
+            674.0000238576979
+          ],
+          "target_wrist_source_world_xy": [
+            413.99997905069915,
+            860.9999549898387
+          ],
+          "gesture": "hover hand",
+          "standing_upperarm_length_source_px": 106.2826420446914,
+          "standing_forearm_length_source_px": 119.60351165413155,
+          "maximum_reach_source_px": 225.88615369882297,
+          "minimum_reach_source_px": 13.320869609440152,
+          "actual_target_distance_source_px": 219.5312659904432,
+          "end_to_end_ratio": 0.9718668559169287,
+          "reachable_without_lengthening": true,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 0.0,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 0.0,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        },
+        "R": {
+          "shoulder_source_world_xy": [
+            726.0000183032156,
+            674.0000110062608
+          ],
+          "target_wrist_source_world_xy": [
+            841.9999810412013,
+            863.9999351964228
+          ],
+          "gesture": "hover hand",
+          "standing_upperarm_length_source_px": 106.28264204469139,
+          "standing_forearm_length_source_px": 120.41594578792312,
+          "maximum_reach_source_px": 226.69858783261452,
+          "minimum_reach_source_px": 14.133303743231735,
+          "actual_target_distance_source_px": 222.61168555913991,
+          "end_to_end_ratio": 0.9819720876404743,
+          "reachable_without_lengthening": true,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 0.0,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 0.0,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        }
+      }
+    },
+    {
+      "sit": 0.65,
+      "current_R8_body_drop_source_px": 120.0,
+      "sides": {
+        "L": {
+          "shoulder_source_world_xy": [
+            528.9999982462652,
+            733.9999935710247
+          ],
+          "target_wrist_source_world_xy": [
+            394.47058927266454,
+            1147.0940999908867
+          ],
+          "gesture": "floor support wrist",
+          "standing_upperarm_length_source_px": 106.2826420446914,
+          "standing_forearm_length_source_px": 119.60351165413155,
+          "maximum_reach_source_px": 225.88615369882297,
+          "minimum_reach_source_px": 13.320869609440152,
+          "actual_target_distance_source_px": 434.4478134800664,
+          "end_to_end_ratio": 1.923304312221463,
+          "reachable_without_lengthening": false,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 231.63779610230387,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 187.20795272103902,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        },
+        "R": {
+          "shoulder_source_world_xy": [
+            725.9999814469406,
+            733.9999740740586
+          ],
+          "target_wrist_source_world_xy": [
+            859.7839061252462,
+            1147.3948320902482
+          ],
+          "gesture": "floor support wrist",
+          "standing_upperarm_length_source_px": 106.28264204469139,
+          "standing_forearm_length_source_px": 120.41594578792312,
+          "maximum_reach_source_px": 226.69858783261452,
+          "minimum_reach_source_px": 14.133303743231735,
+          "actual_target_distance_source_px": 434.50367908287734,
+          "end_to_end_ratio": 1.9166580755399238,
+          "reachable_without_lengthening": false,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 230.38089345891566,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 186.69627018357505,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        }
+      }
+    },
+    {
+      "sit": 1.0,
+      "current_R8_body_drop_source_px": 120.0,
+      "sides": {
+        "L": {
+          "shoulder_source_world_xy": [
+            529.0000015030525,
+            733.9999825256094
+          ],
+          "target_wrist_source_world_xy": [
+            379.0000143827334,
+            883.9999205054994
+          ],
+          "gesture": "busy laptop hand",
+          "standing_upperarm_length_source_px": 106.2826420446914,
+          "standing_forearm_length_source_px": 119.60351165413155,
+          "maximum_reach_source_px": 225.88615369882297,
+          "minimum_reach_source_px": 13.320869609440152,
+          "actual_target_distance_source_px": 212.13198139381706,
+          "end_to_end_ratio": 0.939110157573693,
+          "reachable_without_lengthening": true,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 0.0,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 0.0,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        },
+        "R": {
+          "shoulder_source_world_xy": [
+            725.999989852693,
+            733.9999764360434
+          ],
+          "target_wrist_source_world_xy": [
+            736.9999906667562,
+            875.999933235244
+          ],
+          "gesture": "busy laptop hand",
+          "standing_upperarm_length_source_px": 106.28264204469139,
+          "standing_forearm_length_source_px": 120.41594578792312,
+          "maximum_reach_source_px": 226.69858783261452,
+          "minimum_reach_source_px": 14.133303743231735,
+          "actual_target_distance_source_px": 142.4253760707137,
+          "end_to_end_ratio": 0.6282587705216545,
+          "reachable_without_lengthening": true,
+          "minimum_extra_shoulder_down_same_hand_X_source_px": 0.0,
+          "minimum_extra_shoulder_down_hands_below_shoulder_source_px": 0.0,
+          "criterion": "Two-link joint distance in [abs(L1-L2),L1+L2]. Sleeve overlap and opaque bounding boxes do not increase bone length."
+        }
+      }
+    }
+  ],
+  "hip_anatomical_anchor": null,
+  "body_drop_120_is_locked": false,
+  "conclusion": "Current upright .65 torso cannot reach floor with original short arms. Repositioning hands below shoulders alone is insufficient; body lean/foreshortening and pelvic/knee design must be approved together, or use knees/lap hand support.",
+  "anatomy_limit": "Material pins define an explicit author joint proposal under visible sleeve/hand; source did not contain a named skeleton. No skirt/Topwear bounding box is called a hip bone."
+}

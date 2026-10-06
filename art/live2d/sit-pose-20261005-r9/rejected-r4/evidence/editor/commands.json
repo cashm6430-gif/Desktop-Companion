@@ -1,0 +1,39 @@
+{
+  "argv": [
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:\\tool\\psd2live\\app\\*",
+      "-d",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\classes",
+      "E:\\projects\\Desktop-Companion\\tools\\PSD2LiveParentModelEdit.java"
+    ],
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+      "-Dpsd2live.agent.store=E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\store",
+      "-Djava.io.tmpdir=E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\temp",
+      "-cp",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\classes;D:\\tool\\psd2live\\app\\*",
+      "PSD2LiveParentModelEdit",
+      "--install",
+      "D:\\tool\\psd2live",
+      "--cmo",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.cmo3",
+      "--reference-moc",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.moc3",
+      "--edit-json",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\author-plan-with-hair.json",
+      "--output",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\export",
+      "--store",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\api\\prototype-r4-20261005T131659Z-f31acae7\\store"
+    ]
+  ],
+  "source_sha256": "5812633874f0affbf54083d0645c9e8ed58b2f29f1918c16e1ec0e57fa9ef068",
+  "driver_sha256": "67b6f40b19acfa868ee1affd5e2f4a670dd7621f88e4ca45b55a04168ea40ac1",
+  "plan_sha256": "9ab1611887f720907a6fd1838ed7ecfe3012815bc57b76a5d3620db63cff9d36",
+  "cmo_sha256": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6",
+  "reference_moc_sha256": "ba02f0c9d320f61c167ec01323e1e18298e66ae076bc13eb61ba894c803871fa"
+}

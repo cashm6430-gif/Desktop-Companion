@@ -1,0 +1,19 @@
+{
+  "kind": "generated_continuous_navy_cloth_backing",
+  "status": "material_ready_pose_binding_review_pending",
+  "source_reference_sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+  "output_sha256": "a219c637dbcb28b353cad01510b727554979079be69f4456face49d01fd09cc2",
+  "size": [
+    1254,
+    1254
+  ],
+  "alpha128_bbox": [
+    9,
+    352,
+    1245,
+    947
+  ],
+  "generation_output": "C:/Users/Administrator/.codex/generated_images/01a0ed6c-2659-7f12-9350-10b1290d7228/exec-0a9c5f09-6c2a-43d4-9216-8ce12ca61fa6.png",
+  "requested_edit": "Continuous navy fabric under separately rigged apron/bows/frills; remove decorations, preserve transparent outside and garment source canvas; no hair/skin/central cuts.",
+  "raster_postprocessing": false
+}

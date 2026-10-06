@@ -1,0 +1,27 @@
+{
+  "tool": "image_gen built-in",
+  "status": "pending_native_scene_review",
+  "assets": [
+    {
+      "asset": "complete-sleeve-r.png",
+      "source_path": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0ed6c-2659-7f12-9350-10b1290d7228\\exec-f19afbe9-b4c0-4ee3-916d-6437fb3aad13.png",
+      "sha256": "2c9cd1f5bee819f458f001e12469e2e1f7d31ed2d6f51b28e23a9f3877136e52"
+    },
+    {
+      "asset": "complete-sleeve-l.png",
+      "source_path": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0ed6c-2659-7f12-9350-10b1290d7228\\exec-e888a353-ca42-4b63-8f8c-2502dc331c50.png",
+      "sha256": "2b4cf735e1ee1c6cae89d545ae58358ff2137d2c9bd0771c1ba7606577827c0e"
+    },
+    {
+      "asset": "laptop-uniform-navy.png",
+      "source_path": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0ed6c-2659-7f12-9350-10b1290d7228\\exec-16ea2a09-5480-4955-b44c-088bcbe7fc13.png",
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    }
+  ],
+  "prompt_constraints": [
+    "Reconstruct one full forearm, complete gold/navy embroidered sleeve, full white ruffle cuff, palm and all rounded connected fingertips; genuine alpha; no clipping, hair, skirt, computer or keyboard pixels.",
+    "Left forearm comes from upper-left, hand extends right/down. Right forearm comes from upper-right, hand extends left into typing position. Preserve chibi maid palette.",
+    "Laptop keeps entire connected silhouette, geometry and rear angle; shell, hinge, base, deck and keycaps all deep navy; no light gray/lavender patch."
+  ],
+  "bitmap_retouching_used": false
+}

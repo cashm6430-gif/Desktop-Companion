@@ -1,0 +1,299 @@
+{
+  "kind": "R9_new_cloth_actual_UV_anchor_receipt",
+  "inputs": {
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\front-cloth\\uv-layer-execution-table-r2.json": {
+      "sha256": "cf0a8d3aa48f37c5b5c5af146d6ca7664aafee098b3b376058958996c7516815",
+      "bytes": 8078
+    },
+    "E:\\projects\\Desktop-Companion\\art\\live2d\\sit-pose-20261005-r9\\materials\\complete-front-skirt.png": {
+      "sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+      "bytes": 853113
+    },
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.cmo3": {
+      "sha256": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6",
+      "bytes": 72103761
+    },
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\front-cloth\\build_uv_fragments.py": {
+      "sha256": "6cdf4699775f75f7e98911479b0a3a2bfe7a6dda9349a6ce677f0ba37730f00d",
+      "bytes": 11130
+    }
+  },
+  "anchors": [
+    {
+      "name": "RearWaistMaterialL",
+      "source_xy": [
+        445,
+        360
+      ],
+      "target_reference": "author-bound old cloth waist L=[516,745], bary [190,246,188]",
+      "piece": "ArtMeshR9WaistFoldUnder",
+      "public_UV": [
+        0.3548644483089447,
+        0.2870813310146332
+      ],
+      "global_vertex_id": 46,
+      "local_vertex": 10,
+      "source_RGBA_nearest": [
+        25,
+        22,
+        38,
+        250
+      ],
+      "source_alpha_bilinear_texel_center": 0.9803921568627451,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "RearWaistMaterialC",
+      "source_xy": [
+        627,
+        379
+      ],
+      "target_reference": "author-bound old cloth waist C=[627,745], bary [244,1,247]",
+      "piece": "ArtMeshR9WaistFoldUnder",
+      "public_UV": [
+        0.5,
+        0.30223286151885986
+      ],
+      "global_vertex_id": 87,
+      "local_vertex": 35,
+      "source_RGBA_nearest": [
+        248,
+        249,
+        249,
+        252
+      ],
+      "source_alpha_bilinear_texel_center": 0.9882352941176471,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "RearWaistMaterialR",
+      "source_xy": [
+        805,
+        360
+      ],
+      "target_reference": "author-bound old cloth waist R=[735,745], bary [229,10,11]",
+      "piece": "ArtMeshR9WaistFoldUnder",
+      "public_UV": [
+        0.6419457793235779,
+        0.2870813310146332
+      ],
+      "global_vertex_id": 57,
+      "local_vertex": 21,
+      "source_RGBA_nearest": [
+        238,
+        231,
+        244,
+        252
+      ],
+      "source_alpha_bilinear_texel_center": 0.9872549019607844,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "VisibleFoldEdgeL",
+      "source_xy": [
+        425,
+        405
+      ],
+      "target_reference": "new visible fold-edge target from neck profile; NOT real waist",
+      "piece": "ArtMeshR9Apron",
+      "public_UV": [
+        0.33891546726226807,
+        0.3229665160179138
+      ],
+      "global_vertex_id": 184,
+      "local_vertex": 19,
+      "source_RGBA_nearest": [
+        252,
+        248,
+        252,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "VisibleFoldEdgeC",
+      "source_xy": [
+        627,
+        405
+      ],
+      "target_reference": "new visible fold-edge target from neck profile; NOT real waist",
+      "piece": "ArtMeshR9Apron",
+      "public_UV": [
+        0.5,
+        0.3229665160179138
+      ],
+      "global_vertex_id": 192,
+      "local_vertex": 27,
+      "source_RGBA_nearest": [
+        255,
+        252,
+        253,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "VisibleFoldEdgeR",
+      "source_xy": [
+        829,
+        405
+      ],
+      "target_reference": "new visible fold-edge target from neck profile; NOT real waist",
+      "piece": "ArtMeshR9Apron",
+      "public_UV": [
+        0.6610845327377319,
+        0.3229665160179138
+      ],
+      "global_vertex_id": 199,
+      "local_vertex": 34,
+      "source_RGBA_nearest": [
+        247,
+        238,
+        248,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "WhaleLogoC",
+      "source_xy": [
+        627,
+        493
+      ],
+      "target_reference": "readability/shape fiducial on independent apron face",
+      "piece": "ArtMeshR9Apron",
+      "public_UV": [
+        0.5,
+        0.3931419551372528
+      ],
+      "global_vertex_id": 297,
+      "local_vertex": 88,
+      "source_RGBA_nearest": [
+        52,
+        63,
+        139,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "BowKnotL",
+      "source_xy": [
+        362,
+        675
+      ],
+      "target_reference": "left lap panel follower with rigid feature transform",
+      "piece": "ArtMeshR9BowL",
+      "public_UV": [
+        0.2886762320995331,
+        0.5382775068283081
+      ],
+      "global_vertex_id": 462,
+      "local_vertex": 14,
+      "source_RGBA_nearest": [
+        219,
+        122,
+        76,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "BowKnotR",
+      "source_xy": [
+        885,
+        675
+      ],
+      "target_reference": "right lap panel follower with rigid feature transform",
+      "piece": "ArtMeshR9BowR",
+      "public_UV": [
+        0.7057416439056396,
+        0.5382775068283081
+      ],
+      "global_vertex_id": 481,
+      "local_vertex": 17,
+      "source_RGBA_nearest": [
+        250,
+        186,
+        131,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "LapSupportL",
+      "source_xy": [
+        550,
+        704
+      ],
+      "target_reference": "actual KneeFrontL vertex25 + approved 0..2px outward normal",
+      "piece": "ArtMeshR9FrontLapL",
+      "public_UV": [
+        0.4385964870452881,
+        0.5614035129547119
+      ],
+      "global_vertex_id": 540,
+      "local_vertex": 72,
+      "source_RGBA_nearest": [
+        53,
+        62,
+        136,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "LapSupportR",
+      "source_xy": [
+        704,
+        704
+      ],
+      "target_reference": "actual KneeFrontR vertex25 + approved 0..2px outward normal",
+      "piece": "ArtMeshR9FrontLapR",
+      "public_UV": [
+        0.5614035129547119,
+        0.5614035129547119
+      ],
+      "global_vertex_id": 544,
+      "local_vertex": 60,
+      "source_RGBA_nearest": [
+        53,
+        61,
+        134,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    },
+    {
+      "name": "CentreFrill",
+      "source_xy": [
+        627,
+        882
+      ],
+      "target_reference": "named front hem beyond support, no knee-driven apron occlusion",
+      "piece": "ArtMeshR9FrillLowerC",
+      "public_UV": [
+        0.5,
+        0.7033492922782898
+      ],
+      "global_vertex_id": 752,
+      "local_vertex": 27,
+      "source_RGBA_nearest": [
+        248,
+        240,
+        249,
+        253
+      ],
+      "source_alpha_bilinear_texel_center": 0.9921568627450981,
+      "source_SHA": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3"
+    }
+  ]
+}

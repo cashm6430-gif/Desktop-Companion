@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\renderer-build\\DesktopCompanion.exe",
+    "--review-motion",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r12-complete-sleeves\\native",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r12-complete-sleeves\\keyposes.json",
+    "desk",
+    "--review-model",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r12-complete-sleeves\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json"
+  ],
+  "returncode": 0,
+  "exe_sha256": "b738da9ec417d2ea53d2fcaefd50bdb4d05ecaa82482de0744af3123a7132e98",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "stdout": "",
+  "stderr": ""
+}

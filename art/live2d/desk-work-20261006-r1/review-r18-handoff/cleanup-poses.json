@@ -1,0 +1,78 @@
+{
+  "keyframes": [
+    {
+      "time": 0,
+      "name": "default",
+      "parameters": {}
+    },
+    {
+      "time": 1,
+      "name": "standing-delete",
+      "parameters": {
+        "ParamAngleX": -5.618737951777002,
+        "ParamAngleY": -12.732893754737887,
+        "ParamAngleZ": 9.898839432257411,
+        "ParamArmLA": 13.40754452220338,
+        "ParamArmRA": 64.90099798269884,
+        "ParamBodyAngleX": 7.823939012655283,
+        "ParamBodyAngleY": 0.4889603014036975,
+        "ParamBodyAngleZ": -5.232475048225969,
+        "ParamBreath": 0.407448895168409,
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamBusyLaptop": 0,
+        "ParamBusyTypingL": 0,
+        "ParamBusyTypingR": 0,
+        "ParamCheek": 0.22492980469741988,
+        "ParamDeskVisible": 0,
+        "ParamElbowLA": -9.577561738912337,
+        "ParamElbowRA": 19.96985842922238,
+        "ParamEyeBallX": -0.34765576405274606,
+        "ParamEyeBallY": -0.17835239397421923,
+        "ParamEyeLOpen": 0.9025885249200882,
+        "ParamEyeROpen": 0.9025885249200882,
+        "ParamEyeSmile": 0,
+        "ParamGrassReach": 0,
+        "ParamGrassSwing": 0,
+        "ParamGrassTipBend": 0,
+        "ParamGrassVisible": 0,
+        "ParamHairBack": 0,
+        "ParamHairFront": 0,
+        "ParamHandRGrip": 0.9981923023720797,
+        "ParamLaptopRock": 0,
+        "ParamLaptopVisible": 0,
+        "ParamMouthForm": 0,
+        "ParamMouthGape": 0.6708070121920945,
+        "ParamMouthOpenY": 0.3704798955992393,
+        "ParamShiftX": 48.11308967351711,
+        "ParamShiftY": 0,
+        "ParamSitPose": 0,
+        "ParamSmileOpen": 0,
+        "ParamWristRA": 23.46977719237521
+      }
+    },
+    {
+      "time": 2,
+      "name": "standing-head-look",
+      "parameters": {
+        "ParamAngleX": 12.65,
+        "ParamAngleY": 4.76,
+        "ParamHairFront": 0.17,
+        "ParamHairBack": 0.28
+      }
+    },
+    {
+      "time": 3,
+      "name": "desk-working",
+      "parameters": {
+        "ParamDeskVisible": 1,
+        "ParamBusyLaptop": 1,
+        "ParamSitPose": 1,
+        "ParamLaptopVisible": 1,
+        "ParamArmLA": -40,
+        "ParamArmRA": -40,
+        "ParamAngleY": -8
+      }
+    }
+  ]
+}

@@ -1,0 +1,401 @@
+{
+  "schema_version": 1,
+  "formal_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "candidate_moc_sha256": "3aa1b4360596c9cb621fb311736cd1548384e099bc45d3b590705886d0c3e5f9",
+  "all34_UV_and_indices_exact": true,
+  "native_topology": {
+    "ArtMeshTopwear": {
+      "vertices": 158,
+      "indices": 537,
+      "uv_sha256": "e516d74bf4d2a73160aa5ec3d208e739e44047472de6b59d3dd219ee335463f4",
+      "indices_sha256": "b7113b32a39f9910fe42e7d46522c6fca26c05a2613a3aab888eae9a8274d5a7"
+    },
+    "ArtMeshBottomwear": {
+      "vertices": 276,
+      "indices": 1047,
+      "uv_sha256": "7815a17cf6232a00fa87477d84ba75201dd41e57fc62c7191c6d1f67baa6b315",
+      "indices_sha256": "e04a65ab13be55963c80edee45633b4d5c0f51288db5d192fb668cc4e1c55278"
+    },
+    "ArtMeshFootwearR": {
+      "vertices": 112,
+      "indices": 390,
+      "uv_sha256": "b4f97dd8887fde0966e2402330f0b6310db3fbbecd7d550978d5083c6db0322c",
+      "indices_sha256": "0c43231932153c5632fb66a131dd50dc64f04e355d55579c9a3274cbe1eba342"
+    },
+    "ArtMeshFootwearL": {
+      "vertices": 112,
+      "indices": 387,
+      "uv_sha256": "8ca22c94e8cc05f616237a1c8487d281a069273b1486685b1b5a1b33915f81ca",
+      "indices_sha256": "7a426c79c9a6be947caaa661c4cb92db5cdd78b1f92bad38664e24c5ba81610e"
+    },
+    "ArtMeshHandwearR5": {
+      "vertices": 40,
+      "indices": 129,
+      "uv_sha256": "b60dee419462483ffd7635721b2dcaed57fc40e62cdfe43d740c07bc0df5f858",
+      "indices_sha256": "bcef34a00ece1bddae8c51314faf25bb3108723f2c0efd54ed1f9b90a7cf8b99"
+    },
+    "ArtMeshHandwearL2": {
+      "vertices": 41,
+      "indices": 135,
+      "uv_sha256": "1a8ac21e66a133d271945d820eab11e10ab341b950f12c3395c52eaff105da20",
+      "indices_sha256": "e9ecba7554f8bd74e2e670726cae2d6225031da50c868e4960730a9b1095a31c"
+    },
+    "ArtMeshHandwearR4": {
+      "vertices": 63,
+      "indices": 207,
+      "uv_sha256": "1f25667696fdf03d163b9cf50c75842dd1f02db65d3de1d32fd3231124de7ce4",
+      "indices_sha256": "c07c53dee637bd780f9de32751e936c3edfe1f4e6149dded85d74900f3c32f66"
+    },
+    "ArtMeshHandwearL": {
+      "vertices": 70,
+      "indices": 237,
+      "uv_sha256": "f1dcb57fe9a2762ba860d8ff7b51c1cf2cfc5c7d5fe565dc574270277e9a0124",
+      "indices_sha256": "c81e0395c46e20fc9fda0e906fc8c1b7d755ec8580d5f453b9ccebf70ec1319c"
+    },
+    "ArtMeshHandwearR3": {
+      "vertices": 34,
+      "indices": 105,
+      "uv_sha256": "9ee4f17ce94a299ae82ec3ebb3ea497c1a1d885249372a4840921b8a7bc7c524",
+      "indices_sha256": "b0c40b9609b4d669733d0f49542e4a9cd35dc55ca85f93b0e538d45baf94a5de"
+    },
+    "ArtMeshHandwearR2": {
+      "vertices": 878,
+      "indices": 2760,
+      "uv_sha256": "0d90b0036e7cf9baf8c6b83078a51a394ba6879577dd2dcad55cd7fe9a3899f1",
+      "indices_sha256": "33d45f6f1617e3f931e88be26d385c7ec29e9bca0f0738460cc98e56e1d9528c"
+    },
+    "ArtMeshHandwearR": {
+      "vertices": 32,
+      "indices": 99,
+      "uv_sha256": "84aa2781c824fd8efbbd49a8dcf08d53c45f7dabba62f3e482d33082223e7755",
+      "indices_sha256": "60b40cf58b9d42f5b02bae7c417b05a5515bb7a1aa819eb02d3119225607687a"
+    },
+    "ArtMeshR9BowR": {
+      "vertices": 49,
+      "indices": 216,
+      "uv_sha256": "211e432023c9401d9eb548d776c392b98430eb1287c41964bd5f7cef1c569330",
+      "indices_sha256": "7919155c63b0dc1054f61eeb79b984dea0e1dd4d3cb883ef712aea46c2ca1096"
+    },
+    "ArtMeshR9BowL": {
+      "vertices": 42,
+      "indices": 180,
+      "uv_sha256": "adc01b73919217d21a5ae0da6e276f79731b3e6b29af518f01efb05b1200b5cc",
+      "indices_sha256": "704d0d7fee76b5333269b8856f839be8675efc2cb52590b2214989be18d011b8"
+    },
+    "ArtMeshR9Apron": {
+      "vertices": 196,
+      "indices": 987,
+      "uv_sha256": "fd89cacb55399348e4d6e414d772a80751f3a9f310005e17badcf93e07925e78",
+      "indices_sha256": "28b778449376d10a25b95484592b79fa37c1dc45c07eca3b7250201c07f0b413"
+    },
+    "ArtMeshR9FrillLowerR": {
+      "vertices": 66,
+      "indices": 273,
+      "uv_sha256": "99369fe812b5cd28abde59d473a3836d395aa3b8b1f8de79744c909246c82d03",
+      "indices_sha256": "1b38b1955ac4c3e930f517dd44be2423be19a01040eddf86bdc52e94620d3427"
+    },
+    "ArtMeshR9FrillLowerC": {
+      "vertices": 39,
+      "indices": 147,
+      "uv_sha256": "5eb993ce16c3ef390968afb91b3b3497c21a36d8bdbec718f807731f0770de1d",
+      "indices_sha256": "3be2362c448c81e0cc7ae74ef75428c6f80504b1210c3b73cd6246db1ce2d435"
+    },
+    "ArtMeshR9FrillLowerL": {
+      "vertices": 63,
+      "indices": 261,
+      "uv_sha256": "6f3d029d30b2ab8517b108f790b539429eaf5c070d22b50383b2edc8d013ec4c",
+      "indices_sha256": "3d8c3543db9f14114ad31371e10f9cc9c12f0474122aa4008d88de5a999fa051"
+    },
+    "ArtMeshR9FrillUpperR": {
+      "vertices": 52,
+      "indices": 180,
+      "uv_sha256": "f36e939c641911cd780a076b17e35ec32e8367fee8884a2667be1f03e9062e81",
+      "indices_sha256": "e1cfbb938e249a57d026ec8c39d72015b9339df001f44280f7c9293a13d75b93"
+    },
+    "ArtMeshR9FrillUpperC": {
+      "vertices": 37,
+      "indices": 129,
+      "uv_sha256": "196cc2129d6ab7725fcc815ceb61848d2e99566bdb41f4ca62ea7552a7126804",
+      "indices_sha256": "8e2eedb1c6162df4992c9c61ef21a16d6526dd24d60e43216b6ac531b05b46d1"
+    },
+    "ArtMeshR9FrillUpperL": {
+      "vertices": 50,
+      "indices": 168,
+      "uv_sha256": "77d6c959b4a920aa1a138a5d619732e02ced0eb291465e11bf9fc423a61602bc",
+      "indices_sha256": "081535dfa60d5c2b730a3d65e1518ace9c19eb25fa14ba274b2e299473219fc7"
+    },
+    "ArtMeshR9FrontLapR": {
+      "vertices": 102,
+      "indices": 342,
+      "uv_sha256": "d1dae45f0b9aeec93ea4f52e33db74f589c6d83cb27d7c4fe934025f859b89e7",
+      "indices_sha256": "b9b95ac7c2d157a8f1e6f98ef41ae08c086e46a901b544aa42004a79ac0ecd9a"
+    },
+    "ArtMeshR9FrontLapL": {
+      "vertices": 108,
+      "indices": 387,
+      "uv_sha256": "137ce514743c5b768b49e10e5299b8a03c52a98df546bff51343e4a6be94a7f2",
+      "indices_sha256": "e63a8eefb260a82bb0e63bc72ea2e34e3f46b892cc1c07ecd6093926243526d8"
+    },
+    "ArtMeshR9WaistFoldUnder": {
+      "vertices": 83,
+      "indices": 354,
+      "uv_sha256": "943576540a973149164653fee3fc43af29cc7ea1b7cec93e92eb2a14787460ef",
+      "indices_sha256": "1cc03185142c3fe671c8f3a2930ec219b61002d5e57ea4908c77be66e0cdeb16"
+    },
+    "ArtMeshR9NavyBacking": {
+      "vertices": 429,
+      "indices": 2304,
+      "uv_sha256": "bac91fac81159f0fcdfe64d3e0c5d488946c82b1ff58841df86294a1e07fc582",
+      "indices_sha256": "43e11a4c426875a77af523db1ca1459e1b85ba201acb4bccc04a06845c3f5f2f"
+    },
+    "ArtMeshAuthorFloorReferenceR": {
+      "vertices": 112,
+      "indices": 390,
+      "uv_sha256": "b4f97dd8887fde0966e2402330f0b6310db3fbbecd7d550978d5083c6db0322c",
+      "indices_sha256": "0c43231932153c5632fb66a131dd50dc64f04e355d55579c9a3274cbe1eba342"
+    },
+    "ArtMeshAuthorFloorReferenceL": {
+      "vertices": 112,
+      "indices": 387,
+      "uv_sha256": "8ca22c94e8cc05f616237a1c8487d281a069273b1486685b1b5a1b33915f81ca",
+      "indices_sha256": "7a426c79c9a6be947caaa661c4cb92db5cdd78b1f92bad38664e24c5ba81610e"
+    },
+    "ArtMeshBusyForearmBridgeL": {
+      "vertices": 49,
+      "indices": 159,
+      "uv_sha256": "c552d3b6f1963d9722261b0938f1592e6e8c3bd399bce0bcb98bf300a3bfe934",
+      "indices_sha256": "45787438ce35fe376daa627bc1b101bb57c80636abff7dad9c607c7c9ac3bddb"
+    },
+    "ArtMeshBusyUpperarmBridgeL": {
+      "vertices": 41,
+      "indices": 135,
+      "uv_sha256": "1a8ac21e66a133d271945d820eab11e10ab341b950f12c3395c52eaff105da20",
+      "indices_sha256": "e9ecba7554f8bd74e2e670726cae2d6225031da50c868e4960730a9b1095a31c"
+    },
+    "ArtMeshGroundForearmR": {
+      "vertices": 60,
+      "indices": 198,
+      "uv_sha256": "b41f66ed9562395c3ac84140e6c05ae136523c4e91f8f7deb6e428f62691564c",
+      "indices_sha256": "32ef460b7593fac88223d3cb2c0832ad49cdac345af5a200971ee879d738ace0"
+    },
+    "ArtMeshGroundUpperarmR": {
+      "vertices": 40,
+      "indices": 129,
+      "uv_sha256": "b60dee419462483ffd7635721b2dcaed57fc40e62cdfe43d740c07bc0df5f858",
+      "indices_sha256": "bcef34a00ece1bddae8c51314faf25bb3108723f2c0efd54ed1f9b90a7cf8b99"
+    },
+    "ArtMeshGroundForearmL": {
+      "vertices": 49,
+      "indices": 159,
+      "uv_sha256": "c552d3b6f1963d9722261b0938f1592e6e8c3bd399bce0bcb98bf300a3bfe934",
+      "indices_sha256": "45787438ce35fe376daa627bc1b101bb57c80636abff7dad9c607c7c9ac3bddb"
+    },
+    "ArtMeshGroundUpperarmL": {
+      "vertices": 41,
+      "indices": 135,
+      "uv_sha256": "1a8ac21e66a133d271945d820eab11e10ab341b950f12c3395c52eaff105da20",
+      "indices_sha256": "e9ecba7554f8bd74e2e670726cae2d6225031da50c868e4960730a9b1095a31c"
+    },
+    "ArtMeshGroundPalmR": {
+      "vertices": 42,
+      "indices": 180,
+      "uv_sha256": "5875237934ffee78eba6c694288d196aa044d317b0f1c1e353fb3aba29864522",
+      "indices_sha256": "c64a2485ead1857ff51e6cd93c7628aeabaa76d234e029648f85ba27a4ae288c"
+    },
+    "ArtMeshGroundPalmL": {
+      "vertices": 42,
+      "indices": 180,
+      "uv_sha256": "5875237934ffee78eba6c694288d196aa044d317b0f1c1e353fb3aba29864522",
+      "indices_sha256": "c64a2485ead1857ff51e6cd93c7628aeabaa76d234e029648f85ba27a4ae288c"
+    },
+    "ArtMeshSitRearSkirt": {
+      "vertices": 42,
+      "indices": 180,
+      "uv_sha256": "5875237934ffee78eba6c694288d196aa044d317b0f1c1e353fb3aba29864522",
+      "indices_sha256": "c64a2485ead1857ff51e6cd93c7628aeabaa76d234e029648f85ba27a4ae288c"
+    },
+    "ArtMeshSitFrontSkirt": {
+      "vertices": 276,
+      "indices": 1047,
+      "uv_sha256": "7815a17cf6232a00fa87477d84ba75201dd41e57fc62c7191c6d1f67baa6b315",
+      "indices_sha256": "e04a65ab13be55963c80edee45633b4d5c0f51288db5d192fb668cc4e1c55278"
+    },
+    "ArtMeshSitShoeR": {
+      "vertices": 43,
+      "indices": 144,
+      "uv_sha256": "98d115b2a3ab76421f8c560206611699b6c7e624f7f3403be91aae201224926d",
+      "indices_sha256": "5cb6c72ce480824bbafb75d327d6ac0f755f73f3781997fe0824ff85a0459662"
+    },
+    "ArtMeshSitStockingR": {
+      "vertices": 66,
+      "indices": 219,
+      "uv_sha256": "b0650db27bb81e7b7ef835389102acfd2e9efbb4ca5350078a1dfccdb9e77a1c",
+      "indices_sha256": "cad717e20ebfc52cc4b106eb4be3ffbe80375221ac05824989eec95056b5da39"
+    },
+    "ArtMeshSitKneeFrontR": {
+      "vertices": 33,
+      "indices": 96,
+      "uv_sha256": "bacc770fc8d3bb4b906b040d093e7c35e950f6cecdb4d700f90fa2156f4c7827",
+      "indices_sha256": "1d6d852e80da8e60d60679b381811de132ad8a2e99abf2d849cc85e6002c29d2"
+    },
+    "ArtMeshSitShoeL": {
+      "vertices": 42,
+      "indices": 138,
+      "uv_sha256": "9f6aaec45df8ef69fa0e3c7862bd4d4459d9cd924caea99792fc65ee1bb990a7",
+      "indices_sha256": "f4cb9fad5afe4cc6750f5518a89ee1ffdf3e4c129a720e6113f9ef05c629e0fd"
+    },
+    "ArtMeshSitStockingL": {
+      "vertices": 67,
+      "indices": 219,
+      "uv_sha256": "d2341ed607db6085eba63be4193199098f3c2a032a83d7da46d1ccb4a7ed5920",
+      "indices_sha256": "313316aa95ee8dc956a5ab2b25d824473cd711b5c578c42023edf3c8e8d50e36"
+    },
+    "ArtMeshSitKneeFrontL": {
+      "vertices": 33,
+      "indices": 96,
+      "uv_sha256": "ba1d494f766dc13cf8addfb37327c1a7a7f6ef4fcd1d73a63be856ed480bae01",
+      "indices_sha256": "1d6d852e80da8e60d60679b381811de132ad8a2e99abf2d849cc85e6002c29d2"
+    },
+    "ArtMeshTail": {
+      "vertices": 229,
+      "indices": 831,
+      "uv_sha256": "7aa6e216e3d9d797054dd82c751241a0e0edd5dd7fade99b8fad86ac63394b82",
+      "indices_sha256": "96e4ae1586bf89e1aa4632ff34f53fa73e3509770b20e9c80c3ce48778dce4f0"
+    },
+    "ArtMeshObjects8": {
+      "vertices": 132,
+      "indices": 507,
+      "uv_sha256": "351d17850dfbb7f19793537db30f2a1e7c9ff96740030b9e5d88abf9051a608a",
+      "indices_sha256": "adf184a4af220b5f5feaa0520b4cb46ead1f128e6775db03a281e817e7c5d01b"
+    },
+    "ArtMeshObjects7": {
+      "vertices": 321,
+      "indices": 1185,
+      "uv_sha256": "0f889bb4bdcf691fb98d824e5ca5c5dd29e8898baebfbfc83d92e1b45604d14c",
+      "indices_sha256": "2067a5178fa5cd490fff801eb2c0bbe5924cf9e0cd944fe95cd369ea4b204eab"
+    },
+    "ArtMeshObjects6": {
+      "vertices": 108,
+      "indices": 396,
+      "uv_sha256": "342aa0dbf52b9da4d146bff5c020bf7ee7ba6fb06dcc904e66f6d4ef524d32c7",
+      "indices_sha256": "6a4c0ad5e49e839f60b52fab278c1a3fd12999453c56fd9930a29c4b753f17cd"
+    },
+    "ArtMeshObjects5": {
+      "vertices": 106,
+      "indices": 387,
+      "uv_sha256": "3526d8871e1bc81d51f508ab9b904352ae531b67572828d0fe83a5f53a69b2f2",
+      "indices_sha256": "d1eac8d44ed33ad04cf495af39d6c1ef42412170cb0597a6b902d4f9c0c766c5"
+    },
+    "ArtMeshObjects4": {
+      "vertices": 66,
+      "indices": 192,
+      "uv_sha256": "ab717d91551c871aa98f7d98a26188a108d1ac48a49e26e0f8d77ecfb9e9bbc7",
+      "indices_sha256": "309516b47b117bb8c7f8d86d2bcde138619fc60e74a5630e15cc91c4d1e15f7f"
+    },
+    "ArtMeshObjects3": {
+      "vertices": 42,
+      "indices": 120,
+      "uv_sha256": "05b98add42658693699c9b79ea525cdcd2a3c12e502a6c0511c36a06b0f96660",
+      "indices_sha256": "c526c6f574df84b9c0ae7a334cb968d8155f7dc4c801702ccf5527de376dbbb9"
+    },
+    "ArtMeshObjects2": {
+      "vertices": 69,
+      "indices": 234,
+      "uv_sha256": "f38cec7a364d48a67ac464a5fa2b2dc7964e31fe3dec1ff90a8576dc2783b881",
+      "indices_sha256": "c8335a3dd6e7696a0fc2e9d546a30ccc3b4109f05dd890843966e1faffaea0e8"
+    },
+    "ArtMeshObjects": {
+      "vertices": 110,
+      "indices": 408,
+      "uv_sha256": "104abfc3af1a1ac9dec924101f820f45baf394c627bd83fb2990dd0fff8e5aa9",
+      "indices_sha256": "3396677abe1b14ee7c0214f874309c833353d4d0957dde843175131eeda44a4e"
+    },
+    "ArtMeshHeadwear": {
+      "vertices": 656,
+      "indices": 2292,
+      "uv_sha256": "437e67a149895103fb3ccefe13bc9a803e2fd9e26a2fc6a4881f7ede48202985",
+      "indices_sha256": "3b7bf7072c978527bb41c4c4512bd135ce06b63c2b9e466d7d2c465f9289545c"
+    },
+    "ArtMeshFrontHair": {
+      "vertices": 475,
+      "indices": 2592,
+      "uv_sha256": "a665c12b0d2b618aa3afd60ba14e1a6ca98a51f30cae9b5671db96117e8062a9",
+      "indices_sha256": "d18fbcd1a54ec81ca2b0fe482a9e0880175f3cfabb3b274eff5394add464cb39"
+    },
+    "ArtMeshFace": {
+      "vertices": 355,
+      "indices": 1710,
+      "uv_sha256": "f6f3a1c091d39f84ade554a54c15eff1c69597ff35190c57df4fe40e9673c137",
+      "indices_sha256": "8da33e0024fcee86c1467631b023b5e140c98cfa35cc977c18f5958b3df49477"
+    },
+    "ArtMeshMouthClose": {
+      "vertices": 16,
+      "indices": 42,
+      "uv_sha256": "da03015e56ae30aed474bb72d84c5bd144d04e142034f26c6617cae65c98b510",
+      "indices_sha256": "8ad7ade8edeb77bb958a666518e167c0b13befbd864d26af42dc850d4be295b3"
+    },
+    "ArtMeshEyewhiteR": {
+      "vertices": 87,
+      "indices": 267,
+      "uv_sha256": "76845ef1c30a7d3d558ea7e10f2f0bcc5c8fcf2fa6c5a20de2f83790adb43899",
+      "indices_sha256": "0f3490d063064155f44adb064992053768895d935cdb12c10ebdb145a1081203"
+    },
+    "ArtMeshEyewhiteL": {
+      "vertices": 94,
+      "indices": 255,
+      "uv_sha256": "8fb903310cfb3dd5dfba98549fe1b76b4f0e5825339081b4d3b3cc8216c0b1d4",
+      "indices_sha256": "b4cafbffe825d488c682c4138d931db82f7a085ec2dfb43f64033a955b654bbb"
+    },
+    "ArtMeshIridesR": {
+      "vertices": 43,
+      "indices": 141,
+      "uv_sha256": "8e91d1a4b1a6124a4be2e522eef552931e25c7dbb6f9145b3518d211d214b900",
+      "indices_sha256": "84bb01ad95fb4895d9ea3a0fb0c5c688128b50820bdb11af5ddce930a8f9b254"
+    },
+    "ArtMeshIridesL": {
+      "vertices": 75,
+      "indices": 288,
+      "uv_sha256": "7a6d67f99d658fb766654a5afa5d9eb9e6f87e1072661aa3a95b746da6e39f70",
+      "indices_sha256": "9e74175122dba913030321510853ed05dafccb1cb7081d11b1dfb15baf0eb086"
+    },
+    "ArtMeshEyelashR": {
+      "vertices": 46,
+      "indices": 126,
+      "uv_sha256": "c19ee0851f34746a06c2d3724a5e80df5149dab6a5497a8673e1460c39ed74a8",
+      "indices_sha256": "3b6ab321325b4412c23d57773350adb2ca106f1d4c5ac2736751b5ecefac2cf2"
+    },
+    "ArtMeshEyelashL": {
+      "vertices": 411,
+      "indices": 1335,
+      "uv_sha256": "1ec0ed338e16e122b39cb7366aa4226b84b11ebc05d0dae8bc8a71bffe99ccf5",
+      "indices_sha256": "31f586dad573719fe434d8ec9b39d73310de721e98ee76d9a63593ee3f0f7e69"
+    },
+    "ArtMeshMouthOpen2": {
+      "vertices": 33,
+      "indices": 108,
+      "uv_sha256": "8b58fbff60c2ec8509cfa742540a3d04eb075a5d7082cdd623fc33dd08758872",
+      "indices_sha256": "7281e03effb0a5a6c02310621f0ce134971ab4e8592ed2955b8e8de0a6c21981"
+    },
+    "ArtMeshMouthOpen": {
+      "vertices": 30,
+      "indices": 99,
+      "uv_sha256": "e26d1796c305fb6081eea77558a54cea0284ec68b9d90a23430be677b74dd41c",
+      "indices_sha256": "8353c1c6a7f5be77c6e278c462807335198307f7bfd4d601d98ca3cee7f9e809"
+    },
+    "ArtMeshBackHair2": {
+      "vertices": 547,
+      "indices": 1938,
+      "uv_sha256": "e7a2c6d50795f4ff4e4438c64e9987d32ede0432ecbb1ab055ddf3e45a7ee634",
+      "indices_sha256": "ac4fae154714ac956f48d0a4991daebc2afbea9426d75934d80d42d298b61e3e"
+    },
+    "ArtMeshBackHair": {
+      "vertices": 335,
+      "indices": 1368,
+      "uv_sha256": "1b0b36efa8f114ab37257678796d04ca93274a9ef4cee2677e69468100a6cfa9",
+      "indices_sha256": "b1dcdb4f53213327658658689e326b3f190ed0746205d02fb0ac6116302c51cc"
+    }
+  },
+  "production_runtime_unchanged": true,
+  "source_edit_report_sha256": "fc87622a9500187714854b3e779dce2498977266f59213d707e922922f715fea",
+  "neck_r2_retained": true
+}

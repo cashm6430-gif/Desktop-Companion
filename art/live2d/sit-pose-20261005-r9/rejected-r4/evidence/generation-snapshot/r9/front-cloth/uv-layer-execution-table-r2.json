@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "kind": "R9_complete_front_cloth_UV_layer_execution_table",
+  "source_png": "E:/projects/Desktop-Companion/art/live2d/sit-pose-20261005-r9/materials/complete-front-skirt.png",
+  "source_png_sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+  "page": 8,
+  "size": [1254, 1254],
+  "public_UV": "[source_x/1254,source_y/1254]; Native readback V=1-public_V",
+  "part_id": "PartExtra",
+  "parent_id": "DeformBodyZBreath",
+  "source_CMO": "E:/projects/Desktop-Companion/.local/authoring/sit-pose-20261004-r1/api/standing-restore-v1/probe-20261005T065840Z-77b66c6f/export/edited.cmo3",
+  "source_CMO_sha256": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6",
+  "protected": "Original34/source8pages/Body/arm/legs are read-only. Only new PartExtra cloth is inserted, and existing Extra ArtMeshSitFrontSkirt visibility may be replaced after source channel verification.",
+  "important_projection_contract": "At the approved low .65 pose the actual rear cloth waist can be lower on screen than knee support. RearWaistFoldUnder uses the real waist. Visible front-lap/Apron upper edges are fold edges, not renamed waist anchors. Each sheet has its own positive-orientation rest and opacity handoff; no full UV row reversal.",
+  "anchors": [
+    {"name": "RearWaistMaterialL", "source_xy": [445, 360], "target_reference": "author-bound old cloth waist L=[516,745], bary [190,246,188]", "piece": "ArtMeshR9WaistFoldUnder"},
+    {"name": "RearWaistMaterialC", "source_xy": [627, 379], "target_reference": "author-bound old cloth waist C=[627,745], bary [244,1,247]", "piece": "ArtMeshR9WaistFoldUnder"},
+    {"name": "RearWaistMaterialR", "source_xy": [805, 360], "target_reference": "author-bound old cloth waist R=[735,745], bary [229,10,11]", "piece": "ArtMeshR9WaistFoldUnder"},
+    {"name": "VisibleFoldEdgeL", "source_xy": [425, 405], "target_reference": "new visible fold-edge target from neck profile; NOT real waist", "piece": "ArtMeshR9Apron"},
+    {"name": "VisibleFoldEdgeC", "source_xy": [627, 405], "target_reference": "new visible fold-edge target from neck profile; NOT real waist", "piece": "ArtMeshR9Apron"},
+    {"name": "VisibleFoldEdgeR", "source_xy": [829, 405], "target_reference": "new visible fold-edge target from neck profile; NOT real waist", "piece": "ArtMeshR9Apron"},
+    {"name": "WhaleLogoC", "source_xy": [627, 493], "target_reference": "readability/shape fiducial on independent apron face", "piece": "ArtMeshR9Apron"},
+    {"name": "BowKnotL", "source_xy": [362, 675], "target_reference": "left lap panel follower with rigid feature transform", "piece": "ArtMeshR9BowL"},
+    {"name": "BowKnotR", "source_xy": [885, 675], "target_reference": "right lap panel follower with rigid feature transform", "piece": "ArtMeshR9BowR"},
+    {"name": "LapSupportL", "source_xy": [550, 704], "target_reference": "actual KneeFrontL vertex25 + approved 0..2px outward normal", "piece": "ArtMeshR9FrontLapL"},
+    {"name": "LapSupportR", "source_xy": [704, 704], "target_reference": "actual KneeFrontR vertex25 + approved 0..2px outward normal", "piece": "ArtMeshR9FrontLapR"},
+    {"name": "CentreFrill", "source_xy": [627, 882], "target_reference": "named front hem beyond support, no knee-driven apron occlusion", "piece": "ArtMeshR9FrillLowerC"}
+  ],
+  "ownership": {
+    "method": "One shared UV triangulation with one owner per triangle. Visible-front fragments share exact UV vertices and world seam targets. The real-waist fold-under is a separate projection island at an explicitly occluded fold seam; it must not be welded into a Y-reversing whole sheet. No overlapping source rectangles or duplicated source triangle ownership.",
+    "material_domain": [0, 340, 1254, 960],
+    "waist_band_end_y": 400,
+    "bow_rectangles": {"L": [292, 620, 428, 762], "R": [826, 620, 964, 762]},
+    "apron_outer_polygon": [[445,352],[500,362],[570,372],[627,378],[700,372],[770,362],[813,352],[838,375],[870,418],[889,463],[894,516],[884,570],[857,615],[815,653],[765,676],[705,689],[627,692],[551,686],[486,671],[427,635],[389,594],[366,544],[358,492],[367,445],[389,404],[418,373]],
+    "lower_frill_top_seed": [[0,810],[70,712],[160,743],[250,780],[340,792],[430,754],[500,717],[627,706],[754,734],[850,779],[940,786],[1030,756],[1110,711],[1190,716],[1254,810]],
+    "lower_tier_seam_seed": [[0,840],[100,815],[200,846],[300,864],[400,840],[500,804],[627,804],[754,804],[850,840],[950,864],[1050,846],[1150,815],[1254,840]],
+    "frill_C_x_range": [510, 744],
+    "rule_order": ["rear waist band", "bow rectangles", "apron polygon", "frill tier/side", "front lap L/R"],
+    "note": "Semantic boundaries are source ownership and feature constraints. They do not create underpaint or independently move arbitrary rectangular patches."
+  },
+  "projection_groups": {
+    "rear_waist_fold_under": ["ArtMeshR9WaistFoldUnder"],
+    "visible_front_fold_over": ["ArtMeshR9FrontLapL", "ArtMeshR9FrontLapR", "ArtMeshR9FrillUpperL", "ArtMeshR9FrillUpperC", "ArtMeshR9FrillUpperR", "ArtMeshR9FrillLowerL", "ArtMeshR9FrillLowerC", "ArtMeshR9FrillLowerR", "ArtMeshR9Apron", "ArtMeshR9BowL", "ArtMeshR9BowR"],
+    "occluded_fold_seam_source_y": 400,
+    "under_to_front_relation": "Separate projected sheets at the hidden fold seam; actual waist is rear attachment, visible upper edge is the front fold target. New profile must prove occlusion and prevent an exposed gap; no claimed anatomical hip or directly inverted mesh."
+  },
+  "pieces": [
+    {"id": "ArtMeshR9WaistFoldUnder", "draw_order": 3, "role": "Actual-waist attachment and hidden fold-under connector; behind torso/knee/front lap"},
+    {"id": "ArtMeshR9FrontLapL", "draw_order": 10, "role": "Visible left thigh-covering/front fold-over cloth plane"},
+    {"id": "ArtMeshR9FrontLapR", "draw_order": 10, "role": "Visible right counterpart; shared centre seam"},
+    {"id": "ArtMeshR9FrillUpperL", "draw_order": 11, "role": "Upper white frill left curved band"},
+    {"id": "ArtMeshR9FrillUpperC", "draw_order": 11, "role": "Upper white frill centre curved band"},
+    {"id": "ArtMeshR9FrillUpperR", "draw_order": 11, "role": "Upper white frill right curved band"},
+    {"id": "ArtMeshR9FrillLowerL", "draw_order": 12, "role": "Lower white frill left drop"},
+    {"id": "ArtMeshR9FrillLowerC", "draw_order": 12, "role": "Lower white frill centre fold/drop"},
+    {"id": "ArtMeshR9FrillLowerR", "draw_order": 12, "role": "Lower white frill right drop"},
+    {"id": "ArtMeshR9Apron", "draw_order": 13, "role": "Whale logo and apron with its own white apron frill; preserves readable proportions"},
+    {"id": "ArtMeshR9BowL", "draw_order": 14, "role": "Gold bow/ribbon on left panel; rigid feature follower"},
+    {"id": "ArtMeshR9BowR", "draw_order": 14, "role": "Gold bow/ribbon on right panel; rigid feature follower"}
+  ],
+  "visibility": {
+    "Sit0": "All new pieces opacity0, original34 unchanged",
+    "handoff": "Continuous opacity curve after standing, keyed to actual contact profile; old Extra front skirt fades to0 before visible front lap is fully shown",
+    "fold_under": "May remain hidden under the body/lap; its actual waist geometry is still checked. Never reveal an inverted connector to fake a fold.",
+    "exclusive_source_ownership": true,
+    "source34_mutations": []
+  },
+  "material_gates": {
+    "waist_attachment_max_px": 0.5,
+    "lap_contact_target_residual_max_px": 0.5,
+    "bow_length_ratio_minimum": 0.995,
+    "bow_shear_allowed": false,
+    "apron_logo": "Record singular-value/aspect ratios from real profile; preserve readable whale without collapsing full rows. Native visual check required.",
+    "frill": "Preserve each band thickness along its own curved surface; no complete-sheet y squash.",
+    "all_piece_signed_areas": "Strict original sign per piece, with independent visible/rest states",
+    "old34_Sit0": "Existing source float32 geometry and channels exact"
+  },
+  "state": "UV execution table before fragment generation; actual world-target/contact grids await neck profile",
+  "adoption": "pending"
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "pending",
+  "adopted": false,
+  "source_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "candidate_moc_sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e",
+  "source_edit_report_sha256": "b906409a948bf2ef61300b1851e6982e86f5cfcf269cc71c3f408708ed9a3df6",
+  "old34_geometry_opacity_bit_exact_contexts": 483,
+  "old34_topology_exact": true,
+  "old34_relative_render_order_exact": true,
+  "desk_between_legs_and_laptop": true,
+  "native_counts": {
+    "parameters": 41,
+    "meshes": 38,
+    "pages": 4
+  },
+  "visual_review": "pending",
+  "full_native_regression": "not_run",
+  "production_replaced": false,
+  "replacementSleeves": {
+    "ArtMeshObjects2": "ArtMeshWorkstationSleeveR"
+  },
+  "hiddenLeftHand": true,
+  "complete_sleeves_DeskVisible_times_BusyLaptop_exact_contexts": 483,
+  "complete_prop_render_order_verified": true
+}

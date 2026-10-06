@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "actual_Core_standing_master_restore_regression",
+  "passed": true,
+  "inputs": {
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.moc3": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.moc3": "ba02f0c9d320f61c167ec01323e1e18298e66ae076bc13eb61ba894c803871fa",
+    "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\native-r8-regression-classification.json": "c84fde3a6ca4df628e80ea1d8c69877bb341a74f9af61f1eedc4abc997a8ee1f",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\check_core_standing.py": "3670b0ac21f7f30ae4a261c03b4c155d50b4434cf111b5c120295cfd3e73a4b6"
+  },
+  "classified_arbitrary_standing_poses": 1514,
+  "seeded_random_arbitrary_poses": 128,
+  "old_drawables": 34,
+  "total_poses": 1642,
+  "all_old_vertex_opacity_multiply_screen_float_bits_exact": true,
+  "maximum_native_position_difference": 0.0,
+  "maximum_opacity_difference": 0.0,
+  "maximum_color_difference": 0.0,
+  "constant_mask_flags_texture_differences": [],
+  "failures_first_100": [],
+  "new_mesh_nonzero_Sit0_opacities_first_100": [],
+  "original_foot_floor_bit_differences_first_100": [],
+  "scope": "Core only. Logical Sit0 passed directly to both Native models; no physics, renderer patches, matrix, pixels or visual approval.",
+  "pending": [
+    "Native unchanged-standing decoded-RGBA regression",
+    "positive-Sit author floor-reference selection"
+  ]
+}

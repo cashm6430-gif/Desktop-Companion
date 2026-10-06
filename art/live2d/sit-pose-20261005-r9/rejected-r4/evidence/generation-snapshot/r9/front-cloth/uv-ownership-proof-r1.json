@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "kind": "R9_source_UV_ownership_only_proof",
+  "inputs": {
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\front-cloth\\uv-layer-execution-table-r2.json": {
+      "sha256": "cf0a8d3aa48f37c5b5c5af146d6ca7664aafee098b3b376058958996c7516815",
+      "bytes": 8078
+    },
+    "E:\\projects\\Desktop-Companion\\art\\live2d\\sit-pose-20261005-r9\\materials\\complete-front-skirt.png": {
+      "sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+      "bytes": 853113
+    },
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export\\edited.cmo3": {
+      "sha256": "33c80662b1e9ae3fa8472524164e2e08efc4b94ea301387a20ac57af7589ccf6",
+      "bytes": 72103761
+    },
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\front-cloth\\build_uv_fragments.py": {
+      "sha256": "6cdf4699775f75f7e98911479b0a3a2bfe7a6dda9349a6ce677f0ba37730f00d",
+      "bytes": 11130
+    }
+  },
+  "source_png_unchanged": true,
+  "original_CMO_unchanged": true,
+  "triangle_count": 1208,
+  "retained_UV_cells": 604,
+  "global_UV_grid_vertices": 840,
+  "fragment_vertex_count_with_shared_seams": 887,
+  "source_triangle_owner_count": {
+    "ArtMeshR9WaistFoldUnder": 118,
+    "ArtMeshR9FrontLapL": 129,
+    "ArtMeshR9FrontLapR": 114,
+    "ArtMeshR9FrillUpperL": 56,
+    "ArtMeshR9FrillUpperC": 43,
+    "ArtMeshR9FrillUpperR": 60,
+    "ArtMeshR9FrillLowerL": 87,
+    "ArtMeshR9FrillLowerC": 49,
+    "ArtMeshR9FrillLowerR": 91,
+    "ArtMeshR9Apron": 329,
+    "ArtMeshR9BowL": 60,
+    "ArtMeshR9BowR": 72
+  },
+  "main_source_alpha128_pixel_count": 495436,
+  "main_source_alpha128_pixels_unowned": 0,
+  "source_triangle_owner_overlap_count": 0,
+  "alpha128_pixels_per_piece": {
+    "ArtMeshR9WaistFoldUnder": 14865,
+    "ArtMeshR9FrontLapL": 55035,
+    "ArtMeshR9FrontLapR": 50083,
+    "ArtMeshR9FrillUpperL": 40265,
+    "ArtMeshR9FrillUpperC": 19428,
+    "ArtMeshR9FrillUpperR": 43990,
+    "ArtMeshR9FrillLowerL": 37190,
+    "ArtMeshR9FrillLowerC": 22983,
+    "ArtMeshR9FrillLowerR": 37180,
+    "ArtMeshR9Apron": 135509,
+    "ArtMeshR9BowL": 19312,
+    "ArtMeshR9BowR": 19596
+  },
+  "all_source_UV_faces_strict_original_sign": true,
+  "UV_area_min_source_pixel_squared": 1.0,
+  "anchors_actual_bilinear_alpha_min": 0.9803921568627451,
+  "source_low_alpha_outside_material_domain": 119,
+  "limits": [
+    "Ownership/UV is verified; no Core, posed material-contact, opacity curve, Native render or visual acceptance is implied.",
+    "Faint isolated source-alpha outside the material domain is not mapped; original PNG bytes remain untouched.",
+    "Shared UV vertices only weld within a projection group; real rear waist and visible fold-over are not a single inverted sheet."
+  ],
+  "UV_ownership_passed": true,
+  "actual_contact_binding": "pending",
+  "visual_review": "pending Native",
+  "adoption": "pending"
+}

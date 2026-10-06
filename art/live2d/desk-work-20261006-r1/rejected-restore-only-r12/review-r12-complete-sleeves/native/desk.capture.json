@@ -1,0 +1,75 @@
+{
+    "adoption": "not_requested",
+    "captures": [
+        {
+            "file": "desk-00.png",
+            "frame_saved": true,
+            "index": 0,
+            "source_keyframe": {
+                "name": "default-hidden",
+                "parameters": {
+                },
+                "time": 0
+            }
+        },
+        {
+            "file": "desk-01.png",
+            "frame_saved": true,
+            "index": 1,
+            "source_keyframe": {
+                "name": "standing-covered",
+                "parameters": {
+                    "ParamDeskVisible": 1
+                },
+                "time": 1
+            }
+        },
+        {
+            "file": "desk-02.png",
+            "frame_saved": true,
+            "index": 2,
+            "source_keyframe": {
+                "name": "working",
+                "parameters": {
+                    "ParamAngleY": -8,
+                    "ParamArmLA": -40,
+                    "ParamArmRA": -40,
+                    "ParamBusyLaptop": 1,
+                    "ParamDeskVisible": 1,
+                    "ParamLaptopVisible": 1,
+                    "ParamSitPose": 1
+                },
+                "time": 2
+            }
+        },
+        {
+            "file": "desk-03.png",
+            "frame_saved": true,
+            "index": 3,
+            "source_keyframe": {
+                "name": "working-glance",
+                "parameters": {
+                    "ParamAngleZ": -7,
+                    "ParamArmLA": -40,
+                    "ParamArmRA": -40,
+                    "ParamBusyLaptop": 1,
+                    "ParamDeskVisible": 1,
+                    "ParamEyeBallX": 0.5,
+                    "ParamLaptopVisible": 1,
+                    "ParamSitPose": 1
+                },
+                "time": 3
+            }
+        }
+    ],
+    "desk_work_mode": true,
+    "isolated_model_override": true,
+    "model_manifest_path": "E:/projects/Desktop-Companion/.local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+    "physics_evaluated": false,
+    "raw_export_only": false,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "runtime_patches_applied": true,
+    "scope": "static_requested_pose_native_capture",
+    "source_manifest": "E:/projects/Desktop-Companion/.local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/keyposes.json"
+}

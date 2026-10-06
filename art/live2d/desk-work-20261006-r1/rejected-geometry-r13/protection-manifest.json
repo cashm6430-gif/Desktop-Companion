@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "kind": "rejected_geometry_archive_protection",
+  "status": "rejected_archive",
+  "adopted": false,
+  "all_payload_files_covered": true,
+  "manifest_self_excluded": "protection-manifest.json cannot contain its own SHA256; all other archive files are listed.",
+  "archive_file_count_including_manifest": 18,
+  "protected_payload_file_count": 17,
+  "protected_payload_total_bytes": 44459990,
+  "max_file_bytes": 27932747,
+  "max_file_limit_bytes_exclusive": 104857600,
+  "files": [
+    {
+      "path": "author-plan-r13-complete-hands.json",
+      "sha256": "b93aedbfe2f848543e93aa67fb63f60aa37b0e737f5b8f04ed962e8669e3daa9",
+      "bytes": 84319,
+      "source": ".local/authoring/desk-work-20261006-r1/author-plan-r13-complete-hands.json"
+    },
+    {
+      "path": "edit-report.json",
+      "sha256": "7b7c64bf814ed1b970e7b1a6633f9d4e3361dbe9ad9bb9b5eaecd264c80e8dcd",
+      "bytes": 10421,
+      "source": ".local/authoring/desk-work-20261006-r1/api/desk-r13-complete-hands-20261006T102426Z-7cbcb669/export/edit-report.json"
+    },
+    {
+      "path": "edited.cmo3",
+      "sha256": "da260a55e7c4b950bb3ad40003049478d39b4b8b1986d1d12ce62d871248fb8e",
+      "bytes": 27932747,
+      "source": ".local/authoring/desk-work-20261006-r1/api/desk-r13-complete-hands-20261006T102426Z-7cbcb669/export/edited.cmo3"
+    },
+    {
+      "path": "edited.moc3",
+      "sha256": "440bb5b17d049801e8f213e38d888214e93b07cc80147bd30ca8780d447669ef",
+      "bytes": 12013440,
+      "source": ".local/authoring/desk-work-20261006-r1/api/desk-r13-complete-hands-20261006T102426Z-7cbcb669/export/edited.moc3"
+    },
+    {
+      "path": "keyposes.json",
+      "sha256": "36c559e1376073f8d8ce85af1a399792203cd4d12028b96f3da944b429674772",
+      "bytes": 885,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/keyposes.json"
+    },
+    {
+      "path": "native/desk-00.png",
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+      "bytes": 571518,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/native/desk-00.png"
+    },
+    {
+      "path": "native/desk-01.png",
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d",
+      "bytes": 583155,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/native/desk-01.png"
+    },
+    {
+      "path": "native/desk-02.png",
+      "sha256": "502acc9f3edde7c59865304058adb0404ef4c8389a2e098879f5f254e06f1c10",
+      "bytes": 526341,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/native/desk-02.png"
+    },
+    {
+      "path": "native/desk-03.png",
+      "sha256": "5c6968c496ff968debf3d225997cae5f69dfa466cad7b1fa4bf400e4a4a166ad",
+      "bytes": 521970,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/native/desk-03.png"
+    },
+    {
+      "path": "native/desk.capture.json",
+      "sha256": "b1bf7bce09e8f6df63343c986414c31379436bbe59d620dcf1481e4d9d59dfcc",
+      "bytes": 2425,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/native/desk.capture.json"
+    },
+    {
+      "path": "rejection.json",
+      "sha256": "f669f74eee1821d4e76060985844580617bff81c4e7e7bcef4fb804be6f9e12a",
+      "bytes": 2383,
+      "source": "generated rejection record"
+    },
+    {
+      "path": "restoration-r12/native/desk-00.png",
+      "sha256": "af890344c9d4f354511a3a53be80f46390a6a6e9be85df9919141eaea08108eb",
+      "bytes": 571518,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/native/desk-00.png"
+    },
+    {
+      "path": "restoration-r12/native/desk-01.png",
+      "sha256": "6bf2fa579d354ac63f5af0a1a596b5cc5d75b368f879ab804e24177653e24e3d",
+      "bytes": 583155,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/native/desk-01.png"
+    },
+    {
+      "path": "restoration-r12/native/desk-02.png",
+      "sha256": "0c4167ffa5005b9abbe3f0d90aa0036ab0418733f2334e888cc55f19faaaeb94",
+      "bytes": 529005,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/native/desk-02.png"
+    },
+    {
+      "path": "restoration-r12/native/desk-03.png",
+      "sha256": "05a40832a20047afefdc97445aae0606be91e8545071ad7e4a03bfa192814fdc",
+      "bytes": 525002,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/native/desk-03.png"
+    },
+    {
+      "path": "restoration-r12/staging-report.json",
+      "sha256": "094cbe588f964198790390c12703abaf3696d99f805d7c40182db1f12c2c79df",
+      "bytes": 724,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r12-complete-sleeves/staging-report.json"
+    },
+    {
+      "path": "staging-report.json",
+      "sha256": "b554433539a997c3482a0c60e37a9ac8f33b9a751aa766748ce7b38b41c4fa44",
+      "bytes": 982,
+      "source": ".local/authoring/desk-work-20261006-r1/stage-r13-complete-hands/staging-report.json"
+    }
+  ]
+}

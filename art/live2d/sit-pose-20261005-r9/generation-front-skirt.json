@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "generated_live2d_clothing_source",
+  "path": "materials/complete-front-skirt.png",
+  "sha256": "d38424f39dacdbd7987e7feac318cfd6762ad2a9a1795dadd1241a7916e541e3",
+  "size": [
+    1254,
+    1254
+  ],
+  "alpha_bbox": [
+    0,
+    51,
+    1254,
+    1214
+  ],
+  "rgba_sha256": "cb943b2988a22937748ea53569339397dd76b6386e6476a7e99d58f832f5c8d0",
+  "generation": {
+    "tool": "built-in image_gen",
+    "mode": "transparent source asset from costume and approved pose references",
+    "source_path": "C:\\Users\\Administrator\\.codex\\generated_images\\01a0ed6c-2659-7f12-9350-10b1290d7228\\exec-c0fbb4e3-1308-4010-b670-75fa8c045573.png"
+  },
+  "references": [
+    "art/live2d/review/sit-pose-20261005-r9/skirt-support-concept-r2-approved.png",
+    "art/live2d/layers/17-bottomwear.png"
+  ],
+  "requirements": [
+    "one complete navy maid skirt front with white whale apron,goldtrim,two bows and two lace tiers",
+    "central front cloth continuous; no previous leg cutout",
+    "no bluehair,skin,legs,hands,head,laptop or pose playback",
+    "cloth support folds and side fall authored with Live2D keyforms",
+    "separate apron,bows,frill ownership preserves readable motifs"
+  ],
+  "approved_pose": "user2026-10-05可以按修正版制作",
+  "runtime_adopted": false,
+  "asset_visual_review": "pending Native binding"
+}

@@ -1,0 +1,2282 @@
+{
+    "adoption": "not_requested",
+    "captures": [
+        {
+            "file": "sit-00.png",
+            "frame_saved": true,
+            "index": 0,
+            "source_keyframe": {
+                "name": "neutral-Sit0.000",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0
+                },
+                "time": 0
+            }
+        },
+        {
+            "file": "sit-01.png",
+            "frame_saved": true,
+            "index": 1,
+            "source_keyframe": {
+                "name": "neutral-Sit0.025",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.025
+                },
+                "time": 0.06666666666666667
+            }
+        },
+        {
+            "file": "sit-02.png",
+            "frame_saved": true,
+            "index": 2,
+            "source_keyframe": {
+                "name": "neutral-Sit0.050",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.05
+                },
+                "time": 0.13333333333333333
+            }
+        },
+        {
+            "file": "sit-03.png",
+            "frame_saved": true,
+            "index": 3,
+            "source_keyframe": {
+                "name": "neutral-Sit0.075",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.07500000000000001
+                },
+                "time": 0.2
+            }
+        },
+        {
+            "file": "sit-04.png",
+            "frame_saved": true,
+            "index": 4,
+            "source_keyframe": {
+                "name": "neutral-Sit0.100",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.1
+                },
+                "time": 0.26666666666666666
+            }
+        },
+        {
+            "file": "sit-05.png",
+            "frame_saved": true,
+            "index": 5,
+            "source_keyframe": {
+                "name": "neutral-Sit0.125",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.125
+                },
+                "time": 0.3333333333333333
+            }
+        },
+        {
+            "file": "sit-06.png",
+            "frame_saved": true,
+            "index": 6,
+            "source_keyframe": {
+                "name": "neutral-Sit0.150",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.15000000000000002
+                },
+                "time": 0.4
+            }
+        },
+        {
+            "file": "sit-07.png",
+            "frame_saved": true,
+            "index": 7,
+            "source_keyframe": {
+                "name": "neutral-Sit0.175",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.17500000000000002
+                },
+                "time": 0.4666666666666667
+            }
+        },
+        {
+            "file": "sit-08.png",
+            "frame_saved": true,
+            "index": 8,
+            "source_keyframe": {
+                "name": "neutral-Sit0.200",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.2
+                },
+                "time": 0.5333333333333333
+            }
+        },
+        {
+            "file": "sit-09.png",
+            "frame_saved": true,
+            "index": 9,
+            "source_keyframe": {
+                "name": "neutral-Sit0.225",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.225
+                },
+                "time": 0.6
+            }
+        },
+        {
+            "file": "sit-10.png",
+            "frame_saved": true,
+            "index": 10,
+            "source_keyframe": {
+                "name": "neutral-Sit0.250",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.25
+                },
+                "time": 0.6666666666666666
+            }
+        },
+        {
+            "file": "sit-11.png",
+            "frame_saved": true,
+            "index": 11,
+            "source_keyframe": {
+                "name": "neutral-Sit0.275",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.275
+                },
+                "time": 0.7333333333333333
+            }
+        },
+        {
+            "file": "sit-12.png",
+            "frame_saved": true,
+            "index": 12,
+            "source_keyframe": {
+                "name": "neutral-Sit0.300",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.30000000000000004
+                },
+                "time": 0.8
+            }
+        },
+        {
+            "file": "sit-13.png",
+            "frame_saved": true,
+            "index": 13,
+            "source_keyframe": {
+                "name": "neutral-Sit0.325",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.325
+                },
+                "time": 0.8666666666666667
+            }
+        },
+        {
+            "file": "sit-14.png",
+            "frame_saved": true,
+            "index": 14,
+            "source_keyframe": {
+                "name": "neutral-Sit0.350",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.35000000000000003
+                },
+                "time": 0.9333333333333333
+            }
+        },
+        {
+            "file": "sit-15.png",
+            "frame_saved": true,
+            "index": 15,
+            "source_keyframe": {
+                "name": "neutral-Sit0.375",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.375
+                },
+                "time": 1
+            }
+        },
+        {
+            "file": "sit-16.png",
+            "frame_saved": true,
+            "index": 16,
+            "source_keyframe": {
+                "name": "neutral-Sit0.400",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.4
+                },
+                "time": 1.0666666666666667
+            }
+        },
+        {
+            "file": "sit-17.png",
+            "frame_saved": true,
+            "index": 17,
+            "source_keyframe": {
+                "name": "neutral-Sit0.425",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.42500000000000004
+                },
+                "time": 1.1333333333333333
+            }
+        },
+        {
+            "file": "sit-18.png",
+            "frame_saved": true,
+            "index": 18,
+            "source_keyframe": {
+                "name": "neutral-Sit0.450",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.45
+                },
+                "time": 1.2
+            }
+        },
+        {
+            "file": "sit-19.png",
+            "frame_saved": true,
+            "index": 19,
+            "source_keyframe": {
+                "name": "neutral-Sit0.475",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.47500000000000003
+                },
+                "time": 1.2666666666666666
+            }
+        },
+        {
+            "file": "sit-20.png",
+            "frame_saved": true,
+            "index": 20,
+            "source_keyframe": {
+                "name": "neutral-Sit0.500",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.5
+                },
+                "time": 1.3333333333333333
+            }
+        },
+        {
+            "file": "sit-21.png",
+            "frame_saved": true,
+            "index": 21,
+            "source_keyframe": {
+                "name": "neutral-Sit0.525",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.525
+                },
+                "time": 1.4
+            }
+        },
+        {
+            "file": "sit-22.png",
+            "frame_saved": true,
+            "index": 22,
+            "source_keyframe": {
+                "name": "neutral-Sit0.550",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.55
+                },
+                "time": 1.4666666666666666
+            }
+        },
+        {
+            "file": "sit-23.png",
+            "frame_saved": true,
+            "index": 23,
+            "source_keyframe": {
+                "name": "neutral-Sit0.575",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.5750000000000001
+                },
+                "time": 1.5333333333333334
+            }
+        },
+        {
+            "file": "sit-24.png",
+            "frame_saved": true,
+            "index": 24,
+            "source_keyframe": {
+                "name": "neutral-Sit0.600",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.6000000000000001
+                },
+                "time": 1.6
+            }
+        },
+        {
+            "file": "sit-25.png",
+            "frame_saved": true,
+            "index": 25,
+            "source_keyframe": {
+                "name": "neutral-Sit0.625",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.625
+                },
+                "time": 1.6666666666666667
+            }
+        },
+        {
+            "file": "sit-26.png",
+            "frame_saved": true,
+            "index": 26,
+            "source_keyframe": {
+                "name": "neutral-Sit0.650",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.65
+                },
+                "time": 1.7333333333333334
+            }
+        },
+        {
+            "file": "sit-27.png",
+            "frame_saved": true,
+            "index": 27,
+            "source_keyframe": {
+                "name": "neutral-Sit0.675",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.675
+                },
+                "time": 1.8
+            }
+        },
+        {
+            "file": "sit-28.png",
+            "frame_saved": true,
+            "index": 28,
+            "source_keyframe": {
+                "name": "neutral-Sit0.700",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.7000000000000001
+                },
+                "time": 1.8666666666666667
+            }
+        },
+        {
+            "file": "sit-29.png",
+            "frame_saved": true,
+            "index": 29,
+            "source_keyframe": {
+                "name": "neutral-Sit0.725",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.7250000000000001
+                },
+                "time": 1.9333333333333333
+            }
+        },
+        {
+            "file": "sit-30.png",
+            "frame_saved": true,
+            "index": 30,
+            "source_keyframe": {
+                "name": "neutral-Sit0.750",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.75
+                },
+                "time": 2
+            }
+        },
+        {
+            "file": "sit-31.png",
+            "frame_saved": true,
+            "index": 31,
+            "source_keyframe": {
+                "name": "neutral-Sit0.775",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.775
+                },
+                "time": 2.066666666666667
+            }
+        },
+        {
+            "file": "sit-32.png",
+            "frame_saved": true,
+            "index": 32,
+            "source_keyframe": {
+                "name": "neutral-Sit0.800",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.8
+                },
+                "time": 2.1333333333333333
+            }
+        },
+        {
+            "file": "sit-33.png",
+            "frame_saved": true,
+            "index": 33,
+            "source_keyframe": {
+                "name": "neutral-Sit0.825",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.8250000000000001
+                },
+                "time": 2.2
+            }
+        },
+        {
+            "file": "sit-34.png",
+            "frame_saved": true,
+            "index": 34,
+            "source_keyframe": {
+                "name": "neutral-Sit0.850",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.8500000000000001
+                },
+                "time": 2.2666666666666666
+            }
+        },
+        {
+            "file": "sit-35.png",
+            "frame_saved": true,
+            "index": 35,
+            "source_keyframe": {
+                "name": "neutral-Sit0.875",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.875
+                },
+                "time": 2.3333333333333335
+            }
+        },
+        {
+            "file": "sit-36.png",
+            "frame_saved": true,
+            "index": 36,
+            "source_keyframe": {
+                "name": "neutral-Sit0.900",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.9
+                },
+                "time": 2.4
+            }
+        },
+        {
+            "file": "sit-37.png",
+            "frame_saved": true,
+            "index": 37,
+            "source_keyframe": {
+                "name": "neutral-Sit0.925",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.925
+                },
+                "time": 2.466666666666667
+            }
+        },
+        {
+            "file": "sit-38.png",
+            "frame_saved": true,
+            "index": 38,
+            "source_keyframe": {
+                "name": "neutral-Sit0.950",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.9500000000000001
+                },
+                "time": 2.533333333333333
+            }
+        },
+        {
+            "file": "sit-39.png",
+            "frame_saved": true,
+            "index": 39,
+            "source_keyframe": {
+                "name": "neutral-Sit0.975",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.9750000000000001
+                },
+                "time": 2.6
+            }
+        },
+        {
+            "file": "sit-40.png",
+            "frame_saved": true,
+            "index": 40,
+            "source_keyframe": {
+                "name": "neutral-Sit1.000",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 1
+                },
+                "time": 2.6666666666666665
+            }
+        },
+        {
+            "file": "sit-41.png",
+            "frame_saved": true,
+            "index": 41,
+            "source_keyframe": {
+                "name": "neutral-Sit0.975",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.975
+                },
+                "time": 2.7333333333333334
+            }
+        },
+        {
+            "file": "sit-42.png",
+            "frame_saved": true,
+            "index": 42,
+            "source_keyframe": {
+                "name": "neutral-Sit0.950",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.95
+                },
+                "time": 2.8
+            }
+        },
+        {
+            "file": "sit-43.png",
+            "frame_saved": true,
+            "index": 43,
+            "source_keyframe": {
+                "name": "neutral-Sit0.925",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.925
+                },
+                "time": 2.8666666666666667
+            }
+        },
+        {
+            "file": "sit-44.png",
+            "frame_saved": true,
+            "index": 44,
+            "source_keyframe": {
+                "name": "neutral-Sit0.900",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.9
+                },
+                "time": 2.933333333333333
+            }
+        },
+        {
+            "file": "sit-45.png",
+            "frame_saved": true,
+            "index": 45,
+            "source_keyframe": {
+                "name": "neutral-Sit0.875",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.875
+                },
+                "time": 3
+            }
+        },
+        {
+            "file": "sit-46.png",
+            "frame_saved": true,
+            "index": 46,
+            "source_keyframe": {
+                "name": "neutral-Sit0.850",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.85
+                },
+                "time": 3.066666666666667
+            }
+        },
+        {
+            "file": "sit-47.png",
+            "frame_saved": true,
+            "index": 47,
+            "source_keyframe": {
+                "name": "neutral-Sit0.825",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.825
+                },
+                "time": 3.1333333333333333
+            }
+        },
+        {
+            "file": "sit-48.png",
+            "frame_saved": true,
+            "index": 48,
+            "source_keyframe": {
+                "name": "neutral-Sit0.800",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.8
+                },
+                "time": 3.2
+            }
+        },
+        {
+            "file": "sit-49.png",
+            "frame_saved": true,
+            "index": 49,
+            "source_keyframe": {
+                "name": "neutral-Sit0.775",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.775
+                },
+                "time": 3.2666666666666666
+            }
+        },
+        {
+            "file": "sit-50.png",
+            "frame_saved": true,
+            "index": 50,
+            "source_keyframe": {
+                "name": "neutral-Sit0.750",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.75
+                },
+                "time": 3.3333333333333335
+            }
+        },
+        {
+            "file": "sit-51.png",
+            "frame_saved": true,
+            "index": 51,
+            "source_keyframe": {
+                "name": "neutral-Sit0.725",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.725
+                },
+                "time": 3.4
+            }
+        },
+        {
+            "file": "sit-52.png",
+            "frame_saved": true,
+            "index": 52,
+            "source_keyframe": {
+                "name": "neutral-Sit0.700",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.7
+                },
+                "time": 3.466666666666667
+            }
+        },
+        {
+            "file": "sit-53.png",
+            "frame_saved": true,
+            "index": 53,
+            "source_keyframe": {
+                "name": "neutral-Sit0.675",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.675
+                },
+                "time": 3.533333333333333
+            }
+        },
+        {
+            "file": "sit-54.png",
+            "frame_saved": true,
+            "index": 54,
+            "source_keyframe": {
+                "name": "neutral-Sit0.650",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.6499999999999999
+                },
+                "time": 3.6
+            }
+        },
+        {
+            "file": "sit-55.png",
+            "frame_saved": true,
+            "index": 55,
+            "source_keyframe": {
+                "name": "neutral-Sit0.625",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.625
+                },
+                "time": 3.6666666666666665
+            }
+        },
+        {
+            "file": "sit-56.png",
+            "frame_saved": true,
+            "index": 56,
+            "source_keyframe": {
+                "name": "neutral-Sit0.600",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.6
+                },
+                "time": 3.7333333333333334
+            }
+        },
+        {
+            "file": "sit-57.png",
+            "frame_saved": true,
+            "index": 57,
+            "source_keyframe": {
+                "name": "neutral-Sit0.575",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.575
+                },
+                "time": 3.8
+            }
+        },
+        {
+            "file": "sit-58.png",
+            "frame_saved": true,
+            "index": 58,
+            "source_keyframe": {
+                "name": "neutral-Sit0.550",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.55
+                },
+                "time": 3.8666666666666667
+            }
+        },
+        {
+            "file": "sit-59.png",
+            "frame_saved": true,
+            "index": 59,
+            "source_keyframe": {
+                "name": "neutral-Sit0.525",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.5249999999999999
+                },
+                "time": 3.933333333333333
+            }
+        },
+        {
+            "file": "sit-60.png",
+            "frame_saved": true,
+            "index": 60,
+            "source_keyframe": {
+                "name": "neutral-Sit0.500",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.5
+                },
+                "time": 4
+            }
+        },
+        {
+            "file": "sit-61.png",
+            "frame_saved": true,
+            "index": 61,
+            "source_keyframe": {
+                "name": "neutral-Sit0.475",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.475
+                },
+                "time": 4.066666666666666
+            }
+        },
+        {
+            "file": "sit-62.png",
+            "frame_saved": true,
+            "index": 62,
+            "source_keyframe": {
+                "name": "neutral-Sit0.450",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.44999999999999996
+                },
+                "time": 4.133333333333334
+            }
+        },
+        {
+            "file": "sit-63.png",
+            "frame_saved": true,
+            "index": 63,
+            "source_keyframe": {
+                "name": "neutral-Sit0.425",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.42499999999999993
+                },
+                "time": 4.2
+            }
+        },
+        {
+            "file": "sit-64.png",
+            "frame_saved": true,
+            "index": 64,
+            "source_keyframe": {
+                "name": "neutral-Sit0.400",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.3999999999999999
+                },
+                "time": 4.266666666666667
+            }
+        },
+        {
+            "file": "sit-65.png",
+            "frame_saved": true,
+            "index": 65,
+            "source_keyframe": {
+                "name": "neutral-Sit0.375",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.375
+                },
+                "time": 4.333333333333333
+            }
+        },
+        {
+            "file": "sit-66.png",
+            "frame_saved": true,
+            "index": 66,
+            "source_keyframe": {
+                "name": "neutral-Sit0.350",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.35
+                },
+                "time": 4.4
+            }
+        },
+        {
+            "file": "sit-67.png",
+            "frame_saved": true,
+            "index": 67,
+            "source_keyframe": {
+                "name": "neutral-Sit0.325",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.32499999999999996
+                },
+                "time": 4.466666666666667
+            }
+        },
+        {
+            "file": "sit-68.png",
+            "frame_saved": true,
+            "index": 68,
+            "source_keyframe": {
+                "name": "neutral-Sit0.300",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.29999999999999993
+                },
+                "time": 4.533333333333333
+            }
+        },
+        {
+            "file": "sit-69.png",
+            "frame_saved": true,
+            "index": 69,
+            "source_keyframe": {
+                "name": "neutral-Sit0.275",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.2749999999999999
+                },
+                "time": 4.6
+            }
+        },
+        {
+            "file": "sit-70.png",
+            "frame_saved": true,
+            "index": 70,
+            "source_keyframe": {
+                "name": "neutral-Sit0.250",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.25
+                },
+                "time": 4.666666666666667
+            }
+        },
+        {
+            "file": "sit-71.png",
+            "frame_saved": true,
+            "index": 71,
+            "source_keyframe": {
+                "name": "neutral-Sit0.225",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.22499999999999998
+                },
+                "time": 4.733333333333333
+            }
+        },
+        {
+            "file": "sit-72.png",
+            "frame_saved": true,
+            "index": 72,
+            "source_keyframe": {
+                "name": "neutral-Sit0.200",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.19999999999999996
+                },
+                "time": 4.8
+            }
+        },
+        {
+            "file": "sit-73.png",
+            "frame_saved": true,
+            "index": 73,
+            "source_keyframe": {
+                "name": "neutral-Sit0.175",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.17499999999999993
+                },
+                "time": 4.866666666666666
+            }
+        },
+        {
+            "file": "sit-74.png",
+            "frame_saved": true,
+            "index": 74,
+            "source_keyframe": {
+                "name": "neutral-Sit0.150",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.1499999999999999
+                },
+                "time": 4.933333333333334
+            }
+        },
+        {
+            "file": "sit-75.png",
+            "frame_saved": true,
+            "index": 75,
+            "source_keyframe": {
+                "name": "neutral-Sit0.125",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.125
+                },
+                "time": 5
+            }
+        },
+        {
+            "file": "sit-76.png",
+            "frame_saved": true,
+            "index": 76,
+            "source_keyframe": {
+                "name": "neutral-Sit0.100",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.09999999999999998
+                },
+                "time": 5.066666666666666
+            }
+        },
+        {
+            "file": "sit-77.png",
+            "frame_saved": true,
+            "index": 77,
+            "source_keyframe": {
+                "name": "neutral-Sit0.075",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.07499999999999996
+                },
+                "time": 5.133333333333334
+            }
+        },
+        {
+            "file": "sit-78.png",
+            "frame_saved": true,
+            "index": 78,
+            "source_keyframe": {
+                "name": "neutral-Sit0.050",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.04999999999999993
+                },
+                "time": 5.2
+            }
+        },
+        {
+            "file": "sit-79.png",
+            "frame_saved": true,
+            "index": 79,
+            "source_keyframe": {
+                "name": "neutral-Sit0.025",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0.02499999999999991
+                },
+                "time": 5.266666666666667
+            }
+        },
+        {
+            "file": "sit-80.png",
+            "frame_saved": true,
+            "index": 80,
+            "source_keyframe": {
+                "name": "neutral-Sit0.000",
+                "parameters": {
+                    "ParamAngleX": 0,
+                    "ParamAngleY": 0,
+                    "ParamAngleZ": 0,
+                    "ParamArmLA": 0,
+                    "ParamArmRA": 0,
+                    "ParamBodyAngleX": 0,
+                    "ParamBodyAngleY": 0,
+                    "ParamBodyAngleZ": 0,
+                    "ParamBreath": 0,
+                    "ParamBusyLaptop": 1,
+                    "ParamBusyTypingL": 0,
+                    "ParamBusyTypingR": 0,
+                    "ParamHairBack": 0,
+                    "ParamHairFront": 0,
+                    "ParamLaptopRock": 0,
+                    "ParamLaptopVisible": 0,
+                    "ParamSitPose": 0
+                },
+                "time": 5.333333333333333
+            }
+        }
+    ],
+    "isolated_model_override": true,
+    "model_manifest_path": "E:/projects/Desktop-Companion/.local/authoring/sit-pose-20261004-r1/r9-prototype-r4-review/assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+    "physics_evaluated": false,
+    "raw_export_only": false,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "runtime_patches_applied": true,
+    "scope": "static_requested_pose_native_capture",
+    "source_manifest": "E:/projects/Desktop-Companion/.local/authoring/sit-pose-20261005-r9/prototype-r4/neutral-sweep-r1/poses.json"
+}

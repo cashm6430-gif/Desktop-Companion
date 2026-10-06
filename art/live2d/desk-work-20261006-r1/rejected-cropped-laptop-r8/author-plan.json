@@ -1,0 +1,366 @@
+{
+  "schema_version": 2,
+  "kind": "isolated_closed_panel_workstation",
+  "description": "Closed opaque desk hides lower body; existing character remains live parameter animation.",
+  "source": {
+    "cmo_sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+    "moc_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+    "atlas_pages": [
+      {
+        "path": "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_00.png",
+        "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
+      }
+    ]
+  },
+  "parameters": [
+    {
+      "id": "ParamDeskVisible",
+      "name": "小工位滑入 / 收回",
+      "min": 0,
+      "max": 1,
+      "default": 0
+    }
+  ],
+  "append_pages": [
+    {
+      "path": "E:\\projects\\Desktop-Companion\\art\\live2d\\desk-work-20261006-r1\\desk-closed-panel.png",
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    }
+  ],
+  "insert_meshes": [
+    {
+      "id": "ArtMeshWorkstationDeskTop",
+      "name": "workstation rear tabletop",
+      "template_id": "ArtMeshBottomwear",
+      "parent_id": "DeformBodyShift",
+      "part_id": "PartExtra",
+      "texture_page": 1,
+      "positions": [
+        -0.0007835939177311957,
+        0.6323397755622864,
+        0.9806563854217529,
+        0.6323397755622864,
+        -0.0007835939177311957,
+        0.6986239552497864,
+        0.9806563854217529,
+        0.6986239552497864
+      ],
+      "uvs": [
+        0,
+        0.0,
+        1,
+        0.0,
+        0,
+        0.3656998738965952,
+        1,
+        0.3656998738965952
+      ],
+      "indices": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "axes": [
+        {
+          "parameter": "ParamDeskVisible",
+          "keys": [
+            0,
+            0.001,
+            1
+          ]
+        }
+      ],
+      "keyforms": [
+        {
+          "coordinate": [
+            0
+          ],
+          "position_deltas": [
+            1.0528137503582118,
+            0.0,
+            1.0528137503582118,
+            0.0,
+            1.0528137503582118,
+            0.0,
+            1.0528137503582118,
+            0.0
+          ]
+        },
+        {
+          "coordinate": [
+            1
+          ],
+          "position_deltas": [
+            1.0517609366078535,
+            0.0,
+            1.0517609366078535,
+            0.0,
+            1.0517609366078535,
+            0.0,
+            1.0517609366078535,
+            0.0
+          ]
+        },
+        {
+          "coordinate": [
+            2
+          ],
+          "position_deltas": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "initial_value": 0,
+          "append_axes": [
+            {
+              "parameter": "ParamDeskVisible",
+              "keys": [
+                0,
+                0.001,
+                1
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0
+              ],
+              "value": 0
+            },
+            {
+              "coordinate": [
+                1
+              ],
+              "value": 1
+            },
+            {
+              "coordinate": [
+                2
+              ],
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "draw_order": 31,
+      "opacity": 0
+    },
+    {
+      "id": "ArtMeshWorkstationDesk",
+      "name": "workstation front edge and closed panel",
+      "template_id": "ArtMeshBottomwear",
+      "parent_id": "DeformBodyShift",
+      "part_id": "PartExtra",
+      "texture_page": 1,
+      "positions": [
+        -0.0007835939177311957,
+        0.6986239552497864,
+        0.9806563854217529,
+        0.6986239552497864,
+        -0.0007835939177311957,
+        1.016292929649353,
+        0.9806563854217529,
+        1.016292929649353
+      ],
+      "uvs": [
+        0,
+        0.3656998738965952,
+        1,
+        0.3656998738965952,
+        0,
+        1.0,
+        1,
+        1.0
+      ],
+      "indices": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "axes": [
+        {
+          "parameter": "ParamDeskVisible",
+          "keys": [
+            0,
+            0.001,
+            1
+          ]
+        }
+      ],
+      "keyforms": [
+        {
+          "coordinate": [
+            0
+          ],
+          "position_deltas": [
+            1.0528137503582118,
+            0.0,
+            1.0528137503582118,
+            0.0,
+            1.0528137503582118,
+            0.0,
+            1.0528137503582118,
+            0.0
+          ]
+        },
+        {
+          "coordinate": [
+            1
+          ],
+          "position_deltas": [
+            1.0517609366078535,
+            0.0,
+            1.0517609366078535,
+            0.0,
+            1.0517609366078535,
+            0.0,
+            1.0517609366078535,
+            0.0
+          ]
+        },
+        {
+          "coordinate": [
+            2
+          ],
+          "position_deltas": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "channels": [
+        {
+          "channel": "OPACITY",
+          "initial_value": 0,
+          "append_axes": [
+            {
+              "parameter": "ParamDeskVisible",
+              "keys": [
+                0,
+                0.001,
+                1
+              ]
+            }
+          ],
+          "keyforms": [
+            {
+              "coordinate": [
+                0
+              ],
+              "value": 0
+            },
+            {
+              "coordinate": [
+                1
+              ],
+              "value": 1
+            },
+            {
+              "coordinate": [
+                2
+              ],
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "draw_order": 35,
+      "opacity": 0
+    }
+  ],
+  "coordinate_contract": {
+    "parent": "DeformBodyShift",
+    "root_default_origin": [
+      31.238708,
+      -67.263
+    ],
+    "root_default_extent": [
+      1215.7895919999999,
+      1384.5259999999998
+    ],
+    "png_opaque_bbox": [
+      66,
+      132,
+      1919,
+      676
+    ],
+    "opaque_source_target": [
+      70.0,
+      850.0,
+      1185.0,
+      1237.516693532467
+    ],
+    "texture_split_y": 290.0,
+    "front_edge_source_y": 900.0,
+    "texture_world_quads": [
+      [
+        [
+          30.286022665947108,
+          808.2278481012659
+        ],
+        [
+          1223.5105234754453,
+          808.2278481012659
+        ],
+        [
+          30.286022665947108,
+          900.0
+        ],
+        [
+          1223.5105234754453,
+          900.0
+        ]
+      ],
+      [
+        [
+          30.286022665947108,
+          900.0
+        ],
+        [
+          1223.5105234754453,
+          900.0
+        ],
+        [
+          30.286022665947108,
+          1339.8209762871265
+        ],
+        [
+          1223.5105234754453,
+          1339.8209762871265
+        ]
+      ]
+    ],
+    "floor_owner": "runtime desk counter-translation cancels character-only grounding",
+    "transition": "cover fully first; body recovery first on exit; desk retracts last"
+  },
+  "provenance": {
+    "producer": "tools/prepare_desk_work.py",
+    "producer_sha256": "b9e06439513ce8e37c1d138a206b072b3486c02b2c78f8cb656a63d1aef8e62b",
+    "status": "pending_visual_review",
+    "adopted": false,
+    "crouch_source_used": false
+  }
+}

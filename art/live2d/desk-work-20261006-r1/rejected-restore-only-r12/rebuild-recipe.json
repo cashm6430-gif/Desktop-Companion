@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "rejected_restore_only_r12",
+  "adopted": false,
+  "source_author_path": "art/live2d/whale-girl-layered-draft.cmo3",
+  "source_author_sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+  "source_git_checkpoint": "c97ef7b",
+  "reference_equivalent_moc": "art/live2d/desk-work-20261006-r1/reference-equivalent.moc3",
+  "reference_sha256": "fbc35062526efe778d41bb1b727841dff30c0fd0c08b74efec6b254072e65a4d",
+  "author_plan": "art/live2d/desk-work-20261006-r1/author-plan.json",
+  "author_plan_sha256": "aae1a9905ec551605404cec45682288a99c2ec090a17722179811fcbe1c87c33",
+  "candidate_model": "art/live2d/desk-work-20261006-r1/candidate-model/whale-girl-layered-draft.model3.json",
+  "candidate_moc_sha256": "8a53aadf89cb3fb21f6f832a7acd81edc0bff523fd9998658c4b78bac84730bd",
+  "candidate_author_sha256": "21382cb9ed3be6ef0a11fe6d8cae5608c8f6ab3a9772a8d08b9d00448ad33fc6",
+  "producer_tools": [
+    "tools/prepare_desk_work.py",
+    "tools/edit_live2d_author.py",
+    "tools/stage_desk_work.py"
+  ],
+  "steps": [
+    "prepare_desk_work --reference-moc <reference-equivalent.moc3> --output <fresh plan>",
+    "edit_live2d_author --plan <plan> --cmo <f7ee master> --reference-moc <reference-equivalent.moc3> --run-root <new API dir> --name desk-rebuild",
+    "stage_desk_work --export <fresh export> --output <new stage>",
+    "isolated renderer --render-motion <new capture> busy-laptop --review-model <stage model3>"
+  ],
+  "component_contracts": {
+    "sleeves": "Original complete page0 alpha, UV, indices and authored keyforms retained. No hand keep-contour trim.",
+    "computer": "One ArtMeshWorkstationLaptop owns shell, hinge, base and keyboard; no typing axes. Original computer drawables hidden only while desk visible.",
+    "desk": "Independent front panel and rear top; cover fully before posture, recover posture before retracting desk."
+  },
+  "limits": [
+    "Only new isolated scene candidate; production model not replaced.",
+    "User review pending. Original sleeve layers still contain old embedded hardware/background fragments; complete anatomy restored, residual cleanup not signed off.",
+    "No full 2465-frame regression performed for desk candidate.",
+    "Plans contain source absolute paths; regenerate on another host.",
+    "Old cropped-laptop and cut-finger/sleeve experiments are rejected archives."
+  ],
+  "rejection_reason": "User still observed incomplete fingers and two-tone keyboard. Original sleeves themselves are clipped source fragments. Superseded by in-progress complete-hands quad assets and uniform navy hardware."
+}

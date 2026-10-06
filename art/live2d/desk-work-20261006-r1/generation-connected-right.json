@@ -1,0 +1,15 @@
+{
+  "tool": "image_gen built-in",
+  "asset": "complete-arm-r-r2.png",
+  "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+  "source_path": "C:/Users/Administrator/.codex/generated_images/01a0ed6c-2659-7f12-9350-10b1290d7228/exec-8b6c8e9c-2ddd-4ad4-a75b-5881061f6d46.png",
+  "referenced_images": [
+    "art/live2d/layers/busy-sleeve-r.png",
+    "isolated r13 native/desk-02.png"
+  ],
+  "transparent_background": true,
+  "prompt": "Use case: precise-object-edit. Asset: ONE anatomically connected complete RIGHT-ON-SCREEN ARM of the chibi maid in Image 2, from SHOULDER through UPPER ARM to ELBOW then FOREARM, complete sleeve cuff, wrist and all fingertips. Image 1 shows approximate correct bent arm direction but hand is clipped and contaminated by keyboard; reconstruct cleanly. Image 2 current rendering has a disconnected floating right forearm; correct this by drawing the missing UPPER ARM continuously attached at upper LEFT of this asset. Composition: compact mostly VERTICAL bent arm, silhouette width about 0.7 times height. Shoulder attachment is at TOP LEFT; navy upper arm slopes down RIGHT to a rounded elbow on right side at middle height; forearm bends down LEFT from elbow to white ruffle cuff at lower-right; small peach chibi hand extends left and down onto keyboard area. No long straight adult forearm. Continuous navy sleeve from shoulder to cuff, no floating sections. Complete gold-embroidered navy cuff and white ruffles; coherent small palm, thumb and four short softly curved tapping fingers with all rounded fingertips visible and attached. Keep maid navy/gold/white palette, chibi tiny hand relative to upper arm, thin anime outlines and restrained cel shading. ONLY the single complete arm on genuine transparent background with margin. Remove all laptop/key pixels, skirt triangles, hair, torso, head and disconnected islands. No shadows or background. Important: start at a whole rounded shoulder cap at upper-left, NOT an elbow fragment at upper-right. Do not crop hand, cuff or elbow. Intended for proportional scaling as one full arm reaching from shoulder to keys, no stretch.",
+  "status": "pending_scene_approval",
+  "unused_left_reference": "complete-sleeve-l-r2-reference.png",
+  "bitmap_retouching_used": false
+}

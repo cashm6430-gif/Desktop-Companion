@@ -1,0 +1,59 @@
+{
+  "status": "source_margin_checked_native_pending",
+  "results": [
+    {
+      "asset": "complete-sleeve-l.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_threshold16": [
+        96,
+        204,
+        1171,
+        1027
+      ],
+      "nonzero_alpha_on_canvas_boundary": 13,
+      "scope": "Full bitmap margin check only; anatomy requires Native visual review.",
+      "max_boundary_alpha": 1,
+      "boundary_alpha_ge16_count": 0,
+      "whole_silhouette_clear_of_bitmap_boundary": true
+    },
+    {
+      "asset": "complete-sleeve-r.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_threshold16": [
+        121,
+        203,
+        1213,
+        1051
+      ],
+      "nonzero_alpha_on_canvas_boundary": 0,
+      "scope": "Full bitmap margin check only; anatomy requires Native visual review.",
+      "max_boundary_alpha": 0,
+      "boundary_alpha_ge16_count": 0,
+      "whole_silhouette_clear_of_bitmap_boundary": true
+    },
+    {
+      "asset": "laptop-uniform-navy.png",
+      "size": [
+        1774,
+        887
+      ],
+      "alpha_bbox_threshold16": [
+        67,
+        109,
+        1740,
+        771
+      ],
+      "nonzero_alpha_on_canvas_boundary": 1,
+      "scope": "Full bitmap margin check only; anatomy requires Native visual review.",
+      "max_boundary_alpha": 1,
+      "boundary_alpha_ge16_count": 0,
+      "whole_silhouette_clear_of_bitmap_boundary": true
+    }
+  ]
+}

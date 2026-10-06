@@ -1,0 +1,37 @@
+{
+  "argv": [
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\javac.exe",
+      "-encoding",
+      "UTF-8",
+      "-cp",
+      "D:/tool/psd2live/app/*",
+      "-d",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\classes",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\PSD2LiveStandingRestore.java"
+    ],
+    [
+      "E:\\projects\\Desktop-Companion\\.local\\toolchains\\jdk-21.0.12.1+1\\bin\\java.exe",
+      "-Dpsd2live.agent.store=E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\store",
+      "-Djava.io.tmpdir=E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\temp",
+      "-cp",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\classes;D:/tool/psd2live/app/*",
+      "PSD2LiveStandingRestore",
+      "--install",
+      "D:/tool/psd2live",
+      "--cmo",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\edited.cmo3",
+      "--reference-moc",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\closed-legs-r8-return-r3b-20261005T060828Z-abca9aff\\export\\edited.moc3",
+      "--edit-json",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\standing-restore-plan.json",
+      "--output",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\export",
+      "--store",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\api\\standing-restore-v1\\probe-20261005T065840Z-77b66c6f\\store"
+    ]
+  ],
+  "helper_sha256": "62f7d4707e1dbd5eafe8d69b796b2caad8b0e4c3401b1f045a6ef0d623066e35",
+  "driver_sha256": "1e25ec32923245e6fec370402306a030bfee66489876cf4987cc4b4857c4e634",
+  "plan_sha256": "e40efa894b02d7ac6a6317c5f27110857254fad4acb85c5bc4fa6c1d5d81d9cd"
+}

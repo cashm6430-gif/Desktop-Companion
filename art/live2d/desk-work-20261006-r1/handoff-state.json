@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "handoff_requested_by_user",
+  "production_replaced": false,
+  "push_requested": false,
+  "author_entry": "art/live2d/whale-girl-layered-draft.cmo3",
+  "formal_author_sha256": "f7ee66b4ed98ff48510ef777c59f83cf62b0b081c4a94fcff11952409888dce5",
+  "formal_moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "candidate_moc_sha256": "6401fea4c24420e65b34b3534de6e1c14ccf4d24cec8e35e4eff7b77c30e0d2e",
+  "candidate_author_sha256": "e85fe232b94d279e568a819ae236062aa87eacd6a8233b0c50a6074a0c3fe6b3",
+  "stable_candidate": "candidate-model/whale-girl-layered-draft.model3.json",
+  "stable_candidate_status": "R15 desk-only material corrections; scene pending; legacy standing background remains unresolved",
+  "experimental_model": "experiment-model-r18/whale-girl-layered-draft.model3.json",
+  "experimental_status": "failed_visual; do not adopt",
+  "experiment_recipe": [
+    "prepare_desk_work --complete-hands --reference-moc <reference-equivalent.moc3> --output <fresh plan>",
+    "edit_live2d_author --plan <plan> --cmo <f7ee master> --reference-moc <reference-equivalent.moc3> --run-root <fresh API root> --name handoff-rebuild",
+    "stage_desk_work --export <export> --output <fresh stage> --backdrop-cleanup",
+    "renderer --review-motion <fresh output> <review-r18-handoff/cleanup-poses.json> cleanup --review-model <stage model3>"
+  ],
+  "verified": [
+    "CMO save/readback/direct export exact for R15 mesh insertions.",
+    "483 raw Core contexts preserve old34 positions/opacities/UV/indices and relative order.",
+    "R15 default preservation: five captured poses decoded RGBA/trace equal before cleanup.",
+    "R18 four static Native frames captured; failure documented."
+  ],
+  "unresolved": [
+    "Standing/deletion hair backdrop still needs clean ownership and complete hidden coverage. R18 exaggerated support has visible crop edges.",
+    "Original rear layer includes two locks, whole ahoge and duplicate ear tips; keep authentic ahoge, remove only duplicates.",
+    "r9 pending turn-ended head/physics can show overlapping outlines; old/new hair Core geometry was equal; no final visual pass.",
+    "R18 has no full dynamic regression, no approval, no formal adoption."
+  ],
+  "next_steps": [
+    "Inspect current Native evidence before changing code or expanding tests.",
+    "Replace the incomplete contaminated backing with a proper independently authored hair support surface; avoid oversized GPU scaling.",
+    "Review default/raised-arm/delete/turn-ended and desk exit against bright/dark backgrounds at desktop size.",
+    "Complete scene approval and required full regression before changing the registered main author/runtime bundle."
+  ],
+  "documentation": "E:/obsidian/workDiary/桌宠项目-当前工作卡.md"
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\renderer-build\\DesktopCompanion.exe",
+    "--review-motion",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r18-handoff\\cleanup-native",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r18-handoff\\cleanup-poses.json",
+    "cleanup",
+    "--review-model",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\desk-work-20261006-r1\\stage-r18-handoff\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json"
+  ],
+  "returncode": 0,
+  "exe_sha256": "5fcbc016c7b9012cb2a450c25d1884e469abe7ce6de7f427000020829cc13aa6",
+  "stdout": "",
+  "stderr": ""
+}

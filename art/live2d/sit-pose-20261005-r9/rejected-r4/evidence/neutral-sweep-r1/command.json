@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\renderer-build\\DesktopCompanion.exe",
+    "--review-motion",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\neutral-sweep-r1\\native",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261005-r9\\prototype-r4\\neutral-sweep-r1\\poses.json",
+    "sit",
+    "--review-model",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\sit-pose-20261004-r1\\r9-prototype-r4-review\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json"
+  ],
+  "source_tool_sha256": "3949d8821a895b5dc9de533d4aafb0716f1e203baaa5135b1e3838d58de0a100",
+  "renderer_sha256": "d04921270c63c6c47d5498c895bd3e4c82fcfbc8a42ec6233a45c5ee1a4c51fd",
+  "model_sha256": "86506f5d5b540ac6a44c4c751aaab5a850763c6ef628cb4bad4eef11ec8cc9e4",
+  "poses_sha256": "0b9ea861e853de359821ad8d9d487fa086faaf44d42812440ded820aab583f70",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "scope": "default Body/Arm/Typing/Head/physics frozen parameter sweep; not real event integration"
+}

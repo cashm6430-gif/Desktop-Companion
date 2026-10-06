@@ -92,6 +92,12 @@ private slots:
     void malformedMotionDoesNotReplaceLoadedKeys();
     void laptopSelectionAndInterruptions();
     void laptopTypingAndShortTaskExit();
+    void deskCoverPrecedesPoseAndLeavesLast();
+    void deskShortTasksAndReversalsStayCovered();
+    void deskVariantChangesAndReactionsKeepCover();
+    void deskInterruptionsKeepActionHandsAndDeadlines();
+    void deskDisabledPreservesExistingTrajectory();
+    void deskVisibilityIsReservedForActivity();
     void blendSecondsComeFromClip();
     void standingAccentKeepsMovingAfterOneCycle();
     void absentReactionsLeaveExistingMotionAvailable();
@@ -951,6 +957,264 @@ void ParameterMotionTest::standingAccentKeepsMovingAfterOneCycle() {
     }
     // Idle alone sways the pitch by 1.5 degrees; the accent adds an order more.
     QVERIFY2(high - low > 12.0, qPrintable(QStringLiteral("%1..%2").arg(low).arg(high)));
+}
+
+void ParameterMotionTest::deskCoverPrecedesPoseAndLeavesLast() {
+    for (double step : {1.0 / 30.0, 1.0 / 60.0, 0.1}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+        motion.setDeskWorkMode(true);
+        motion.advance(step);
+        motion.forceLaptopBusy();
+        bool sawCoverOnly = false, sawWork = false, sawTyping = false;
+        for (int frame = 0; frame < static_cast<int>(3.0 / step); ++frame) {
+            motion.advance(step);
+            const auto pose = motion.values();
+            const double cover = pose.value(QStringLiteral("ParamDeskVisible"));
+            QVERIFY(cover >= 0.0 && cover <= 1.0);
+            if (cover < 1.0) {
+                sawCoverOnly |= cover > 0.0;
+                QCOMPARE(pose.value(QStringLiteral("ParamBusyLaptop")), 0.0);
+                QCOMPARE(pose.value(QStringLiteral("ParamSitPose")), 0.0);
+                QCOMPARE(pose.value(QStringLiteral("ParamLaptopVisible")), 0.0);
+            } else {
+                sawWork |= pose.value(QStringLiteral("ParamSitPose")) > 0.9;
+                sawTyping |= pose.value(QStringLiteral("ParamBusyTypingR")) > 0.1;
+            }
+            if (pose.value(QStringLiteral("ParamLaptopVisible")) < 0.99) {
+                QCOMPARE(pose.value(QStringLiteral("ParamBusyTypingL")), 0.0);
+                QCOMPARE(pose.value(QStringLiteral("ParamBusyTypingR")), 0.0);
+            }
+        }
+        QVERIFY(sawCoverOnly && sawWork && sawTyping);
+        motion.setState(PetController::State::Idle);
+        bool sawPutAway = false, sawCoverExit = false;
+        for (int frame = 0; frame < static_cast<int>(4.0 / step); ++frame) {
+            motion.advance(step);
+            const auto pose = motion.values();
+            const double cover = pose.value(QStringLiteral("ParamDeskVisible"));
+            sawPutAway |= pose.value(QStringLiteral("ParamLaptopVisible")) < 0.9
+                && pose.value(QStringLiteral("ParamSitPose")) > 0.9;
+            if (cover < 1.0) {
+                sawCoverExit |= cover > 0.0;
+                for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+                     QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamLaptopRock"),
+                     QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA")})
+                    QCOMPARE(pose.value(id), 0.0);
+            }
+        }
+        QVERIFY(sawPutAway && sawCoverExit);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+    }
+}
+
+void ParameterMotionTest::deskShortTasksAndReversalsStayCovered() {
+    ParameterMotion standing;
+    QVERIFY(standing.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    standing.setDeskWorkMode(true);
+    standing.forceStandingBusy();
+    advanceFrames(standing, 50);
+    standing.forceLaptopBusy();
+    standing.advance(0.04);
+    const double gestureArm = standing.values().value(QStringLiteral("ParamArmLA"));
+    QVERIFY(std::abs(gestureArm) > 1.0);
+    standing.setState(PetController::State::Idle);
+    standing.advance(0.02);
+    QVERIFY(std::abs(standing.values().value(QStringLiteral("ParamArmLA"))) > 0.5);
+    QVERIFY(std::abs(standing.values().value(QStringLiteral("ParamArmLA")) - gestureArm) < 3.0);
+    QCOMPARE(standing.values().value(QStringLiteral("ParamSitPose")), 0.0);
+
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    motion.setDeskWorkMode(true);
+    motion.advance(0.02);
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 4); // Task ends before the cover reaches opacity one.
+    motion.setState(PetController::State::Idle);
+    advanceFrames(motion, 2);
+    const double partialCover = motion.values().value(QStringLiteral("ParamDeskVisible"));
+    QVERIFY(partialCover > 0.0 && partialCover < 1.0);
+    motion.forceLaptopBusy(); // Reverse the retracting partial cover.
+    motion.advance(0.02);
+    QVERIFY(motion.values().value(QStringLiteral("ParamDeskVisible")) > partialCover);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+    advanceFrames(motion, 13);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSitPose")) > 0.0);
+    motion.setState(PetController::State::Idle);
+    advanceFrames(motion, 4); // Partly seated exit, with no computer shown yet.
+    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+    const double partialSit = motion.values().value(QStringLiteral("ParamSitPose"));
+    motion.forceLaptopBusy();
+    motion.advance(0.02);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSitPose")) > partialSit);
+    advanceFrames(motion, 150);
+    motion.setState(PetController::State::Idle);
+    bool reversedCoverExit = false;
+    for (int frame = 0; frame < 200; ++frame) {
+        motion.advance(0.02);
+        const double cover = motion.values().value(QStringLiteral("ParamDeskVisible"));
+        if (cover > 0.0 && cover < 1.0) {
+            QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+            motion.forceLaptopBusy();
+            motion.advance(0.02);
+            QVERIFY(motion.values().value(QStringLiteral("ParamDeskVisible")) > cover);
+            QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+            reversedCoverExit = true;
+            break;
+        }
+    }
+    QVERIFY(reversedCoverExit);
+    // Finish another short request while still covering: no posture may leak.
+    motion.setState(PetController::State::Idle);
+    for (int frame = 0; frame < 20; ++frame) {
+        motion.advance(0.02);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamBusyLaptop")), 0.0);
+    }
+    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+}
+
+void ParameterMotionTest::deskVariantChangesAndReactionsKeepCover() {
+    ParameterMotion variants;
+    QVERIFY(variants.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    variants.setBusyRandomSeed(1234);
+    variants.setDeskWorkMode(true);
+    variants.advance(0.02);
+    variants.forceLaptopBusy();
+    bool sawStandingChoice = false, sawDeskAbsent = false;
+    for (int frame = 0; frame < 7000; ++frame) {
+        variants.advance(0.02);
+        const auto pose = variants.values();
+        sawStandingChoice |= !variants.isLaptopBusy();
+        sawDeskAbsent |= frame > 200 && pose.value(QStringLiteral("ParamDeskVisible")) == 0.0;
+        if (pose.value(QStringLiteral("ParamBusyLaptop")) > 0.0
+            || pose.value(QStringLiteral("ParamSitPose")) > 0.0
+            || pose.value(QStringLiteral("ParamLaptopVisible")) > 0.0)
+            QCOMPARE(pose.value(QStringLiteral("ParamDeskVisible")), 1.0);
+    }
+    QVERIFY(sawStandingChoice && sawDeskAbsent);
+    variants.forceStandingBusy();
+    advanceFrames(variants, 200);
+    QCOMPARE(variants.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    for (bool pat : {false, true}) for (int entryFrames : {4, 20, 200}) {
+        ParameterMotion reaction;
+        QVERIFY(reaction.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+        QVERIFY(reaction.loadMotionLibrary(dir.path()));
+        reaction.setDeskWorkMode(true);
+        reaction.advance(0.02);
+        reaction.forceLaptopBusy();
+        advanceFrames(reaction, entryFrames);
+        const auto held = reaction.values();
+        reaction.setState(PetController::State::Idle);
+        QVERIFY(pat ? reaction.beginHeadPat() : reaction.playTurnEnded());
+        advanceFrames(reaction, 60);
+        QVERIFY(reaction.interactionActive());
+        QCOMPARE(reaction.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+        QCOMPARE(reaction.values().value(QStringLiteral("ParamLaptopVisible")),
+                 held.value(QStringLiteral("ParamLaptopVisible")));
+        QCOMPARE(reaction.values().value(QStringLiteral("ParamSitPose")),
+                 held.value(QStringLiteral("ParamSitPose")));
+        if (pat) reaction.endHeadPat();
+        advanceFrames(reaction, 300);
+        QVERIFY(!reaction.interactionActive());
+        QCOMPARE(reaction.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+    }
+}
+
+void ParameterMotionTest::deskInterruptionsKeepActionHandsAndDeadlines() {
+    for (const auto state : {PetController::State::Delete, PetController::State::Grass})
+    for (int entryFrames : {4, 20, 200}) {
+        ParameterMotion desk, reference;
+        QVERIFY(desk.loadMotionLibrary(QStringLiteral("assets/motions")));
+        QVERIFY(reference.loadMotionLibrary(QStringLiteral("assets/motions")));
+        desk.setDeskWorkMode(true);
+        desk.advance(0.02);
+        desk.forceLaptopBusy();
+        advanceFrames(desk, entryFrames);
+        auto pose = desk.values();
+        pose.remove(QStringLiteral("ParamDeskVisible"));
+        reference.setPreviewPose(pose);
+        reference.setState(state);
+        desk.setState(state);
+        QCOMPARE(desk.actionDuration(state), reference.actionDuration(state));
+        int deskFinish = -1, referenceFinish = -1;
+        bool sawCoverRelease = false;
+        for (int frame = 0; frame < 400; ++frame) {
+            desk.advance(0.02);
+            reference.advance(0.02);
+            for (const QString& id : {QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA"),
+                 QStringLiteral("ParamElbowLA"), QStringLiteral("ParamElbowRA"),
+                 QStringLiteral("ParamWristRA"), QStringLiteral("ParamGrassVisible"),
+                 QStringLiteral("ParamGrassSwing"), QStringLiteral("ParamGrassTipBend")})
+                QCOMPARE(desk.values().value(id), reference.values().value(id));
+            const bool deskFinished = desk.consumeActionFinished();
+            const bool referenceFinished = reference.consumeActionFinished();
+            QCOMPARE(deskFinished, referenceFinished);
+            if (deskFinished) deskFinish = frame;
+            if (referenceFinished) referenceFinish = frame;
+            const auto current = desk.values();
+            if (current.value(QStringLiteral("ParamDeskVisible")) < 1.0) {
+                sawCoverRelease = true;
+                QCOMPARE(current.value(QStringLiteral("ParamBusyLaptop")), 0.0);
+                QCOMPARE(current.value(QStringLiteral("ParamSitPose")), 0.0);
+                QCOMPARE(current.value(QStringLiteral("ParamLaptopVisible")), 0.0);
+            }
+        }
+        QVERIFY(deskFinish >= 0 && deskFinish == referenceFinish);
+        QVERIFY(sawCoverRelease);
+        desk.setState(PetController::State::Busy); // Preserved laptop choice resumes.
+        for (int frame = 0; frame < 100; ++frame) {
+            desk.advance(0.02);
+            if (desk.values().value(QStringLiteral("ParamSitPose")) > 0.0)
+                QCOMPARE(desk.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+        }
+        QVERIFY(desk.values().value(QStringLiteral("ParamSitPose")) > 0.99);
+    }
+}
+
+void ParameterMotionTest::deskDisabledPreservesExistingTrajectory() {
+    ParameterMotion reference, optional;
+    for (auto* motion : {&reference, &optional}) {
+        QVERIFY(motion->loadMotionLibrary(QStringLiteral("assets/motions")));
+        motion->setBusyRandomSeed(1234);
+        motion->advance(0.02);
+    }
+    optional.setDeskWorkMode(false);
+    for (const auto state : {PetController::State::Busy, PetController::State::Idle,
+         PetController::State::Delete, PetController::State::Grass, PetController::State::Busy}) {
+        reference.setState(state);
+        optional.setState(state);
+        if (state == PetController::State::Busy) {
+            reference.forceLaptopBusy();
+            optional.forceLaptopBusy();
+        }
+        for (int frame = 0; frame < 100; ++frame) {
+            reference.advance(0.02);
+            optional.advance(0.02);
+            QCOMPARE(optional.values(), reference.values());
+            QVERIFY(!optional.values().contains(QStringLiteral("ParamDeskVisible")));
+            QCOMPARE(optional.consumeActionFinished(), reference.consumeActionFinished());
+        }
+    }
+}
+
+void ParameterMotionTest::deskVisibilityIsReservedForActivity() {
+    QTemporaryDir dir;
+    QFile reaction(dir.filePath(QStringLiteral("turn-ended.motion.json")));
+    QVERIFY(reaction.open(QIODevice::WriteOnly));
+    reaction.write(R"({"duration":1,"constants":{"ParamDeskVisible":0},"keyframes":[
+        {"time":0,"parameters":{"ParamAngleY":0}},
+        {"time":1,"parameters":{"ParamAngleY":5}}]})");
+    reaction.close();
+    ParameterMotion motion;
+    QString error;
+    QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
+    QVERIFY(error.contains(QStringLiteral("ParamDeskVisible")));
+    QVERIFY(error.contains(QStringLiteral("activity")));
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)
