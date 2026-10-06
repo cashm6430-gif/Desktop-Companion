@@ -48,6 +48,10 @@ target_link_libraries(DesktopCompanion PRIVATE Qt6::Widgets Qt6::Network shell32
 target_compile_definitions(DesktopCompanion PRIVATE UNICODE _UNICODE)
 if(WIN32)
     # Application icon + VERSIONINFO (resources/app.rc references whale-girl.ico).
+    # The .ico is referenced inside the .rc content, which CMake's dependency
+    # scanner cannot see -- declare it explicitly or icon edits relink stale resources.
+    set_source_files_properties(resources/app.rc PROPERTIES
+        OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/resources/whale-girl.ico")
     target_sources(DesktopCompanion PRIVATE resources/app.rc)
 endif()
 if(HAVE_CUBISM)
