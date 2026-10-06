@@ -467,7 +467,11 @@ private slots:
 
     void postureMaterialsMeetWithoutGhostingOrGeometryDrift() {
         using TransitionPoint = CubismPostureTransition::Point;
-        const int expectedStandingMeshes = 11, expectedSeatedMeshes = 8;
+        // Desk-work adoption (R19, 2026-10-06) adds "busy workstation
+        // laptop" and "busy workstation sleeve r" to the seated set,
+        // both of which correctly follow the seated posture transform
+        // alongside the legacy 8 "busy *" body meshes.
+        const int expectedStandingMeshes = 11, expectedSeatedMeshes = 10;
         for (float mirror : {0.0f, 1.0f, -1.0f}) {
             NativeModel native;
             QVERIFY(native.load(moc_));

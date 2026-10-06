@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "moc_sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931",
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
   "atlas_sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e",
   "body_mask_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
   "duplicate_mask_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
@@ -292,5 +292,10 @@
     "bright_side_hair_transferred_to_body": 0,
     "seated_chest_at_or_below_source_y607_erased": 0,
     "face_features_above_source_y535_changed": 0
+  },
+  "moc_rebinding_evidence": {
+    "old34_UV_and_indices_exact": true,
+    "source_atlas_byte_exact": true,
+    "source_edit_report_sha256": "b906409a948bf2ef61300b1851e6982e86f5cfcf269cc71c3f408708ed9a3df6"
   }
 }

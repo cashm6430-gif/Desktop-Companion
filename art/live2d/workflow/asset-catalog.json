@@ -1200,12 +1200,32 @@
       "sha256": "300cba02a0d2179ecb54e8cf68f9cb1f44dc9d9db6aa09e947cf7e4d03f9fb9b"
     },
     "art/live2d/desk-work-20261006-r2/handoff-state.json": {
-      "bytes": 1662,
-      "sha256": "92aa7aa03af156cbb3468cb857afdc70c3aaa4676d1ff925ef84c603acf62148"
+      "bytes": 2353,
+      "sha256": "cf5870ace57b613a4761f4c1b0a87a16d05ec9621e373f01222b98b1a0951a11"
     },
     "art/live2d/desk-work-20261006-r2/pure-hair-full.png": {
       "bytes": 598080,
       "sha256": "4fedbbb227711b7685f816160d4f84d7df3e38eecaac48961b244c062b158d46"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19-scenes/busy-laptop-f060.png": {
+      "bytes": 530591,
+      "sha256": "89c7f00d78ba132d9a04537fd08926e74767a9a41ff4421ae066deef0d8811ff"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19-scenes/desk-delete-f030.png": {
+      "bytes": 577291,
+      "sha256": "4e53ca644477666258d835271445c262fca52965df94c28c59d4e7e88857bb6a"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19-scenes/head-pat-f030.png": {
+      "bytes": 517660,
+      "sha256": "6998fba4badf744b1fbc2e11807a5364c0bf796a4ebff371f10186102bf98f40"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19-scenes/regression-deskdelete-030.png": {
+      "bytes": 481654,
+      "sha256": "98308c4aae697b7038d3f015adbffe73b4924e00e35b41c0a09f5f1b1cc3d7ae"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19-scenes/scene-contact-sheet.png": {
+      "bytes": 1074335,
+      "sha256": "138d0a2c35c512a01e8b4476c6bed42714457c9e82146adf62f4640718e0a3ef"
     },
     "art/live2d/desk-work-20261006-r2/review-r19/cleanup-00.png": {
       "bytes": 572167,
@@ -1223,9 +1243,25 @@
       "bytes": 523607,
       "sha256": "35cbcfe41ab94e2c32e1e40dced13eea66e65143648c2e986fb928ecd114e947"
     },
+    "art/live2d/desk-work-20261006-r2/review-r19/compare-default-stand.png": {
+      "bytes": 603558,
+      "sha256": "9d22408d2c82971642ed801d8bb44ff6054bcc807ecc4ad60f9bc47e84a21149"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19/compare-default.png": {
+      "bytes": 602350,
+      "sha256": "8409e2ff31a75e069406ae4dafb83381ed2fd0e8a125a23f26ad60a0fe68ca87"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19/compare-raised-arm.png": {
+      "bytes": 618914,
+      "sha256": "287b3b71ba309e9bb1f5980e1a3b96cae2274150f02d32f8655a2423f163e3bf"
+    },
     "art/live2d/desk-work-20261006-r2/review-r19/delete-frame-030.png": {
       "bytes": 577291,
       "sha256": "4e53ca644477666258d835271445c262fca52965df94c28c59d4e7e88857bb6a"
+    },
+    "art/live2d/desk-work-20261006-r2/review-r19/desktop-280-simulation.png": {
+      "bytes": 834706,
+      "sha256": "076b4f75e964da5b695a837950d1ccbb5977af9f880f02861d1f0b121203c692"
     },
     "art/live2d/desk-work-20261006-r2/review-r19/turnended-frame-030.png": {
       "bytes": 524672,
@@ -2764,8 +2800,8 @@
       "sha256": "416369c119bf8751b7f110f81d3def2f9090c7af28af4748fb8269f2a77400e7"
     },
     "art/live2d/workflow/author-source.json": {
-      "bytes": 6321,
-      "sha256": "151e74a4bc6879d9bf931e6a76eee4bd75136f121bd93bb0090838b0b8374b94"
+      "bytes": 6356,
+      "sha256": "54353a86feb4ea57005f7e13f71802b67835e067f90bbf42fc8198b241e69631"
     },
     "art/live2d/workflow/baseline-current/frames/exit-after-material-switch.png": {
       "bytes": 568921,
@@ -3007,6 +3043,10 @@
       "bytes": 1382290,
       "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
     },
+    "assets/live2d/whale-girl/material-ownership/arm-backing-hair-only.png": {
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
     "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png": {
       "bytes": 16808,
       "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
@@ -3028,8 +3068,8 @@
       "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
     },
     "assets/live2d/whale-girl/material-ownership/ownership.json": {
-      "bytes": 6979,
-      "sha256": "753022240aa1d80b60a229e9f2a016a431fe5af4e4dad752951c1457ece56a3a"
+      "bytes": 7196,
+      "sha256": "7d5de2841f20e39f6285e331c3951d82643c05a9eca156cbe12bc35a56b8bfdd"
     },
     "assets/live2d/whale-girl/neck-component/neck-surface.moc3": {
       "bytes": 22976,
@@ -3051,6 +3091,22 @@
       "bytes": 3817559,
       "sha256": "e27d3aac6faa2eb0cbfc8e3275ccc57ec563aeaa685cd53a4a0cd5151ad6b90e"
     },
+    "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_01.png": {
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_02.png": {
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_03.png": {
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_04.png": {
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
     "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json": {
       "bytes": 1155,
       "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
@@ -3064,12 +3120,12 @@
       "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
     },
     "assets/live2d/whale-girl/whale-girl-layered-draft.moc3": {
-      "bytes": 11999360,
-      "sha256": "df5e86d822959864ba9f07b1967b792ebb17d9407a83c77b2243575a8027c931"
+      "bytes": 12016704,
+      "sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
     },
     "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json": {
-      "bytes": 869,
-      "sha256": "f58420bec0ef62667a93b448a6aa14b37164125dff617111c25823e7545e6018"
+      "bytes": 1282,
+      "sha256": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac"
     },
     "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json": {
       "bytes": 1751,
@@ -3080,8 +3136,8 @@
       "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
     },
     "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json": {
-      "bytes": 10082,
-      "sha256": "73f6e4082b2bb05522ed31b06f4c140cbf78730245e58e8500a1dd79107f783e"
+      "bytes": 11681,
+      "sha256": "05c1b8eb9e1405ce010a807f451112d91f9abe1f3a4a82d73d3630f706f36daf"
     },
     "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json": {
       "bytes": 1571,
@@ -3304,8 +3360,8 @@
       "sha256": "f7fcd3248edca95519b90e41c62dedcc1d74a296f2bd0032bf12d5fe13f3a43c"
     },
     "tests/CubismNeckBindingTest.cpp": {
-      "bytes": 51315,
-      "sha256": "968e1c6538a553f3bbb7c961c2b4cf3e72252730f839c39e3ebec77bec99456e"
+      "bytes": 51584,
+      "sha256": "111d8a35c181cd4003f663d163b123eaa82d7d37e20fbbf108a5b286937ce643"
     },
     "tests/CubismPostureTransitionTest.cpp": {
       "bytes": 9465,

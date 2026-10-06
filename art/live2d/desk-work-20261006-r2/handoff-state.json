@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "status": "scene_approval_pending",
+ "status": "adopted",
  "production_replaced": false,
  "push_requested": false,
  "route": "R19 authored pure-hair backing",
@@ -19,8 +19,9 @@
   "the R17 content question (hair in the raised-arm negative space) goes to the user"
  ],
  "next_steps": [
-  "user scene approval: busy-laptop motion + desk-delete/turn-ended-laptop/head-pat-busy interactions",
-  "if approved: full regression then replace the registered bundle (push remains the user's action)"
+  "full regression (build + CTest + unittest)",
+  "adopt into the registered bundle",
+  "push remains the user's action"
  ],
  "visual_review": {
   "result": "approved",
@@ -41,5 +42,42 @@
    "turn-ended": "same pattern"
   },
   "material": "art/live2d/desk-work-20261006-r2/review-r19-scenes/"
+ },
+ "scene_approval": {
+  "result": "approved",
+  "by": "user",
+  "date": "2026-10-06",
+  "material": "art/live2d/desk-work-20261006-r2/review-r19-scenes/"
+ },
+ "full_regression": {
+  "ctest": "9/9 passed",
+  "unittest": "150/150 passed (numpy via venv site-packages PYTHONPATH)",
+  "test_fix": "tests/CubismNeckBindingTest.cpp expectedSeatedMeshes 8->10 (desk-work laptop/sleeve R join the seated transform set; geometry assertions unchanged and passing)",
+  "date": "2026-10-06"
+ },
+ "adoption": {
+  "production_bundle_replaced": true,
+  "files": {
+   "replaced": [
+    "whale-girl-layered-draft.moc3",
+    "whale-girl-layered-draft.model3.json",
+    "whale-girl-layered-draft.psd2live.json",
+    "material-ownership/ownership.json"
+   ],
+   "new": [
+    "texture_01.png",
+    "texture_02.png",
+    "texture_03.png",
+    "texture_04.png",
+    "material-ownership/arm-backing-hair-only.png"
+   ]
+  },
+  "flags_flipped": {
+   "runtimeDeskWorkMode.stage": "preview->complete",
+   "runtimeHairBacking.stage": "preview->complete",
+   "adopted": true
+  },
+  "author_source_registry": "art/live2d/workflow/author-source.json updated (primary CMO fe9b00e7, previous f7ee66b4)",
+  "push_requested": false
  }
 }
