@@ -9,6 +9,7 @@
 #include <QtMath>
 #include <algorithm>
 #include <cmath>
+#include <numbers>
 
 namespace {
 const QString angleX = QStringLiteral("ParamAngleX");
@@ -219,6 +220,11 @@ void ParameterMotion::setState(PetController::State state) {
         || (interaction_ == Interaction::HeadPat
             && (state == PetController::State::Delete || state == PetController::State::Grass)))
         cancelInteraction();
+    // A delete (or grass hand-off) interrupting mid-drag wins over the settle
+    // nod; the drag overlay clears instantly instead of decaying over it.
+    if (dragMotionActive() && (state == PetController::State::Delete
+                               || state == PetController::State::Grass))
+        cancelDragMotion();
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     resetGrassInteraction();
@@ -605,6 +611,115 @@ double ParameterMotion::grassInteractionMaxDuration() const {
         + grassReleaseEnd_ - grassTimeoutEnd_;
 }
 
+// --- Scene-move drag reaction (motion card 4) -------------------------------
+
+void ParameterMotion::beginDragMotion() {
+    dragPhase_ = DragPhase::Follow;
+    dragLookX_ = dragLookY_ = dragLookTX_ = dragLookTY_ = 0.0;
+    dragHairX_ = dragHairTarget_ = dragBodyX_ = dragBodyTarget_ = 0.0;
+    dragSpeed_ = dragDistance_ = 0.0;
+    dragCuriousDone_ = false;
+    dragCuriousTime_ = dragNodTime_ = 0.0;
+}
+
+void ParameterMotion::updateDragMotion(double vx, double vy) {
+    if (dragPhase_ != DragPhase::Follow || !qIsFinite(vx) || !qIsFinite(vy)) return;
+    dragLookTX_ = std::clamp(vx / 600.0, -1.0, 1.0);
+    dragLookTY_ = std::clamp(vy / 900.0, -0.6, 0.6);
+    // Hair streams opposite to the motion: it lags behind the body.
+    dragHairTarget_ = std::clamp(-vx / 500.0, -1.0, 1.0);
+    dragBodyTarget_ = std::clamp(-vx / 140.0, -7.0, 7.0);
+    dragSpeed_ = std::sqrt(vx * vx + vy * vy);
+}
+
+void ParameterMotion::endDragMotion() {
+    if (dragPhase_ != DragPhase::Follow) return;
+    dragPhase_ = DragPhase::Settle;
+    dragLookTX_ = dragLookTY_ = dragHairTarget_ = dragBodyTarget_ = 0.0;
+    dragSpeed_ = 0.0;
+    // Release: residual sway decays while the eyes come back to the user,
+    // plus one light nod on arrival.
+    dragCuriousTime_ = 0.5;
+    dragNodTime_ = 0.55;
+}
+
+void ParameterMotion::cancelDragMotion() {
+    dragPhase_ = DragPhase::None;
+    dragLookX_ = dragLookY_ = dragLookTX_ = dragLookTY_ = 0.0;
+    dragHairX_ = dragHairTarget_ = dragBodyX_ = dragBodyTarget_ = 0.0;
+    dragSpeed_ = dragDistance_ = 0.0;
+    dragCuriousDone_ = false;
+    dragCuriousTime_ = dragNodTime_ = 0.0;
+}
+
+void ParameterMotion::advanceDragMotion(double seconds) {
+    if (dragPhase_ == DragPhase::None) return;
+    if (dragPhase_ == DragPhase::Follow) {
+        dragDistance_ += dragSpeed_ * seconds;
+        // One curious look back at the user per long drag: eyes leave the drag
+        // direction briefly, then return to following the motion.
+        if (!dragCuriousDone_ && dragDistance_ > 400.0) {
+            dragCuriousDone_ = true;
+            dragCuriousTime_ = 0.6;
+        }
+        if (dragCuriousTime_ > 0.0) {
+            dragCuriousTime_ -= seconds;
+            dragLookTX_ = dragLookTY_ = 0.0;
+        }
+        dragLookX_ += (dragLookTX_ - dragLookX_) * (1.0 - qExp(-seconds / 0.12));
+        dragLookY_ += (dragLookTY_ - dragLookY_) * (1.0 - qExp(-seconds / 0.14));
+        // Wider time constants than the eyes: hair and body read as mass.
+        dragHairX_ += (dragHairTarget_ - dragHairX_) * (1.0 - qExp(-seconds / 0.24));
+        dragBodyX_ += (dragBodyTarget_ - dragBodyX_) * (1.0 - qExp(-seconds / 0.18));
+    } else {
+        // Settle: exponential decay only -- the card explicitly forbids a
+        // persistent sine sway after the drag stops.
+        const double decay = qExp(-seconds / 0.22);
+        dragLookX_ *= decay; dragLookY_ *= decay;
+        dragHairX_ *= decay; dragBodyX_ *= decay;
+        if (dragCuriousTime_ > 0.0) dragCuriousTime_ -= seconds;
+        if (dragNodTime_ > 0.0) dragNodTime_ -= seconds;
+        if (qAbs(dragLookX_) < 0.02 && qAbs(dragHairX_) < 0.02 && qAbs(dragBodyX_) < 0.05
+            && dragNodTime_ <= 0.0 && dragCuriousTime_ <= 0.0)
+            cancelDragMotion();
+    }
+}
+
+void ParameterMotion::applyDragMotion(Parameters& desired) const {
+    if (dragPhase_ == DragPhase::None) return;
+    if (dragCuriousTime_ > 0.0) {
+        // Looking at the user instead of the drag direction, slightly pleased.
+        desired[QStringLiteral("ParamEyeBallX")] = 0.0;
+        desired[QStringLiteral("ParamEyeBallY")] = 0.1;
+        desired[QStringLiteral("ParamEyeSmile")] = std::max(
+            desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
+    } else if (dragPhase_ == DragPhase::Follow) {
+        auto eyeball = desired.contains(QStringLiteral("ParamEyeBallX"))
+            ? desired.value(QStringLiteral("ParamEyeBallX")) : 0.0;
+        desired[QStringLiteral("ParamEyeBallX")] = std::clamp(eyeball + 0.45 * dragLookX_, -1.0, 1.0);
+        auto eyeballY = desired.contains(QStringLiteral("ParamEyeBallY"))
+            ? desired.value(QStringLiteral("ParamEyeBallY")) : 0.0;
+        desired[QStringLiteral("ParamEyeBallY")] = std::clamp(eyeballY + 0.3 * dragLookY_, -1.0, 1.0);
+    }
+    auto hairFront = desired.contains(QStringLiteral("ParamHairFront"))
+        ? desired.value(QStringLiteral("ParamHairFront")) : 0.0;
+    desired[QStringLiteral("ParamHairFront")] = std::clamp(hairFront + 0.45 * dragHairX_, -1.0, 1.0);
+    auto hairBack = desired.contains(QStringLiteral("ParamHairBack"))
+        ? desired.value(QStringLiteral("ParamHairBack")) : 0.0;
+    desired[QStringLiteral("ParamHairBack")] = std::clamp(hairBack + 0.3 * dragHairX_, -1.0, 1.0);
+    auto bodyX = desired.contains(QStringLiteral("ParamBodyAngleX"))
+        ? desired.value(QStringLiteral("ParamBodyAngleX")) : 0.0;
+    desired[QStringLiteral("ParamBodyAngleX")] = std::clamp(bodyX + dragBodyX_, -12.0, 12.0);
+    if (dragNodTime_ > 0.0) {
+        // One light nod on release: a single sine hump, down and back.
+        const double p = 1.0 - dragNodTime_ / 0.55;
+        auto angleY = desired.contains(QStringLiteral("ParamAngleY"))
+            ? desired.value(QStringLiteral("ParamAngleY")) : 0.0;
+        desired[QStringLiteral("ParamAngleY")] = angleY - 7.0 * std::sin(std::numbers::pi_v<double> * p);
+    }
+}
+
+
 void ParameterMotion::advanceGrassInteraction(double seconds) {
     if (!grassInteractionActive()) return;
     if (grassPhase_ != GrassPhase::Hold) grassLookTarget_ = 0.0;
@@ -848,6 +963,7 @@ void ParameterMotion::advance(double seconds) {
     blinkClock_ += seconds;
     advanceInteraction(seconds);
     advanceGrassInteraction(seconds);
+    advanceDragMotion(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1009,6 +1125,7 @@ void ParameterMotion::advance(double seconds) {
                 desired.value(QStringLiteral("ParamEyeBallX")) + 0.18 * grassLook_, -1.0, 1.0);
     }
     applyInteraction(desired);
+    applyDragMotion(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is

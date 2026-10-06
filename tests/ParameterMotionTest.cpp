@@ -114,6 +114,7 @@ private slots:
     void absentReactionsLeaveExistingMotionAvailable();
     void turnEndedPreservesSeatThenPutsLaptopAway();
     void stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping();
+    void dragMotionFollowsAndSettlesWithoutSway();
     void headPatHoldReleaseDirectionAndCooldown();
     void headPatWhileBusyLeavesHandsAndComputerAlone();
     void reactionInterruptionsKeepPoseContinuous();
@@ -422,6 +423,50 @@ void ParameterMotionTest::turnEndedPreservesSeatThenPutsLaptopAway() {
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+}
+
+void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 50);
+    QVERIFY(!motion.dragMotionActive());
+    motion.beginDragMotion();
+    QVERIFY(motion.dragMotionActive());
+    // Sustained rightward drag (short of the curious look-back threshold):
+    // the eyes follow, hair and body lag opposite.
+    for (int i = 0; i < 18; ++i) {
+        motion.updateDragMotion(600.0, 0.0);
+        motion.advance(1.0 / 30.0);
+    }
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.3);
+    QVERIFY(motion.values().value(QStringLiteral("ParamHairFront")) < -0.2);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBodyAngleX")) < -1.0);
+    // Crossing the long-drag threshold spends the one curious look-back:
+    // the eyes come off the motion toward the user with a soft smile.
+    const double eyeDuringFollow = motion.values().value(QStringLiteral("ParamEyeBallX"));
+    for (int i = 0; i < 10; ++i) {
+        motion.updateDragMotion(600.0, 0.0);
+        motion.advance(1.0 / 30.0);
+    }
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.3);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) < eyeDuringFollow);
+    // Release: exponential decay only -- the magnitude never grows back.
+    motion.endDragMotion();
+    double previousMag = std::abs(motion.values().value(QStringLiteral("ParamEyeBallX")));
+    for (int i = 0; i < 30; ++i) {
+        motion.advance(1.0 / 30.0);
+        const double mag = std::abs(motion.values().value(QStringLiteral("ParamEyeBallX")));
+        QVERIFY(mag <= previousMag + 1e-9);
+        previousMag = mag;
+    }
+    // Fully settled: back to rest, no residual offset, no perpetual sway.
+    advanceFrames(motion, 120);
+    QVERIFY(!motion.dragMotionActive());
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.05);
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamHairFront"))) < 0.05);
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamBodyAngleX"))) < 0.5);
 }
 
 void ParameterMotionTest::stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping() {

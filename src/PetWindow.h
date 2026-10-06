@@ -108,6 +108,7 @@ private:
     void recyclePaths(const QStringList& paths);
     void updatePointerGesture();
     void releasePointerGesture();
+    void constrainPositionToScreen();
     void advanceLiveFrame(double seconds);
     void playGrass();
     bool grassInteractionApproved() const;
@@ -131,6 +132,9 @@ private:
     PetController* controller_;
     QPoint dragOffset_;
     QPoint gestureWindowOrigin_;
+    QPointF dragLastGlobal_;   // scene-move drag reaction input (motion card 4)
+    QPointF dragVelocity_;
+    QElapsedTimer dragClock_;
     PetPointerGesture pointerGesture_;
     bool patAttempted_ = false;
     bool interactionPreviewEnabled_ = false;

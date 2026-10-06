@@ -702,7 +702,13 @@ void PetWindow::updatePointerGesture() {
         }
         motion_.updateHeadPat(pointerGesture_.normalizedPatDirection());
     } else if (pointerGesture_.mode() == PetPointerGesture::Mode::Drag) {
-        dragging_ = true;
+        if (!dragging_) {
+            dragging_ = true;
+            dragLastGlobal_ = QPointF();
+            dragVelocity_ = QPointF();
+            dragClock_.start();
+            motion_.beginDragMotion();
+        }
     }
 }
 
@@ -711,11 +717,28 @@ void PetWindow::releasePointerGesture() {
     pointerGesture_.release();
     patAttempted_ = false;
     if (dragging_) {
+        motion_.endDragMotion();
+        constrainPositionToScreen();
         QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         settings.setValue(QStringLiteral("position"), pos());
     }
     dragging_ = false;
     grassTouchPressed_ = false;
+}
+
+// Motion card 4: after a scene move the window must stay reachable -- keep a
+// visible strip on the current screen so the pet is never lost behind the
+// taskbar or past a monitor edge.
+void PetWindow::constrainPositionToScreen() {
+    const QScreen* screen = this->screen() ? this->screen() : QGuiApplication::primaryScreen();
+    if (!screen) return;
+    const QRect avail = screen->availableGeometry();
+    const int minX = avail.left() - width() + 96;
+    const int maxX = avail.right() - 96;
+    const int minY = avail.top();
+    const int maxY = avail.bottom() - 96;
+    const QPoint clamped(std::clamp(x(), minX, maxX), std::clamp(y(), minY, maxY));
+    if (clamped != pos()) move(clamped);
 }
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
@@ -752,7 +775,19 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
         // Relative to the press-time window, never to a window moved mid-drag.
         pointerGesture_.move(event->globalPosition() - QPointF(gestureWindowOrigin_));
         updatePointerGesture();
-        if (dragging_) move(event->globalPosition().toPoint() - dragOffset_);
+        if (dragging_) {
+            // Low-passed window velocity feeds the drag reaction; the motion
+            // layer turns it into eye/hair/body lag and the settle nod.
+            const QPointF global = event->globalPosition();
+            if (!dragLastGlobal_.isNull()) {
+                const double dt = (std::max)(dragClock_.restart() / 1000.0, 1.0 / 240.0);
+                const QPointF inst = (global - dragLastGlobal_) / dt;
+                dragVelocity_ += (inst - dragVelocity_) * 0.45;
+                motion_.updateDragMotion(dragVelocity_.x(), dragVelocity_.y());
+            }
+            dragLastGlobal_ = global;
+            move(event->globalPosition().toPoint() - dragOffset_);
+        }
         event->accept();
     }
 }

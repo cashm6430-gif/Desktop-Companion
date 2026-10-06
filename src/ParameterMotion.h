@@ -74,6 +74,15 @@ public:
     void lookAtGrassTip(double horizontal);
     double grassInteractionMaxDuration() const;
 
+    // Scene-move drag reaction (motion card 4). The window layer feeds window
+    // velocity; the motion layer adds eye/hair/body lag and a settle nod. Pure
+    // overlay: it owns no state transitions and never touches the busy clock.
+    void beginDragMotion();
+    void updateDragMotion(double vx, double vy);
+    void endDragMotion();
+    void cancelDragMotion();
+    bool dragMotionActive() const { return dragPhase_ != DragPhase::None; }
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -117,6 +126,8 @@ private:
     void applyBlendOverrides(const MotionClip& clip);
     void advanceInteraction(double seconds);
     void applyInteraction(Parameters& desired) const;
+    void applyDragMotion(Parameters& desired) const;
+    void advanceDragMotion(double seconds);
     void captureInteractionSeat();
     bool configureGrassInteraction(const QString& directory, QString* error);
     void resetGrassInteraction();
@@ -142,6 +153,18 @@ private:
     double grassLook_ = 0.0;
     double grassLookTarget_ = 0.0;
     bool grassInteractionSelected_ = false;
+
+    enum class DragPhase { None, Follow, Settle };
+    DragPhase dragPhase_ = DragPhase::None;
+    double dragLookX_ = 0.0, dragLookY_ = 0.0;          // smoothed eye follow, -1..1
+    double dragLookTX_ = 0.0, dragLookTY_ = 0.0;
+    double dragHairX_ = 0.0, dragHairTarget_ = 0.0;     // hair lag, streams against velocity
+    double dragBodyX_ = 0.0, dragBodyTarget_ = 0.0;     // slight body lean, param units
+    double dragSpeed_ = 0.0;                            // last fed speed, px/s
+    double dragDistance_ = 0.0;                         // accumulated path length
+    bool dragCuriousDone_ = false;
+    double dragCuriousTime_ = 0.0;                      // one curious look-back at the user
+    double dragNodTime_ = 0.0;                          // release nod, counts down
     bool actionFinishedReported_ = false;
 
     enum class Interaction { None, TurnEnded, HeadPat, Stretch };
