@@ -118,6 +118,28 @@ bool validateReaction(const MotionClip& clip, QString* error) {
     return true;
 }
 
+// The stretch pause ("歇一下") is an activity overlay, not a short reaction: it
+// deliberately owns the seated/desk/typing channels (stopping typing IS the
+// first key pose), so the reaction whitelist does not apply. Instead it must
+// carry the full seated desk pose on every key, so an interrupted playback can
+// never strand the pet between poses.
+bool validateStretch(const MotionClip& clip, QString* error) {
+    if (!clip.isValid()) return true;
+    if (clip.isAdditive() || clip.isLoop()) {
+        if (error) *error = QStringLiteral("Stretch %1 must be an absolute one-shot clip").arg(clip.id());
+        return false;
+    }
+    for (const auto& key : clip.keys()) {
+        if (key.parameters.value(QStringLiteral("ParamBusyLaptop")) != 1.0
+            || key.parameters.value(QStringLiteral("ParamSitPose")) != 1.0) {
+            if (error) *error = QStringLiteral("Stretch %1 requires a full seated desk pose on every key")
+                                    .arg(clip.id());
+            return false;
+        }
+    }
+    return true;
+}
+
 // A seated work cycle only reads correctly when every key is a seated pose.
 bool validateSeated(const MotionClip& clip, QString* error) {
     for (const auto& key : clip.keys()) {
@@ -193,6 +215,7 @@ void ParameterMotion::setState(PetController::State state) {
     preview_ = false;
     sequencePhysics_ = false;
     if ((interaction_ == Interaction::TurnEnded && state != PetController::State::Idle)
+        || (interaction_ == Interaction::Stretch && state != PetController::State::Busy)
         || (interaction_ == Interaction::HeadPat
             && (state == PetController::State::Delete || state == PetController::State::Grass)))
         cancelInteraction();
@@ -272,8 +295,10 @@ double ParameterMotion::clipEventTime(const QString& clipId, const QString& even
 bool ParameterMotion::configureInteractions(QString* error) {
     const MotionClip* turnEnded = library_.clip(QStringLiteral("turn-ended"));
     const MotionClip* headPat = library_.clip(QStringLiteral("head-pat"));
+    const MotionClip* stretch = library_.clip(QStringLiteral("busy-stretch"));
     if (turnEnded && !validateReaction(*turnEnded, error)) return false;
     if (headPat && !validateReaction(*headPat, error)) return false;
+    if (stretch && !validateStretch(*stretch, error)) return false;
     double enterEnd = 0.8;
     double holdEnd = 1.6;
     if (headPat) {
@@ -295,6 +320,7 @@ bool ParameterMotion::configureInteractions(QString* error) {
     cancelInteraction();
     turnEndedClip_ = turnEnded ? *turnEnded : MotionClip{};
     headPatClip_ = headPat ? *headPat : MotionClip{};
+    stretchClip_ = stretch ? *stretch : MotionClip{};
     headPatEnterEnd_ = enterEnd;
     headPatHoldEnd_ = holdEnd;
     return true;
@@ -308,6 +334,7 @@ QString ParameterMotion::interactionId() const {
     switch (interaction_) {
     case Interaction::TurnEnded: return QStringLiteral("turn-ended");
     case Interaction::HeadPat: return QStringLiteral("head-pat");
+    case Interaction::Stretch: return QStringLiteral("busy-stretch");
     default: return {};
     }
 }
@@ -334,6 +361,18 @@ bool ParameterMotion::playTurnEnded() {
     // setState(Idle) retains the previous pose. Keep a settled seated computer
     // while looking up; the usual put-away starts after the reaction.
     captureInteractionSeat();
+    return true;
+}
+
+bool ParameterMotion::playStretch() {
+    if (preview_ || interactionActive() || !stretchClip_.isValid()) return false;
+    // The stretch clip keys the full seated desk pose (BusyLaptop/SitPose/
+    // DeskVisible/LaptopVisible), so it is only playable over the seated
+    // laptop busy variant; a standing busy or another state would jump.
+    if (state_ != PetController::State::Busy || !laptopBusy_
+        || values_.value(QStringLiteral("ParamBusyLaptop")) < 0.9) return false;
+    interaction_ = Interaction::Stretch;
+    interactionTime_ = interactionElapsed_ = 0.0;
     return true;
 }
 
@@ -400,6 +439,17 @@ void ParameterMotion::advanceInteraction(double seconds) {
         }
         return;
     }
+    if (interaction_ == Interaction::Stretch) {
+        interactionTime_ += seconds;
+        if (interactionTime_ >= stretchClip_.duration()) {
+            // Resume typing from the busy loop's start; the frozen busy clock
+            // (see the Busy branch) restarts here, so no choice timer fired
+            // and the laptop variant survives the pause untouched.
+            busyTime_ = 0.0;
+            cancelInteraction();
+        }
+        return;
+    }
     headPatDirection_ += (headPatDirectionTarget_ - headPatDirection_)
         * (1.0 - qExp(-seconds / 0.14));
     const double heldLimit = headPatBeganBusy_ || state_ == PetController::State::Busy
@@ -419,7 +469,8 @@ void ParameterMotion::advanceInteraction(double seconds) {
 
 void ParameterMotion::applyInteraction(Parameters& desired) const {
     if (!interactionActive()) return;
-    const MotionClip& clip = interaction_ == Interaction::TurnEnded ? turnEndedClip_ : headPatClip_;
+    const MotionClip& clip = interaction_ == Interaction::TurnEnded ? turnEndedClip_
+        : interaction_ == Interaction::Stretch ? stretchClip_ : headPatClip_;
     const auto pose = clip.sample(interactionTime_);
     for (auto it = pose.cbegin(); it != pose.cend(); ++it) desired[it.key()] = it.value();
     if (state_ == PetController::State::Idle && !interactionSeat_.isEmpty()) {
@@ -907,6 +958,10 @@ void ParameterMotion::advance(double seconds) {
             nextBusyChoice_ += 40.0;
         }
         if (laptopBusy_) {
+            // A stretch pause freezes the laptop loop clock: the choice timer
+            // must not flip the busy variant mid-stretch, and the loop resumes
+            // from its typing start when advanceInteraction ends the stretch.
+            if (interaction_ == Interaction::Stretch) busyTime_ -= seconds;
             const auto pose = laptopClip_.sampleLooped(busyTime_);
             for (auto it = pose.cbegin(); it != pose.cend(); ++it) desired[it.key()] = it.value();
             desired[QStringLiteral("ParamSitPose")] = 1;

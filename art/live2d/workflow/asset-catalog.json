@@ -1200,8 +1200,8 @@
       "sha256": "300cba02a0d2179ecb54e8cf68f9cb1f44dc9d9db6aa09e947cf7e4d03f9fb9b"
     },
     "art/live2d/desk-work-20261006-r2/handoff-state.json": {
-      "bytes": 2353,
-      "sha256": "cf5870ace57b613a4761f4c1b0a87a16d05ec9621e373f01222b98b1a0951a11"
+      "bytes": 3400,
+      "sha256": "15049ddf1b52a6e9c92827277a0fdc0cf01d4aad6cd9a72833cdb74bcad40c4d"
     },
     "art/live2d/desk-work-20261006-r2/pure-hair-full.png": {
       "bytes": 598080,
@@ -1266,6 +1266,34 @@
     "art/live2d/desk-work-20261006-r2/review-r19/turnended-frame-030.png": {
       "bytes": 524672,
       "sha256": "cc7d7d41bd73b4f7d5088e06128eeee98dbfc7bbc6ad51079a9cefbf432149e8"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/full-011-peak.png": {
+      "bytes": 568709,
+      "sha256": "1ad3e61889bccd31d7ac1298dc61eb197f23378737631d3d534b95bcdc6229ec"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/full-018-peek.png": {
+      "bytes": 571784,
+      "sha256": "af0cfb4c720b052e128e07508c8277bb661de374c3fc9d3c5aa188a2144a9ed2"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/keybeats-300px.png": {
+      "bytes": 415521,
+      "sha256": "0cbbda7dfe708f1887c09e808f37a4a9294ea6b7a99ab793f8133fc744ef26e5"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/keybeats-r2-300px.png": {
+      "bytes": 590857,
+      "sha256": "3d09ba5266ee7b9e0dc4a93cc8e7ce67d4410d3ffd899443a5730836b74e8cb4"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/keybeats-r3-300px.png": {
+      "bytes": 678988,
+      "sha256": "357a7f1d96b5ac227c3467743e9eaf2fbcbb96f78989fe8e2c747c10b257f738"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/peek-r2-crop.png": {
+      "bytes": 707398,
+      "sha256": "7c432cb1b81d049e8dc426570ff98e1f4ec595f436dbfa852737871e0bdc92d5"
+    },
+    "art/live2d/desk-work-20261006-r2/review-stretch-draft/peek-r3-crop.png": {
+      "bytes": 922790,
+      "sha256": "cdaee53475e086e2c7eca089c33110e7dcc34a6ec81f44b9f9c1aa91245df685"
     },
     "art/live2d/desk-work-20261006-r2/staging-report.json": {
       "bytes": 736,
@@ -3151,6 +3179,10 @@
       "bytes": 10084,
       "sha256": "e3689e2e022ac30a3864b7aae71b26225d2bf0f4e9d0f80b1e0f213313e5aed3"
     },
+    "assets/motions/busy-stretch.motion.json": {
+      "bytes": 10232,
+      "sha256": "705a43a452886bac48f143253ed1d79fe3fd48cb7d252fc004d2c396c118a05d"
+    },
     "assets/motions/delete.motion.json": {
       "bytes": 9638,
       "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
@@ -3308,12 +3340,12 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 51575,
-      "sha256": "2c2a5288421f6c66798b9bb7157093a903bbe190d110290185e77966632c2d83"
+      "bytes": 54481,
+      "sha256": "9b25188d1fb9bb12f7608a86828f98351fecf2b03b69f3e6c928698a03aa74c4"
     },
     "src/ParameterMotion.h": {
-      "bytes": 9234,
-      "sha256": "24f4970c286117c934601f20633258ee15a9f73bb75ea34878a6fe0f581cda14"
+      "bytes": 9530,
+      "sha256": "136fc46e5080fdabaac01b0920d67f0b3ab17a240467e1bb9b67565b3f6fc254"
     },
     "src/PetController.cpp": {
       "bytes": 5518,
@@ -3332,8 +3364,8 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 41267,
-      "sha256": "f966cef9917eb5e958ba45d152aabbf8baaf7e59dbf3b91c8234b12430727b3d"
+      "bytes": 41468,
+      "sha256": "2e0b57e47470b77cea7779326df5b337323abdc5105875a0d53a0652f33b0e68"
     },
     "src/PetWindow.h": {
       "bytes": 6627,
@@ -3372,8 +3404,8 @@
       "sha256": "eeb76ce3a6c6baea98636dcb31a64fac05722a82cbf8b97b5bd83ed1d1ee55be"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 61957,
-      "sha256": "e353d84b522c8c83dc632436ac0e2a8c73c00427c78eb9ea5cf6dd767a6d3c31"
+      "bytes": 64978,
+      "sha256": "d821b6dc929feca14dd05c6ebc649d28bef830b64be19a17a083480adbbf6692"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 12164,

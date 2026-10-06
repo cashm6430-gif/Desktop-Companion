@@ -283,6 +283,10 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         setInteractionPreviewEnabled(true);
         motion_.playTurnEnded();
     });
+    trayMenu_.addAction(QStringLiteral("歇一下（伸展偷看）"), this, [this] {
+        if (controller_->state() != PetController::State::Busy) return;
+        motion_.playStretch();
+    });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
     trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {

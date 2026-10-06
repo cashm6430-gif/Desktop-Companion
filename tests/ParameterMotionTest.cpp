@@ -22,8 +22,19 @@ bool writeReactionFixture(const QTemporaryDir& dir) {
       {"time":0.8,"parameters":{"ParamAngleZ":3,"ParamEyeLOpen":0,"ParamEyeROpen":0,"ParamEyeSmile":1}},
       {"time":1.6,"parameters":{"ParamAngleZ":3,"ParamEyeLOpen":0,"ParamEyeROpen":0,"ParamEyeSmile":1}},
       {"time":2.2,"parameters":{"ParamAngleZ":0,"ParamEyeLOpen":1,"ParamEyeROpen":1,"ParamEyeSmile":0}}]})";
+    const QByteArray stretch = R"({"duration":0.6,"approval":"pending","keyframes":[
+      {"time":0,"parameters":{"ParamBusyLaptop":1,"ParamSitPose":1,"ParamDeskVisible":1,"ParamLaptopVisible":1,
+        "ParamBusyTypingL":0,"ParamBusyTypingR":0,"ParamAngleY":-8,"ParamEyeLOpen":0.9,"ParamEyeROpen":0.9,
+        "ParamSmileOpen":0,"ParamMouthGape":0}},
+      {"time":0.3,"parameters":{"ParamBusyLaptop":1,"ParamSitPose":1,"ParamDeskVisible":1,"ParamLaptopVisible":1,
+        "ParamBusyTypingL":0,"ParamBusyTypingR":0,"ParamAngleY":10,"ParamEyeLOpen":1,"ParamEyeROpen":0,
+        "ParamSmileOpen":1,"ParamMouthGape":0}},
+      {"time":0.6,"parameters":{"ParamBusyLaptop":1,"ParamSitPose":1,"ParamDeskVisible":1,"ParamLaptopVisible":1,
+        "ParamBusyTypingL":0,"ParamBusyTypingR":0,"ParamAngleY":-8,"ParamEyeLOpen":0.9,"ParamEyeROpen":0.9,
+        "ParamSmileOpen":0,"ParamMouthGape":0}}]})";
     for (const auto& entry : {qMakePair(QStringLiteral("turn-ended"), turn),
-                              qMakePair(QStringLiteral("head-pat"), pat)}) {
+                              qMakePair(QStringLiteral("head-pat"), pat),
+                              qMakePair(QStringLiteral("busy-stretch"), stretch)}) {
         QFile file(dir.filePath(entry.first + QStringLiteral(".motion.json")));
         if (!file.open(QIODevice::WriteOnly) || file.write(entry.second) != entry.second.size()) return false;
     }
@@ -102,6 +113,7 @@ private slots:
     void standingAccentKeepsMovingAfterOneCycle();
     void absentReactionsLeaveExistingMotionAvailable();
     void turnEndedPreservesSeatThenPutsLaptopAway();
+    void stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping();
     void headPatHoldReleaseDirectionAndCooldown();
     void headPatWhileBusyLeavesHandsAndComputerAlone();
     void reactionInterruptionsKeepPoseContinuous();
@@ -410,6 +422,44 @@ void ParameterMotionTest::turnEndedPreservesSeatThenPutsLaptopAway() {
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+}
+
+void ParameterMotionTest::stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    // Idle refuses; the standing busy variant refuses too (the clip keys the
+    // full seated desk pose, so it must not jump onto a standing body).
+    QVERIFY(!motion.playStretch());
+    motion.forceStandingBusy();
+    advanceFrames(motion, 50);
+    QVERIFY(!motion.playStretch());
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) > 0.99);
+    QVERIFY(motion.playStretch());
+    QVERIFY(!motion.playStretch());
+    QCOMPARE(motion.interactionId(), QStringLiteral("busy-stretch"));
+    advanceFrames(motion, 15); // 0.3s: inside the pause, at the peek key
+    QVERIFY(motion.interactionActive());
+    // Typing stops while paused (blended down from the typing loop); the
+    // seated desk stays.
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingL")) < 0.2);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.2);
+    QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) > 0.99);
+    // Delete takes priority over the pause.
+    motion.setState(PetController::State::Delete);
+    QVERIFY(!motion.interactionActive());
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.playStretch());
+    advanceFrames(motion, 40); // 0.8s > the 0.6s fixture: pause over
+    QVERIFY(!motion.interactionActive());
+    // The busy clock restarted on the laptop variant: typing is back.
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingL")) > 0.001);
 }
 
 void ParameterMotionTest::headPatHoldReleaseDirectionAndCooldown() {

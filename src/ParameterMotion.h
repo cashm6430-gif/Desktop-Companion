@@ -46,6 +46,10 @@ public:
     // loaded for explicit previews as well as the eventual approved actions.
     bool configureInteractions(QString* error = nullptr);
     bool playTurnEnded();
+    // Authored stretch-and-peek pause ("歇一下"). Only meaningful while the
+    // seated laptop busy loop is playing; the clip carries the full seated
+    // pose, so it overrides the loop and resumes typing from its start.
+    bool playStretch();
     bool beginHeadPat(double direction = 0.0);
     bool canBeginHeadPat() const;
     void updateHeadPat(double direction);
@@ -140,9 +144,10 @@ private:
     bool grassInteractionSelected_ = false;
     bool actionFinishedReported_ = false;
 
-    enum class Interaction { None, TurnEnded, HeadPat };
+    enum class Interaction { None, TurnEnded, HeadPat, Stretch };
     MotionClip turnEndedClip_;
     MotionClip headPatClip_;
+    MotionClip stretchClip_;
     QString interactionDirectory_;
     Interaction interaction_ = Interaction::None;
     double interactionTime_ = 0.0;

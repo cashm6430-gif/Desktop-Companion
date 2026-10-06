@@ -79,5 +79,18 @@
   },
   "author_source_registry": "art/live2d/workflow/author-source.json updated (primary CMO fe9b00e7, previous f7ee66b4)",
   "push_requested": false
+ },
+ "stretch_motion": {
+  "clip": "busy-stretch",
+  "revision": 3,
+  "approval": "approved",
+  "approved_by": "user (in-chat)",
+  "history": "r1 full Gape=1 drafting error caught by user; r2 mouth fix (omega closed throughout, SmileOpen only in 1.2-2.1 peek) approved; r3 pacing rework per live feedback - 0.9 quick reopen + 1.05 playful close replaces the 0.5s closed-eye hover, wink peek hold 0.9s unchanged",
+  "runtime": "Interaction::Stretch via ParameterMotion::playStretch, tray menu 'xie yi xia'; busyTime_ frozen during clip, Delete interrupts first, resumes typing at loop start",
+  "regression": "CTest 9/9 + unittest 150/150 (after full rebuild fixing stale-object-layout segfault)",
+  "evidence": "review-stretch-draft/keybeats-r3-300px.png, review-stretch-draft/peek-r3-crop.png, .local/authoring/desk-work-20261006-r2/r19-stretch-draft-r3/",
+  "followups": [
+   "click-during-peek early cancel (deferred)"
+  ]
  }
 }
