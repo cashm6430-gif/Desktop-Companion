@@ -1,0 +1,122 @@
+{
+ "version": 1,
+ "conceptApproval": "approved",
+ "approval": "pending",
+ "revision": 1,
+ "duration": 4.0,
+ "loop": false,
+ "interpolation": "smoothstep",
+ "blendSeconds": 0.1,
+ "blendSecondsPerParameter": {
+  "ParamEyeLOpen": 0.05,
+  "ParamEyeROpen": 0.05,
+  "ParamMouthOpenY": 0.05
+ },
+ "concept": "motion-card 6 肩胸伸展与偷看（我刚才一直很认真）",
+ "conceptSource": "E:/obsidian/workDiary/桌宠项目-规划与进度.md 动作卡 6；批次 2 首项",
+ "costPlan": "零新素材：胸展=ParamBreath，后仰=ParamAngleY+ParamBodyAngleY，肩抬感=ParamShiftY 上浮 3px，发梢晚到=ParamHairBack/Front 时间滞后，偷看=左右眼开闭差+EyeBallX，被抓包=ParamCheek+眉微抬。桌后手留在自然位置（不 key 手臂轴），电脑锚点不动（不 key LaptopRock）。",
+ "directorNotes": [
+  "0.0-0.2 停键，半闭眼吸气",
+  "0.2-0.7 约 0.5s 肩轻抬、胸口展开、头稍后仰",
+  "0.7-0.95 闭眼停约 0.25s，发梢晚到",
+  "1.2-2.1 睁一只眼偷看，肩回落、闭口笑",
+  "2.3 恢复呼吸，3.2 回正，4.0 接回敲键"
+ ],
+ "reviewNotes": [
+  "draft for key-pose review only; capture does not imply approval",
+  "peek eye is the LEFT eye (viewer choice to confirm at review)",
+  "ShiftY lift 3px is the shoulder-read substitute; if unreadable at 280px, options are smaller/larger lift or a dedicated shoulder axis (new art, last resort per cost plan)"
+ ],
+ "keyframes": [
+  {"time": 0.0, "label": "专注敲键", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 1, "ParamBusyTypingR": 1, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": -8, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 0, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0.9, "ParamEyeROpen": 0.9, "ParamEyeBallX": 0, "ParamEyeBallY": -0.75,
+   "ParamEyeSmile": 0, "ParamBrowLY": 0, "ParamBrowRY": 0,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.3, "ParamShiftY": 0, "ParamHairFront": 0, "ParamHairBack": 0, "ParamCheek": 0
+  }},
+  {"time": 0.2, "label": "停键吸气", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": -6, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 0.5, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0.45, "ParamEyeROpen": 0.45, "ParamEyeBallX": 0, "ParamEyeBallY": -0.3,
+   "ParamEyeSmile": 0, "ParamBrowLY": 0, "ParamBrowRY": 0,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.55, "ParamShiftY": 0.5, "ParamHairFront": 0.05, "ParamHairBack": 0.05, "ParamCheek": 0
+  }},
+  {"time": 0.7, "label": "舒展顶点", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": 10, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 2.5, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0.05, "ParamEyeROpen": 0.05, "ParamEyeBallX": 0, "ParamEyeBallY": 0.2,
+   "ParamEyeSmile": 0, "ParamBrowLY": 0.5, "ParamBrowRY": 0.5,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 1.0, "ParamShiftY": 3, "ParamHairFront": 0.2, "ParamHairBack": 0.45, "ParamCheek": 0
+  }},
+  {"time": 0.95, "label": "闭眼悬停", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": 10.5, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 2.8, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0, "ParamEyeROpen": 0, "ParamEyeBallX": 0, "ParamEyeBallY": 0.25,
+   "ParamEyeSmile": 0, "ParamBrowLY": 0.55, "ParamBrowRY": 0.55,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.95, "ParamShiftY": 3, "ParamHairFront": 0.3, "ParamHairBack": 0.6, "ParamCheek": 0
+  }},
+  {"time": 1.2, "label": "睁眼偷看", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 3, "ParamAngleY": 8, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 1, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 1, "ParamEyeROpen": 0, "ParamEyeBallX": 0.35, "ParamEyeBallY": -0.1,
+   "ParamEyeSmile": 0.6, "ParamBrowLY": 0.2, "ParamBrowRY": 0.6,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.6, "ParamShiftY": 0.5, "ParamHairFront": 0.15, "ParamHairBack": 0.3, "ParamCheek": 0.3
+  }},
+  {"time": 2.1, "label": "偷看保持", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 2, "ParamAngleY": 7, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 0.8, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 1, "ParamEyeROpen": 0, "ParamEyeBallX": 0.3, "ParamEyeBallY": -0.15,
+   "ParamEyeSmile": 0.65, "ParamBrowLY": 0.15, "ParamBrowRY": 0.55,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.5, "ParamShiftY": 0, "ParamHairFront": 0.05, "ParamHairBack": 0.1, "ParamCheek": 0.35
+  }},
+  {"time": 2.6, "label": "回正恢复", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": -2, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 0, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0.9, "ParamEyeROpen": 0.9, "ParamEyeBallX": 0, "ParamEyeBallY": -0.4,
+   "ParamEyeSmile": 0.2, "ParamBrowLY": 0, "ParamBrowRY": 0,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.45, "ParamShiftY": 0, "ParamHairFront": 0, "ParamHairBack": 0, "ParamCheek": 0.15
+  }},
+  {"time": 3.2, "label": "看回屏幕", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 0, "ParamBusyTypingR": 0, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": -8, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 0, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0.9, "ParamEyeROpen": 0.9, "ParamEyeBallX": 0, "ParamEyeBallY": -0.75,
+   "ParamEyeSmile": 0, "ParamBrowLY": 0, "ParamBrowRY": 0,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.35, "ParamShiftY": 0, "ParamHairFront": 0, "ParamHairBack": 0, "ParamCheek": 0
+  }},
+  {"time": 4.0, "label": "接回敲键", "parameters": {
+   "ParamBusyLaptop": 1, "ParamSitPose": 1, "ParamDeskVisible": 1, "ParamLaptopVisible": 1,
+   "ParamBusyTypingL": 1, "ParamBusyTypingR": 1, "ParamLaptopRock": 0,
+   "ParamAngleX": 0, "ParamAngleY": -8, "ParamAngleZ": 0,
+   "ParamBodyAngleX": 0, "ParamBodyAngleY": 0, "ParamBodyAngleZ": 0,
+   "ParamEyeLOpen": 0.9, "ParamEyeROpen": 0.9, "ParamEyeBallX": 0, "ParamEyeBallY": -0.75,
+   "ParamEyeSmile": 0, "ParamBrowLY": 0, "ParamBrowRY": 0,
+   "ParamSmileOpen": 0, "ParamMouthOpenY": 0, "ParamMouthGape": 1,
+   "ParamBreath": 0.3, "ParamShiftY": 0, "ParamHairFront": 0, "ParamHairBack": 0, "ParamCheek": 0
+  }}
+ ]
+}
