@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLocalSocket>
+#include <QDateTime>
 #include <iostream>
 #include <string>
 
@@ -49,9 +50,19 @@ int main(int argc, char** argv) {
     else if (name == QStringLiteral("Stop") || name == QStringLiteral("Interrupt")) action = QStringLiteral("stop");
     else if (name == QStringLiteral("SessionEnd")) action = QStringLiteral("session_end");
     if (!action.isEmpty()) {
+        // Hook payloads carry session_id but (except for SessionStart) no
+        // turn_id; PetController requires both, so synthesize one turn id per
+        // hook invocation. A Stop without turn_id ends the session's latest
+        // turn, matching the synthesized id loosely by design.
+        QString turn = hook.value(QStringLiteral("turn_id")).toString();
+        if (turn.isEmpty() && action == QStringLiteral("start")) {
+            turn = QStringLiteral("hook-%1").arg(QDateTime::currentMSecsSinceEpoch());
+        }
+        // Stop/SessionEnd keep the empty turn_id so PetController ends the
+        // session's latest turn (or the whole session) instead of missing.
         sendMessage({{QStringLiteral("event"), action},
                      {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
-                     {QStringLiteral("turn_id"), hook.value(QStringLiteral("turn_id"))}});
+                     {QStringLiteral("turn_id"), turn}});
     }
     // Valid JSON for Stop/Interrupt; no prompt text or hook output is retained.
     std::cout << "{}" << std::endl;
