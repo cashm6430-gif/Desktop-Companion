@@ -7,22 +7,26 @@
 namespace {
 // Choreography constants live in the 840 reference frame the approval
 // captures use, so the concept card and the runtime share one set of
-// numbers. The canvas scales the duck to its own pixel height.
-constexpr double kSlideDuration = 0.5;   // box glides in from the right
-constexpr double kSinkDuration = 0.45;   // body drops behind the box
-constexpr double kEyesDuration = 0.35;   // eyes over the edge
-constexpr double kPopDuration = 0.5;     // head pops up one beat later
-constexpr double kRestoreDuration = 0.4; // exit leg 1: stand before the box leaves
-constexpr double kLeaveDuration = 0.5;   // exit leg 2: box slides away
-constexpr double kBlinkDuration = 0.18;  // caught: the surprised blink
-constexpr double kSmileDuration = 0.45;  // caught: smile peek from the same side
+// numbers. The canvas scales the duck to its own pixel height. Durations
+// were stretched ~1.4x after the user feedback r2 ("节奏太快了").
+constexpr double kSlideDuration = 0.7;   // box glides in from the right
+constexpr double kSinkDuration = 0.65;   // body drops behind the box
+constexpr double kEyesDuration = 0.5;    // eyes over the edge
+constexpr double kPopDuration = 0.7;     // head pops up one beat later
+constexpr double kRestoreDuration = 0.55; // exit leg 1: stand before the box leaves
+constexpr double kLeaveDuration = 0.7;   // exit leg 2: box slides away
+constexpr double kBlinkDuration = 0.25;  // caught: the surprised blink
+constexpr double kSmileDuration = 0.65;  // caught: smile peek from the same side
 
 // Duck targets. The box top sits at y=430 in the reference frame and the
 // standing eye line is ~85px above it: +100 hides the eyes below the edge,
-// +85 puts them exactly on it, -80 lifts the face clear of the box top.
+// +85 puts them exactly on it. The pop returns exactly to the standing
+// height (duck 0): the old -80 overshoot lifted the model above its base,
+// clipping the ahoge at the window top (user feedback r2) -- the stand
+// already clears the box top, so overshoot bought nothing.
 constexpr double kHidden = 100.0;
 constexpr double kPeek = 85.0;
-constexpr double kPopped = -80.0;
+constexpr double kPopped = 0.0;
 constexpr double kCaught = 118.0;
 
 // Hold rotation (seconds): deterministic but never metronomic.

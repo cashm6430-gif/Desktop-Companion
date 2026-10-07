@@ -542,33 +542,35 @@ void ParameterMotionTest::boxPeekSinksPeeksAndPopsInOrder() {
     QVERIFY(!motion.boxPeekActive());
     QVERIFY(motion.playBoxPeek());
     QVERIFY(motion.boxPeekActive());
-    // Slide-in leg: the box arrives while the body stays at rest.
-    advanceFrames(motion, 25); // 0.50s
+    // Slide-in leg (0.7s): the box arrives while the body stays at rest.
+    advanceFrames(motion, 35); // 0.70s
     QCOMPARE(motion.boxPeekSlide(), 1.0);
     QCOMPARE(motion.boxPeekDuck(), 0.0);
-    // Sink: the eyes drop toward the box edge before anything peeks.
-    advanceFrames(motion, 12); // 0.74s
-    QVERIFY(motion.boxPeekDuck() > 40.0 && motion.boxPeekDuck() < 75.0);
-    advanceFrames(motion, 8); // 0.90s
+    // Sink (0.65s): the eyes drop toward the box edge before anything peeks.
+    advanceFrames(motion, 16); // 0.32s in
+    QVERIFY(motion.boxPeekDuck() > 30.0 && motion.boxPeekDuck() < 70.0);
+    advanceFrames(motion, 17); // 0.66s: sink done, eyes peek begins
     QVERIFY(motion.boxPeekDuck() > 90.0);
-    // Eyes peek: gaze lifts over the edge while the duck eases up to it.
-    advanceFrames(motion, 4); // 0.98s
+    // Eyes peek (0.5s): gaze lifts over the edge while the duck eases to it.
+    advanceFrames(motion, 4); // 0.09s into the peek
     QVERIFY(motion.boxPeekDuck() > 90.0);
-    advanceFrames(motion, 12); // 1.22s
+    advanceFrames(motion, 18); // 0.36s into the peek
     QVERIFY(motion.boxPeekDuck() > 85.0 && motion.boxPeekDuck() < 95.0);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) > 0.4);
     QVERIFY(motion.values().value(QStringLiteral("ParamBoxDuck")) > 80.0);
-    // Pop: the head clears the box top one beat later.
-    advanceFrames(motion, 22); // 1.66s
-    QVERIFY(motion.boxPeekDuck() < -40.0);
-    advanceFrames(motion, 8); // 1.82s
-    QVERIFY(motion.boxPeekDuck() < -70.0);
+    // Pop (0.7s): the head rises exactly back to the standing height -- the
+    // old -80 overshoot clipped the ahoge at the window top (user r2), and
+    // the stand already clears the box top by ~85px.
+    advanceFrames(motion, 20); // 0.40s into the pop
+    QVERIFY(motion.boxPeekDuck() > 5.0 && motion.boxPeekDuck() < 60.0);
+    advanceFrames(motion, 18); // 0.76s: pop done, hold at stand height
+    QVERIFY(motion.boxPeekDuck() < 5.0);
     // Hold, then the loop sinks back for the next peek by itself.
-    advanceFrames(motion, 85); // 3.52s
-    QVERIFY(motion.boxPeekDuck() < -70.0); // still in the popped hold
-    advanceFrames(motion, 45); // 4.42s
-    QVERIFY(motion.boxPeekDuck() > -60.0); // sinking back down
-    advanceFrames(motion, 20); // 4.82s
+    advanceFrames(motion, 85); // deep in the first hold (2.4s)
+    QVERIFY(motion.boxPeekDuck() < 1.0); // still holding at stand height
+    advanceFrames(motion, 45); // sinking back down toward the box
+    QVERIFY(motion.boxPeekDuck() > 10.0 && motion.boxPeekDuck() < 40.0);
+    advanceFrames(motion, 25); // the eyes beat of the next cycle
     QVERIFY(motion.boxPeekActive());
     QVERIFY(motion.boxPeekDuck() > 90.0); // eyes beat of the next cycle
 }
@@ -754,7 +756,7 @@ void ParameterMotionTest::boxPeekCaughtBlinksDucksAndRepeeksSmiling() {
     ParameterMotion motion;
     advanceFrames(motion, 10);
     QVERIFY(motion.playBoxPeek());
-    advanceFrames(motion, 75); // 1.50s: mid-pop, head above the box
+    advanceFrames(motion, 75); // 1.50s: mid eyes-peek, face at the box edge
     motion.boxPeekClicked();
     // The surprised blink lands while the body ducks back below the edge.
     // The face passes through the generic blend, so mid-blink the eyelids
@@ -764,30 +766,35 @@ void ParameterMotionTest::boxPeekCaughtBlinksDucksAndRepeeksSmiling() {
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) < 0.7);
     QVERIFY(motion.boxPeekDuck() > 35.0);
     // The same-side smile re-peek: eyes over the edge, pleased about it.
-    advanceFrames(motion, 17); // 1.90s
+    // Half a second in so the eye-smile blend has settled (the face channels
+    // ride the exponential filter).
+    advanceFrames(motion, 26); // 2.08s
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.7);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) > 0.4);
-    QVERIFY(motion.boxPeekDuck() > 95.0);
-    // Then the head pops again as usual.
-    advanceFrames(motion, 30); // 2.50s
-    QVERIFY(motion.boxPeekDuck() < -40.0);
+    QVERIFY(motion.boxPeekDuck() > 95.0 && motion.boxPeekDuck() < 110.0);
+    // Then the head pops again as usual, back to the standing height.
+    advanceFrames(motion, 40); // 2.62s: the pop is gliding home
+    QVERIFY(motion.boxPeekDuck() > 15.0 && motion.boxPeekDuck() < 60.0);
+    advanceFrames(motion, 35); // 3.32s: popped = stand, hold
+    QVERIFY(motion.boxPeekDuck() < 5.0);
+    QVERIFY(motion.boxPeekActive());
 }
 
 void ParameterMotionTest::boxPeekExitRestoresStandBeforeBoxLeaves() {
     ParameterMotion motion;
     advanceFrames(motion, 10);
     QVERIFY(motion.playBoxPeek());
-    advanceFrames(motion, 95); // 1.90s: popped hold
+    advanceFrames(motion, 95); // 1.90s: just into the pop glide
     motion.exitBoxPeek();
-    // Leg 1: the stand is restored while the box has not moved yet.
-    advanceFrames(motion, 20); // 2.30s
-    QCOMPARE(motion.boxPeekDuck(), 0.0);
+    // Leg 1 (0.55s): the stand is restored while the box has not moved yet.
+    advanceFrames(motion, 27); // 2.44s: one frame before leg 2 starts
+    QVERIFY(motion.boxPeekDuck() < 0.5); // the glide is all but finished
     QCOMPARE(motion.boxPeekSlide(), 1.0);
-    // Leg 2: only then the box slides away.
-    advanceFrames(motion, 10); // 2.50s
+    // Leg 2 (0.7s): only then the box slides away.
+    advanceFrames(motion, 10); // 2.74s
     QCOMPARE(motion.boxPeekDuck(), 0.0);
     QVERIFY(motion.boxPeekSlide() > 0.0 && motion.boxPeekSlide() < 1.0);
-    advanceFrames(motion, 25); // 3.00s
+    advanceFrames(motion, 45); // 3.64s: past restore+leave, fully gone
     QVERIFY(!motion.boxPeekActive());
     QCOMPARE(motion.boxPeekSlide(), 0.0);
     QCOMPARE(motion.boxPeekDuck(), 0.0);
@@ -815,6 +822,7 @@ void ParameterMotionTest::boxPeekRefusesBusyAndYieldsToDelete() {
     advanceFrames(motion, 10);
     motion.setState(PetController::State::Busy);
     QVERIFY(motion.boxPeekExiting());
+    advanceFrames(motion, 10); // the exit keeps finishing the glide-in
     QVERIFY(motion.boxPeekSlide() > 0.3); // still covering while she stands up
 }
 
@@ -1309,7 +1317,9 @@ void ParameterMotionTest::grassExpressionsSurviveBlink() {
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.2);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) > 0.9);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.95);
-    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.99);
+    // The open grin is banned (user ruling r2): the mouth keeps the closed
+    // omega even in the delighted grass beat -- the eye smile carries it.
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
     for (int i = 55; i < 90; ++i) motion.advance(0.04);
     QVERIFY(motion.values().value(QStringLiteral("ParamArmRA")) > 50.0);
     for (int i = 90; i < 140; ++i) motion.advance(0.04);
