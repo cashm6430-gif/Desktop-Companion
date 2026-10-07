@@ -9,11 +9,11 @@
 namespace {
 // Choreography constants (seconds), matching the approved concept card.
 constexpr double kSlideDuration = 0.5;  // bowl glides onto the desk
-constexpr double kSniffDuration = 0.9;  // eyes close, head tips, steam thickens
+constexpr double kSniffDuration = 0.9;  // eyes close, head tips, hearts begin to bloom
 constexpr double kSmileDuration = 0.7;  // eyes reopen into the omega smile + nod
 constexpr double kHoldSeconds = 2.2;    // happy pause before the bowl leaves
-constexpr double kLeanDuration = 0.35;  // steam click: lean away
-constexpr double kPeekDuration = 0.5;   // steam click: curious peek back
+constexpr double kLeanDuration = 0.35;  // bowl-zone click: lean away
+constexpr double kPeekDuration = 0.5;   // bowl-zone click: curious peek back
 constexpr double kRelaxDuration = 0.35; // exit leg 1: face relaxes
 constexpr double kLeaveDuration = 0.55; // exit leg 2: bowl slides off
 
@@ -22,12 +22,12 @@ constexpr double kLeaveDuration = 0.55; // exit leg 2: bowl slides off
 // shows a blue rim (user feedback on the concept card).
 constexpr double kGazeX = 0.3;
 constexpr double kGazeY = -0.35;
-constexpr double kLeanGazeX = 0.35;  // brief glance up at the steam, allowed
+constexpr double kLeanGazeX = 0.35;  // brief glance at the bowl, allowed
 
 // Face targets per channel (the rest of each phase glides toward zeros).
 constexpr double kSniffTilt = 6.0;    // AngleY degrees toward the bowl
 constexpr double kSmileTilt = 3.0;    // the nod settles here
-constexpr double kLeanTilt = -5.0;    // leaning away from the steam
+constexpr double kLeanTilt = -5.0;    // leaning away from the bowl
 constexpr double kPeekTilt = 4.0;
 }  // namespace
 
@@ -40,7 +40,7 @@ void RiceBowlBehavior::begin()
     to_.slide = 1.0;
     to_.gazeX = kGazeX;
     to_.gazeY = kGazeY;
-    to_.steam = 0.7;
+    to_.delight = 0.7;
 }
 
 void RiceBowlBehavior::exit()
@@ -50,7 +50,7 @@ void RiceBowlBehavior::exit()
     // glide so the prop never jumps), leg 2 slides the bowl off.
     glideTo(Phase::SlideOut, Channels{}, kRelaxDuration);
     to_.slide = 1.0;
-    to_.steam = 0.0;
+    to_.delight = 0.0;
 }
 
 void RiceBowlBehavior::cancel()
@@ -70,7 +70,7 @@ void RiceBowlBehavior::poke()
     target.gazeX = kLeanGazeX;
     target.gazeY = -0.5;
     target.headTilt = kLeanTilt;
-    target.steam = ch_.steam;
+    target.delight = ch_.delight;
     target.slide = 1.0;
     glideTo(Phase::LeanAway, target, kLeanDuration);
 }
@@ -105,7 +105,7 @@ void RiceBowlBehavior::advance(double seconds)
     ch_.eyeSmile = from_.eyeSmile + (to_.eyeSmile - from_.eyeSmile) * e;
     ch_.headTilt = from_.headTilt + (to_.headTilt - from_.headTilt) * e;
     ch_.smile = from_.smile + (to_.smile - from_.smile) * e;
-    ch_.steam = from_.steam + (to_.steam - from_.steam) * e;
+    ch_.delight = from_.delight + (to_.delight - from_.delight) * e;
 
     switch (phase_) {
     case Phase::SlideIn:
@@ -117,7 +117,7 @@ void RiceBowlBehavior::advance(double seconds)
             target.lids = 1.0;          // eyes close for the sniff
             target.eyeSmile = 1.0;
             target.headTilt = kSniffTilt;
-            target.steam = 1.0;         // thickest while she breathes in
+            target.delight = 1.0;       // hearts bloom while she breathes in
             glideTo(Phase::Sniff, target, kSniffDuration);
         }
         break;
@@ -131,7 +131,7 @@ void RiceBowlBehavior::advance(double seconds)
             target.eyeSmile = 0.35;
             target.headTilt = kSmileTilt;
             target.smile = 1.0;         // the omega mouth
-            target.steam = 0.55;
+            target.delight = 0.55;
             glideTo(Phase::Smile, target, kSmileDuration);
         }
         break;
@@ -154,7 +154,7 @@ void RiceBowlBehavior::advance(double seconds)
             target.eyeSmile = 0.3;
             target.headTilt = kPeekTilt;
             target.smile = 0.7;         // curious half smile
-            target.steam = 0.55;
+            target.delight = 0.55;
             glideTo(Phase::PeekBack, target, kPeekDuration);
         }
         break;
@@ -172,7 +172,7 @@ void RiceBowlBehavior::advance(double seconds)
         if (time_ <= kRelaxDuration) break;  // channels already gliding
         const double leaveT = std::clamp((time_ - kRelaxDuration) / kLeaveDuration, 0.0, 1.0);
         ch_.slide = 1.0 - motion::smooth(leaveT);
-        ch_.steam = 0.0;
+        ch_.delight = 0.0;
         if (time_ >= kRelaxDuration + kLeaveDuration) cancel();
         break;
     }

@@ -590,10 +590,10 @@ void ParameterMotionTest::riceBowlSniffsSmilesAndLeaves() {
     QCOMPARE(motion.riceBowlSlide(), 1.0);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.15);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) <= 0.31);
-    // Sniff: the eyes close while the steam thickens.
+    // Sniff: the eyes close while the delight floaters bloom.
     advanceFrames(motion, 25); // 1.10s
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.5);
-    QVERIFY(motion.riceBowlSteam() > 0.7);
+    QVERIFY(motion.riceBowlDelight() > 0.7);
     // Smile: eyes reopen into the omega mouth (phase edges quantize to the
     // 20ms frame, so every assertion sits mid-beat, never on a boundary).
     advanceFrames(motion, 50); // 2.10s
@@ -624,7 +624,7 @@ void ParameterMotionTest::riceBowlPokeLeansAwayAndPeeksBack() {
     QVERIFY(motion.playRiceBowl());
     advanceFrames(motion, 60); // 1.20s: deep in the sniff
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.5);
-    // A click on the steam: she leans away from the wisps.
+    // A click on the aroma zone: she leans away from the bowl.
     motion.riceBowlPoke();
     advanceFrames(motion, 15); // 1.50s: the lean bottoms out
     QVERIFY(motion.values().value(QStringLiteral("ParamAngleY")) < 0.0);

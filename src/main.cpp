@@ -364,15 +364,15 @@ int main(int argc, char** argv) {
                     if (!window.startRiceBowl()) { qWarning() << "rice bowl refused"; app.exit(2); return; }
                     event = QStringLiteral("rice_bowl_begin");
                 }
-                // The steam click: she leans away from the wisps, then
-                // peeks back with a curious half smile.
+                // The bowl-zone click: she leans away, then peeks back with
+                // a curious half smile.
                 if (clickScene && began && !clicked && time >= 5.0) {
                     clicked = true;
-                    const QRectF steam = window.riceSteamRect();
-                    const QPointF point(steam.center().x(), steam.top() + steam.height() * 0.25);
-                    if (!steam.contains(point)) { app.exit(2); return; }
+                    const QRectF aroma = window.riceAromaRect();
+                    const QPointF point(aroma.center().x(), aroma.top() + aroma.height() * 0.25);
+                    if (!aroma.contains(point)) { app.exit(2); return; }
                     click(point);
-                    event = QStringLiteral("steam_click");
+                    event = QStringLiteral("aroma_click");
                 }
                 if (exitScene && began && !exited && time >= 5.6) {
                     exited = true;
@@ -386,7 +386,7 @@ int main(int argc, char** argv) {
                 trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
                     {QStringLiteral("scenario"), scenario},
                     {QStringLiteral("bowl_slide"), window.riceBowlSlide()},
-                    {QStringLiteral("steam"), window.riceBowlSteam()}});
+                    {QStringLiteral("delight"), window.riceBowlDelight()}});
                 if (++frame == frameCount) {
                     QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
                     if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }

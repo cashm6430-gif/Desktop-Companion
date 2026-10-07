@@ -151,18 +151,19 @@ public:
 
     // Rice-bowl aroma break (optional fun scene r1): the bowl lands on the
     // desk of the seated laptop busy loop, the gaze snaps to it, she sniffs
-    // the steam and smiles. A steam click leans away then peeks back. All
-    // channels are existing expression axes; the gaze is capped at 0.3 so
-    // the right iris never reaches the eyewhite edge.
+    // and smiles while heart/note floaters rise beside her head (no physical
+    // gas -- cartoon symbols only). A bowl-zone click leans away then peeks
+    // back. All channels are existing expression axes; the gaze is capped at
+    // 0.3 so the right iris never reaches the eyewhite edge.
     bool playRiceBowl();
     void exitRiceBowl();
     void cancelRiceBowl();
     void riceBowlPoke() { rice_.poke(); }
     bool riceBowlActive() const { return rice_.active(); }
     bool riceBowlExiting() const { return rice_.exiting(); }
-    // 0..1 eased slide of the bowl prop, and the steam density 0..1.
+    // 0..1 eased slide of the bowl prop, and the floater intensity 0..1.
     double riceBowlSlide() const { return rice_.slide(); }
-    double riceBowlSteam() const { return rice_.steam(); }
+    double riceBowlDelight() const { return rice_.delight(); }
 
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.

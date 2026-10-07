@@ -66,17 +66,18 @@ public:
     double boxPeekDuck() const { return motion_.boxPeekDuck(); }
     QRectF boxPeekRect() const;
     // Rice-bowl aroma break (optional fun scene r1): the bowl prop on the
-    // desk of the seated laptop loop plus procedurally painted steam; a
-    // click on either is "too close" and she leans away, then peeks back.
+    // desk of the seated laptop loop plus heart/note delight floaters (no
+    // physical gas -- cartoon symbols rising beside her head); a click on
+    // the bowl zone is "too close" and she leans away, then peeks back.
     bool startRiceBowl();
     void exitRiceBowl();
     // Review-only: the bowl scene needs the seated laptop loop, which the
     // live player reaches through this force (the real trigger is working).
     void forceBusyLaptopForReview() { motion_.forceLaptopBusy(); updateInputTransparency(); }
     double riceBowlSlide() const { return motion_.riceBowlSlide(); }
-    double riceBowlSteam() const { return motion_.riceBowlSteam(); }
+    double riceBowlDelight() const { return motion_.riceBowlDelight(); }
     QRectF riceBowlRect() const;
-    QRectF riceSteamRect() const;
+    QRectF riceAromaRect() const;
     QString grassInteractionPhase() const { return motion_.grassInteractionPhase(); }
     double grassInteractionTime() const { return motion_.grassInteractionTime(); }
     QPainterPath grassTipHitPath() const;
@@ -159,7 +160,7 @@ private:
     // Rice-bowl window-layer plumbing (public API lives above).
     bool handleRiceBowlPress(const QPointF& localPos);
     void drawRiceBowlProp(QPainter& painter, const QSize& size);
-    void drawRiceSteam(QPainter& painter);
+    void drawRiceDelight(QPainter& painter);
     void advanceLiveFrame(double seconds);
     void playGrass();
     bool grassInteractionApproved() const;
@@ -197,7 +198,7 @@ private:
     QPixmap wrapProp_;
     QPixmap boxProp_;
     QPixmap riceBowlProp_;
-    QElapsedTimer riceSteamClock_;
+    QElapsedTimer riceDelightClock_;
     // True while a deletion triggered a lunge towards a file on the pet's
     // left: the Cubism frame is mirrored so the authored right-hand reach
     // plays as a left-hand one. Reset when the delete state ends.
