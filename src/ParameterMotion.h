@@ -86,8 +86,9 @@ public:
     // Sticky-note gaze (motion card 5). The note itself is window-layer art;
     // the motion layer only carries the eyes: a glance at the desk edge, then
     // the gaze rides the note up as it floats, then back to the user with a
-    // pleased smile and a nod. beginMemoCelebrate() is the short completion
-    // beat (smile + nod) when the user ticks a note off. Pure overlay like the
+    // delighted laugh -- smiling closed eyes and a round O mouth. beginMemoCelebrate() is the short completion
+    // beat (O-mouth laugh with closed smiling eyes) when the user ticks a
+    // note off. Pure overlay like the
     // drag reaction: typing and props keep playing underneath.
     void beginMemoMotion();
     void beginMemoCelebrate();
