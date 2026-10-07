@@ -994,6 +994,18 @@ void CubismCanvas::paintGL() {
             }
         }
     }
+    // Box hide-and-seek: the whole rig rides the window layer's cardboard
+    // box. The offset applies after grounding so the ground contract cannot
+    // cancel it, and the opaque prop covers the feet strip while the body
+    // sinks. Values are 840-reference pixels (positive sinks); NDC y is
+    // up, so a downward duck subtracts from the translated y. The head,
+    // body and independent neck share this matrix and stay one piece.
+    if (!impl_->rawExportReview) {
+        const double boxDuck = motion_->values().value(QStringLiteral("ParamBoxDuck"), 0.0);
+        if (boxDuck != 0.0)
+            matrix.Translate(matrix.GetTranslateX(),
+                             matrix.GetTranslateY() - static_cast<float>(2.0 * boxDuck / 840.0));
+    }
     if (impl_->hasNeck() && !impl_->authoredSitPose) {
         std::array<double, 2> standing{}, seated{};
         CubismPostureTransition::Point target;

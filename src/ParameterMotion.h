@@ -2,6 +2,7 @@
 
 #include "MotionLibrary.h"
 #include "PetController.h"
+#include "motion/BoxBehavior.h"
 #include "motion/DragBehavior.h"
 #include "motion/GrassTouchBehavior.h"
 #include "motion/MemoBehavior.h"
@@ -124,6 +125,24 @@ public:
     // 0..1 mask visibility envelope, in step with the enter/wake phases.
     double sleepMaskEnvelope() const;
 
+    // Box hide-and-seek (optional fun scene r1, concept approved). Standing
+    // state only: the window layer slides a cardboard box in front of the
+    // body, this behavior sinks her behind it, peeks the eyes over the edge
+    // and pops the head up one beat later. Clicking the box blinks, ducks
+    // and re-peeks with a smile; exit restores the stand before the box
+    // slides away. Duck travels as "ParamBoxDuck" in 840-reference pixels
+    // (positive down); CubismCanvas applies it after the ground contract.
+    bool playBoxPeek();
+    void exitBoxPeek() { box_.exit(); }
+    void cancelBoxPeek() { box_.cancel(); }
+    void boxPeekClicked() { box_.clicked(); }
+    bool boxPeekActive() const { return box_.active(); }
+    bool boxPeekExiting() const { return box_.exiting(); }
+    // Body offset in 840-reference pixels (positive sinks behind the box).
+    double boxPeekDuck() const { return box_.duck(); }
+    // 0..1 eased slide of the cardboard prop, in step with the body beats.
+    double boxPeekSlide() const { return box_.boxSlide(); }
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -241,5 +260,6 @@ private:
     DragBehavior drag_;
     MemoBehavior memo_;
     SleepBehavior sleep_;
+    BoxBehavior box_;
     GrassTouchBehavior grassTouch_;
 };

@@ -316,6 +316,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         [this](QPainter& painter, const QSize& size, const FrameContext&) {
             drawSleepMask(painter, size);
         }));
+    // The cardboard box hides the standing body (box hide-and-seek r1). It
+    // paints above the character and below nothing else user-facing; the
+    // per-pixel mask picks it up so clicks land exactly on its face.
+    overlays_.add(std::make_shared<FunctionOverlay>(
+        [this](const FrameContext&) { return motion_.boxPeekSlide() > 0.001; },
+        [this](QPainter& painter, const QSize& size, const FrameContext&) {
+            drawBoxProp(painter, size);
+        }));
 
 #ifdef HAVE_CUBISM
     // Keep OpenGL composition in a separate window. This translucent widget
@@ -422,6 +430,15 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
             QStringLiteral("这件小事，先替你放这里："), memoText_);
         if (text.trimmed().isEmpty()) return;
         createStickyNote(text);
+    });
+    QAction* boxAction = trayMenu_.addAction(QStringLiteral("躲一下"), this, [this] {
+        // Toggle: the same entry starts the peek and calls her back out.
+        if (motion_.boxPeekActive()) exitBoxPeek();
+        else startBoxPeek();
+    });
+    connect(&trayMenu_, &QMenu::aboutToShow, this, [this, boxAction] {
+        boxAction->setText(motion_.boxPeekActive() ? QStringLiteral("不躲啦")
+                                                   : QStringLiteral("躲一下"));
     });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
@@ -732,6 +749,52 @@ bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos
     }
     return false;
 }
+
+// --- Box hide-and-seek (optional fun scene r1) --------------------------------
+
+bool PetWindow::startBoxPeek() {
+    if (renderBackend() != QStringLiteral("cubism_native")) return false;
+    if (!motion_.playBoxPeek()) return false;
+    updateInputTransparency();
+    return true;
+}
+
+void PetWindow::exitBoxPeek() {
+    motion_.exitBoxPeek();
+    updateInputTransparency();
+}
+
+QRectF PetWindow::boxPeekRect() const {
+    // Geometry in 840-reference fractions, exactly the concept card's
+    // composite: the box top sits at neck height while she stands and the
+    // bottom runs past the window bottom so the sunk feet stay covered.
+    const double w = width(), h = height();
+    constexpr double kBoxWidth = 500.0 / 840.0;
+    constexpr double kBoxTop = 430.0 / 840.0;
+    constexpr double kBoxAspect = 618.0 / 715.0;  // prop png content aspect
+    const double boxW = kBoxWidth * w;
+    const double boxH = boxW * kBoxAspect;
+    const double slide = motion_.boxPeekSlide();
+    const double x = w * 0.5 - boxW * 0.5 + (1.0 - slide) * w;
+    return QRectF(x, kBoxTop * h, boxW, boxH);
+}
+
+bool PetWindow::handleBoxPress(const QPointF& localPos) {
+    if (motion_.boxPeekSlide() < 0.95) return false;  // still sliding in
+    if (!boxPeekRect().contains(localPos)) return false;
+    motion_.boxPeekClicked();
+    updateInputTransparency();
+    return true;
+}
+
+void PetWindow::drawBoxProp(QPainter& painter, const QSize& size) {
+    Q_UNUSED(size);  // boxPeekRect() reads width()/height(), always the same surface
+    if (boxProp_.isNull()) boxProp_.load(imagePath("props/box.png"));
+    if (boxProp_.isNull()) return;
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.drawPixmap(boxPeekRect(), boxProp_, QRectF(boxProp_.rect()));
+}
+
 
 // --- Eye-mask nap (motion card 8) ---------------------------------------------
 
@@ -1115,6 +1178,12 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
             event->accept();
             return;
         }
+        // The cardboard box owns its face: clicking it is "found you",
+        // never a drag or a head pat.
+        if (handleBoxPress(event->position())) {
+            event->accept();
+            return;
+        }
         releasePointerGesture();
         if (isGrassTipAt(event->position()) && motion_.respondToGrass()) {
             grassTouchPressed_ = true;
@@ -1150,6 +1219,9 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
         if (dragging_) {
             // Low-passed window velocity feeds the drag reaction; the motion
             // layer turns it into eye/hair/body lag and the settle nod.
+            // A scene move carries the box along; the peek loses its point,
+            // so the box exits (repeated calls are safe while dragging).
+            if (motion_.boxPeekActive()) motion_.exitBoxPeek();
             const QPointF global = event->globalPosition();
             if (!dragLastGlobal_.isNull()) {
                 const double dt = (std::max)(dragClock_.restart() / 1000.0, 1.0 / 240.0);

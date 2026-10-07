@@ -214,6 +214,15 @@ void ParameterMotion::setState(PetController::State state) {
     if (memoMotionActive() && (state == PetController::State::Delete
                                || state == PetController::State::Grass))
         cancelMemoMotion();
+    // The box hides the whole standing body; a delete lunge or a grass
+    // hand-off owns the stage and the box drops instantly. A new turn
+    // needs her back at work, so the box exits with its animated stand.
+    if (boxPeekActive()) {
+        if (state == PetController::State::Delete || state == PetController::State::Grass)
+            cancelBoxPeek();
+        else if (state != PetController::State::Idle)
+            exitBoxPeek();
+    }
     // The nap yields to everything: a delete wakes first, a new turn or a
     // grass hand-off too -- the authored 0.8s wake plays while the event
     // action starts underneath, per the card's "wake before responding".
@@ -537,6 +546,18 @@ void ParameterMotion::beginMemoMotion() { memo_.begin(); }
 void ParameterMotion::beginMemoCelebrate() { memo_.beginCelebrate(); }
 void ParameterMotion::cancelMemoMotion() { memo_.cancel(); }
 double ParameterMotion::memoBubbleRise() const { return memo_.bubbleRise(); }
+
+bool ParameterMotion::playBoxPeek() {
+    if (preview_ || interactionActive() || boxPeekActive()) return false;
+    // Standing state only: the box choreography covers a grounded standing
+    // body, so a delete/grass action, the seated desk scene, the nap, a
+    // memo gaze or a drag all refuse or own the stage first.
+    if (state_ != PetController::State::Idle) return false;
+    if (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden) return false;
+    if (memoMotionActive() || sleepMotionActive() || dragMotionActive()) return false;
+    box_.begin();
+    return true;
+}
 
 
 // --- Eye-mask nap (motion card 8) ----------------------------------------------
@@ -870,6 +891,7 @@ void ParameterMotion::advance(double seconds) {
     drag_.advance(seconds);
     memo_.advance(seconds);
     sleep_.advance(seconds);
+    box_.advance(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -928,6 +950,10 @@ void ParameterMotion::advance(double seconds) {
         // CubismCanvas and exists only to match the declared model axes.
         {QStringLiteral("ParamShiftX"), 0.0},
         {QStringLiteral("ParamShiftY"), 0.0},
+        // Window-layer box choreography: the canvas rides the whole rig on
+        // this after the ground contract. Zero renders inert, so carrying
+        // it here keeps clip leftovers from sticking (no clip keys it).
+        {QStringLiteral("ParamBoxDuck"), 0.0},
     };
 
     // Idle base layer. Sampled on the global clock so the breathing phase
@@ -1034,6 +1060,7 @@ void ParameterMotion::advance(double seconds) {
     drag_.apply(desired);
     memo_.apply(desired);
     sleep_.apply(desired);
+    box_.apply(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is

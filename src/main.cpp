@@ -253,6 +253,76 @@ int main(int argc, char** argv) {
             QTimer::singleShot(1000, &timer, [&] { timer.start(); });
             return app.exec();
         }
+        if (scenario.startsWith(QStringLiteral("box-"))) {
+            const QStringList boxScenes{QStringLiteral("box-peek"), QStringLiteral("box-peek-click"),
+                QStringLiteral("box-peek-exit")};
+            if (!boxScenes.contains(scenario) || !QDir().mkpath(output)) return 2;
+            window.prepareLiveInteractionReview();
+            window.setInteractionPreviewEnabled(true);
+            window.move(-10000, -10000);
+            constexpr double step = 1.0 / 15.0;
+            constexpr int frameCount = 150;  // 10s covers enter, two peek beats and the exit
+            const bool exitScene = scenario == QStringLiteral("box-peek-exit");
+            const bool clickScene = scenario == QStringLiteral("box-peek-click");
+            int frame = 0;
+            bool started = false, acted = false;
+            QJsonArray trace;
+            QTimer timer;
+            timer.setInterval(100);
+            const auto mouse = [&](QEvent::Type type, const QPointF& point, Qt::MouseButton button,
+                                   Qt::MouseButtons buttons) {
+                QMouseEvent event(type, point, point + QPointF(window.pos()), button, buttons, Qt::NoModifier);
+                QApplication::sendEvent(&window, &event);
+            };
+            const auto click = [&](const QPointF& point) {
+                mouse(QEvent::MouseButtonPress, point, Qt::LeftButton, Qt::LeftButton);
+                mouse(QEvent::MouseButtonRelease, point, Qt::LeftButton, Qt::NoButton);
+            };
+            QObject::connect(&timer, &QTimer::timeout, &app, [&] {
+                const double time = frame * step;
+                QString event;
+                if (!started && time >= 0.4) {
+                    started = true;
+                    if (!window.startBoxPeek()) { qWarning() << "box peek refused"; app.exit(2); return; }
+                    event = QStringLiteral("box_peek_begin");
+                }
+                // The caught branch: a click on the box face blinks, ducks
+                // and re-peeks with a smile from the same side.
+                if (clickScene && !acted && time >= 3.6) {
+                    acted = true;
+                    const QPointF center = window.boxPeekRect().center();
+                    if (!window.boxPeekRect().contains(center)) { app.exit(2); return; }
+                    click(center);
+                    event = QStringLiteral("box_face_click");
+                }
+                if (exitScene && !acted && time >= 6.0) {
+                    acted = true;
+                    window.exitBoxPeek();
+                    event = QStringLiteral("box_peek_exit");
+                }
+                if (!window.renderLiveInteractionFrame(step,
+                    QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                    app.exit(1); return;
+                }
+                trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
+                    {QStringLiteral("scenario"), scenario},
+                    {QStringLiteral("box_slide"), window.boxPeekSlide()},
+                    {QStringLiteral("box_duck"), window.boxPeekDuck()},
+                    {QStringLiteral("box_active"), window.boxPeekRect().width() > 0}});
+                if (++frame == frameCount) {
+                    QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
+                    if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
+                    evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                        {QStringLiteral("capture"), captureContext(window)},
+                        {QStringLiteral("scope"), QStringLiteral("real_window_player_and_native_model")},
+                        {QStringLiteral("frames"), trace}}).toJson());
+                    app.exit(0);
+                    return;
+                }
+            });
+            QTimer::singleShot(1000, &timer, [&] { timer.start(); });
+            return app.exec();
+        }
         const QStringList scenarios{QStringLiteral("turn-ended-standing"), QStringLiteral("turn-ended-laptop"),
             QStringLiteral("turn-ended-interrupt"), QStringLiteral("head-pat"),
             QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt"),

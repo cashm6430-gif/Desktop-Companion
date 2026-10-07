@@ -56,6 +56,15 @@ public:
     // when the current state refuses the nap (delete/grass own the body).
     bool startNap();
     bool startGrassInteraction();
+    // Box hide-and-seek (optional fun scene r1, concept approved). The
+    // cardboard prop is window-layer art sliding in from the right; the
+    // motion layer sinks her behind it and peeks. The box owns its face
+    // clicks so a tap is "found you", never a drag or a head pat.
+    bool startBoxPeek();
+    void exitBoxPeek();
+    double boxPeekSlide() const { return motion_.boxPeekSlide(); }
+    double boxPeekDuck() const { return motion_.boxPeekDuck(); }
+    QRectF boxPeekRect() const;
     QString grassInteractionPhase() const { return motion_.grassInteractionPhase(); }
     double grassInteractionTime() const { return motion_.grassInteractionTime(); }
     QPainterPath grassTipHitPath() const;
@@ -132,6 +141,9 @@ private:
     // The mask is window-layer art that settles onto her face; the motion
     // layer owns the sleeping face underneath and the wake beats.
     void drawSleepMask(QPainter& painter, const QSize& size) const;
+    // Box hide-and-seek window-layer plumbing (public API lives above).
+    bool handleBoxPress(const QPointF& localPos);
+    void drawBoxProp(QPainter& painter, const QSize& size);
     void advanceLiveFrame(double seconds);
     void playGrass();
     bool grassInteractionApproved() const;
@@ -167,6 +179,7 @@ private:
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
     QPixmap wrapProp_;
+    QPixmap boxProp_;
     // True while a deletion triggered a lunge towards a file on the pet's
     // left: the Cubism frame is mirrored so the authored right-hand reach
     // plays as a left-hand one. Reset when the delete state ends.

@@ -32,8 +32,8 @@
       "sha256": "59137f85ee624058f012cd25c1d3d676167a216f2054c9b9ff6d7813399469e8"
     },
     "CMakeLists.txt": {
-      "bytes": 10142,
-      "sha256": "c2a01c9595ec7bc3c551150a2341615d70e3904b3ebe1517c994c2b9f99572eb"
+      "bytes": 10141,
+      "sha256": "a9a46662a0ae782f343d2014be13ed56ef259ba9d0613218d0bbeb9a1c0401f6"
     },
     "art/authoring/desktopcompanion-dev.cer": {
       "bytes": 856,
@@ -100,8 +100,8 @@
       "sha256": "d5825e62f5b37e843bc1f4de76393356b49e5cc9a47db325fd6e5aa9d7f2a6f4"
     },
     "art/live2d/box-peek-20261007-r1/DESIGN.md": {
-      "bytes": 3296,
-      "sha256": "cd22076157b6c11cde0bf16a29ded0cb0d612b376b61e747dfb58257797b6d35"
+      "bytes": 3809,
+      "sha256": "1c6bbf705f92b5abc353f8244e6f80f24e0abd070aca4cd493930d8781a67a89"
     },
     "art/live2d/box-peek-20261007-r1/box-prop-concept.png": {
       "bytes": 345459,
@@ -110,6 +110,10 @@
     "art/live2d/box-peek-20261007-r1/concept-card.png": {
       "bytes": 1029455,
       "sha256": "5c394a727fd6027cfbe9d9bf74fdb14338117c15e73cf6c4c5831abff75c14d6"
+    },
+    "art/live2d/box-peek-20261007-r1/review-sheet.png": {
+      "bytes": 833035,
+      "sha256": "274abb8cfadbc7b558f0d90aa4ee16ef3c2d0c97a42fd5e5b3962874e4123ecb"
     },
     "art/live2d/desk-work-20261006-r1/arm-backing-hair-only.png": {
       "bytes": 603280,
@@ -3235,6 +3239,10 @@
       "bytes": 12435,
       "sha256": "ecfbb385a5b860d9e1a4807f0b0beed91a9fcac9536f3a7d05839b427c0a6c2a"
     },
+    "assets/props/box.png": {
+      "bytes": 345459,
+      "sha256": "761f6fccf5b0bb30f89cb67ac8c1049a5e204b2586f886046804eec595d4c2ae"
+    },
     "conanfile.py": {
       "bytes": 297,
       "sha256": "88fa9d10afc4fdcb71ff8f1aa805a9106f8fd227e4250ad5168e40dafc720d0f"
@@ -3308,8 +3316,8 @@
       "sha256": "a0cff5edf81c83e90483fe47bf09a7339ad23d75a4b520454019dfa5199de9da"
     },
     "src/CubismCanvas.cpp": {
-      "bytes": 73817,
-      "sha256": "fb20010e85b197eabd9c0ab8d5c2d5c82a2b60e4747782de682d6668d135396e"
+      "bytes": 74586,
+      "sha256": "811221b6911abf7675e99cd6623f7557e40b54893bcfec87a9c2c7d85ad1bda3"
     },
     "src/CubismCanvas.h": {
       "bytes": 1899,
@@ -3368,12 +3376,12 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 53759,
-      "sha256": "e47c44e7f0a5914835a88d76f5aa487b4ddbe60c4827b8b2bd96f203d8e35ced"
+      "bytes": 55112,
+      "sha256": "881687cffcf5745bd2cefc09150f64d96165bf7f50ae4b14f8c9c2be77253ffd"
     },
     "src/ParameterMotion.h": {
-      "bytes": 12026,
-      "sha256": "b463764544d7d86c857e7cb44052593ad66b0da8c257064bbf470da4ace16e56"
+      "bytes": 13145,
+      "sha256": "13d7df8162d80dbab28c29913bedd92f17ea6fa3d14796ad69eff18c2bf951e9"
     },
     "src/PetController.cpp": {
       "bytes": 6642,
@@ -3392,12 +3400,12 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 60034,
-      "sha256": "8c727a06f473c18e33886319bb1f94c576ec735224b084bf7fe5dd50cd760b57"
+      "bytes": 63216,
+      "sha256": "4789112509ed5c96c0b089214b48e070718131b22cb43ddc5fd05f9af9afbcd5"
     },
     "src/PetWindow.h": {
-      "bytes": 8526,
-      "sha256": "308b4cf1131fd93989ce3d4de95a02a22ef38b3398ddd6b50cb5d54678ac4a51"
+      "bytes": 9229,
+      "sha256": "373d7daec5a09a492ba4c683dcdad19bdeb9a23c3645ba531803be5679d18e5b"
     },
     "src/StartupTrace.h": {
       "bytes": 793,
@@ -3408,8 +3416,16 @@
       "sha256": "f6a6d8ee57ede0918d9732c5868f8a9cd927beb107bcf8aff927b6e4adf8fbc5"
     },
     "src/main.cpp": {
-      "bytes": 41141,
-      "sha256": "b7ac16aaad42a991f6aed39a6f5a4566765e772fb421fe00432e885e1e4f6738"
+      "bytes": 45276,
+      "sha256": "9de27bdd618497769ac9c237182aec97b5c1e321ff6643ac068b8fe811386351"
+    },
+    "src/motion/BoxBehavior.cpp": {
+      "bytes": 6110,
+      "sha256": "f78a5fde76d3a44015ffce305ab0eca3d6d8c1420cea98418e1e31ff79fb7ddc"
+    },
+    "src/motion/BoxBehavior.h": {
+      "bytes": 2511,
+      "sha256": "c96086d87867c59d0c435ecad3d1f0ec312e5e19ba5b0e8092273d50a0ea509b"
     },
     "src/motion/DragBehavior.cpp": {
       "bytes": 5768,
@@ -3492,8 +3508,8 @@
       "sha256": "eeb76ce3a6c6baea98636dcb31a64fac05722a82cbf8b97b5bd83ed1d1ee55be"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 73463,
-      "sha256": "dd61e0244f20474d50ede7d1112e62527158c25b83d1e3604fdf175d9793b7dc"
+      "bytes": 78479,
+      "sha256": "94b56e91336e1cd75ad2a2de99592a694e2d1b3393c28857c9148bf449dfea2b"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 14249,
