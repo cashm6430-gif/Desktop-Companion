@@ -40,6 +40,13 @@ qt_add_executable(DesktopCompanion WIN32
     src/PetController.h src/PetController.cpp
     src/PetPointerGesture.h src/PetPointerGesture.cpp
     src/ParameterMotion.h src/ParameterMotion.cpp
+    src/motion/MotionMath.h
+    src/motion/MotionParameterIds.h
+    src/motion/SleepTrace.h
+    src/motion/DragBehavior.h src/motion/DragBehavior.cpp
+    src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
+    src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
+    src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
     src/PetWindow.h src/PetWindow.cpp
     src/DesktopDeleteSource.h src/DesktopDeleteSource.cpp
     src/CodexTurnSource.h src/CodexTurnSource.cpp
@@ -110,6 +117,10 @@ if(BUILD_TESTING)
     add_test(NAME PetPointerGestureTest COMMAND PetPointerGestureTest)
     add_executable(ParameterMotionTest tests/ParameterMotionTest.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
+        src/motion/DragBehavior.h src/motion/DragBehavior.cpp
+        src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
+        src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
+        src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/MotionClip.h src/MotionClip.cpp
         src/MotionLibrary.h src/MotionLibrary.cpp)
     target_link_libraries(ParameterMotionTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
@@ -118,6 +129,10 @@ if(BUILD_TESTING)
         src/MotionClip.h src/MotionClip.cpp
         src/MotionLibrary.h src/MotionLibrary.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
+        src/motion/DragBehavior.h src/motion/DragBehavior.cpp
+        src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
+        src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
+        src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/PetController.h src/PetController.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)

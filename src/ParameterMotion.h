@@ -2,6 +2,10 @@
 
 #include "MotionLibrary.h"
 #include "PetController.h"
+#include "motion/DragBehavior.h"
+#include "motion/GrassTouchBehavior.h"
+#include "motion/MemoBehavior.h"
+#include "motion/SleepBehavior.h"
 
 #include <QHash>
 #include <QRandomGenerator>
@@ -15,6 +19,14 @@
 //
 // Values are Cubism parameter units, not screen pixels or pre-rendered frames.
 // The model artist must rig these IDs (or provide an explicit mapping).
+//
+// Structure: this class is the coordinator. It owns the state machine, the
+// blending filter, the blink, the desk scene (advanceDeskWork) and the
+// short-reaction layer (head pat / turn-ended / stretch). Self-contained
+// overlay behaviors -- drag, memo gaze, sleep nap, grass-touch phases -- live
+// in src/motion/*Behavior.{h,cpp} behind a begin/advance/apply/cancel shape
+// and are driven from here; add new interactions as a new behavior instead of
+// growing this file.
 class ParameterMotion final {
 public:
     using Parameters = QHash<QString, double>;
@@ -69,7 +81,7 @@ public:
     bool beginGrassInteraction();
     bool grassInteractionActive() const;
     QString grassInteractionPhase() const;
-    double grassInteractionTime() const { return grassInteractionTime_; }
+    double grassInteractionTime() const { return grassTouch_.time(); }
     bool respondToGrass();
     void lookAtGrassTip(double horizontal);
     double grassInteractionMaxDuration() const;
@@ -81,7 +93,7 @@ public:
     void updateDragMotion(double vx, double vy);
     void endDragMotion();
     void cancelDragMotion();
-    bool dragMotionActive() const { return dragPhase_ != DragPhase::None; }
+    bool dragMotionActive() const { return drag_.active(); }
 
     // Sticky-note gaze (motion card 5). The note itself is window-layer art;
     // the motion layer only carries the eyes: a glance at the desk edge, then
@@ -93,7 +105,7 @@ public:
     void beginMemoMotion();
     void beginMemoCelebrate();
     void cancelMemoMotion();
-    bool memoMotionActive() const { return memoPhase_ != MemoPhase::None; }
+    bool memoMotionActive() const { return memo_.active(); }
     // 0..1 rise envelope of the note bubble, in step with the gaze. The window
     // layer holds it at 1 once the overlay ends so the note stays up.
     double memoBubbleRise() const;
@@ -108,7 +120,7 @@ public:
     void beginSleepMotion();
     void wakeFromSleep(bool interactive);
     void cancelSleepMotion();
-    bool sleepMotionActive() const { return sleepPhase_ != SleepPhase::None; }
+    bool sleepMotionActive() const { return sleep_.active(); }
     // 0..1 mask visibility envelope, in step with the enter/wake phases.
     double sleepMaskEnvelope() const;
 
@@ -145,8 +157,6 @@ private:
     // turns into a visible half-open "drowsy" face it never asked for. Settling
     // the release in roughly two frames keeps the authored beats in charge.
     static constexpr double kExpressionReleaseBlend = 0.045;
-    static double smooth(double t);
-    static double pulse(double t, double start, double peak, double end);
     // Pop-in / hold / fade-out envelope of the thinking bubble. One cycle long,
     // matching the standing accent's loop so the "?" cannot drift against the
     // pose it is reacting to.
@@ -155,16 +165,7 @@ private:
     void applyBlendOverrides(const MotionClip& clip);
     void advanceInteraction(double seconds);
     void applyInteraction(Parameters& desired) const;
-    void applyDragMotion(Parameters& desired) const;
-    void advanceDragMotion(double seconds);
-    void advanceMemoMotion(double seconds);
-    void applyMemoMotion(Parameters& desired) const;
-    void advanceSleepMotion(double seconds);
-    void applySleepMotion(Parameters& desired) const;
     void captureInteractionSeat();
-    bool configureGrassInteraction(const QString& directory, QString* error);
-    void resetGrassInteraction();
-    void advanceGrassInteraction(double seconds);
     void advanceDeskWork(double seconds, const Parameters& previous);
 
     enum class DeskPhase { Hidden, EnterCover, Work, ExitWork, ExitCover };
@@ -172,58 +173,7 @@ private:
     DeskPhase deskPhase_ = DeskPhase::Hidden;
     double deskVisible_ = 0.0;
 
-    enum class GrassPhase { Inactive, Enter, Hold, Respond, Timeout, Release, Finished };
-    MotionClip grassTouchClip_;
-    GrassPhase grassPhase_ = GrassPhase::Inactive;
-    double grassEnterEnd_ = 0.0;
-    double grassHoldEnd_ = 0.0;
-    double grassRespondEnd_ = 0.0;
-    double grassTimeoutEnd_ = 0.0;
-    double grassReleaseEnd_ = 0.0;
-    double grassMaxHold_ = 0.0;
-    double grassInteractionTime_ = 0.0;
-    double grassHeldTime_ = 0.0;
-    double grassLook_ = 0.0;
-    double grassLookTarget_ = 0.0;
-    bool grassInteractionSelected_ = false;
-
-    enum class DragPhase { None, Follow, Settle };
-    DragPhase dragPhase_ = DragPhase::None;
-    double dragLookX_ = 0.0, dragLookY_ = 0.0;          // smoothed eye follow, -1..1
-    double dragLookTX_ = 0.0, dragLookTY_ = 0.0;
-    double dragHairX_ = 0.0, dragHairTarget_ = 0.0;     // hair lag, streams against velocity
-    double dragBodyX_ = 0.0, dragBodyTarget_ = 0.0;     // slight body lean, param units
-    double dragSpeed_ = 0.0;                            // last fed speed, px/s
-    double dragDistance_ = 0.0;                         // accumulated path length
-    bool dragCuriousDone_ = false;
-    double dragCuriousTime_ = 0.0;                      // one curious look-back at the user
-    double dragNodTime_ = 0.0;                          // release nod, counts down
-    double dragSettleTime_ = 0.0;                       // hard cap on the settle phase
     bool actionFinishedReported_ = false;
-
-    enum class MemoPhase { None, Desk, Rise, User };
-    // Authored beats: glance at the desk edge, ride the note up, look back.
-    static constexpr double kMemoDeskEnd = 0.3;
-    static constexpr double kMemoRiseEnd = 1.1;
-    static constexpr double kMemoUserEnd = 1.7;
-    MemoPhase memoPhase_ = MemoPhase::None;
-    double memoTime_ = 0.0;
-    double memoUserEnd_ = kMemoUserEnd;                 // celebrate runs a shorter User beat
-    double memoLookX_ = 0.0, memoLookY_ = 0.0;          // smoothed gaze, -1..1
-    double memoNodTime_ = 0.0;                          // completion nod, counts down
-    // The delighted laugh (closed smiling eyes + O mouth) belongs to the
-    // completion beat only. Creating a note ends on a soft smile.
-    bool memoLaugh_ = false;
-
-    enum class SleepPhase { None, Enter, Asleep, Wake };
-    // Authored beats: 0.8s settle into the nap, sleep until woken, 0.8s
-    // wake-up (a new start shortens waking to this per the card).
-    static constexpr double kSleepEnterEnd = 0.8;
-    static constexpr double kSleepWakeEnd = 0.8;
-    SleepPhase sleepPhase_ = SleepPhase::None;
-    double sleepTime_ = 0.0;                            // phase-local clock
-    double sleepBreathClock_ = 0.0;                     // own slow breath, ~7s cycle
-    bool sleepWakeInteractive_ = false;
 
     enum class Interaction { None, TurnEnded, HeadPat, Stretch };
     MotionClip turnEndedClip_;
@@ -276,4 +226,11 @@ private:
     double grassTipVelocity_ = 0.0;
     double previousGripAngle_ = 0.0;
     double previousReach_ = 0.0;
+
+    // Self-contained overlay behaviors; see the class comment. The coordinator
+    // drives them each frame and keeps the public API stable for callers/tests.
+    DragBehavior drag_;
+    MemoBehavior memo_;
+    SleepBehavior sleep_;
+    GrassTouchBehavior grassTouch_;
 };

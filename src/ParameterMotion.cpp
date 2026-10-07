@@ -1,8 +1,10 @@
 #include "ParameterMotion.h"
 
-#include <QCoreApplication>
+#include "motion/MotionMath.h"
+#include "motion/MotionParameterIds.h"
+#include "motion/SleepTrace.h"
+
 #include <QDebug>
-#include <QDateTime>
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -13,33 +15,13 @@
 #include <cmath>
 #include <numbers>
 
+// The coordinator keeps using the shared parameter ids and easing curves
+// unqualified; the behavior modules in src/motion/ own their canonical
+// definitions.
+using namespace motion;
+
 namespace {
 
-// Sleep lifecycle trace for desktop diagnosis (GUI exe has no stdout). One
-// line per phase change, next to the exe. Cheap enough to leave enabled.
-void sleepTrace(const QString& what) {
-    static QFile log(QCoreApplication::applicationDirPath()
-                     + QStringLiteral("/sleep_trace.log"));
-    if (!log.isOpen()) log.open(QIODevice::Append | QIODevice::Text);
-    if (log.isOpen())
-        log.write(qPrintable(QStringLiteral("[%1] %2\n")
-            .arg(QDateTime::currentMSecsSinceEpoch()).arg(what)));
-}
-
-const QString angleX = QStringLiteral("ParamAngleX");
-const QString angleY = QStringLiteral("ParamAngleY");
-const QString angleZ = QStringLiteral("ParamAngleZ");
-const QString bodyX = QStringLiteral("ParamBodyAngleX");
-const QString bodyY = QStringLiteral("ParamBodyAngleY");
-const QString bodyZ = QStringLiteral("ParamBodyAngleZ");
-const QString breath = QStringLiteral("ParamBreath");
-const QString leftEye = QStringLiteral("ParamEyeLOpen");
-const QString rightEye = QStringLiteral("ParamEyeROpen");
-const QString leftArm = QStringLiteral("ParamArmLA");
-const QString rightArm = QStringLiteral("ParamArmRA");
-const QString mouth = QStringLiteral("ParamMouthOpenY");
-const QString cheek = QStringLiteral("ParamCheek");
-const QString deskVisible = QStringLiteral("ParamDeskVisible");
 constexpr double pi = 3.14159265358979323846;
 
 const QStringList& deskPostureChannels() {
@@ -187,17 +169,6 @@ void ParameterMotion::applyBlendOverrides(const MotionClip& clip) {
     }
 }
 
-double ParameterMotion::smooth(double t) {
-    t = std::clamp(t, 0.0, 1.0);
-    return t * t * (3.0 - 2.0 * t);
-}
-
-double ParameterMotion::pulse(double t, double start, double peak, double end) {
-    if (t < start || t >= end) return 0.0;
-    if (t < peak) return smooth((t - start) / (peak - start));
-    return 1.0 - smooth((t - peak) / (end - peak));
-}
-
 double ParameterMotion::thoughtBubblePulse(double seconds) {
     // The bubble is the "still chewing on it" marker, so it has to agree with
     // the pose it sits next to. The standing accent is a twelve second loop and
@@ -252,7 +223,7 @@ void ParameterMotion::setState(PetController::State state) {
     }
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
-    resetGrassInteraction();
+    grassTouch_.reset();
     state_ = state;
     if (state != PetController::State::Idle) interactionSeat_.clear();
     actionTime_ = 0.0;
@@ -314,7 +285,7 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
     }
     interactionDirectory_ = directory;
     if (!configureInteractions(error)) return false;
-    return configureGrassInteraction(directory, error);
+    return grassTouch_.configure(library_, directory, error);
 }
 
 double ParameterMotion::clipEventTime(const QString& clipId, const QString& event,
@@ -520,502 +491,86 @@ void ParameterMotion::applyInteraction(Parameters& desired) const {
     }
 }
 
-bool ParameterMotion::configureGrassInteraction(const QString& directory, QString* error) {
-    const MotionClip* clip = library_.clip(QStringLiteral("grass-touch"));
-    if (!clip) {
-        resetGrassInteraction();
-        grassTouchClip_ = MotionClip{};
-        return true;
-    }
-    QFile file(QDir(directory).filePath(QStringLiteral("grass-touch.motion.json")));
-    if (!file.open(QIODevice::ReadOnly)) {
-        if (error) *error = QStringLiteral("Cannot read grass-touch phase configuration");
-        return false;
-    }
-    const auto phase = QJsonDocument::fromJson(file.readAll()).object()
-                           .value(QStringLiteral("interaction")).toObject();
-    const double enterEnd = phase.value(QStringLiteral("enterEnd")).toDouble(-1);
-    const double holdEnd = phase.value(QStringLiteral("holdEnd")).toDouble(-1);
-    const double respondEnd = phase.value(QStringLiteral("respondEnd")).toDouble(-1);
-    const double timeoutEnd = phase.value(QStringLiteral("timeoutEnd")).toDouble(-1);
-    const double releaseEnd = phase.value(QStringLiteral("releaseEnd")).toDouble(clip->duration());
-    const double maxHold = phase.value(QStringLiteral("maxHold")).toDouble(-1);
-    if (!qIsFinite(enterEnd) || !qIsFinite(holdEnd) || !qIsFinite(respondEnd)
-        || !qIsFinite(timeoutEnd) || !qIsFinite(releaseEnd) || !qIsFinite(maxHold)
-        || enterEnd <= 0 || holdEnd <= enterEnd || respondEnd <= holdEnd
-        || timeoutEnd <= respondEnd || releaseEnd <= timeoutEnd
-        || qAbs(releaseEnd - clip->duration()) > 1e-6 || maxHold <= 0 || maxHold > 3.0
-        || clip->isLoop() || clip->isAdditive()) {
-        if (error) *error = QStringLiteral("grass-touch requires ordered enter/hold/respond/timeout/release boundaries and 0 < maxHold <= 3");
-        return false;
-    }
-    const auto loopStart = clip->sample(enterEnd);
-    const auto loopEnd = clip->sample(holdEnd);
-    for (auto it = loopStart.cbegin(); it != loopStart.cend(); ++it) {
-        if (!loopEnd.contains(it.key()) || qAbs(it.value() - loopEnd.value(it.key())) > 1e-6) {
-            if (error) *error = QStringLiteral("grass-touch Hold must close its parameter seam: %1").arg(it.key());
-            return false;
-        }
-    }
-    // During the invitation the palm remains gripping the grass root. Stem
-    // and tip flexibility are still driven by the existing soft spring.
-    const auto heldRoot = [](const MotionClip::Parameters& pose) {
-        return qAbs(pose.value(QStringLiteral("ParamHandRGrip")) - 1.0) < 1e-6
-            && qAbs(pose.value(QStringLiteral("ParamGrassVisible")) - 1.0) < 1e-6;
-    };
-    if (!heldRoot(loopStart) || !heldRoot(loopEnd)) {
-        if (error) *error = QStringLiteral("grass-touch Hold requires a visible grass root gripped in the palm");
-        return false;
-    }
-    for (const auto& key : clip->keys()) {
-        if (key.time >= enterEnd && key.time <= holdEnd && !heldRoot(clip->sample(key.time))) {
-            if (error) *error = QStringLiteral("grass-touch Hold cannot release the palm grip");
-            return false;
-        }
-    }
-    resetGrassInteraction();
-    grassTouchClip_ = *clip;
-    grassEnterEnd_ = enterEnd;
-    grassHoldEnd_ = holdEnd;
-    grassRespondEnd_ = respondEnd;
-    grassTimeoutEnd_ = timeoutEnd;
-    grassReleaseEnd_ = releaseEnd;
-    grassMaxHold_ = maxHold;
-    return true;
-}
-
-void ParameterMotion::resetGrassInteraction() {
-    grassPhase_ = GrassPhase::Inactive;
-    grassInteractionSelected_ = false;
-    grassInteractionTime_ = grassHeldTime_ = grassLook_ = grassLookTarget_ = 0.0;
-}
-
 bool ParameterMotion::beginGrassInteraction() {
-    if (preview_ || state_ != PetController::State::Grass || !grassTouchClip_.isValid()
-        || grassInteractionSelected_) return false;
-    resetGrassInteraction();
-    grassInteractionSelected_ = true;
-    grassPhase_ = GrassPhase::Enter;
+    if (preview_ || state_ != PetController::State::Grass || !grassTouch_.canBegin()) return false;
+    grassTouch_.begin();
     actionTime_ = 0.0;
     finishedPending_ = actionFinishedReported_ = false;
     return true;
 }
 
 bool ParameterMotion::grassInteractionActive() const {
-    return grassInteractionSelected_ && grassPhase_ != GrassPhase::Inactive && grassPhase_ != GrassPhase::Finished;
+    return grassTouch_.active();
 }
 
 QString ParameterMotion::grassInteractionPhase() const {
-    switch (grassPhase_) {
-    case GrassPhase::Enter: return QStringLiteral("enter");
-    case GrassPhase::Hold: return QStringLiteral("hold");
-    case GrassPhase::Respond: return QStringLiteral("respond");
-    case GrassPhase::Timeout: return QStringLiteral("timeout");
-    case GrassPhase::Release: return QStringLiteral("release");
-    default: return {};
-    }
+    return grassTouch_.phaseName();
 }
 
 bool ParameterMotion::respondToGrass() {
-    if (state_ != PetController::State::Grass || grassPhase_ != GrassPhase::Hold) return false;
-    grassPhase_ = GrassPhase::Respond;
-    grassInteractionTime_ = grassHoldEnd_;
-    grassLookTarget_ = 0.0;
-    return true;
+    if (state_ != PetController::State::Grass) return false;
+    return grassTouch_.respond();
 }
 
 void ParameterMotion::lookAtGrassTip(double horizontal) {
-    if (grassPhase_ == GrassPhase::Hold && qIsFinite(horizontal))
-        grassLookTarget_ = std::clamp(horizontal, -1.0, 1.0);
+    grassTouch_.lookAt(horizontal);
 }
 
 double ParameterMotion::grassInteractionMaxDuration() const {
-    if (!grassTouchClip_.isValid()) return 0.0;
-    return grassEnterEnd_ + grassMaxHold_
-        + std::max(grassRespondEnd_ - grassHoldEnd_, grassTimeoutEnd_ - grassRespondEnd_)
-        + grassReleaseEnd_ - grassTimeoutEnd_;
+    return grassTouch_.maxDuration();
 }
 
 // --- Scene-move drag reaction (motion card 4) -------------------------------
+// State and physics live in motion/DragBehavior; these wrappers keep the
+// coordinator's public API stable.
 
-void ParameterMotion::beginDragMotion() {
-    dragPhase_ = DragPhase::Follow;
-    dragLookX_ = dragLookY_ = dragLookTX_ = dragLookTY_ = 0.0;
-    dragHairX_ = dragHairTarget_ = dragBodyX_ = dragBodyTarget_ = 0.0;
-    dragSpeed_ = dragDistance_ = 0.0;
-    dragCuriousDone_ = false;
-    dragCuriousTime_ = dragNodTime_ = dragSettleTime_ = 0.0;
-}
-
-void ParameterMotion::updateDragMotion(double vx, double vy) {
-    if (dragPhase_ != DragPhase::Follow || !qIsFinite(vx) || !qIsFinite(vy)) return;
-    dragLookTX_ = std::clamp(vx / 600.0, -1.0, 1.0);
-    dragLookTY_ = std::clamp(vy / 900.0, -0.6, 0.6);
-    // Hair streams opposite to the motion: it lags behind the body.
-    dragHairTarget_ = std::clamp(-vx / 500.0, -1.0, 1.0);
-    dragBodyTarget_ = std::clamp(-vx / 110.0, -10.0, 10.0);
-    dragSpeed_ = std::sqrt(vx * vx + vy * vy);
-}
-
-void ParameterMotion::endDragMotion() {
-    if (dragPhase_ != DragPhase::Follow) return;
-    dragPhase_ = DragPhase::Settle;
-    dragLookTX_ = dragLookTY_ = dragHairTarget_ = dragBodyTarget_ = 0.0;
-    dragSpeed_ = 0.0;
-    // Release: residual sway decays while the eyes come back to the user,
-    // plus one light nod on arrival.
-    dragCuriousTime_ = 0.5;
-    dragNodTime_ = 0.7;
-    dragSettleTime_ = 2.5;
-}
-
-void ParameterMotion::cancelDragMotion() {
-    dragPhase_ = DragPhase::None;
-    dragLookX_ = dragLookY_ = dragLookTX_ = dragLookTY_ = 0.0;
-    dragHairX_ = dragHairTarget_ = dragBodyX_ = dragBodyTarget_ = 0.0;
-    dragSpeed_ = dragDistance_ = 0.0;
-    dragCuriousDone_ = false;
-    dragCuriousTime_ = dragNodTime_ = dragSettleTime_ = 0.0;
-}
-
-void ParameterMotion::advanceDragMotion(double seconds) {
-    if (dragPhase_ == DragPhase::None) return;
-    if (dragPhase_ == DragPhase::Follow) {
-        dragDistance_ += dragSpeed_ * seconds;
-        // One curious look back at the user per long drag: eyes leave the drag
-        // direction briefly, then return to following the motion.
-        if (!dragCuriousDone_ && dragDistance_ > 400.0) {
-            dragCuriousDone_ = true;
-            dragCuriousTime_ = 0.6;
-        }
-        if (dragCuriousTime_ > 0.0) {
-            dragCuriousTime_ -= seconds;
-            dragLookTX_ = dragLookTY_ = 0.0;
-        }
-        dragLookX_ += (dragLookTX_ - dragLookX_) * (1.0 - qExp(-seconds / 0.12));
-        dragLookY_ += (dragLookTY_ - dragLookY_) * (1.0 - qExp(-seconds / 0.14));
-        // Wider time constants than the eyes: hair and body read as mass.
-        dragHairX_ += (dragHairTarget_ - dragHairX_) * (1.0 - qExp(-seconds / 0.24));
-        dragBodyX_ += (dragBodyTarget_ - dragBodyX_) * (1.0 - qExp(-seconds / 0.18));
-    } else {
-        // Settle: exponential decay only -- the card explicitly forbids a
-        // persistent sine sway after the drag stops. The slow 0.45s constant
-        // keeps the lean/hair visibly swinging for a second or so, and a hard
-        // cap guarantees the phase always ends.
-        if (dragSettleTime_ > 0.0) {
-            dragSettleTime_ -= seconds;
-            if (dragSettleTime_ <= 0.0) {
-                cancelDragMotion();
-                return;
-            }
-        }
-        const double decay = qExp(-seconds / 0.45);
-        dragLookX_ *= decay; dragLookY_ *= decay;
-        dragHairX_ *= decay; dragBodyX_ *= decay;
-        if (dragCuriousTime_ > 0.0) dragCuriousTime_ -= seconds;
-        if (dragNodTime_ > 0.0) dragNodTime_ -= seconds;
-        if (qAbs(dragLookX_) < 0.02 && qAbs(dragHairX_) < 0.02 && qAbs(dragBodyX_) < 0.05
-            && dragNodTime_ <= 0.0 && dragCuriousTime_ <= 0.0)
-            cancelDragMotion();
-    }
-}
-
-void ParameterMotion::applyDragMotion(Parameters& desired) const {
-    if (dragPhase_ == DragPhase::None) return;
-    if (dragPhase_ == DragPhase::Follow) {
-        if (dragCuriousTime_ > 0.0) {
-            // Looking at the user instead of the drag direction, slightly pleased.
-            desired[QStringLiteral("ParamEyeBallX")] = 0.0;
-            desired[QStringLiteral("ParamEyeBallY")] = 0.1;
-            desired[QStringLiteral("ParamEyeSmile")] = std::max(
-                desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
-        } else {
-            auto eyeball = desired.contains(QStringLiteral("ParamEyeBallX"))
-                ? desired.value(QStringLiteral("ParamEyeBallX")) : 0.0;
-            desired[QStringLiteral("ParamEyeBallX")] = std::clamp(eyeball + 0.6 * dragLookX_, -1.0, 1.0);
-            auto eyeballY = desired.contains(QStringLiteral("ParamEyeBallY"))
-                ? desired.value(QStringLiteral("ParamEyeBallY")) : 0.0;
-            desired[QStringLiteral("ParamEyeBallY")] = std::clamp(eyeballY + 0.4 * dragLookY_, -1.0, 1.0);
-        }
-    } else if (dragCuriousTime_ > 0.0) {
-        // Release look-back: keep the soft smile, but let the eyes glide home
-        // through the decaying dragLookX_ -- snapping them to zero and back
-        // read as a visible jump once the window expired.
-        desired[QStringLiteral("ParamEyeSmile")] = std::max(
-            desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
-    }
-    auto hairFront = desired.contains(QStringLiteral("ParamHairFront"))
-        ? desired.value(QStringLiteral("ParamHairFront")) : 0.0;
-    desired[QStringLiteral("ParamHairFront")] = std::clamp(hairFront + 0.65 * dragHairX_, -1.0, 1.0);
-    auto hairBack = desired.contains(QStringLiteral("ParamHairBack"))
-        ? desired.value(QStringLiteral("ParamHairBack")) : 0.0;
-    desired[QStringLiteral("ParamHairBack")] = std::clamp(hairBack + 0.45 * dragHairX_, -1.0, 1.0);
-    auto bodyX = desired.contains(QStringLiteral("ParamBodyAngleX"))
-        ? desired.value(QStringLiteral("ParamBodyAngleX")) : 0.0;
-    desired[QStringLiteral("ParamBodyAngleX")] = std::clamp(bodyX + dragBodyX_, -12.0, 12.0);
-    if (dragNodTime_ > 0.0) {
-        // One light nod on release: a single sine hump, down and back.
-        const double p = 1.0 - dragNodTime_ / 0.7;
-        auto angleY = desired.contains(QStringLiteral("ParamAngleY"))
-            ? desired.value(QStringLiteral("ParamAngleY")) : 0.0;
-        desired[QStringLiteral("ParamAngleY")] = angleY - 10.0 * std::sin(std::numbers::pi_v<double> * p);
-    }
-}
+void ParameterMotion::beginDragMotion() { drag_.begin(); }
+void ParameterMotion::updateDragMotion(double vx, double vy) { drag_.update(vx, vy); }
+void ParameterMotion::endDragMotion() { drag_.end(); }
+void ParameterMotion::cancelDragMotion() { drag_.cancel(); }
 
 
 // --- Sticky-note gaze (motion card 5) ---------------------------------------
+// State and gaze physics live in motion/MemoBehavior.
 
-void ParameterMotion::beginMemoMotion() {
-    memoPhase_ = MemoPhase::Desk;
-    memoTime_ = 0.0;
-    memoUserEnd_ = kMemoUserEnd;
-    memoLookX_ = memoLookY_ = 0.0;
-    memoNodTime_ = 0.0;
-    memoLaugh_ = false;
-}
+void ParameterMotion::beginMemoMotion() { memo_.begin(); }
+void ParameterMotion::beginMemoCelebrate() { memo_.beginCelebrate(); }
+void ParameterMotion::cancelMemoMotion() { memo_.cancel(); }
+double ParameterMotion::memoBubbleRise() const { return memo_.bubbleRise(); }
 
-void ParameterMotion::beginMemoCelebrate() {
-    memoPhase_ = MemoPhase::User;
-    memoTime_ = 0.0;
-    memoUserEnd_ = 0.7;
-    memoNodTime_ = 0.6;
-    memoLaugh_ = true;
-}
-
-void ParameterMotion::cancelMemoMotion() {
-    memoPhase_ = MemoPhase::None;
-    memoTime_ = 0.0;
-    memoUserEnd_ = kMemoUserEnd;
-    memoLookX_ = memoLookY_ = 0.0;
-    memoNodTime_ = 0.0;
-    memoLaugh_ = false;
-}
-
-double ParameterMotion::memoBubbleRise() const {
-    switch (memoPhase_) {
-    case MemoPhase::Desk:
-        return 0.0;
-    case MemoPhase::Rise:
-        return smooth(std::clamp((memoTime_ - kMemoDeskEnd) / (kMemoRiseEnd - kMemoDeskEnd), 0.0, 1.0));
-    case MemoPhase::User:
-        return 1.0;
-    default:
-        return 0.0;
-    }
-}
 
 // --- Eye-mask nap (motion card 8) ----------------------------------------------
+// State lives in motion/SleepBehavior; the lifecycle trace stays here because
+// it logs coordinator-side context (state, busy variant, wake reason).
 
 void ParameterMotion::beginSleepMotion() {
     sleepTrace(QStringLiteral("begin (state=%1 laptop=%2)")
         .arg(int(state_)).arg(laptopBusy_));
-    sleepPhase_ = SleepPhase::Enter;
-    sleepTime_ = 0.0;
-    sleepBreathClock_ = 0.0;
-    sleepWakeInteractive_ = false;
+    sleep_.begin();
 }
 
 void ParameterMotion::wakeFromSleep(bool interactive) {
-    if (sleepPhase_ == SleepPhase::None || sleepPhase_ == SleepPhase::Wake) return;
-    sleepTrace(QStringLiteral("wake interactive=%1").arg(interactive));
-    sleepPhase_ = SleepPhase::Wake;
-    sleepTime_ = 0.0;
-    sleepWakeInteractive_ = interactive;
+    // Only trace real transitions: repeated wake calls while already waking
+    // are silently ignored by the behavior, exactly as before.
+    if (sleep_.wake(interactive))
+        sleepTrace(QStringLiteral("wake interactive=%1").arg(interactive));
 }
 
 void ParameterMotion::cancelSleepMotion() {
     sleepTrace(QStringLiteral("cancel"));
-    sleepPhase_ = SleepPhase::None;
-    sleepTime_ = 0.0;
-    sleepWakeInteractive_ = false;
+    sleep_.cancel();
 }
 
 double ParameterMotion::sleepMaskEnvelope() const {
-    switch (sleepPhase_) {
-    case SleepPhase::Enter:
-        return smooth(std::clamp(sleepTime_ / kSleepEnterEnd, 0.0, 1.0));
-    case SleepPhase::Asleep:
-        return 1.0;
-    case SleepPhase::Wake:
-        return 1.0 - smooth(std::clamp(sleepTime_ / kSleepWakeEnd, 0.0, 1.0));
-    default:
-        return 0.0;
-    }
+    return sleep_.envelope();
 }
 
-void ParameterMotion::advanceSleepMotion(double seconds) {
-    if (sleepPhase_ == SleepPhase::None) return;
-    sleepTime_ += seconds;
-    if (sleepPhase_ == SleepPhase::Asleep) sleepBreathClock_ += seconds;
-    if (sleepPhase_ == SleepPhase::Enter && sleepTime_ >= kSleepEnterEnd) {
-        sleepPhase_ = SleepPhase::Asleep;
-        sleepTime_ = 0.0;
-    } else if (sleepPhase_ == SleepPhase::Wake && sleepTime_ >= kSleepWakeEnd) {
-        cancelSleepMotion();
-    }
-}
-
-void ParameterMotion::applySleepMotion(Parameters& desired) const {
-    if (sleepPhase_ == SleepPhase::None) return;
-    // The nap happens at the small desk: sit down, no laptop. The desk
-    // manager owns ParamDeskVisible and the cover/recover ordering; this only
-    // asks for the seated pose. No new art per the card.
-    desired[QStringLiteral("ParamSitPose")] = 1.0;
-    desired[QStringLiteral("ParamLaptopVisible")] = 0.0;
-    desired[QStringLiteral("ParamBusyLaptop")] = 0.0;
-    const double tip = 6.0; // head tip toward the desk edge, Cubism AngleZ units
-    if (sleepPhase_ == SleepPhase::Enter) {
-        // Eyes half-close first; full closure lands one beat later in Asleep.
-        const double p = smooth(std::clamp(sleepTime_ / kSleepEnterEnd, 0.0, 1.0));
-        desired[leftEye] = std::min(desired.value(leftEye), 1.0 - 0.45 * p);
-        desired[rightEye] = std::min(desired.value(rightEye), 1.0 - 0.45 * p);
-        desired[angleZ] += tip * p;
-    } else if (sleepPhase_ == SleepPhase::Asleep) {
-        // Sleeping face: closed eyes under the window-layer sleep mask, a
-        // faint smile, head tipped onto the desk edge. The breath gets its
-        // own slow clock (~7s cycle) with a small
-        // body rise on the same phase -- much slower than the idle base.
-        desired[leftEye] = 0.0;
-        desired[rightEye] = 0.0;
-        desired[QStringLiteral("ParamEyeSmile")] = std::max(
-            desired.value(QStringLiteral("ParamEyeSmile")), 0.25);
-        desired[angleZ] += tip;
-        desired[breath] = 0.5 + 0.3 * qSin(sleepBreathClock_ * 0.9);
-        desired[bodyY] += 0.6 * qSin(sleepBreathClock_ * 0.9);
-    } else { // Wake
-        const double p = std::clamp(sleepTime_ / kSleepWakeEnd, 0.0, 1.0);
-        desired[angleZ] += tip * (1.0 - smooth(p));
-        if (sleepWakeInteractive_) {
-            // Clicked awake: one eye first, then the other, per the card.
-            // Assigned, not maxed: the idle base has the eyes fully open and
-            // the staged targets must own both channels while waking.
-            const double leftOpen = smooth(std::clamp(sleepTime_ / 0.25, 0.0, 1.0));
-            const double rightOpen = smooth(std::clamp((sleepTime_ - 0.45) / 0.35, 0.0, 1.0));
-            desired[leftEye] = leftOpen;
-            desired[rightEye] = rightOpen;
-        }
-        // Non-interactive wake (a new turn or an event): the generic 0.12s
-        // blend already reopens the eyes quickly; only the head tip and the
-        // mask envelope need the authored 0.8s handback.
-    }
-}
-
-void ParameterMotion::advanceMemoMotion(double seconds) {
-    if (memoPhase_ == MemoPhase::None) return;
-    memoTime_ += seconds;
-    if (memoNodTime_ > 0.0) memoNodTime_ -= seconds;
-    double targetX = 0.0, targetY = 0.0;
-    if (memoPhase_ == MemoPhase::Desk) {
-        // First beat: glance down at the desk edge where the note appears.
-        targetX = 0.15;
-        targetY = -0.55;
-        if (memoTime_ >= kMemoDeskEnd) memoPhase_ = MemoPhase::Rise;
-    } else if (memoPhase_ == MemoPhase::Rise) {
-        // The gaze rides the note as it floats up to half a head high.
-        const double p = smooth(std::clamp(
-            (memoTime_ - kMemoDeskEnd) / (kMemoRiseEnd - kMemoDeskEnd), 0.0, 1.0));
-        targetY = -0.55 + 1.0 * p;
-        targetX = 0.15 * (1.0 - p);
-        if (memoTime_ >= kMemoRiseEnd) {
-            memoPhase_ = MemoPhase::User;
-            memoNodTime_ = 0.6;
-        }
-    }
-    if (memoPhase_ == MemoPhase::User) {
-        // Look back at the user, pleased to have been trusted with this.
-        targetX = 0.0;
-        targetY = 0.1;
-        if (memoNodTime_ <= 0.0 && memoTime_ >= memoUserEnd_) {
-            cancelMemoMotion();
-            return;
-        }
-    }
-    const double alpha = 1.0 - qExp(-seconds / 0.09);
-    memoLookX_ += (targetX - memoLookX_) * alpha;
-    memoLookY_ += (targetY - memoLookY_) * alpha;
-}
-
-void ParameterMotion::applyMemoMotion(Parameters& desired) const {
-    if (memoPhase_ == MemoPhase::None) return;
-    desired[QStringLiteral("ParamEyeBallX")] = std::clamp(
-        desired.value(QStringLiteral("ParamEyeBallX")) + memoLookX_, -1.0, 1.0);
-    desired[QStringLiteral("ParamEyeBallY")] = std::clamp(
-        desired.value(QStringLiteral("ParamEyeBallY")) + memoLookY_, -1.0, 1.0);
-    if (memoPhase_ == MemoPhase::User) {
-        if (memoLaugh_) {
-            // Completion beat only: delighted laugh -- smiling CLOSED eyes
-            // and a round O-shaped mouth (the wide grin art read as creepy).
-            // The gape is the approved neutral "ah" art; the canvas gate
-            // holds MouthOpenY fully open while it is selected, so the O
-            // reads clean. The nod rides on top.
-            desired[QStringLiteral("ParamEyeSmile")] = std::max(
-                desired.value(QStringLiteral("ParamEyeSmile")), 1.0);
-            desired[leftEye] = 0.0;
-            desired[rightEye] = 0.0;
-            desired[QStringLiteral("ParamMouthGape")] = 1.0;
-        } else {
-            // Creating a note: hand the face back with a soft smile, the
-            // eyes staying open -- the laugh is the completion reward.
-            desired[QStringLiteral("ParamEyeSmile")] = std::max(
-                desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
-        }
-    }
-    if (memoNodTime_ > 0.0) {
-        const double p = 1.0 - memoNodTime_ / 0.6;
-        auto angleY = desired.contains(QStringLiteral("ParamAngleY"))
-            ? desired.value(QStringLiteral("ParamAngleY")) : 0.0;
-        desired[QStringLiteral("ParamAngleY")] = angleY - 6.0 * std::sin(std::numbers::pi_v<double> * p);
-    }
-}
-
-
-void ParameterMotion::advanceGrassInteraction(double seconds) {
-    if (!grassInteractionActive()) return;
-    if (grassPhase_ != GrassPhase::Hold) grassLookTarget_ = 0.0;
-    grassLook_ += (grassLookTarget_ - grassLook_) * (1.0 - qExp(-seconds / 0.16));
-    double remaining = seconds;
-    while (remaining > 0.0 && grassInteractionActive()) {
-        if (grassPhase_ == GrassPhase::Hold) {
-            const double consumed = std::min(remaining, grassMaxHold_ - grassHeldTime_);
-            grassHeldTime_ += consumed;
-            remaining -= consumed;
-            const double span = grassHoldEnd_ - grassEnterEnd_;
-            grassInteractionTime_ = grassEnterEnd_ + std::fmod(grassHeldTime_, span);
-            if (grassHeldTime_ >= grassMaxHold_ - 1e-9) {
-                grassPhase_ = GrassPhase::Timeout;
-                grassInteractionTime_ = grassRespondEnd_;
-                grassLookTarget_ = 0.0;
-            }
-            continue;
-        }
-        const double end = grassPhase_ == GrassPhase::Enter ? grassEnterEnd_
-            : grassPhase_ == GrassPhase::Respond ? grassRespondEnd_
-            : grassPhase_ == GrassPhase::Timeout ? grassTimeoutEnd_ : grassReleaseEnd_;
-        const double consumed = std::min(remaining, end - grassInteractionTime_);
-        grassInteractionTime_ += consumed;
-        remaining -= consumed;
-        if (grassInteractionTime_ >= end - 1e-9) {
-            if (grassPhase_ == GrassPhase::Enter) {
-                grassPhase_ = GrassPhase::Hold;
-                grassInteractionTime_ = grassEnterEnd_;
-            } else if (grassPhase_ == GrassPhase::Respond || grassPhase_ == GrassPhase::Timeout) {
-                grassPhase_ = GrassPhase::Release;
-                grassInteractionTime_ = grassTimeoutEnd_;
-            } else {
-                grassPhase_ = GrassPhase::Finished;
-                grassInteractionTime_ = grassReleaseEnd_;
-                finishedPending_ = true;
-                actionFinishedReported_ = true;
-            }
-        }
-    }
-}
 
 double ParameterMotion::actionDuration(PetController::State state) const {
     switch (state) {
     case PetController::State::Delete: return library_.duration(QStringLiteral("delete"));
     case PetController::State::Grass:
-        if (grassInteractionSelected_) return grassInteractionMaxDuration();
+        if (grassTouch_.selected()) return grassTouch_.maxDuration();
         return grassClip_.isValid() ? grassClip_.duration()
                                     : library_.duration(QStringLiteral("grass"));
     default: return 0.0; // Background states are open-ended.
@@ -1173,7 +728,7 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     cancelInteraction();
-    resetGrassInteraction();
+    grassTouch_.reset();
     values_ = parameters;
     grassBend_ = parameters.value(QStringLiteral("ParamGrassSwing"));
     grassTip_ = grassBend_ + parameters.value(QStringLiteral("ParamGrassTipBend")) / 0.85;
@@ -1213,10 +768,12 @@ void ParameterMotion::advance(double seconds) {
         actionTime_ += seconds;
     blinkClock_ += seconds;
     advanceInteraction(seconds);
-    advanceGrassInteraction(seconds);
-    advanceDragMotion(seconds);
-    advanceMemoMotion(seconds);
-    advanceSleepMotion(seconds);
+    bool grassFinished = false;
+    grassTouch_.advance(seconds, grassFinished);
+    if (grassFinished) finishedPending_ = actionFinishedReported_ = true;
+    drag_.advance(seconds);
+    memo_.advance(seconds);
+    sleep_.advance(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1370,17 +927,17 @@ void ParameterMotion::advance(double seconds) {
             desired[mouth] = 0.4 * strike;
         }
     } else if (state_ == PetController::State::Grass) {
-        const auto pose = grassInteractionSelected_ ? grassTouchClip_.sample(grassInteractionTime_)
-                                                    : grassClip_.sample(actionTime_);
+        const auto pose = grassTouch_.selected() ? grassTouch_.clip().sample(grassTouch_.time())
+                                                 : grassClip_.sample(actionTime_);
         for (auto it = pose.begin(); it != pose.end(); ++it) desired[it.key()] = it.value();
-        if (grassPhase_ == GrassPhase::Hold)
+        if (grassTouch_.holding())
             desired[QStringLiteral("ParamEyeBallX")] = std::clamp(
-                desired.value(QStringLiteral("ParamEyeBallX")) + 0.18 * grassLook_, -1.0, 1.0);
+                desired.value(QStringLiteral("ParamEyeBallX")) + 0.18 * grassTouch_.look(), -1.0, 1.0);
     }
     applyInteraction(desired);
-    applyDragMotion(desired);
-    applyMemoMotion(desired);
-    applySleepMotion(desired);
+    drag_.apply(desired);
+    memo_.apply(desired);
+    sleep_.apply(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is
@@ -1439,7 +996,7 @@ void ParameterMotion::advance(double seconds) {
 
     // A one-shot action reports completion once it reaches its authored length.
     if (!actionFinishedReported_ && (state_ == PetController::State::Delete
-        || (state_ == PetController::State::Grass && !grassInteractionSelected_))) {
+        || (state_ == PetController::State::Grass && !grassTouch_.selected()))) {
         const double duration = actionDuration(state_);
         if (duration > 0.0 && actionTime_ >= duration) {
             finishedPending_ = true;

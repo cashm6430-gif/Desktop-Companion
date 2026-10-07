@@ -178,6 +178,11 @@ class Live2DCapabilitiesTest(unittest.TestCase):
         project = Path(capabilities.__file__).resolve().parents[1]
         source = project / "src/ParameterMotion.cpp"
         self.write(self.root / "src/ParameterMotion.cpp", source.read_bytes())
+        # The parameter-id aliases live in the shared motion header since the
+        # behavior-module refactor; the inspector merges it when present.
+        ids_header = project / "src/motion/MotionParameterIds.h"
+        if ids_header.is_file():
+            self.write(self.root / "src/motion/MotionParameterIds.h", ids_header.read_bytes())
         self.policy = capabilities.read_json(project / capabilities.POLICY_REL)
         self.write_json(self.policy_path, self.policy)
         report = self.inspect()

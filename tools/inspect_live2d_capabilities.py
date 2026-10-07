@@ -140,7 +140,14 @@ def reaction_ownership(root):
         return {"status": "source_missing", "source": relative_name(root, path),
                 "source_sha256": None, "allowed": [], "reserved": {}}
     source = path.read_text(encoding="utf8")
+    # The canonical parameter-id aliases live in the shared motion header since
+    # the behavior-module refactor; the coordinator file keeps using them.
     aliases = dict(re.findall(r'const QString (\w+)\s*=\s*QStringLiteral\("([^"]+)"\)', source))
+    ids_header = root / "src/motion/MotionParameterIds.h"
+    if ids_header.is_file():
+        aliases.update(re.findall(
+            r'inline const QString (\w+)\s*=\s*QStringLiteral\("([^"]+)"\)',
+            ids_header.read_text(encoding="utf8")))
     allowed_block = re.search(r'reactionParameters\(\)\s*\{(.*?)return ids;', source, re.S)
     reserved_block = re.search(r'reactionReservedParameters\(\)\s*\{(.*?)return reserved;', source, re.S)
     if not allowed_block or not reserved_block:
