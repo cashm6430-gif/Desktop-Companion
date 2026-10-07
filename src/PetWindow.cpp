@@ -536,7 +536,8 @@ QJsonObject PetWindow::modelParameterRanges() const {
 
 QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
     if (frame.isNull()) return frame;
-    if (pulse <= 0.001 && memoVisual_ == MemoVisual::None) return frame;
+    if (pulse <= 0.001 && memoVisual_ == MemoVisual::None
+        && motion_.sleepPillowEnvelope() <= 0.001) return frame;
     // QImage is copy-on-write, so this copies only when a bubble is actually
     // being drawn over the frame.
     QImage composed = frame;
