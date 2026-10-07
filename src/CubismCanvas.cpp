@@ -725,8 +725,16 @@ void CubismCanvas::initializeGL() {
         const auto source = entry.value(QStringLiteral("source")).toString();
         const bool seatedMesh = source.startsWith(QStringLiteral("busy "));
         const bool standingFoot = source.startsWith(QStringLiteral("footwear-"));
+        // Every feature that lives on the head must ride together: when only
+        // the face/hair translate with the collar target, the eyes, lashes,
+        // irides and mouths stay at the standing position and visibly climb
+        // the face during the sit-down.
         const bool headMesh = source == QStringLiteral("face")
-            || source == QStringLiteral("front hair") || source == QStringLiteral("headwear");
+            || source == QStringLiteral("front hair") || source == QStringLiteral("headwear")
+            || source.startsWith(QStringLiteral("mouth"))
+            || source.startsWith(QStringLiteral("eyewhite"))
+            || source.startsWith(QStringLiteral("irides"))
+            || source.startsWith(QStringLiteral("eyelash"));
         const bool grassMesh = source == QStringLiteral("handwear right");
         if (!seatedMesh && !standingFoot && !headMesh && !grassMesh) continue;
         const auto id = entry.value(QStringLiteral("drawable")).toString().toUtf8();
