@@ -173,4 +173,6 @@ private:
     MemoVisual memoVisual_ = MemoVisual::None;
     QElapsedTimer memoVisualClock_;
     bool memoRiseSeen_ = false;
+    // Drives the slow bob of the sleep "z Z Z" bubble.
+    QElapsedTimer sleepClock_;
 };

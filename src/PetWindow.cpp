@@ -13,6 +13,7 @@
 #include <QFileIconProvider>
 #include <QFileInfo>
 #include <QFont>
+#include <numbers>
 #include <QGuiApplication>
 #include <QInputDialog>
 #include <QMenu>
@@ -88,8 +89,15 @@ void paintStickyPaper(QPainter& painter, const QRectF& rect, const QString& text
     painter.restore();
 }
 
-void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
-    if (pulse <= 0.001) return;
+// The comic-thought cloud shared by the "?" and the sleep "z Z Z" bubbles:
+// trailing bubbles down towards the head, then a lobe-union cloud body (drawn
+// as one path -- overlapping ellipses painted separately would show every
+// internal edge). Returns the geometry so the caller paints its own content.
+struct CloudGeometry {
+    double cx, cy, radius;
+};
+
+CloudGeometry paintComicCloud(QPainter& painter, const QSize& size, double pulse) {
     // qMin/qMax, not std::min/std::max: windows.h defines min and max as
     // macros, so the std:: forms do not survive this translation unit.
     const double unit = qMin(size.width(), size.height());
@@ -100,7 +108,6 @@ void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
     const double scale = 0.72 + 0.28 * qMin(pulse, 1.3);
     const double radius = unit * kBubbleRadius * scale;
     const QColor ink(0x26, 0x35, 0x5a);
-    const QColor accent(0xd0, 0x94, 0x2a);
 
     painter.save();
     painter.setRenderHint(QPainter::Antialiasing, true);
@@ -113,14 +120,12 @@ void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
     painter.setBrush(Qt::white);
 
     // Two little bubbles trail back down towards the head, the way a comic
-    // thought balloon is drawn, so the "?" is read as the pet's own.
+    // thought balloon is drawn, so the content is read as the pet's own.
     painter.drawEllipse(QPointF(cx - 1.26 * radius, cy + 0.64 * radius),
                         0.29 * radius, 0.29 * radius);
     painter.drawEllipse(QPointF(cx - 1.64 * radius, cy + 1.00 * radius),
                         0.16 * radius, 0.16 * radius);
 
-    // The body is a union of lobes: overlapping ellipses drawn separately would
-    // show every internal edge, which reads as a diagram instead of a cloud.
     auto lobe = [&](double dx, double dy, double rx, double ry) {
         QPainterPath path;
         path.addEllipse(QPointF(cx + dx * radius, cy + dy * radius),
@@ -132,15 +137,54 @@ void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
     cloud = cloud.united(lobe(0.56, -0.20, 0.52, 0.48));
     cloud = cloud.united(lobe(0.10, 0.42, 0.60, 0.46));
     painter.drawPath(cloud);
+    painter.restore();
+    return {cx, cy, radius};
+}
 
+void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
+    if (pulse <= 0.001) return;
+    const CloudGeometry g = paintComicCloud(painter, size, pulse);
+    const QColor accent(0xd0, 0x94, 0x2a);
+    painter.save();
     // "?" -- the one part of the bubble that carries the meaning.
     QFont font(QStringLiteral("Microsoft YaHei"));
     font.setBold(true);
-    font.setPixelSize(qMax(9, qRound(radius * 1.15)));
+    font.setPixelSize(qMax(9, qRound(g.radius * 1.15)));
     painter.setFont(font);
     painter.setPen(QPen(accent));
-    painter.drawText(QRectF(cx - radius, cy - radius * 0.86, 2.0 * radius, 1.72 * radius),
+    painter.drawText(QRectF(g.cx - g.radius, g.cy - g.radius * 0.86,
+                            2.0 * g.radius, 1.72 * g.radius),
                      Qt::AlignCenter, QStringLiteral("?"));
+    painter.restore();
+}
+
+// The sleeping bubble: the same cloud, carrying three ascending z's instead
+// of a question mark. Rides a slow bob so the doze reads as alive.
+void paintSleepBubble(QPainter& painter, const QSize& size, double pulse, double bobPhase) {
+    if (pulse <= 0.001) return;
+    const double unit = qMin(size.width(), size.height());
+    const double bob = std::sin(bobPhase) * unit * 0.006;
+    painter.translate(0.0, bob);
+    const CloudGeometry g = paintComicCloud(painter, size, pulse);
+    const QColor accent(0xd0, 0x94, 0x2a);
+    painter.save();
+    QFont font(QStringLiteral("Microsoft YaHei"));
+    font.setBold(true);
+    painter.setPen(QPen(accent));
+    // Three z's climbing to the upper right: small, medium, large.
+    const struct { double dx, dy, scale; } zs[] = {
+        {-0.58, +0.38, 0.62},
+        {-0.02, -0.04, 0.95},
+        { 0.52, -0.44, 1.30},
+    };
+    for (const auto& z : zs) {
+        font.setPixelSize(qMax(7, qRound(g.radius * z.scale)));
+        painter.setFont(font);
+        const double half = g.radius * z.scale * 0.62;
+        painter.drawText(QRectF(g.cx + z.dx * g.radius - half,
+                                g.cy + z.dy * g.radius - half, 2.0 * half, 2.0 * half),
+                         Qt::AlignCenter, QStringLiteral("Z"));
+    }
     painter.restore();
 }
 } // namespace
@@ -670,19 +714,19 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     painter.rotate(6.0 * envelope);
     painter.translate(-faceCenter.x(), -faceCenter.y() - (1.0 - envelope) * s.height() * 0.07);
 
-    const double eyeY = s.height() * 0.442;
-    const double maskW = s.width() * 0.250;
-    const double maskH = s.height() * 0.085;
-    const double cx = s.width() * 0.473;
+    const double eyeY = s.height() * 0.398;
+    const double maskW = s.width() * 0.20;
+    const double maskH = s.height() * 0.068;
+    const double cx = s.width() * 0.468;
 
     // Strap first: a soft band running into the hair on both sides, behind
     // the cloth.
-    QPen strapPen(QColor(74, 100, 164), s.height() * 0.018);
+    QPen strapPen(QColor(74, 100, 164), s.height() * 0.016);
     strapPen.setCapStyle(Qt::RoundCap);
     painter.setPen(strapPen);
     painter.setBrush(Qt::NoBrush);
-    painter.drawLine(QPointF(s.width() * 0.295, eyeY - s.height() * 0.004),
-                     QPointF(s.width() * 0.645, eyeY - s.height() * 0.004));
+    painter.drawLine(QPointF(s.width() * 0.310, eyeY - s.height() * 0.003),
+                     QPointF(s.width() * 0.635, eyeY - s.height() * 0.003));
 
     // One piece of soft cloth across both eyes -- the classic sleep-mask
     // silhouette: a plump lozenge with a small nose notch at the bottom
@@ -707,6 +751,12 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     painter.setBrush(QColor(255, 255, 255, 50));
     painter.drawEllipse(cloth.adjusted(maskW * 0.10, maskH * 0.18, -maskW * 0.58, -maskH * 0.48));
     painter.restore();
+
+    // Fully asleep: the zzz cloud pops in where the "?" bubble lives, gently
+    // bobbing on its own slow clock. Enter/wake keep the face clean.
+    if (envelope > 0.98)
+        paintSleepBubble(painter, size, envelope,
+                         sleepClock_.elapsed() / 1000.0 * std::numbers::pi_v<double> * 2.0 / 2.6);
 }
 
 bool PetWindow::startNap() {
@@ -718,6 +768,7 @@ bool PetWindow::startNap() {
     // nothing while a turn is active.
     controller_->resetBusy();
     motion_.beginSleepMotion();
+    sleepClock_.start();
     return true;
 }
 
