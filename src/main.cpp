@@ -323,6 +323,84 @@ int main(int argc, char** argv) {
             QTimer::singleShot(1000, &timer, [&] { timer.start(); });
             return app.exec();
         }
+        if (scenario.startsWith(QStringLiteral("rice-"))) {
+            const QStringList riceScenes{QStringLiteral("rice-bowl"), QStringLiteral("rice-bowl-click"),
+                QStringLiteral("rice-bowl-exit")};
+            if (!riceScenes.contains(scenario) || !QDir().mkpath(output)) return 2;
+            window.prepareLiveInteractionReview();
+            window.setInteractionPreviewEnabled(true);
+            window.move(-10000, -10000);
+            constexpr double step = 1.0 / 15.0;
+            constexpr int frameCount = 145;  // ~9.7s: busy blend, slide, sniff, smile, hold, leave
+            const bool exitScene = scenario == QStringLiteral("rice-bowl-exit");
+            const bool clickScene = scenario == QStringLiteral("rice-bowl-click");
+            int frame = 0;
+            bool forced = false, began = false, clicked = false, exited = false;
+            QJsonArray trace;
+            QTimer timer;
+            timer.setInterval(100);
+            const auto mouse = [&](QEvent::Type type, const QPointF& point, Qt::MouseButton button,
+                                   Qt::MouseButtons buttons) {
+                QMouseEvent event(type, point, point + QPointF(window.pos()), button, buttons, Qt::NoModifier);
+                QApplication::sendEvent(&window, &event);
+            };
+            const auto click = [&](const QPointF& point) {
+                mouse(QEvent::MouseButtonPress, point, Qt::LeftButton, Qt::LeftButton);
+                mouse(QEvent::MouseButtonRelease, point, Qt::LeftButton, Qt::NoButton);
+            };
+            QObject::connect(&timer, &QTimer::timeout, &app, [&] {
+                const double time = frame * step;
+                QString event;
+                // The bowl lands on the desk of the seated laptop loop: the
+                // live player reaches that state through the review force.
+                if (!forced && time >= 0.4) {
+                    forced = true;
+                    window.forceBusyLaptopForReview();
+                    event = QStringLiteral("force_busy_laptop");
+                }
+                // The blend needs to settle before the bowl can start.
+                if (forced && !began && time >= 2.0) {
+                    began = true;
+                    if (!window.startRiceBowl()) { qWarning() << "rice bowl refused"; app.exit(2); return; }
+                    event = QStringLiteral("rice_bowl_begin");
+                }
+                // The steam click: she leans away from the wisps, then
+                // peeks back with a curious half smile.
+                if (clickScene && began && !clicked && time >= 5.0) {
+                    clicked = true;
+                    const QRectF steam = window.riceSteamRect();
+                    const QPointF point(steam.center().x(), steam.top() + steam.height() * 0.25);
+                    if (!steam.contains(point)) { app.exit(2); return; }
+                    click(point);
+                    event = QStringLiteral("steam_click");
+                }
+                if (exitScene && began && !exited && time >= 5.6) {
+                    exited = true;
+                    window.exitRiceBowl();
+                    event = QStringLiteral("rice_bowl_exit");
+                }
+                if (!window.renderLiveInteractionFrame(step,
+                    QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                    app.exit(1); return;
+                }
+                trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
+                    {QStringLiteral("scenario"), scenario},
+                    {QStringLiteral("bowl_slide"), window.riceBowlSlide()},
+                    {QStringLiteral("steam"), window.riceBowlSteam()}});
+                if (++frame == frameCount) {
+                    QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
+                    if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
+                    evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                        {QStringLiteral("capture"), captureContext(window)},
+                        {QStringLiteral("scope"), QStringLiteral("real_window_player_and_native_model")},
+                        {QStringLiteral("frames"), trace}}).toJson());
+                    app.exit(0);
+                    return;
+                }
+            });
+            QTimer::singleShot(1000, &timer, [&] { timer.start(); });
+            return app.exec();
+        }
         const QStringList scenarios{QStringLiteral("turn-ended-standing"), QStringLiteral("turn-ended-laptop"),
             QStringLiteral("turn-ended-interrupt"), QStringLiteral("head-pat"),
             QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt"),

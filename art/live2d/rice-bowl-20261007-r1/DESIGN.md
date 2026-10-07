@@ -1,6 +1,13 @@
-# 碗边闻香 r1 — 设计卡（2026-10-07 概念审批中）
+# 碗边闻香 r1 — 设计卡（2026-10-07 概念已批，运行时实现待真机审批）
 
-状态：**pending 用户概念审批**。
+状态：**概念审批通过（2026-10-07，C 面板眼缘问题改 gaze 0.2 后放行）→ 运行时实现完成，pending 真机视觉审批**。
+实现：`src/motion/RiceBowlBehavior.{h,cpp}`（多通道状态机）+ `ParameterMotion`
+转发 + `PetWindow` 碗图层/程序化蒸汽/点击/托盘「来碗饭香·吃完啦」+
+`--render-interaction rice-bowl{,-click,-exit}` 三场景。CTest 9/9（新增
+3 项 rice 测试）+ unittest 150 OK。审核图 `review-sheet.png`。
+实现备注：gaze 上限 clamp 0.3（EyeBallX≥0.4 右眼虹膜达眼白缘露蓝边，
+用户概念卡反馈实证）；`eased()` 对 phaseEnd_=0 的 Hold 返回 1（除零曾
+冻结通道于 from_）；live review 场景需先 `forceBusyLaptopForReview()`。
 
 ## 概念
 

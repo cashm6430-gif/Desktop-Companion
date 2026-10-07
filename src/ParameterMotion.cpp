@@ -223,6 +223,15 @@ void ParameterMotion::setState(PetController::State state) {
         else if (state != PetController::State::Idle)
             exitBoxPeek();
     }
+    // The bowl sits on the desk while she works; a delete lunge or a grass
+    // hand-off sweeps it away, anything else that leaves the seated laptop
+    // loop (a new turn, standing up) lets it slide off politely.
+    if (riceBowlActive()) {
+        if (state == PetController::State::Delete || state == PetController::State::Grass)
+            cancelRiceBowl();
+        else if (state != PetController::State::Busy)
+            exitRiceBowl();
+    }
     // The nap yields to everything: a delete wakes first, a new turn or a
     // grass hand-off too -- the authored 0.8s wake plays while the event
     // action starts underneath, per the card's "wake before responding".
@@ -556,6 +565,9 @@ void ParameterMotion::beginMemoCelebrate() { memo_.beginCelebrate(); }
 void ParameterMotion::cancelMemoMotion() { memo_.cancel(); }
 double ParameterMotion::memoBubbleRise() const { return memo_.bubbleRise(); }
 
+void ParameterMotion::cancelRiceBowl() { rice_.cancel(); }
+void ParameterMotion::exitRiceBowl() { rice_.exit(); }
+
 bool ParameterMotion::playBoxPeek() {
     if (preview_ || interactionActive() || boxPeekActive()) return false;
     // Standing state only: the box choreography covers a grounded standing
@@ -565,6 +577,19 @@ bool ParameterMotion::playBoxPeek() {
     if (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden) return false;
     if (memoMotionActive() || sleepMotionActive() || dragMotionActive()) return false;
     box_.begin();
+    return true;
+}
+
+bool ParameterMotion::playRiceBowl() {
+    if (preview_ || interactionActive() || riceBowlActive()) return false;
+    // Seated laptop busy only: the bowl lands on the desk, so the scene
+    // needs the seated body and the visible laptop exactly like the
+    // stretch pause. The nap, a memo gaze, a drag, the box or a delete
+    // all refuse or own the stage first.
+    if (state_ != PetController::State::Busy || !laptopBusy_
+        || values_.value(QStringLiteral("ParamBusyLaptop")) < 0.9) return false;
+    if (memoMotionActive() || sleepMotionActive() || dragMotionActive()) return false;
+    rice_.begin();
     return true;
 }
 
@@ -901,6 +926,7 @@ void ParameterMotion::advance(double seconds) {
     memo_.advance(seconds);
     sleep_.advance(seconds);
     box_.advance(seconds);
+    rice_.advance(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1070,6 +1096,7 @@ void ParameterMotion::advance(double seconds) {
     memo_.apply(desired);
     sleep_.apply(desired);
     box_.apply(desired);
+    rice_.apply(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is

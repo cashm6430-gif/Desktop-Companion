@@ -324,6 +324,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         [this](QPainter& painter, const QSize& size, const FrameContext&) {
             drawBoxProp(painter, size);
         }));
+    // The rice bowl sits on the desk of the seated laptop loop (aroma break
+    // r1); the steam strands are painted by the same overlay, animated.
+    overlays_.add(std::make_shared<FunctionOverlay>(
+        [this](const FrameContext&) { return motion_.riceBowlSlide() > 0.001; },
+        [this](QPainter& painter, const QSize& size, const FrameContext&) {
+            drawRiceBowlProp(painter, size);
+        }));
 
 #ifdef HAVE_CUBISM
     // Keep OpenGL composition in a separate window. This translucent widget
@@ -439,6 +446,15 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     connect(&trayMenu_, &QMenu::aboutToShow, this, [this, boxAction] {
         boxAction->setText(motion_.boxPeekActive() ? QStringLiteral("不躲啦")
                                                    : QStringLiteral("躲一下"));
+    });
+    QAction* riceAction = trayMenu_.addAction(QStringLiteral("来碗饭香"), this, [this] {
+        // Toggle: the same entry starts the break and sends the bowl away.
+        if (motion_.riceBowlActive()) motion_.exitRiceBowl();
+        else if (controller_->state() == PetController::State::Busy) motion_.playRiceBowl();
+    });
+    connect(&trayMenu_, &QMenu::aboutToShow, this, [this, riceAction] {
+        riceAction->setText(motion_.riceBowlActive() ? QStringLiteral("吃完啦")
+                                                     : QStringLiteral("来碗饭香"));
     });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
@@ -759,6 +775,19 @@ bool PetWindow::startBoxPeek() {
     return true;
 }
 
+bool PetWindow::startRiceBowl() {
+    if (renderBackend() != QStringLiteral("cubism_native")) return false;
+    if (!motion_.playRiceBowl()) return false;
+    riceSteamClock_.restart();
+    updateInputTransparency();
+    return true;
+}
+
+void PetWindow::exitRiceBowl() {
+    motion_.exitRiceBowl();
+    updateInputTransparency();
+}
+
 void PetWindow::exitBoxPeek() {
     motion_.exitBoxPeek();
     updateInputTransparency();
@@ -793,6 +822,92 @@ void PetWindow::drawBoxProp(QPainter& painter, const QSize& size) {
     if (boxProp_.isNull()) return;
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter.drawPixmap(boxPeekRect(), boxProp_, QRectF(boxProp_.rect()));
+}
+
+
+// --- Rice-bowl aroma break (optional fun scene r1) ----------------------------
+
+QRectF PetWindow::riceBowlRect() const {
+    // Geometry in 840-reference fractions, exactly the concept card's
+    // composite: the bowl rests on the desktop surface right of the laptop
+    // (desktop top 585..620, bowl bottom 606), sized 175/840 of the width.
+    const double w = width(), h = height();
+    constexpr double kBowlWidth = 175.0 / 840.0;
+    constexpr double kBowlBottom = 606.0 / 840.0;
+    constexpr double kBowlAspect = 745.0 / 826.0;  // prop png content aspect
+    const double bowlW = kBowlWidth * w;
+    const double bowlH = bowlW * kBowlAspect;
+    const double slide = motion_.riceBowlSlide();
+    const double x = w - bowlW - (4.0 / 840.0) * w
+        + (1.0 - slide) * (bowlW + (20.0 / 840.0) * w);  // waits just off the right edge
+    return QRectF(x, kBowlBottom * h - bowlH, bowlW, bowlH);
+}
+
+QRectF PetWindow::riceSteamRect() const {
+    // The steam rises from the rice mound; the click zone extends ~150/840
+    // above the bowl so a tap on the wisps is "too close".
+    QRectF r = riceBowlRect();
+    const double lift = (150.0 / 840.0) * width();
+    r.setTop(r.top() - lift);
+    return r;
+}
+
+bool PetWindow::handleRiceBowlPress(const QPointF& localPos) {
+    if (motion_.riceBowlSlide() < 0.95) return false;  // still sliding in
+    if (!riceSteamRect().contains(localPos)) return false;
+    motion_.riceBowlPoke();
+    updateInputTransparency();
+    return true;
+}
+
+void PetWindow::drawRiceBowlProp(QPainter& painter, const QSize& size) {
+    Q_UNUSED(size);  // riceBowlRect() reads width()/height(), always the same surface
+    if (riceBowlProp_.isNull()) riceBowlProp_.load(imagePath("props/rice-bowl.png"));
+    if (riceBowlProp_.isNull()) return;
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.drawPixmap(riceBowlRect(), riceBowlProp_, QRectF(riceBowlProp_.rect()));
+    drawRiceSteam(painter);
+}
+
+void PetWindow::drawRiceSteam(QPainter& painter) {
+    const double density = motion_.riceBowlSteam();
+    if (density <= 0.01) return;
+    const QRectF bowl = riceBowlRect();
+    const double t = riceSteamClock_.elapsed() / 1000.0;
+
+    QPainterPath strand;
+    // Two wavy strands rising from the mound, breathing with the clock.
+    strand.moveTo(bowl.center().x() - bowl.width() * 0.11,
+                  bowl.top() + bowl.height() * 0.22);
+    strand.cubicTo(bowl.center().x() - bowl.width() * 0.24,
+                   bowl.top() - bowl.height() * 0.25,
+                   bowl.center().x() + bowl.width() * 0.02,
+                   bowl.top() - bowl.height() * 0.55,
+                   bowl.center().x() - bowl.width() * 0.02 + std::sin(t * 2.1) * width() * 0.008,
+                   bowl.top() - height() * 0.17);
+    QPainterPath strand2;
+    strand2.moveTo(bowl.center().x() + bowl.width() * 0.09,
+                   bowl.top() + bowl.height() * 0.2);
+    strand2.cubicTo(bowl.center().x() + bowl.width() * 0.22,
+                    bowl.top() - bowl.height() * 0.2,
+                    bowl.center().x() - bowl.width() * 0.04,
+                    bowl.top() - bowl.height() * 0.5,
+                    bowl.center().x() + bowl.width() * 0.06 + std::sin(t * 1.7 + 1.6) * width() * 0.008,
+                    bowl.top() - height() * 0.15);
+
+    painter.save();
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    const double breathe = 0.72 + 0.28 * std::sin(t * 2.4);
+    QPen steam(Qt::white);
+    steam.setWidthF((std::max)(3.0, width() * 0.009));
+    steam.setCapStyle(Qt::RoundCap);
+    steam.setColor(QColor(245, 248, 252, int(150 * density * breathe)));
+    painter.setPen(steam);
+    painter.drawPath(strand);
+    steam.setColor(QColor(245, 248, 252, int(110 * density * (1.46 - breathe))));
+    painter.setPen(steam);
+    painter.drawPath(strand2);
+    painter.restore();
 }
 
 
@@ -1184,6 +1299,12 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
             event->accept();
             return;
         }
+        // The rice bowl and its steam own their corner: a click is "too
+        // close", never a drag or a head pat.
+        if (handleRiceBowlPress(event->position())) {
+            event->accept();
+            return;
+        }
         // Peeking mid-stretch: a click is "caught you" -- skip to the recovery
         // beat (smile fades, she sits back up) instead of a head pat or drag.
         if (motion_.stretchActive()) {
@@ -1230,6 +1351,8 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
             // A scene move carries the box along; the peek loses its point,
             // so the box exits (repeated calls are safe while dragging).
             if (motion_.boxPeekActive()) motion_.exitBoxPeek();
+            // The bowl slides off too: a dragged desk pet cannot enjoy dinner.
+            if (motion_.riceBowlActive()) motion_.exitRiceBowl();
             const QPointF global = event->globalPosition();
             if (!dragLastGlobal_.isNull()) {
                 const double dt = (std::max)(dragClock_.restart() / 1000.0, 1.0 / 240.0);

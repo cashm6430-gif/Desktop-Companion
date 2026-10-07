@@ -3,6 +3,7 @@
 #include "MotionLibrary.h"
 #include "PetController.h"
 #include "motion/BoxBehavior.h"
+#include "motion/RiceBowlBehavior.h"
 #include "motion/DragBehavior.h"
 #include "motion/GrassTouchBehavior.h"
 #include "motion/MemoBehavior.h"
@@ -148,6 +149,21 @@ public:
     // 0..1 eased slide of the cardboard prop, in step with the body beats.
     double boxPeekSlide() const { return box_.boxSlide(); }
 
+    // Rice-bowl aroma break (optional fun scene r1): the bowl lands on the
+    // desk of the seated laptop busy loop, the gaze snaps to it, she sniffs
+    // the steam and smiles. A steam click leans away then peeks back. All
+    // channels are existing expression axes; the gaze is capped at 0.3 so
+    // the right iris never reaches the eyewhite edge.
+    bool playRiceBowl();
+    void exitRiceBowl();
+    void cancelRiceBowl();
+    void riceBowlPoke() { rice_.poke(); }
+    bool riceBowlActive() const { return rice_.active(); }
+    bool riceBowlExiting() const { return rice_.exiting(); }
+    // 0..1 eased slide of the bowl prop, and the steam density 0..1.
+    double riceBowlSlide() const { return rice_.slide(); }
+    double riceBowlSteam() const { return rice_.steam(); }
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -266,5 +282,6 @@ private:
     MemoBehavior memo_;
     SleepBehavior sleep_;
     BoxBehavior box_;
+    RiceBowlBehavior rice_;
     GrassTouchBehavior grassTouch_;
 };

@@ -118,6 +118,9 @@ private slots:
     void dragMotionFollowsAndSettlesWithoutSway();
     void memoGazeFollowsNoteRise();
     void boxPeekSinksPeeksAndPopsInOrder();
+    void riceBowlSniffsSmilesAndLeaves();
+    void riceBowlPokeLeansAwayAndPeeksBack();
+    void riceBowlYieldsToDelete();
     void boxPeekCaughtBlinksDucksAndRepeeksSmiling();
     void boxPeekExitRestoresStandBeforeBoxLeaves();
     void boxPeekRefusesBusyAndYieldsToDelete();
@@ -565,6 +568,111 @@ void ParameterMotionTest::boxPeekSinksPeeksAndPopsInOrder() {
     advanceFrames(motion, 20); // 4.82s
     QVERIFY(motion.boxPeekActive());
     QVERIFY(motion.boxPeekDuck() > 90.0); // eyes beat of the next cycle
+}
+
+void ParameterMotionTest::riceBowlSniffsSmilesAndLeaves() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    // Idle refuses: the bowl lands on the desk of the seated laptop loop.
+    QVERIFY(!motion.playRiceBowl());
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    QVERIFY(motion.playRiceBowl());
+    QVERIFY(!motion.playRiceBowl());
+    // Slide-in: the bowl arrives while the gaze snaps toward it (capped low).
+    advanceFrames(motion, 15); // 0.30s
+    QVERIFY(motion.riceBowlSlide() > 0.3 && motion.riceBowlSlide() < 1.0);
+    advanceFrames(motion, 15); // 0.60s
+    QCOMPARE(motion.riceBowlSlide(), 1.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.15);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) <= 0.31);
+    // Sniff: the eyes close while the steam thickens.
+    advanceFrames(motion, 25); // 1.10s
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.5);
+    QVERIFY(motion.riceBowlSteam() > 0.7);
+    // Smile: eyes reopen into the omega mouth (phase edges quantize to the
+    // 20ms frame, so every assertion sits mid-beat, never on a boundary).
+    advanceFrames(motion, 50); // 2.10s
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.7);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.8);
+    advanceFrames(motion, 20); // 2.50s: the happy hold
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.9);
+    advanceFrames(motion, 90); // 4.40s: still holding
+    QVERIFY(motion.riceBowlActive());
+    advanceFrames(motion, 35); // 5.10s: the timeout exit is sliding the bowl off
+    QVERIFY(motion.riceBowlActive()); // the polite exit relaxes the face first
+    QVERIFY(motion.riceBowlSlide() < 1.0);
+    advanceFrames(motion, 55); // 6.20s: gone
+    QVERIFY(!motion.riceBowlActive());
+    QCOMPARE(motion.riceBowlSlide(), 0.0);
+    // The busy clock survived the break: typing is back.
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingL")) > 0.001);
+}
+
+void ParameterMotionTest::riceBowlPokeLeansAwayAndPeeksBack() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.playRiceBowl());
+    advanceFrames(motion, 60); // 1.20s: deep in the sniff
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.5);
+    // A click on the steam: she leans away from the wisps.
+    motion.riceBowlPoke();
+    advanceFrames(motion, 15); // 1.50s: the lean bottoms out
+    QVERIFY(motion.values().value(QStringLiteral("ParamAngleY")) < 0.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.2);
+    // Then the curious peek back with a half smile.
+    if (qEnvironmentVariableIsSet("RICE_DEBUG")) {
+        for (int i = 0; i < 45; ++i) {
+            motion.advance(0.02);
+            if (i % 5 == 0)
+                fprintf(stderr, "pt=%.2f L=%.3f smile=%.3f angleY=%.2f\n",
+                    1.50 + (i + 1) * 0.02,
+                    motion.values().value(QStringLiteral("ParamEyeLOpen"), -1),
+                    motion.values().value(QStringLiteral("ParamSmileOpen"), -1),
+                    motion.values().value(QStringLiteral("ParamAngleY"), -99));
+        }
+    } else advanceFrames(motion, 35); // 2.14s: the peek settled into the hold
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.4);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.9);
+    QVERIFY(motion.riceBowlActive());
+    // Poke during the peek back is harmless; the break still finishes.
+    motion.riceBowlPoke();
+    advanceFrames(motion, 240); // 6.00s: resumed hold over, bowl slid off
+    QVERIFY(!motion.riceBowlActive());
+}
+
+void ParameterMotionTest::riceBowlYieldsToDelete() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.playRiceBowl());
+    advanceFrames(motion, 40); // mid sniff
+    // A delete lunge owns the stage: the bowl drops at once.
+    motion.setState(PetController::State::Delete);
+    QVERIFY(!motion.riceBowlActive());
+    QCOMPARE(motion.riceBowlSlide(), 0.0);
+    // Back at the seated desk, the break can play again. A polite exit
+    // keeps the bowl covering while the face relaxes first.
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.playRiceBowl());
+    advanceFrames(motion, 40);
+    motion.exitRiceBowl();
+    QVERIFY(motion.riceBowlExiting());
+    QCOMPARE(motion.riceBowlSlide(), 1.0); // still covering during the relax
 }
 
 void ParameterMotionTest::boxPeekCaughtBlinksDucksAndRepeeksSmiling() {

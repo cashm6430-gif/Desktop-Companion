@@ -46,6 +46,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/motion/DragBehavior.h src/motion/DragBehavior.cpp
     src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
     src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
+    src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
     src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
     src/overlay/FrameOverlay.h
@@ -123,6 +124,7 @@ if(BUILD_TESTING)
         src/motion/DragBehavior.h src/motion/DragBehavior.cpp
         src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
         src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
+        src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/MotionClip.h src/MotionClip.cpp
@@ -136,6 +138,7 @@ if(BUILD_TESTING)
         src/motion/DragBehavior.h src/motion/DragBehavior.cpp
         src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
         src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
+        src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/PetController.h src/PetController.cpp)
