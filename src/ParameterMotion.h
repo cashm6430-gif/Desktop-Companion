@@ -83,6 +83,20 @@ public:
     void cancelDragMotion();
     bool dragMotionActive() const { return dragPhase_ != DragPhase::None; }
 
+    // Sticky-note gaze (motion card 5). The note itself is window-layer art;
+    // the motion layer only carries the eyes: a glance at the desk edge, then
+    // the gaze rides the note up as it floats, then back to the user with a
+    // pleased smile and a nod. beginMemoCelebrate() is the short completion
+    // beat (smile + nod) when the user ticks a note off. Pure overlay like the
+    // drag reaction: typing and props keep playing underneath.
+    void beginMemoMotion();
+    void beginMemoCelebrate();
+    void cancelMemoMotion();
+    bool memoMotionActive() const { return memoPhase_ != MemoPhase::None; }
+    // 0..1 rise envelope of the note bubble, in step with the gaze. The window
+    // layer holds it at 1 once the overlay ends so the note stays up.
+    double memoBubbleRise() const;
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -128,6 +142,8 @@ private:
     void applyInteraction(Parameters& desired) const;
     void applyDragMotion(Parameters& desired) const;
     void advanceDragMotion(double seconds);
+    void advanceMemoMotion(double seconds);
+    void applyMemoMotion(Parameters& desired) const;
     void captureInteractionSeat();
     bool configureGrassInteraction(const QString& directory, QString* error);
     void resetGrassInteraction();
@@ -167,6 +183,17 @@ private:
     double dragNodTime_ = 0.0;                          // release nod, counts down
     double dragSettleTime_ = 0.0;                       // hard cap on the settle phase
     bool actionFinishedReported_ = false;
+
+    enum class MemoPhase { None, Desk, Rise, User };
+    // Authored beats: glance at the desk edge, ride the note up, look back.
+    static constexpr double kMemoDeskEnd = 0.3;
+    static constexpr double kMemoRiseEnd = 1.1;
+    static constexpr double kMemoUserEnd = 1.7;
+    MemoPhase memoPhase_ = MemoPhase::None;
+    double memoTime_ = 0.0;
+    double memoUserEnd_ = kMemoUserEnd;                 // celebrate runs a shorter User beat
+    double memoLookX_ = 0.0, memoLookY_ = 0.0;          // smoothed gaze, -1..1
+    double memoNodTime_ = 0.0;                          // completion nod, counts down
 
     enum class Interaction { None, TurnEnded, HeadPat, Stretch };
     MotionClip turnEndedClip_;

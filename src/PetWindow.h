@@ -109,6 +109,16 @@ private:
     void updatePointerGesture();
     void releasePointerGesture();
     void constrainPositionToScreen();
+    // Sticky note (motion card 5). The note is window-layer art anchored to
+    // the desk edge; the motion layer carries only the gaze. The note is
+    // painted into the composed frame, so the per-pixel input mask picks it up
+    // and clicks land exactly on the paper.
+    void createStickyNote(const QString& text);
+    bool handleMemoPress(const QPointF& localPos, const QPoint& globalPos);
+    void drawMemoNote(QPainter& painter, const QSize& size) const;
+    QRectF memoBubbleRect(const QSizeF& size, double rise) const;
+    QRectF memoBadgeRect(const QSizeF& size) const;
+    double memoEnvelope() const;
     void advanceLiveFrame(double seconds);
     void playGrass();
     bool grassInteractionApproved() const;
@@ -149,4 +159,11 @@ private:
     // plays as a left-hand one. Reset when the delete state ends.
     bool lungeMirrored_ = false;
     DeleteOverlay* deleteOverlay_ = nullptr;
+    // Sticky note state. The bubble rises with the gaze overlay, then holds;
+    // unattended notes fold into a corner badge that can be re-opened.
+    QString memoText_;
+    enum class MemoVisual { None, Bubble, Badge, Done };
+    MemoVisual memoVisual_ = MemoVisual::None;
+    QElapsedTimer memoVisualClock_;
+    bool memoRiseSeen_ = false;
 };

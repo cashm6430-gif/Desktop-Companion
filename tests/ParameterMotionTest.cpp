@@ -115,6 +115,7 @@ private slots:
     void turnEndedPreservesSeatThenPutsLaptopAway();
     void stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping();
     void dragMotionFollowsAndSettlesWithoutSway();
+    void memoGazeFollowsNoteRise();
     void headPatHoldReleaseDirectionAndCooldown();
     void headPatWhileBusyLeavesHandsAndComputerAlone();
     void reactionInterruptionsKeepPoseContinuous();
@@ -472,6 +473,49 @@ void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.05);
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamHairFront"))) < 0.05);
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamBodyAngleX"))) < 0.5);
+}
+
+void ParameterMotionTest::memoGazeFollowsNoteRise() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 50);
+    QVERIFY(!motion.memoMotionActive());
+    motion.beginMemoMotion();
+    QVERIFY(motion.memoMotionActive());
+    // First beat: glance down at the desk edge while the note appears.
+    QCOMPARE(motion.memoBubbleRise(), 0.0);
+    advanceFrames(motion, 10); // 0.2s, including the generic value blend lag
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) < -0.3);
+    // The gaze rides the note up as it floats to half a head high.
+    advanceFrames(motion, 24); // 0.72s
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) > -0.35);
+    QVERIFY(motion.memoBubbleRise() > 0.2 && motion.memoBubbleRise() < 0.9);
+    // Arrival: looking back at the user, pleased. Checked at the end of the
+    // look-back so the generic value blend has fully converged.
+    advanceFrames(motion, 49); // 1.70s
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) > 0.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.3);
+    // The overlay ends by itself; the window layer keeps the note art up.
+    advanceFrames(motion, 30); // 1.82s
+    QVERIFY(!motion.memoMotionActive());
+    // Busy typing keeps playing underneath: the memo owns only the gaze.
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) > 0.99);
+    motion.beginMemoMotion();
+    advanceFrames(motion, 10);
+    QVERIFY(motion.memoMotionActive());
+    QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) > 0.99);
+    // Completion beat: smile and nod, then the overlay is done.
+    motion.beginMemoCelebrate();
+    advanceFrames(motion, 12); // 0.24s
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.3);
+    QVERIFY(motion.values().value(QStringLiteral("ParamAngleY")) < -1.0);
+    advanceFrames(motion, 30); // 0.84s
+    QVERIFY(!motion.memoMotionActive());
 }
 
 void ParameterMotionTest::stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping() {

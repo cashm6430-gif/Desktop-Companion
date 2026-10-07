@@ -14,6 +14,7 @@
 #include <QFileInfo>
 #include <QFont>
 #include <QGuiApplication>
+#include <QInputDialog>
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
@@ -48,6 +49,44 @@ QString imagePath(const char* name) {
 constexpr double kBubbleCenterX = 0.765;
 constexpr double kBubbleCenterY = 0.145;
 constexpr double kBubbleRadius = 0.084;
+
+// --------------------------------------------------------- sticky note paper
+// Motion card 5: the note is window-layer art, same reasoning as the bubble.
+// One painter for the full note and the corner badge so both read as the
+// same object. Geometry is a fraction of the widget, like the bubble's.
+void paintStickyPaper(QPainter& painter, const QRectF& rect, const QString& text) {
+    painter.save();
+    painter.setRenderHint(QPainter::Antialiasing);
+    // Soft drop shadow lifts the paper off the scene.
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor(0, 0, 0, 36));
+    painter.drawRoundedRect(rect.translated(2, 3), 4, 4);
+    // Paper with a folded top-right corner (a dog-ear).
+    const qreal fold = qMin(rect.width(), rect.height()) * 0.30;
+    painter.setPen(QPen(QColor(0xE8, 0xD4, 0x4D), 1.2));
+    painter.setBrush(QColor(0xFF, 0xF6, 0xA8));
+    painter.drawPolygon(QPolygonF{rect.topLeft(),
+                                  QPointF(rect.right() - fold, rect.top()),
+                                  QPointF(rect.right(), rect.top() + fold),
+                                  rect.bottomRight(),
+                                  rect.bottomLeft()});
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor(0xEA, 0xD9, 0x7A));
+    painter.drawPolygon(QPolygonF{QPointF(rect.right() - fold, rect.top()),
+                                  QPointF(rect.right(), rect.top() + fold),
+                                  QPointF(rect.right() - fold, rect.top() + fold)});
+    if (!text.isEmpty()) {
+        const QRectF textRect = rect.adjusted(rect.width() * 0.08, rect.height() * 0.10,
+                                              -rect.width() * 0.08, -rect.height() * 0.08);
+        QFont font(QStringLiteral("Microsoft YaHei"));
+        font.setPixelSize(std::clamp(int(rect.height() * 0.20), 10, 18));
+        painter.setFont(font);
+        painter.setPen(QColor(0x4A, 0x42, 0x34));
+        painter.setClipRect(textRect);
+        painter.drawText(textRect, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, text);
+    }
+    painter.restore();
+}
 
 void paintThoughtBubble(QPainter& painter, const QSize& size, double pulse) {
     if (pulse <= 0.001) return;
@@ -287,6 +326,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (controller_->state() != PetController::State::Busy) return;
         motion_.playStretch();
     });
+    trayMenu_.addAction(QStringLiteral("放个便笺…"), this, [this] {
+        const QString text = QInputDialog::getMultiLineText(this, QStringLiteral("便笺"),
+            QStringLiteral("这件小事，先替你放这里："), memoText_);
+        if (text.trimmed().isEmpty()) return;
+        createStickyNote(text);
+    });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
     trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
@@ -478,12 +523,16 @@ QJsonObject PetWindow::modelParameterRanges() const {
 }
 
 QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
-    if (pulse <= 0.001 || frame.isNull()) return frame;
+    if (frame.isNull()) return frame;
+    if (pulse <= 0.001 && memoVisual_ == MemoVisual::None) return frame;
     // QImage is copy-on-write, so this copies only when a bubble is actually
     // being drawn over the frame.
     QImage composed = frame;
     QPainter painter(&composed);
-    paintThoughtBubble(painter, composed.size(), pulse);
+    if (pulse > 0.001) paintThoughtBubble(painter, composed.size(), pulse);
+    // The sticky note rides the same composition path so the interaction mask
+    // (built from the composed frame) makes exactly the paper clickable.
+    drawMemoNote(painter, composed.size());
     return composed;
 }
 
@@ -497,6 +546,103 @@ QImage PetWindow::composedFrame() const {
 #else
     return {};
 #endif
+}
+
+// --- Sticky note (motion card 5) --------------------------------------------
+
+double PetWindow::memoEnvelope() const {
+    if (motion_.memoMotionActive()) return motion_.memoBubbleRise();
+    // The gaze overlay ends by itself; the note stays up until the user acts
+    // or the unattended timeout folds it into a corner badge.
+    return memoRiseSeen_ ? 1.0 : 0.0;
+}
+
+QRectF PetWindow::memoBubbleRect(const QSizeF& s, double rise) const {
+    const bool desk = motion_.values().value(QStringLiteral("ParamDeskVisible")) > 0.5;
+    const double w = s.width() * 0.42;
+    const double h = s.height() * 0.15;
+    const double cx = s.width() * (desk ? 0.68 : 0.76);
+    // Rises from the desk edge to about half a head high; without the desk it
+    // floats up from the side of the body -- no special hand prop, per the card.
+    const double cy = s.height() * ((desk ? 0.52 : 0.55) - rise * (desk ? 0.22 : 0.21));
+    return QRectF(cx - w / 2.0, cy - h / 2.0, w, h);
+}
+
+QRectF PetWindow::memoBadgeRect(const QSizeF& s) const {
+    const bool desk = motion_.values().value(QStringLiteral("ParamDeskVisible")) > 0.5;
+    const double w = s.width() * 0.10;
+    return QRectF(s.width() * (desk ? 0.82 : 0.84), s.height() * (desk ? 0.50 : 0.56), w, w * 0.9);
+}
+
+void PetWindow::drawMemoNote(QPainter& painter, const QSize& size) const {
+    const QSizeF s(size);
+    if (memoVisual_ == MemoVisual::Bubble) {
+        const double rise = memoEnvelope();
+        if (rise <= 0.001) return;
+        const QRectF rect = memoBubbleRect(s, rise);
+        painter.save();
+        painter.setOpacity(std::clamp(rise * 3.0, 0.0, 1.0));
+        // The paper scales in with the rise; a slight tilt keeps it handmade.
+        painter.translate(rect.center());
+        painter.rotate(-3.0);
+        painter.scale(0.7 + 0.3 * rise, 0.7 + 0.3 * rise);
+        painter.translate(-rect.center());
+        paintStickyPaper(painter, rect, memoText_);
+        painter.restore();
+    } else if (memoVisual_ == MemoVisual::Badge) {
+        paintStickyPaper(painter, memoBadgeRect(s), QStringLiteral("…"));
+    } else if (memoVisual_ == MemoVisual::Done) {
+        const double t = memoVisualClock_.elapsed() / 1000.0;
+        if (t >= 0.8) return;
+        painter.save();
+        painter.setOpacity(1.0 - t / 0.8);
+        paintStickyPaper(painter, memoBadgeRect(s), QString());
+        painter.restore();
+    }
+}
+
+void PetWindow::createStickyNote(const QString& text) {
+    memoText_ = text;
+    memoVisual_ = MemoVisual::Bubble;
+    memoRiseSeen_ = false;
+    memoVisualClock_.restart();
+    motion_.beginMemoMotion();
+}
+
+bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos) {
+    const QSizeF s(size());
+    if (memoVisual_ == MemoVisual::Bubble && memoEnvelope() > 0.9
+        && memoBubbleRect(s, 1.0).contains(localPos)) {
+        QMenu menu(this);
+        QAction* done = menu.addAction(QStringLiteral("完成了"));
+        QAction* later = menu.addAction(QStringLiteral("先收起来"));
+        QAction* drop = menu.addAction(QStringLiteral("丢掉"));
+        QAction* picked = menu.exec(globalPos);
+        if (picked == done) {
+            // Ticking the note off folds it to the corner while the pet gives
+            // a pleased nod. The animation only answers the user's own click;
+            // it never claims the task itself is done.
+            memoVisual_ = MemoVisual::Done;
+            memoVisualClock_.restart();
+            motion_.beginMemoCelebrate();
+        } else if (picked == later) {
+            memoVisual_ = MemoVisual::Badge;
+            memoVisualClock_.restart();
+        } else if (picked == drop) {
+            memoVisual_ = MemoVisual::None;
+            memoRiseSeen_ = false;
+        }
+        return true;
+    }
+    if (memoVisual_ == MemoVisual::Badge && memoBadgeRect(s).contains(localPos)) {
+        // Re-open: the note rises again with the same glance beat.
+        memoVisual_ = MemoVisual::Bubble;
+        memoRiseSeen_ = false;
+        memoVisualClock_.restart();
+        motion_.beginMemoMotion();
+        return true;
+    }
+    return false;
 }
 
 void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon) {
@@ -587,6 +733,17 @@ void PetWindow::advanceLiveFrame(double seconds) {
     }
     motion_.advance(seconds);
     if (motion_.consumeActionFinished()) controller_->actionFinished();
+    // Sticky note lifecycle: hold the risen note, fold it into a corner badge
+    // when the user ignores it for a while, fade the badge once completed.
+    if (motion_.memoMotionActive()) {
+        if (motion_.memoBubbleRise() > 0.99) memoRiseSeen_ = true;
+    } else if (memoVisual_ == MemoVisual::Bubble && memoRiseSeen_
+               && memoVisualClock_.elapsed() > 20000) {
+        memoVisual_ = MemoVisual::Badge;
+        memoVisualClock_.restart();
+    }
+    if (memoVisual_ == MemoVisual::Done && memoVisualClock_.elapsed() > 800)
+        memoVisual_ = MemoVisual::None;
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
         cubismCanvas_->advance(seconds);
@@ -743,6 +900,11 @@ void PetWindow::constrainPositionToScreen() {
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
+        // The sticky note owns its paper: clicking it never starts a drag.
+        if (handleMemoPress(event->position(), event->globalPosition().toPoint())) {
+            event->accept();
+            return;
+        }
         releasePointerGesture();
         if (isGrassTipAt(event->position()) && motion_.respondToGrass()) {
             grassTouchPressed_ = true;

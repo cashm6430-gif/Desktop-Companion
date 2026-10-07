@@ -225,6 +225,10 @@ void ParameterMotion::setState(PetController::State state) {
     if (dragMotionActive() && (state == PetController::State::Delete
                                || state == PetController::State::Grass))
         cancelDragMotion();
+    // Same for the memo gaze: a delete lunge owns the face while it plays.
+    if (memoMotionActive() && (state == PetController::State::Delete
+                               || state == PetController::State::Grass))
+        cancelMemoMotion();
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     resetGrassInteraction();
@@ -738,6 +742,97 @@ void ParameterMotion::applyDragMotion(Parameters& desired) const {
 }
 
 
+// --- Sticky-note gaze (motion card 5) ---------------------------------------
+
+void ParameterMotion::beginMemoMotion() {
+    memoPhase_ = MemoPhase::Desk;
+    memoTime_ = 0.0;
+    memoUserEnd_ = kMemoUserEnd;
+    memoLookX_ = memoLookY_ = 0.0;
+    memoNodTime_ = 0.0;
+}
+
+void ParameterMotion::beginMemoCelebrate() {
+    memoPhase_ = MemoPhase::User;
+    memoTime_ = 0.0;
+    memoUserEnd_ = 0.7;
+    memoNodTime_ = 0.6;
+}
+
+void ParameterMotion::cancelMemoMotion() {
+    memoPhase_ = MemoPhase::None;
+    memoTime_ = 0.0;
+    memoUserEnd_ = kMemoUserEnd;
+    memoLookX_ = memoLookY_ = 0.0;
+    memoNodTime_ = 0.0;
+}
+
+double ParameterMotion::memoBubbleRise() const {
+    switch (memoPhase_) {
+    case MemoPhase::Desk:
+        return 0.0;
+    case MemoPhase::Rise:
+        return smooth(std::clamp((memoTime_ - kMemoDeskEnd) / (kMemoRiseEnd - kMemoDeskEnd), 0.0, 1.0));
+    case MemoPhase::User:
+        return 1.0;
+    default:
+        return 0.0;
+    }
+}
+
+void ParameterMotion::advanceMemoMotion(double seconds) {
+    if (memoPhase_ == MemoPhase::None) return;
+    memoTime_ += seconds;
+    if (memoNodTime_ > 0.0) memoNodTime_ -= seconds;
+    double targetX = 0.0, targetY = 0.0;
+    if (memoPhase_ == MemoPhase::Desk) {
+        // First beat: glance down at the desk edge where the note appears.
+        targetX = 0.15;
+        targetY = -0.55;
+        if (memoTime_ >= kMemoDeskEnd) memoPhase_ = MemoPhase::Rise;
+    } else if (memoPhase_ == MemoPhase::Rise) {
+        // The gaze rides the note as it floats up to half a head high.
+        const double p = smooth(std::clamp(
+            (memoTime_ - kMemoDeskEnd) / (kMemoRiseEnd - kMemoDeskEnd), 0.0, 1.0));
+        targetY = -0.55 + 1.0 * p;
+        targetX = 0.15 * (1.0 - p);
+        if (memoTime_ >= kMemoRiseEnd) {
+            memoPhase_ = MemoPhase::User;
+            memoNodTime_ = 0.6;
+        }
+    }
+    if (memoPhase_ == MemoPhase::User) {
+        // Look back at the user, pleased to have been trusted with this.
+        targetX = 0.0;
+        targetY = 0.1;
+        if (memoNodTime_ <= 0.0 && memoTime_ >= memoUserEnd_) {
+            cancelMemoMotion();
+            return;
+        }
+    }
+    const double alpha = 1.0 - qExp(-seconds / 0.09);
+    memoLookX_ += (targetX - memoLookX_) * alpha;
+    memoLookY_ += (targetY - memoLookY_) * alpha;
+}
+
+void ParameterMotion::applyMemoMotion(Parameters& desired) const {
+    if (memoPhase_ == MemoPhase::None) return;
+    desired[QStringLiteral("ParamEyeBallX")] = std::clamp(
+        desired.value(QStringLiteral("ParamEyeBallX")) + memoLookX_, -1.0, 1.0);
+    desired[QStringLiteral("ParamEyeBallY")] = std::clamp(
+        desired.value(QStringLiteral("ParamEyeBallY")) + memoLookY_, -1.0, 1.0);
+    if (memoPhase_ == MemoPhase::User)
+        desired[QStringLiteral("ParamEyeSmile")] = std::max(
+            desired.value(QStringLiteral("ParamEyeSmile")), 0.4);
+    if (memoNodTime_ > 0.0) {
+        const double p = 1.0 - memoNodTime_ / 0.6;
+        auto angleY = desired.contains(QStringLiteral("ParamAngleY"))
+            ? desired.value(QStringLiteral("ParamAngleY")) : 0.0;
+        desired[QStringLiteral("ParamAngleY")] = angleY - 6.0 * std::sin(std::numbers::pi_v<double> * p);
+    }
+}
+
+
 void ParameterMotion::advanceGrassInteraction(double seconds) {
     if (!grassInteractionActive()) return;
     if (grassPhase_ != GrassPhase::Hold) grassLookTarget_ = 0.0;
@@ -982,6 +1077,7 @@ void ParameterMotion::advance(double seconds) {
     advanceInteraction(seconds);
     advanceGrassInteraction(seconds);
     advanceDragMotion(seconds);
+    advanceMemoMotion(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1144,6 +1240,7 @@ void ParameterMotion::advance(double seconds) {
     }
     applyInteraction(desired);
     applyDragMotion(desired);
+    applyMemoMotion(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is
