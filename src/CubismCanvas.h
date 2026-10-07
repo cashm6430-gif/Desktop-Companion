@@ -27,6 +27,10 @@ public:
     // same grounded transform as the picture, so input follows head/seat motion.
     const QPainterPath& headHitPath() const { return headHitPath_; }
     const QPainterPath& grassTipHitPath() const { return grassTipHitPath_; }
+    // How far the face moved down this frame (widget pixels) because the head
+    // rides the seated collar target. Window-layer art that is glued to the
+    // face -- the nap eye mask -- adds this so it sinks with the head.
+    double headRideY() const { return headRideY_; }
 
 signals:
     void readyChanged(bool ready);
@@ -46,4 +50,5 @@ private:
     double frameSeconds_ = 0.0;
     QPainterPath headHitPath_;
     QPainterPath grassTipHitPath_;
+    double headRideY_ = 0.0;
 };

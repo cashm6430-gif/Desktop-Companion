@@ -2,6 +2,7 @@
 #ifdef HAVE_CUBISM
 #include "CubismCanvas.h"
 #endif
+#include "StartupTrace.h"
 #include "overlay/FrameOverlay.h"
 
 #include <QApplication>
@@ -549,6 +550,11 @@ void PetWindow::shutdown() {
 void PetWindow::paintEvent(QPaintEvent*) {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        static bool firstPaintTraced = false;
+        if (!firstPaintTraced) {
+            firstPaintTraced = true;
+            startup::trace(QStringLiteral("first composed frame painted"));
+        }
         QPainter painter(this);
         // One composition path for the live window and the review captures, so
         // the approval frames can never show a bubble the desktop pet does not
@@ -738,13 +744,20 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     painter.setRenderHint(QPainter::Antialiasing, true);
     // The mask settles onto the face during the enter phase (slides the last
     // stretch down from the forehead) and tips with the head -- pivot on the
-    // eye line itself so the cloth hugs the face instead of swinging.
-    const QPointF faceCenter(s.width() * 0.507, s.height() * 0.418);
+    // eye line itself so the cloth hugs the face instead of swinging. The nap
+    // is a seated scene: the canvas reports how far the head rode down with
+    // the collar this frame, and the mask sinks with it.
+#ifdef HAVE_CUBISM
+    const double headRide = cubismCanvas_ ? cubismCanvas_->headRideY() : 0.0;
+#else
+    const double headRide = 0.0;
+#endif
+    const QPointF faceCenter(s.width() * 0.507, s.height() * 0.418 + headRide);
     painter.translate(faceCenter);
     painter.rotate(2.5 * envelope);
     painter.translate(-faceCenter.x(), -faceCenter.y() - (1.0 - envelope) * s.height() * 0.07);
 
-    const double eyeY = s.height() * 0.418;
+    const double eyeY = s.height() * 0.418 + headRide;
     const double maskW = s.width() * 0.29;
     const double maskH = s.height() * 0.088;
     const double cx = s.width() * 0.507;

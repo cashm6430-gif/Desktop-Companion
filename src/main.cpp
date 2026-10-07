@@ -2,6 +2,7 @@
 #include "DesktopDeleteSource.h"
 #include "PetController.h"
 #include "PetWindow.h"
+#include "StartupTrace.h"
 
 #include <QApplication>
 #include <QCryptographicHash>
@@ -70,6 +71,7 @@ bool staticParameters(const QJsonObject& object, ParameterMotion::Parameters* pa
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
+    startup::trace(QStringLiteral("main entry (QApplication up)"));
     app.setQuitOnLastWindowClosed(false);
     // These are per-process review overrides. Parse before constructing the
     // canvas, never save them to settings or enable them in the live pet.
@@ -115,11 +117,14 @@ int main(int argc, char** argv) {
     app.setProperty("desktopCompanionDeskWorkMode",
         !app.property("desktopCompanionReviewRawExport").toBool()
             && deskModeForModel(activeModelPath, !reviewModelPath.isEmpty()));
+    startup::trace(QStringLiteral("desk mode probed"));
     PetController controller;
     PetWindow window(&controller);
+    startup::trace(QStringLiteral("window constructed"));
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
     if (reviewCommand) window.move(-10000, -10000);
     window.show();
+    startup::trace(QStringLiteral("window shown"));
 
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
         const QString output = QString::fromLocal8Bit(argv[2]);

@@ -5,6 +5,7 @@
 #include "CubismMaterialTexture.h"
 #include "CubismNeckBinding.h"
 #include "CubismPostureTransition.h"
+#include "StartupTrace.h"
 
 #include <CubismFramework.hpp>
 #include <Id/CubismId.hpp>
@@ -101,6 +102,28 @@ bool alignDrawable(Live2D::Cubism::Core::csmModel* model, int drawable,
         vertices[i].Y = static_cast<float>(point.y);
     }
     return true;
+}
+
+// True when every drawable renders with Normal/Over or the legacy compatible
+// blend types and the model owns no offscreen surfaces. Such a model never
+// selects one of the hundreds of advanced blend shader programs, so their
+// multi-second precompilation (the startup bottleneck on some GL drivers)
+// can be skipped entirely via CubismShader_OpenGLES2::SetBlendProgramsPrecompiled.
+bool usesOnlyCompatibleBlendModes(Live2D::Cubism::Framework::CubismModel* model) {
+    auto* native = model->GetModel();
+    const auto* modes = Live2D::Cubism::Core::csmGetDrawableBlendModes(native);
+    Live2D::Cubism::Framework::csmBlendMode blendMode;
+    for (int i = 0; i < Live2D::Cubism::Core::csmGetDrawableCount(native); ++i) {
+        blendMode.SetBlendMode(modes[i]);
+        const auto color = blendMode.GetColorBlendType();
+        const auto alpha = blendMode.GetAlphaBlendType();
+        const bool normalOver = color == Live2D::Cubism::Core::csmColorBlendType_Normal
+            && alpha == Live2D::Cubism::Core::csmAlphaBlendType_Over;
+        const bool compatible = color == Live2D::Cubism::Core::csmColorBlendType_AddCompatible
+            || color == Live2D::Cubism::Core::csmColorBlendType_MultiplyCompatible;
+        if (!normalOver && !compatible) return false;
+    }
+    return Live2D::Cubism::Core::csmGetOffscreenCount(native) == 0;
 }
 }
 
@@ -236,12 +259,20 @@ QJsonObject CubismCanvas::parameterRanges() const {
 }
 
 void CubismCanvas::initializeGL() {
+    startup::trace(QStringLiteral("canvas: glew init begin"));
     glewExperimental = GL_TRUE;
     if (const GLenum glewError = glewInit(); glewError != GLEW_OK) {
         error_ = QStringLiteral("GLEW init failed: %1").arg(reinterpret_cast<const char*>(glewGetErrorString(glewError)));
         return;
     }
     glGetError(); // GLEW may query an unsupported legacy extension.
+    {
+        const auto* glRenderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+        const auto* glVersion = reinterpret_cast<const char*>(glGetString(GL_VERSION));
+        startup::trace(QStringLiteral("canvas: GL = %1 / %2")
+            .arg(QString::fromLatin1(glRenderer ? glRenderer : "?"),
+                 QString::fromLatin1(glVersion ? glVersion : "?")));
+    }
     impl_->frameworkOption.LogFunction = frameworkLog;
     impl_->frameworkOption.LoggingLevel = Csm::CubismFramework::Option::LogLevel_Warning;
     impl_->frameworkOption.LoadFileFunction = loadShaderBytes;
@@ -252,6 +283,7 @@ void CubismCanvas::initializeGL() {
     }
     impl_->frameworkStarted = true;
     Csm::CubismFramework::Initialize();
+    startup::trace(QStringLiteral("canvas: cubism framework up"));
 
     const QString reviewModel = QCoreApplication::instance()->property(
         "desktopCompanionReviewModelPath").toString();
@@ -275,6 +307,7 @@ void CubismCanvas::initializeGL() {
     impl_->model->LoadModel(reinterpret_cast<const Csm::csmByte*>(moc.constData()),
                             static_cast<Csm::csmSizeInt>(moc.size()));
     auto* model = impl_->model->GetModel();
+    startup::trace(QStringLiteral("canvas: moc parsed"));
     if (!model) {
         error_ = QStringLiteral("Cubism Core could not load the MOC3");
         impl_->model.reset();
@@ -556,13 +589,18 @@ void CubismCanvas::initializeGL() {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0,
                      GL_RGBA, GL_UNSIGNED_BYTE, image.constBits());
+        // Mip levels are required: the Cubism renderer switches some passes
+        // to GL_LINEAR_MIPMAP_LINEAR, and sampling an incomplete pyramid
+        // returns black. Generation cost is negligible next to the upload.
         glGenerateMipmap(GL_TEXTURE_2D);
         return texture;
     };
+    startup::trace(QStringLiteral("canvas: masks decoded, atlas loop begin"));
     for (int textureIndex = 0; textureIndex < textures.size(); ++textureIndex) {
         const QString path = textures[textureIndex].toString();
         const QByteArray textureBytes = readFile(QDir(directory).filePath(path));
         QImage image = QImage::fromData(textureBytes);
+        startup::trace(QStringLiteral("canvas: atlas %1 decoded").arg(textureIndex));
         if (image.isNull()) {
             error_ = QStringLiteral("Cubism texture is missing: %1").arg(path);
             return;
@@ -579,9 +617,11 @@ void CubismCanvas::initializeGL() {
             }
             const QImage originalAtlas = image;
             if (!splitCubismMaterialTexture(image, bodyMask, duplicateMask, &image, &clothing, &error_)) return;
+            startup::trace(QStringLiteral("canvas: material split done"));
             if (connectNeck) {
                 QImage neck;
                 if (!splitCubismNeckTexture(originalAtlas, neckMask, neckEraseMask, &image, &neck, &error_)) return;
+                startup::trace(QStringLiteral("canvas: neck split done"));
                 if (independentNeck.isEmpty()) impl_->neckTexture = upload(neck);
             }
             impl_->bodyUnderpaintTexture = upload(underpaint);
@@ -629,6 +669,7 @@ void CubismCanvas::initializeGL() {
         if (impl_->bodyModel) impl_->bodyTextures.push_back(upload(clothing));
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+    startup::trace(QStringLiteral("canvas: atlas uploaded"));
     if (!independentNeck.isEmpty()) {
         if (!connectNeck || !impl_->bodyModel) {
             error_ = QStringLiteral("Independent neck requires the existing exclusive skin ownership masks");
@@ -672,6 +713,7 @@ void CubismCanvas::initializeGL() {
         impl_->neckTextures.push_back(upload(texture));
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+    startup::trace(QStringLiteral("canvas: neck component set up"));
     impl_->model->GetModelMatrix()->SetHeight(1.90f);
     const int bodyPart = model->GetPartIndex(Csm::CubismFramework::GetIdManager()->GetId("PartBody"));
     const auto* parentParts = Live2D::Cubism::Core::csmGetDrawableParentPartIndices(model->GetModel());
@@ -713,16 +755,31 @@ void CubismCanvas::initializeGL() {
     }
     model->Update();
     impl_->standingFloor = impl_->footFloor(impl_->standingFeet);
+    startup::trace(QStringLiteral("canvas: mesh groups classified"));
+    // All renderer targets of this canvas are known by now: when none of them
+    // can ever select an advanced blend program, skip the hundreds of blend
+    // shader precompilations that dominate the startup time on some drivers.
+    const bool blendProgramsNeeded =
+        !usesOnlyCompatibleBlendModes(impl_->model->GetModel())
+        || (impl_->bodyModel && !usesOnlyCompatibleBlendModes(impl_->bodyModel->GetModel()))
+        || (impl_->neckModel && !usesOnlyCompatibleBlendModes(impl_->neckModel->GetModel()));
+    Csm::Rendering::CubismShader_OpenGLES2::SetBlendProgramsPrecompiled(blendProgramsNeeded);
+    startup::trace(QStringLiteral("canvas: blend precompile %1")
+        .arg(blendProgramsNeeded ? QStringLiteral("kept") : QStringLiteral("skipped")));
     impl_->model->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
                                  static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+    startup::trace(QStringLiteral("canvas: main renderer created"));
     if (impl_->bodyModel)
         impl_->bodyModel->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
-                                        static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+                                         static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+    startup::trace(QStringLiteral("canvas: body renderer created"));
     if (impl_->neckModel)
         impl_->neckModel->CreateRenderer(static_cast<Csm::csmUint32>(width() * devicePixelRatioF()),
-                                        static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+                                         static_cast<Csm::csmUint32>(height() * devicePixelRatioF()));
+    startup::trace(QStringLiteral("canvas: neck renderer created"));
     impl_->bindTextures();
     ready_ = true;
+    startup::trace(QStringLiteral("canvas: renderers created, ready"));
     emit readyChanged(true);
 }
 
@@ -781,6 +838,7 @@ void CubismCanvas::paintGL() {
     const auto posture = impl_->authoredSitPose
         ? CubismPostureTransition::sampleAuthored(busyValue, sitValue)
         : CubismPostureTransition::sample(busyValue, sitValue);
+    headRideY_ = 0.0;
     if (!posture.valid) return;
     // The visible sit-down (card-approved: she sits before the desk arrives)
     // descends the collar affine with logical SitPose; the busy texture mix
@@ -940,9 +998,30 @@ void CubismCanvas::paintGL() {
             {seated[0], seated[1]}, target, standingFoot};
         bodyClothTransform = standingTransform;
         bool aligned = anchorsReady && standingTransform.valid() && seatedTransform.valid();
+        headRideY_ = 0.0;
         if (aligned) {
+            // Sitting lowers the collar (the grounded seated body is shorter)
+            // while the head is shared between both materials and would stay
+            // behind. Let the head ride the collar target: the independent
+            // neck keeps its authored standing span instead of visibly
+            // stretching across the sit-down, and the whole upper body sinks
+            // into the seat together.
+            const CubismPostureTransition::Point ride{
+                target.x - standing[0], target.y - standing[1]};
+            using Position = std::remove_const_t<std::remove_pointer_t<
+                decltype(model->GetDrawableVertexPositions(0))>>;
+            for (int index : impl_->headMeshes) {
+                auto* vertices = const_cast<Position*>(model->GetDrawableVertexPositions(index));
+                const int count = model->GetDrawableVertexCount(index);
+                for (int i = 0; i < count; ++i) {
+                    vertices[i].X += static_cast<float>(ride.x);
+                    vertices[i].Y += static_cast<float>(ride.y);
+                }
+            }
+            headRideY_ = (matrix.TransformY(standing[1])
+                - matrix.TransformY(standing[1] + ride.y)) * height() / 2.0;
             // Each group's affine map pins its sole and reaches the common
-            // collar exactly. Shared head/hair/tail geometry stays untouched.
+            // collar exactly.
             for (int index : impl_->standingMeshes)
                 aligned = alignDrawable(model->GetModel(), index, standingTransform) && aligned;
             for (int index : impl_->seatedMeshes)

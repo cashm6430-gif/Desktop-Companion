@@ -13,5 +13,14 @@ set "LIB=%MSVC_ROOT%\lib\x64;%SDK_ROOT%\Lib\%SDK_VER%\ucrt\x64;%SDK_ROOT%\Lib\%S
 set "PATH=%MSVC_ROOT%\bin\Hostx64\x64;%QT_PREFIX%;%PATH%"
 cmake --build "%~dp0..\build" -j 6 || exit /b 1
 copy /y "%QT_PREFIX%\Qt6Test.dll" "%~dp0..\build\Qt6Test.dll" >nul 2>&1
+rem Re-sign the ship binaries after every rebuild: the self-signed dev cert is
+rem trusted on this machine (LocalMachine Root + TrustedPeople), but a rebuilt
+rem unsigned exe makes Windows warn about an unverified publisher again.
+if exist "%~dp0..\build\DesktopCompanion.exe" (
+    call "%~dp0codesign.cmd" "%~dp0..\build\DesktopCompanion.exe" >nul 2>&1 || echo [dev] warning: DesktopCompanion.exe signing failed
+)
+if exist "%~dp0..\build\DesktopCompanionHook.exe" (
+    call "%~dp0codesign.cmd" "%~dp0..\build\DesktopCompanionHook.exe" >nul 2>&1 || echo [dev] warning: DesktopCompanionHook.exe signing failed
+)
 if /i "%~1"=="build" goto :eof
 ctest --test-dir "%~dp0..\build" --output-on-failure || exit /b 1
