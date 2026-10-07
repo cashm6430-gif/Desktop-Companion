@@ -9,8 +9,8 @@ namespace {
 constexpr double kRaiseDuration = 0.5;   // arm lifts beside her head
 constexpr double kSwingDuration = 0.3;   // one out (or in) swing leg
 constexpr double kSwingRounds = 2;       // out+in, twice
-constexpr double kSettleDuration = 0.5;  // arm glides home, smile blooms
-constexpr double kReleaseDuration = 0.4; // the smile relaxes back to idle
+constexpr double kSettleDuration = 0.5;  // arm glides home, eyes smile
+constexpr double kReleaseDuration = 0.4; // the eye smile relaxes to idle
 
 // Pose targets (concept card keyframes). The gaze finds the user first;
 // 0.2 stays under the 0.3 clamp (>=0.4 shows an iris rim on the eyewhite).
@@ -47,8 +47,10 @@ WaveBehavior::Channels WaveBehavior::swingInTarget() {
 
 WaveBehavior::Channels WaveBehavior::settleTarget() {
     Channels c;
+    // The open grin (SmileOpen 1) read as a creepy smug smirk on device
+    // (user ruling r2). The smile lives in the eyes only: the mouth keeps
+    // the signature closed omega of the standing idle.
     c.eyeSmile = 0.85;
-    c.smile = 1.0;
     return c;
 }
 
@@ -102,7 +104,6 @@ void WaveBehavior::blend(const Channels& target, double e)
     ch_.wrist = from_.wrist + (target.wrist - from_.wrist) * e;
     ch_.gazeX = from_.gazeX + (target.gazeX - from_.gazeX) * e;
     ch_.eyeSmile = from_.eyeSmile + (target.eyeSmile - from_.eyeSmile) * e;
-    ch_.smile = from_.smile + (target.smile - from_.smile) * e;
 }
 
 void WaveBehavior::advance(double seconds)
@@ -156,6 +157,4 @@ void WaveBehavior::apply(Parameters& desired) const
         desired[QStringLiteral("ParamEyeBallX")] = std::clamp(ch_.gazeX, -1.0, 1.0);
     if (ch_.eyeSmile > 0.001)
         desired[QStringLiteral("ParamEyeSmile")] = ch_.eyeSmile;
-    if (ch_.smile > 0.001)
-        desired[QStringLiteral("ParamSmileOpen")] = ch_.smile;
 }

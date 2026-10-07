@@ -8,7 +8,9 @@
 // "arm axes have no silhouette" finding: the shoulder/elbow/wrist swing
 // 13-15k / 7-9k / 3.2k pixels and stay intact. This behavior owns the
 // right arm: raise beside her head, swing out/in twice, settle back with
-// an omega smile. Standing idle only -- seated typing keeps the hands on
+// a soft eye smile (the mouth keeps the idle closed omega -- the open
+// grin read as creepy, user ruling r2). Standing idle only -- seated
+// typing keeps the hands on
 // the keyboard. Every channel is an existing axis, zero mesh deformation;
 // no window-layer prop.
 class WaveBehavior {
@@ -38,8 +40,7 @@ private:
         double elbow = 0.0;    // ParamElbowRA, -35..55
         double wrist = 0.0;    // ParamWristRA, -25..25
         double gazeX = 0.0;    // EyeBallX toward the user, capped at 0.3
-        double eyeSmile = 0.0;
-        double smile = 0.0;    // SmileOpen (the omega mouth)
+        double eyeSmile = 0.0; // the settle smile; no mouth channel (r2)
     };
 
     void glideTo(Phase phase, const Channels& target, double seconds);

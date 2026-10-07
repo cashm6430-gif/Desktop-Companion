@@ -692,18 +692,20 @@ void ParameterMotionTest::waveRaisesSwingsAndSettles() {
     advanceFrames(motion, 51); // 1.62s: deep in the second swing-in leg
     QVERIFY(motion.waveWrist() < 0.0);
     QVERIFY(motion.waveArm() > 30.0); // still up beside her head
-    // Settle: the arm glides home while the omega smile blooms.
+    // Settle: the arm glides home while the eye smile blooms. The mouth
+    // stays the idle closed omega -- the open grin is banned (user r2).
     advanceFrames(motion, 24); // 2.10s
-    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.5);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.5);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
     QVERIFY(motion.waveArm() < 10.0);
-    // Release: the smile relaxes instead of popping back to idle. The face
-    // channels ride the blend filter, so give the settle a beat before the
-    // zero check (the same lag that quantized the earlier phase edges).
+    // Release: the eye smile relaxes instead of popping back to idle. The
+    // face channels ride the blend filter, so give the settle a beat before
+    // the zero check (the same lag that quantized the earlier phase edges).
     advanceFrames(motion, 40); // 2.90s
     QVERIFY(!motion.waveActive());
     QCOMPARE(motion.waveArm(), 0.0);
     advanceFrames(motion, 30); // 3.50s: the smile filter has fully drained
-    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.01);
 }
 
 void ParameterMotionTest::waveRefusesBusyAndYieldsToDelete() {

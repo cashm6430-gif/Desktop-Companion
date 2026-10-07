@@ -30,7 +30,9 @@ CTest 9/9 + ParameterMotionTest 54/54（新增 3 项 wave 测试）。审核图
     （EyeBallX 0.2）
   - B/C 摆动 2 轮：外摆（肩 56/肘 24/腕 +22）↔ 内摆（肩 44/肘 46/
     腕 -25），每向 ~0.3s，共 ~1.2s
-  - D 收臂 ~0.5s：臂归位 + EyeSmile 0.85 + SmileOpen=1（ω 笑）一拍
+  - D 收臂 ~0.5s：臂归位 + EyeSmile 0.85（弯眼笑意；**嘴保持站姿闭ω**。
+    ~~SmileOpen=1 开口咧嘴~~ 已按用户裁决 r2 移除——真机观感「诡异，
+    贼笑」；对比帧 build/arm-probe/smile-compare.png 后选定闭眼弯+ω）
   - 总时长 ~2.7s，结束回 Idle
 - **打断**：Delete/Grass 优先取消，拖动让位；坐姿 Busy 期间托盘项置灰
 - **实现**：新 `WaveBehavior`（行为模块惯例：begin/advance/apply/
