@@ -3,6 +3,7 @@
 #include "PetController.h"
 #include "ParameterMotion.h"
 #include "PetPointerGesture.h"
+#include "TriggerDirector.h"
 #include "overlay/FrameComposer.h"
 
 #include <QElapsedTimer>
@@ -74,6 +75,12 @@ public:
     // Review-only: the bowl scene needs the seated laptop loop, which the
     // live player reaches through this force (the real trigger is working).
     void forceBusyLaptopForReview() { motion_.forceLaptopBusy(); updateInputTransparency(); }
+    // Review/capture paths disable the spontaneous-scene scheduler: a
+    // nominated scene must never race a scripted review capture.
+    void setSpontaneousScenesEnabled(bool enabled) {
+        if (enabled) spontaneousTimer_.start(1000);
+        else spontaneousTimer_.stop();
+    }
     double riceBowlSlide() const { return motion_.riceBowlSlide(); }
     double riceBowlDelight() const { return motion_.riceBowlDelight(); }
     QRectF riceBowlRect() const;
@@ -205,6 +212,9 @@ private:
     QPixmap boxProp_;
     QPixmap riceBowlProp_;
     QElapsedTimer riceDelightClock_;
+    // Spontaneous-scene scheduler (see TriggerDirector) and its 1s tick.
+    TriggerDirector director_;
+    QTimer spontaneousTimer_;
     // True while a deletion triggered a lunge towards a file on the pet's
     // left: the Cubism frame is mirrored so the authored right-hand reach
     // plays as a left-hand one. Reset when the delete state ends.

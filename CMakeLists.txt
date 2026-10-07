@@ -48,6 +48,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
     src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/WaveBehavior.h src/motion/WaveBehavior.cpp
+    src/TriggerDirector.h src/TriggerDirector.cpp
     src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
     src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
     src/overlay/FrameOverlay.h
@@ -120,6 +121,10 @@ if(BUILD_TESTING)
         src/PetPointerGesture.h src/PetPointerGesture.cpp)
     target_link_libraries(PetPointerGestureTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME PetPointerGestureTest COMMAND PetPointerGestureTest)
+    add_executable(TriggerDirectorTest tests/TriggerDirectorTest.cpp
+        src/TriggerDirector.h src/TriggerDirector.cpp)
+    target_link_libraries(TriggerDirectorTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME TriggerDirectorTest COMMAND TriggerDirectorTest)
     add_executable(ParameterMotionTest tests/ParameterMotionTest.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
         src/motion/DragBehavior.h src/motion/DragBehavior.cpp
@@ -127,6 +132,7 @@ if(BUILD_TESTING)
         src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
         src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/WaveBehavior.h src/motion/WaveBehavior.cpp
+    src/TriggerDirector.h src/TriggerDirector.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/MotionClip.h src/MotionClip.cpp
@@ -142,12 +148,13 @@ if(BUILD_TESTING)
         src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
         src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/WaveBehavior.h src/motion/WaveBehavior.cpp
+    src/TriggerDirector.h src/TriggerDirector.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/PetController.h src/PetController.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
-    foreach(test_name PetControllerTest PetPointerGestureTest ParameterMotionTest MotionClipTest)
+    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest ParameterMotionTest MotionClipTest)
         set_tests_properties(${test_name} PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
     endforeach()
     if(HAVE_CUBISM)

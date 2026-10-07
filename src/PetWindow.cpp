@@ -7,6 +7,7 @@
 
 #include <QApplication>
 #include <QAction>
+#include <QActionGroup>
 #include <QContextMenuEvent>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -395,6 +396,22 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     connect(controller_, &PetController::stateChanged, this, &PetWindow::setState);
     setState(PetController::State::Idle);
 
+    // Spontaneous-scene scheduler: the same start code paths as the tray
+    // menu, driven by the director's nominations every second.
+    director_.setStartBox([this] { return motion_.playBoxPeek(); });
+    director_.setStartWave([this] { return startWave(); });
+    director_.setStartNap([this] { return startNap(); });
+    director_.setStartStretch([this] {
+        if (controller_->state() != PetController::State::Busy) return false;
+        return motion_.playStretch();
+    });
+    director_.setStartRice([this] { return startRiceBowl(); });
+    connect(&spontaneousTimer_, &QTimer::timeout, this, [this] {
+        director_.tick(1.0, controller_->state() == PetController::State::Idle,
+                       controller_->state() == PetController::State::Busy);
+    });
+    spontaneousTimer_.start(1000);
+
     QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
     const QPoint saved = settings.value(QStringLiteral("position")).toPoint();
     if (!saved.isNull()) move(saved);
@@ -402,6 +419,9 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         const QRect r = screen->availableGeometry();
         move(r.right() - width() - 24, r.bottom() - height() - 24);
     }
+    director_.setFrequency(static_cast<TriggerDirector::Frequency>(
+        settings.value(QStringLiteral("spontaneousFrequency"),
+                       int(TriggerDirector::Frequency::Normal)).toInt()));
 
     tray_.setIcon(QIcon(idleImage_.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     tray_.setToolTip(windowTitle());
@@ -463,6 +483,32 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         // Standing idle only: seated typing keeps the hands on the keys.
         waveAction->setEnabled(controller_->state() == PetController::State::Idle
                                && !motion_.waveActive());
+    });
+    // Spontaneous pace (TriggerDirector): the user outranks every watcher.
+    auto* paceMenu = trayMenu_.addMenu(QStringLiteral("自发行为"));
+    const std::array levels{
+        std::pair{TriggerDirector::Frequency::Off, QStringLiteral("关闭")},
+        std::pair{TriggerDirector::Frequency::Sparse, QStringLiteral("少一些")},
+        std::pair{TriggerDirector::Frequency::Normal, QStringLiteral("正常")},
+        std::pair{TriggerDirector::Frequency::Often, QStringLiteral("多一些")},
+    };
+    auto* group = new QActionGroup(paceMenu);
+    for (const auto& [level, label] : levels) {
+        auto* action = paceMenu->addAction(label);
+        action->setCheckable(true);
+        action->setChecked(director_.frequency() == level);
+        action->setData(int(level));
+        group->addAction(action);
+        connect(action, &QAction::triggered, this, [this, level] {
+            director_.setFrequency(level);
+            QSettings pace(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+            pace.setValue(QStringLiteral("spontaneousFrequency"), int(level));
+        });
+    }
+    connect(paceMenu, &QMenu::aboutToShow, paceMenu, [this, paceMenu] {
+        for (QAction* a : paceMenu->actions())
+            a->setChecked(director_.frequency()
+                          == TriggerDirector::Frequency(a->data().toInt()));
     });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
@@ -1175,6 +1221,7 @@ void PetWindow::advanceLiveFrame(double seconds) {
 
 void PetWindow::prepareLiveInteractionReview(int pixels) {
     frameTimer_.stop();
+    spontaneousTimer_.stop();  // a nomination must never race a scripted capture
     // Keep the busy branch after interruption reproducible in review captures.
     motion_.setBusyRandomSeed(20261002);
     controller_->setActionFallbackEnabled(false);

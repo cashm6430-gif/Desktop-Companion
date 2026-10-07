@@ -122,7 +122,12 @@ int main(int argc, char** argv) {
     PetWindow window(&controller);
     startup::trace(QStringLiteral("window constructed"));
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
-    if (reviewCommand) window.move(-10000, -10000);
+    if (reviewCommand) {
+        window.move(-10000, -10000);
+        // Pose/motion captures are short, but the scheduler's once-per-launch
+        // greeting would still fire at ~0.8s inside them. Off for captures.
+        window.setSpontaneousScenesEnabled(false);
+    }
     window.show();
     startup::trace(QStringLiteral("window shown"));
 
