@@ -51,6 +51,9 @@ public:
     void setInteractionPreviewEnabled(bool enabled);
     bool interactionPreviewEnabled() const { return interactionPreviewEnabled_; }
     bool isHeadAt(const QPointF& position) const;
+    // Tray entry and the --nap debug switch both land here. Returns false
+    // when the current state refuses the nap (delete/grass own the body).
+    bool startNap();
     bool startGrassInteraction();
     QString grassInteractionPhase() const { return motion_.grassInteractionPhase(); }
     double grassInteractionTime() const { return motion_.grassInteractionTime(); }

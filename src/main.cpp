@@ -638,6 +638,19 @@ int main(int argc, char** argv) {
         return app.exec();
     }
 
+    if (arguments.contains(QStringLiteral("--nap"))) {
+        // Desktop debug entry: fall asleep shortly after start so the seated
+        // nap scene and the window-layer pillow can be screenshotted live.
+        // Retries through delete/grass interruptions, gives up after 20s.
+        auto* napTimer = new QTimer(&window);
+        napTimer->setInterval(1000);
+        int attempts = 0;
+        QObject::connect(napTimer, &QTimer::timeout, &window, [&window, napTimer, &attempts] {
+            if (window.startNap() || ++attempts > 20) napTimer->stop();
+        });
+        napTimer->start();
+    }
+
     DesktopDeleteSource desktopSource;
     QObject::connect(&desktopSource, &DesktopDeleteSource::desktopItemDeleted,
                      &controller, &PetController::desktopItemDeleted);

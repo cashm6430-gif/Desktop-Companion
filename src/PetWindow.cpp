@@ -327,14 +327,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         motion_.playStretch();
     });
     trayMenu_.addAction(QStringLiteral("眯一会儿（小枕头）"), this, [this] {
-        if (motion_.sleepMotionActive()
-            || controller_->state() == PetController::State::Delete
-            || controller_->state() == PetController::State::Grass) return;
-        // Napping IS stopping work: an ongoing busy turn resets first, so the
-        // entry point works straight from typing instead of silently doing
-        // nothing while a turn is active.
-        controller_->resetBusy();
-        motion_.beginSleepMotion();
+        startNap();
     });
     trayMenu_.addAction(QStringLiteral("放个便笺…"), this, [this] {
         if (motion_.sleepMotionActive()) return;
@@ -663,12 +656,14 @@ bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos
 // --- Pillow nap (motion card 8) ----------------------------------------------
 
 QRectF PetWindow::sleepPillowRect(const QSizeF& s) const {
-    // On the desk edge next to the cheek (the head tips the same way); clear
-    // of the memo bubble (0.68) and corner badge (0.82).
-    const double w = s.width() * 0.30;
-    const double h = s.height() * 0.085;
-    const double cx = s.width() * 0.70;
-    const double cy = s.height() * 0.545;
+    // Lying on the desk top just past the right hair fall, clear of the memo
+    // corner badge (0.82). The desk top edge sits around y=0.62, so the
+    // pillow rests with its base on it; a hair-overlap of a few pixels reads
+    // as "tucked against her cheek".
+    const double w = s.width() * 0.22;
+    const double h = s.height() * 0.11;
+    const double cx = s.width() * 0.76;
+    const double cy = s.height() * 0.60;
     return QRectF(cx - w / 2.0, cy - h / 2.0, w, h);
 }
 
@@ -680,16 +675,39 @@ void PetWindow::drawSleepPillow(QPainter& painter, const QSize& size) const {
     painter.setOpacity(std::clamp(envelope * 2.0, 0.0, 1.0));
     // Floats the last stretch up onto the desk with the enter phase.
     painter.translate(0.0, (1.0 - envelope) * rect.height() * 0.8);
-    // A plump single pillow: rounded body, soft outline, one sheen stripe.
     painter.setRenderHint(QPainter::Antialiasing, true);
+    // A plump capsule pillow: full-round ends, a soft top-down gradient for
+    // volume, an inset seam line, one sheen stripe.
+    QLinearGradient volume(rect.topLeft(), rect.bottomLeft());
+    volume.setColorAt(0.0, QColor(214, 228, 250));
+    volume.setColorAt(0.55, QColor(193, 209, 242));
+    volume.setColorAt(1.0, QColor(156, 178, 226));
     painter.setPen(QPen(QColor(92, 116, 172), 2.0));
-    painter.setBrush(QColor(197, 212, 244));
-    painter.drawRoundedRect(rect, rect.height() * 0.55, rect.height() * 0.55);
+    painter.setBrush(volume);
+    painter.drawRoundedRect(rect, rect.height() * 0.5, rect.height() * 0.5);
+    // Inset seam: a thin rounded outline floating just inside the body.
+    painter.setPen(QPen(QColor(126, 152, 206), 1.4));
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRoundedRect(rect.adjusted(rect.width() * 0.045, rect.height() * 0.16,
+                                          -rect.width() * 0.045, -rect.height() * 0.16),
+                            rect.height() * 0.38, rect.height() * 0.38);
     painter.setPen(Qt::NoPen);
     painter.setBrush(QColor(255, 255, 255, 105));
-    painter.drawEllipse(rect.adjusted(rect.width() * 0.14, rect.height() * 0.18,
-                                      -rect.width() * 0.58, -rect.height() * 0.28));
+    painter.drawEllipse(rect.adjusted(rect.width() * 0.16, rect.height() * 0.20,
+                                      -rect.width() * 0.64, -rect.height() * 0.44));
     painter.restore();
+}
+
+bool PetWindow::startNap() {
+    if (motion_.sleepMotionActive()
+        || controller_->state() == PetController::State::Delete
+        || controller_->state() == PetController::State::Grass) return false;
+    // Napping IS stopping work: an ongoing busy turn resets first, so the
+    // entry point works straight from typing instead of silently doing
+    // nothing while a turn is active.
+    controller_->resetBusy();
+    motion_.beginSleepMotion();
+    return true;
 }
 
 void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon) {

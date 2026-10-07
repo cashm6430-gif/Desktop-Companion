@@ -857,6 +857,12 @@ void ParameterMotion::advanceSleepMotion(double seconds) {
 
 void ParameterMotion::applySleepMotion(Parameters& desired) const {
     if (sleepPhase_ == SleepPhase::None) return;
+    // The nap happens at the small desk: sit down, no laptop. The desk
+    // manager owns ParamDeskVisible and the cover/recover ordering; this only
+    // asks for the seated pose. No new art per the card.
+    desired[QStringLiteral("ParamSitPose")] = 1.0;
+    desired[QStringLiteral("ParamLaptopVisible")] = 0.0;
+    desired[QStringLiteral("ParamBusyLaptop")] = 0.0;
     const double tip = 6.0; // head tip toward the pillow, Cubism AngleZ units
     if (sleepPhase_ == SleepPhase::Enter) {
         // Eyes half-close first; full closure lands one beat later in Asleep.
@@ -1065,8 +1071,10 @@ void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous
     const bool interrupted = state_ == PetController::State::Delete
         || state_ == PetController::State::Grass;
     const bool keepReactionDesk = interactionActive() && deskVisible_ > 0.0;
+    // The nap is also a desk scene: the pillow rests on the desk edge, so the
+    // same cover/recover ordering owns the sit-down and the stand-back-up.
     const bool workWanted = (state_ == PetController::State::Busy && laptopBusy_)
-        || keepReactionDesk;
+        || keepReactionDesk || sleepMotionActive();
     const auto holdPosture = [&] {
         for (const QString& id : deskPostureChannels())
             values_[id] = previous.value(id);
