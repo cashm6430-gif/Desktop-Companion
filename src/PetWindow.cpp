@@ -327,9 +327,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         motion_.playStretch();
     });
     trayMenu_.addAction(QStringLiteral("眯一会儿（小枕头）"), this, [this] {
-        // Napping happens at the desk edge, so only the seated idle qualifies.
-        if (controller_->state() != PetController::State::Idle
-            || motion_.sleepMotionActive()) return;
+        if (motion_.sleepMotionActive()
+            || controller_->state() == PetController::State::Delete
+            || controller_->state() == PetController::State::Grass) return;
+        // Napping IS stopping work: an ongoing busy turn resets first, so the
+        // entry point works straight from typing instead of silently doing
+        // nothing while a turn is active.
+        controller_->resetBusy();
         motion_.beginSleepMotion();
     });
     trayMenu_.addAction(QStringLiteral("放个便笺…"), this, [this] {
