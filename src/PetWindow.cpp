@@ -829,16 +829,20 @@ void PetWindow::drawBoxProp(QPainter& painter, const QSize& size) {
 
 QRectF PetWindow::riceBowlRect() const {
     // Geometry in 840-reference fractions, exactly the concept card's
-    // composite: the bowl rests on the desktop surface right of the laptop
-    // (desktop top 585..620, bowl bottom 606), sized 175/840 of the width.
+    // composite: the bowl rests on the desktop surface right of the laptop.
+    // The seated desk's wooden top only reaches x~771 (rounded corner pulls
+    // in to ~742 at the surface rows), so the bowl's right edge sits at 755
+    // and its foot contact (x620..695) stays on flat wood -- further right
+    // it floats past the desk corner (user feedback r2).
     const double w = width(), h = height();
     constexpr double kBowlWidth = 175.0 / 840.0;
     constexpr double kBowlBottom = 606.0 / 840.0;
+    constexpr double kBowlRightInset = 85.0 / 840.0;
     constexpr double kBowlAspect = 745.0 / 826.0;  // prop png content aspect
     const double bowlW = kBowlWidth * w;
     const double bowlH = bowlW * kBowlAspect;
     const double slide = motion_.riceBowlSlide();
-    const double x = w - bowlW - (4.0 / 840.0) * w
+    const double x = w - bowlW - kBowlRightInset * w
         + (1.0 - slide) * (bowlW + (20.0 / 840.0) * w);  // waits just off the right edge
     return QRectF(x, kBowlBottom * h - bowlH, bowlW, bowlH);
 }
