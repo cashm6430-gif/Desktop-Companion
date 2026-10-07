@@ -387,6 +387,15 @@ bool ParameterMotion::playStretch() {
     return true;
 }
 
+void ParameterMotion::pokeStretch() {
+    if (interaction_ != Interaction::Stretch) return;
+    // "Caught you": jump to the middle of the clip, which the authored card
+    // holds as the peek beat (2.0/4.0 in production, wink + open smile), so
+    // the tail plays out as the caught-peeking recovery -- the smile fades,
+    // both eyes reopen and typing resumes, one beat earlier than the timeout.
+    interactionTime_ = std::max(interactionTime_, stretchClip_.duration() * 0.5);
+}
+
 void ParameterMotion::captureInteractionSeat() {
     if (values_.value(QStringLiteral("ParamBusyLaptop")) >= 0.9
         || (deskWorkMode_ && deskVisible_ > 0.0)) {

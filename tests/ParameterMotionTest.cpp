@@ -114,6 +114,7 @@ private slots:
     void absentReactionsLeaveExistingMotionAvailable();
     void turnEndedPreservesSeatThenPutsLaptopAway();
     void stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping();
+    void stretchPokeSkipsToCaughtRecoveryAndResumesTyping();
     void dragMotionFollowsAndSettlesWithoutSway();
     void memoGazeFollowsNoteRise();
     void boxPeekSinksPeeksAndPopsInOrder();
@@ -730,6 +731,34 @@ void ParameterMotionTest::stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping(
     // The busy clock restarted on the laptop variant: typing is back.
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) > 0.99);
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingL")) > 0.001);
+}
+
+void ParameterMotionTest::stretchPokeSkipsToCaughtRecoveryAndResumesTyping() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.playStretch());
+    advanceFrames(motion, 5); // 0.1s: mid pause, before the peek key at 0.3s
+    QVERIFY(motion.stretchActive());
+    const double before = motion.interactionTime();
+    // A click while peeking is "caught you": the clip jumps to the recovery
+    // beat instead of starting a head pat.
+    motion.pokeStretch();
+    QVERIFY(motion.interactionTime() >= 0.3 - 1e-6);
+    QVERIFY(motion.interactionTime() > before);
+    motion.pokeStretch(); // idempotent afterwards
+    QCOMPARE(motion.interactionTime(), std::max(before, 0.3));
+    // The pause still ends on the authored tail and typing resumes.
+    advanceFrames(motion, 30); // 0.6s total: past the fixture duration
+    QVERIFY(!motion.interactionActive());
+    QVERIFY(motion.values().value(QStringLiteral("ParamBusyTypingL")) > 0.001);
+    // Poke outside a stretch is a no-op.
+    motion.pokeStretch();
+    QVERIFY(!motion.interactionActive());
 }
 
 void ParameterMotionTest::headPatHoldReleaseDirectionAndCooldown() {

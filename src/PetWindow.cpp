@@ -1184,6 +1184,14 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
             event->accept();
             return;
         }
+        // Peeking mid-stretch: a click is "caught you" -- skip to the recovery
+        // beat (smile fades, she sits back up) instead of a head pat or drag.
+        if (motion_.stretchActive()) {
+            motion_.pokeStretch();
+            updateInputTransparency();
+            event->accept();
+            return;
+        }
         releasePointerGesture();
         if (isGrassTipAt(event->position()) && motion_.respondToGrass()) {
             grassTouchPressed_ = true;

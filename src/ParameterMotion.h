@@ -63,6 +63,11 @@ public:
     // seated laptop busy loop is playing; the clip carries the full seated
     // pose, so it overrides the loop and resumes typing from its start.
     bool playStretch();
+    // True while the stretch-and-peek pause is playing. A click during the
+    // peek is "caught you": pokeStretch skips to the recovery beat instead of
+    // starting a head pat.
+    bool stretchActive() const { return interaction_ == Interaction::Stretch; }
+    void pokeStretch();
     bool beginHeadPat(double direction = 0.0);
     bool canBeginHeadPat() const;
     void updateHeadPat(double direction);
