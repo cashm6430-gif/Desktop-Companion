@@ -1,6 +1,6 @@
-# 纸箱躲猫猫 r1 — 设计卡（2026-10-07 概念已批，运行时实现待真机审批）
+# 纸箱躲猫猫 r1 — 设计卡（2026-10-07 已验收采用）
 
-状态：**概念审批通过（2026-10-07）→ 运行时实现完成，pending 真机视觉审批**。
+状态：**已验收（2026-10-07 用户真机通过）**。
 实现：`src/motion/BoxBehavior.{h,cpp}`（行为模块）+ `ParameterMotion` 一行转发
 + `CubismCanvas` 渲染矩阵 duck（接地之后应用，主模型/颈共用）+ `PetWindow`
 箱体图层/点击/托盘「躲一下」开关 + `--render-interaction box-peek{,-click,-exit}`
