@@ -4,6 +4,7 @@
 #include "PetController.h"
 #include "motion/BoxBehavior.h"
 #include "motion/RiceBowlBehavior.h"
+#include "motion/WaveBehavior.h"
 #include "motion/DragBehavior.h"
 #include "motion/GrassTouchBehavior.h"
 #include "motion/MemoBehavior.h"
@@ -165,6 +166,19 @@ public:
     double riceBowlSlide() const { return rice_.slide(); }
     double riceBowlDelight() const { return rice_.delight(); }
 
+    // Wave hello (optional fun scene r1): the right arm raises beside her
+    // head, swings out/in twice, settles home with an omega smile. Standing
+    // idle only -- seated typing keeps the hands on the keyboard; the nap,
+    // a memo gaze, a drag, the box or a delete all refuse or own the stage.
+    bool playWave();
+    void cancelWave() { wave_.cancel(); }
+    void exitWave() { wave_.exit(); }
+    bool waveActive() const { return wave_.active(); }
+    // Review trace: current right-arm axis values.
+    double waveArm() const { return wave_.arm(); }
+    double waveElbow() const { return wave_.elbow(); }
+    double waveWrist() const { return wave_.wrist(); }
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -284,5 +298,6 @@ private:
     SleepBehavior sleep_;
     BoxBehavior box_;
     RiceBowlBehavior rice_;
+    WaveBehavior wave_;
     GrassTouchBehavior grassTouch_;
 };

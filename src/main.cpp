@@ -323,6 +323,51 @@ int main(int argc, char** argv) {
             QTimer::singleShot(1000, &timer, [&] { timer.start(); });
             return app.exec();
         }
+        if (scenario == QStringLiteral("wave")) {
+            if (!QDir().mkpath(output)) return 2;
+            window.prepareLiveInteractionReview();
+            window.setInteractionPreviewEnabled(true);
+            window.move(-10000, -10000);
+            constexpr double step = 1.0 / 15.0;
+            constexpr int frameCount = 80;  // ~5.3s: idle settle, raise, 2 swings, settle, release
+            int frame = 0;
+            bool began = false;
+            QJsonArray trace;
+            QTimer timer;
+            timer.setInterval(100);
+            QObject::connect(&timer, &QTimer::timeout, &app, [&] {
+                const double time = frame * step;
+                QString event;
+                // The idle player already stands; give the initial blend a
+                // beat to settle before the arm lifts.
+                if (!began && time >= 2.0) {
+                    began = true;
+                    if (!window.startWave()) { qWarning() << "wave refused"; app.exit(2); return; }
+                    event = QStringLiteral("wave_begin");
+                }
+                if (!window.renderLiveInteractionFrame(step,
+                    QDir(output).filePath(QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+                    app.exit(1); return;
+                }
+                trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
+                    {QStringLiteral("scenario"), scenario},
+                    {QStringLiteral("arm"), window.waveArm()},
+                    {QStringLiteral("elbow"), window.waveElbow()},
+                    {QStringLiteral("wrist"), window.waveWrist()}});
+                if (++frame == frameCount) {
+                    QFile evidence(QDir(output).filePath(QStringLiteral("scene.json")));
+                    if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
+                    evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
+                        {QStringLiteral("capture"), captureContext(window)},
+                        {QStringLiteral("scope"), QStringLiteral("real_window_player_and_native_model")},
+                        {QStringLiteral("frames"), trace}}).toJson());
+                    app.exit(0);
+                    return;
+                }
+            });
+            QTimer::singleShot(1000, &timer, [&] { timer.start(); });
+            return app.exec();
+        }
         if (scenario.startsWith(QStringLiteral("rice-"))) {
             const QStringList riceScenes{QStringLiteral("rice-bowl"), QStringLiteral("rice-bowl-click"),
                 QStringLiteral("rice-bowl-exit")};

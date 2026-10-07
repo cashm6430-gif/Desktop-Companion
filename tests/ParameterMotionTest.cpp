@@ -121,6 +121,9 @@ private slots:
     void riceBowlSniffsSmilesAndLeaves();
     void riceBowlPokeLeansAwayAndPeeksBack();
     void riceBowlYieldsToDelete();
+    void waveRaisesSwingsAndSettles();
+    void waveRefusesBusyAndYieldsToDelete();
+    void waveLeavingIdleReleasesWithoutPop();
     void boxPeekCaughtBlinksDucksAndRepeeksSmiling();
     void boxPeekExitRestoresStandBeforeBoxLeaves();
     void boxPeekRefusesBusyAndYieldsToDelete();
@@ -673,6 +676,76 @@ void ParameterMotionTest::riceBowlYieldsToDelete() {
     motion.exitRiceBowl();
     QVERIFY(motion.riceBowlExiting());
     QCOMPARE(motion.riceBowlSlide(), 1.0); // still covering during the relax
+}
+
+void ParameterMotionTest::waveRaisesSwingsAndSettles() {
+    ParameterMotion motion;  // default standing idle
+    QVERIFY(motion.playWave());
+    QVERIFY(!motion.playWave());  // already waving
+    // Raise: the arm lifts while the gaze finds the user first.
+    advanceFrames(motion, 15); // 0.30s
+    QVERIFY(motion.waveArm() > 15.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.05);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) <= 0.31);
+    advanceFrames(motion, 16); // 0.62s: first swing out peaks
+    QVERIFY(motion.waveWrist() > 5.0);
+    advanceFrames(motion, 51); // 1.62s: deep in the second swing-in leg
+    QVERIFY(motion.waveWrist() < 0.0);
+    QVERIFY(motion.waveArm() > 30.0); // still up beside her head
+    // Settle: the arm glides home while the omega smile blooms.
+    advanceFrames(motion, 24); // 2.10s
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.5);
+    QVERIFY(motion.waveArm() < 10.0);
+    // Release: the smile relaxes instead of popping back to idle. The face
+    // channels ride the blend filter, so give the settle a beat before the
+    // zero check (the same lag that quantized the earlier phase edges).
+    advanceFrames(motion, 40); // 2.90s
+    QVERIFY(!motion.waveActive());
+    QCOMPARE(motion.waveArm(), 0.0);
+    advanceFrames(motion, 30); // 3.50s: the smile filter has fully drained
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
+}
+
+void ParameterMotionTest::waveRefusesBusyAndYieldsToDelete() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    // Seated typing keeps the hands on the keyboard: no wave while busy.
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(!motion.playWave());
+    QVERIFY(!motion.waveActive());
+    // Back on her feet the wave plays, and a delete lunge drops the arm.
+    motion.setState(PetController::State::Idle);
+    advanceFrames(motion, 30);
+    QVERIFY(motion.playWave());
+    advanceFrames(motion, 20); // mid raise
+    QVERIFY(motion.waveArm() > 20.0);
+    motion.setState(PetController::State::Delete);
+    QVERIFY(!motion.waveActive());
+    QCOMPARE(motion.waveArm(), 0.0);  // interrupts win: instant drop
+    QCOMPARE(motion.waveWrist(), 0.0);
+}
+
+void ParameterMotionTest::waveLeavingIdleReleasesWithoutPop() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QVERIFY(motion.playWave());
+    advanceFrames(motion, 20); // 0.40s: nearly raised
+    QVERIFY(motion.waveArm() > 30.0);
+    // A new turn needs her back at work: the arm glides home, no pop.
+    motion.setState(PetController::State::Busy);
+    QVERIFY(motion.waveActive());  // the quick release is still playing
+    advanceFrames(motion, 10); // 0.60s: gliding down
+    QVERIFY(motion.waveArm() < 25.0);
+    advanceFrames(motion, 20); // 1.00s: release finished
+    QVERIFY(!motion.waveActive());
+    QCOMPARE(motion.waveArm(), 0.0);
 }
 
 void ParameterMotionTest::boxPeekCaughtBlinksDucksAndRepeeksSmiling() {

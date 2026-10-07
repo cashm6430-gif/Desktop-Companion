@@ -78,6 +78,12 @@ public:
     double riceBowlDelight() const { return motion_.riceBowlDelight(); }
     QRectF riceBowlRect() const;
     QRectF riceAromaRect() const;
+    // Wave hello (standing idle flourish): tray "打个招呼" starts it; the
+    // arm getters feed the review trace.
+    bool startWave();
+    double waveArm() const { return motion_.waveArm(); }
+    double waveElbow() const { return motion_.waveElbow(); }
+    double waveWrist() const { return motion_.waveWrist(); }
     QString grassInteractionPhase() const { return motion_.grassInteractionPhase(); }
     double grassInteractionTime() const { return motion_.grassInteractionTime(); }
     QPainterPath grassTipHitPath() const;

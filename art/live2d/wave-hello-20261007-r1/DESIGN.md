@@ -1,6 +1,13 @@
-# 挥手打招呼 r1 — 设计卡（2026-10-07 概念 pending 审批）
+# 挥手打招呼 r1 — 设计卡（2026-10-07 概念已批，运行时实现待真机审批）
 
-状态：**能力探针完成，概念卡 pending 用户审批**。
+状态：**概念审批通过（2026-10-07 用户「做吧」，未启用启动问候）→
+运行时实现完成，pending 真机视觉审批**。
+实现：`src/motion/WaveBehavior.{h,cpp}`（Raise→SwingOut/SwingIn×2→
+Settle→Release 多通道状态机）+ `ParameterMotion` 转发（playWave/
+cancelWave/exitWave，离开 Idle 自动 Release、Delete/Grass 直接取消）+
+托盘「打个招呼」（非站姿置灰）+ `--render-interaction wave` 场景。
+CTest 9/9 + ParameterMotionTest 54/54（新增 3 项 wave 测试）。审核图
+`review-sheet.png`。
 概念卡：`concept-card.png`（四拍 = `--render-pose` 真实 Native 渲染帧，
 非手绘参考）。探针证据：`build/arm-probe/probe-sheet.png`（12 姿势轴扫描，
 不入 Git）。

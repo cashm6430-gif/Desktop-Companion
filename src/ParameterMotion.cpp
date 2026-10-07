@@ -232,6 +232,15 @@ void ParameterMotion::setState(PetController::State state) {
         else if (state != PetController::State::Busy)
             exitRiceBowl();
     }
+    // The wave is a standing-idle flourish: a delete lunge or a grass
+    // hand-off drops the arm at once, anything else that leaves idle
+    // releases it with the quick glide.
+    if (waveActive()) {
+        if (state == PetController::State::Delete || state == PetController::State::Grass)
+            cancelWave();
+        else if (state != PetController::State::Idle)
+            exitWave();
+    }
     // The nap yields to everything: a delete wakes first, a new turn or a
     // grass hand-off too -- the authored 0.8s wake plays while the event
     // action starts underneath, per the card's "wake before responding".
@@ -593,6 +602,18 @@ bool ParameterMotion::playRiceBowl() {
     return true;
 }
 
+bool ParameterMotion::playWave() {
+    if (preview_ || interactionActive() || waveActive()) return false;
+    // Standing idle only: seated typing keeps the hands on the keyboard,
+    // and the same overlays that block the box block the wave.
+    if (state_ != PetController::State::Idle) return false;
+    if (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden) return false;
+    if (memoMotionActive() || sleepMotionActive() || dragMotionActive()) return false;
+    if (boxPeekActive() || riceBowlActive()) return false;
+    wave_.begin();
+    return true;
+}
+
 
 // --- Eye-mask nap (motion card 8) ----------------------------------------------
 // State lives in motion/SleepBehavior; the lifecycle trace stays here because
@@ -927,6 +948,7 @@ void ParameterMotion::advance(double seconds) {
     sleep_.advance(seconds);
     box_.advance(seconds);
     rice_.advance(seconds);
+    wave_.advance(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1097,6 +1119,7 @@ void ParameterMotion::advance(double seconds) {
     sleep_.apply(desired);
     box_.apply(desired);
     rice_.apply(desired);
+    wave_.apply(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is

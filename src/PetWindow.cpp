@@ -456,6 +456,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         riceAction->setText(motion_.riceBowlActive() ? QStringLiteral("吃完啦")
                                                      : QStringLiteral("来碗饭香"));
     });
+    QAction* waveAction = trayMenu_.addAction(QStringLiteral("打个招呼"), this, [this] {
+        motion_.playWave();
+    });
+    connect(&trayMenu_, &QMenu::aboutToShow, this, [this, waveAction] {
+        // Standing idle only: seated typing keeps the hands on the keys.
+        waveAction->setEnabled(controller_->state() == PetController::State::Idle
+                               && !motion_.waveActive());
+    });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
     trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
@@ -779,6 +787,13 @@ bool PetWindow::startRiceBowl() {
     if (renderBackend() != QStringLiteral("cubism_native")) return false;
     if (!motion_.playRiceBowl()) return false;
     riceDelightClock_.restart();
+    updateInputTransparency();
+    return true;
+}
+
+bool PetWindow::startWave() {
+    if (renderBackend() != QStringLiteral("cubism_native")) return false;
+    if (!motion_.playWave()) return false;
     updateInputTransparency();
     return true;
 }
