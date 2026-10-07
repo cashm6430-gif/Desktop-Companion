@@ -32,8 +32,12 @@
       "sha256": "59137f85ee624058f012cd25c1d3d676167a216f2054c9b9ff6d7813399469e8"
     },
     "CMakeLists.txt": {
-      "bytes": 8694,
-      "sha256": "8ec464c8bcee93b3b34df426aa24f90742f920415ab096711683fb99a602d957"
+      "bytes": 10142,
+      "sha256": "c2a01c9595ec7bc3c551150a2341615d70e3904b3ebe1517c994c2b9f99572eb"
+    },
+    "art/authoring/desktopcompanion-dev.cer": {
+      "bytes": 856,
+      "sha256": "e4a0b7f8a1f1e885c330ee97a26fbd900434612c2178d1d785a5d40078e5754f"
     },
     "art/live2d/authoring-archive/editor-candidate-20261003/exports/editor-candidate.4096/texture_00.png": {
       "bytes": 4342421,
@@ -94,6 +98,18 @@
     "art/live2d/authoring-archive/psd2live-20261003/source-audit.json": {
       "bytes": 85842,
       "sha256": "d5825e62f5b37e843bc1f4de76393356b49e5cc9a47db325fd6e5aa9d7f2a6f4"
+    },
+    "art/live2d/box-peek-20261007-r1/DESIGN.md": {
+      "bytes": 3296,
+      "sha256": "cd22076157b6c11cde0bf16a29ded0cb0d612b376b61e747dfb58257797b6d35"
+    },
+    "art/live2d/box-peek-20261007-r1/box-prop-concept.png": {
+      "bytes": 345459,
+      "sha256": "761f6fccf5b0bb30f89cb67ac8c1049a5e204b2586f886046804eec595d4c2ae"
+    },
+    "art/live2d/box-peek-20261007-r1/concept-card.png": {
+      "bytes": 1029455,
+      "sha256": "5c394a727fd6027cfbe9d9bf74fdb14338117c15e73cf6c4c5831abff75c14d6"
     },
     "art/live2d/desk-work-20261006-r1/arm-backing-hair-only.png": {
       "bytes": 603280,
@@ -1200,8 +1216,8 @@
       "sha256": "300cba02a0d2179ecb54e8cf68f9cb1f44dc9d9db6aa09e947cf7e4d03f9fb9b"
     },
     "art/live2d/desk-work-20261006-r2/handoff-state.json": {
-      "bytes": 3400,
-      "sha256": "15049ddf1b52a6e9c92827277a0fdc0cf01d4aad6cd9a72833cdb74bcad40c4d"
+      "bytes": 4337,
+      "sha256": "f4a732609d7b53d0ea4cd003e6468a69dbd735850414a25a2357a4a22f684bd0"
     },
     "art/live2d/desk-work-20261006-r2/pure-hair-full.png": {
       "bytes": 598080,
@@ -2022,6 +2038,18 @@
     "art/live2d/review/wrist-occlusion-v7.png": {
       "bytes": 441754,
       "sha256": "f734a019aa3ca6e1a8b0e11844a2c975c35e2207100ea42d6ef8fbc22060b844"
+    },
+    "art/live2d/sit-enhancement-20261007-r1/DESIGN.md": {
+      "bytes": 2125,
+      "sha256": "d347b634cbad4bfdf212ea3ee714e0ffb2f2da62ac7afe41b8c8d987091b5a8f"
+    },
+    "art/live2d/sit-enhancement-20261007-r1/keypose-brief.png": {
+      "bytes": 510672,
+      "sha256": "7e53838f6e7870836f81e3102123454605081c4b2be22471d61f59c5c20a4d99"
+    },
+    "art/live2d/sit-enhancement-20261007-r1/parts-preview.png": {
+      "bytes": 632357,
+      "sha256": "935b8d5c4354ea129027d932384ee6881e67d3a6e551a9cf2b7ea0944245d0e9"
     },
     "art/live2d/sit-pose-20261004-r1/candidate-r8-closed-legs/author.cmo3": {
       "bytes": 68499733,
@@ -3280,12 +3308,12 @@
       "sha256": "a0cff5edf81c83e90483fe47bf09a7339ad23d75a4b520454019dfa5199de9da"
     },
     "src/CubismCanvas.cpp": {
-      "bytes": 67760,
-      "sha256": "bfcf9031a379a81ba25a6d4fb190b5d3d8c98c53bde14cbf0904547739f4d8d6"
+      "bytes": 73817,
+      "sha256": "fb20010e85b197eabd9c0ab8d5c2d5c82a2b60e4747782de682d6668d135396e"
     },
     "src/CubismCanvas.h": {
-      "bytes": 1590,
-      "sha256": "5170267ab5a56ccfc22b2a9e2a3f8723881f9e6cbdb2fcf099374389364d66c9"
+      "bytes": 1899,
+      "sha256": "27216d41e9c750badfe2ff7d60d38980df9dfe30c13ef272d906d7d84e2e5329"
     },
     "src/CubismMaterialBinding.cpp": {
       "bytes": 6324,
@@ -3312,8 +3340,8 @@
       "sha256": "1f7a3b3a1a3c48af2047568211fbe803b5c97fc8f6c7149718ab364b721f3766"
     },
     "src/CubismPostureTransition.h": {
-      "bytes": 3786,
-      "sha256": "b752c5fba85d352b82eec3275cfa53cd42b706c16b4ad0afd003c935cb840f95"
+      "bytes": 4274,
+      "sha256": "3c375edcd8e9d428db8b716041ee10ab31b4a0c808e41cbcfcd41acf9361a673"
     },
     "src/DesktopDeleteSource.cpp": {
       "bytes": 10175,
@@ -3340,20 +3368,20 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 54481,
-      "sha256": "9b25188d1fb9bb12f7608a86828f98351fecf2b03b69f3e6c928698a03aa74c4"
+      "bytes": 53759,
+      "sha256": "e47c44e7f0a5914835a88d76f5aa487b4ddbe60c4827b8b2bd96f203d8e35ced"
     },
     "src/ParameterMotion.h": {
-      "bytes": 9530,
-      "sha256": "136fc46e5080fdabaac01b0920d67f0b3ab17a240467e1bb9b67565b3f6fc254"
+      "bytes": 12026,
+      "sha256": "b463764544d7d86c857e7cb44052593ad66b0da8c257064bbf470da4ace16e56"
     },
     "src/PetController.cpp": {
-      "bytes": 5518,
-      "sha256": "e0f1dcb6bdbb9ef3e1a4e9a49d5eda167b7ee0f07dc7ab11a95c5275fb2ff52f"
+      "bytes": 6642,
+      "sha256": "a70c9e892a96a5efb65a611db0bb5bce86eb4503f7fde4e0bda434a3c28f5ac9"
     },
     "src/PetController.h": {
-      "bytes": 4411,
-      "sha256": "a6ab2d5a5f40f03b0bb44797d3513fc0253416565d76d4de5ec9f107cfd72ff3"
+      "bytes": 4696,
+      "sha256": "8770496a61a94e55abe9101a34869082129c85e58759db63ac1b839779c995c6"
     },
     "src/PetPointerGesture.cpp": {
       "bytes": 2535,
@@ -3364,20 +3392,80 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 41468,
-      "sha256": "2e0b57e47470b77cea7779326df5b337323abdc5105875a0d53a0652f33b0e68"
+      "bytes": 60034,
+      "sha256": "8c727a06f473c18e33886319bb1f94c576ec735224b084bf7fe5dd50cd760b57"
     },
     "src/PetWindow.h": {
-      "bytes": 6627,
-      "sha256": "db22158baa46a8f26da023ced22469a2911927f2964b5ab135a79279d75f4730"
+      "bytes": 8526,
+      "sha256": "308b4cf1131fd93989ce3d4de95a02a22ef38b3398ddd6b50cb5d54678ac4a51"
+    },
+    "src/StartupTrace.h": {
+      "bytes": 793,
+      "sha256": "facaf13e0ddc5f299868cb5d2d1b7c0a2a6a28c57eadb4cb51589046a56de0ed"
     },
     "src/hook_main.cpp": {
-      "bytes": 2582,
-      "sha256": "34b2bdc2a4df8dfe3c586fc888fac5d373957fed941c12e086b863bfad63306b"
+      "bytes": 3254,
+      "sha256": "f6a6d8ee57ede0918d9732c5868f8a9cd927beb107bcf8aff927b6e4adf8fbc5"
     },
     "src/main.cpp": {
-      "bytes": 40253,
-      "sha256": "a3557f52cec52ebd903e9c1cc01a19125c9ad1f862610acb0d74ddadac731bba"
+      "bytes": 41141,
+      "sha256": "b7ac16aaad42a991f6aed39a6f5a4566765e772fb421fe00432e885e1e4f6738"
+    },
+    "src/motion/DragBehavior.cpp": {
+      "bytes": 5768,
+      "sha256": "c7aa1e3f4787d628f05a368bc5cb8d9e4c66ed74956af9c17f6d80023b545a70"
+    },
+    "src/motion/DragBehavior.h": {
+      "bytes": 1416,
+      "sha256": "d562a6b2a220d6b352bbadce150605f095e1c5ed6c72b66b74b56fcaff0aac9d"
+    },
+    "src/motion/GrassTouchBehavior.cpp": {
+      "bytes": 6500,
+      "sha256": "af907f51200f93c75ae68fcac0a207e357b98fef56975875aa2e28c822740c2a"
+    },
+    "src/motion/GrassTouchBehavior.h": {
+      "bytes": 1954,
+      "sha256": "0358967f64280c4fa7ced401fae1c5a0722bd9632b0b5e3af057041e8e58d2ae"
+    },
+    "src/motion/MemoBehavior.cpp": {
+      "bytes": 3863,
+      "sha256": "5fad965a0aba12e8215d648a9e2d2af7ad3c020faf12763caa6b3be5297c54e6"
+    },
+    "src/motion/MemoBehavior.h": {
+      "bytes": 1685,
+      "sha256": "705697530463ba30e5101a1deaa4163a2c8acfb68f5bdbf2060de647787c84e6"
+    },
+    "src/motion/MotionMath.h": {
+      "bytes": 873,
+      "sha256": "edd7094f79d274ac474271735d87e477d88db5e61871c063830f92f3677e69ce"
+    },
+    "src/motion/MotionParameterIds.h": {
+      "bytes": 1196,
+      "sha256": "78129bf5ef00cf07adea1495a99d43756cbfb89e6c548956022c775ace7a7786"
+    },
+    "src/motion/SleepBehavior.cpp": {
+      "bytes": 3886,
+      "sha256": "f0cab4f0471a60a15485771f1b0e4f1eaa16bea5381dfe65d605b2d0ebe69acc"
+    },
+    "src/motion/SleepBehavior.h": {
+      "bytes": 1616,
+      "sha256": "6af8426ca3b68868ffbc4bedbd7d65c8f2ddacb6139cdb4cdd8eed679a5b72fd"
+    },
+    "src/motion/SleepTrace.h": {
+      "bytes": 762,
+      "sha256": "3b4d294a37eb2ce28b0e69534b2acf98cc4ccabc9678d7d74d579e6bd0cb3c9d"
+    },
+    "src/overlay/FrameComposer.cpp": {
+      "bytes": 792,
+      "sha256": "86879743aee115bfd847c278a5246b35cacb9fef77b3145878370eaaa2769d31"
+    },
+    "src/overlay/FrameComposer.h": {
+      "bytes": 829,
+      "sha256": "6d1b0df6b8758dc87e4bb92c72e0d48eea1d9086c696723060a06e6eddab96b8"
+    },
+    "src/overlay/FrameOverlay.h": {
+      "bytes": 1867,
+      "sha256": "192852eb3dfaed48f9e8ca0fc8fefbf9b86272539d50d18fdd8600365a6044b7"
     },
     "tests/CodexHookTest.ps1": {
       "bytes": 2736,
@@ -3404,12 +3492,12 @@
       "sha256": "eeb76ce3a6c6baea98636dcb31a64fac05722a82cbf8b97b5bd83ed1d1ee55be"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 64978,
-      "sha256": "d821b6dc929feca14dd05c6ebc649d28bef830b64be19a17a083480adbbf6692"
+      "bytes": 73463,
+      "sha256": "dd61e0244f20474d50ede7d1112e62527158c25b83d1e3604fdf175d9793b7dc"
     },
     "tests/PetControllerTest.cpp": {
-      "bytes": 12164,
-      "sha256": "4681e999811642ff5dc25da9eaa63ffc4beee5b05c65cd60a1987282a38c71f8"
+      "bytes": 14249,
+      "sha256": "8805f781d230648b7435ec244ee35ed03acb11844dd43318c9e39b652989e449"
     },
     "tests/PetPointerGestureTest.cpp": {
       "bytes": 4924,
@@ -3436,8 +3524,8 @@
       "sha256": "4a0872cb3c7463574d7714d1782a2911180f225d29a4c53e17d8f3196d8c2403"
     },
     "tests/test_live2d_capabilities.py": {
-      "bytes": 14455,
-      "sha256": "794b97a7d29fc64deea707520dc8df36a72724faae4d9a67a1deb8698e6892ef"
+      "bytes": 14800,
+      "sha256": "7c1b8149a3f52d0b97a90d3cb33a884757b7f5ba17a137545c78ea56d8213f94"
     },
     "tests/test_model_capture.py": {
       "bytes": 12319,
@@ -3487,6 +3575,14 @@
       "bytes": 21855,
       "sha256": "1be139c91bb77797916e04f50e68c06d8c9cb293379b31a22ddfd083c50fcd26"
     },
+    "tools/PSD2LiveMeshDump.java": {
+      "bytes": 4069,
+      "sha256": "67e66a3dede03adfc78dd2b2463980ccd31f87dd171725743434277684690613"
+    },
+    "tools/PSD2LiveMocBinding.java": {
+      "bytes": 4870,
+      "sha256": "6af35232422f6c9ffc9f5dad39ab852e37c8e9efc46002c5eb383a0bed62eba1"
+    },
     "tools/PSD2LiveNeckAuthor.java": {
       "bytes": 27487,
       "sha256": "c00285dc1838251d486939f6d0769e87966d17b6d85d7d736aa71a6ad40c86c9"
@@ -3519,6 +3615,10 @@
       "bytes": 23650,
       "sha256": "633be6e3e0aadaa7f3e4a5cbb5a394c1af0d7e25c5f4d8e99aa1b1a94b7c3348"
     },
+    "tools/codesign.cmd": {
+      "bytes": 1019,
+      "sha256": "cba61ec5973fe587d40133ee20ff731471ee84e05f1e0e4a5707d6977da93cd5"
+    },
     "tools/compare_cubism_probes.py": {
       "bytes": 22201,
       "sha256": "42d9570fda1a6308850fce21917a133f12da5b03745fc8faf9f81d13a22589d7"
@@ -3540,16 +3640,16 @@
       "sha256": "043cece521e5b99116fcf0146c4ecf18a66c23f65005d7624f7dfe232ca2f985"
     },
     "tools/dev.cmd": {
-      "bytes": 1064,
-      "sha256": "f1a4e07654f828f9de772ee6557191eb5422f06a3f59d7a12a6b93a99485262e"
+      "bytes": 1677,
+      "sha256": "fe89b026488c20e45e940143fc810e9019eb5a67806a9da7288a543e1605cc12"
     },
     "tools/edit_live2d_author.py": {
       "bytes": 3257,
       "sha256": "67b6f40b19acfa868ee1affd5e2f4a670dd7621f88e4ca45b55a04168ea40ac1"
     },
     "tools/inspect_live2d_capabilities.py": {
-      "bytes": 19738,
-      "sha256": "3ac1da47482fd0d96cfe1b4d079c535e449ba5fdc8cfc538661a507dc720ae3b"
+      "bytes": 20144,
+      "sha256": "624b669d16066d58b1f4f765d2b4ff37648c8df477301406a74c387d767e7858"
     },
     "tools/install-codex-hooks.ps1": {
       "bytes": 1747,
@@ -3598,6 +3698,10 @@
     "tools/prepare_neck_component.py": {
       "bytes": 7309,
       "sha256": "0f37e1d080f132ca286a945b8095606821fc61fa83dc8b91704ca7d69d44ac26"
+    },
+    "tools/prepare_skirt_spread.py": {
+      "bytes": 7617,
+      "sha256": "ae76dff240b3d200d27532e0a2f00a6c0ed410340dfe80599ece6574206fbf79"
     },
     "tools/prepare_source_layer_pack.py": {
       "bytes": 10996,
@@ -3659,6 +3763,10 @@
       "bytes": 4473,
       "sha256": "7c4274fe69dfffa8f3da50cc979800b521c0d0b1825acefcfb602929cc335f26"
     },
+    "tools/sdk-patches/README.md": {
+      "bytes": 3363,
+      "sha256": "0acd358c7eab504c43ec906d23a81fca941a03ffae864f2fae4d170357f5d7b0"
+    },
     "tools/stage_desk_work.py": {
       "bytes": 10613,
       "sha256": "7ea394de001e17aec099ede497df1c75b6a833a38de74453c63bb9a9c8221075"
@@ -3666,6 +3774,10 @@
     "tools/stage_hair_backing.py": {
       "bytes": 10532,
       "sha256": "d69e2908ba9d60d9e39e0dfd70af730d15321db665dfceeb0eed32a0dccb4653"
+    },
+    "tools/trust-publisher.cmd": {
+      "bytes": 955,
+      "sha256": "db4546ac0a0ac9e0cd25e11f1a732a06e5f25f01be6a2ff695a600abcac792b3"
     },
     "tools/validate_laptop_review.py": {
       "bytes": 873,
