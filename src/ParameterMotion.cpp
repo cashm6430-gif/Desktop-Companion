@@ -619,7 +619,7 @@ void ParameterMotion::beginDragMotion() {
     dragHairX_ = dragHairTarget_ = dragBodyX_ = dragBodyTarget_ = 0.0;
     dragSpeed_ = dragDistance_ = 0.0;
     dragCuriousDone_ = false;
-    dragCuriousTime_ = dragNodTime_ = 0.0;
+    dragCuriousTime_ = dragNodTime_ = dragSettleTime_ = 0.0;
 }
 
 void ParameterMotion::updateDragMotion(double vx, double vy) {
@@ -628,7 +628,7 @@ void ParameterMotion::updateDragMotion(double vx, double vy) {
     dragLookTY_ = std::clamp(vy / 900.0, -0.6, 0.6);
     // Hair streams opposite to the motion: it lags behind the body.
     dragHairTarget_ = std::clamp(-vx / 500.0, -1.0, 1.0);
-    dragBodyTarget_ = std::clamp(-vx / 140.0, -7.0, 7.0);
+    dragBodyTarget_ = std::clamp(-vx / 110.0, -10.0, 10.0);
     dragSpeed_ = std::sqrt(vx * vx + vy * vy);
 }
 
@@ -640,7 +640,8 @@ void ParameterMotion::endDragMotion() {
     // Release: residual sway decays while the eyes come back to the user,
     // plus one light nod on arrival.
     dragCuriousTime_ = 0.5;
-    dragNodTime_ = 0.55;
+    dragNodTime_ = 0.7;
+    dragSettleTime_ = 2.5;
 }
 
 void ParameterMotion::cancelDragMotion() {
@@ -649,7 +650,7 @@ void ParameterMotion::cancelDragMotion() {
     dragHairX_ = dragHairTarget_ = dragBodyX_ = dragBodyTarget_ = 0.0;
     dragSpeed_ = dragDistance_ = 0.0;
     dragCuriousDone_ = false;
-    dragCuriousTime_ = dragNodTime_ = 0.0;
+    dragCuriousTime_ = dragNodTime_ = dragSettleTime_ = 0.0;
 }
 
 void ParameterMotion::advanceDragMotion(double seconds) {
@@ -673,8 +674,17 @@ void ParameterMotion::advanceDragMotion(double seconds) {
         dragBodyX_ += (dragBodyTarget_ - dragBodyX_) * (1.0 - qExp(-seconds / 0.18));
     } else {
         // Settle: exponential decay only -- the card explicitly forbids a
-        // persistent sine sway after the drag stops.
-        const double decay = qExp(-seconds / 0.22);
+        // persistent sine sway after the drag stops. The slow 0.45s constant
+        // keeps the lean/hair visibly swinging for a second or so, and a hard
+        // cap guarantees the phase always ends.
+        if (dragSettleTime_ > 0.0) {
+            dragSettleTime_ -= seconds;
+            if (dragSettleTime_ <= 0.0) {
+                cancelDragMotion();
+                return;
+            }
+        }
+        const double decay = qExp(-seconds / 0.45);
         dragLookX_ *= decay; dragLookY_ *= decay;
         dragHairX_ *= decay; dragBodyX_ *= decay;
         if (dragCuriousTime_ > 0.0) dragCuriousTime_ -= seconds;
@@ -687,35 +697,43 @@ void ParameterMotion::advanceDragMotion(double seconds) {
 
 void ParameterMotion::applyDragMotion(Parameters& desired) const {
     if (dragPhase_ == DragPhase::None) return;
-    if (dragCuriousTime_ > 0.0) {
-        // Looking at the user instead of the drag direction, slightly pleased.
-        desired[QStringLiteral("ParamEyeBallX")] = 0.0;
-        desired[QStringLiteral("ParamEyeBallY")] = 0.1;
+    if (dragPhase_ == DragPhase::Follow) {
+        if (dragCuriousTime_ > 0.0) {
+            // Looking at the user instead of the drag direction, slightly pleased.
+            desired[QStringLiteral("ParamEyeBallX")] = 0.0;
+            desired[QStringLiteral("ParamEyeBallY")] = 0.1;
+            desired[QStringLiteral("ParamEyeSmile")] = std::max(
+                desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
+        } else {
+            auto eyeball = desired.contains(QStringLiteral("ParamEyeBallX"))
+                ? desired.value(QStringLiteral("ParamEyeBallX")) : 0.0;
+            desired[QStringLiteral("ParamEyeBallX")] = std::clamp(eyeball + 0.6 * dragLookX_, -1.0, 1.0);
+            auto eyeballY = desired.contains(QStringLiteral("ParamEyeBallY"))
+                ? desired.value(QStringLiteral("ParamEyeBallY")) : 0.0;
+            desired[QStringLiteral("ParamEyeBallY")] = std::clamp(eyeballY + 0.4 * dragLookY_, -1.0, 1.0);
+        }
+    } else if (dragCuriousTime_ > 0.0) {
+        // Release look-back: keep the soft smile, but let the eyes glide home
+        // through the decaying dragLookX_ -- snapping them to zero and back
+        // read as a visible jump once the window expired.
         desired[QStringLiteral("ParamEyeSmile")] = std::max(
             desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
-    } else if (dragPhase_ == DragPhase::Follow) {
-        auto eyeball = desired.contains(QStringLiteral("ParamEyeBallX"))
-            ? desired.value(QStringLiteral("ParamEyeBallX")) : 0.0;
-        desired[QStringLiteral("ParamEyeBallX")] = std::clamp(eyeball + 0.45 * dragLookX_, -1.0, 1.0);
-        auto eyeballY = desired.contains(QStringLiteral("ParamEyeBallY"))
-            ? desired.value(QStringLiteral("ParamEyeBallY")) : 0.0;
-        desired[QStringLiteral("ParamEyeBallY")] = std::clamp(eyeballY + 0.3 * dragLookY_, -1.0, 1.0);
     }
     auto hairFront = desired.contains(QStringLiteral("ParamHairFront"))
         ? desired.value(QStringLiteral("ParamHairFront")) : 0.0;
-    desired[QStringLiteral("ParamHairFront")] = std::clamp(hairFront + 0.45 * dragHairX_, -1.0, 1.0);
+    desired[QStringLiteral("ParamHairFront")] = std::clamp(hairFront + 0.65 * dragHairX_, -1.0, 1.0);
     auto hairBack = desired.contains(QStringLiteral("ParamHairBack"))
         ? desired.value(QStringLiteral("ParamHairBack")) : 0.0;
-    desired[QStringLiteral("ParamHairBack")] = std::clamp(hairBack + 0.3 * dragHairX_, -1.0, 1.0);
+    desired[QStringLiteral("ParamHairBack")] = std::clamp(hairBack + 0.45 * dragHairX_, -1.0, 1.0);
     auto bodyX = desired.contains(QStringLiteral("ParamBodyAngleX"))
         ? desired.value(QStringLiteral("ParamBodyAngleX")) : 0.0;
     desired[QStringLiteral("ParamBodyAngleX")] = std::clamp(bodyX + dragBodyX_, -12.0, 12.0);
     if (dragNodTime_ > 0.0) {
         // One light nod on release: a single sine hump, down and back.
-        const double p = 1.0 - dragNodTime_ / 0.55;
+        const double p = 1.0 - dragNodTime_ / 0.7;
         auto angleY = desired.contains(QStringLiteral("ParamAngleY"))
             ? desired.value(QStringLiteral("ParamAngleY")) : 0.0;
-        desired[QStringLiteral("ParamAngleY")] = angleY - 7.0 * std::sin(std::numbers::pi_v<double> * p);
+        desired[QStringLiteral("ParamAngleY")] = angleY - 10.0 * std::sin(std::numbers::pi_v<double> * p);
     }
 }
 

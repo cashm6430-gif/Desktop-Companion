@@ -440,9 +440,9 @@ void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
         motion.updateDragMotion(600.0, 0.0);
         motion.advance(1.0 / 30.0);
     }
-    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.3);
-    QVERIFY(motion.values().value(QStringLiteral("ParamHairFront")) < -0.2);
-    QVERIFY(motion.values().value(QStringLiteral("ParamBodyAngleX")) < -1.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.5);
+    QVERIFY(motion.values().value(QStringLiteral("ParamHairFront")) < -0.4);
+    QVERIFY(motion.values().value(QStringLiteral("ParamBodyAngleX")) < -2.0);
     // Crossing the long-drag threshold spends the one curious look-back:
     // the eyes come off the motion toward the user with a soft smile.
     const double eyeDuringFollow = motion.values().value(QStringLiteral("ParamEyeBallX"));
@@ -454,6 +454,11 @@ void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) < eyeDuringFollow);
     // Release: exponential decay only -- the magnitude never grows back.
     motion.endDragMotion();
+    // Half a second after release the body lean must still be plainly visible
+    // (this was the "too small to notice" feedback): the slow 0.45s decay
+    // keeps most of the lean alive through the look-back window.
+    advanceFrames(motion, 15);
+    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamBodyAngleX"))) > 2.0);
     double previousMag = std::abs(motion.values().value(QStringLiteral("ParamEyeBallX")));
     for (int i = 0; i < 30; ++i) {
         motion.advance(1.0 / 30.0);

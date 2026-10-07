@@ -165,6 +165,7 @@ private:
     bool dragCuriousDone_ = false;
     double dragCuriousTime_ = 0.0;                      // one curious look-back at the user
     double dragNodTime_ = 0.0;                          // release nod, counts down
+    double dragSettleTime_ = 0.0;                       // hard cap on the settle phase
     bool actionFinishedReported_ = false;
 
     enum class Interaction { None, TurnEnded, HeadPat, Stretch };
