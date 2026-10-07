@@ -124,6 +124,7 @@ private slots:
     void waveRaisesSwingsAndSettles();
     void waveRefusesBusyAndYieldsToDelete();
     void waveLeavingIdleReleasesWithoutPop();
+    void userHooksPreemptSpontaneousScenes();
     void boxPeekCaughtBlinksDucksAndRepeeksSmiling();
     void boxPeekExitRestoresStandBeforeBoxLeaves();
     void boxPeekRefusesBusyAndYieldsToDelete();
@@ -689,11 +690,12 @@ void ParameterMotionTest::waveRaisesSwingsAndSettles() {
     QVERIFY(motion.waveArm() > 15.0);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.05);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) <= 0.31);
-    advanceFrames(motion, 16); // 0.62s: first swing out peaks
-    QVERIFY(motion.waveWrist() > 5.0);
-    advanceFrames(motion, 51); // 1.62s: deep in the second swing-in leg
+    advanceFrames(motion, 25); // 0.80s: first swing-out peak
+    QVERIFY(motion.waveArm() > 55.0);   // the swing pivots at the shoulder
+    QVERIFY(motion.waveWrist() < 10.0); // the wrist only follows (r2 ruling)
+    advanceFrames(motion, 41); // 1.62s: deep in the second swing-in leg
     QVERIFY(motion.waveWrist() < 0.0);
-    QVERIFY(motion.waveArm() > 30.0); // still up beside her head
+    QVERIFY(motion.waveArm() > 30.0 && motion.waveArm() < 50.0);
     // Settle: the arm glides home while the eye smile blooms. The mouth
     // stays the idle closed omega -- the open grin is banned (user r2).
     advanceFrames(motion, 24); // 2.10s
@@ -750,6 +752,34 @@ void ParameterMotionTest::waveLeavingIdleReleasesWithoutPop() {
     advanceFrames(motion, 20); // 1.00s: release finished
     QVERIFY(!motion.waveActive());
     QCOMPARE(motion.waveArm(), 0.0);
+}
+
+void ParameterMotionTest::userHooksPreemptSpontaneousScenes() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 10);
+    // A spontaneous wave is cut short the moment the user pats her: hooks
+    // are commands, the director's scenes are filler (r2 trigger ruling).
+    QVERIFY(motion.playWave());
+    advanceFrames(motion, 10); // 0.20s: mid raise
+    QVERIFY(motion.waveArm() > 5.0);
+    QVERIFY(motion.beginHeadPat(0.3));
+    QCOMPARE(motion.waveArm(), 0.0);  // instant stand-down, no overlap
+    QVERIFY(!motion.waveActive());
+    QCOMPARE(motion.interactionId(), QStringLiteral("head-pat"));
+    motion.endHeadPat();
+    advanceFrames(motion, 60); // the pat releases and drains
+    // The turn hook likewise takes the stage away from a box peek.
+    QVERIFY(motion.playBoxPeek());
+    advanceFrames(motion, 45); // 0.90s: eyes at the box edge
+    QVERIFY(motion.boxPeekActive());
+    QVERIFY(motion.playTurnEnded());
+    QVERIFY(!motion.boxPeekActive());
+    QCOMPARE(motion.boxPeekDuck(), 0.0);
+    QCOMPARE(motion.interactionId(), QStringLiteral("turn-ended"));
 }
 
 void ParameterMotionTest::boxPeekCaughtBlinksDucksAndRepeeksSmiling() {

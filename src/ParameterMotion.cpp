@@ -382,7 +382,17 @@ void ParameterMotion::cancelInteraction() {
     // expression-before-blink filter as a normal state transition.
 }
 
+void ParameterMotion::preemptSpontaneous() {
+    // The scheduler's scenes are filler; a user hook is a command. Cancel
+    // them outright (the same treatment Delete/Grass get) so the hook owns
+    // the stage from its first frame -- no overlap, no refusal.
+    wave_.cancel();
+    box_.cancel();
+    rice_.cancel();
+}
+
 bool ParameterMotion::playTurnEnded() {
+    preemptSpontaneous();
     if (state_ != PetController::State::Idle || preview_ || interactionActive()
         || !turnEndedClip_.isValid()) return false;
     interaction_ = Interaction::TurnEnded;
@@ -394,6 +404,7 @@ bool ParameterMotion::playTurnEnded() {
 }
 
 bool ParameterMotion::playStretch() {
+    preemptSpontaneous();
     if (preview_ || interactionActive() || !stretchClip_.isValid()) return false;
     // The stretch clip keys the full seated desk pose (BusyLaptop/SitPose/
     // DeskVisible/LaptopVisible), so it is only playable over the seated
@@ -435,6 +446,7 @@ bool ParameterMotion::canBeginHeadPat() const {
 
 bool ParameterMotion::beginHeadPat(double direction) {
     if (!canBeginHeadPat()) return false;
+    preemptSpontaneous();
     cancelInteraction();
     interaction_ = Interaction::HeadPat;
     headPatHeld_ = true;

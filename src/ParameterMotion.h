@@ -75,6 +75,10 @@ public:
     void updateHeadPat(double direction);
     void endHeadPat();
     void cancelInteraction();
+    // User hooks (pat / turn-ended / stretch) outrank the spontaneous
+    // director: the lightweight scenes stand down at once so a hook never
+    // overlaps or gets refused by them.
+    void preemptSpontaneous();
     bool interactionActive() const;
     QString interactionId() const;
     // Authored clip time, including the bounded hold loop.

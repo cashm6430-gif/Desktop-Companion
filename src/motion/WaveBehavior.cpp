@@ -29,18 +29,21 @@ WaveBehavior::Channels WaveBehavior::raiseTarget() {
 
 WaveBehavior::Channels WaveBehavior::swingOutTarget() {
     Channels c;
-    c.arm = 56.0;
-    c.elbow = 24.0;
-    c.wrist = 22.0;
+    // Shoulder-driven swing (user ruling r2: the wave must not read as a
+    // wrist flip). The whole arm pivots at the shoulder with a 26-degree
+    // span; the elbow folds along and the wrist only follows by a hint.
+    c.arm = 62.0;
+    c.elbow = 20.0;
+    c.wrist = 6.0;
     c.gazeX = kGazeX;
     return c;
 }
 
 WaveBehavior::Channels WaveBehavior::swingInTarget() {
     Channels c;
-    c.arm = 44.0;
-    c.elbow = 46.0;
-    c.wrist = -25.0;
+    c.arm = 36.0;
+    c.elbow = 52.0;
+    c.wrist = -6.0;
     c.gazeX = kGazeX;
     return c;
 }
