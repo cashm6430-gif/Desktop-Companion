@@ -370,7 +370,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (controller_->state() != PetController::State::Busy) return;
         motion_.playStretch();
     });
-    trayMenu_.addAction(QStringLiteral("眯一会儿（小枕头）"), this, [this] {
+    trayMenu_.addAction(QStringLiteral("眯一会儿（眼罩）"), this, [this] {
         startNap();
     });
     trayMenu_.addAction(QStringLiteral("放个便笺…"), this, [this] {
@@ -707,17 +707,17 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     painter.setOpacity(std::clamp(envelope * 2.0, 0.0, 1.0));
     painter.setRenderHint(QPainter::Antialiasing, true);
     // The mask settles onto the face during the enter phase (slides the last
-    // stretch down from the forehead) and tips with the head -- the sleep
-    // overlay leans the head 6 degrees toward the desk.
-    const QPointF faceCenter(s.width() * 0.465, s.height() * 0.445);
+    // stretch down from the forehead) and tips with the head -- pivot on the
+    // eye line itself so the cloth hugs the face instead of swinging.
+    const QPointF faceCenter(s.width() * 0.475, s.height() * 0.418);
     painter.translate(faceCenter);
-    painter.rotate(6.0 * envelope);
+    painter.rotate(2.5 * envelope);
     painter.translate(-faceCenter.x(), -faceCenter.y() - (1.0 - envelope) * s.height() * 0.07);
 
-    const double eyeY = s.height() * 0.398;
-    const double maskW = s.width() * 0.20;
-    const double maskH = s.height() * 0.068;
-    const double cx = s.width() * 0.468;
+    const double eyeY = s.height() * 0.418;
+    const double maskW = s.width() * 0.29;
+    const double maskH = s.height() * 0.088;
+    const double cx = s.width() * 0.475;
 
     // Strap first: a soft band running into the hair on both sides, behind
     // the cloth.
@@ -725,8 +725,8 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     strapPen.setCapStyle(Qt::RoundCap);
     painter.setPen(strapPen);
     painter.setBrush(Qt::NoBrush);
-    painter.drawLine(QPointF(s.width() * 0.310, eyeY - s.height() * 0.003),
-                     QPointF(s.width() * 0.635, eyeY - s.height() * 0.003));
+    painter.drawLine(QPointF(s.width() * 0.290, eyeY - s.height() * 0.003),
+                     QPointF(s.width() * 0.665, eyeY - s.height() * 0.003));
 
     // One piece of soft cloth across both eyes -- the classic sleep-mask
     // silhouette: a plump lozenge with a small nose notch at the bottom
