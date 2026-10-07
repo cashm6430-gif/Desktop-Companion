@@ -2,6 +2,7 @@
 #ifdef HAVE_CUBISM
 #include "CubismCanvas.h"
 #endif
+#include "overlay/FrameOverlay.h"
 
 #include <QApplication>
 #include <QAction>
@@ -291,6 +292,29 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // so a file dropped beside the pet lands on the desktop as before.
     setAcceptDrops(true);
     setMouseTracking(true);
+
+    // Window-layer overlay pipeline, in paint order. Guard and draw live in
+    // one registration row, so adding a graphic cannot resurrect the old
+    // frameWithBubble early-return trap (a layer without its guard being
+    // permanently invisible).
+    overlays_.add(std::make_shared<FunctionOverlay>(
+        [](const FrameContext& ctx) { return ctx.bubblePulse > 0.001; },
+        [](QPainter& painter, const QSize& size, const FrameContext& ctx) {
+            paintThoughtBubble(painter, size, ctx.bubblePulse);
+        }));
+    // The sticky note rides the same composition path so the interaction mask
+    // (built from the composed frame) makes exactly the paper clickable.
+    overlays_.add(std::make_shared<FunctionOverlay>(
+        [this](const FrameContext&) { return memoVisual_ != MemoVisual::None; },
+        [this](QPainter& painter, const QSize& size, const FrameContext&) {
+            drawMemoNote(painter, size);
+        }));
+    // Same for the sleep mask: in the mask, so touching the face wakes the nap.
+    overlays_.add(std::make_shared<FunctionOverlay>(
+        [this](const FrameContext&) { return motion_.sleepMaskEnvelope() > 0.001; },
+        [this](QPainter& painter, const QSize& size, const FrameContext&) {
+            drawSleepMask(painter, size);
+        }));
 
 #ifdef HAVE_CUBISM
     // Keep OpenGL composition in a separate window. This translucent widget
@@ -590,20 +614,8 @@ QJsonObject PetWindow::modelParameterRanges() const {
 }
 
 QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
-    if (frame.isNull()) return frame;
-    if (pulse <= 0.001 && memoVisual_ == MemoVisual::None
-        && motion_.sleepMaskEnvelope() <= 0.001) return frame;
-    // QImage is copy-on-write, so this copies only when a bubble is actually
-    // being drawn over the frame.
-    QImage composed = frame;
-    QPainter painter(&composed);
-    if (pulse > 0.001) paintThoughtBubble(painter, composed.size(), pulse);
-    // The sticky note rides the same composition path so the interaction mask
-    // (built from the composed frame) makes exactly the paper clickable.
-    drawMemoNote(painter, composed.size());
-    // Same for the sleep mask: in the mask, so touching the face wakes the nap.
-    drawSleepMask(painter, composed.size());
-    return composed;
+    const FrameContext ctx{pulse};
+    return overlays_.compose(frame, ctx);
 }
 
 QImage PetWindow::composedFrame() const {

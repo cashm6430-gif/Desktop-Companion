@@ -47,6 +47,8 @@ qt_add_executable(DesktopCompanion WIN32
     src/motion/MemoBehavior.h src/motion/MemoBehavior.cpp
     src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
     src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
+    src/overlay/FrameOverlay.h
+    src/overlay/FrameComposer.h src/overlay/FrameComposer.cpp
     src/PetWindow.h src/PetWindow.cpp
     src/DesktopDeleteSource.h src/DesktopDeleteSource.cpp
     src/CodexTurnSource.h src/CodexTurnSource.cpp

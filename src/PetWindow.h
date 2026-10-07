@@ -3,6 +3,7 @@
 #include "PetController.h"
 #include "ParameterMotion.h"
 #include "PetPointerGesture.h"
+#include "overlay/FrameComposer.h"
 
 #include <QElapsedTimer>
 #include <QIcon>
@@ -89,6 +90,11 @@ private:
     // it, so every frame the pet presents -- the live window and the review
     // captures -- has to have it composed in.
     QImage frameWithBubble(const QImage& frame, double pulse) const;
+    // Window-layer graphics (thought bubble, sticky note, sleep mask) as an
+    // ordered overlay pipeline; frameWithBubble drives it. Each layer carries
+    // its own visibility guard next to its draw code, so the composer's single
+    // copy decision replaced the hand-maintained early return.
+    FrameComposer overlays_;
     // The frame as presented: Cubism framebuffer, mirrored horizontally when
     // the pet lunges to the left (so the authored right-handed choreography
     // faces the deleted file), with the bubble composed on top. Used by both
