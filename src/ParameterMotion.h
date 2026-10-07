@@ -98,18 +98,19 @@ public:
     // layer holds it at 1 once the overlay ends so the note stays up.
     double memoBubbleRise() const;
 
-    // Pillow nap at the desk edge (motion card 8). A sustained overlay: eyes
-    // half-close while the head tips toward the pillow, then full sleep with a
-    // slow breath on its own clock. Clicking the pet wakes it interactively
+    // Eye-mask nap at the desk (motion card 8, reworked per feedback: the
+    // pillow prop is gone, a sleep mask covers the eyes instead). A sustained
+    // overlay: eyes half-close while the head tips, then full sleep with a
+    // slow breath on its own clock. Clicking the head wakes it interactively
     // (one eye first, then the other); a new turn or a delete/grass event
     // wakes it non-interactively over the same authored 0.8s while the event
-    // action starts underneath. No new art -- the pillow itself is window-layer.
+    // action starts underneath. No new art -- the mask itself is window-layer.
     void beginSleepMotion();
     void wakeFromSleep(bool interactive);
     void cancelSleepMotion();
     bool sleepMotionActive() const { return sleepPhase_ != SleepPhase::None; }
-    // 0..1 pillow visibility envelope, in step with the enter/wake phases.
-    double sleepPillowEnvelope() const;
+    // 0..1 mask visibility envelope, in step with the enter/wake phases.
+    double sleepMaskEnvelope() const;
 
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
@@ -215,7 +216,7 @@ private:
     bool memoLaugh_ = false;
 
     enum class SleepPhase { None, Enter, Asleep, Wake };
-    // Authored beats: 0.8s settle onto the pillow, sleep until woken, 0.8s
+    // Authored beats: 0.8s settle into the nap, sleep until woken, 0.8s
     // wake-up (a new start shortens waking to this per the card).
     static constexpr double kSleepEnterEnd = 0.8;
     static constexpr double kSleepWakeEnd = 0.8;

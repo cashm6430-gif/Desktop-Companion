@@ -804,7 +804,7 @@ double ParameterMotion::memoBubbleRise() const {
     }
 }
 
-// --- Pillow nap (motion card 8) ----------------------------------------------
+// --- Eye-mask nap (motion card 8) ----------------------------------------------
 
 void ParameterMotion::beginSleepMotion() {
     sleepTrace(QStringLiteral("begin (state=%1 laptop=%2)")
@@ -830,7 +830,7 @@ void ParameterMotion::cancelSleepMotion() {
     sleepWakeInteractive_ = false;
 }
 
-double ParameterMotion::sleepPillowEnvelope() const {
+double ParameterMotion::sleepMaskEnvelope() const {
     switch (sleepPhase_) {
     case SleepPhase::Enter:
         return smooth(std::clamp(sleepTime_ / kSleepEnterEnd, 0.0, 1.0));
@@ -863,7 +863,7 @@ void ParameterMotion::applySleepMotion(Parameters& desired) const {
     desired[QStringLiteral("ParamSitPose")] = 1.0;
     desired[QStringLiteral("ParamLaptopVisible")] = 0.0;
     desired[QStringLiteral("ParamBusyLaptop")] = 0.0;
-    const double tip = 6.0; // head tip toward the pillow, Cubism AngleZ units
+    const double tip = 6.0; // head tip toward the desk edge, Cubism AngleZ units
     if (sleepPhase_ == SleepPhase::Enter) {
         // Eyes half-close first; full closure lands one beat later in Asleep.
         const double p = smooth(std::clamp(sleepTime_ / kSleepEnterEnd, 0.0, 1.0));
@@ -871,8 +871,9 @@ void ParameterMotion::applySleepMotion(Parameters& desired) const {
         desired[rightEye] = std::min(desired.value(rightEye), 1.0 - 0.45 * p);
         desired[angleZ] += tip * p;
     } else if (sleepPhase_ == SleepPhase::Asleep) {
-        // Sleeping face: closed eyes, a faint smile, head tipped onto the
-        // pillow. The breath gets its own slow clock (~7s cycle) with a small
+        // Sleeping face: closed eyes under the window-layer sleep mask, a
+        // faint smile, head tipped onto the desk edge. The breath gets its
+        // own slow clock (~7s cycle) with a small
         // body rise on the same phase -- much slower than the idle base.
         desired[leftEye] = 0.0;
         desired[rightEye] = 0.0;
@@ -895,7 +896,7 @@ void ParameterMotion::applySleepMotion(Parameters& desired) const {
         }
         // Non-interactive wake (a new turn or an event): the generic 0.12s
         // blend already reopens the eyes quickly; only the head tip and the
-        // pillow envelope need the authored 0.8s handback.
+        // mask envelope need the authored 0.8s handback.
     }
 }
 
@@ -1071,7 +1072,7 @@ void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous
     const bool interrupted = state_ == PetController::State::Delete
         || state_ == PetController::State::Grass;
     const bool keepReactionDesk = interactionActive() && deskVisible_ > 0.0;
-    // The nap is also a desk scene: the pillow rests on the desk edge, so the
+    // The nap is also a desk scene (seated at the table, no laptop): the
     // same cover/recover ordering owns the sit-down and the stand-back-up.
     const bool workWanted = (state_ == PetController::State::Busy && laptopBusy_)
         || keepReactionDesk || sleepMotionActive();

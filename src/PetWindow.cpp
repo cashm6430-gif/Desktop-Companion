@@ -530,7 +530,7 @@ QJsonObject PetWindow::modelParameterRanges() const {
 QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
     if (frame.isNull()) return frame;
     if (pulse <= 0.001 && memoVisual_ == MemoVisual::None
-        && motion_.sleepPillowEnvelope() <= 0.001) return frame;
+        && motion_.sleepMaskEnvelope() <= 0.001) return frame;
     // QImage is copy-on-write, so this copies only when a bubble is actually
     // being drawn over the frame.
     QImage composed = frame;
@@ -539,8 +539,8 @@ QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
     // The sticky note rides the same composition path so the interaction mask
     // (built from the composed frame) makes exactly the paper clickable.
     drawMemoNote(painter, composed.size());
-    // Same for the pillow: in the mask, so clicking it wakes the nap.
-    drawSleepPillow(painter, composed.size());
+    // Same for the sleep mask: in the mask, so touching the face wakes the nap.
+    drawSleepMask(painter, composed.size());
     return composed;
 }
 
@@ -653,48 +653,59 @@ bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos
     return false;
 }
 
-// --- Pillow nap (motion card 8) ----------------------------------------------
+// --- Eye-mask nap (motion card 8) ---------------------------------------------
 
-QRectF PetWindow::sleepPillowRect(const QSizeF& s) const {
-    // Lying on the desk top just past the right hair fall, clear of the memo
-    // corner badge (0.82). The desk top edge sits around y=0.62, so the
-    // pillow rests with its base on it; a hair-overlap of a few pixels reads
-    // as "tucked against her cheek".
-    const double w = s.width() * 0.22;
-    const double h = s.height() * 0.11;
-    const double cx = s.width() * 0.76;
-    const double cy = s.height() * 0.60;
-    return QRectF(cx - w / 2.0, cy - h / 2.0, w, h);
-}
-
-void PetWindow::drawSleepPillow(QPainter& painter, const QSize& size) const {
-    const double envelope = motion_.sleepPillowEnvelope();
+void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
+    const double envelope = motion_.sleepMaskEnvelope();
     if (envelope <= 0.001) return;
-    const QRectF rect = sleepPillowRect(QSizeF(size));
+    const QSizeF s(size);
     painter.save();
     painter.setOpacity(std::clamp(envelope * 2.0, 0.0, 1.0));
-    // Floats the last stretch up onto the desk with the enter phase.
-    painter.translate(0.0, (1.0 - envelope) * rect.height() * 0.8);
     painter.setRenderHint(QPainter::Antialiasing, true);
-    // A plump capsule pillow: full-round ends, a soft top-down gradient for
-    // volume, an inset seam line, one sheen stripe.
-    QLinearGradient volume(rect.topLeft(), rect.bottomLeft());
-    volume.setColorAt(0.0, QColor(214, 228, 250));
-    volume.setColorAt(0.55, QColor(193, 209, 242));
-    volume.setColorAt(1.0, QColor(156, 178, 226));
-    painter.setPen(QPen(QColor(92, 116, 172), 2.0));
-    painter.setBrush(volume);
-    painter.drawRoundedRect(rect, rect.height() * 0.5, rect.height() * 0.5);
-    // Inset seam: a thin rounded outline floating just inside the body.
-    painter.setPen(QPen(QColor(126, 152, 206), 1.4));
+    // The mask settles onto the face during the enter phase (slides the last
+    // stretch down from the forehead) and tips with the head -- the sleep
+    // overlay leans the head 6 degrees toward the desk.
+    const QPointF faceCenter(s.width() * 0.465, s.height() * 0.445);
+    painter.translate(faceCenter);
+    painter.rotate(6.0 * envelope);
+    painter.translate(-faceCenter.x(), -faceCenter.y() - (1.0 - envelope) * s.height() * 0.07);
+
+    const double eyeY = s.height() * 0.442;
+    const double maskW = s.width() * 0.250;
+    const double maskH = s.height() * 0.085;
+    const double cx = s.width() * 0.473;
+
+    // Strap first: a soft band running into the hair on both sides, behind
+    // the cloth.
+    QPen strapPen(QColor(74, 100, 164), s.height() * 0.018);
+    strapPen.setCapStyle(Qt::RoundCap);
+    painter.setPen(strapPen);
     painter.setBrush(Qt::NoBrush);
-    painter.drawRoundedRect(rect.adjusted(rect.width() * 0.045, rect.height() * 0.16,
-                                          -rect.width() * 0.045, -rect.height() * 0.16),
-                            rect.height() * 0.38, rect.height() * 0.38);
+    painter.drawLine(QPointF(s.width() * 0.295, eyeY - s.height() * 0.004),
+                     QPointF(s.width() * 0.645, eyeY - s.height() * 0.004));
+
+    // One piece of soft cloth across both eyes -- the classic sleep-mask
+    // silhouette: a plump lozenge with a small nose notch at the bottom
+    // center. Soft blue fabric (lighter than the hair so it reads as cloth),
+    // a barely darker rim, one gentle sheen.
+    const QRectF cloth(cx - maskW / 2.0, eyeY - maskH / 2.0, maskW, maskH);
+    QPainterPath maskShape;
+    maskShape.addRoundedRect(cloth, maskH * 0.48, maskH * 0.48);
+    QPainterPath nose;
+    nose.moveTo(cx - maskH * 0.22, cloth.bottom());
+    nose.lineTo(cx, cloth.bottom() - maskH * 0.30);
+    nose.lineTo(cx + maskH * 0.22, cloth.bottom());
+    nose.closeSubpath();
+    maskShape = maskShape.subtracted(nose);
+    QLinearGradient fill(cloth.topLeft(), cloth.bottomLeft());
+    fill.setColorAt(0.0, QColor(126, 154, 210));
+    fill.setColorAt(1.0, QColor(88, 116, 180));
+    painter.setPen(QPen(QColor(58, 82, 142), 1.0));
+    painter.setBrush(fill);
+    painter.drawPath(maskShape);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(255, 255, 255, 105));
-    painter.drawEllipse(rect.adjusted(rect.width() * 0.16, rect.height() * 0.20,
-                                      -rect.width() * 0.64, -rect.height() * 0.44));
+    painter.setBrush(QColor(255, 255, 255, 50));
+    painter.drawEllipse(cloth.adjusted(maskW * 0.10, maskH * 0.18, -maskW * 0.58, -maskH * 0.48));
     painter.restore();
 }
 
@@ -965,12 +976,10 @@ void PetWindow::constrainPositionToScreen() {
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        // Waking is deliberate: only a touch on the head (or the pillow, which
-        // sits next to the cheek) wakes the nap -- clicking the body or
-        // starting a window drag leaves her asleep.
-        if (motion_.sleepMotionActive()
-            && (isHeadAt(event->position())
-                || sleepPillowRect(QSizeF(size())).contains(event->position()))) {
+        // Waking is deliberate: only a touch on the head -- the mask sits on
+        // the face, so touching it is touching her head -- wakes the nap.
+        // Clicking the body or starting a window drag leaves her asleep.
+        if (motion_.sleepMotionActive() && isHeadAt(event->position())) {
             motion_.wakeFromSleep(true);
             updateInputTransparency();
             event->accept();

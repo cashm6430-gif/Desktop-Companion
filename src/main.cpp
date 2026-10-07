@@ -640,7 +640,7 @@ int main(int argc, char** argv) {
 
     if (arguments.contains(QStringLiteral("--nap"))) {
         // Desktop debug entry: fall asleep shortly after start so the seated
-        // nap scene and the window-layer pillow can be screenshotted live.
+        // nap scene and the window-layer sleep mask can be screenshotted live.
         // Retries through delete/grass interruptions, gives up after 20s.
         auto* napTimer = new QTimer(&window);
         napTimer->setInterval(1000);

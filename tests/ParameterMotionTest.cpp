@@ -531,19 +531,19 @@ void ParameterMotionTest::sleepMotionNapsWakesAndYieldsToEvents() {
     QVERIFY(motion.loadMotionLibrary(dir.path()));
     advanceFrames(motion, 50);
     QVERIFY(!motion.sleepMotionActive());
-    QCOMPARE(motion.sleepPillowEnvelope(), 0.0);
+    QCOMPARE(motion.sleepMaskEnvelope(), 0.0);
 
-    // Enter: the pillow floats in, eyes half-close, the head starts tipping.
+    // Enter: the mask settles on, eyes half-close, the head starts tipping.
     motion.beginSleepMotion();
     advanceFrames(motion, 20); // 0.4s, past the generic value blend lag
-    QVERIFY(motion.sleepPillowEnvelope() > 0.3 && motion.sleepPillowEnvelope() < 0.9);
+    QVERIFY(motion.sleepMaskEnvelope() > 0.3 && motion.sleepMaskEnvelope() < 0.9);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.9);
     QVERIFY(motion.values().value(QStringLiteral("ParamAngleZ")) > 0.5);
 
     // Asleep: eyes closed, slow breath on its own clock.
     advanceFrames(motion, 40); // 1.0s total
     QVERIFY(motion.sleepMotionActive());
-    QCOMPARE(motion.sleepPillowEnvelope(), 1.0);
+    QCOMPARE(motion.sleepMaskEnvelope(), 1.0);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.1);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) < 0.1);
     const double sleepingBreath = motion.values().value(QStringLiteral("ParamBreath"));
@@ -554,7 +554,7 @@ void ParameterMotionTest::sleepMotionNapsWakesAndYieldsToEvents() {
     motion.wakeFromSleep(false);
     advanceFrames(motion, 45); // 0.9s
     QVERIFY(!motion.sleepMotionActive());
-    QCOMPARE(motion.sleepPillowEnvelope(), 0.0);
+    QCOMPARE(motion.sleepMaskEnvelope(), 0.0);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.85);
 
     // Interactive wake: one eye first, then the other. Timed past the 4.3s
