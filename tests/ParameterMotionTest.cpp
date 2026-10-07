@@ -492,11 +492,11 @@ void ParameterMotionTest::memoGazeFollowsNoteRise() {
     advanceFrames(motion, 24); // 0.72s
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) > -0.35);
     QVERIFY(motion.memoBubbleRise() > 0.2 && motion.memoBubbleRise() < 0.9);
-    // Arrival: looking back at the user, pleased. Checked at the end of the
-    // look-back so the generic value blend has fully converged.
+    // Arrival: looking back at the user with the open "ha-ha" laugh.
     advanceFrames(motion, 49); // 1.70s
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallY")) > 0.0);
-    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.3);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) > 0.9);
     // The overlay ends by itself; the window layer keeps the note art up.
     advanceFrames(motion, 30); // 1.82s
     QVERIFY(!motion.memoMotionActive());
@@ -509,10 +509,11 @@ void ParameterMotionTest::memoGazeFollowsNoteRise() {
     advanceFrames(motion, 10);
     QVERIFY(motion.memoMotionActive());
     QVERIFY(motion.values().value(QStringLiteral("ParamLaptopVisible")) > 0.99);
-    // Completion beat: smile and nod, then the overlay is done.
+    // Completion beat: open-mouth laugh (two bobs on the smile art) and nod.
     motion.beginMemoCelebrate();
-    advanceFrames(motion, 12); // 0.24s
-    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.3);
+    advanceFrames(motion, 12); // 0.24s, mid "ha-ha"
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.6);
+    QVERIFY(motion.values().value(QStringLiteral("ParamMouthOpenY")) > 0.4);
     QVERIFY(motion.values().value(QStringLiteral("ParamAngleY")) < -1.0);
     advanceFrames(motion, 30); // 0.84s
     QVERIFY(!motion.memoMotionActive());

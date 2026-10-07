@@ -821,9 +821,24 @@ void ParameterMotion::applyMemoMotion(Parameters& desired) const {
         desired.value(QStringLiteral("ParamEyeBallX")) + memoLookX_, -1.0, 1.0);
     desired[QStringLiteral("ParamEyeBallY")] = std::clamp(
         desired.value(QStringLiteral("ParamEyeBallY")) + memoLookY_, -1.0, 1.0);
-    if (memoPhase_ == MemoPhase::User)
+    if (memoPhase_ == MemoPhase::User) {
+        // Open "ha-ha" laugh on the approved smile art: full smile eyes, the
+        // deformable open-smile mouth (SmileOpen=1), and two quick open-close
+        // bobs riding the nod. With no gape selected the canvas gate lets
+        // MouthOpenY through only while the smile art is on, so the bobs are
+        // authored here and stay clean everywhere else. SmileOpen remains
+        // selected after the bobs: the beat ends on a wide grin instead of
+        // snapping back to the resting omega mid-smile.
         desired[QStringLiteral("ParamEyeSmile")] = std::max(
-            desired.value(QStringLiteral("ParamEyeSmile")), 0.4);
+            desired.value(QStringLiteral("ParamEyeSmile")), 1.0);
+        desired[QStringLiteral("ParamSmileOpen")] = 1.0;
+        if (memoNodTime_ > 0.0) {
+            const double p = 1.0 - memoNodTime_ / 0.6;
+            const double bob = std::sin(std::numbers::pi_v<double> * std::fmod(p * 2.0, 1.0));
+            const double mouthY = desired.contains(mouth) ? desired.value(mouth) : 0.0;
+            desired[mouth] = std::max(mouthY, bob);
+        }
+    }
     if (memoNodTime_ > 0.0) {
         const double p = 1.0 - memoNodTime_ / 0.6;
         auto angleY = desired.contains(QStringLiteral("ParamAngleY"))
