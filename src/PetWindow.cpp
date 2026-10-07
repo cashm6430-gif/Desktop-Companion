@@ -946,11 +946,20 @@ void PetWindow::constrainPositionToScreen() {
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        // The nap owns the click: touching the pet -- or the pillow, which is
-        // in the same mask -- wakes it, one eye first, then the other.
-        if (motion_.sleepMotionActive()) {
+        // Waking is deliberate: only a touch on the head (or the pillow, which
+        // sits next to the cheek) wakes the nap -- clicking the body or
+        // starting a window drag leaves her asleep.
+        if (motion_.sleepMotionActive()
+            && (isHeadAt(event->position())
+                || sleepPillowRect(QSizeF(size())).contains(event->position()))) {
             motion_.wakeFromSleep(true);
             updateInputTransparency();
+            event->accept();
+            return;
+        }
+        if (motion_.sleepMotionActive()) {
+            // A press elsewhere on the pet must not start a drag that fights
+            // the sleeping face: swallow it quietly.
             event->accept();
             return;
         }

@@ -1,6 +1,8 @@
 #include "ParameterMotion.h"
 
+#include <QCoreApplication>
 #include <QDebug>
+#include <QDateTime>
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -12,6 +14,18 @@
 #include <numbers>
 
 namespace {
+
+// Sleep lifecycle trace for desktop diagnosis (GUI exe has no stdout). One
+// line per phase change, next to the exe. Cheap enough to leave enabled.
+void sleepTrace(const QString& what) {
+    static QFile log(QCoreApplication::applicationDirPath()
+                     + QStringLiteral("/sleep_trace.log"));
+    if (!log.isOpen()) log.open(QIODevice::Append | QIODevice::Text);
+    if (log.isOpen())
+        log.write(qPrintable(QStringLiteral("[%1] %2\n")
+            .arg(QDateTime::currentMSecsSinceEpoch()).arg(what)));
+}
+
 const QString angleX = QStringLiteral("ParamAngleX");
 const QString angleY = QStringLiteral("ParamAngleY");
 const QString angleZ = QStringLiteral("ParamAngleZ");
@@ -232,8 +246,10 @@ void ParameterMotion::setState(PetController::State state) {
     // The nap yields to everything: a delete wakes first, a new turn or a
     // grass hand-off too -- the authored 0.8s wake plays while the event
     // action starts underneath, per the card's "wake before responding".
-    if (sleepMotionActive() && state != PetController::State::Idle)
+    if (sleepMotionActive() && state != PetController::State::Idle) {
+        sleepTrace(QStringLiteral("setState %1 -> wake").arg(int(state)));
         wakeFromSleep(false);
+    }
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     resetGrassInteraction();
@@ -791,6 +807,8 @@ double ParameterMotion::memoBubbleRise() const {
 // --- Pillow nap (motion card 8) ----------------------------------------------
 
 void ParameterMotion::beginSleepMotion() {
+    sleepTrace(QStringLiteral("begin (state=%1 laptop=%2)")
+        .arg(int(state_)).arg(laptopBusy_));
     sleepPhase_ = SleepPhase::Enter;
     sleepTime_ = 0.0;
     sleepBreathClock_ = 0.0;
@@ -799,12 +817,14 @@ void ParameterMotion::beginSleepMotion() {
 
 void ParameterMotion::wakeFromSleep(bool interactive) {
     if (sleepPhase_ == SleepPhase::None || sleepPhase_ == SleepPhase::Wake) return;
+    sleepTrace(QStringLiteral("wake interactive=%1").arg(interactive));
     sleepPhase_ = SleepPhase::Wake;
     sleepTime_ = 0.0;
     sleepWakeInteractive_ = interactive;
 }
 
 void ParameterMotion::cancelSleepMotion() {
+    sleepTrace(QStringLiteral("cancel"));
     sleepPhase_ = SleepPhase::None;
     sleepTime_ = 0.0;
     sleepWakeInteractive_ = false;
