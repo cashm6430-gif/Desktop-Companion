@@ -1,7 +1,7 @@
-# 挥手打招呼 r1 — 设计卡（2026-10-07 概念已批，运行时实现待真机审批）
+# 挥手打招呼 r1 — 设计卡（2026-10-07 已验收采用）
 
-状态：**概念审批通过（2026-10-07 用户「做吧」，未启用启动问候）→
-运行时实现完成，pending 真机视觉审批**。
+状态：**已验收采用（2026-10-07 用户真机批准）**。概念与运行时实现
+均通过；启动问候未启用（可选追加项，用户未要求）。
 实现：`src/motion/WaveBehavior.{h,cpp}`（Raise→SwingOut/SwingIn×2→
 Settle→Release 多通道状态机）+ `ParameterMotion` 转发（playWave/
 cancelWave/exitWave，离开 Idle 自动 Release、Delete/Grass 直接取消）+
