@@ -119,6 +119,10 @@ private:
     QRectF memoBubbleRect(const QSizeF& size, double rise) const;
     QRectF memoBadgeRect(const QSizeF& size) const;
     double memoEnvelope() const;
+    // Pillow nap (motion card 8). The pillow itself is window-layer art on the
+    // desk edge; the motion layer owns the sleeping face and the wake beats.
+    void drawSleepPillow(QPainter& painter, const QSize& size) const;
+    QRectF sleepPillowRect(const QSizeF& size) const;
     void advanceLiveFrame(double seconds);
     void playGrass();
     bool grassInteractionApproved() const;

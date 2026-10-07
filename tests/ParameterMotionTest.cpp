@@ -116,6 +116,7 @@ private slots:
     void stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping();
     void dragMotionFollowsAndSettlesWithoutSway();
     void memoGazeFollowsNoteRise();
+    void sleepMotionNapsWakesAndYieldsToEvents();
     void headPatHoldReleaseDirectionAndCooldown();
     void headPatWhileBusyLeavesHandsAndComputerAlone();
     void reactionInterruptionsKeepPoseContinuous();
@@ -521,6 +522,66 @@ void ParameterMotionTest::memoGazeFollowsNoteRise() {
     QVERIFY(motion.values().value(QStringLiteral("ParamAngleY")) < -1.0);
     advanceFrames(motion, 30); // 0.84s
     QVERIFY(!motion.memoMotionActive());
+}
+
+void ParameterMotionTest::sleepMotionNapsWakesAndYieldsToEvents() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    advanceFrames(motion, 50);
+    QVERIFY(!motion.sleepMotionActive());
+    QCOMPARE(motion.sleepPillowEnvelope(), 0.0);
+
+    // Enter: the pillow floats in, eyes half-close, the head starts tipping.
+    motion.beginSleepMotion();
+    advanceFrames(motion, 20); // 0.4s, past the generic value blend lag
+    QVERIFY(motion.sleepPillowEnvelope() > 0.3 && motion.sleepPillowEnvelope() < 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamAngleZ")) > 0.5);
+
+    // Asleep: eyes closed, slow breath on its own clock.
+    advanceFrames(motion, 40); // 1.0s total
+    QVERIFY(motion.sleepMotionActive());
+    QCOMPARE(motion.sleepPillowEnvelope(), 1.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) < 0.1);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) < 0.1);
+    const double sleepingBreath = motion.values().value(QStringLiteral("ParamBreath"));
+    QVERIFY(sleepingBreath > 0.1 && sleepingBreath < 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamAngleZ")) > 4.0);
+
+    // Non-interactive wake (a new turn / an event): 0.8s, then clean handback.
+    motion.wakeFromSleep(false);
+    advanceFrames(motion, 45); // 0.9s
+    QVERIFY(!motion.sleepMotionActive());
+    QCOMPARE(motion.sleepPillowEnvelope(), 0.0);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.85);
+
+    // Interactive wake: one eye first, then the other. Timed past the 4.3s
+    // procedural blink pulse so the blink multiply cannot close the eye under
+    // test.
+    motion.beginSleepMotion();
+    advanceFrames(motion, 50); // into Asleep
+    motion.wakeFromSleep(true);
+    advanceFrames(motion, 20); // 0.4s: the left eye is opening, the right waits
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) < 0.1);
+    advanceFrames(motion, 10); // 0.6s: the left eye fully open
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) < 0.6);
+    advanceFrames(motion, 25); // 1.1s: wake finished, both eyes handed back
+    QVERIFY(!motion.sleepMotionActive());
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeROpen")) > 0.9);
+
+    // A busy turn arriving mid-nap wakes it by itself and the typing owns the
+    // face afterwards -- the sleep overlay must never outlive the state.
+    motion.beginSleepMotion();
+    advanceFrames(motion, 30);
+    motion.setState(PetController::State::Busy);
+    QVERIFY(motion.sleepMotionActive()); // waking, not cancelled outright
+    advanceFrames(motion, 45); // 0.9s
+    QVERIFY(!motion.sleepMotionActive());
+    QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.8);
 }
 
 void ParameterMotionTest::stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping() {

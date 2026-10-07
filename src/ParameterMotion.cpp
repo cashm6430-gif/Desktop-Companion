@@ -229,6 +229,11 @@ void ParameterMotion::setState(PetController::State state) {
     if (memoMotionActive() && (state == PetController::State::Delete
                                || state == PetController::State::Grass))
         cancelMemoMotion();
+    // The nap yields to everything: a delete wakes first, a new turn or a
+    // grass hand-off too -- the authored 0.8s wake plays while the event
+    // action starts underneath, per the card's "wake before responding".
+    if (sleepMotionActive() && state != PetController::State::Idle)
+        wakeFromSleep(false);
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
     resetGrassInteraction();
@@ -783,6 +788,91 @@ double ParameterMotion::memoBubbleRise() const {
     }
 }
 
+// --- Pillow nap (motion card 8) ----------------------------------------------
+
+void ParameterMotion::beginSleepMotion() {
+    sleepPhase_ = SleepPhase::Enter;
+    sleepTime_ = 0.0;
+    sleepBreathClock_ = 0.0;
+    sleepWakeInteractive_ = false;
+}
+
+void ParameterMotion::wakeFromSleep(bool interactive) {
+    if (sleepPhase_ == SleepPhase::None || sleepPhase_ == SleepPhase::Wake) return;
+    sleepPhase_ = SleepPhase::Wake;
+    sleepTime_ = 0.0;
+    sleepWakeInteractive_ = interactive;
+}
+
+void ParameterMotion::cancelSleepMotion() {
+    sleepPhase_ = SleepPhase::None;
+    sleepTime_ = 0.0;
+    sleepWakeInteractive_ = false;
+}
+
+double ParameterMotion::sleepPillowEnvelope() const {
+    switch (sleepPhase_) {
+    case SleepPhase::Enter:
+        return smooth(std::clamp(sleepTime_ / kSleepEnterEnd, 0.0, 1.0));
+    case SleepPhase::Asleep:
+        return 1.0;
+    case SleepPhase::Wake:
+        return 1.0 - smooth(std::clamp(sleepTime_ / kSleepWakeEnd, 0.0, 1.0));
+    default:
+        return 0.0;
+    }
+}
+
+void ParameterMotion::advanceSleepMotion(double seconds) {
+    if (sleepPhase_ == SleepPhase::None) return;
+    sleepTime_ += seconds;
+    if (sleepPhase_ == SleepPhase::Asleep) sleepBreathClock_ += seconds;
+    if (sleepPhase_ == SleepPhase::Enter && sleepTime_ >= kSleepEnterEnd) {
+        sleepPhase_ = SleepPhase::Asleep;
+        sleepTime_ = 0.0;
+    } else if (sleepPhase_ == SleepPhase::Wake && sleepTime_ >= kSleepWakeEnd) {
+        cancelSleepMotion();
+    }
+}
+
+void ParameterMotion::applySleepMotion(Parameters& desired) const {
+    if (sleepPhase_ == SleepPhase::None) return;
+    const double tip = 6.0; // head tip toward the pillow, Cubism AngleZ units
+    if (sleepPhase_ == SleepPhase::Enter) {
+        // Eyes half-close first; full closure lands one beat later in Asleep.
+        const double p = smooth(std::clamp(sleepTime_ / kSleepEnterEnd, 0.0, 1.0));
+        desired[leftEye] = std::min(desired.value(leftEye), 1.0 - 0.45 * p);
+        desired[rightEye] = std::min(desired.value(rightEye), 1.0 - 0.45 * p);
+        desired[angleZ] += tip * p;
+    } else if (sleepPhase_ == SleepPhase::Asleep) {
+        // Sleeping face: closed eyes, a faint smile, head tipped onto the
+        // pillow. The breath gets its own slow clock (~7s cycle) with a small
+        // body rise on the same phase -- much slower than the idle base.
+        desired[leftEye] = 0.0;
+        desired[rightEye] = 0.0;
+        desired[QStringLiteral("ParamEyeSmile")] = std::max(
+            desired.value(QStringLiteral("ParamEyeSmile")), 0.25);
+        desired[angleZ] += tip;
+        desired[breath] = 0.5 + 0.3 * qSin(sleepBreathClock_ * 0.9);
+        desired[bodyY] += 0.6 * qSin(sleepBreathClock_ * 0.9);
+    } else { // Wake
+        const double p = std::clamp(sleepTime_ / kSleepWakeEnd, 0.0, 1.0);
+        desired[angleZ] += tip * (1.0 - smooth(p));
+        if (sleepWakeInteractive_) {
+            // Clicked awake: one eye first, then the other, per the card.
+            // Assigned, not maxed: the idle base has the eyes fully open and
+            // the staged targets must own both channels while waking.
+            const double leftOpen = smooth(std::clamp(sleepTime_ / 0.25, 0.0, 1.0));
+            const double rightOpen = smooth(std::clamp((sleepTime_ - 0.45) / 0.35, 0.0, 1.0));
+            desired[leftEye] = leftOpen;
+            desired[rightEye] = rightOpen;
+        }
+        // Non-interactive wake (a new turn or an event): the generic 0.12s
+        // blend already reopens the eyes quickly; only the head tip and the
+        // pillow envelope need the authored 0.8s handback.
+    }
+}
+
 void ParameterMotion::advanceMemoMotion(double seconds) {
     if (memoPhase_ == MemoPhase::None) return;
     memoTime_ += seconds;
@@ -1097,6 +1187,7 @@ void ParameterMotion::advance(double seconds) {
     advanceGrassInteraction(seconds);
     advanceDragMotion(seconds);
     advanceMemoMotion(seconds);
+    advanceSleepMotion(seconds);
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1260,6 +1351,7 @@ void ParameterMotion::advance(double seconds) {
     applyInteraction(desired);
     applyDragMotion(desired);
     applyMemoMotion(desired);
+    applySleepMotion(desired);
 
     // The thinking bubble belongs to the standing busy variant alone: the seated
     // variant already tells its story with the laptop, and a delete swing is

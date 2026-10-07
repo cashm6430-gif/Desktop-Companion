@@ -98,6 +98,19 @@ public:
     // layer holds it at 1 once the overlay ends so the note stays up.
     double memoBubbleRise() const;
 
+    // Pillow nap at the desk edge (motion card 8). A sustained overlay: eyes
+    // half-close while the head tips toward the pillow, then full sleep with a
+    // slow breath on its own clock. Clicking the pet wakes it interactively
+    // (one eye first, then the other); a new turn or a delete/grass event
+    // wakes it non-interactively over the same authored 0.8s while the event
+    // action starts underneath. No new art -- the pillow itself is window-layer.
+    void beginSleepMotion();
+    void wakeFromSleep(bool interactive);
+    void cancelSleepMotion();
+    bool sleepMotionActive() const { return sleepPhase_ != SleepPhase::None; }
+    // 0..1 pillow visibility envelope, in step with the enter/wake phases.
+    double sleepPillowEnvelope() const;
+
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
@@ -145,6 +158,8 @@ private:
     void advanceDragMotion(double seconds);
     void advanceMemoMotion(double seconds);
     void applyMemoMotion(Parameters& desired) const;
+    void advanceSleepMotion(double seconds);
+    void applySleepMotion(Parameters& desired) const;
     void captureInteractionSeat();
     bool configureGrassInteraction(const QString& directory, QString* error);
     void resetGrassInteraction();
@@ -198,6 +213,16 @@ private:
     // The delighted laugh (closed smiling eyes + O mouth) belongs to the
     // completion beat only. Creating a note ends on a soft smile.
     bool memoLaugh_ = false;
+
+    enum class SleepPhase { None, Enter, Asleep, Wake };
+    // Authored beats: 0.8s settle onto the pillow, sleep until woken, 0.8s
+    // wake-up (a new start shortens waking to this per the card).
+    static constexpr double kSleepEnterEnd = 0.8;
+    static constexpr double kSleepWakeEnd = 0.8;
+    SleepPhase sleepPhase_ = SleepPhase::None;
+    double sleepTime_ = 0.0;                            // phase-local clock
+    double sleepBreathClock_ = 0.0;                     // own slow breath, ~7s cycle
+    bool sleepWakeInteractive_ = false;
 
     enum class Interaction { None, TurnEnded, HeadPat, Stretch };
     MotionClip turnEndedClip_;

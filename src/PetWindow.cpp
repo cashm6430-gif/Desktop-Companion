@@ -326,7 +326,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (controller_->state() != PetController::State::Busy) return;
         motion_.playStretch();
     });
+    trayMenu_.addAction(QStringLiteral("眯一会儿（小枕头）"), this, [this] {
+        // Napping happens at the desk edge, so only the seated idle qualifies.
+        if (controller_->state() != PetController::State::Idle
+            || motion_.sleepMotionActive()) return;
+        motion_.beginSleepMotion();
+    });
     trayMenu_.addAction(QStringLiteral("放个便笺…"), this, [this] {
+        if (motion_.sleepMotionActive()) return;
         const QString text = QInputDialog::getMultiLineText(this, QStringLiteral("便笺"),
             QStringLiteral("这件小事，先替你放这里："), memoText_);
         if (text.trimmed().isEmpty()) return;
@@ -335,6 +342,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
     trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
+        if (motion_.sleepMotionActive()) return;
         setInteractionPreviewEnabled(true);
         if (motion_.beginHeadPat(1.0)) patPreviewTimer_.start(1600);
     });
@@ -533,6 +541,8 @@ QImage PetWindow::frameWithBubble(const QImage& frame, double pulse) const {
     // The sticky note rides the same composition path so the interaction mask
     // (built from the composed frame) makes exactly the paper clickable.
     drawMemoNote(painter, composed.size());
+    // Same for the pillow: in the mask, so clicking it wakes the nap.
+    drawSleepPillow(painter, composed.size());
     return composed;
 }
 
@@ -643,6 +653,38 @@ bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos
         return true;
     }
     return false;
+}
+
+// --- Pillow nap (motion card 8) ----------------------------------------------
+
+QRectF PetWindow::sleepPillowRect(const QSizeF& s) const {
+    // On the desk edge next to the cheek (the head tips the same way); clear
+    // of the memo bubble (0.68) and corner badge (0.82).
+    const double w = s.width() * 0.30;
+    const double h = s.height() * 0.085;
+    const double cx = s.width() * 0.70;
+    const double cy = s.height() * 0.545;
+    return QRectF(cx - w / 2.0, cy - h / 2.0, w, h);
+}
+
+void PetWindow::drawSleepPillow(QPainter& painter, const QSize& size) const {
+    const double envelope = motion_.sleepPillowEnvelope();
+    if (envelope <= 0.001) return;
+    const QRectF rect = sleepPillowRect(QSizeF(size));
+    painter.save();
+    painter.setOpacity(std::clamp(envelope * 2.0, 0.0, 1.0));
+    // Floats the last stretch up onto the desk with the enter phase.
+    painter.translate(0.0, (1.0 - envelope) * rect.height() * 0.8);
+    // A plump single pillow: rounded body, soft outline, one sheen stripe.
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setPen(QPen(QColor(92, 116, 172), 2.0));
+    painter.setBrush(QColor(197, 212, 244));
+    painter.drawRoundedRect(rect, rect.height() * 0.55, rect.height() * 0.55);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor(255, 255, 255, 105));
+    painter.drawEllipse(rect.adjusted(rect.width() * 0.14, rect.height() * 0.18,
+                                      -rect.width() * 0.58, -rect.height() * 0.28));
+    painter.restore();
 }
 
 void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon) {
@@ -900,6 +942,14 @@ void PetWindow::constrainPositionToScreen() {
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
+        // The nap owns the click: touching the pet -- or the pillow, which is
+        // in the same mask -- wakes it, one eye first, then the other.
+        if (motion_.sleepMotionActive()) {
+            motion_.wakeFromSleep(true);
+            updateInputTransparency();
+            event->accept();
+            return;
+        }
         // The sticky note owns its paper: clicking it never starts a drag.
         if (handleMemoPress(event->position(), event->globalPosition().toPoint())) {
             event->accept();
@@ -965,6 +1015,13 @@ void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
 void PetWindow::mouseDoubleClickEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         if (motion_.grassInteractionActive()) {
+            event->accept();
+            return;
+        }
+        if (motion_.sleepMotionActive()) {
+            // The press already woke the nap; the double-click must not
+            // start the grass play through it.
+            motion_.wakeFromSleep(true);
             event->accept();
             return;
         }
