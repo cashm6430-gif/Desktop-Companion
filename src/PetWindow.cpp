@@ -709,7 +709,7 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     // The mask settles onto the face during the enter phase (slides the last
     // stretch down from the forehead) and tips with the head -- pivot on the
     // eye line itself so the cloth hugs the face instead of swinging.
-    const QPointF faceCenter(s.width() * 0.475, s.height() * 0.418);
+    const QPointF faceCenter(s.width() * 0.49, s.height() * 0.418);
     painter.translate(faceCenter);
     painter.rotate(2.5 * envelope);
     painter.translate(-faceCenter.x(), -faceCenter.y() - (1.0 - envelope) * s.height() * 0.07);
@@ -717,7 +717,7 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     const double eyeY = s.height() * 0.418;
     const double maskW = s.width() * 0.29;
     const double maskH = s.height() * 0.088;
-    const double cx = s.width() * 0.475;
+    const double cx = s.width() * 0.49;
 
     // Strap first: a soft band running into the hair on both sides, behind
     // the cloth.
@@ -725,8 +725,8 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     strapPen.setCapStyle(Qt::RoundCap);
     painter.setPen(strapPen);
     painter.setBrush(Qt::NoBrush);
-    painter.drawLine(QPointF(s.width() * 0.290, eyeY - s.height() * 0.003),
-                     QPointF(s.width() * 0.665, eyeY - s.height() * 0.003));
+    painter.drawLine(QPointF(s.width() * 0.305, eyeY - s.height() * 0.003),
+                     QPointF(s.width() * 0.68, eyeY - s.height() * 0.003));
 
     // One piece of soft cloth across both eyes -- the classic sleep-mask
     // silhouette: a plump lozenge with a small nose notch at the bottom
@@ -750,6 +750,31 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     painter.setPen(Qt::NoPen);
     painter.setBrush(QColor(255, 255, 255, 50));
     painter.drawEllipse(cloth.adjusted(maskW * 0.10, maskH * 0.18, -maskW * 0.58, -maskH * 0.48));
+
+    // DeepSeek whale mark on the right of the cloth: a small white silhouette
+    // (rounded head, tapering body, twin tail flukes, one eye), echoing the
+    // whale emblem on the desk front. Drawn in a unit box then scaled, so the
+    // mark rides the mask's enter slide and head tip for free.
+    painter.save();
+    painter.translate(cx + maskW * 0.27, eyeY + maskH * 0.02);
+    const double markH = maskH * 0.52;
+    painter.scale(markH, markH); // unit box: roughly [-1.1, 1.1] x [-0.6, 0.6]
+    QPainterPath whale;
+    whale.moveTo(-1.05, 0.10);                                  // nose tip
+    whale.cubicTo(-1.05, -0.42, -0.30, -0.58, 0.30, -0.34);     // over the back
+    whale.cubicTo(0.58, -0.24, 0.70, -0.16, 0.82, -0.10);       // into the tail joint
+    whale.lineTo(1.10, -0.44);                                  // upper fluke tip
+    whale.cubicTo(1.02, -0.10, 1.02, 0.02, 1.06, 0.14);         // fluke notch
+    whale.lineTo(0.72, 0.10);                                   // back to the joint
+    whale.cubicTo(0.40, 0.34, -0.20, 0.52, -0.62, 0.38);        // along the belly
+    whale.cubicTo(-0.90, 0.28, -1.05, 0.22, -1.05, 0.10);       // back to the nose
+    whale.closeSubpath();
+    painter.setBrush(QColor(245, 249, 255, 215));
+    painter.setPen(Qt::NoPen);
+    painter.drawPath(whale);
+    painter.setBrush(QColor(74, 100, 164));                     // eye, cloth-navy
+    painter.drawEllipse(QPointF(-0.60, -0.02), 0.085, 0.085);
+    painter.restore();
     painter.restore();
 
     // Fully asleep: the zzz cloud pops in where the "?" bubble lives, gently
