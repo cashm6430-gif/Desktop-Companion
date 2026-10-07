@@ -328,6 +328,24 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (interactionPreviewEnabled_ && controller_->state() == PetController::State::Idle)
             motion_.playTurnEnded();
     });
+    // A real turn just ended: like an assistant pinning a note before leaving,
+    // a turn that actually worked for a while folds a small summary onto the
+    // desk corner. It starts as the badge (no float-up, no gaze beat -- the
+    // turn-ended animation owns the moment), and clicking the badge re-opens
+    // it with the usual memo interaction. The user's own note always wins.
+    connect(controller_, &PetController::turnEnded, this, [this](const QString&, qint64 workedMs) {
+        constexpr qint64 kMinAutoNoteMs = 30 * 1000;
+        if (workedMs < kMinAutoNoteMs) return;
+        if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
+        const qint64 secs = workedMs / 1000;
+        memoText_ = QStringLiteral("✓ %1 · 这轮忙了 %2 分 %3 秒")
+            .arg(QDateTime::currentDateTime().toString(QStringLiteral("HH:mm")))
+            .arg(secs / 60)
+            .arg(secs % 60, 2, 10, QChar('0'));
+        memoVisual_ = MemoVisual::Badge;
+        memoRiseSeen_ = false;
+        memoVisualClock_.restart();
+    });
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;

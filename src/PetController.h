@@ -65,6 +65,10 @@ signals:
     // background state has already been restored when this is emitted.
     // Session cleanup, expiry and manual reset deliberately stay silent.
     void allTurnsStopped();
+    // A single accepted turn ended (real stop only, like allTurnsStopped).
+    // `workedMs` is how long the turn had been active -- the window layer
+    // turns real work into an automatic desk-corner summary note.
+    void turnEnded(const QString& sessionId, qint64 workedMs);
     // Fired once per accepted eat trigger, right after the delete state is
     // entered. `file` is the dropped or deleted file (empty for the manual
     // tray trigger), `sourcePos` the on-desktop position the file's icon sat

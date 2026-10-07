@@ -53,9 +53,14 @@ void PetController::turnStarted(const QString& sessionId, const QString& turnId)
 }
 
 void PetController::turnStopped(const QString& sessionId, const QString& turnId) {
-    const bool removedExact = activeTurns_.remove(sessionId + QChar::Null + turnId) != 0;
-    bool removed = removedExact;
-    if (!removedExact && turnId.isEmpty()) {
+    qint64 endedStartedMs = -1;
+    const QString exactKey = sessionId + QChar::Null + turnId;
+    if (activeTurns_.contains(exactKey)) {
+        endedStartedMs = activeTurns_.value(exactKey);
+        activeTurns_.remove(exactKey);
+    }
+    bool removed = endedStartedMs >= 0;
+    if (!removed && turnId.isEmpty()) {
         // Harness stop hooks (e.g. WorkBuddy Stop) carry session_id only and no
         // turn_id; end the session's most recent turn so the clock winds down.
         const QString prefix = sessionId + QChar::Null;
@@ -70,11 +75,15 @@ void PetController::turnStopped(const QString& sessionId, const QString& turnId)
         }
         if (!latest.isEmpty()) {
             activeTurns_.remove(latest);
+            endedStartedMs = latestMs;
             removed = true;
         }
     }
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
-    if (removed && activeTurns_.isEmpty()) emit allTurnsStopped();
+    if (removed) {
+        if (activeTurns_.isEmpty()) emit allTurnsStopped();
+        emit turnEnded(sessionId, qMax<qint64>(0, QDateTime::currentMSecsSinceEpoch() - endedStartedMs));
+    }
 }
 
 void PetController::sessionEnded(const QString& sessionId) {

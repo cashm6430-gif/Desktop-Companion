@@ -15,6 +15,7 @@ private slots:
     void eatTriggeredCarriesSourcePayload();
     void allTurnsStoppedFollowsBackgroundState();
     void unknownAndDuplicateStopsAreSilent();
+    void turnEndedCarriesWorkedMs();
     void cleanupAndResetAreSilent();
     void lastStopDuringForegroundAction();
     void interactiveGrassTracksBackgroundTurns();
@@ -100,6 +101,28 @@ void PetControllerTest::unknownAndDuplicateStopsAreSilent() {
     QCOMPARE(completed.size(), 1);
     controller.turnStopped("a", "1");
     QCOMPARE(completed.size(), 1);
+}
+
+void PetControllerTest::turnEndedCarriesWorkedMs() {
+    PetController controller;
+    QSignalSpy ended(&controller, &PetController::turnEnded);
+    // A real stop reports how long the turn worked; unknown stops stay silent.
+    controller.turnStarted("s", "1");
+    QTest::qWait(40);
+    controller.turnStopped("s", "1");
+    QCOMPARE(ended.size(), 1);
+    QVERIFY(ended.first().at(1).toLongLong() >= 35);
+    // Duplicate and unknown stops do not report a second time.
+    controller.turnStopped("s", "1");
+    controller.turnStopped("s", QString());
+    QCOMPARE(ended.size(), 1);
+    // The session_id-only stop path (WorkBuddy Stop hooks) reports too.
+    controller.turnStarted("s", "2");
+    QTest::qWait(10);
+    controller.turnStopped("s", QString());
+    QCOMPARE(ended.size(), 2);
+    QVERIFY(ended.last().at(1).toLongLong() >= 5);
+    QCOMPARE(ended.last().at(0).toString(), QStringLiteral("s"));
 }
 
 void PetControllerTest::cleanupAndResetAreSilent() {
