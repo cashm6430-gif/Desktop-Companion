@@ -709,7 +709,7 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     // The mask settles onto the face during the enter phase (slides the last
     // stretch down from the forehead) and tips with the head -- pivot on the
     // eye line itself so the cloth hugs the face instead of swinging.
-    const QPointF faceCenter(s.width() * 0.49, s.height() * 0.418);
+    const QPointF faceCenter(s.width() * 0.507, s.height() * 0.418);
     painter.translate(faceCenter);
     painter.rotate(2.5 * envelope);
     painter.translate(-faceCenter.x(), -faceCenter.y() - (1.0 - envelope) * s.height() * 0.07);
@@ -717,7 +717,7 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     const double eyeY = s.height() * 0.418;
     const double maskW = s.width() * 0.29;
     const double maskH = s.height() * 0.088;
-    const double cx = s.width() * 0.49;
+    const double cx = s.width() * 0.507;
 
     // Strap first: a soft band running into the hair on both sides, behind
     // the cloth.
@@ -725,8 +725,8 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
     strapPen.setCapStyle(Qt::RoundCap);
     painter.setPen(strapPen);
     painter.setBrush(Qt::NoBrush);
-    painter.drawLine(QPointF(s.width() * 0.305, eyeY - s.height() * 0.003),
-                     QPointF(s.width() * 0.68, eyeY - s.height() * 0.003));
+    painter.drawLine(QPointF(s.width() * 0.322, eyeY - s.height() * 0.003),
+                     QPointF(s.width() * 0.697, eyeY - s.height() * 0.003));
 
     // One piece of soft cloth across both eyes -- the classic sleep-mask
     // silhouette: a plump lozenge with a small nose notch at the bottom
