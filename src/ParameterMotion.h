@@ -168,10 +168,19 @@ private:
     void captureInteractionSeat();
     void advanceDeskWork(double seconds, const Parameters& previous);
 
-    enum class DeskPhase { Hidden, EnterCover, Work, ExitWork, ExitCover };
+    // Card-approved choreography: she sits down in full view, then the desk
+    // and laptop arrive; leaving reverses it (desk first, then she stands).
+    // ExitCover remains only for interrupted exits, which recover the whole
+    // posture behind the opaque cover exactly as before.
+    enum class DeskPhase { Hidden, SitDown, EnterCover, Work, ExitWork, ExitReveal, SitUp, ExitCover };
     bool deskWorkMode_ = false;
     DeskPhase deskPhase_ = DeskPhase::Hidden;
     double deskVisible_ = 0.0;
+    // Visible sit ramp: from -> to over duration, smoothed. Clock counts up.
+    double deskSitFrom_ = 0.0;
+    double deskSitTo_ = 0.0;
+    double deskSitClock_ = 0.0;
+    double deskSitDuration_ = 0.0;
 
     bool actionFinishedReported_ = false;
 

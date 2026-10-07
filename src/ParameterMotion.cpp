@@ -623,38 +623,95 @@ void ParameterMotion::setDeskWorkMode(bool enabled) {
 
 void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous) {
     constexpr double coverSeconds = 0.18;
+    constexpr double sitDownSeconds = 0.7;
+    constexpr double sitUpSeconds = 0.55;
+    constexpr double interruptSitSeconds = 0.18;
     constexpr double settled = 0.001;
     const bool interrupted = state_ == PetController::State::Delete
         || state_ == PetController::State::Grass;
     const bool keepReactionDesk = interactionActive() && deskVisible_ > 0.0;
-    // The nap is also a desk scene (seated at the table, no laptop): the
-    // same cover/recover ordering owns the sit-down and the stand-back-up.
+    // The nap is also a desk scene (seated at the table, no laptop): the same
+    // sit-down / stand-back-up choreography owns the posture both ways.
     const bool workWanted = (state_ == PetController::State::Busy && laptopBusy_)
         || keepReactionDesk || sleepMotionActive();
-    const auto holdPosture = [&] {
-        for (const QString& id : deskPostureChannels())
+    const auto holdPosture = [&](const QString& except = {}) {
+        for (const QString& id : deskPostureChannels()) {
+            if (id == except) continue;
             values_[id] = previous.value(id);
+        }
     };
     const auto recover = [&](const QString& id, double tau) {
         const double value = previous.value(id) * qExp(-seconds / tau);
         values_[id] = std::abs(value) <= settled ? 0.0 : value;
     };
+    // The visible sit ramp. The machine writes the final value every frame,
+    // after the blend layer, so it always wins over desired-side blending.
+    const auto startSit = [&](double from, double to, double duration) {
+        deskSitFrom_ = from;
+        deskSitTo_ = to;
+        deskSitClock_ = 0.0;
+        deskSitDuration_ = duration;
+    };
+    const auto sitValue = [&]() {
+        const double p = motion::smooth(std::clamp(deskSitClock_ / deskSitDuration_, 0.0, 1.0));
+        return deskSitFrom_ + (deskSitTo_ - deskSitFrom_) * p;
+    };
+    const auto sitDone = [&]() { return deskSitClock_ >= deskSitDuration_; };
 
     if (workWanted) {
-        if (deskPhase_ == DeskPhase::Hidden || deskPhase_ == DeskPhase::ExitCover)
-            deskPhase_ = DeskPhase::EnterCover;
-        else if (deskPhase_ == DeskPhase::ExitWork)
+        switch (deskPhase_) {
+        case DeskPhase::Hidden:
+            deskPhase_ = DeskPhase::SitDown;
+            startSit(0.0, 1.0, sitDownSeconds);
+            break;
+        case DeskPhase::SitUp:
+            deskPhase_ = DeskPhase::SitDown;
+            startSit(values_.value(QStringLiteral("ParamSitPose")), 1.0,
+                interrupted ? interruptSitSeconds : sitDownSeconds);
+            break;
+        case DeskPhase::ExitReveal:
+            deskPhase_ = DeskPhase::EnterCover; // Cover returns over the seat.
+            break;
+        case DeskPhase::ExitWork:
             deskPhase_ = DeskPhase::Work; // Cover is already opaque on reversal.
-    } else if (deskPhase_ == DeskPhase::EnterCover) {
-        deskPhase_ = DeskPhase::ExitCover; // A short task never starts its pose.
-    } else if (deskPhase_ == DeskPhase::Work) {
-        deskPhase_ = DeskPhase::ExitWork;
+            break;
+        default:
+            break;
+        }
+    } else {
+        switch (deskPhase_) {
+        case DeskPhase::SitDown:
+            deskPhase_ = DeskPhase::SitUp;
+            startSit(values_.value(QStringLiteral("ParamSitPose")), 0.0, sitUpSeconds);
+            break;
+        case DeskPhase::EnterCover:
+            deskPhase_ = DeskPhase::ExitReveal; // The seat already happened.
+            break;
+        case DeskPhase::Work:
+            deskPhase_ = DeskPhase::ExitWork;
+            break;
+        default:
+            break;
+        }
     }
+    if (interrupted && (deskPhase_ == DeskPhase::SitDown || deskPhase_ == DeskPhase::SitUp))
+        deskSitDuration_ = std::min(deskSitDuration_, interruptSitSeconds);
 
     switch (deskPhase_) {
     case DeskPhase::Hidden:
         deskVisible_ = 0.0;
         break;
+    case DeskPhase::SitDown: {
+        // Visible: the pet folds into the seat while the desk is still away.
+        // The busy texture stays standing (held) so the chest does not swap
+        // mid-descent; the collar affine follows SitPose via sitDrive.
+        deskVisible_ = 0.0;
+        holdPosture(QStringLiteral("ParamSitPose"));
+        deskSitClock_ += seconds;
+        values_[QStringLiteral("ParamSitPose")] = sitValue();
+        if (sitDone()) deskPhase_ = DeskPhase::EnterCover;
+        break;
+    }
     case DeskPhase::EnterCover:
         holdPosture();
         deskVisible_ = std::min(1.0, deskVisible_ + seconds / coverSeconds);
@@ -684,8 +741,14 @@ void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous
                 values_[id] = previous.value(id);
             break;
         }
-        for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose")})
-            recover(id, interrupted ? kDefaultBlend : blendSeconds_.value(id, 0.28));
+        // The natural stop recovers the chest/hands behind the still-opaque
+        // desk but keeps the seat itself; the interrupted stop recovers the
+        // whole posture (seat included) toward standing before the lift.
+        recover(QStringLiteral("ParamBusyLaptop"), interrupted ? kDefaultBlend : blendSeconds_.value(QStringLiteral("ParamBusyLaptop"), kDefaultBlend));
+        if (interrupted)
+            recover(QStringLiteral("ParamSitPose"), kDefaultBlend);
+        else
+            values_[QStringLiteral("ParamSitPose")] = 1.0; // Pinned against blending.
         // A foreground action starts on its original clock and owns its hands
         // immediately. Recovery of the covered posture adds no action delay.
         if (!interrupted) {
@@ -694,27 +757,60 @@ void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous
                 recover(id, kDefaultBlend);
         }
         bool neutral = values_.value(QStringLiteral("ParamBusyLaptop")) == 0.0
-            && values_.value(QStringLiteral("ParamSitPose")) == 0.0
             && values_.value(QStringLiteral("ParamLaptopVisible")) == 0.0
             && values_.value(QStringLiteral("ParamLaptopRock")) == 0.0;
         if (!interrupted) {
+            // Natural stop: the seat itself stays until the cover has lifted;
+            // only the chest/hands return to their standing context behind
+            // the still-opaque desk. SitPose is excluded from this check.
             for (const QString& id : {leftArm, rightArm, QStringLiteral("ParamElbowLA"),
                  QStringLiteral("ParamElbowRA"), QStringLiteral("ParamWristRA")})
                 neutral = neutral && values_.value(id) == 0.0;
+            if (neutral) deskPhase_ = DeskPhase::ExitReveal;
+        } else {
+            // Interrupted: recover the whole posture (seat included) behind
+            // the opaque cover, then lift it on a standing pose, as before.
+            neutral = neutral && values_.value(QStringLiteral("ParamSitPose")) == 0.0;
+            if (neutral) deskPhase_ = DeskPhase::ExitCover;
         }
-        if (neutral) deskPhase_ = DeskPhase::ExitCover;
+        break;
+    }
+    case DeskPhase::ExitReveal:
+        // The desk leaves first; the seated pose stays fully visible until
+        // the furniture is gone, then the stand-up plays in the open.
+        for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+             QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamBusyTypingL"),
+             QStringLiteral("ParamBusyTypingR"), QStringLiteral("ParamLaptopRock")})
+            if (id != QStringLiteral("ParamSitPose")) values_[id] = 0.0;
+        values_[QStringLiteral("ParamSitPose")] = 1.0; // Pinned against blending.
+        deskVisible_ = std::max(0.0, deskVisible_ - seconds / coverSeconds);
+        if (deskVisible_ == 0.0) {
+            deskPhase_ = DeskPhase::SitUp;
+            startSit(1.0, 0.0, sitUpSeconds);
+        }
+        break;
+    case DeskPhase::SitUp: {
+        // Visible stand-up with no desk. The chest/hand context returns to
+        // standing here too (a reversal may catch a blend in flight); the
+        // seat ramp is the only channel the machine drives.
+        deskVisible_ = 0.0;
+        for (const QString& id : {QStringLiteral("ParamBusyLaptop"),
+             QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamBusyTypingL"),
+             QStringLiteral("ParamBusyTypingR"), QStringLiteral("ParamLaptopRock")})
+            values_[id] = 0.0;
+        deskSitClock_ += seconds;
+        values_[QStringLiteral("ParamSitPose")] = sitValue();
+        if (sitDone()) deskPhase_ = DeskPhase::Hidden;
         break;
     }
     case DeskPhase::ExitCover:
-        // Foreground hands continue their action. All laptop/posture channels
-        // remain neutral while the last cover leaves.
+        // Interrupted exit only: all laptop/posture channels neutral behind
+        // the lifting cover. Background/action hands have already reached
+        // their safe standing context, or work never began.
         for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
              QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamBusyTypingL"),
              QStringLiteral("ParamBusyTypingR"), QStringLiteral("ParamLaptopRock")})
             values_[id] = 0.0;
-        // Background/action hands have already reached their safe standing
-        // context, or work never began. Let that owner blend continuously;
-        // canceling a partial entry must not snap standing gesture arms to zero.
         deskVisible_ = std::max(0.0, deskVisible_ - seconds / coverSeconds);
         if (deskVisible_ == 0.0) deskPhase_ = DeskPhase::Hidden;
         break;

@@ -782,7 +782,11 @@ void CubismCanvas::paintGL() {
         ? CubismPostureTransition::sampleAuthored(busyValue, sitValue)
         : CubismPostureTransition::sample(busyValue, sitValue);
     if (!posture.valid) return;
-    const double seatedMix = posture.seatedMix;
+    // The visible sit-down (card-approved: she sits before the desk arrives)
+    // descends the collar affine with logical SitPose; the busy texture mix
+    // keeps its own late gate. Whichever is further along owns the collar.
+    const double seatedMix = std::max(posture.seatedMix,
+        CubismPostureTransition::sitDrive(sitValue));
     const double seatedMaterial = posture.nativeMaterial();
     // MouthOpenY only ever shapes the bite art while its switch is on (or the
     // open-smile art, its legacy consumer). Two failure modes live on this
@@ -1164,7 +1168,9 @@ void CubismCanvas::paintGL() {
             colors.SetDrawableScreenColor(cloth, savedScreen);
             colors.SetDrawableMultiplyColorEnabled(cloth, multiplyEnabled);
             colors.SetDrawableScreenColorEnabled(cloth, screenEnabled);
-            opacities[cloth] = static_cast<float>(1.0 - seatedMix);
+            // The standing cloth tracks the busy texture mix only: during the
+            // visible SitPose descent the material gate is still standing.
+            opacities[cloth] = static_cast<float>(1.0 - posture.seatedMix);
             bodyRenderer->BindTexture(impl_->bodyTextureIndex, impl_->bodyTextures[impl_->bodyTextureIndex]);
         }
     }

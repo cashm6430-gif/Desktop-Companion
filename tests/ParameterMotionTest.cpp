@@ -103,8 +103,8 @@ private slots:
     void malformedMotionDoesNotReplaceLoadedKeys();
     void laptopSelectionAndInterruptions();
     void laptopTypingAndShortTaskExit();
-    void deskCoverPrecedesPoseAndLeavesLast();
-    void deskShortTasksAndReversalsStayCovered();
+    void deskSitPrecedesCoverAndLeavesLast();
+    void deskShortTasksReverseWithoutDesk();
     void deskVariantChangesAndReactionsKeepCover();
     void deskInterruptionsKeepActionHandsAndDeadlines();
     void deskDisabledPreservesExistingTrajectory();
@@ -1169,26 +1169,30 @@ void ParameterMotionTest::standingAccentKeepsMovingAfterOneCycle() {
     QVERIFY2(high - low > 12.0, qPrintable(QStringLiteral("%1..%2").arg(low).arg(high)));
 }
 
-void ParameterMotionTest::deskCoverPrecedesPoseAndLeavesLast() {
+void ParameterMotionTest::deskSitPrecedesCoverAndLeavesLast() {
     for (double step : {1.0 / 30.0, 1.0 / 60.0, 0.1}) {
         ParameterMotion motion;
         QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
         motion.setDeskWorkMode(true);
         motion.advance(step);
         motion.forceLaptopBusy();
-        bool sawCoverOnly = false, sawWork = false, sawTyping = false;
+        bool sawVisibleSit = false, sawCoverOnly = false, sawWork = false, sawTyping = false;
         for (int frame = 0; frame < static_cast<int>(3.0 / step); ++frame) {
             motion.advance(step);
             const auto pose = motion.values();
             const double cover = pose.value(QStringLiteral("ParamDeskVisible"));
+            const double sit = pose.value(QStringLiteral("ParamSitPose"));
             QVERIFY(cover >= 0.0 && cover <= 1.0);
             if (cover < 1.0) {
                 sawCoverOnly |= cover > 0.0;
+                sawVisibleSit |= cover == 0.0 && sit > 0.2 && sit < 1.0;
+                // The texture swap and the laptop wait for the opaque cover;
+                // the sit itself plays in the open before any furniture.
                 QCOMPARE(pose.value(QStringLiteral("ParamBusyLaptop")), 0.0);
-                QCOMPARE(pose.value(QStringLiteral("ParamSitPose")), 0.0);
                 QCOMPARE(pose.value(QStringLiteral("ParamLaptopVisible")), 0.0);
+                if (cover > 0.0) QCOMPARE(sit, 1.0);
             } else {
-                sawWork |= pose.value(QStringLiteral("ParamSitPose")) > 0.9;
+                sawWork |= sit > 0.9;
                 sawTyping |= pose.value(QStringLiteral("ParamBusyTypingR")) > 0.1;
             }
             if (pose.value(QStringLiteral("ParamLaptopVisible")) < 0.99) {
@@ -1196,29 +1200,36 @@ void ParameterMotionTest::deskCoverPrecedesPoseAndLeavesLast() {
                 QCOMPARE(pose.value(QStringLiteral("ParamBusyTypingR")), 0.0);
             }
         }
-        QVERIFY(sawCoverOnly && sawWork && sawTyping);
+        QVERIFY(sawVisibleSit && sawCoverOnly && sawWork && sawTyping);
         motion.setState(PetController::State::Idle);
-        bool sawPutAway = false, sawCoverExit = false;
+        bool sawPutAway = false, sawReveal = false, sawVisibleStand = false;
         for (int frame = 0; frame < static_cast<int>(4.0 / step); ++frame) {
             motion.advance(step);
             const auto pose = motion.values();
             const double cover = pose.value(QStringLiteral("ParamDeskVisible"));
+            const double sit = pose.value(QStringLiteral("ParamSitPose"));
             sawPutAway |= pose.value(QStringLiteral("ParamLaptopVisible")) < 0.9
-                && pose.value(QStringLiteral("ParamSitPose")) > 0.9;
-            if (cover < 1.0) {
-                sawCoverExit |= cover > 0.0;
-                for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
-                     QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamLaptopRock"),
-                     QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA")})
-                    QCOMPARE(pose.value(id), 0.0);
+                && sit > 0.9;
+            if (cover > 0.0 && cover < 1.0) {
+                sawReveal = true;
+                // The desk leaves before she stands: chest already standing,
+                // seat still held while the furniture is departing.
+                QCOMPARE(pose.value(QStringLiteral("ParamBusyLaptop")), 0.0);
+                QCOMPARE(pose.value(QStringLiteral("ParamLaptopVisible")), 0.0);
+                QCOMPARE(sit, 1.0);
+            }
+            if (cover == 0.0) {
+                sawVisibleStand |= sit > 0.0 && sit < 1.0;
+                QCOMPARE(pose.value(QStringLiteral("ParamBusyLaptop")), 0.0);
             }
         }
-        QVERIFY(sawPutAway && sawCoverExit);
+        QVERIFY(sawPutAway && sawReveal && sawVisibleStand);
         QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
     }
 }
 
-void ParameterMotionTest::deskShortTasksAndReversalsStayCovered() {
+void ParameterMotionTest::deskShortTasksReverseWithoutDesk() {
     ParameterMotion standing;
     QVERIFY(standing.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
     standing.setDeskWorkMode(true);
@@ -1232,57 +1243,58 @@ void ParameterMotionTest::deskShortTasksAndReversalsStayCovered() {
     standing.advance(0.02);
     QVERIFY(std::abs(standing.values().value(QStringLiteral("ParamArmLA"))) > 0.5);
     QVERIFY(std::abs(standing.values().value(QStringLiteral("ParamArmLA")) - gestureArm) < 3.0);
-    QCOMPARE(standing.values().value(QStringLiteral("ParamSitPose")), 0.0);
+    // A blip barely starts the visible sit ramp before the reversal.
+    QVERIFY(standing.values().value(QStringLiteral("ParamSitPose")) < 0.05);
 
+    // A task that ends mid-sit reverses in the open: no furniture is ever
+    // shown, and the partial seat ramps back to standing.
     ParameterMotion motion;
     QVERIFY(motion.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
     motion.setDeskWorkMode(true);
     motion.advance(0.02);
     motion.forceLaptopBusy();
-    advanceFrames(motion, 4); // Task ends before the cover reaches opacity one.
+    advanceFrames(motion, 12); // 0.24s into the 0.7s sit ramp.
     motion.setState(PetController::State::Idle);
-    advanceFrames(motion, 2);
-    const double partialCover = motion.values().value(QStringLiteral("ParamDeskVisible"));
-    QVERIFY(partialCover > 0.0 && partialCover < 1.0);
-    motion.forceLaptopBusy(); // Reverse the retracting partial cover.
-    motion.advance(0.02);
-    QVERIFY(motion.values().value(QStringLiteral("ParamDeskVisible")) > partialCover);
+    bool sawPartialSeat = false;
+    for (int frame = 0; frame < 80; ++frame) {
+        motion.advance(0.02);
+        const auto pose = motion.values();
+        sawPartialSeat |= pose.value(QStringLiteral("ParamSitPose")) > 0.05;
+        QCOMPARE(pose.value(QStringLiteral("ParamDeskVisible")), 0.0);
+        QCOMPARE(pose.value(QStringLiteral("ParamBusyLaptop")), 0.0);
+        QCOMPARE(pose.value(QStringLiteral("ParamLaptopVisible")), 0.0);
+    }
+    QVERIFY(sawPartialSeat);
     QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
-    advanceFrames(motion, 13);
-    QVERIFY(motion.values().value(QStringLiteral("ParamSitPose")) > 0.0);
-    motion.setState(PetController::State::Idle);
-    advanceFrames(motion, 4); // Partly seated exit, with no computer shown yet.
-    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
-    const double partialSit = motion.values().value(QStringLiteral("ParamSitPose"));
+
+    // A complete cycle: sit, work, then reverse out of the revealing desk.
     motion.forceLaptopBusy();
+    advanceFrames(motion, 60);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+    motion.setState(PetController::State::Idle);
+    advanceFrames(motion, 40); // Chest recovers behind the opaque desk.
+    motion.forceLaptopBusy(); // Work resumes while the desk was about to go.
     motion.advance(0.02);
     QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
-    QVERIFY(motion.values().value(QStringLiteral("ParamSitPose")) > partialSit);
-    advanceFrames(motion, 150);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 1.0);
+    advanceFrames(motion, 30);
     motion.setState(PetController::State::Idle);
-    bool reversedCoverExit = false;
-    for (int frame = 0; frame < 200; ++frame) {
+    bool sawReveal = false, sawVisibleStand = false;
+    for (int frame = 0; frame < 400; ++frame) {
         motion.advance(0.02);
-        const double cover = motion.values().value(QStringLiteral("ParamDeskVisible"));
+        const auto pose = motion.values();
+        const double cover = pose.value(QStringLiteral("ParamDeskVisible"));
+        const double sit = pose.value(QStringLiteral("ParamSitPose"));
         if (cover > 0.0 && cover < 1.0) {
-            QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
-            motion.forceLaptopBusy();
-            motion.advance(0.02);
-            QVERIFY(motion.values().value(QStringLiteral("ParamDeskVisible")) > cover);
-            QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
-            reversedCoverExit = true;
-            break;
+            sawReveal = true;
+            QCOMPARE(sit, 1.0);
         }
+        if (cover == 0.0) sawVisibleStand |= sit > 0.0 && sit < 1.0;
     }
-    QVERIFY(reversedCoverExit);
-    // Finish another short request while still covering: no posture may leak.
-    motion.setState(PetController::State::Idle);
-    for (int frame = 0; frame < 20; ++frame) {
-        motion.advance(0.02);
-        QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
-        QCOMPARE(motion.values().value(QStringLiteral("ParamBusyLaptop")), 0.0);
-    }
+    QVERIFY(sawReveal && sawVisibleStand);
     QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamBusyLaptop")), 0.0);
 }
 
 void ParameterMotionTest::deskVariantChangesAndReactionsKeepCover() {
@@ -1298,8 +1310,9 @@ void ParameterMotionTest::deskVariantChangesAndReactionsKeepCover() {
         const auto pose = variants.values();
         sawStandingChoice |= !variants.isLaptopBusy();
         sawDeskAbsent |= frame > 200 && pose.value(QStringLiteral("ParamDeskVisible")) == 0.0;
+        // The sit-down itself plays before the desk arrives, so only the
+        // texture/laptop engagement (not SitPose) requires the cover.
         if (pose.value(QStringLiteral("ParamBusyLaptop")) > 0.0
-            || pose.value(QStringLiteral("ParamSitPose")) > 0.0
             || pose.value(QStringLiteral("ParamLaptopVisible")) > 0.0)
             QCOMPARE(pose.value(QStringLiteral("ParamDeskVisible")), 1.0);
     }
@@ -1310,7 +1323,7 @@ void ParameterMotionTest::deskVariantChangesAndReactionsKeepCover() {
 
     QTemporaryDir dir;
     QVERIFY(writeReactionFixture(dir));
-    for (bool pat : {false, true}) for (int entryFrames : {4, 20, 200}) {
+    for (bool pat : {false, true}) for (int entryFrames : {60, 200}) {
         ParameterMotion reaction;
         QVERIFY(reaction.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
         QVERIFY(reaction.loadMotionLibrary(dir.path()));
@@ -1345,6 +1358,7 @@ void ParameterMotionTest::deskInterruptionsKeepActionHandsAndDeadlines() {
         desk.advance(0.02);
         desk.forceLaptopBusy();
         advanceFrames(desk, entryFrames);
+        const bool reachedSeat = desk.values().value(QStringLiteral("ParamDeskVisible")) > 0.99;
         auto pose = desk.values();
         pose.remove(QStringLiteral("ParamDeskVisible"));
         reference.setPreviewPose(pose);
@@ -1353,6 +1367,7 @@ void ParameterMotionTest::deskInterruptionsKeepActionHandsAndDeadlines() {
         QCOMPARE(desk.actionDuration(state), reference.actionDuration(state));
         int deskFinish = -1, referenceFinish = -1;
         bool sawCoverRelease = false;
+        bool releasedFullCover = false;
         for (int frame = 0; frame < 400; ++frame) {
             desk.advance(0.02);
             reference.advance(0.02);
@@ -1367,7 +1382,13 @@ void ParameterMotionTest::deskInterruptionsKeepActionHandsAndDeadlines() {
             if (deskFinished) deskFinish = frame;
             if (referenceFinished) referenceFinish = frame;
             const auto current = desk.values();
-            if (current.value(QStringLiteral("ParamDeskVisible")) < 1.0) {
+            releasedFullCover |= current.value(QStringLiteral("ParamDeskVisible")) > 0.99;
+            // A partial cover is the interrupted exit lifting: everything
+            // must already be neutral behind it. A bare open frame (the
+            // visible sit ramp) is not a cover release.
+            if (current.value(QStringLiteral("ParamDeskVisible")) < 1.0
+                && (releasedFullCover
+                    || current.value(QStringLiteral("ParamDeskVisible")) > 0.0)) {
                 sawCoverRelease = true;
                 QCOMPARE(current.value(QStringLiteral("ParamBusyLaptop")), 0.0);
                 QCOMPARE(current.value(QStringLiteral("ParamSitPose")), 0.0);
@@ -1375,11 +1396,14 @@ void ParameterMotionTest::deskInterruptionsKeepActionHandsAndDeadlines() {
             }
         }
         QVERIFY(deskFinish >= 0 && deskFinish == referenceFinish);
-        QVERIFY(sawCoverRelease);
+        if (reachedSeat) QVERIFY(sawCoverRelease);
         desk.setState(PetController::State::Busy); // Preserved laptop choice resumes.
         for (int frame = 0; frame < 100; ++frame) {
             desk.advance(0.02);
-            if (desk.values().value(QStringLiteral("ParamSitPose")) > 0.0)
+            // The visible sit ramp runs before the desk returns; only the
+            // texture/laptop engagement requires the cover.
+            if (desk.values().value(QStringLiteral("ParamBusyLaptop")) > 0.0
+                || desk.values().value(QStringLiteral("ParamLaptopVisible")) > 0.0)
                 QCOMPARE(desk.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
         }
         QVERIFY(desk.values().value(QStringLiteral("ParamSitPose")) > 0.99);

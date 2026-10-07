@@ -44,6 +44,15 @@ inline double smoothUnit(double value) {
     return value * value * (3.0 - 2.0 * value);
 }
 
+// How far the visible sit-down has progressed, from logical SitPose alone.
+// The card-approved choreography plays the descent before the desk arrives,
+// so the collar affine must track SitPose and not only the busy texture mix.
+// Starts late enough that the standing knees visibly fold first, completes
+// exactly at the 0.93 material handover so both bodies meet aligned.
+inline double sitDrive(double sit) {
+    return std::isfinite(sit) ? smoothUnit((sit - 0.55) / 0.38) : 0.0;
+}
+
 inline double authoredSkirtSpread(double sit) {
     return std::isfinite(sit) ? smoothUnit((sit - 0.10) / 0.55) : 0.0;
 }
