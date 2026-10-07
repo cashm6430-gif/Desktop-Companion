@@ -195,6 +195,9 @@ private:
     double memoUserEnd_ = kMemoUserEnd;                 // celebrate runs a shorter User beat
     double memoLookX_ = 0.0, memoLookY_ = 0.0;          // smoothed gaze, -1..1
     double memoNodTime_ = 0.0;                          // completion nod, counts down
+    // The delighted laugh (closed smiling eyes + O mouth) belongs to the
+    // completion beat only. Creating a note ends on a soft smile.
+    bool memoLaugh_ = false;
 
     enum class Interaction { None, TurnEnded, HeadPat, Stretch };
     MotionClip turnEndedClip_;

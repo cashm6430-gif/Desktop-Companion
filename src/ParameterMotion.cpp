@@ -750,6 +750,7 @@ void ParameterMotion::beginMemoMotion() {
     memoUserEnd_ = kMemoUserEnd;
     memoLookX_ = memoLookY_ = 0.0;
     memoNodTime_ = 0.0;
+    memoLaugh_ = false;
 }
 
 void ParameterMotion::beginMemoCelebrate() {
@@ -757,6 +758,7 @@ void ParameterMotion::beginMemoCelebrate() {
     memoTime_ = 0.0;
     memoUserEnd_ = 0.7;
     memoNodTime_ = 0.6;
+    memoLaugh_ = true;
 }
 
 void ParameterMotion::cancelMemoMotion() {
@@ -765,6 +767,7 @@ void ParameterMotion::cancelMemoMotion() {
     memoUserEnd_ = kMemoUserEnd;
     memoLookX_ = memoLookY_ = 0.0;
     memoNodTime_ = 0.0;
+    memoLaugh_ = false;
 }
 
 double ParameterMotion::memoBubbleRise() const {
@@ -822,16 +825,23 @@ void ParameterMotion::applyMemoMotion(Parameters& desired) const {
     desired[QStringLiteral("ParamEyeBallY")] = std::clamp(
         desired.value(QStringLiteral("ParamEyeBallY")) + memoLookY_, -1.0, 1.0);
     if (memoPhase_ == MemoPhase::User) {
-        // Delighted laugh, per feedback: smiling CLOSED eyes and a round
-        // O-shaped mouth -- the wide grin art read as creepy. The gape is the
-        // approved neutral "ah" art; the canvas gate holds MouthOpenY fully
-        // open while it is selected, so the O reads clean. The nod rides on
-        // top and gives the held laugh its motion.
-        desired[QStringLiteral("ParamEyeSmile")] = std::max(
-            desired.value(QStringLiteral("ParamEyeSmile")), 1.0);
-        desired[leftEye] = 0.0;
-        desired[rightEye] = 0.0;
-        desired[QStringLiteral("ParamMouthGape")] = 1.0;
+        if (memoLaugh_) {
+            // Completion beat only: delighted laugh -- smiling CLOSED eyes
+            // and a round O-shaped mouth (the wide grin art read as creepy).
+            // The gape is the approved neutral "ah" art; the canvas gate
+            // holds MouthOpenY fully open while it is selected, so the O
+            // reads clean. The nod rides on top.
+            desired[QStringLiteral("ParamEyeSmile")] = std::max(
+                desired.value(QStringLiteral("ParamEyeSmile")), 1.0);
+            desired[leftEye] = 0.0;
+            desired[rightEye] = 0.0;
+            desired[QStringLiteral("ParamMouthGape")] = 1.0;
+        } else {
+            // Creating a note: hand the face back with a soft smile, the
+            // eyes staying open -- the laugh is the completion reward.
+            desired[QStringLiteral("ParamEyeSmile")] = std::max(
+                desired.value(QStringLiteral("ParamEyeSmile")), 0.35);
+        }
     }
     if (memoNodTime_ > 0.0) {
         const double p = 1.0 - memoNodTime_ / 0.6;
