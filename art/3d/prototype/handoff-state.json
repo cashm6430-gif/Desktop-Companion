@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "route": "real_time_toon_3d",
- "status": "focus_gate_technical_checks_passed",
+ "status": "gate_a_closed_technical_and_manual_review_passed",
  "character": "technical_Q_proxy_not_approved_Whale_Girl",
  "production_backend_replaced": false,
  "tools": {
@@ -63,8 +63,8 @@
   "real_mouse_passthrough_and_drag": "pending"
  },
  "next_steps": [
-  "Complete manual visual review of the passing run (desktop compositing, real click/drag, DPI).",
-  "Then close technical gate A; build the Q-style Whale Girl head sample for user approval."
+  "Close technical gate A (done).",
+  "Build the Q-style Whale Girl head sample (front, left/right 3-4 views) for user approval."
  ],
  "launch_command": "tools/run-toon-prototype.cmd",
  "review_command": "python tools/review_toon_prototype.py --record-frames",
@@ -93,5 +93,17 @@
    "godot-cpp#2024/godot#1900: cold editor import crashes at exit with any loaded extension class; review pipeline parks focus-guard.gdextension during import and restores it after (see review_toon_prototype.stage/run_review)",
    "kernel forced assignment bypasses HCBT_ACTIVATE and WM_ACTIVATE entirely; no user-mode hook can veto it"
   ]
+ },
+ "manual_review": {
+  "date": "2026-10-09",
+  "reviewer": "user (real machine)",
+  "checks": {
+   "right_click_close": "pass (initially misread as crash; verified clean exit via logged run + procdump: no exception dump, no WER event, clean runtime log)",
+   "drag": "pass",
+   "transparent_click_through": "pass",
+   "dpi_scaling": "pass",
+   "focus_discipline": "pass (no taskbar entry, no foreground steal)"
+  },
+  "note": "right-click close is the designed exit path for the prototype"
  }
 }
