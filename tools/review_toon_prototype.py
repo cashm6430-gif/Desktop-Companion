@@ -51,6 +51,14 @@ def stage(output, model_source=MODEL_SOURCE):
                     ignore=shutil.ignore_patterns(".godot", "*.tmp"))
     (project / "assets").mkdir(exist_ok=True)
     shutil.copy2(model_source, project / "assets/character.glb")
+    # Park the FocusGuard GDExtension manifest before the import pass: the
+    # first editor scan (cold import) crashes at shutdown when any extension
+    # class is registered (upstream godot-cpp#2024 / godot#1900, doc-cache
+    # thread vs extension teardown race). The runtime still needs it, so
+    # run_review restores the file after importing.
+    parked = project / "focus-guard.gdextension"
+    if parked.is_file():
+        shutil.move(str(parked), str(output / "focus-guard.gdextension.parked"))
     sources = {path.relative_to(ROOT).as_posix(): fingerprint(path)
                for path in sorted(PROJECT_SOURCE.rglob("*"))
                if path.is_file() and ".godot" not in path.parts}
@@ -142,6 +150,17 @@ def run_review(godot, project, output, duration, interactive=False, record_frame
     (output / "import.log").write_text(import_log, encoding="utf8")
     if imported.returncode or re.search(r"(?:SCRIPT ERROR|^ERROR:)", import_log, re.MULTILINE):
         raise RuntimeError("Godot import failed; see import.log")
+    # Restore the FocusGuard extension manifest before the runtime pass. The
+    # runtime discovers extensions via .godot/extension_list.cfg, which the
+    # import pass only generates when a .gdextension is present, so seed it.
+    parked = output / "focus-guard.gdextension.parked"
+    if parked.is_file():
+        shutil.move(str(parked), str(project / "focus-guard.gdextension"))
+        ext_cfg = project / ".godot/extension_list.cfg"
+        entry = "res://focus-guard.gdextension\n"
+        existing = ext_cfg.read_text(encoding="utf8") if ext_cfg.is_file() else ""
+        if entry not in existing:
+            ext_cfg.write_text(existing + entry, encoding="utf8")
     capture = output / "captures"
     capture.mkdir()
     startup = None

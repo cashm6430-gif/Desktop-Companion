@@ -1,0 +1,8 @@
+[configuration]
+entry_symbol = "focus_guard_library_init"
+compatibility_minimum = "4.2"
+
+[libraries]
+windows.debug.x86_64 = "res://focus-guard/bin/libfocus-guard.windows.template_debug.x86_64.dll"
+windows.template_debug.x86_64 = "res://focus-guard/bin/libfocus-guard.windows.template_debug.x86_64.dll"
+windows.template_release.x86_64 = "res://focus-guard/bin/libfocus-guard.windows.template_release.x86_64.dll"

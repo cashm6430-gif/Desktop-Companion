@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+# Builds the FocusGuard GDExtension DLL against godot-cpp.
+#
+# godot-cpp lives outside the repo (default ../../../.local/gdext/godot-cpp);
+# override with the GODOT_CPP_DIR environment variable. Pass
+# custom_api_file=<extension_api.json dumped from the exact engine binary>
+# so the bindings match the pinned Godot 4.7.2 build bit for bit.
+
+import os
+
+# Default to the extension API dumped from the pinned engine binary unless the
+# caller overrides it, so a bare `scons` always builds bit-for-bit bindings.
+if "custom_api_file" not in ARGUMENTS:
+    default_api = os.path.abspath("../../../.local/gdext/extension_api.json")
+    if os.path.exists(default_api):
+        ARGUMENTS["custom_api_file"] = default_api
+
+env = SConscript(os.path.join(
+    os.environ.get("GODOT_CPP_DIR", os.path.abspath("../../../.local/gdext/godot-cpp")),
+    "SConstruct"))
+
+env.Append(CPPPATH=["src/"])
+env.Append(LIBS=["user32"])  # GetForegroundWindow / SetForegroundWindow / GetShellWindow
+sources = Glob("src/*.cpp")
+
+if env["platform"] == "macos":
+    library = env.SharedLibrary(
+        "bin/libfocus-guard.{}.{}.framework/libfocus-guard.{}.{}".format(
+            env["platform"], env["target"], env["platform"], env["target"]),
+        source=sources)
+else:
+    library = env.SharedLibrary(
+        "bin/libfocus-guard{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        source=sources)
+
+Default(library)
