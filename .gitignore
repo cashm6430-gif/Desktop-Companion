@@ -7,6 +7,10 @@
 /.local/
 __pycache__/
 *.pyc
+/.godot/
+**/.godot/
+*.blend1
+*.blend2
 
 # Incomplete/rejected review attempts; the final review and author sources are kept.
 /art/live2d/review/neck-refinement-20261004/

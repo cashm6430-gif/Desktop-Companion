@@ -13,7 +13,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = "art/live2d/workflow/asset-catalog.json"
 SCOPE = (
-    "art", "assets", "images", "tools", "src", "tests",
+    "art", "assets", "images", "tools", "src", "tests", "godot",
     ".gitattributes", ".gitignore", "CMakeLists.txt", "CMakePresets.json",
     "conanfile.py", "conan.lock",
 )
@@ -124,10 +124,15 @@ class GitBlobs:
         self.process.wait()
 
 
-def refresh(root):
+def refresh(root, prefix=None):
     files = {}
-    for name in sorted(git_paths(root)):
-        files[name] = digest_file(local_path(root, name))
+    reader = GitBlobs(root, prefix) if prefix is not None else None
+    try:
+        for name in sorted(git_paths(root, prefix)):
+            files[name] = reader.read(name) if reader else digest_file(local_path(root, name))
+    finally:
+        if reader:
+            reader.close()
     catalog = {
         "version": 1,
         "purpose": "Exact-byte recovery of author assets, runtime assets, review evidence and matching production code.",
@@ -137,7 +142,8 @@ def refresh(root):
         "files": files,
     }
     local_path(root, CATALOG, allow_new_file=True).write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
-    return {"mode": "refresh", "files": len(files), "bytes": sum(item["bytes"] for item in files.values())}
+    return {"mode": "refresh_index" if prefix == ":" else "refresh", "files": len(files),
+            "bytes": sum(item["bytes"] for item in files.values())}
 
 
 def verify(root, prefix=None):
@@ -173,6 +179,8 @@ def main():
     parser.add_argument("--root", type=Path, default=ROOT, help="Repository or recovered checkout root")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--refresh", action="store_true")
+    mode.add_argument("--refresh-index", action="store_true",
+                      help="Refresh from staged bytes only; do not include unrelated untracked assets")
     mode.add_argument("--index", action="store_true")
     mode.add_argument("--git-ref", help="Verify the catalog and assets stored in a Git commit/ref")
     args = parser.parse_args()
@@ -187,7 +195,10 @@ def main():
         ).stdout.strip()
         prefix = revision + ":"
     try:
-        result = refresh(root) if args.refresh else verify(root, prefix)
+        if args.refresh_index:
+            result = refresh(root, ":")
+        else:
+            result = refresh(root) if args.refresh else verify(root, prefix)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:
         parser.exit(1, f"Asset verification failed: {error}\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))

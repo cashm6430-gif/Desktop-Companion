@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "status": "numeric_readback_pass_visual_pending",
+  "source_sha256": "14e722c2a084f220ed8daaed19c10913bc4778b42bd88c6cb6ff12c8339a5251",
+  "glb_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+  "blender_version": "5.2.2 LTS",
+  "records": {
+    "author": {
+      "actions": [
+        "idle",
+        "sit",
+        "wave"
+      ],
+      "bone_count": 21,
+      "shape_keys": [
+        "Basis",
+        "Blink_L",
+        "Blink_R",
+        "Smile"
+      ],
+      "expression_isolation": {
+        "Blink_L": {
+          "default": 0.0,
+          "materials": {
+            "ToonEyeWhite": {
+              "changed_vertices": 266,
+              "max_delta": 0.14802491420227307
+            },
+            "ToonIris": {
+              "changed_vertices": 266,
+              "max_delta": 0.10791502807804923
+            },
+            "ToonPupil": {
+              "changed_vertices": 266,
+              "max_delta": 0.0716250841793927
+            },
+            "ToonHighlight": {
+              "changed_vertices": 266,
+              "max_delta": 0.06876006879009632
+            },
+            "ToonMouth": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            }
+          }
+        },
+        "Blink_R": {
+          "default": 0.0,
+          "materials": {
+            "ToonEyeWhite": {
+              "changed_vertices": 266,
+              "max_delta": 0.14802491420227307
+            },
+            "ToonIris": {
+              "changed_vertices": 266,
+              "max_delta": 0.10791502807804923
+            },
+            "ToonPupil": {
+              "changed_vertices": 266,
+              "max_delta": 0.0716250841793927
+            },
+            "ToonHighlight": {
+              "changed_vertices": 266,
+              "max_delta": 0.06876006879009632
+            },
+            "ToonMouth": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            }
+          }
+        },
+        "Smile": {
+          "default": 0.20000000298023224,
+          "materials": {
+            "ToonEyeWhite": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonIris": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonPupil": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonHighlight": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonMouth": {
+              "changed_vertices": 40,
+              "max_delta": 0.02659988375966969
+            }
+          }
+        }
+      },
+      "per_clip": {
+        "idle": {
+          "samples": 120,
+          "max_world_foot_anchor_error": 2.2351741790771484e-08
+        },
+        "wave": {
+          "samples": 75,
+          "max_world_foot_anchor_error": 2.2351741790771484e-08
+        },
+        "sit": {
+          "samples": 90,
+          "max_world_foot_anchor_error": 2.6925371586669463e-07
+        }
+      }
+    },
+    "glb": {
+      "actions": [
+        "idle",
+        "sit",
+        "wave"
+      ],
+      "bone_count": 21,
+      "shape_keys": [
+        "Basis",
+        "Blink_L",
+        "Blink_R",
+        "Smile"
+      ],
+      "expression_isolation": {
+        "Blink_L": {
+          "default": 0.0,
+          "materials": {
+            "ToonEyeWhite": {
+              "changed_vertices": 323,
+              "max_delta": 0.14802491420227307
+            },
+            "ToonIris": {
+              "changed_vertices": 323,
+              "max_delta": 0.1079150453383422
+            },
+            "ToonPupil": {
+              "changed_vertices": 323,
+              "max_delta": 0.07162511343555888
+            },
+            "ToonHighlight": {
+              "changed_vertices": 323,
+              "max_delta": 0.06876003831490492
+            },
+            "ToonMouth": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            }
+          }
+        },
+        "Blink_R": {
+          "default": 0.0,
+          "materials": {
+            "ToonEyeWhite": {
+              "changed_vertices": 323,
+              "max_delta": 0.14802491420227307
+            },
+            "ToonIris": {
+              "changed_vertices": 323,
+              "max_delta": 0.1079150453383422
+            },
+            "ToonPupil": {
+              "changed_vertices": 323,
+              "max_delta": 0.07162511343555888
+            },
+            "ToonHighlight": {
+              "changed_vertices": 323,
+              "max_delta": 0.06876003831490492
+            },
+            "ToonMouth": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            }
+          }
+        },
+        "Smile": {
+          "default": 0.20000000298023224,
+          "materials": {
+            "ToonEyeWhite": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonIris": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonPupil": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonHighlight": {
+              "changed_vertices": 0,
+              "max_delta": 0.0
+            },
+            "ToonMouth": {
+              "changed_vertices": 40,
+              "max_delta": 0.02659988375966969
+            }
+          }
+        }
+      },
+      "per_clip": {
+        "idle": {
+          "samples": 120,
+          "max_world_foot_anchor_error": 9.69446009215027e-08
+        },
+        "wave": {
+          "samples": 75,
+          "max_world_foot_anchor_error": 9.69446009215027e-08
+        },
+        "sit": {
+          "samples": 90,
+          "max_world_foot_anchor_error": 2.828278079048143e-07
+        }
+      }
+    }
+  },
+  "limits": "Feet and animation/shape presence do not prove silhouette or cloth/contact quality."
+}

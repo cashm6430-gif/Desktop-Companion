@@ -15,3 +15,7 @@
 *.zip binary
 # Archived Git patches keep context-prefix spaces as exact recovery bytes.
 *.patch binary
+*.blend binary
+*.glb binary
+# Native capture logs retain the engine's exact blank-line output.
+art/3d/prototype/review-*/**/*.log -whitespace

@@ -1,0 +1,7 @@
+{
+  "status": "rejected_startup_experiment",
+  "reason": "startup acquired foreground despite NO_FOCUS",
+  "archive": "art\\3d\\prototype\\rejected-startup-r3.zip",
+  "sha256": "70da2e0e3ca65d805143dd22f7967217c245f75de27841842c07b0b528b01eca",
+  "not_adopted": true
+}

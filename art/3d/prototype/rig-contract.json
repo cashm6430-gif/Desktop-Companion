@@ -1,0 +1,744 @@
+{
+  "schema_version": 1,
+  "status": "technical_prototype_non_final",
+  "character_identity": "generic_q_toon_proxy",
+  "purpose": "Technical gate A: real volumes, skinned joints, portable clips, expressions; no whale-girl art approval.",
+  "author_coordinates": {
+    "up": "+Z",
+    "front": "-Y",
+    "units": "meters"
+  },
+  "runtime_coordinates": {
+    "up": "+Y",
+    "front": "+Z",
+    "units": "meters",
+    "conversion": "(x,y,z)->(x,z,-y)"
+  },
+  "ground_y": 0,
+  "head_top_y": 2.16,
+  "total_height_y": 2.335,
+  "forward_axis": [
+    0,
+    0,
+    1
+  ],
+  "nodes": {
+    "armature": "Armature",
+    "face": "FaceFeatures"
+  },
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "length": 0.15000000596046448,
+      "head_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        0.15000000596046448
+      ],
+      "deform": true
+    },
+    {
+      "name": "pelvis",
+      "parent": "root",
+      "length": 0.18999993801116943,
+      "head_blender": [
+        0.0,
+        0.0,
+        0.7200000286102295
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        0.9100000262260437
+      ],
+      "deform": true
+    },
+    {
+      "name": "spine",
+      "parent": "pelvis",
+      "length": 0.22999995946884155,
+      "head_blender": [
+        0.0,
+        0.0,
+        0.9100000262260437
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        1.1399999856948853
+      ],
+      "deform": true
+    },
+    {
+      "name": "neck",
+      "parent": "spine",
+      "length": 0.11000001430511475,
+      "head_blender": [
+        0.0,
+        0.0,
+        1.1399999856948853
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "deform": true
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "length": 0.6200000047683716,
+      "head_blender": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        1.8700000047683716
+      ],
+      "deform": true
+    },
+    {
+      "name": "hair",
+      "parent": "head",
+      "length": 0.5414794087409973,
+      "head_blender": [
+        0.0,
+        0.1899999976158142,
+        1.659999966621399
+      ],
+      "tail_blender": [
+        0.0,
+        0.23000000417232513,
+        1.1200000047683716
+      ],
+      "deform": true
+    },
+    {
+      "name": "shoulder.L",
+      "parent": "spine",
+      "length": 0.11045362055301666,
+      "head_blender": [
+        0.1899999976158142,
+        0.0,
+        1.1200000047683716
+      ],
+      "tail_blender": [
+        0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.L",
+      "parent": "shoulder.L",
+      "length": 0.24413110315799713,
+      "head_blender": [
+        0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "tail_blender": [
+        0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.L",
+      "parent": "upper_arm.L",
+      "length": 0.21118712425231934,
+      "head_blender": [
+        0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "tail_blender": [
+        0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "deform": true
+    },
+    {
+      "name": "wrist.L",
+      "parent": "forearm.L",
+      "length": 0.0860232412815094,
+      "head_blender": [
+        0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "tail_blender": [
+        0.44999998807907104,
+        -0.07000000029802322,
+        0.6299999952316284
+      ],
+      "deform": true
+    },
+    {
+      "name": "shoulder.R",
+      "parent": "spine",
+      "length": 0.11045362055301666,
+      "head_blender": [
+        -0.1899999976158142,
+        0.0,
+        1.1200000047683716
+      ],
+      "tail_blender": [
+        -0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.R",
+      "parent": "shoulder.R",
+      "length": 0.24413110315799713,
+      "head_blender": [
+        -0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "tail_blender": [
+        -0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.R",
+      "parent": "upper_arm.R",
+      "length": 0.21118712425231934,
+      "head_blender": [
+        -0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "tail_blender": [
+        -0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "deform": true
+    },
+    {
+      "name": "wrist.R",
+      "parent": "forearm.R",
+      "length": 0.0860232412815094,
+      "head_blender": [
+        -0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "tail_blender": [
+        -0.44999998807907104,
+        -0.07000000029802322,
+        0.6299999952316284
+      ],
+      "deform": true
+    },
+    {
+      "name": "tail",
+      "parent": "pelvis",
+      "length": 0.4130375385284424,
+      "head_blender": [
+        0.0,
+        0.10000000149011612,
+        0.7900000214576721
+      ],
+      "tail_blender": [
+        0.0,
+        0.5099999904632568,
+        0.8399999737739563
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.L",
+      "parent": "pelvis",
+      "length": 0.3100000023841858,
+      "head_blender": [
+        0.14499999582767487,
+        0.0,
+        0.7200000286102295
+      ],
+      "tail_blender": [
+        0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.L",
+      "parent": "thigh.L",
+      "length": 0.28999999165534973,
+      "head_blender": [
+        0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "tail_blender": [
+        0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.L",
+      "parent": "shin.L",
+      "length": 0.20396079123020172,
+      "head_blender": [
+        0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "tail_blender": [
+        0.14499999582767487,
+        -0.20000000298023224,
+        0.07999999821186066
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.R",
+      "parent": "pelvis",
+      "length": 0.3100000023841858,
+      "head_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.7200000286102295
+      ],
+      "tail_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.R",
+      "parent": "thigh.R",
+      "length": 0.28999999165534973,
+      "head_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "tail_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.R",
+      "parent": "shin.R",
+      "length": 0.20396079123020172,
+      "head_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "tail_blender": [
+        -0.14499999582767487,
+        -0.20000000298023224,
+        0.07999999821186066
+      ],
+      "deform": true
+    }
+  ],
+  "expressions": {
+    "Blink_L": {
+      "range": [
+        0,
+        1
+      ],
+      "default": 0
+    },
+    "Blink_R": {
+      "range": [
+        0,
+        1
+      ],
+      "default": 0
+    },
+    "Smile": {
+      "range": [
+        0,
+        1
+      ],
+      "default": 0.2
+    }
+  },
+  "materials": [
+    "ToonSkin",
+    "ToonHairBlue",
+    "ToonHairDark",
+    "ToonNavy",
+    "ToonWhite",
+    "ToonEyeWhite",
+    "ToonIris",
+    "ToonPupil",
+    "ToonHighlight",
+    "ToonMouth"
+  ],
+  "material_alpha": "all opaque geometry",
+  "animations": {
+    "idle": {
+      "frames": 120,
+      "duration_seconds": 3.966666666666667,
+      "sample_rate": 30,
+      "max_bone_length_error": 1.1678665923220422e-07,
+      "max_foot_anchor_error": 2.2351741790771484e-08,
+      "contacts": [
+        {
+          "frame": 1,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.4500000476837158,
+            -0.06999999284744263,
+            0.6299998760223389
+          ]
+        },
+        {
+          "frame": 60,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.45000001788139343,
+            -0.06975080072879791,
+            0.6299377679824829
+          ]
+        },
+        {
+          "frame": 120,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.4500000476837158,
+            -0.07024906575679779,
+            0.6300623416900635
+          ]
+        }
+      ]
+    },
+    "wave": {
+      "frames": 75,
+      "duration_seconds": 2.466666666666667,
+      "sample_rate": 30,
+      "max_bone_length_error": 1.0453803811483198e-07,
+      "max_foot_anchor_error": 2.2351741790771484e-08,
+      "contacts": [
+        {
+          "frame": 1,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.44999998807907104,
+            -0.06999996304512024,
+            0.6299998164176941
+          ]
+        },
+        {
+          "frame": 37,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.7006295323371887,
+            -0.06999994814395905,
+            1.4436323642730713
+          ]
+        },
+        {
+          "frame": 75,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.44999998807907104,
+            -0.06999996304512024,
+            0.6299998164176941
+          ]
+        }
+      ],
+      "side": "L",
+      "driven_bone": "upper_arm.L",
+      "wrist_bone": "wrist.L",
+      "follower_bone": "wrist.L"
+    },
+    "sit": {
+      "frames": 90,
+      "duration_seconds": 2.966666666666667,
+      "sample_rate": 30,
+      "max_bone_length_error": 1.2098793877868275e-07,
+      "max_foot_anchor_error": 2.6925371586669463e-07,
+      "contacts": [
+        {
+          "frame": 1,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.44999998807907104,
+            -0.06999995559453964,
+            0.6299998164176941
+          ]
+        },
+        {
+          "frame": 45,
+          "pelvis_blender": [
+            0.0,
+            0.1042645126581192,
+            0.5751882195472717
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            1.1920928955078125e-07,
+            0.11999991536140442
+          ],
+          "wrist_L_blender": [
+            0.4500000476837158,
+            -0.17095965147018433,
+            0.5604538321495056
+          ]
+        },
+        {
+          "frame": 90,
+          "pelvis_blender": [
+            0.0,
+            0.18000002205371857,
+            0.4699999988079071
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            6.705522537231445e-08,
+            0.11999973654747009
+          ],
+          "wrist_L_blender": [
+            0.45000001788139343,
+            -0.16772642731666565,
+            0.5564472675323486
+          ]
+        }
+      ]
+    }
+  },
+  "rise": "play sit backwards; do not scale limbs",
+  "sit_contact": {
+    "stool_top_y": 0.35,
+    "stool_center": [
+      0,
+      0.175,
+      -0.18
+    ],
+    "stool_size": [
+      0.56,
+      0.35,
+      0.36
+    ],
+    "foot_anchor_L": [
+      0.145,
+      0.12,
+      0
+    ],
+    "foot_anchor_R": [
+      -0.145,
+      0.12,
+      0
+    ],
+    "note": "Temporary broad stool; not a final cloth/contact rig. Requires actual runtime visual check."
+  },
+  "audit": {
+    "max_weight_sum_error": 2.9802322387695312e-08,
+    "unweighted_vertices": [],
+    "all_deform_bones": true,
+    "structure": {
+      "node_count": 52,
+      "mesh_count": 30,
+      "skin_joint_counts": [
+        21
+      ],
+      "animations": [
+        {
+          "name": "idle",
+          "channels": 63
+        },
+        {
+          "name": "sit",
+          "channels": 63
+        },
+        {
+          "name": "wave",
+          "channels": 63
+        }
+      ],
+      "morph_meshes": [
+        {
+          "name": "Sphere.020",
+          "names": [
+            "Blink_L",
+            "Blink_R",
+            "Smile"
+          ]
+        }
+      ]
+    },
+    "expression_isolation": {
+      "Blink_L": {
+        "default": 0.0,
+        "materials": {
+          "ToonEyeWhite": {
+            "changed_vertices": 266,
+            "max_delta": 0.14802491420227307
+          },
+          "ToonIris": {
+            "changed_vertices": 266,
+            "max_delta": 0.10791502807804923
+          },
+          "ToonPupil": {
+            "changed_vertices": 266,
+            "max_delta": 0.0716250841793927
+          },
+          "ToonHighlight": {
+            "changed_vertices": 266,
+            "max_delta": 0.06876006879009632
+          },
+          "ToonMouth": {
+            "changed_vertices": 0,
+            "max_delta": 0.0
+          }
+        }
+      },
+      "Blink_R": {
+        "default": 0.0,
+        "materials": {
+          "ToonEyeWhite": {
+            "changed_vertices": 266,
+            "max_delta": 0.14802491420227307
+          },
+          "ToonIris": {
+            "changed_vertices": 266,
+            "max_delta": 0.10791502807804923
+          },
+          "ToonPupil": {
+            "changed_vertices": 266,
+            "max_delta": 0.0716250841793927
+          },
+          "ToonHighlight": {
+            "changed_vertices": 266,
+            "max_delta": 0.06876006879009632
+          },
+          "ToonMouth": {
+            "changed_vertices": 0,
+            "max_delta": 0.0
+          }
+        }
+      },
+      "Smile": {
+        "default": 0.20000000298023224,
+        "materials": {
+          "ToonEyeWhite": {
+            "changed_vertices": 0,
+            "max_delta": 0.0
+          },
+          "ToonIris": {
+            "changed_vertices": 0,
+            "max_delta": 0.0
+          },
+          "ToonPupil": {
+            "changed_vertices": 0,
+            "max_delta": 0.0
+          },
+          "ToonHighlight": {
+            "changed_vertices": 0,
+            "max_delta": 0.0
+          },
+          "ToonMouth": {
+            "changed_vertices": 40,
+            "max_delta": 0.02659988375966969
+          }
+        }
+      }
+    }
+  },
+  "source_sha256": "14e722c2a084f220ed8daaed19c10913bc4778b42bd88c6cb6ff12c8339a5251",
+  "glb_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+  "visual_status": "pending_actual_godot_review",
+  "limits": [
+    "temporary primitive-based art",
+    "no fingers/cloth simulation",
+    "no production character likeness"
+  ]
+}

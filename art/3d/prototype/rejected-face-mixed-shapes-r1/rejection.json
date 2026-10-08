@@ -1,0 +1,5 @@
+{
+  "status": "rejected_expression_geometry",
+  "reason": "Blink_R and Smile inherited mixed eye geometry; fixed source uses independent Basis and material ownership checks.",
+  "adopted": false
+}

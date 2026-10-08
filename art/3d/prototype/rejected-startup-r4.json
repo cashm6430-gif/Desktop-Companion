@@ -1,0 +1,7 @@
+{
+  "status": "rejected_startup_experiment",
+  "reason": "startup acquired foreground and viewport/window dimensions diverged",
+  "archive": "art\\3d\\prototype\\rejected-startup-r4.zip",
+  "sha256": "96a8209c1e9b1e3e481cf6acfcac52860a2847c466a9f4e8d6cb54b55ad67f0b",
+  "not_adopted": true
+}

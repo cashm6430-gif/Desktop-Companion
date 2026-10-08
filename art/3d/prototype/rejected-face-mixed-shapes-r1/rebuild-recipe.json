@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "technical_prototype_non_final",
+  "script": "tools/create_toon_prototype.py",
+  "script_sha256": "d993848440c58e76175dd6f4d8ac67fed9d81d9569909cdb2eb7eb0c6eb3c790",
+  "blender_version": "5.2.2 LTS",
+  "blender_build_hash": "d13f752e3b9c",
+  "command": [
+    "D:/tool/blender/blender.exe",
+    "--background",
+    "--factory-startup",
+    "--python",
+    "tools/create_toon_prototype.py"
+  ],
+  "author": "art/3d/prototype/character.blend",
+  "export": "assets/3d/prototype/character.glb",
+  "export_options": {
+    "export_format": "GLB",
+    "export_yup": true,
+    "export_animations": true,
+    "export_animation_mode": "ACTIONS",
+    "export_def_bones": true,
+    "export_morph": true,
+    "export_morph_normal": true,
+    "export_morph_animation": false,
+    "export_skins": true,
+    "export_all_influences": false,
+    "export_optimize_animation_size": false,
+    "export_apply": false,
+    "export_cameras": false,
+    "export_lights": false
+  },
+  "source_sha256": "d66786141520726b475d13f24d254c345357d213ceb4daa2488ec73326a58c4b",
+  "glb_sha256": "2d105e71e9f4f3e971cf6b0c033bd28b413d681b2445b3c0763fefad5df47866",
+  "validation": "rig-contract.json numeric audit; runtime visual approval is separate and pending"
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "gpu_capture_diagnostic_media",
+  "source": "actual_GPU_sequence_frames",
+  "sequence_manifest_sha256": "53601442ac3c5d7842e86337dfcb85148c0e286aa90392d795411074cfa9da67",
+  "frames_used": 240,
+  "duration_seconds": 16,
+  "background_matte": [
+    239,
+    243,
+    249,
+    255
+  ],
+  "generator_sha256": "5b30523ed9e4e3438dd75256231933351c049118354324b92231f0498ca55fdb",
+  "outputs": {
+    "motion-preview.gif": "43cb4cffcaa86d98caa2d90672593d9b48900b7adc90ae6ff708e5c6b096ecd1",
+    "keyposes-sheet.png": "5169fc96d1baab28a670ad86e12b1ebcd604e5cb09f66d4ad812dff7ae918208",
+    "continuity-sheet.png": "fa55579a4362f62bab6203fad00360c58560edc619bf0bc4bdb706d6359ca734"
+  },
+  "art_approval": "not_requested_technical_placeholder"
+}

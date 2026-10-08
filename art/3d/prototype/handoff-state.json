@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "route": "real_time_toon_3d",
+  "status": "functional_rendering_prototype_with_failed_focus_gate",
+  "character": "technical_Q_proxy_not_approved_Whale_Girl",
+  "production_backend_replaced": false,
+  "tools": {
+    "godot": {
+      "path": "D:/tool/godot/Godot_v4.7.2-stable_win64.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "bytes": 180858888,
+      "sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424"
+    },
+    "blender": {
+      "path": "D:/tool/blender/blender.exe",
+      "version": "5.2.2 LTS"
+    }
+  },
+  "author_source": "art/3d/prototype/character.blend",
+  "export": "assets/3d/prototype/character.glb",
+  "recipe": "art/3d/prototype/rebuild-recipe.json",
+  "source_export_audit": "art/3d/prototype/source-and-export-audit.json",
+  "runtime_source": "godot/toon-prototype",
+  "review": "art/3d/prototype/review-r5",
+  "passed_checks": [
+    "receipt_runtime_consistency",
+    "actual_gpu_runtime",
+    "model_identity",
+    "eight_gpu_captures",
+    "shutdown_viewport_is_fully_transparent",
+    "capture_viewport_margin",
+    "trace_complete",
+    "continuous_gpu_sequence",
+    "imported_animation_and_bone_inventory",
+    "three_independent_expression_targets_change",
+    "unit_bone_scales",
+    "fixed_parent_child_origin_spacing",
+    "foot_joint_anchors",
+    "authored_wave_chain_changes",
+    "sit_uses_pelvis_hips_and_knees",
+    "rise_returns_to_standing",
+    "turn45_and_front_return"
+  ],
+  "failed_checks": [
+    "runtime_completed",
+    "native_window_observed_facts",
+    "foreground_observation_history"
+  ],
+  "gpu": {
+    "passed": true,
+    "headless": false,
+    "display_server": "Windows",
+    "renderer": "gl_compatibility",
+    "rendering_driver": "opengl3",
+    "adapter": "Quadro RTX 3000",
+    "adapter_api_version": "3.3.0 NVIDIA 596.58",
+    "native_handle": 3409396
+  },
+  "complete_gpu_frames": 255,
+  "preview_frames": 240,
+  "visual_review": {
+    "proxy_shape_capture": "reviewed_by_visual_agent",
+    "face_morph_isolation": "repaired_and_GPU_reviewed",
+    "final_character_art": "not_requested",
+    "cloth_and_contacts": "pending",
+    "desktop_compositing": "pending",
+    "real_mouse_passthrough_and_drag": "pending"
+  },
+  "next_steps": [
+    "Solve native Windows startup foreground activation without stealing focus back or weakening the audit.",
+    "Recheck focus timing, real desktop compositing, click/drag and DPI.",
+    "Only then complete technical gate A; build the Q-style Whale Girl head sample for user approval."
+  ],
+  "launch_command": "tools/run-toon-prototype.cmd",
+  "review_command": "python tools/review_toon_prototype.py --record-frames",
+  "check_command": "python tools/check_toon_prototype.py --review <review-output>",
+  "unimplemented": [
+    "Qt-to-Godot IPC",
+    "real agent and desktop-icon event rendering",
+    "production Whale Girl likeness",
+    "fingers/cloth/grass rig"
+  ],
+  "push_requested": false
+}

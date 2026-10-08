@@ -1,0 +1,982 @@
+{
+  "schema_version": 1,
+  "kind": "toon_3d_technical_capture_check",
+  "status": "failed",
+  "passed": false,
+  "review": "E:\\projects\\Desktop-Companion\\.local\\authoring\\toon-prototype-20261008-gpu-r5",
+  "contract": "E:\\projects\\Desktop-Companion\\art\\3d\\prototype\\rig-contract.json",
+  "input_fingerprints": {
+    "rig-contract.json": {
+      "bytes": 16934,
+      "sha256": "3f041f1147c04279c805ef15d69257cd701158f3ac96d32c6979c4981af986b6"
+    },
+    "review-receipt.json": {
+      "bytes": 206710,
+      "sha256": "970ce596566df127b6f1fac992b0177dceca10c15209a97b4f9e57a5e383ade0"
+    },
+    "captures/report.json": {
+      "bytes": 115003,
+      "sha256": "41d013311e5ce36917e2cf84204e132440920ef980c834e0287fcc92db69b2b1"
+    },
+    "captures/trace.json": {
+      "bytes": 2598841,
+      "sha256": "15ebe30bd06fb87d49547a435769c41e810873cd96bac0aa8b758fa0709e953a"
+    }
+  },
+  "runtime": {
+    "passed": true,
+    "headless": false,
+    "display_server": "Windows",
+    "renderer": "gl_compatibility",
+    "rendering_driver": "opengl3",
+    "adapter": "Quadro RTX 3000",
+    "adapter_api_version": "3.3.0 NVIDIA 596.58",
+    "native_handle": 3409396
+  },
+  "images": [
+    {
+      "file": "blink.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 101426,
+      "bytes": 23605,
+      "sha256": "a71290411dec41470d988351c9169d81d123f00b1a66723118bfe708253654f7",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "half-sit.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 101362,
+      "bytes": 25074,
+      "sha256": "dbced94a7b394e6730ed14cf83a430496f20e4a091e5a30f655d9c87e2352bc6",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "idle-return.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 101432,
+      "bytes": 24759,
+      "sha256": "c92bc51e6c410adfdc9b1719909825f50fa3359baba4298d9acb4c5413e648af",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "rise.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 101516,
+      "bytes": 24648,
+      "sha256": "16014a222b4740434ef0e9b39f2834ae2c971dce1f0530a2ebcd6ac8057f2716",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "seated.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 102722,
+      "bytes": 25060,
+      "sha256": "139601f585587d3b2d9e1388af60ce8314ece1bcba652a587ad96600bf75ad52",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "standing.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 101417,
+      "bytes": 24925,
+      "sha256": "6682ec7a2b4fe489f90a00a7e12b5e4803694835fb53ae0234017b7e30c98948",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "turn45.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 106233,
+      "bytes": 25058,
+      "sha256": "0f886aa7cf5d08fc22c404f1018433eae7e4060a6558b20f884bc36777f1aabe",
+      "receipt_hash_matches": true
+    },
+    {
+      "file": "wave.png",
+      "exists": true,
+      "passed": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixels": 102954,
+      "bytes": 24997,
+      "sha256": "7cf49823783f115640d36c7f4fca89eae6cd624b09792aabff10a4dd9aa54343",
+      "receipt_hash_matches": true
+    }
+  ],
+  "window_audit": {
+    "pid": 15516,
+    "native_handle": 3409396,
+    "visible": true,
+    "rect_physical_pixels": [
+      1504,
+      580,
+      1864,
+      1000
+    ],
+    "style_hex": "0x960b0000",
+    "exstyle_hex": "0x8040018",
+    "caption_absent": true,
+    "topmost": true,
+    "no_activate": true,
+    "owns_foreground": true,
+    "foreground_handle": 3409396,
+    "foreground_pid": 15516,
+    "outside_corner_hits_own_window": false,
+    "desktop_composite_visual_review": "pending",
+    "actual_drag_and_click_review": "pending",
+    "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+    "status": "failed",
+    "wall_seconds_since_launch": 4.437999999994645
+  },
+  "shutdown_image": {
+    "file": "shutdown-transparent.png",
+    "exists": true,
+    "pixels": [
+      360,
+      420
+    ],
+    "alpha_range": [
+      0,
+      0
+    ],
+    "bytes": 679,
+    "sha256": "b4213fc569235db430e6809f96ec2b33226df89e5996f1856eb67dca52f3fbf8",
+    "receipt_hash_matches": true
+  },
+  "face_capture_context": [
+    {
+      "file": "standing.png",
+      "blend_shapes": {
+        "FaceFeatures/Blink_L": 0.0,
+        "FaceFeatures/Blink_R": 0.0,
+        "FaceFeatures/Smile": 0.100000001490116
+      },
+      "head_rotation_xyzw": [
+        -0.00838413834571838,
+        0.00986378826200962,
+        -8.2756370829884e-05,
+        0.999916195869446
+      ],
+      "spine_rotation_xyzw": [
+        0.00760095287114382,
+        0.0,
+        0.0,
+        0.999971151351929
+      ]
+    },
+    {
+      "file": "seated.png",
+      "blend_shapes": {
+        "FaceFeatures/Blink_L": 0.0,
+        "FaceFeatures/Blink_R": 0.0,
+        "FaceFeatures/Smile": 0.400000005960464
+      },
+      "head_rotation_xyzw": [
+        -0.029995571821928,
+        0.0,
+        0.0,
+        0.999550104141235
+      ],
+      "spine_rotation_xyzw": [
+        0.0174991209059954,
+        0.0,
+        0.0,
+        0.999846875667572
+      ]
+    }
+  ],
+  "sequence": {
+    "present": true,
+    "passed": true,
+    "frame_count": 255,
+    "expected_frame_count": 255,
+    "animation_fps": 15,
+    "first_frame": 4,
+    "last_frame": 1020,
+    "states": [
+      "idle",
+      "rise",
+      "seated",
+      "sit",
+      "turn",
+      "wave"
+    ],
+    "file_errors": [],
+    "manifest_fingerprint": {
+      "bytes": 3344486,
+      "sha256": "53601442ac3c5d7842e86337dfcb85148c0e286aa90392d795411074cfa9da67"
+    },
+    "source": "gpu_viewport_after_frame_post_draw",
+    "space": "Actual GPU viewport frames; not an approval of cloth or art"
+  },
+  "tolerances": {
+    "bone_scale_absolute_error": 0.001,
+    "fixed_parent_child_origin_distance_error_m": 0.001,
+    "source_baseline_origin_distance_error_m": 0.001,
+    "foot_anchor_error_m": 0.01,
+    "wave_upper_arm_angle_min_degrees": 20.0,
+    "wave_wrist_displacement_min_m": 0.15,
+    "sit_pelvis_drop_min_m": 0.15,
+    "sit_hip_knee_angle_min_degrees": 10.0,
+    "return_pelvis_error_m": 0.01,
+    "return_hip_knee_angle_error_degrees": 0.5,
+    "turn45_angle_error_degrees": 1.0
+  },
+  "checks": {
+    "receipt_runtime_consistency": {
+      "passed": true,
+      "receipt_status": "failed",
+      "runtime_status": "technical_prototype_pending_visual_review"
+    },
+    "actual_gpu_runtime": {
+      "passed": true,
+      "headless": false,
+      "display_server": "Windows",
+      "renderer": "gl_compatibility",
+      "rendering_driver": "opengl3",
+      "adapter": "Quadro RTX 3000",
+      "adapter_api_version": "3.3.0 NVIDIA 596.58",
+      "native_handle": 3409396
+    },
+    "runtime_completed": {
+      "passed": false,
+      "exit_code": 0,
+      "errors": [],
+      "receipt_errors": [],
+      "receipt_status": "failed",
+      "capture_completed": true
+    },
+    "model_identity": {
+      "passed": true,
+      "contract_glb_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+      "staged_glb_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+      "model_source": "E:\\projects\\Desktop-Companion\\assets\\3d\\prototype\\character.glb",
+      "runtime_glb_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+      "receipt_glb_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3"
+    },
+    "eight_gpu_captures": {
+      "passed": true,
+      "expected_files": [
+        "blink.png",
+        "half-sit.png",
+        "idle-return.png",
+        "rise.png",
+        "seated.png",
+        "standing.png",
+        "turn45.png",
+        "wave.png"
+      ],
+      "runtime_files": [
+        "standing.png",
+        "blink.png",
+        "wave.png",
+        "half-sit.png",
+        "seated.png",
+        "rise.png",
+        "turn45.png",
+        "idle-return.png"
+      ],
+      "actual_files": [
+        "blink.png",
+        "half-sit.png",
+        "idle-return.png",
+        "rise.png",
+        "seated.png",
+        "shutdown-transparent.png",
+        "standing.png",
+        "turn45.png",
+        "wave.png"
+      ],
+      "receipt_files": [
+        "blink.png",
+        "half-sit.png",
+        "idle-return.png",
+        "rise.png",
+        "seated.png",
+        "shutdown-transparent.png",
+        "standing.png",
+        "turn45.png",
+        "wave.png"
+      ]
+    },
+    "shutdown_viewport_is_fully_transparent": {
+      "passed": true,
+      "file": "shutdown-transparent.png",
+      "exists": true,
+      "pixels": [
+        360,
+        420
+      ],
+      "alpha_range": [
+        0,
+        0
+      ],
+      "bytes": 679,
+      "sha256": "b4213fc569235db430e6809f96ec2b33226df89e5996f1856eb67dca52f3fbf8",
+      "receipt_hash_matches": true,
+      "strategy": "hide_all_visual_content_then_frame_post_draw_then_quit",
+      "gpu_frame_presented": true,
+      "visible_alpha_pixels": 0,
+      "limitation": "A transparent viewport frame supports cleanup sequencing, not desktop DWM composition"
+    },
+    "capture_viewport_margin": {
+      "passed": true,
+      "images": [
+        {
+          "file": "standing.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "blink.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "wave.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "half-sit.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "seated.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "rise.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "turn45.png",
+          "clipped_at_viewport_edge": false
+        },
+        {
+          "file": "idle-return.png",
+          "clipped_at_viewport_edge": false
+        }
+      ]
+    },
+    "trace_complete": {
+      "passed": true,
+      "samples": 298,
+      "states": [
+        "idle",
+        "rise",
+        "seated",
+        "sit",
+        "turn",
+        "wave"
+      ],
+      "duration_seconds": 16.966666666667,
+      "max_sample_interval_seconds": 0.06666666666670196
+    },
+    "continuous_gpu_sequence": {
+      "passed": true,
+      "present": true,
+      "frame_count": 255,
+      "expected_frame_count": 255,
+      "animation_fps": 15,
+      "first_frame": 4,
+      "last_frame": 1020,
+      "states": [
+        "idle",
+        "rise",
+        "seated",
+        "sit",
+        "turn",
+        "wave"
+      ],
+      "file_errors": [],
+      "manifest_fingerprint": {
+        "bytes": 3344486,
+        "sha256": "53601442ac3c5d7842e86337dfcb85148c0e286aa90392d795411074cfa9da67"
+      },
+      "source": "gpu_viewport_after_frame_post_draw",
+      "space": "Actual GPU viewport frames; not an approval of cloth or art"
+    },
+    "imported_animation_and_bone_inventory": {
+      "passed": true,
+      "bone_count": 21,
+      "animations": [
+        "idle",
+        "sit",
+        "wave"
+      ]
+    },
+    "three_independent_expression_targets_change": {
+      "passed": true,
+      "expressions": {
+        "Blink_L": {
+          "target": "FaceFeatures/Blink_L",
+          "min": 0.0,
+          "max": 1.0,
+          "range": 1.0
+        },
+        "Blink_R": {
+          "target": "FaceFeatures/Blink_R",
+          "min": 0.0,
+          "max": 1.0,
+          "range": 1.0
+        },
+        "Smile": {
+          "target": "FaceFeatures/Smile",
+          "min": 0.100000001490116,
+          "max": 0.800000011920929,
+          "range": 0.700000010430813
+        }
+      },
+      "limitation": "Values changing does not approve the visible facial shape"
+    },
+    "unit_bone_scales": {
+      "passed": true,
+      "maximum": {
+        "time": 0.0166666666666667,
+        "bone": "hair",
+        "max_error": 7.271766659933121e-06
+      },
+      "tolerance": 0.001
+    },
+    "fixed_parent_child_origin_spacing": {
+      "passed": true,
+      "pairs": [
+        {
+          "child": "pelvis",
+          "parent": "root",
+          "baseline_m": 0.720000028610229,
+          "source_rest_origin_distance_m": 0.7200000286102295,
+          "source_baseline_error_m": 4.440892098500626e-16,
+          "max_baseline_distance_error_m": 0.21671084054955558,
+          "worst_time": 6.89999999999998,
+          "animated_origin_translation": true
+        },
+        {
+          "child": "spine",
+          "parent": "pelvis",
+          "baseline_m": 0.18999993801117,
+          "source_rest_origin_distance_m": 0.1899999976158142,
+          "source_baseline_error_m": 5.960464422027911e-08,
+          "max_baseline_distance_error_m": 2.980232305382913e-08,
+          "worst_time": 8.66666666666668,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "neck",
+          "parent": "spine",
+          "baseline_m": 0.22999991257224842,
+          "source_rest_origin_distance_m": 0.22999995946884155,
+          "source_baseline_error_m": 4.689659313661387e-08,
+          "max_baseline_distance_error_m": 7.870944404575475e-08,
+          "worst_time": 12.3166666666669,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "head",
+          "parent": "neck",
+          "baseline_m": 0.11000002038287576,
+          "source_rest_origin_distance_m": 0.11000001430511475,
+          "source_baseline_error_m": 6.077761016687333e-09,
+          "max_baseline_distance_error_m": 7.116301153908822e-08,
+          "worst_time": 14.766666666667,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "hair",
+          "parent": "head",
+          "baseline_m": 0.45188492844270767,
+          "source_rest_origin_distance_m": 0.4518849098205843,
+          "source_baseline_error_m": 1.862212334335922e-08,
+          "max_baseline_distance_error_m": 1.1372678487830967e-07,
+          "worst_time": 12.1166666666668,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "shoulder.L",
+          "parent": "spine",
+          "baseline_m": 0.2831959920639766,
+          "source_rest_origin_distance_m": 0.28319602765891255,
+          "source_baseline_error_m": 3.559493594318397e-08,
+          "max_baseline_distance_error_m": 5.7286606236495174e-08,
+          "worst_time": 12.6166666666669,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "upper_arm.L",
+          "parent": "shoulder.L",
+          "baseline_m": 0.11045361281213792,
+          "source_rest_origin_distance_m": 0.11045362355482358,
+          "source_baseline_error_m": 1.0742685657705309e-08,
+          "max_baseline_distance_error_m": 3.951812348190753e-08,
+          "worst_time": 3.71666666666666,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "forearm.L",
+          "parent": "upper_arm.L",
+          "baseline_m": 0.24413116930377635,
+          "source_rest_origin_distance_m": 0.24413109434522395,
+          "source_baseline_error_m": 7.495855239292304e-08,
+          "max_baseline_distance_error_m": 6.422264994809801e-08,
+          "worst_time": 5.23333333333332,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "wrist.L",
+          "parent": "forearm.L",
+          "baseline_m": 0.211187076617871,
+          "source_rest_origin_distance_m": 0.21118715825805745,
+          "source_baseline_error_m": 8.164018644452042e-08,
+          "max_baseline_distance_error_m": 9.269777739850937e-08,
+          "worst_time": 11.3666666666668,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "shoulder.R",
+          "parent": "spine",
+          "baseline_m": 0.2831959920639766,
+          "source_rest_origin_distance_m": 0.28319602765891255,
+          "source_baseline_error_m": 3.559493594318397e-08,
+          "max_baseline_distance_error_m": 5.7286606236495174e-08,
+          "worst_time": 12.6166666666669,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "upper_arm.R",
+          "parent": "shoulder.R",
+          "baseline_m": 0.11045361281213792,
+          "source_rest_origin_distance_m": 0.11045362355482358,
+          "source_baseline_error_m": 1.0742685657705309e-08,
+          "max_baseline_distance_error_m": 9.05851446630912e-09,
+          "worst_time": 13.6166666666669,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "forearm.R",
+          "parent": "upper_arm.R",
+          "baseline_m": 0.24413116930377635,
+          "source_rest_origin_distance_m": 0.24413109434522395,
+          "source_baseline_error_m": 7.495855239292304e-08,
+          "max_baseline_distance_error_m": 6.422264994809801e-08,
+          "worst_time": 5.23333333333332,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "wrist.R",
+          "parent": "forearm.R",
+          "baseline_m": 0.211187076617871,
+          "source_rest_origin_distance_m": 0.21118715825805745,
+          "source_baseline_error_m": 8.164018644452042e-08,
+          "max_baseline_distance_error_m": 9.269777739850937e-08,
+          "worst_time": 11.3666666666668,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "tail",
+          "parent": "pelvis",
+          "baseline_m": 0.12206551909535868,
+          "source_rest_origin_distance_m": 0.12206555327636559,
+          "source_baseline_error_m": 3.418100691376935e-08,
+          "max_baseline_distance_error_m": 2.319425571051248e-08,
+          "worst_time": 8.96666666666669,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "thigh.L",
+          "parent": "pelvis",
+          "baseline_m": 0.14499999582768724,
+          "source_rest_origin_distance_m": 0.14499999582767487,
+          "source_baseline_error_m": 1.2378986724570495e-14,
+          "max_baseline_distance_error_m": 0.0,
+          "worst_time": 0.0166666666666667,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "shin.L",
+          "parent": "thigh.L",
+          "baseline_m": 0.31000000238418607,
+          "source_rest_origin_distance_m": 0.3100000321865082,
+          "source_baseline_error_m": 2.9802322110139556e-08,
+          "max_baseline_distance_error_m": 5.582413276083997e-08,
+          "worst_time": 9.66666666666673,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "foot.L",
+          "parent": "shin.L",
+          "baseline_m": 0.28999999165534995,
+          "source_rest_origin_distance_m": 0.28999999910593033,
+          "source_baseline_error_m": 7.450580374879223e-09,
+          "max_baseline_distance_error_m": 6.833049093213361e-08,
+          "worst_time": 6.29999999999998,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "thigh.R",
+          "parent": "pelvis",
+          "baseline_m": 0.14499999582768724,
+          "source_rest_origin_distance_m": 0.14499999582767487,
+          "source_baseline_error_m": 1.2378986724570495e-14,
+          "max_baseline_distance_error_m": 0.0,
+          "worst_time": 0.0166666666666667,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "shin.R",
+          "parent": "thigh.R",
+          "baseline_m": 0.31000000238418607,
+          "source_rest_origin_distance_m": 0.3100000321865082,
+          "source_baseline_error_m": 2.9802322110139556e-08,
+          "max_baseline_distance_error_m": 5.582413276083997e-08,
+          "worst_time": 9.66666666666673,
+          "animated_origin_translation": false
+        },
+        {
+          "child": "foot.R",
+          "parent": "shin.R",
+          "baseline_m": 0.28999999165534995,
+          "source_rest_origin_distance_m": 0.28999999910593033,
+          "source_baseline_error_m": 7.450580374879223e-09,
+          "max_baseline_distance_error_m": 6.833049093213361e-08,
+          "worst_time": 6.29999999999998,
+          "animated_origin_translation": false
+        }
+      ],
+      "excluded_dynamic_pair": "root -> pelvis (authored pelvis translation)",
+      "tolerance_m": 0.001,
+      "interpretation": "Pair-specific head-to-head spacing; not parent tail length or skin coverage"
+    },
+    "foot_joint_anchors": {
+      "passed": true,
+      "feet": [
+        {
+          "bone": "foot.L",
+          "anchor_m": [
+            0.145,
+            0.12,
+            0
+          ],
+          "max_error_m": 0.0009165545978134626,
+          "worst_time": 10.7666666666668
+        },
+        {
+          "bone": "foot.R",
+          "anchor_m": [
+            -0.145,
+            0.12,
+            0
+          ],
+          "max_error_m": 0.0009165545978134626,
+          "worst_time": 10.7666666666668
+        }
+      ],
+      "tolerance_m": 0.01,
+      "space": "Skeleton3D model space before the intentional character yaw; not sole-floor contact"
+    },
+    "authored_wave_chain_changes": {
+      "passed": true,
+      "side": "L",
+      "driven_bone": "upper_arm.L",
+      "follower_bone": "wrist.L",
+      "maximum_upper_arm_rotation_degrees": 100.26762408144043,
+      "maximum_wrist_displacement_m": 0.7742256948619527,
+      "ownership": "Explicit author wave side; no choice of whichever arm moves most"
+    },
+    "sit_uses_pelvis_hips_and_knees": {
+      "passed": true,
+      "standing_pelvis_y_m": 0.720000028610229,
+      "minimum_sit_pelvis_y_m": 0.469999998807907,
+      "pelvis_drop_m": 0.25000002980232205,
+      "maximum_joint_rotation_degrees": {
+        "thigh.L": 74.0611957173227,
+        "thigh.R": 74.0611957173227,
+        "shin.L": 98.08900501786793,
+        "shin.R": 98.08900501786793
+      }
+    },
+    "rise_returns_to_standing": {
+      "passed": true,
+      "poses": [
+        {
+          "stage": "last_rise",
+          "time": 10.9666666666668,
+          "pelvis_error_m": 7.050622392235435e-05,
+          "max_hip_knee_angle_error_degrees": 0.0
+        },
+        {
+          "stage": "idle_return",
+          "time": 14.766666666667,
+          "pelvis_error_m": 0.0,
+          "max_hip_knee_angle_error_degrees": 0.0
+        }
+      ]
+    },
+    "turn45_and_front_return": {
+      "passed": true,
+      "maximum_turn_yaw_degrees": 45.0000012522391,
+      "idle_return_yaw_degrees": 0.0
+    },
+    "native_window_observed_facts": {
+      "passed": false,
+      "audit": {
+        "pid": 15516,
+        "native_handle": 3409396,
+        "visible": true,
+        "rect_physical_pixels": [
+          1504,
+          580,
+          1864,
+          1000
+        ],
+        "style_hex": "0x960b0000",
+        "exstyle_hex": "0x8040018",
+        "caption_absent": true,
+        "topmost": true,
+        "no_activate": true,
+        "owns_foreground": true,
+        "foreground_handle": 3409396,
+        "foreground_pid": 15516,
+        "outside_corner_hits_own_window": false,
+        "desktop_composite_visual_review": "pending",
+        "actual_drag_and_click_review": "pending",
+        "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+        "status": "failed",
+        "wall_seconds_since_launch": 4.437999999994645
+      },
+      "limitation": "Only the observed window flags and corner lookup; desktop composition and actual clicks remain pending"
+    },
+    "foreground_observation_history": {
+      "passed": false,
+      "sample_count": 35,
+      "foreground_before_launch": 262378,
+      "own_focus_observations": [
+        {
+          "pid": 15516,
+          "native_handle": 3409396,
+          "visible": true,
+          "rect_physical_pixels": [
+            1504,
+            580,
+            1864,
+            1000
+          ],
+          "style_hex": "0x960b0000",
+          "exstyle_hex": "0x8040018",
+          "caption_absent": true,
+          "topmost": true,
+          "no_activate": true,
+          "owns_foreground": true,
+          "foreground_handle": 3409396,
+          "foreground_pid": 15516,
+          "outside_corner_hits_own_window": false,
+          "desktop_composite_visual_review": "pending",
+          "actual_drag_and_click_review": "pending",
+          "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+          "status": "failed",
+          "wall_seconds_since_launch": 2.4219999999913853
+        },
+        {
+          "pid": 15516,
+          "native_handle": 3409396,
+          "visible": true,
+          "rect_physical_pixels": [
+            1504,
+            580,
+            1864,
+            1000
+          ],
+          "style_hex": "0x960b0000",
+          "exstyle_hex": "0x8040018",
+          "caption_absent": true,
+          "topmost": true,
+          "no_activate": true,
+          "owns_foreground": true,
+          "foreground_handle": 3409396,
+          "foreground_pid": 15516,
+          "outside_corner_hits_own_window": false,
+          "desktop_composite_visual_review": "pending",
+          "actual_drag_and_click_review": "pending",
+          "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+          "status": "failed",
+          "wall_seconds_since_launch": 2.937999999994645
+        },
+        {
+          "pid": 15516,
+          "native_handle": 3409396,
+          "visible": true,
+          "rect_physical_pixels": [
+            1504,
+            580,
+            1864,
+            1000
+          ],
+          "style_hex": "0x960b0000",
+          "exstyle_hex": "0x8040018",
+          "caption_absent": true,
+          "topmost": true,
+          "no_activate": true,
+          "owns_foreground": true,
+          "foreground_handle": 3409396,
+          "foreground_pid": 15516,
+          "outside_corner_hits_own_window": false,
+          "desktop_composite_visual_review": "pending",
+          "actual_drag_and_click_review": "pending",
+          "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+          "status": "failed",
+          "wall_seconds_since_launch": 3.437999999994645
+        },
+        {
+          "pid": 15516,
+          "native_handle": 3409396,
+          "visible": true,
+          "rect_physical_pixels": [
+            1504,
+            580,
+            1864,
+            1000
+          ],
+          "style_hex": "0x960b0000",
+          "exstyle_hex": "0x8040018",
+          "caption_absent": true,
+          "topmost": true,
+          "no_activate": true,
+          "owns_foreground": true,
+          "foreground_handle": 3409396,
+          "foreground_pid": 15516,
+          "outside_corner_hits_own_window": false,
+          "desktop_composite_visual_review": "pending",
+          "actual_drag_and_click_review": "pending",
+          "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+          "status": "failed",
+          "wall_seconds_since_launch": 3.937999999994645
+        },
+        {
+          "pid": 15516,
+          "native_handle": 3409396,
+          "visible": true,
+          "rect_physical_pixels": [
+            1504,
+            580,
+            1864,
+            1000
+          ],
+          "style_hex": "0x960b0000",
+          "exstyle_hex": "0x8040018",
+          "caption_absent": true,
+          "topmost": true,
+          "no_activate": true,
+          "owns_foreground": true,
+          "foreground_handle": 3409396,
+          "foreground_pid": 15516,
+          "outside_corner_hits_own_window": false,
+          "desktop_composite_visual_review": "pending",
+          "actual_drag_and_click_review": "pending",
+          "note": "WindowFromPoint is read-only; no clicks, screenshots of the desktop, or UI automation.",
+          "status": "failed",
+          "wall_seconds_since_launch": 4.437999999994645
+        }
+      ],
+      "runtime_focus_events": [
+        {
+          "animation_time": 0.0,
+          "event": "focus_entered",
+          "has_focus": true,
+          "native_no_focus": true,
+          "wall_time_usec": 2303530
+        }
+      ],
+      "startup_had_focus": false,
+      "final_has_focus": false,
+      "limitation": "Any observed self-foreground event fails; later recovery does not erase it"
+    }
+  },
+  "failed_checks": [
+    "runtime_completed",
+    "native_window_observed_facts",
+    "foreground_observation_history"
+  ],
+  "visual_approval": "pending",
+  "character_art_approved": false,
+  "cloth_and_contact_approved": false,
+  "limitations": [
+    "Numerical rig and viewport checks do not approve character art or likeness.",
+    "No cloth simulation, garment-body intersection, fingers, or seat contact approval.",
+    "Joint-origin spacing and unit scales do not prove mesh skinning is visually sound.",
+    "GPU viewport alpha does not prove Windows desktop compositing has no black edges.",
+    "Window flags and a read-only corner hit check do not prove real clicks or dragging.",
+    "Foot anchors are joint origins in skeleton space, not a measured sole-floor contact."
+  ],
+  "manual_review_gaps": [
+    "desktop alpha compositing and edge appearance",
+    "real mouse passthrough and drag",
+    "visual joint deformation, seat/garment contact and camera framing",
+    "final Q-style Whale Girl likeness and expression quality",
+    "high DPI and multiple monitors"
+  ]
+}
