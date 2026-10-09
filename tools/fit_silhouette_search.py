@@ -37,9 +37,11 @@ BLEND = ROOT / "art/3d/whale-girl-head-r2/character-round3.blend"
 RUNNER = ROOT / "tools/fit_silhouette_template.py"
 RENDERER = ROOT / "tools/render_silhouette.py"
 RUN_ROOT = ROOT / ".local/fit-run"
-# Bump whenever the canonical frame or the metrics change: cached candidate
-# silhouettes are only comparable inside one frame generation.
-CACHE_VERSION = 2
+# Bump whenever the canonical frame, the render framing or the metrics change:
+# cached candidate silhouettes are only comparable inside one generation.
+# v3 = camera framed on the skinned asset instead of the whole imported scene
+#      (measured effect on the baseline IoU: 0.7363 -> 0.7361).
+CACHE_VERSION = 3
 
 # Objective weights. Every term is SYMMETRIC: the first coordinate-descent run
 # showed what one-sided terms do -- "outline recall" and "band coverage" both

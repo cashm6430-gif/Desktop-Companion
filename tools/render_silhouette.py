@@ -87,12 +87,32 @@ def iou(a: np.ndarray, b: np.ndarray) -> float:
     return float((a & b).sum()) / union if union else 0.0
 
 
+def is_asset_mesh(obj) -> bool:
+    """Reject helper objects the glTF importer fabricates.
+
+    The importer parks its own bookkeeping objects in a `glTF_not_exported`
+    collection; on this asset that is a unit-radius icosphere. It is not part of
+    the character, but it does inflate the bounding box, and framing the camera
+    from that bbox shrinks the character inside the frame -- which throws away
+    exactly the resolution the outline band is measured at.
+    """
+    return not any(c.name.startswith("glTF_not_exported")
+                   for c in obj.users_collection)
+
+
 def scene_bbox() -> tuple[Vector, Vector]:
+    meshes = [o for o in bpy.context.scene.objects
+              if o.type == "MESH" and is_asset_mesh(o)]
+    # frame on the skinned character when there is one: it is the asset
+    skinned = [o for o in meshes if any(m.type == "ARMATURE" for m in o.modifiers)]
+    use = skinned or meshes
+    skipped = [o.name for o in bpy.context.scene.objects
+               if o.type == "MESH" and not is_asset_mesh(o)]
+    if skipped:
+        print(f"FRAMING skipped non-asset meshes: {skipped}")
     mins = Vector((1e9,) * 3)
     maxs = Vector((-1e9,) * 3)
-    for obj in bpy.context.scene.objects:
-        if obj.type != "MESH":
-            continue
+    for obj in use:
         for corner in obj.bound_box:
             w = obj.matrix_world @ Vector(corner)
             mins = Vector(map(min, mins, w))
