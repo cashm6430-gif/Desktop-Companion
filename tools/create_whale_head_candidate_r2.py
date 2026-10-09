@@ -50,7 +50,7 @@ FACE_RADII = (FACE_RX, 0.20, FACE_RZ)
 # The skull: hair-colored surface around the face cap. Front is flattened so
 # the hair rim sits only a hair's width proud of the face plane.
 SKULL_CENTER = (0.0, 0.05, 1.72)
-SKULL_RADII = (0.52, 0.45, 0.47)
+SKULL_RADII = (0.485, 0.45, 0.475)
 BODY_AXIS_PX = 626.5   # character body axis in the PSD fullbody (legs center)
 
 HEAD_OBJECTS = []
@@ -164,7 +164,7 @@ def make_head(segments=72, rings=48):
     # recessed inner face: the face material paints the front of the skull.
     obj = mesh_object_r2("Head", vertices, faces, "WhaleHairGradient", gradient=True)
     obj.data.materials.append(proto.MATERIALS["WhaleFaceTex"])
-    uv = obj.data.uv_layers.new(name="FaceProject")
+    uv = obj.data.uv_layers.new(name="UVMap")
     uv.active_render = True
     for poly in obj.data.polygons:
         if face_zone_weight(poly.center) > 0.5:
@@ -196,8 +196,8 @@ def make_locks():
                            (x0, (y1 if y1 is not None else 0.48) + 0.02, 1.72),
                            (x1, (y2 if y2 is not None else 0.40) + 0.035, 1.45),
                            (x2, 0.30, 1.15), (x1 * 1.1, 0.26, 0.92)],
-                          [0.09, 0.15, 0.15, 0.11, 0.05],
-                          [0.10, 0.18, 0.18, 0.13, 0.06]))
+                          [0.085, 0.13, 0.13, 0.10, 0.05],
+                          [0.10, 0.16, 0.16, 0.13, 0.06]))
     # Outer side locks framing the face; below the shoulder they tuck BACK
     # and IN (positive y, slimmer x), then FLARE at the bottom tips like the
     # art. The sleeves read in front of them.
@@ -208,7 +208,7 @@ def make_locks():
                            (side * 0.50, 0.04, 1.70),
                            (side * 0.46, 0.16, 1.42), (side * 0.52, 0.14, 1.12),
                            (side * 0.62, 0.16, 0.86)],
-                          [0.11, 0.15, 0.15, 0.11, 0.09],
+                          [0.10, 0.13, 0.13, 0.10, 0.085],
                           [0.13, 0.16, 0.16, 0.13, 0.07]))
         y_in = surface_front_y(side * 0.30, 1.90)
         waves.append(lock(f"HairSideInner{'L' if side < 0 else 'R'}",
@@ -263,10 +263,13 @@ def make_bangs():
 
 
 def make_ahoge():
+    # R19: a short strand rising from the crown that loops toward the
+    # viewer-left (-X) and drops its tip - a compact curl, not a tall spike.
     return lock("Ahoge",
-                [(0.0, 0.10, 2.20), (0.02, 0.16, 2.36), (0.08, 0.12, 2.46)],
-                [0.045, 0.03, 0.008],
-                [0.05, 0.032, 0.008])
+                [(0.0, 0.10, 2.16), (0.02, 0.14, 2.26), (-0.05, 0.15, 2.31),
+                 (-0.15, 0.12, 2.28), (-0.20, 0.07, 2.19)],
+                [0.046, 0.040, 0.034, 0.026, 0.010],
+                [0.050, 0.042, 0.036, 0.028, 0.010])
 
 
 def band_arc():
@@ -278,26 +281,24 @@ def band_arc():
 def make_headband():
     r1.sweep("MaidBand", band_arc(), [0.058] * 4 + [0.048], [0.028] * 5,
              material="WhaleLace", gradient=False)
-    # Pleat scallops along the band: quadratic Bezier through the arc points.
-    p0, p1, p2 = Vector(band_arc()[0]), Vector(band_arc()[1]), Vector(band_arc()[2])
-    for idx in range(9):
-        s = idx / 8.0
-        if s <= 0.5:
-            u = s * 2
-            pos = (1 - u) ** 2 * p0 + 2 * (1 - u) * u * p1
-        else:
-            u = (s - 0.5) * 2
-            pos = (1 - u) ** 2 * p1 + 2 * (1 - u) * u * p2
-        pos.z -= 0.075
+    # Pleat scallops along the FULL band arc (walk the 5-point polyline).
+    arc = [Vector(p) for p in band_arc()]
+    for idx in range(11):
+        s = idx / 10.0
+        seg = min(int(s * (len(arc) - 1)), len(arc) - 2)
+        local = s * (len(arc) - 1) - seg
+        pos = arc[seg].lerp(arc[seg + 1], local)
+        pos.z -= 0.064
+        fade = 0.5 + 0.5 * math.sin(math.pi * s)  # small at the band ends
         verts, faces = [], []
         rings, segs = 6, 14
         for ring in range(rings + 1):
             phi = math.pi * ring / rings
             for seg in range(segs):
                 th = math.tau * seg / segs
-                verts.append((pos.x + 0.042 * math.sin(phi) * math.cos(th),
-                              pos.y + 0.020 * math.sin(phi) * math.sin(th),
-                              pos.z + 0.030 * math.cos(phi)))
+                verts.append((pos.x + 0.050 * fade * math.sin(phi) * math.cos(th),
+                              pos.y + 0.022 * math.sin(phi) * math.sin(th),
+                              pos.z + 0.036 * fade * math.cos(phi)))
         for ring in range(rings):
             for seg in range(segs):
                 a = ring * segs + seg
@@ -393,8 +394,8 @@ def build_rig_r2():
         entries += [
             (f"shoulder.{label}", (s * 0.16, 0, 1.29), (s * 0.26, 0, 1.28), "spine"),
             (f"upper_arm.{label}", (s * 0.26, 0, 1.28), (s * 0.335, -0.02, 1.16), f"shoulder.{label}"),
-            (f"forearm.{label}", (s * 0.335, -0.02, 1.16), (s * 0.42, -0.045, 1.02), f"upper_arm.{label}"),
-            (f"wrist.{label}", (s * 0.42, -0.045, 1.02), (s * 0.44, -0.07, 0.94), f"forearm.{label}"),
+            (f"forearm.{label}", (s * 0.335, -0.02, 1.16), (s * 0.42, -0.05, 1.03), f"upper_arm.{label}"),
+            (f"wrist.{label}", (s * 0.42, -0.05, 1.03), (s * 0.47, -0.10, 0.93), f"forearm.{label}"),
             (f"thigh.{label}", (s * 0.115, 0, 0.88), (s * 0.115, 0, 0.62), "pelvis"),
             (f"shin.{label}", (s * 0.115, 0, 0.62), (s * 0.115, 0, 0.48), f"thigh.{label}"),
             (f"foot.{label}", (s * 0.115, 0, 0.48), (s * 0.115, -0.16, 0.42), f"shin.{label}"),
@@ -497,7 +498,7 @@ def body_project_uv(obj):
     directly (px = axis + x*SS*k), back half mirrored. The 0.78 scale + px
     clamp keeps sampling inside the painted costume (the raw figure width
     includes hair/tail overlaps that must not smear onto the cloth)."""
-    uv = obj.data.uv_layers.new(name="BodyProject")
+    uv = obj.data.uv_layers.new(name="UVMap")
     uv.active_render = True
     for poly in obj.data.polygons:
         for li in poly.loop_indices:
@@ -574,16 +575,16 @@ def make_body():
     for label, s in (("L", 1), ("R", -1)):
         proto.tube(f"BodyArm.{label}",
                    [(s * 0.255, 0, 1.30), (s * 0.335, -0.02, 1.16),
-                    (s * 0.42, -0.045, 1.02), (s * 0.435, -0.06, 0.945)],
+                    (s * 0.42, -0.05, 1.03), (s * 0.465, -0.095, 0.935)],
                    [0.088, 0.08, 0.072, 0.066],
                    [{"shoulder." + label: .85, "spine": .15},
                     {"upper_arm." + label: 1}, {"forearm." + label: 1},
                     {"forearm." + label: .5, "wrist." + label: .5}],
                    "WhaleDressNavy")
-        cuff = proto.ellipsoid(f"Cuff.{label}", (s * 0.445, -0.065, 0.905),
+        cuff = proto.ellipsoid(f"Cuff.{label}", (s * 0.475, -0.105, 0.898),
                                (0.09, 0.085, 0.048), f"wrist.{label}", "WhaleLace", 20, 10)
         BODY_OBJECTS.append(cuff)
-        hand = proto.ellipsoid(f"Hand.{label}", (s * 0.455, -0.075, 0.855),
+        hand = proto.ellipsoid(f"Hand.{label}", (s * 0.487, -0.12, 0.848),
                                (0.066, 0.056, 0.072), f"wrist.{label}", "WhaleSkin", 20, 10)
         BODY_OBJECTS.append(hand)
     # Legs: white socks vanishing under the skirt, navy shoes.
@@ -664,6 +665,62 @@ def apply_toon_look():
         sol.use_rim = True
 
 
+def revert_toon_look():
+    """Undo apply_toon_look before export/save: the shipped GLB must carry
+    standard Principled materials (baseColor textures / vertex colors), not the
+    unlit preview wiring (which glTF would export as emissive-only). The toon
+    look itself is the engine shader's job (godot/.../toon.gdshader)."""
+    for mat in list(bpy.data.materials):
+        if not mat.name.startswith("Whale") or not mat.use_nodes:
+            continue
+        nt = mat.node_tree
+        out = next((n for n in nt.nodes if n.type == "OUTPUT_MATERIAL"), None)
+        bsdf = nt.nodes.get("Principled BSDF")
+        if out is None or bsdf is None:
+            continue
+        for node in [n for n in nt.nodes if n.type == "EMISSION"]:
+            nt.nodes.remove(node)
+        nt.links.new(bsdf.outputs["BSDF"], out.inputs["Surface"])
+    for obj in bpy.context.scene.objects:
+        if obj.type != "MESH":
+            continue
+        for m in list(obj.modifiers):
+            if m.name == "WhaleOutlineShell":
+                obj.modifiers.remove(m)
+        for idx in range(len(obj.data.materials) - 1, -1, -1):
+            slot = obj.data.materials[idx]
+            if slot is not None and slot.name == "WhaleOutline":
+                obj.data.materials.pop(index=idx)
+
+
+def join_for_export():
+    """Draw-call optimization: the authoring scene is ~70 objects (one per
+    lock/pleat/button); the shipped mesh is joined into a single skinned mesh
+    whose material slots yield ~12 draw calls. Blender join merges same-named
+    vertex groups and UV layers, so skinning + both planar projections survive.
+    Preview outline shells are dropped here - the engine toon shader draws the
+    outline, not extra geometry (halves the drawn triangle count)."""
+    meshes = [o for o in bpy.context.scene.objects if o.type == "MESH"]
+    if len(meshes) <= 1:
+        return meshes[0] if meshes else None
+    for o in meshes:
+        for m in list(o.modifiers):
+            if m.name == "WhaleOutlineShell":
+                o.modifiers.remove(m)
+        for idx in range(len(o.data.materials) - 1, -1, -1):
+            slot = o.data.materials[idx]
+            if slot is not None and slot.name == "WhaleOutline":
+                o.data.materials.pop(index=idx)
+    bpy.ops.object.select_all(action="DESELECT")
+    for o in meshes:
+        o.select_set(True)
+    bpy.context.view_layer.objects.active = bpy.data.objects.get("Head") or meshes[0]
+    bpy.ops.object.join()
+    joined = bpy.context.view_layer.objects.active
+    joined.name = "WhaleGirl"
+    return joined
+
+
 def setup_render(scene):
     scene.render.resolution_x = 640
     scene.render.resolution_y = 640
@@ -731,8 +788,8 @@ def main():
     scene = bpy.context.scene
     scene.render.fps = 30; scene.frame_start = 1; scene.frame_end = 60
     arm = build_rig_r2()
-    palette = {"WhaleSkin": "FFE8DE", "WhaleHairRoyal": "4563A5", "WhaleHairMid": "5E9AD5",
-               "WhaleHairCyan": "70C7EF", "WhaleLace": "FFF9FF", "WhaleRibbon": "49AFE9",
+    palette = {"WhaleSkin": "FFE8DE", "WhaleHairRoyal": "2A3572", "WhaleHairMid": "3D5CB4",
+               "WhaleHairCyan": "6BBCFD", "WhaleLace": "FFF9FF", "WhaleRibbon": "49AFE9",
                "WhaleFinOuter": "E8F4FB", "WhaleFinInner": "A8D8F0", "WhaleHairGradient": "FFFFFF",
                "WhaleEyeLash": "1D2949", "WhaleEyeBrow": "5D526F", "WhaleEyeWhite": "FFF8FB",
                "WhaleIrisDeep": "3C4F92", "WhaleIrisBlue": "4E7EC7", "WhaleIrisGlow": "7BCDF5",
@@ -763,6 +820,13 @@ def main():
     btex.image = body_image
     body_mat.node_tree.links.new(btex.outputs["Color"],
                                  body_mat.node_tree.nodes["Principled BSDF"].inputs["Base Color"])
+    # Data-driven hair gradient: per-height hair colours sampled straight from
+    # the R19 PSD (art/3d/whale-girl-head-r2/hair-gradient.json).
+    lut_path = ROOT / "art/3d/whale-girl-head-r2/hair-gradient.json"
+    if lut_path.exists():
+        stops = json.loads(lut_path.read_text())
+        r1.GRADIENT_LUT = [(e["z"], r1.linear_hex("%02X%02X%02X" % tuple(e["srgb"])))
+                           for e in sorted(stops, key=lambda e: -e["z"])]
     build_r2_head()
     make_body()
     for obj in list(bpy.context.scene.objects):
@@ -780,7 +844,21 @@ def main():
     if unweighted or max(weights) > 1e-5: raise RuntimeError("Bad skin weights")
     apply_toon_look()
     blend = source / "character-round3.blend"; glb = export / "character-round3.glb"
+    cam_obj = setup_render(scene)
+    outputs = render_views(cam_obj, source)
+    # Export pipeline: undo the preview-only toon wiring (so the GLB carries
+    # baseColor textures + vertex colors, not emissive), save the authoring
+    # blend with standard materials, then ship the joined single-skin mesh.
+    revert_toon_look()
     bpy.ops.wm.save_as_mainfile(filepath=str(blend))
+    joined = join_for_export()
+    mesh_stats = {"objects": 1, "materials": 0, "tris": 0, "verts": 0}
+    if joined is not None:
+        joined.data.calc_loop_triangles()
+        mesh_stats = {"objects": 1,
+                      "materials": len([m for m in joined.data.materials if m]),
+                      "tris": len(joined.data.loop_triangles),
+                      "verts": len(joined.data.vertices)}
     options = {"export_format": "GLB", "export_yup": True, "export_animations": True,
                "export_animation_mode": "ACTIONS", "export_def_bones": True,
                "export_morph": False, "export_skins": True, "export_all_influences": False,
@@ -789,12 +867,12 @@ def main():
                "export_texcoords": True, "export_normals": True, "export_tangents": True,
                "export_vertex_color": "ACTIVE", "export_all_vertex_colors": False}
     bpy.ops.export_scene.gltf(filepath=str(glb), **options)
-    cam_obj = setup_render(scene)
-    outputs = render_views(cam_obj, source)
     report = {"blend": str(blend), "glb": str(glb),
               "renders": {k: str(v) for k, v in outputs.items()},
               "sweep_audits": r1.SWEEP_AUDITS,
               "max_weight_sum_error": max(weights),
+              "export_mesh": mesh_stats,
+              "draw_calls_estimate": mesh_stats["materials"],
               "face_anchor": {"ss_px_per_unit": SS, "anchor_px": list(ANCHOR_PX),
                               "eye_z": EYE_Z, "face_radii": list(FACE_RADII),
                               "face_center_model": list(FACE_CENTER)},
@@ -802,7 +880,7 @@ def main():
     (source / "round3-report.json").write_text(json.dumps(report, indent=1))
     print("WHALE_R2_ROUND3_COMPLETE " + json.dumps(
         {"blend": str(blend), "glb": str(glb), "renders": len(outputs),
-         "sweeps": len(r1.SWEEP_AUDITS)}))
+         "sweeps": len(r1.SWEEP_AUDITS), "export": mesh_stats}))
 
 
 if __name__ == "__main__":

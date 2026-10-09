@@ -10,7 +10,7 @@
   "HairBack0": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.0963153731503568,
+   "minimum_curve_radius_m": 0.09621113635634924,
    "constrained_rings": 15,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -23,8 +23,8 @@
   "HairBack1": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.1123647272895265,
-   "constrained_rings": 20,
+   "minimum_curve_radius_m": 0.11236062260421287,
+   "constrained_rings": 19,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
@@ -36,8 +36,8 @@
   "HairBack2": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.10626488169780832,
-   "constrained_rings": 20,
+   "minimum_curve_radius_m": 0.10629082139841578,
+   "constrained_rings": 18,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
@@ -49,8 +49,8 @@
   "HairBack3": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.0946985586316177,
-   "constrained_rings": 20,
+   "minimum_curve_radius_m": 0.0935217279251933,
+   "constrained_rings": 19,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
@@ -62,7 +62,7 @@
   "HairBack4": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.11358635491591268,
+   "minimum_curve_radius_m": 0.11269199899962666,
    "constrained_rings": 20,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -75,8 +75,8 @@
   "HairSideOuterL": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.241073154773776,
-   "constrained_rings": 3,
+   "minimum_curve_radius_m": 0.22474188938468254,
+   "constrained_rings": 6,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
@@ -88,7 +88,7 @@
   "HairSideInnerL": {
    "rings": 22,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.23409096959802198,
+   "minimum_curve_radius_m": 0.23292915309546425,
    "constrained_rings": 1,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -101,8 +101,8 @@
   "HairSideOuterR": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.241073154773776,
-   "constrained_rings": 3,
+   "minimum_curve_radius_m": 0.22474188938468254,
+   "constrained_rings": 6,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
@@ -114,7 +114,7 @@
   "HairSideInnerR": {
    "rings": 22,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.23409096959802198,
+   "minimum_curve_radius_m": 0.23292915309546425,
    "constrained_rings": 1,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -127,7 +127,7 @@
   "HairBackLowL": {
    "rings": 22,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.23577045970554616,
+   "minimum_curve_radius_m": 0.23511109324687982,
    "constrained_rings": 2,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -140,7 +140,7 @@
   "HairBackLowR": {
    "rings": 22,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.23577045970554616,
+   "minimum_curve_radius_m": 0.23511109324687982,
    "constrained_rings": 2,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -153,20 +153,20 @@
   "Bang0": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.12885538972249705,
+   "minimum_curve_radius_m": 0.12417401902249277,
    "constrained_rings": 0,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
    "minimum_nonlocal_centerline_enclosure_clearance_m": null,
    "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.2458372873733898,
+   "maximum_section_to_curve_radius_ratio": 0.24058063812470273,
    "gradient": "linear_COLOR_0_smoothstep_height"
   },
   "Bang1": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.006225678731109763,
+   "minimum_curve_radius_m": 0.006477606492548339,
    "constrained_rings": 12,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -179,20 +179,20 @@
   "Bang2": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.026175549787390794,
+   "minimum_curve_radius_m": 0.026119933965565008,
    "constrained_rings": 14,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
    "minimum_nonlocal_centerline_enclosure_clearance_m": null,
    "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.56,
+   "maximum_section_to_curve_radius_ratio": 0.5600000000000002,
    "gradient": "linear_COLOR_0_smoothstep_height"
   },
   "Bang3": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.0013458689237986,
+   "minimum_curve_radius_m": 0.0013283659591781262,
    "constrained_rings": 13,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -205,8 +205,8 @@
   "Bang4": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.010777683036742022,
-   "constrained_rings": 12,
+   "minimum_curve_radius_m": 0.010733463387898663,
+   "constrained_rings": 13,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
@@ -218,7 +218,7 @@
   "Bang5": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.0011371760119620988,
+   "minimum_curve_radius_m": 0.0011361619645740351,
    "constrained_rings": 14,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -231,7 +231,7 @@
   "Bang6": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.008696460391971847,
+   "minimum_curve_radius_m": 0.008660624310499986,
    "constrained_rings": 13,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -244,7 +244,7 @@
   "Bang7": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.0017279983364832223,
+   "minimum_curve_radius_m": 0.001714288903653643,
    "constrained_rings": 13,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -257,7 +257,7 @@
   "Bang8": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.015068736481933765,
+   "minimum_curve_radius_m": 0.015184947191801145,
    "constrained_rings": 15,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -270,7 +270,7 @@
   "Bang9": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.02266958364232299,
+   "minimum_curve_radius_m": 0.022139447994929895,
    "constrained_rings": 8,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
@@ -283,66 +283,66 @@
   "Bang10": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.07981726127014101,
+   "minimum_curve_radius_m": 0.07940021668914929,
    "constrained_rings": 0,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
    "minimum_nonlocal_centerline_enclosure_clearance_m": null,
    "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.31951615167797176,
+   "maximum_section_to_curve_radius_ratio": 0.3228551994729566,
    "gradient": "linear_COLOR_0_smoothstep_height"
   },
   "BangSideL": {
    "rings": 22,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.3687254465698904,
+   "minimum_curve_radius_m": 0.3751850615174859,
    "constrained_rings": 0,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
    "minimum_nonlocal_centerline_enclosure_clearance_m": null,
    "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.13017815951279021,
+   "maximum_section_to_curve_radius_ratio": 0.12793686349306557,
    "gradient": "linear_COLOR_0_smoothstep_height"
   },
   "BangSideR": {
    "rings": 22,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.3687254465698904,
+   "minimum_curve_radius_m": 0.3751850615174859,
    "constrained_rings": 0,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
    "minimum_nonlocal_centerline_enclosure_clearance_m": null,
    "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.13017815951279021,
+   "maximum_section_to_curve_radius_ratio": 0.12793686349306557,
    "gradient": "linear_COLOR_0_smoothstep_height"
   },
   "Ahoge": {
-   "rings": 15,
+   "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.08327163514748644,
-   "constrained_rings": 0,
+   "minimum_curve_radius_m": 0.04218069433961978,
+   "constrained_rings": 7,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
-   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
-   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.38428451588975343,
+   "minimum_nonlocal_centerline_enclosure_clearance_m": 0.10732048110265552,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.4208924968028389,
+   "maximum_section_to_curve_radius_ratio": 0.56,
    "gradient": "linear_COLOR_0_smoothstep_height"
   },
   "MaidBand": {
    "rings": 29,
    "parallel_transport_max_residual_radians": 0.0,
-   "minimum_curve_radius_m": 0.25912505351852516,
+   "minimum_curve_radius_m": 0.2825035645475419,
    "constrained_rings": 0,
    "nonlocal_near_pass_pairs": 0,
    "inward_side_polygons": [],
    "degenerate_side_polygons": [],
    "minimum_nonlocal_centerline_enclosure_clearance_m": null,
    "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
-   "maximum_section_to_curve_radius_ratio": 0.2238301515521096,
+   "maximum_section_to_curve_radius_ratio": 0.2053071439749544,
    "gradient": "constant material"
   },
   "BowLoopL": {
@@ -373,6 +373,13 @@
   }
  },
  "max_weight_sum_error": 2.9802322387695312e-08,
+ "export_mesh": {
+  "objects": 1,
+  "materials": 11,
+  "tris": 36512,
+  "verts": 18633
+ },
+ "draw_calls_estimate": 11,
  "face_anchor": {
   "ss_px_per_unit": 618.46,
   "anchor_px": [
@@ -412,9 +419,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.4399999976158142,
-      -0.070000059902668,
-      0.9399999976158142
+      0.4699999988079071,
+      -0.10000001639127731,
+      0.9300000071525574
      ]
     },
     {
@@ -430,9 +437,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.4399999678134918,
-      -0.06990203261375427,
-      0.9399377107620239
+      0.4699999690055847,
+      -0.09989309310913086,
+      0.9299109578132629
      ]
     },
     {
@@ -448,9 +455,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.4399999678134918,
-      -0.07009787857532501,
-      0.9400623440742493
+      0.4699999690055847,
+      -0.10010672360658646,
+      0.930088996887207
      ]
     }
    ]
@@ -475,9 +482,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.4399999678134918,
-      -0.06999999284744263,
-      0.9399999976158142
+      0.4699999690055847,
+      -0.09999998658895493,
+      0.9300000071525574
      ]
     },
     {
@@ -493,9 +500,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.5061086416244507,
-      -0.06999999284744263,
-      1.5858283042907715
+      0.5028008818626404,
+      -0.09999999403953552,
+      1.616934061050415
      ]
     },
     {
@@ -511,9 +518,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.4399999678134918,
-      -0.06999999284744263,
-      0.9399999976158142
+      0.4699999690055847,
+      -0.09999998658895493,
+      0.9300000071525574
      ]
     }
    ],
@@ -542,9 +549,9 @@
       0.48000001907348633
      ],
      "wrist_L_blender": [
-      0.4399999976158142,
-      -0.06999998539686203,
-      0.9399999976158142
+      0.4699999988079071,
+      -0.09999997913837433,
+      0.9300000071525574
      ]
     },
     {
@@ -560,9 +567,9 @@
       0.47999995946884155
      ],
      "wrist_L_blender": [
-      0.4399999976158142,
-      -0.12920214235782623,
-      0.8546575903892517
+      0.4699999988079071,
+      -0.16019725799560547,
+      0.8609268069267273
      ]
     },
     {
@@ -578,9 +585,9 @@
       0.47999998927116394
      ],
      "wrist_L_blender": [
-      0.4399999678134918,
-      -0.09661222249269485,
-      0.8295323252677917
+      0.4699999690055847,
+      -0.12309376895427704,
+      0.8468160033226013
      ]
     }
    ]

@@ -34,13 +34,28 @@ def linear_hex(value):
     return tuple(x / 12.92 if x <= .04045 else ((x+.055)/1.055)**2.4 for x in channels) + (1.,)
 
 
+GRADIENT_LUT = None  # [(z, (r,g,b,a) linear)] descending in z, set by the r2 pipeline
+
+
 def hair_gradient(z):
-    royal=linear_hex("4563A5");mid=linear_hex("5E9AD5");cyan=linear_hex("70C7EF")
-    t=max(0,min(1,(1.58-z)/.95))
-    t=t*t*(3-2*t)
-    if t<.5:a,b,k=royal,mid,t*2
-    else:a,b,k=mid,cyan,(t-.5)*2
-    return tuple(a[c]*(1-k)+b[c]*k for c in range(4))
+    if GRADIENT_LUT:
+        lut = GRADIENT_LUT
+        if z >= lut[0][0]:
+            return lut[0][1]
+        if z <= lut[-1][0]:
+            return lut[-1][1]
+        for i in range(len(lut) - 1):
+            z0, c0 = lut[i]
+            z1, c1 = lut[i + 1]
+            if z1 <= z <= z0:
+                k = (z0 - z) / (z0 - z1)
+                return tuple(c0[j] * (1 - k) + c1[j] * k for j in range(4))
+    # Analytic fallback (used when no LUT is supplied).
+    navy=linear_hex("26306F");royal=linear_hex("3A57AC");cyan=linear_hex("6BBCFD")
+    t=max(0,min(1,(1.80-z)/.45)); t=t*t*(3-2*t)
+    s=max(0,min(1,(1.15-z)/.30)); s=s*s*(3-2*s)
+    base=[navy[c]*(1-t)+royal[c]*t for c in range(4)]
+    return tuple(base[c]*(1-s)+cyan[c]*s for c in range(4))
 
 
 def mesh_object(name, vertices, faces, material, weights=None):
