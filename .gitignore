@@ -15,3 +15,6 @@ __pycache__/
 # Incomplete/rejected review attempts; the final review and author sources are kept.
 /art/live2d/review/neck-refinement-20261004/
 /art/live2d/review/neck-refinement-20261004-r2/
+
+# AI-generation scratch (local only)
+/generated-images/

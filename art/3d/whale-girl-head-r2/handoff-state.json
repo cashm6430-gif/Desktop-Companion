@@ -1,0 +1,52 @@
+{
+  "line": "head-style-r2",
+  "updated": "2026-10-09",
+  "status": "round2_pending_user_review",
+  "route": "texture-reuse",
+  "route_contract": {
+    "principle": "AI/geometry provides shape, PSD provides skin, Godot renders. Face style must have zero drift from Live2D R19.",
+    "alignment_sources": [
+      "art/3d/whale-girl-head-r2/alignment-head-front.png",
+      "art/3d/whale-girl-head-r2/alignment-fullbody.png",
+      "art/3d/whale-girl-head-r2/face-project.png"
+    ],
+    "face_projection": {
+      "source_psd": "art/live2d/whale-girl-layered-draft.psd",
+      "face_layers": ["face", "mouth", "eyewhite-r", "eyewhite-l", "irides-r", "irides-l", "eyelash-r", "eyelash-l"],
+      "anchor_px": [585.0, 445.0],
+      "anchor_meaning": "painted eye-line midpoint px  <->  model point (0, z=1.66)",
+      "ss_px_per_unit": 618.46,
+      "face_ellipsoid_center": [0.0, -0.02, 1.63],
+      "face_ellipsoid_radii": [0.26, 0.20, 0.20]
+    }
+  },
+  "hard_constraints": [
+    "Long hair must render complete: no holes/破面 (closed sweeps with fold audits).",
+    "3D head must align to Live2D R19 identity: maid headband, right-side blue bow, dark-blue-root to bright-blue-tip gradient, bangs over eyes, low half-hidden fin ears at eye height, small V chin.",
+    "Depth relation: the face IS the front of the head surface; hair grows on the scalp and overlaps the face rim (no helmet-over-recessed-face)."
+  ],
+  "rounds": [
+    {"round": "r1 (separate line)", "status": "REJECTED by user 2026-10-09", "reason": "built from scratch, not anchored to R19; all six identity features wrong", "evidence": "art/3d/whale-girl-head-r1/ rejected-curl-folds-r1 / rejected-hair-r1, commit 8acdf28"},
+    {"round": "r2 round1", "status": "superseded", "note": "texture-reuse face projection worked, but structure was hair shell + recessed face ball; user rejected depth relation", "commit": "b7d1afe"},
+    {"round": "r2 round2", "status": "pending_user_review", "note": "single-surface head: face cap + skull blended in one closed mesh, per-polygon material slots, all locks grow on scalp surface", "commit": "fe83c26", "review_sheet": "art/3d/whale-girl-head-r2/round2-compare-sheet.png"}
+  ],
+  "known_deviations_round3": [
+    "cheek rim (|x| 0.20-0.25) transition ledge visible from side views",
+    "headband front edge still floats slightly",
+    "head-surface hair color uniform royal; add root-to-tip gradient",
+    "skull front-bottom (under chin) slightly proud"
+  ],
+  "option_backlog": [
+    "image-to-3D base mesh (Tripo/Rodin/Hunyuan3D) fed with alignment-fullbody.png; texture still via PSD projection; retopo before rigging"
+  ],
+  "build_and_check": {
+    "build": "D:/tool/blender/blender.exe --background --factory-startup --python tools/create_whale_head_candidate_r2.py",
+    "script": "tools/create_whale_head_candidate_r2.py",
+    "outputs": {
+      "blend": "art/3d/whale-girl-head-r2/character.blend",
+      "glb": "assets/3d/whale-girl-head-r2/character.glb",
+      "renders": ["round1-front.png", "round1-left35.png", "round1-right35.png"]
+    },
+    "sweep_fold_audits": "22/22 passed (closed-geometry guarantee for long hair)"
+  }
+}
