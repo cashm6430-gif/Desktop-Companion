@@ -1,11 +1,12 @@
-"""Whale-girl head candidate r2 (texture-reuse route, round 1).
+"""Whale-girl head candidate r2 (texture-reuse route, round 2).
 
-Anchor: art/3d/whale-girl-head-r2/face-project.png is the PSD face-layer
-composite on the original 1254x1254 canvas; planar front UVs map the painted
-face 1:1 onto the face ellipsoid (r2 contract: face style has zero drift from
-Live2D R19). All hair is closed geometry: one closed helmet shell with an
-analytic face window plus closed sweep locks (fold audits inherited from the
-r1 sweep machinery), so long hair cannot render with holes.
+Depth-correct SINGLE-SURFACE head (round 1 read as "hair helmet over a
+recessed face ball" - rejected): the painted face IS the front of the skull.
+One closed surface carries the projected PSD face texture on its front cap
+and the hair gradient everywhere else; bangs/side locks are closed sweep
+tubes lying proud of that same surface and overlapping the face rim, so the
+depth relation is hair-over-face as in the R19 art. Fold audits inherited
+from the r1 sweep machinery keep long hair hole-free.
 
 Run: D:/tool/blender/blender.exe --background --factory-startup --python tools/create_whale_head_candidate_r2.py
 """
@@ -46,6 +47,10 @@ FACE_RX = 0.26                   # painted skin oval half-width ~142px -> 0.230 
 FACE_RZ = 0.20
 FACE_CENTER = (0.0, -0.02, FZC)
 FACE_RADII = (FACE_RX, 0.20, FACE_RZ)
+# The skull: hair-colored surface around the face cap. Front is flattened so
+# the hair rim sits only a hair's width proud of the face plane.
+SKULL_CENTER = (0.0, 0.05, 1.72)
+SKULL_RADII = (0.55, 0.46, 0.48)
 
 HEAD_OBJECTS = []
 
@@ -66,54 +71,87 @@ def mesh_object_r2(name, vertices, faces, material, gradient=False):
     return obj
 
 
-def make_face_volume():
-    obj = proto.ellipsoid("FaceVolume", FACE_CENTER, FACE_RADII, "head", "WhaleFaceTex", 64, 40)
-    for v in obj.data.vertices:
-        # Local coords are centered (transform_apply stripped the location):
-        # taper must divide the LOCAL z, never the world-space center.
-        qz = v.co.z / FACE_RADII[2]
-        v.co.x *= 1.0 - .18 * max(-qz, 0.0) ** 1.7
-    uv = obj.data.uv_layers.new(name="FaceProject")
-    # The uv_sphere primitive already created a default "UVMap" layer; the
-    # renderer samples active_render, so the planar face layer must win it.
-    uv.active_render = True
-    for poly in obj.data.polygons:
-        for li in poly.loop_indices:
-            co = obj.data.vertices[obj.data.loops[li].vertex_index].co
-            # Local coords: x is centered at the face axis, z spans +-FACE_RZ
-            # around FZC (transform_apply stripped the world offset).
-            u = (ANCHOR_PX[0] + co.x * SS) / 1254.0
-            v = (1254.0 - ANCHOR_PX[1] + (co.z + FZC - EYE_Z) * SS) / 1254.0
-            uv.data[li].uv = (u, v)
-    HEAD_OBJECTS.append(obj)
-    return obj
+def skull_point(d):
+    """Skull ellipsoid; front is flattened so hair sits proud of the face,
+    and the front-bottom (jaw) recedes behind the face ball."""
+    dx, dy, dz = d
+    front = clamp((-dy - 0.2) / 0.6)
+    lower = clamp((-dz + 0.1) / 0.5)
+    ry = SKULL_RADII[1] - 0.20 * front - 0.16 * front * lower
+    return Vector((SKULL_CENTER[0] + SKULL_RADII[0] * dx,
+                   SKULL_CENTER[1] + ry * dy,
+                   SKULL_CENTER[2] + SKULL_RADII[2] * dz))
 
 
-def helmet_surface_point(theta, phi):
-    cx, cy, cz = 0.0, 0.06, 1.72
-    rx, ry, rz = 0.65, 0.55, 0.50
-    dx, dy, dz = math.sin(phi) * math.cos(theta), math.sin(phi) * math.sin(theta), math.cos(phi)
-    xw, zw = rx * dx, cz + rz * dz
-    f1 = clamp((-dy - 0.15) / 0.5)
-    # Face window tuned to the painted feature region: eyes z~1.66-1.72,
-    # mouth z~1.61, chin z~1.54. Full shrink across z 1.53..1.74 and |x|<0.26
-    # (the skin oval edge), smooth fade so hair covers forehead and below chin.
-    f2 = clamp(1.0 - max(0.0, (abs(zw - 1.635) - 0.105) / 0.08))
-    f3 = 1.0 - clamp((abs(xw) - 0.28) / 0.20)
-    s = 1.0 - 0.75 * f1 * f2 * f3
-    # Recede ONLY along y: scaling the full offset toward the sphere center
-    # would drag the window vertices upward (center z 1.72) and shrink the
-    # exposed face region. y-only keeps the window at its designed height.
-    return Vector((cx + rx * dx, cy + ry * s * dy, cz + rz * dz))
+def face_point(d):
+    # Lower-face taper (V chin), matching round 1's calibrated face volume.
+    taper = 1.0 - 0.18 * max(-d[2], 0.0) ** 1.7
+    return Vector((FACE_CENTER[0] + FACE_RADII[0] * taper * d[0],
+                   FACE_CENTER[1] + FACE_RADII[1] * d[1],
+                   FACE_CENTER[2] + FACE_RADII[2] * d[2]))
 
 
-def make_helmet(segments=64, rings=40):
+def face_zone_weight(pf):
+    """1 on the painted-face cap, fading to 0 across the hairline rim.
+    Bottom extends to the face-ball pole (painted chin z~1.545 must stay skin)."""
+    ix = clamp((0.250 - abs(pf.x)) / 0.045)
+    iz = clamp((pf.z - 1.44) / 0.05) * clamp((1.79 - pf.z) / 0.05)
+    iy = clamp(-pf.y / 0.12)
+    return ix * iz * iy
+
+
+def head_surface_point(d):
+    """One surface for the whole head: face cap blends into the skull across
+    the rim, so hair and skin are the same continuous skin (depth correct)."""
+    pf = face_point(d)
+    return skull_point(d).lerp(pf, face_zone_weight(pf))
+
+
+def _ell_front_y(center, radii, ry, x, z):
+    k = 1.0 - (x / radii[0]) ** 2 - ((z - center[2]) / radii[2]) ** 2
+    if k <= 1e-4:
+        return None
+    return center[1] - ry * math.sqrt(k)
+
+
+def surface_front_y(x, z):
+    """Front-surface y of the blended head at planar (x, z)."""
+    ys = _ell_front_y(SKULL_CENTER, SKULL_RADII, SKULL_RADII[1] - 0.20, x, z)
+    yf = _ell_front_y(FACE_CENTER, FACE_RADII, FACE_RADII[1], x, z)
+    if yf is not None:
+        w = face_zone_weight(Vector((x, yf, z)))
+        if ys is None:
+            return yf
+        return ys * (1.0 - w) + yf * w
+    return ys
+
+
+def surface_back_y(x, z):
+    k = 1.0 - (x / SKULL_RADII[0]) ** 2 - ((z - SKULL_CENTER[2]) / SKULL_RADII[2]) ** 2
+    if k <= 1e-4:
+        return None
+    return SKULL_CENTER[1] + SKULL_RADII[1] * math.sqrt(k)
+
+
+def seat_on_skull(x, z, offset=0.022):
+    """Point sitting `offset` proud of the skull surface (worn items)."""
+    y = surface_front_y(x, z)
+    if y is None:
+        return Vector((x, 0.0, z))
+    p = Vector((x, y, z)) - Vector(SKULL_CENTER)
+    return Vector(SKULL_CENTER) + p + p.normalized() * offset
+
+
+def make_head(segments=72, rings=48):
     vertices = []
     for ring in range(rings + 1):
         phi = math.pi * ring / rings
         for seg in range(segments):
             theta = math.tau * seg / segments
-            p = helmet_surface_point(theta, phi)
+            d = (math.sin(phi) * math.cos(theta),
+                 math.sin(phi) * math.sin(theta),
+                 math.cos(phi))
+            p = head_surface_point(d)
             vertices.append((p.x, p.y, p.z))
     faces = []
     for ring in range(rings):
@@ -121,7 +159,20 @@ def make_helmet(segments=64, rings=40):
             a = ring * segments + seg
             b = ring * segments + (seg + 1) % segments
             faces.append((a, b, b + segments, a + segments))
-    obj = mesh_object_r2("HairHelmet", vertices, faces, "WhaleHairGradient", gradient=True)
+    # Slot 0 = hair gradient, slot 1 = projected face texture. One mesh, no
+    # recessed inner face: the face material paints the front of the skull.
+    obj = mesh_object_r2("Head", vertices, faces, "WhaleHairGradient", gradient=True)
+    obj.data.materials.append(proto.MATERIALS["WhaleFaceTex"])
+    uv = obj.data.uv_layers.new(name="FaceProject")
+    uv.active_render = True
+    for poly in obj.data.polygons:
+        if face_zone_weight(poly.center) > 0.5:
+            poly.material_index = 1
+        for li in poly.loop_indices:
+            co = obj.data.vertices[obj.data.loops[li].vertex_index].co
+            u = (ANCHOR_PX[0] + co.x * SS) / 1254.0
+            v = (1254.0 - ANCHOR_PX[1] + (co.z - EYE_Z) * SS) / 1254.0
+            uv.data[li].uv = (u, v)
     return obj
 
 
@@ -131,33 +182,45 @@ def lock(name, controls, widths, depths):
 
 def make_locks():
     waves = []
-    # Back mass: five long closed locks from crown down past the shoulders.
+    # Back mass: five long closed locks STARTING on the skull's back surface
+    # (round 1 buried them inside the helmet shell), then falling free.
     for idx, x0 in enumerate((-0.38, -0.20, 0.0, 0.20, 0.38)):
         x1 = x0 + (0.10 if idx % 2 else -0.10)
         x2 = x0 - (0.06 if idx % 2 else -0.06)
+        y0 = surface_back_y(x0 * 0.6, 2.00)
+        y1 = surface_back_y(x0, 1.72)
+        y2 = surface_back_y(x1, 1.45)
         waves.append(lock(f"HairBack{idx}",
-                          [(x0 * 0.6, 0.30, 2.05), (x0, 0.34, 1.75), (x1, 0.30, 1.45),
-                           (x2, 0.34, 1.15), (x1 * 1.1, 0.28, 0.92)],
-                          [0.10, 0.16, 0.15, 0.11, 0.05],
-                          [0.11, 0.19, 0.18, 0.13, 0.06]))
-    # Outer side locks framing the face, down to the chest.
+                          [(x0 * 0.6, (y0 if y0 is not None else 0.34) + 0.015, 2.00),
+                           (x0, (y1 if y1 is not None else 0.48) + 0.02, 1.72),
+                           (x1, (y2 if y2 is not None else 0.40) + 0.035, 1.45),
+                           (x2, 0.30, 1.15), (x1 * 1.1, 0.26, 0.92)],
+                          [0.09, 0.15, 0.15, 0.11, 0.05],
+                          [0.10, 0.18, 0.18, 0.13, 0.06]))
+    # Outer side locks framing the face, hugging the skull on the way down.
     for side in (-1, 1):
+        y_top = surface_front_y(side * 0.42, 1.95)
         waves.append(lock(f"HairSideOuter{'L' if side < 0 else 'R'}",
-                          [(side * 0.50, -0.05, 2.00), (side * 0.60, -0.02, 1.72),
-                           (side * 0.52, 0.06, 1.42), (side * 0.58, 0.02, 1.12),
+                          [(side * 0.42, (y_top if y_top is not None else -0.06) - 0.015, 1.95),
+                           (side * 0.56, -0.06, 1.70),
+                           (side * 0.52, 0.08, 1.42), (side * 0.58, 0.02, 1.12),
                            (side * 0.50, 0.08, 0.98)],
                           [0.11, 0.16, 0.16, 0.12, 0.06],
                           [0.13, 0.19, 0.19, 0.14, 0.07]))
+        y_in = surface_front_y(side * 0.30, 1.90)
         waves.append(lock(f"HairSideInner{'L' if side < 0 else 'R'}",
-                          [(side * 0.36, -0.16, 1.92), (side * 0.44, -0.12, 1.66),
-                           (side * 0.40, -0.04, 1.44), (side * 0.43, 0.0, 1.30)],
+                          [(side * 0.30, (y_in if y_in is not None else -0.14) - 0.016, 1.90),
+                           (side * 0.40, -0.10, 1.66),
+                           (side * 0.38, -0.02, 1.44), (side * 0.41, 0.02, 1.30)],
                           [0.08, 0.12, 0.11, 0.05],
                           [0.10, 0.15, 0.14, 0.06]))
     # Two lower back locks, the longest (cyan tips).
     for side in (-1, 1):
+        y_low = surface_back_y(side * 0.30, 1.70)
         waves.append(lock(f"HairBackLow{'L' if side < 0 else 'R'}",
-                          [(side * 0.30, 0.32, 1.70), (side * 0.38, 0.36, 1.40),
-                           (side * 0.30, 0.34, 1.10), (side * 0.36, 0.30, 0.84)],
+                          [(side * 0.30, (y_low if y_low is not None else 0.42) + 0.02, 1.70),
+                           (side * 0.38, 0.38, 1.40),
+                           (side * 0.30, 0.32, 1.10), (side * 0.36, 0.30, 0.84)],
                           [0.10, 0.14, 0.12, 0.05],
                           [0.12, 0.17, 0.15, 0.06]))
     return waves
@@ -165,17 +228,34 @@ def make_locks():
 
 def make_bangs():
     bangs = []
-    # Seven tapered strands hugging the helmet/face profile, tips following the
-    # painted bang silhouette (center tips z~1.70 between the eyes, outer ~1.63).
-    strands = (-0.30, -0.20, -0.10, 0.0, 0.10, 0.20, 0.30)
+    # Eleven tapered strands lying ON the head surface (16 mm proud: hair
+    # OVERLAPS the face as in the art), tips following the painted bang
+    # silhouette: center 1.72 between the eyes, side pieces down to 1.60.
+    strands = (-0.30, -0.24, -0.18, -0.12, -0.06, 0.0, 0.06, 0.12, 0.18, 0.24, 0.30)
     for idx, x0 in enumerate(strands):
-        tip_x = x0 + (0.03 if idx % 2 else -0.03)
-        tip_z = 1.70 if abs(x0) < 0.15 else (1.67 if abs(x0) < 0.25 else 1.63)
-        bangs.append(lock(f"Bang{idx}",
-                          [(x0 * 0.9, -0.40, 1.88), (x0, -0.30, 1.78),
-                           (x0 * 1.06, -0.25, tip_z + 0.06), (tip_x, -0.235, tip_z)],
-                          [0.05, 0.06, 0.045, 0.015],
-                          [0.035, 0.05, 0.04, 0.015]))
+        tip_x = x0 + (0.025 if idx % 2 else -0.025)
+        zig = 0.02 if idx % 2 else -0.01
+        tip_z = 1.735 if x0 == 0.0 else (1.725 if abs(x0) <= 0.12 else
+                                         (1.695 if abs(x0) <= 0.24 else 1.645))
+        tip_z += zig
+        pts = []
+        for x, z in ((x0 * 0.85, 2.02), (x0 * 0.97, 1.88), (x0, 1.80),
+                     (x0 * 1.02, tip_z + 0.06), (tip_x, tip_z)):
+            y = surface_front_y(x, z)
+            pts.append((x, (y if y is not None else -0.10) - 0.014, z))
+        bangs.append(lock(f"Bang{idx}", pts,
+                          [0.048, 0.056, 0.050, 0.026, 0.008],
+                          [0.024, 0.030, 0.028, 0.016, 0.008]))
+    # Side pieces hugging the face rim down to mouth height.
+    for side in (-1, 1):
+        pts = []
+        for x, z in ((side * 0.24, 1.92), (side * 0.29, 1.78),
+                     (side * 0.31, 1.62), (side * 0.30, 1.48)):
+            y = surface_front_y(x, z)
+            pts.append((x, (y if y is not None else -0.08) - 0.016, z))
+        bangs.append(lock(f"BangSide{'L' if side < 0 else 'R'}", pts,
+                          [0.040, 0.048, 0.044, 0.018],
+                          [0.026, 0.032, 0.030, 0.014]))
     return bangs
 
 
@@ -186,17 +266,10 @@ def make_ahoge():
                 [0.05, 0.032, 0.008])
 
 
-def helmet_front_y(x, z):
-    """Front-surface y of the unshrunk helmet at given (x, z)."""
-    k = 1.0 - (x / 0.65) ** 2 - ((z - 1.72) / 0.50) ** 2
-    return 0.06 - 0.55 * math.sqrt(max(k, 1e-4))
-
-
 def band_arc():
-    pts = [(-0.58, 0.0, 1.99), (-0.32, 0.0, 2.15), (0.0, 0.0, 2.21),
-           (0.32, 0.0, 2.15), (0.58, 0.0, 1.99)]
-    # Seat the band ON the helmet surface, slightly proud of it.
-    return [(x, helmet_front_y(abs(x), z) - 0.028, z) for x, _, z in pts]
+    pts = [(-0.50, 1.90), (-0.28, 2.06), (0.0, 2.16), (0.28, 2.06), (0.50, 1.90)]
+    # Seat the band ON the skull surface along its normal, slightly proud.
+    return [tuple(seat_on_skull(x, z)) for x, z in pts]
 
 
 def make_headband():
@@ -232,7 +305,7 @@ def make_headband():
 
 def make_bow():
     # Viewer-right side of the R19 art = model -X.
-    base = Vector((-0.56, helmet_front_y(0.56, 1.97) - 0.03, 1.97))
+    base = seat_on_skull(-0.50, 1.92, offset=0.03)
     r1.sweep("BowLoopL", [tuple(base + Vector((-0.02, 0.0, 0.02))),
                           tuple(base + Vector((-0.13, 0.05, 0.10))),
                           tuple(base + Vector((-0.20, 0.02, 0.02))),
@@ -260,22 +333,22 @@ def make_bow():
 
 
 def make_fin_ears():
+    # R19: fin ears sit at EYE height, swept back and down, half-buried.
     for side in (-1, 1):
         obj = proto.ellipsoid(f"FinEar{'L' if side < 0 else 'R'}",
-                              (side * 0.52, 0.10, 1.88), (0.24, 0.045, 0.11),
+                              (side * 0.50, 0.06, 1.68), (0.17, 0.045, 0.085),
                               "head", "WhaleFinOuter", 28, 12)
-        obj.rotation_euler = (0.12, side * 0.15, side * -0.15)
+        obj.rotation_euler = (0.10, -side * 0.45, side * -0.10)
         HEAD_OBJECTS.append(obj)
         inner = proto.ellipsoid(f"FinEarInner{'L' if side < 0 else 'R'}",
-                                (side * 0.54, 0.115, 1.878), (0.16, 0.024, 0.068),
+                                (side * 0.52, 0.07, 1.676), (0.115, 0.024, 0.054),
                                 "head", "WhaleFinInner", 24, 10)
-        inner.rotation_euler = (0.12, side * 0.15, side * -0.15)
+        inner.rotation_euler = (0.10, -side * 0.45, side * -0.10)
         HEAD_OBJECTS.append(inner)
 
 
 def build_r2_head():
-    make_face_volume()
-    make_helmet()
+    make_head()
     make_locks()
     make_bangs()
     make_ahoge()
@@ -293,10 +366,10 @@ def setup_render(scene):
         scene.render.engine = "BLENDER_EEVEE_NEXT"
     except Exception:
         scene.render.engine = "BLENDER_EEVEE"
-    key = bpy.data.lights.new("Key", "SUN"); key.energy = 5.0
+    key = bpy.data.lights.new("Key", "SUN"); key.energy = 6.0
     key_obj = bpy.data.objects.new("Key", key); bpy.context.collection.objects.link(key_obj)
     key_obj.rotation_euler = (Vector((0, -0.8, -0.6))).to_track_quat("-Z", "Y").to_euler()
-    fill = bpy.data.lights.new("Fill", "SUN"); fill.energy = 2.5
+    fill = bpy.data.lights.new("Fill", "SUN"); fill.energy = 1.2
     fill_obj = bpy.data.objects.new("Fill", fill); bpy.context.collection.objects.link(fill_obj)
     fill_obj.rotation_euler = (Vector((-0.9, -0.4, -0.2))).to_track_quat("-Z", "Y").to_euler()
     rim = bpy.data.lights.new("Rim", "SUN"); rim.energy = 2.0
@@ -307,7 +380,7 @@ def setup_render(scene):
     world.use_nodes = True
     bg = world.node_tree.nodes.get("Background")
     bg.inputs["Color"].default_value = (0.85, 0.88, 0.95, 1.0)
-    bg.inputs["Strength"].default_value = 0.55
+    bg.inputs["Strength"].default_value = 0.35
     cam = bpy.data.cameras.new("Cam"); cam.type = "ORTHO"; cam.ortho_scale = 1.55
     cam_obj = bpy.data.objects.new("Cam", cam); bpy.context.collection.objects.link(cam_obj)
     scene.camera = cam_obj
