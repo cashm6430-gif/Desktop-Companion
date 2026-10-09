@@ -51,6 +51,7 @@ FACE_RADII = (FACE_RX, 0.20, FACE_RZ)
 # the hair rim sits only a hair's width proud of the face plane.
 SKULL_CENTER = (0.0, 0.05, 1.72)
 SKULL_RADII = (0.52, 0.45, 0.47)
+BODY_AXIS_PX = 626.5   # character body axis in the PSD fullbody (legs center)
 
 HEAD_OBJECTS = []
 
@@ -491,13 +492,30 @@ def apron_panel():
     return obj
 
 
+def body_project_uv(obj):
+    """Wrap the PSD costume painting onto a lathe solid: front half sampled
+    directly (px = axis + x*SS*k), back half mirrored. The 0.78 scale + px
+    clamp keeps sampling inside the painted costume (the raw figure width
+    includes hair/tail overlaps that must not smear onto the cloth)."""
+    uv = obj.data.uv_layers.new(name="BodyProject")
+    uv.active_render = True
+    for poly in obj.data.polygons:
+        for li in poly.loop_indices:
+            co = obj.data.vertices[obj.data.loops[li].vertex_index].co
+            sx = co.x if co.y <= 0.0 else -co.x
+            px = max(382.0, min(872.0, BODY_AXIS_PX + sx * SS * 0.78))
+            u = px / 1254.0
+            v = (1254.0 - (445.0 + (EYE_Z - co.z) * SS)) / 1254.0
+            uv.data[li].uv = (u, v)
+
+
 def make_body():
     # Neck: chin (1.547) down into the bodice.
     proto.tube("BodyNeck", [(0, 0.02, 1.34), (0, 0.03, 1.44), (0, 0.04, 1.53)],
                [0.105, 0.112, 0.118],
                [{"neck": 1}, {"neck": 1}, {"neck": 1}], "WhaleSkin")
     # Bodice: shoulders to waist.
-    lathe("Bodice", [
+    bodice = lathe("Bodice", [
         (1.38, 0.205, 0.16, {"neck": .25, "spine": .75}),
         (1.32, 0.295, 0.205, {"spine": 1.0}),
         (1.25, 0.30, 0.21, {"spine": 1.0}),
@@ -505,14 +523,14 @@ def make_body():
         (1.10, 0.265, 0.185, {"spine": .3, "pelvis": .7})],
         "WhaleDressNavy")
     # Skirt: waist to hem, pleated.
-    lathe("Skirt", [
+    skirt = lathe("Skirt", [
         (1.20, 0.27, 0.19, {"spine": .4, "pelvis": .6}),
         (1.10, 0.31, 0.22, {"pelvis": 1.0}),
         (0.99, 0.40, 0.285, {"pelvis": 1.0}),
         (0.875, 0.51, 0.365, {"pelvis": 1.0}),
         (0.775, 0.60, 0.43, {"pelvis": 1.0})],
         "WhaleDressNavy", pleat_amp=0.022, pleat_freq=12)
-    apron_panel()
+    apron = apron_panel()
     # Chest: flat ruffled bib with navy buttons, waist belt with gold buttons,
     # and the big navy collar bow with a blue gem (all read from the PSD crop).
     bib = proto.ellipsoid("ApronBib", (0, -0.19, 1.30), (0.145, 0.030, 0.088),
@@ -522,7 +540,7 @@ def make_body():
         btn = proto.ellipsoid(f"BibButton{i}", (0, -0.222, z), (0.016, 0.012, 0.016),
                               "spine", "WhaleDressNavy", 12, 6)
         BODY_OBJECTS.append(btn)
-    lathe("WaistBelt", [
+    belt = lathe("WaistBelt", [
         (1.245, 0.283, 0.198, {"spine": .6, "pelvis": .4}),
         (1.228, 0.298, 0.212, {"spine": .5, "pelvis": .5}),
         (1.135, 0.298, 0.212, {"pelvis": 1.0}),
@@ -592,6 +610,58 @@ def make_body():
                               "tail", "WhaleDressNavy", 24, 12)
     fluke_b.rotation_euler = (0.0, 0.0, -0.15)
     BODY_OBJECTS.append(fluke_b)
+    # Painted costume from the PSD fullbody onto the lathe garments (bodice,
+    # skirt, apron sheet, belt) - fabric folds/frills come from the artwork.
+    body_tex = proto.MATERIALS.get("WhaleBodyTex")
+    if body_tex is not None:
+        for obj in (bodice, skirt, apron, belt):
+            body_project_uv(obj)
+            obj.data.materials.clear()
+            obj.data.materials.append(body_tex)
+
+
+def apply_toon_look():
+    """Three-render-to-two look: every Whale* material becomes unlit flat
+    (texture / vertex gradient / solid color straight to emission), and each
+    mesh gets an inverted-hull black outline shell."""
+    for mat in bpy.data.materials:
+        if not mat.name.startswith("Whale") or not mat.use_nodes:
+            continue
+        nt = mat.node_tree
+        out = next((n for n in nt.nodes if n.type == "OUTPUT_MATERIAL"), None)
+        if out is None:
+            continue
+        tex = next((n for n in nt.nodes if n.type == "TEX_IMAGE"), None)
+        vcol = next((n for n in nt.nodes if n.type == "VERTEX_COLOR"), None)
+        emis = nt.nodes.new("ShaderNodeEmission")
+        if tex is not None:
+            nt.links.new(tex.outputs["Color"], emis.inputs["Color"])
+        elif vcol is not None:
+            nt.links.new(vcol.outputs["Color"], emis.inputs["Color"])
+        else:
+            bsdf = nt.nodes.get("Principled BSDF")
+            emis.inputs["Color"].default_value = tuple(
+                bsdf.inputs["Base Color"].default_value) if bsdf else (1, 1, 1, 1)
+        nt.links.new(emis.outputs["Emission"], out.inputs["Surface"])
+    outline = bpy.data.materials.new("WhaleOutline")
+    outline.use_nodes = True
+    outline.use_backface_culling = True
+    ont = outline.node_tree
+    oout = next(n for n in ont.nodes if n.type == "OUTPUT_MATERIAL")
+    oem = ont.nodes.new("ShaderNodeEmission")
+    oem.inputs["Color"].default_value = (0.012, 0.016, 0.045, 1.0)
+    ont.links.new(oem.outputs["Emission"], oout.inputs["Surface"])
+    for obj in bpy.context.scene.objects:
+        if obj.type != "MESH":
+            continue
+        obj.data.materials.append(outline)
+        slot = len(obj.data.materials) - 1
+        sol = obj.modifiers.new("WhaleOutlineShell", "SOLIDIFY")
+        sol.thickness = 0.014
+        sol.offset = 1.0
+        sol.use_flip_normals = True
+        sol.material_offset = slot
+        sol.use_rim = True
 
 
 def setup_render(scene):
@@ -687,6 +757,12 @@ def main():
     color_node.layer_name = "WhaleHairGradient"
     gradient_material.node_tree.links.new(color_node.outputs["Color"],
                                           gradient_material.node_tree.nodes["Principled BSDF"].inputs["Base Color"])
+    body_mat = proto.material("WhaleBodyTex", r1.linear_hex("FFFFFF"))
+    body_image = bpy.data.images.load(str(ROOT / "art/3d/whale-girl-head-r2/costume-project.png"))
+    btex = body_mat.node_tree.nodes.new("ShaderNodeTexImage")
+    btex.image = body_image
+    body_mat.node_tree.links.new(btex.outputs["Color"],
+                                 body_mat.node_tree.nodes["Principled BSDF"].inputs["Base Color"])
     build_r2_head()
     make_body()
     for obj in list(bpy.context.scene.objects):
@@ -702,6 +778,7 @@ def main():
             weights.append(abs(sum(g.weight for g in vertex.groups) - 1))
             if not vertex.groups: unweighted.append([obj.name, vertex.index])
     if unweighted or max(weights) > 1e-5: raise RuntimeError("Bad skin weights")
+    apply_toon_look()
     blend = source / "character-round3.blend"; glb = export / "character-round3.glb"
     bpy.ops.wm.save_as_mainfile(filepath=str(blend))
     options = {"export_format": "GLB", "export_yup": True, "export_animations": True,
