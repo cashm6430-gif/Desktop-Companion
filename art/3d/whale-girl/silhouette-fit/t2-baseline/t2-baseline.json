@@ -1,0 +1,52 @@
+{
+ "glb": "assets\\3d\\whale-girl-head-r2\\character-round3.glb",
+ "calibration": {
+  "front": {
+   "view": "neg_y",
+   "iou": 0.7739,
+   "note": "convention (rig faces -Y)",
+   "aligned_iou": 0.7878,
+   "residual_shift": [
+    -14,
+    22
+   ]
+  },
+  "back": {
+   "view": "pos_y",
+   "iou": 0.8128,
+   "note": "convention",
+   "aligned_iou": 0.8128,
+   "residual_shift": [
+    0,
+    0
+   ]
+  },
+  "left": {
+   "view": "neg_x",
+   "iou": 0.6221,
+   "all": {
+    "neg_x": 0.6221,
+    "pos_x": 0.4958
+   },
+   "aligned_iou": 0.6514,
+   "residual_shift": [
+    -30,
+    -6
+   ]
+  }
+ },
+ "baseline_iou": {
+  "front": 0.7739,
+  "left": 0.6221,
+  "back": 0.8128
+ },
+ "baseline_mean_iou": 0.7363,
+ "ref_ceiling_front_back_iou": 0.7951,
+ "aspect": {
+  "ref_front": 0.861,
+  "ref_left": 0.674,
+  "ref_back": 0.882,
+  "model_front": 0.713,
+  "model_left": 0.567
+ }
+}

@@ -1,0 +1,53 @@
+{
+ "front": {
+  "source": "art\\3d\\whale-girl-head-r2\\alignment-fullbody.png",
+  "raw_bbox": [
+   126,
+   16,
+   1175,
+   1235
+  ],
+  "raw_w": 1049,
+  "raw_h": 1219,
+  "raw_aspect": 0.8605,
+  "scale": 0.820345,
+  "widest_row_y": 579,
+  "widest_px": 818,
+  "widest_frac_from_bottom": 0.433,
+  "widest_in_lower_half": true
+ },
+ "left": {
+  "source": "art\\3d\\whale-girl\\multiview\\ref-side-ai.png",
+  "raw_bbox": [
+   326,
+   46,
+   957,
+   982
+  ],
+  "raw_w": 631,
+  "raw_h": 936,
+  "raw_aspect": 0.6741,
+  "scale": 1.068376,
+  "widest_row_y": 743,
+  "widest_px": 579,
+  "widest_frac_from_bottom": 0.269,
+  "widest_in_lower_half": true
+ },
+ "back": {
+  "source": "art\\3d\\whale-girl\\multiview\\ref-back-ai.png",
+  "raw_bbox": [
+   154,
+   115,
+   918,
+   981
+  ],
+  "raw_w": 764,
+  "raw_h": 866,
+  "raw_aspect": 0.8822,
+  "scale": 1.154734,
+  "widest_row_y": 693,
+  "widest_px": 882,
+  "widest_frac_from_bottom": 0.319,
+  "widest_in_lower_half": true
+ }
+}

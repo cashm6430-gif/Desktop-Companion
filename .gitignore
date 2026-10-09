@@ -18,3 +18,8 @@ __pycache__/
 
 # AI-generation scratch (local only)
 /generated-images/
+
+# Silhouette fit: derived masks and raw renders are regenerable
+# (tools/render_silhouette.py), keep only the report and the small sheets.
+/art/3d/whale-girl/silhouette-fit/**/sil-*.npy
+/art/3d/whale-girl/silhouette-fit/**/render-*.png
