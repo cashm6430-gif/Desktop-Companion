@@ -7,9 +7,6 @@ const DEMO_LENGTH := 16.0
 const WINDOW_SIZE := Vector2i(360, 420)
 const HostPeer = preload("res://host_peer.gd")
 const HostBehavior = preload("res://host_behavior.gd")
-const WAVE_RETURN_SECONDS := 0.2
-const WAVE_RETURN_BONES := ["shoulder.L", "upper_arm.L", "forearm.L", "wrist.L",
-	"shoulder.R", "upper_arm.R", "forearm.R", "wrist.R"]
 const CAPTURE_PLAN := [
 	{"time": 1.0, "name": "standing"},
 	{"time": 1.50, "name": "blink"},
@@ -53,7 +50,6 @@ var stool: MeshInstance3D
 var frame_times_ms: Array[float] = []
 var wall_started_usec := 0
 var previous_frame_usec := 0
-var previous_pose_usec := 0
 var window_region_ready := false
 var alpha_mask_cost_ms: Array[float] = []
 var face_smile := 0.10
@@ -79,10 +75,6 @@ var temporary_workstation: Node3D
 var head_bone := -1
 var window_size := WINDOW_SIZE
 var hidden_review_meshes: Array[String] = []
-var wave_return_sources: Dictionary = {}
-var wave_return_elapsed := WAVE_RETURN_SECONDS
-var wave_return_samples: Array[Dictionary] = []
-var previous_host_sample: Dictionary = {}
 
 func _ready() -> void:
 	_parse_arguments()
@@ -203,12 +195,10 @@ func _parse_arguments() -> void:
 		capture_plan = [{"time": 1.0, "name": "front"}, {"time": 2.0, "name": "left35"},
 			{"time": 3.0, "name": "right35"}, {"time": 4.0, "name": "back"},
 			{"time": 5.0, "name": "blink"}, {"time": 6.0, "name": "smile"}]
-	var requested_size: Array = review_profile.get("window_size", [])
-	if requested_size.size() == 2:
-		window_size = Vector2i(clampi(int(requested_size[0]), 240, 1920), clampi(int(requested_size[1]), 240, 1920))
-	if host_port != 0 and review_profile.has("capture_plan"):
-		capture_plan = review_profile["capture_plan"].duplicate(true)
-	if not review_output.is_empty() and quit_after < 0 and host_port == 0:
+		var requested_size: Array = review_profile.get("window_size", [])
+		if requested_size.size() == 2:
+			window_size = Vector2i(clampi(int(requested_size[0]), 240, 1920), clampi(int(requested_size[1]), 240, 1920))
+	if not review_output.is_empty() and quit_after < 0:
 		quit_after = 7.0 if review_kind == "head-style" else DEMO_LENGTH
 
 func _probe_fg(window: Window, where: String) -> void:
@@ -220,7 +210,7 @@ func _probe_fg(window: Window, where: String) -> void:
 
 func _setup_window() -> void:
 	var window := get_window()
-	# Foreground guard (design note: Obsidian 桌宠项目-FocusGuard窗口说明): a GDExtension node whose
+	# Foreground guard (see focus-guard/DESIGN.md): a GDExtension node whose
 	# restorer thread (started at SCENE init, before this window is shown)
 	# keeps the desktop out of foreground vacuum and returns any kernel
 	# forced assignment within ~2ms -- below Godot's per-frame focus check.
@@ -305,13 +295,6 @@ func _install_toon_materials() -> void:
 			var toon := ShaderMaterial.new()
 			toon.shader = toon_shader
 			toon.set_shader_parameter("base_color", color)
-			var vertex_colors: Variant = mesh_node.mesh.surface_get_arrays(surface)[Mesh.ARRAY_COLOR]
-			var uses_vertex_colors: bool = vertex_colors is PackedColorArray and not vertex_colors.is_empty()
-			toon.set_shader_parameter("use_vertex_color", uses_vertex_colors)
-			if source_name.to_lower().contains("whaleskin"):
-				# Keep the broad Q-style face warm and readable at desktop size.
-				toon.set_shader_parameter("shade_strength", 0.06)
-				toon.set_shader_parameter("shadow_tint", Vector3(1.0, 0.95, 0.96))
 			if source != null and source.albedo_texture != null:
 				toon.set_shader_parameter("use_texture", true)
 				toon.set_shader_parameter("base_texture", source.albedo_texture)
@@ -325,7 +308,7 @@ func _install_toon_materials() -> void:
 			mesh_node.set_surface_override_material(surface, toon)
 			material_contract.append({"mesh": String(mesh_node.name), "surface": surface,
 				"source_material": source_name, "base_color": [color.r, color.g, color.b, color.a],
-				"outline": not facial_detail, "uses_vertex_colors": uses_vertex_colors})
+				"outline": not facial_detail})
 
 func _measure_model() -> void:
 	var initialized := false
@@ -365,7 +348,7 @@ func _setup_world() -> void:
 	camera.position = Vector3(0, center_y, 6)
 	add_child(camera)
 	camera.look_at(Vector3(0, center_y, 0), Vector3.UP)
-	if review_kind == "head-style" or review_profile.has("camera"):
+	if review_kind == "head-style":
 		var config: Dictionary = review_profile.get("camera", {})
 		var default_y := model_bounds.position.y + model_bounds.size.y * 0.77
 		var target: Array = config.get("target", [0, default_y, 0])
@@ -472,8 +455,6 @@ func _process_host(delta: float) -> void:
 	var progress: float = host_behavior.sit_progress
 	var owner := "sit" if progress > 0.0 else ("wave" if host_behavior.action_name == "wave" else "idle")
 	if owner != host_pose_owner:
-		if host_pose_owner == "wave":
-			_begin_wave_return()
 		host_pose_owner = owner
 		player.play(animation_map[owner], 0.0)
 		player.advance(0.0)
@@ -487,8 +468,6 @@ func _process_host(delta: float) -> void:
 		if not player.is_playing():
 			player.play(animation_map["idle"], 0.0)
 		player.advance(delta)
-	var was_returning := not wave_return_sources.is_empty()
-	_apply_wave_return(delta)
 	stool.visible = progress > 0.001
 	temporary_workstation.visible = progress >= 0.999 and (host_behavior.busy or host_behavior.action_name == "work.finished")
 	character.rotation.y = 0.0
@@ -496,40 +475,6 @@ func _process_host(delta: float) -> void:
 		var body_rotation := skeleton.get_bone_pose_rotation(head_bone)
 		skeleton.set_bone_pose_rotation(head_bone, body_rotation * Quaternion(Vector3.RIGHT, host_behavior.head_pitch) * Quaternion(Vector3.UP, host_behavior.head_yaw))
 	_set_face(time_elapsed, delta)
-	if not review_output.is_empty() and (owner == "wave" or was_returning):
-		previous_host_sample = _pose_sample()
-		if was_returning:
-			wave_return_samples.append(previous_host_sample)
-			if wave_return_samples.size() > 1000:
-				wave_return_samples.pop_front()
-	else:
-		previous_host_sample = {}
-
-func _begin_wave_return() -> void:
-	# Preserve only local upper-limb rotations. The base clip keeps owning all
-	# joint positions, scales, lower-body contacts, torso and facial channels.
-	wave_return_sources.clear()
-	for bone_name in WAVE_RETURN_BONES:
-		var index := skeleton.find_bone(bone_name)
-		if index >= 0:
-			wave_return_sources[index] = skeleton.get_bone_pose_rotation(index).normalized()
-	wave_return_elapsed = 0.0
-	if not review_output.is_empty() and not previous_host_sample.is_empty():
-		wave_return_samples.append(previous_host_sample)
-	_host_log({"event": "upper_limb_return", "duration_seconds": WAVE_RETURN_SECONDS,
-		"bone_count": wave_return_sources.size(), "rotation_only": true})
-
-func _apply_wave_return(delta: float) -> void:
-	if wave_return_sources.is_empty():
-		return
-	wave_return_elapsed = minf(WAVE_RETURN_SECONDS, wave_return_elapsed + delta)
-	var target_weight := smoothstep(0.0, WAVE_RETURN_SECONDS, wave_return_elapsed)
-	for index in wave_return_sources:
-		var from_rotation: Quaternion = wave_return_sources[index]
-		var target_rotation := skeleton.get_bone_pose_rotation(index).normalized()
-		skeleton.set_bone_pose_rotation(index, from_rotation.slerp(target_rotation, target_weight).normalized())
-	if wave_return_elapsed >= WAVE_RETURN_SECONDS:
-		wave_return_sources.clear()
 
 func _process_head_review(delta: float) -> void:
 	state = "head-style"
@@ -580,11 +525,6 @@ func _process(delta: float) -> void:
 	previous_frame_usec = tick
 	# Review time is an explicit fixed pose clock. GPU performance uses its separate wall clock.
 	var animation_delta := 1.0 / 60.0 if not review_output.is_empty() and host_port == 0 else delta
-	if host_port != 0:
-		# Engine delta may be capped after slow GPU readback. Host requests use
-		# real timers; keep pose/capture/TTL clocks on the same monotonic basis.
-		animation_delta = float(tick - previous_pose_usec) / 1000000.0 if previous_pose_usec > 0 else delta
-		previous_pose_usec = tick
 	time_elapsed += animation_delta
 	frame_index += 1
 	if host_port != 0:
@@ -670,9 +610,8 @@ func _set_face(t: float, animation_delta: float) -> void:
 		smile = host_behavior.smile_target
 		blink = maxf(blink, host_behavior.blink_override)
 	elif review_kind == "head-style":
-		var probe: Dictionary = review_profile.get("expression_probe", {})
-		blink = clampf(float(probe.get("blink_peak", 1.0)), 0.0, 1.0) if t >= 4.5 and t < 5.5 else 0.0
-		smile = clampf(float(probe.get("smile_peak", 1.0)), 0.0, 1.0) if t >= 5.5 else 0.0
+		blink = 1.0 if t >= 4.5 and t < 5.5 else 0.0
+		smile = 1.0 if t >= 5.5 else 0.0
 	face_smile = move_toward(face_smile, smile, animation_delta * 3.0)
 	for target in shape_targets:
 		var lower := String(target["name"]).to_lower()
@@ -681,9 +620,6 @@ func _set_face(t: float, animation_delta: float) -> void:
 			mesh_node.set_blend_shape_value(int(target["index"]), blink)
 		elif lower.contains("smile"):
 			mesh_node.set_blend_shape_value(int(target["index"]), face_smile)
-		elif lower in ["liddepth_l", "liddepth_r"]:
-			# Conformal eyelid clearance: no correction at open/closed endpoints.
-			mesh_node.set_blend_shape_value(int(target["index"]), 4.0 * blink * (1.0 - blink))
 		elif host_port != 0 or review_kind == "head-style":
 			# All reviewed facial channels have one owner. Unknown channels stay neutral.
 			mesh_node.set_blend_shape_value(int(target["index"]), 0.0)
@@ -807,9 +743,6 @@ func _pose_sample() -> Dictionary:
 			"busy": host_behavior.busy if host_behavior != null else false,
 			"sit_progress": host_behavior.sit_progress if host_behavior != null else 0,
 			"action": host_behavior.action_name if host_behavior != null else "",
-			"pose_owner": host_pose_owner,
-			"upper_limb_return_source_weight": 0.0 if wave_return_sources.is_empty() else 1.0 - smoothstep(0.0, WAVE_RETURN_SECONDS, wave_return_elapsed),
-			"upper_limb_return_elapsed": wave_return_elapsed,
 			"workstation_visible": temporary_workstation.visible if temporary_workstation != null else false},
 		"animation": String(player.assigned_animation) if player != null else "",
 		"animation_position": player.current_animation_position if player != null else 0,
@@ -895,8 +828,7 @@ func _finish() -> void:
 	report["trace_file"] = "trace.json"
 	report["trace_samples"] = trace.size()
 	report["sequence"] = {"enabled": record_frames, "frame_count": sequence_frames.size(),
-		"animation_fps": 15 if host_port == 0 else null, "stride_in_fixed_dt_frames": 4 if host_port == 0 else null,
-		"host_clock": "variable_wall_dt" if host_port != 0 else null,
+		"animation_fps": 15, "stride_in_fixed_dt_frames": 4,
 		"manifest_file": "sequence-manifest.json", "frames_directory": "frames",
 		"source": "gpu_viewport_after_frame_post_draw"}
 	report["animation_evaluation"] = "imported_AnimationPlayer_manual_advance_with_engine_crossfade"
@@ -911,21 +843,15 @@ func _finish() -> void:
 	report["errors"] = errors
 	report["host_events"] = host_events
 	report["host_review_limit"] = "snapshot-driven proxy, static work, no gripping/biting/typing capability claimed"
-	report["upper_limb_return"] = {"duration_seconds": WAVE_RETURN_SECONDS, "bones": WAVE_RETURN_BONES,
-		"mode": "local_rotation_only_slerp_after_base_pose", "sample_count": wave_return_samples.size(),
-		"trace_file": "upper-limb-return.json"}
 	if focus_guard != null:
 		report["focus_guard"] = focus_guard.get_stats()
 	else:
 		report["focus_guard"] = {"available": false}
 	report["fg_probes"] = fg_probes
 	_write_json("trace.json", {"schema": 1, "samples": trace})
-	if host_port != 0:
-		_write_json("upper-limb-return.json", {"schema": 1, "samples": wave_return_samples})
 	if record_frames:
-		_write_json("sequence-manifest.json", {"schema": 1, "animation_fps": 15 if host_port == 0 else null,
-			"animation_dt_seconds": 1.0 / 60.0 if host_port == 0 else null,
-			"frame_stride": 4, "clock": "variable_wall_dt" if host_port != 0 else "fixed_pose_clock", "frames": sequence_frames})
+		_write_json("sequence-manifest.json", {"schema": 1, "animation_fps": 15,
+			"animation_dt_seconds": 1.0 / 60.0, "frame_stride": 4, "frames": sequence_frames})
 	_write_json("report.json", report)
 	get_tree().quit(0 if errors.is_empty() else 1)
 

@@ -11,6 +11,7 @@ from ctypes import wintypes
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -25,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GODOT_DEFAULT = Path("D:/tool/godot/Godot_v4.7.2-stable_win64.exe")
 PROJECT_SOURCE = ROOT / "godot/toon-prototype"
 MODEL_SOURCE = ROOT / "assets/3d/prototype/character.glb"
+SOURCE_EXCLUDES = (".godot", "*.tmp", "*.obj", "*.pdb", ".sconsign.dblite")
 
 
 def fingerprint(path):
@@ -40,6 +42,64 @@ def write_json(path, value):
                     encoding="utf8")
 
 
+def load_review_profile(path):
+    if path is None:
+        return None
+    data = json.loads(path.read_text(encoding="utf8"))
+    if not isinstance(data, dict) or data.get("schema_version") != 1:
+        raise ValueError("Review profile requires schema_version: 1")
+    camera = data.get("camera", {})
+    if not isinstance(camera, dict):
+        raise ValueError("Camera profile must be an object")
+    vectors = []
+    for name in ("position", "target"):
+        value = camera.get(name)
+        if value is not None:
+            if (not isinstance(value, list) or len(value) != 3 or any(
+                    not isinstance(item, (int, float)) or isinstance(item, bool)
+                    or not math.isfinite(item) for item in value)):
+                raise ValueError(f"Camera {name} must be a finite 3-vector")
+            vectors.append(value)
+    if len(vectors) == 2 and math.dist(*vectors) < 0.01:
+        raise ValueError("Camera position and target must differ")
+    size = camera.get("size", 2.3)
+    if not isinstance(size, (int, float)) or isinstance(size, bool) or not math.isfinite(size) or not 0.3 <= size <= 10:
+        raise ValueError("Camera size must be within 0.3..10")
+    window = data.get("window_size", [360, 420])
+    if (not isinstance(window, list) or len(window) != 2 or any(
+            not isinstance(item, int) or isinstance(item, bool) or not 240 <= item <= 1920
+            for item in window)):
+        raise ValueError("window_size must contain two integers within 240..1920")
+    if not isinstance(data.get("hide_proxy_body", True), bool):
+        raise ValueError("hide_proxy_body must be boolean")
+    expression_probe = data.get("expression_probe", {})
+    if not isinstance(expression_probe, dict) or set(expression_probe) - {"blink_peak", "smile_peak"}:
+        raise ValueError("expression_probe supports blink_peak and smile_peak only")
+    for value in expression_probe.values():
+        if (not isinstance(value, (int, float)) or isinstance(value, bool)
+                or not math.isfinite(value) or not 0 <= value <= 1):
+            raise ValueError("Expression probe values must be within 0..1")
+    yaw = data.get("model_yaw_degrees", 0)
+    if not isinstance(yaw, (int, float)) or isinstance(yaw, bool) or not math.isfinite(yaw):
+        raise ValueError("model_yaw_degrees must be finite")
+    plan = data.get("capture_plan")
+    if plan is not None:
+        if not isinstance(plan, list) or not 1 <= len(plan) <= 64:
+            raise ValueError("capture_plan requires 1..64 entries")
+        last_time, names = -1.0, set()
+        for item in plan:
+            at = item.get("time") if isinstance(item, dict) else None
+            name = item.get("name", "") if isinstance(item, dict) else ""
+            if (not isinstance(at, (int, float)) or isinstance(at, bool)
+                    or not math.isfinite(at) or not 0 <= at <= 150 or at <= last_time
+                    or not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9-]{0,47}", name)
+                    or name in names or name == "shutdown-transparent"):
+                raise ValueError("capture_plan needs ordered finite times and unique safe names")
+            last_time = at
+            names.add(name)
+    return data
+
+
 def stage(output, model_source=MODEL_SOURCE):
     if output.exists():
         raise ValueError(f"Review output already exists; use a fresh directory: {output}")
@@ -48,7 +108,7 @@ def stage(output, model_source=MODEL_SOURCE):
     output.mkdir(parents=True)
     project = output / "project"
     shutil.copytree(PROJECT_SOURCE, project,
-                    ignore=shutil.ignore_patterns(".godot", "*.tmp"))
+                    ignore=shutil.ignore_patterns(*SOURCE_EXCLUDES))
     (project / "assets").mkdir(exist_ok=True)
     shutil.copy2(model_source, project / "assets/character.glb")
     # Park the FocusGuard GDExtension manifest before the import pass: the
@@ -61,7 +121,8 @@ def stage(output, model_source=MODEL_SOURCE):
         shutil.move(str(parked), str(output / "focus-guard.gdextension.parked"))
     sources = {path.relative_to(ROOT).as_posix(): fingerprint(path)
                for path in sorted(PROJECT_SOURCE.rglob("*"))
-               if path.is_file() and ".godot" not in path.parts}
+               if path.is_file() and ".godot" not in path.parts
+               and not any(path.match(pattern) for pattern in SOURCE_EXCLUDES)}
     model_key = model_source.relative_to(ROOT).as_posix() if model_source.is_relative_to(ROOT) else str(model_source)
     sources[model_key] = fingerprint(model_source)
     sources[Path(__file__).relative_to(ROOT).as_posix()] = fingerprint(Path(__file__))
@@ -142,7 +203,7 @@ def audit_window(start):
     return facts
 
 
-def run_review(godot, project, output, duration, interactive=False, record_frames=False):
+def import_project(godot, project, output):
     imports = [str(godot), "--headless", "--editor", "--import", "--path", str(project)]
     imported = subprocess.run(imports, capture_output=True, text=True,
                               encoding="utf8", errors="replace", timeout=120)
@@ -161,6 +222,11 @@ def run_review(godot, project, output, duration, interactive=False, record_frame
         existing = ext_cfg.read_text(encoding="utf8") if ext_cfg.is_file() else ""
         if entry not in existing:
             ext_cfg.write_text(existing + entry, encoding="utf8")
+
+
+def run_review(godot, project, output, duration, interactive=False, record_frames=False,
+               review_kind="demo", profile=None):
+    import_project(godot, project, output)
     capture = output / "captures"
     capture.mkdir()
     startup = None
@@ -171,10 +237,17 @@ def run_review(godot, project, output, duration, interactive=False, record_frame
         # native show uses SW_SHOWNA; no other application's focus is changed.
         startup.wShowWindow = 0  # SW_HIDE for the first ShowWindow only.
     command = [str(godot), "--path", str(project)]
+    user_arguments = []
+    if review_kind != "demo":
+        user_arguments += ["--review-kind", review_kind]
+    if profile is not None:
+        user_arguments += ["--review-profile", str(profile)]
     if not interactive:
-        command += ["--", "--review-output", str(capture), "--quit-after", str(duration)]
+        user_arguments += ["--review-output", str(capture), "--quit-after", str(duration)]
         if record_frames:
-            command += ["--record-frames"]
+            user_arguments += ["--record-frames"]
+    if user_arguments:
+        command += ["--", *user_arguments]
     if interactive:
         subprocess.Popen(command, cwd=ROOT, startupinfo=startup)
         return {"status": "interactive_started", "command": command,
@@ -247,7 +320,7 @@ def run_review(godot, project, output, duration, interactive=False, record_frame
             "window_audit": audit, "runtime": runtime, "images": image_checks,
             "window_audit_samples": audit_samples, "foreground_before_launch": foreground_before,
             "windows_startup_show_mode": "SW_HIDE_then_Godot_NO_FOCUS_show" if startup else "platform_default",
-            "character_art_approval": "not_requested_technical_placeholder",
+            "character_art_approval": "pending" if review_kind == "head-style" else "not_requested_technical_placeholder",
             "desktop_composite_visual_review": "pending"}
 
 
@@ -258,30 +331,57 @@ def main():
     parser.add_argument("--output", type=Path)
     parser.add_argument("--model", type=Path, default=MODEL_SOURCE,
                         help="Explicit candidate GLB; does not replace the canonical asset")
+    parser.add_argument("--contract", type=Path, help="Freeze the matching author rig contract with this review")
     parser.add_argument("--duration", type=float, default=17.0)
     parser.add_argument("--interactive", action="store_true")
     parser.add_argument("--record-frames", action="store_true",
                         help="Record true GPU sequence frames for continuity review")
+    parser.add_argument("--review-kind", choices=("demo", "head-style"), default="demo")
+    parser.add_argument("--review-profile", type=Path)
     args = parser.parse_args()
-    if not 12 <= args.duration <= 60:
-        parser.error("duration must be between 12 and 60 seconds")
+    if not (7 if args.review_kind == "head-style" else 12) <= args.duration <= 60:
+        parser.error("duration must be 7..60 seconds for head-style or 12..60 for demo")
     output = (args.output or ROOT / ".local/authoring/toon-prototype" /
               (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8])).resolve()
     godot = args.godot.resolve()
     if not godot.is_file():
         parser.error(f"Godot executable not found: {godot}")
     try:
+        profile_data = load_review_profile(args.review_profile)
         version = subprocess.run([str(godot), "--version"], check=True, capture_output=True,
                                  text=True, encoding="utf8", timeout=20).stdout.strip()
         model_source = args.model.resolve()
+        contract = args.contract.resolve() if args.contract is not None else ROOT / "art/3d" / model_source.parent.name / "rig-contract.json"
+        contract_data = None
+        if contract.is_file():
+            contract_data = json.loads(contract.read_text(encoding="utf8"))
+            if contract_data.get("glb_sha256") != fingerprint(model_source)["sha256"]:
+                raise ValueError("Author contract does not match the selected model")
+        elif args.contract is not None:
+            raise FileNotFoundError(f"Rig contract missing: {contract}")
         project, sources = stage(output, model_source)
+        frozen_contract = None
+        if contract_data is not None:
+            shutil.copy2(contract, output / "rig-contract.json")
+            frozen_contract = fingerprint(output / "rig-contract.json")
+            for name in ("rebuild-recipe.json", "source-and-export-audit.json"):
+                source = contract.parent / name
+                if source.is_file():
+                    shutil.copy2(source, output / name)
+        profile = None
+        if profile_data is not None:
+            profile = output / "review-profile.json"
+            write_json(profile, profile_data)
         receipt = {"schema_version": 1, "status": "running", "kind": "toon_3d_technical_prototype",
                    "godot_version": version, "godot_executable": str(godot),
                    "godot_fingerprint": fingerprint(godot), "sources": sources,
                    "model_source": str(model_source), "model_fingerprint": fingerprint(model_source),
+                   "frozen_model_contract": frozen_contract,
+                   "review_kind": args.review_kind, "review_profile": profile_data,
                    "output": str(output), "live2d_backend_replaced": False}
         write_json(output / "review-receipt.json", receipt)
-        result = run_review(godot, project, output, args.duration, args.interactive, args.record_frames)
+        result = run_review(godot, project, output, args.duration, args.interactive,
+                            args.record_frames, args.review_kind, profile)
         receipt.update(result)
         write_json(output / "review-receipt.json", receipt)
         print(json.dumps({"status": receipt["status"], "output": str(output),

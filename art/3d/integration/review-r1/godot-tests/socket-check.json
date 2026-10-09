@@ -1,0 +1,221 @@
+{
+  "status": "passed",
+  "gpu": false,
+  "messages": [
+    {
+      "type": "hello",
+      "v": 1
+    },
+    {
+      "capabilities": [
+        "activity.idle",
+        "activity.busy",
+        "delete.react",
+        "work.finished",
+        "wave"
+      ],
+      "capability_details": {
+        "blend_shapes": [
+          "Blink_L",
+          "Blink_R",
+          "Smile"
+        ],
+        "busy_style": "seated_static_workstation",
+        "character_status": "unapproved_proxy_or_candidate",
+        "delete_reaction": "small_head_nod_blink_smile_placeholder_no_file_operation",
+        "facial_owner": "runtime_after_body_clip",
+        "finger_grasp": false,
+        "head_bone": true,
+        "model_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+        "mouth_open_close": false,
+        "typing": false
+      },
+      "connection_id": "connection-1",
+      "seq": 1,
+      "session_id": "test-session",
+      "type": "ready",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "",
+      "request_id": "delete-enter",
+      "seq": 2,
+      "session_id": "test-session",
+      "status": "started",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "higher_priority_action_active",
+      "request_id": "wave-busy",
+      "seq": 3,
+      "session_id": "test-session",
+      "status": "rejected",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "placeholder_expression_no_mouth_or_grasp",
+      "request_id": "delete-enter",
+      "seq": 4,
+      "session_id": "test-session",
+      "status": "finished",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "",
+      "request_id": "work-end",
+      "seq": 5,
+      "session_id": "test-session",
+      "status": "started",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "priority",
+      "request_id": "work-end",
+      "seq": 6,
+      "session_id": "test-session",
+      "status": "interrupted",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "",
+      "request_id": "delete-exit",
+      "seq": 7,
+      "session_id": "test-session",
+      "status": "started",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "higher_priority_action_active",
+      "request_id": "lower-finish",
+      "seq": 8,
+      "session_id": "test-session",
+      "status": "rejected",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-1",
+      "reason": "placeholder_expression_no_mouth_or_grasp",
+      "request_id": "delete-exit",
+      "seq": 9,
+      "session_id": "test-session",
+      "status": "finished",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "type": "hello",
+      "v": 1
+    },
+    {
+      "capabilities": [
+        "activity.idle",
+        "activity.busy",
+        "delete.react",
+        "work.finished",
+        "wave"
+      ],
+      "capability_details": {
+        "blend_shapes": [
+          "Blink_L",
+          "Blink_R",
+          "Smile"
+        ],
+        "busy_style": "seated_static_workstation",
+        "character_status": "unapproved_proxy_or_candidate",
+        "delete_reaction": "small_head_nod_blink_smile_placeholder_no_file_operation",
+        "facial_owner": "runtime_after_body_clip",
+        "finger_grasp": false,
+        "head_bone": true,
+        "model_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+        "mouth_open_close": false,
+        "typing": false
+      },
+      "connection_id": "connection-2",
+      "seq": 1,
+      "session_id": "test-session",
+      "type": "ready",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-2",
+      "reason": "",
+      "request_id": "ttl",
+      "seq": 2,
+      "session_id": "test-session",
+      "status": "started",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-2",
+      "reason": "deadline",
+      "request_id": "ttl",
+      "seq": 3,
+      "session_id": "test-session",
+      "status": "interrupted",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-2",
+      "reason": "",
+      "request_id": "work-end-2",
+      "seq": 4,
+      "session_id": "test-session",
+      "status": "started",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-2",
+      "reason": "busy_resumed",
+      "request_id": "work-end-2",
+      "seq": 5,
+      "session_id": "test-session",
+      "status": "interrupted",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-2",
+      "reason": "",
+      "request_id": "work-end-3",
+      "seq": 6,
+      "session_id": "test-session",
+      "status": "started",
+      "type": "action.ack",
+      "v": 1
+    },
+    {
+      "connection_id": "connection-2",
+      "reason": "",
+      "request_id": "work-end-3",
+      "seq": 7,
+      "session_id": "test-session",
+      "status": "finished",
+      "type": "action.ack",
+      "v": 1
+    }
+  ],
+  "trace_frames": 232,
+  "maximum_foot_anchor_error_m": 0.0009235923099506253,
+  "foot_anchor_tolerance_m": 0.002,
+  "limits": [
+    "headless transport/base-pose numerical verification only; no visual approval",
+    "30Hz authored IK samples interpolate with sub-millimeter foot drift; no exact-zero claim"
+  ]
+}

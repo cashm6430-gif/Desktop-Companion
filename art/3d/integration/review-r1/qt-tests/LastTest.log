@@ -1,0 +1,174 @@
+Start testing: Oct 09 00:50 中国标准时间
+----------------------------------------------------------
+1/11 Testing: PetControllerTest
+1/11 Test: PetControllerTest
+Command: "E:/projects/Desktop-Companion/build/PetControllerTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"PetControllerTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   6.71 sec
+----------------------------------------------------------
+Test Passed.
+"PetControllerTest" end time: Oct 09 00:50 中国标准时间
+"PetControllerTest" time elapsed: 00:00:06
+----------------------------------------------------------
+
+2/11 Testing: PetPointerGestureTest
+2/11 Test: PetPointerGestureTest
+Command: "E:/projects/Desktop-Companion/build/PetPointerGestureTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"PetPointerGestureTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"PetPointerGestureTest" end time: Oct 09 00:50 中国标准时间
+"PetPointerGestureTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/11 Testing: TriggerDirectorTest
+3/11 Test: TriggerDirectorTest
+Command: "E:/projects/Desktop-Companion/build/TriggerDirectorTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"TriggerDirectorTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"TriggerDirectorTest" end time: Oct 09 00:50 中国标准时间
+"TriggerDirectorTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/11 Testing: ToonEventBridgeTest
+4/11 Test: ToonEventBridgeTest
+Command: "E:/projects/Desktop-Companion/build/ToonEventBridgeTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"ToonEventBridgeTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =  14.22 sec
+----------------------------------------------------------
+Test Passed.
+"ToonEventBridgeTest" end time: Oct 09 00:50 中国标准时间
+"ToonEventBridgeTest" time elapsed: 00:00:14
+----------------------------------------------------------
+
+5/11 Testing: ParameterMotionTest
+5/11 Test: ParameterMotionTest
+Command: "E:/projects/Desktop-Companion/build/ParameterMotionTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"ParameterMotionTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   3.06 sec
+----------------------------------------------------------
+Test Passed.
+"ParameterMotionTest" end time: Oct 09 00:50 中国标准时间
+"ParameterMotionTest" time elapsed: 00:00:03
+----------------------------------------------------------
+
+6/11 Testing: MotionClipTest
+6/11 Test: MotionClipTest
+Command: "E:/projects/Desktop-Companion/build/MotionClipTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"MotionClipTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"MotionClipTest" end time: Oct 09 00:50 中国标准时间
+"MotionClipTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/11 Testing: CubismMaterialBindingTest
+7/11 Test: CubismMaterialBindingTest
+Command: "E:/projects/Desktop-Companion/build/CubismMaterialBindingTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"CubismMaterialBindingTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"CubismMaterialBindingTest" end time: Oct 09 00:50 中国标准时间
+"CubismMaterialBindingTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/11 Testing: CubismNeckBindingTest
+8/11 Test: CubismNeckBindingTest
+Command: "E:/projects/Desktop-Companion/build/CubismNeckBindingTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"CubismNeckBindingTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   9.24 sec
+----------------------------------------------------------
+Test Passed.
+"CubismNeckBindingTest" end time: Oct 09 00:50 中国标准时间
+"CubismNeckBindingTest" time elapsed: 00:00:09
+----------------------------------------------------------
+
+9/11 Testing: CubismPostureTransitionTest
+9/11 Test: CubismPostureTransitionTest
+Command: "E:/projects/Desktop-Companion/build/CubismPostureTransitionTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"CubismPostureTransitionTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"CubismPostureTransitionTest" end time: Oct 09 00:50 中国标准时间
+"CubismPostureTransitionTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/11 Testing: CubismMaterialTextureTest
+10/11 Test: CubismMaterialTextureTest
+Command: "E:/projects/Desktop-Companion/build/CubismMaterialTextureTest.exe"
+Directory: E:/projects/Desktop-Companion/build
+"CubismMaterialTextureTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   1.39 sec
+----------------------------------------------------------
+Test Passed.
+"CubismMaterialTextureTest" end time: Oct 09 00:50 中国标准时间
+"CubismMaterialTextureTest" time elapsed: 00:00:01
+----------------------------------------------------------
+
+11/11 Testing: CodexHookTest
+11/11 Test: CodexHookTest
+Command: "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe" "-NoLogo" "-NoProfile" "-NonInteractive" "-File" "E:/projects/Desktop-Companion/tests/CodexHookTest.ps1" "-HelperPath" "E:/projects/Desktop-Companion/build/DesktopCompanionHook.exe" "-InstallerPath" "E:/projects/Desktop-Companion/tools/install-codex-hooks.ps1"
+Directory: E:/projects/Desktop-Companion/build
+"CodexHookTest" start time: Oct 09 00:50 中国标准时间
+Output:
+----------------------------------------------------------
+Installed four pet hooks in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-c00e989e-01c5-47a2-aa57-ab8d1a327db1.json
+Review and trust the new hooks in Codex before they can run.
+UserPromptSubmit : exit 0, valid JSON
+Stop : exit 0, valid JSON
+Interrupt : exit 0, valid JSON
+SessionEnd : exit 0, valid JSON
+<end of output>
+Test time =   4.34 sec
+----------------------------------------------------------
+Test Passed.
+"CodexHookTest" end time: Oct 09 00:50 中国标准时间
+"CodexHookTest" time elapsed: 00:00:04
+----------------------------------------------------------
+
+End testing: Oct 09 00:50 中国标准时间

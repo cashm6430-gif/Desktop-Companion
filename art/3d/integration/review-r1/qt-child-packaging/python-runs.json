@@ -1,0 +1,50 @@
+{
+  "parent_token": {
+    "restricted": false,
+    "elevated": true,
+    "integrity_rid": 12288
+  },
+  "environment": {
+    "APPDATA": "C:\\Users\\Administrator\\AppData\\Roaming",
+    "LOCALAPPDATA": "C:\\Users\\Administrator\\AppData\\Local",
+    "USERPROFILE": "C:\\Users\\Administrator",
+    "TEMP": "C:\\Users\\Administrator\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\Administrator\\AppData\\Local\\Temp",
+    "USERNAME": "Administrator",
+    "USERDOMAIN": "DESKTOP-QR2EAAK",
+    "SYSTEMROOT": "C:\\Windows",
+    "WINDIR": "C:\\Windows"
+  },
+  "runs": [
+    {
+      "mode": "default",
+      "child_token": {
+        "restricted": false,
+        "elevated": true,
+        "integrity_rid": 12288
+      },
+      "exit_code": 0,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n"
+    },
+    {
+      "mode": "hide",
+      "child_token": {
+        "restricted": false,
+        "elevated": true,
+        "integrity_rid": 12288
+      },
+      "exit_code": 0,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n"
+    },
+    {
+      "mode": "hide_no_window",
+      "child_token": {
+        "restricted": false,
+        "elevated": true,
+        "integrity_rid": 12288
+      },
+      "exit_code": 0,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n"
+    }
+  ]
+}

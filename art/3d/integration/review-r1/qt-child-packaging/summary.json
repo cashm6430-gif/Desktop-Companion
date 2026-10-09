@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "status": "diagnosis_and_local_packaging_passed",
+  "original_workspace_executable_integrity_rid": 4096,
+  "fresh_temp_packaged_executable_integrity_rid": 12288,
+  "direct_python_parent_integrity_rid": 12288,
+  "equivalent_headless_comparisons": {
+    "workspace_qt_runs": 6,
+    "direct_python_runs": 3,
+    "CopyFileW_packaged_qt_runs": 6,
+    "byte_packaged_qt_runs": 6
+  },
+  "observed_original_errors": [
+    "Godot user:// log creation/rotation failed",
+    "Failed to read root certificate store"
+  ],
+  "observed_fresh_packaged_errors": [],
+  "flags_or_cwd_changed_result": false,
+  "environment_paths_matched": true,
+  "packaging_methods": [
+    "CopyFileW into a new unique TEMP directory",
+    "fresh byte-identical file write into the same directory"
+  ],
+  "source_project_system_acl_changed": false,
+  "token_or_security_policy_changed": false,
+  "existing_user_processes_touched": false,
+  "gpu_started": false,
+  "live_sources_started": false,
+  "replay_runner_direction": "Use a fresh packaged runtime for the optional test, keeping existing live build metadata unchanged.",
+  "limits": [
+    "This headless comparison does not validate GPU focus, desktop alpha or complete lifecycle.",
+    "TEMP runtime path is disposable evidence, not a committed runtime dependency.",
+    "Do not silently strip the original ERROR messages or claim the old Low-labeled live executable was repaired."
+  ],
+  "proof_sha256": {
+    "probe.cpp": "e7d43efb1d1cf92db87b9dedc116428df30b7beaa40465227298d20826d8ca41",
+    "qt-runs.json": "ac09cdbf96611e0349d1025a2f0ceb07dfe2a5bd19ea12118501658f9ab5f1bd",
+    "python-runs.json": "e031d670a46d79f1842246be86514bf672b34dd4806a950b102dee784278fa9a",
+    "packaging-proof.json": "2b068c2b0e69e7d03ce9da312fc7e73b7d513089d39819fd5e5ba3753e52ee3b",
+    "qt-packaged-copy-runs.json": "ae6ee78ae62bb4f08d9c3707b28a4c088a169ac220160ae4b3a40779b8bcd810",
+    "qt-packaged-bytes-runs.json": "ae6ee78ae62bb4f08d9c3707b28a4c088a169ac220160ae4b3a40779b8bcd810",
+    "local-probe.cpp": "bc53307731bd35d16d35584b774c0b5860237104815168de0ed529c62f9e31fb",
+    "local-endpoint-proof.json": "348457ff2493d3388c99bfc78e9fa315c85f5b0d666f371bbd6cbffeb274faa0"
+  },
+  "isolated_named_pipe_probe": {
+    "endpoint": "Unique random test endpoint, not the production Codex server",
+    "server_integrity_rid": 12288,
+    "source_client_integrity_rid": 4096,
+    "source_client_result": "Access denied, exit 1",
+    "normal_packaged_client_integrity_rid": 12288,
+    "normal_packaged_client_result": "write/reply succeeded, exit 0",
+    "socket_access": "QLocalServer UserAccessOption, unchanged",
+    "production_hooks_verified": false,
+    "development_action": "Normally package DesktopCompanionHook.exe beside the host; install its stable deployed path only in a later explicit user setup step."
+  }
+}

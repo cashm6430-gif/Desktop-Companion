@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "runtime_directory": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge",
+  "packaged_files": [
+    {
+      "file": "DesktopCompanion.exe",
+      "method": "CopyFileW",
+      "sha256": "fa3f61b61107dca1f82aa00c298dc4d95a1b790b6cfa24225b97ed2a4722147f",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\DesktopCompanion.exe NT AUTHORITY\\SYSTEM:(F)\n                                                                                                                BUILTIN\\Administrators:(F)\n                                                                                                                OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Qt6Core.dll",
+      "method": "CopyFileW",
+      "sha256": "49c423dd982a55a547ac63e4423aa0bbfc6336ff388e2b9a4ce767f30f7f96a5",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Qt6Core.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                       BUILTIN\\Administrators:(F)\n                                                                                                       OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Qt6Gui.dll",
+      "method": "CopyFileW",
+      "sha256": "08ea1398cf7d590edd327bcc0a4a5c98c604f48a35d7d389669a04e87784a46f",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Qt6Gui.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                      BUILTIN\\Administrators:(F)\n                                                                                                      OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Qt6Network.dll",
+      "method": "CopyFileW",
+      "sha256": "6120f54b84e4e3257f6b1ecc0e06a0fc1a3bdbdb9c97ac2f64658ab5cd33a947",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Qt6Network.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                          BUILTIN\\Administrators:(F)\n                                                                                                          OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Qt6Widgets.dll",
+      "method": "CopyFileW",
+      "sha256": "199b4402f1ca4820e887b5a4a6b919478393e5e0106186e0b94459193e9b33a4",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Qt6Widgets.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                          BUILTIN\\Administrators:(F)\n                                                                                                          OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Qt6OpenGL.dll",
+      "method": "CopyFileW",
+      "sha256": "3d63894e81881457859d479ef4b3ca18aa71608992b764fd52fed38d63321934",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Qt6OpenGL.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                         BUILTIN\\Administrators:(F)\n                                                                                                         OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Qt6OpenGLWidgets.dll",
+      "method": "CopyFileW",
+      "sha256": "fa2f77e8230790902151c80e80cf90cc1afd3866e121df713845d1ce97502f63",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Qt6OpenGLWidgets.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                                BUILTIN\\Administrators:(F)\n                                                                                                                OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    },
+    {
+      "file": "Live2DCubismCore.dll",
+      "method": "CopyFileW",
+      "sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\Live2DCubismCore.dll NT AUTHORITY\\SYSTEM:(F)\n                                                                                                                BUILTIN\\Administrators:(F)\n                                                                                                                OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n"
+    }
+  ],
+  "probe_copy_acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\probe-copy.exe NT AUTHORITY\\SYSTEM:(F)\n                                                                                                          BUILTIN\\Administrators:(F)\n                                                                                                          OWNER RIGHTS:(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n",
+  "probe_bytes_acl": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\desktop-companion-qt-packaging-20261009-_m8k0tge\\probe-bytes.exe NT AUTHORITY\\SYSTEM:(I)(F)\n                                                                                                           BUILTIN\\Administrators:(I)(F)\n                                                                                                           OWNER RIGHTS:(I)(F)\n\nSuccessfully processed 1 files; Failed processing 0 files\r\n",
+  "probe_sha256_matches": true,
+  "source_acl_changed": false,
+  "system_acl_or_token_changed": false,
+  "copy_parent_token": {
+    "elevated": true,
+    "integrity_rid": 12288,
+    "restricted": false
+  },
+  "bytes_parent_token": {
+    "elevated": true,
+    "integrity_rid": 12288,
+    "restricted": false
+  },
+  "copy_errors": [],
+  "bytes_errors": []
+}

@@ -1,0 +1,98 @@
+{
+    "environment": {
+        "APPDATA": "C:\\Users\\Administrator\\AppData\\Roaming",
+        "LOCALAPPDATA": "C:\\Users\\Administrator\\AppData\\Local",
+        "SYSTEMROOT": "C:\\Windows",
+        "TEMP": "C:\\Users\\Administrator\\AppData\\Local\\Temp",
+        "TMP": "C:\\Users\\Administrator\\AppData\\Local\\Temp",
+        "USERDOMAIN": "DESKTOP-QR2EAAK",
+        "USERNAME": "Administrator",
+        "USERPROFILE": "C:\\Users\\Administrator",
+        "WINDIR": "C:\\Windows"
+    },
+    "parent_token": {
+        "elevated": true,
+        "integrity_rid": 4096,
+        "restricted": false
+    },
+    "runs": [
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 4096,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "default",
+            "output": "ERROR: Failed to open 'user://logs/godot2026-10-09T01.01.45.log'.\r\n   at: copy (core/io/dir_access.cpp:429)\r\nERROR: Failed to open log file for writing: user://logs/godot.log\r\n   at: rotate_file (core/io/logger.cpp:169)\r\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nERROR: Failed to read the root certificate store.\r\n   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 4096,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion/.local/authoring/toon-host-20261009-gpu-r1/project",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "default",
+            "output": "ERROR: Failed to open 'user://logs/godot2026-10-09T01.01.45.log'.\r\n   at: copy (core/io/dir_access.cpp:429)\r\nERROR: Failed to open log file for writing: user://logs/godot.log\r\n   at: rotate_file (core/io/logger.cpp:169)\r\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nERROR: Failed to read the root certificate store.\r\n   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 4096,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide",
+            "output": "ERROR: Failed to open 'user://logs/godot2026-10-09T01.01.45.log'.\r\n   at: copy (core/io/dir_access.cpp:429)\r\nERROR: Failed to open log file for writing: user://logs/godot.log\r\n   at: rotate_file (core/io/logger.cpp:169)\r\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nERROR: Failed to read the root certificate store.\r\n   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 4096,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion/.local/authoring/toon-host-20261009-gpu-r1/project",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide",
+            "output": "ERROR: Failed to open 'user://logs/godot2026-10-09T01.01.45.log'.\r\n   at: copy (core/io/dir_access.cpp:429)\r\nERROR: Failed to open log file for writing: user://logs/godot.log\r\n   at: rotate_file (core/io/logger.cpp:169)\r\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nERROR: Failed to read the root certificate store.\r\n   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 4096,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide_no_window",
+            "output": "ERROR: Failed to open 'user://logs/godot2026-10-09T01.01.46.log'.\r\n   at: copy (core/io/dir_access.cpp:429)\r\nERROR: Failed to open log file for writing: user://logs/godot.log\r\n   at: rotate_file (core/io/logger.cpp:169)\r\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nERROR: Failed to read the root certificate store.\r\n   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 4096,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion/.local/authoring/toon-host-20261009-gpu-r1/project",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide_no_window",
+            "output": "ERROR: Failed to open 'user://logs/godot2026-10-09T01.01.46.log'.\r\n   at: copy (core/io/dir_access.cpp:429)\r\nERROR: Failed to open log file for writing: user://logs/godot.log\r\n   at: rotate_file (core/io/logger.cpp:169)\r\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\nERROR: Failed to read the root certificate store.\r\n   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)\r\n",
+            "started": true
+        }
+    ]
+}

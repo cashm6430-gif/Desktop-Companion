@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "protocol_name": "desktop-companion-toon-semantic",
+  "protocol_version": 1,
+  "status": "implemented_candidate_backend_pending_visual_approval",
+  "default_backend": "existing_live2d",
+  "transport": {
+    "host": "Qt ToonEventBridge",
+    "renderer": "Godot HostPeer",
+    "address": "127.0.0.1",
+    "host_listen_port": "OS-assigned ephemeral IPv4 TCP port",
+    "format": "UTF-8 NDJSON objects, one LF-terminated object per message",
+    "maximum_line_bytes_excluding_lf": 16384,
+    "maximum_authenticated_peer_count": 1,
+    "handshake_timeout_ms": 5000,
+    "outbound_backpressure_disconnect_bytes": 131072,
+    "renderer_reconnect_interval_ms": 1000,
+    "token": "64 hexadecimal characters generated for this host process; launch arguments only; never committed or logged"
+  },
+  "identity_and_order": {
+    "session_id": "UUID stable for the Qt host process lifetime",
+    "connection_id": "new UUID for every accepted renderer connection",
+    "seq": "independent positive increasing JSON integers in each direction; exact integer range 1..9007199254740991",
+    "host_first_seq": 1,
+    "renderer_first_seq": 1,
+    "stale_session_connection_or_seq": "ignore without changing current action or consuming incoming sequence",
+    "request_id": "connection UUID plus a monotonically increasing host request counter",
+    "old_request_ack": "ignore, trace stale_ack_rejected, preserve the current foreground request"
+  },
+  "handshake": [
+    {
+      "direction": "renderer_to_host",
+      "type": "hello",
+      "required": {
+        "v": 1,
+        "type": "hello",
+        "token": "string matching this host token"
+      },
+      "note": "Unauthenticated message has no session/connection/seq fields."
+    },
+    {
+      "direction": "host_to_renderer",
+      "type": "welcome",
+      "required": {
+        "v": 1,
+        "type": "welcome",
+        "session_id": "nonempty UUID string",
+        "connection_id": "nonempty UUID string",
+        "seq": 1
+      }
+    },
+    {
+      "direction": "renderer_to_host",
+      "type": "ready",
+      "required": {
+        "v": 1,
+        "type": "ready",
+        "session_id": "welcome session",
+        "connection_id": "welcome connection",
+        "seq": 1,
+        "capabilities": "array of strings, <=64 entries and <=64 characters each"
+      },
+      "optional": {
+        "capability_details": "object with actual model/rig restrictions"
+      },
+      "minimum_capabilities": [
+        "activity.idle",
+        "activity.busy"
+      ],
+      "note": "Send only after model, rig and scene can receive semantic requests."
+    }
+  ],
+  "post_handshake_envelope": {
+    "required": [
+      "v",
+      "type",
+      "session_id",
+      "connection_id",
+      "seq"
+    ],
+    "v": 1,
+    "session_id": "current welcome identity",
+    "connection_id": "current welcome identity",
+    "seq": "strictly newer than the previously accepted incoming message"
+  },
+  "messages": {
+    "activity.snapshot": {
+      "direction": "host_to_renderer",
+      "fields": {
+        "revision": "host activity revision, increasing; gaps permitted",
+        "busy": "boolean: active_turns > 0",
+        "active_turns": "nonnegative integer",
+        "foreground_request_id": "current request ID string or empty string"
+      },
+      "semantics": "Replace activity truth. Busy is independent of foreground animations and is never inferred from how the character looks."
+    },
+    "action.request": {
+      "direction": "host_to_renderer",
+      "fields": {
+        "request_id": "nonempty unique string",
+        "name": "one of delete.react/work.finished/wave",
+        "ttl_ms": "12000 from current Qt host; relative duration, never absolute clock time"
+      },
+      "optional": {
+        "icon_position": {
+          "x": "finite number",
+          "y": "finite number",
+          "coordinate_space": "Qt logical global screen coordinates; current Godot overlay does not consume this hint"
+        }
+      },
+      "ttl": "Qt timeout starts when sent; renderer timeout starts when received. Process-relative monotonic clocks are not compared. Current renderer clamps incoming TTL to 50..12000ms."
+    },
+    "action.cancel": {
+      "direction": "host_to_renderer",
+      "fields": {
+        "request_id": "request to interrupt",
+        "reason": "priority/activity_changed/timeout"
+      },
+      "semantics": "Only cancel when the ID is the current foreground action."
+    },
+    "action.ack": {
+      "direction": "renderer_to_host",
+      "fields": {
+        "request_id": "original action request ID",
+        "status": "started/finished/interrupted/rejected"
+      },
+      "optional": {
+        "reason": "explanation string"
+      },
+      "semantics": "started preserves the current foreground. Terminal statuses clear only the matching current ID and restore the latest activity. Duplicate or old acknowledgements cannot finish a newer action."
+    },
+    "host.shutdown": {
+      "direction": "host_to_renderer",
+      "fields": {},
+      "semantics": "Atomically hide all scene visuals, present a transparent GPU frame, save review results when enabled, then exit."
+    },
+    "client.quit": {
+      "direction": "renderer_to_host",
+      "fields": {},
+      "semantics": "Request the Qt host and its child renderer to exit, e.g. right-click close."
+    }
+  },
+  "activity_truth": {
+    "owner": "Qt PetController",
+    "sources": [
+      "existing CodexTurnSource QLocalServer",
+      "DesktopDeleteSource Shell notifications on a hidden native Qt HWND"
+    ],
+    "active_turn_count": "All tracked sessions and turns, including concurrent busy-to-busy events. Duplicate start IDs remain one active turn. A stop without turn_id ends the latest tracked turn in that session. Session end clears that session without a work-finished celebration. Existing 12-hour expiry and reset behavior are preserved.",
+    "same_state_updates": "Qt publishes snapshots for source calls even when its visible Busy state is unchanged. A one-second poll also notices expiry count changes.",
+    "private_data": "File paths, file contents, hook session IDs and Cubism parameters are not sent to the renderer."
+  },
+  "foreground_arbitration": {
+    "priority_order": [
+      "delete.react",
+      "work.finished or wave when free"
+    ],
+    "delete_deduplication_ms": 450,
+    "delete_behavior": "Accepted delete reaction replaces any current foreground request, including an earlier delete. It does not perform a file operation.",
+    "work_finished_behavior": "Only the real last turn stop nominates this action. It is dropped when a foreground request already exists. A new active turn cancels a running work.finished with activity_changed.",
+    "wave_behavior": "Qt nominates only if the foreground is free; Godot accepts only with an idle standing wave rig.",
+    "foreground_and_busy": "Deletion can run while activity remains busy. Completion falls back to the latest busy count, not the snapshot captured when the action started.",
+    "deadline_fallback_ms": 12000,
+    "unsupported_action": "Drop without forcing the unsupported animation; return Qt deletion state to the latest background activity."
+  },
+  "disconnect_and_reconnect": {
+    "host": "Clear foreground action and restore current activity immediately. Retain real tracked agent turns. Drop events while no renderer is ready. Never queue or replay historical deletions/celebrations.",
+    "renderer": "Clear transient actions and seen request IDs, reset revision, smoothly return to idle and attempt reconnect every 1 second.",
+    "reconnect": "New connection_id handshake, then current activity snapshot only. An old connection ACK never affects the new connection."
+  },
+  "current_renderer_capabilities": {
+    "activity.idle": {
+      "available": true,
+      "representation": "Current GLB idle clip and runtime blink/expression; proxy/candidate, not approved Whale Girl."
+    },
+    "activity.busy": {
+      "available": true,
+      "representation_with_sit_clip": "Bidirectional seek of the imported sit clip; fully seated static workstation only at sit_progress>=0.999.",
+      "representation_without_sit_clip": "Standing expression placeholder, no invented seated anatomy."
+    },
+    "delete.react": {
+      "available": true,
+      "representation": "Small head nod, blink and smile overlay, 1.2-second nominal action. No object retrieval/eating animation or file operation."
+    },
+    "work.finished": {
+      "available": true,
+      "representation": "Short return gaze/expression then sit-to-idle recovery, 1-second nominal overlay."
+    },
+    "wave": {
+      "available": "Only advertised when a wave clip exists; accepted only idle and standing.",
+      "representation": "Imported wave clip, 2.5-second nominal duration."
+    },
+    "typing": false,
+    "mouth_open_close": false,
+    "finger_grasp": false,
+    "soft_grass_interaction": false,
+    "character_art_approved": false,
+    "source_of_truth": "ready.capability_details records actual model_sha256, blend shapes, head bone and busy_style. A semantic capability is not proof of complete art or anatomy."
+  },
+  "qt_launch": {
+    "required": [
+      "--toon-host",
+      "--godot <exe>",
+      "--toon-project <already imported/staged directory with assets/character.glb>"
+    ],
+    "optional": {
+      "--toon-replay <json>": "Isolate sources: no real Codex QLocalServer or Shell desktop listener. Start replay once the renderer is ready.",
+      "--toon-report <json>": "Safe semantic trace/status; no token.",
+      "--toon-render-output <dir>": "Forward Godot --review-output.",
+      "--toon-review-profile <json>": "Require existing file, forward absolute Godot --review-profile; profile content validation belongs to the review runner/renderer.",
+      "--toon-record-frames": "Requires --toon-render-output and forwards Godot --record-frames.",
+      "--toon-quit-after-ms <ms>": "Bounded host runtime in 1..300000ms."
+    },
+    "real_endpoint_collision": "Fail visibly/report exit 2 before launching the renderer if the existing Codex endpoint is in use. Do not remove server, kill another pet or change user hooks.",
+    "old_backend_coexistence": "Branch before constructing PetWindow; no second Qt pet in this mode. Launching without --toon-host retains the old backend.",
+    "window_startup": "Godot child uses STARTF_USESHOWWINDOW/SW_HIDE and CREATE_NO_WINDOW; FocusGuard remains required in the staged project. Qt only creates a hidden notification HWND.",
+    "shutdown": "Send semantic shutdown first. Wait at most 2 seconds, then terminate only this host child, then kill after another 1 second if necessary. No existing Godot process is controlled.",
+    "development_runtime_metadata": {
+      "observed_issue": "Historical workspace Low Mandatory Label on compiled executables propagates a Low child token, denying Godot user:// logs and the root certificate store.",
+      "test_runner_solution": "Normal byte-identical packaging of only this run's exe/DLLs into a fresh unique TEMP runtime; source/system ACLs and tokens are not modified.",
+      "headless_evidence": "review-r1/qt-child-packaging/summary.json",
+      "helper_launcher_modes": "tools/review_toon_host.py normally packages both isolated replay and explicit --live into fresh unique TEMP runtimes. Source/system ACLs are unchanged.",
+      "direct_raw_cli": "Direct build/DesktopCompanion.exe --toon-host keeps the historical Low label and can still hit the log/certificate errors.",
+      "hook_helper_compatibility": "Raw build/DesktopCompanionHook.exe also has a Low label and cannot connect to a normal packaged host named pipe. A normally deployed same-package helper can connect. Include the helper in the package, but do not automatically change the user hook config in this run.",
+      "production_source_verification": "The unique endpoint probe proves IPC integrity compatibility only. It does not establish real Codex hooks or Shell deletion delivery. Current GPU replay has real_sources_enabled:false."
+    }
+  },
+  "replay_schema": {
+    "version": 1,
+    "duration_ms": "integer larger than last event, <=150000",
+    "events": "<=512 objects, sorted integral at_ms within 0..120000",
+    "event_names": [
+      "start",
+      "stop",
+      "session_end",
+      "delete",
+      "wave"
+    ],
+    "agent_fields": "start needs nonempty session_id and turn_id; stop/session_end need session_id; stop turn_id may be empty",
+    "maximum_json_bytes": 262144
+  },
+  "verification": {
+    "qt_tests": "review-r1/qt-tests/summary.json",
+    "qt_proofs": [
+      "concurrent count 2->1->0",
+      "foreground busy preservation",
+      "deletion deduplication",
+      "old request/session/connection/seq ACK rejection",
+      "disconnect without stale replay",
+      "authentication and size limits",
+      "unsupported actions",
+      "priority preemption",
+      "new turn interrupts work-finished",
+      "12-second missing-ACK fallback"
+    ],
+    "gpu_gate": "Separate root review directory and check_toon_host_review.py; no approval implied by Qt unit tests."
+  },
+  "implementation": {
+    "qt": [
+      "src/ToonEventBridge.h",
+      "src/ToonEventBridge.cpp",
+      "src/ToonHost.h",
+      "src/ToonHost.cpp"
+    ],
+    "godot": [
+      "godot/toon-prototype/host_peer.gd",
+      "godot/toon-prototype/host_behavior.gd",
+      "godot/toon-prototype/prototype.gd"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "duration_ms": 21000,
+  "events": [
+    {"at_ms": 200, "event": "wave"},
+    {"at_ms": 3000, "event": "start", "session_id": "replay-a", "turn_id": "turn-1"},
+    {"at_ms": 5000, "event": "start", "session_id": "replay-b", "turn_id": "turn-1"},
+    {"at_ms": 6000, "event": "delete"},
+    {"at_ms": 6100, "event": "delete"},
+    {"at_ms": 7500, "event": "stop", "session_id": "replay-a", "turn_id": "turn-1"},
+    {"at_ms": 9000, "event": "stop", "session_id": "replay-b", "turn_id": "turn-1"},
+    {"at_ms": 9500, "event": "start", "session_id": "replay-c", "turn_id": "turn-2"},
+    {"at_ms": 12000, "event": "stop", "session_id": "replay-c", "turn_id": "turn-2"},
+    {"at_ms": 17000, "event": "wave"}
+  ]
+}

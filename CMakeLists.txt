@@ -56,6 +56,8 @@ qt_add_executable(DesktopCompanion WIN32
     src/PetWindow.h src/PetWindow.cpp
     src/DesktopDeleteSource.h src/DesktopDeleteSource.cpp
     src/CodexTurnSource.h src/CodexTurnSource.cpp
+    src/ToonEventBridge.h src/ToonEventBridge.cpp
+    src/ToonHost.h src/ToonHost.cpp
 )
 target_link_libraries(DesktopCompanion PRIVATE Qt6::Widgets Qt6::Network shell32)
 target_compile_definitions(DesktopCompanion PRIVATE UNICODE _UNICODE)
@@ -125,6 +127,11 @@ if(BUILD_TESTING)
         src/TriggerDirector.h src/TriggerDirector.cpp)
     target_link_libraries(TriggerDirectorTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME TriggerDirectorTest COMMAND TriggerDirectorTest)
+    add_executable(ToonEventBridgeTest tests/ToonEventBridgeTest.cpp
+        src/ToonEventBridge.h src/ToonEventBridge.cpp
+        src/PetController.h src/PetController.cpp)
+    target_link_libraries(ToonEventBridgeTest PRIVATE Qt6::Core Qt6::Gui Qt6::Network Qt6::Test)
+    add_test(NAME ToonEventBridgeTest COMMAND ToonEventBridgeTest)
     add_executable(ParameterMotionTest tests/ParameterMotionTest.cpp
         src/ParameterMotion.h src/ParameterMotion.cpp
         src/motion/DragBehavior.h src/motion/DragBehavior.cpp
@@ -154,7 +161,7 @@ if(BUILD_TESTING)
         src/PetController.h src/PetController.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
-    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest ParameterMotionTest MotionClipTest)
+    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
         set_tests_properties(${test_name} PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
     endforeach()
     if(HAVE_CUBISM)

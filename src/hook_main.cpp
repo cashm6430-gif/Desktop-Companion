@@ -22,6 +22,10 @@ bool sendMessage(const QJsonObject& payload) {
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
+    // Explicit test entry: validate the installed hook's JSON response without
+    // sending synthetic turns to a user's running pet. Production hook
+    // commands never pass this flag and keep the existing IPC behavior.
+    const bool dryRunHook = argc > 1 && std::string(argv[1]) == "--dry-run-hook";
     if (argc > 1 && std::string(argv[1]) == "--status") {
         QLocalSocket socket;
         socket.connectToServer(CodexTurnSource::serverName());
@@ -60,9 +64,10 @@ int main(int argc, char** argv) {
         }
         // Stop/SessionEnd keep the empty turn_id so PetController ends the
         // session's latest turn (or the whole session) instead of missing.
-        sendMessage({{QStringLiteral("event"), action},
-                     {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
-                     {QStringLiteral("turn_id"), turn}});
+        if (!dryRunHook)
+            sendMessage({{QStringLiteral("event"), action},
+                         {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
+                         {QStringLiteral("turn_id"), turn}});
     }
     // Valid JSON for Stop/Interrupt; no prompt text or hook output is retained.
     std::cout << "{}" << std::endl;

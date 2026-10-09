@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "status": "passed",
+  "exit_code": 0,
+  "command": "cmake --build E:/projects/Desktop-Companion/build --target DesktopCompanion -j 4",
+  "configuration": "Release",
+  "cubism_enabled": true,
+  "change_scope": "Only review-profile and record-frames CLI forwarding and early argument validation.",
+  "host_binary_sha256": "fa3f61b61107dca1f82aa00c298dc4d95a1b790b6cfa24225b97ed2a4722147f",
+  "toon_host_source_sha256": "c25d2a8d5f73579587a76b04f356bdc2e75833ebc46b8970a156c50f81ee9bc4",
+  "ctest_rerun_after_this_cli_addition": false,
+  "qt_unit_test_inputs_unchanged": true,
+  "gpu_integration_run": "owned by root, separate review evidence",
+  "signing_invoked": false,
+  "real_sources_started": false
+}

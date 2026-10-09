@@ -1,0 +1,14 @@
+********* Start testing of ToonEventBridgeTest *********
+Config: Using QtTest library 6.8.4, Qt 6.8.4 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 10
+PASS   : ToonEventBridgeTest::initTestCase()
+PASS   : ToonEventBridgeTest::concurrentActivityAndForeground()
+PASS   : ToonEventBridgeTest::dedupAndOldAcknowledgement()
+PASS   : ToonEventBridgeTest::disconnectRestoresOnlyCurrentTruth()
+PASS   : ToonEventBridgeTest::wrongTokenAndMessageLimit()
+PASS   : ToonEventBridgeTest::wrongEpochSequenceAndUnsupportedAction()
+PASS   : ToonEventBridgeTest::deletionPreemptsWorkReaction()
+PASS   : ToonEventBridgeTest::newActivityCancelsOldCompletion()
+PASS   : ToonEventBridgeTest::boundedFallback()
+PASS   : ToonEventBridgeTest::cleanupTestCase()
+Totals: 10 passed, 0 failed, 0 skipped, 0 blacklisted, 14220ms
+********* Finished testing of ToonEventBridgeTest *********

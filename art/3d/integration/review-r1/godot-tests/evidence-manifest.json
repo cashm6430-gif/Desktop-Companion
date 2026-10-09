@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "status": "headless_state_transport_and_checker_tests_passed",
+  "approved_character": false,
+  "gpu_visual_approval": false,
+  "behavior_assertions": 20,
+  "checker_regression_cases": 9,
+  "socket": {
+    "samples": 232,
+    "maximum_foot_anchor_error_m": 0.0009235923099506253,
+    "foot_anchor_tolerance_m": 0.002,
+    "bone_scale_tolerance": 1e-05,
+    "model": {
+      "file": "assets/3d/prototype/character.glb",
+      "bytes": 960020,
+      "sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3"
+    },
+    "source_snapshot": "socket-runtime-source",
+    "scope": [
+      "actual authenticated localhost NDJSON handshake/acks/reconnect",
+      "multiple active turns preserve Busy",
+      "seated wave rejected",
+      "delete priority enforced",
+      "new turn interrupts work.finished",
+      "stale connection ignored",
+      "receive-relative TTL expires",
+      "bone scales and skeleton-space foot anchors measured in saved trace"
+    ]
+  },
+  "checker_tests": {
+    "scope": "Synthetic data modifications, not an art approval or replacement model contract",
+    "real_checker": "tools/check_whale_head_candidate.py",
+    "fingerprint": {
+      "bytes": 30469,
+      "sha256": "0216cbe30caee18716b68d9acfc67826fd87a0d63222a9f759acb9c8660821f0"
+    },
+    "reference_capture": ".local/authoring/whale-head-20261009-gpu-r4",
+    "synthetic_contract": "synthetic-head-contract.json"
+  },
+  "reproduction": {
+    "behavior": [
+      "D:/tool/godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--headless",
+      "--path",
+      "E:\\projects\\Desktop-Companion\\.local\\authoring\\host-behavior-20261009-r1\\project",
+      "--script",
+      "res://tests/host_behavior_test.gd"
+    ],
+    "socket": [
+      "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-X",
+      "utf8",
+      "E:\\projects\\Desktop-Companion\\art\\3d\\integration\\review-r1\\godot-tests\\socket_probe.py"
+    ],
+    "checker": [
+      "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-X",
+      "utf8",
+      "E:\\projects\\Desktop-Companion\\art\\3d\\integration\\review-r1\\godot-tests\\head_checker_negative_test.py"
+    ],
+    "staging_note": "Scripts preserve their actual run paths. Recreate the isolated .local project from socket-runtime-source plus the pinned canonical GLB before replay. No editor import cache is included."
+  },
+  "limits": [
+    "Headless numerical evidence does not validate rendered contact or character aesthetics.",
+    "Foot measurements are skeleton joint origins, not soles or mesh-floor collision.",
+    "30Hz GLB interpolation has submillimeter foot drift; no exact-zero claim.",
+    "Current renderer may have later material changes; numerical socket evidence pins its saved source snapshot."
+  ],
+  "files": {
+    "behavior-unit-result.json": {
+      "bytes": 725,
+      "sha256": "de9e4795f3485d6bfc0868f8c944b4d33f2727b989787da83ddac81892e0ba4b"
+    },
+    "behavior-unit.log": {
+      "bytes": 122,
+      "sha256": "4220b6549ea2e25b3aa3aa9a6ec6f99b96b5e79548d6b17207df1383d0172c6c"
+    },
+    "head-checker-negative-tests.json": {
+      "bytes": 1684,
+      "sha256": "c85d77ee69105413a13ba309fe19e017e6ab90fd993ba597ee843a78330da7dd"
+    },
+    "head_checker_negative_test.py": {
+      "bytes": 4033,
+      "sha256": "dda290324d8870bede04faa67aad44197f2ba5bd0200904d31edd037774fbdc9"
+    },
+    "host_behavior_test.gd": {
+      "bytes": 5058,
+      "sha256": "4ad1a8da6b08156d9d9a23644e0d87dae387a997a3c09c40a2df705e4239dd9c"
+    },
+    "socket-check.json": {
+      "bytes": 5791,
+      "sha256": "da630debd13b8016f1d377df53e3560dfd4709f8c3a852a413149b74a1548af6"
+    },
+    "socket-runtime-report.json": {
+      "bytes": 16348,
+      "sha256": "b9e67eff1427943ae4d154445faecd03311fd0b4e51beab3b1195851efe33706"
+    },
+    "socket-runtime-source/host_behavior.gd": {
+      "bytes": 4419,
+      "sha256": "a9cd5739fcdf91378492d41dd790b47902c5a2e17595fff6de5f706485745ea7"
+    },
+    "socket-runtime-source/host_peer.gd": {
+      "bytes": 4609,
+      "sha256": "11e4bc18056fce514560faa66bf0a4e5527da083bac15cc09a177a8947f26927"
+    },
+    "socket-runtime-source/main.tscn": {
+      "bytes": 165,
+      "sha256": "a1f37b6aa91f5845336dcbfe05a3865ac56e23ed1deb449bd0196f2ba55ac750"
+    },
+    "socket-runtime-source/outline.gdshader": {
+      "bytes": 302,
+      "sha256": "0b3ed2cdbedbd5ab9affe8a0d8b760dc707f3a6d30448b7812a06556ef71d74d"
+    },
+    "socket-runtime-source/project.godot": {
+      "bytes": 1053,
+      "sha256": "2ead72002bdfcfefba896f04e0a51b9bc830570aecc6b33444d36e56182a09a6"
+    },
+    "socket-runtime-source/prototype.gd": {
+      "bytes": 39645,
+      "sha256": "f310689944aa8858559d78212a434e925402f9f6770b7371378707744378827f"
+    },
+    "socket-runtime-source/toon.gdshader": {
+      "bytes": 924,
+      "sha256": "314941065b156947fa8bc2049cde7cafbed0839bd036ee5b99e3ba06f48b0625"
+    },
+    "socket-runtime-trace.json": {
+      "bytes": 2120397,
+      "sha256": "b101a4a2e0847ba31ad4fc8d7212f36332c7d8c6141998e83a92b62c8a9b5c54"
+    },
+    "socket-runtime.log": {
+      "bytes": 75,
+      "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+    },
+    "socket_probe.py": {
+      "bytes": 6342,
+      "sha256": "8eb2770caf992e7b02f1777e82111ade0ced741b77ec97b704fe0204dd76427a"
+    },
+    "synthetic-head-contract.json": {
+      "bytes": 71976,
+      "sha256": "99b1b7023cd446a6e3fa7f12509965dab5bcca317fc8a07c237396bbc24f85c6"
+    }
+  }
+}

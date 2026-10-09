@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "status": "passed",
+  "baseline_review": "E:\\projects\\Desktop-Companion\\.local\\authoring\\toon-host-20261009-gpu-r2",
+  "baseline_passed": true,
+  "checker_fingerprint": {
+    "sha256": "3181b977682baebe88c9df218d66acfbdea5c4de03631e78893aa3841fc0ce23",
+    "bytes": 22184
+  },
+  "in_memory_tamper_cases": [
+    {
+      "case": "old_ack_cannot_finish_current_request",
+      "expected_failure": "qt_request_sequence_and_current_ack",
+      "rejected": true,
+      "failed_checks": [
+        "qt_request_sequence_and_current_ack"
+      ]
+    },
+    {
+      "case": "concurrent_busy_truth_mismatch",
+      "expected_failure": "concurrent_activity_truth",
+      "rejected": true,
+      "failed_checks": [
+        "concurrent_activity_truth",
+        "renderer_received_activity_truth"
+      ]
+    },
+    {
+      "case": "modified_frozen_source_hash",
+      "expected_failure": "frozen_source_hashes",
+      "rejected": true,
+      "failed_checks": [
+        "frozen_source_hashes"
+      ]
+    },
+    {
+      "case": "bone_scaling_artifact",
+      "expected_failure": "bone_unit_scales",
+      "rejected": true,
+      "failed_checks": [
+        "bone_unit_scales"
+      ]
+    },
+    {
+      "case": "foot_drift_beyond_2mm",
+      "expected_failure": "foot_joint_drift_at_most_2mm",
+      "rejected": true,
+      "failed_checks": [
+        "foot_joint_drift_at_most_2mm"
+      ]
+    },
+    {
+      "case": "desk_visible_during_partial_pose",
+      "expected_failure": "workstation_only_when_fully_seated",
+      "rejected": true,
+      "failed_checks": [
+        "workstation_only_when_fully_seated"
+      ]
+    },
+    {
+      "case": "missing_renderer_terminal_ack",
+      "expected_failure": "renderer_requests_and_ack_match_qt",
+      "rejected": true,
+      "failed_checks": [
+        "receipt_runtime_consistent",
+        "renderer_requests_and_ack_match_qt"
+      ]
+    },
+    {
+      "case": "diagnostic_error_is_not_filtered",
+      "expected_failure": "renderer_diagnostics_clean",
+      "rejected": true,
+      "failed_checks": [
+        "renderer_diagnostics_clean"
+      ]
+    }
+  ],
+  "frozen_files_and_gpu_images_modified": false,
+  "scope": "Read JSON overrides only; real frozen source files and GPU PNGs remain unchanged."
+}

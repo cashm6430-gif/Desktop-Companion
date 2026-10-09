@@ -3,6 +3,7 @@
 #include "PetController.h"
 #include "PetWindow.h"
 #include "StartupTrace.h"
+#include "ToonHost.h"
 
 #include <QApplication>
 #include <QCryptographicHash>
@@ -76,6 +77,10 @@ int main(int argc, char** argv) {
     // These are per-process review overrides. Parse before constructing the
     // canvas, never save them to settings or enable them in the live pet.
     QStringList arguments = app.arguments();
+    // Choose the optional backend before probing/constructing the legacy
+    // Cubism canvas. There is exactly one pet window in either mode.
+    if (arguments.contains(QStringLiteral("--toon-host")))
+        return runToonHost(app, arguments);
     const QString command = arguments.value(1);
     const QStringList captureCommands{QStringLiteral("--render-pose"), QStringLiteral("--review-motion"),
         QStringLiteral("--render-motion"), QStringLiteral("--render-interaction"),

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "window_size": [480, 560],
+  "hide_proxy_body": false,
+  "camera": {"position": [0, 1.3, 6], "target": [0, 1.3, 0], "size": 3.0},
+  "capture_plan": [
+    {"time": 1.5, "name": "idle-wave"},
+    {"time": 4.2, "name": "enter-work"},
+    {"time": 5.7, "name": "two-turns-working"},
+    {"time": 6.6, "name": "delete-during-work"},
+    {"time": 8.2, "name": "one-turn-working"},
+    {"time": 9.3, "name": "return-gaze"},
+    {"time": 10.2, "name": "new-turn-interrupts-finish"},
+    {"time": 13.9, "name": "exit-work"},
+    {"time": 15.8, "name": "idle-recovered"},
+    {"time": 18.2, "name": "final-wave"}
+  ]
+}

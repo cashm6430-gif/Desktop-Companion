@@ -1,0 +1,871 @@
+{
+	"adapter": "",
+	"adapter_api_version": "",
+	"adapter_vendor": "",
+	"alpha_mask_performance": {
+		"available": false
+	},
+	"animation_evaluation": "imported_AnimationPlayer_manual_advance_with_engine_crossfade",
+	"animation_names": [
+		"idle",
+		"sit",
+		"wave"
+	],
+	"approved_character": false,
+	"bone_count": 21,
+	"capture_plan": [
+		{
+			"name": "standing",
+			"time": 1.0
+		},
+		{
+			"name": "blink",
+			"time": 1.5
+		},
+		{
+			"name": "wave",
+			"time": 3.25
+		},
+		{
+			"name": "half-sit",
+			"time": 5.65
+		},
+		{
+			"name": "seated",
+			"time": 7.2
+		},
+		{
+			"name": "rise",
+			"time": 9.7
+		},
+		{
+			"name": "turn45",
+			"time": 13.1
+		},
+		{
+			"name": "idle-return",
+			"time": 15.25
+		}
+	],
+	"captures": [],
+	"clock": {
+		"animation_dt_seconds": null,
+		"animation_frames": 1849,
+		"mode": "wall_delta_animation_clock"
+	},
+	"display_server": "headless",
+	"duration_seconds": 12.8579889999995,
+	"errors": [],
+	"fg_probes": [],
+	"focus_events": [],
+	"focus_guard": {
+		"available": false
+	},
+	"godot_version": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"headless": true,
+	"hidden_review_meshes": [],
+	"host_events": [
+		{
+			"event": "connected",
+			"time": 0.124146,
+			"wall_time_usec": 241973
+		},
+		{
+			"active_turns": 0.0,
+			"busy": false,
+			"event": "snapshot",
+			"revision": 1.0,
+			"time": 0.133333333333333,
+			"wall_time_usec": 248837
+		},
+		{
+			"active_turns": 1.0,
+			"busy": true,
+			"event": "snapshot",
+			"revision": 2.0,
+			"time": 0.133333333333333,
+			"wall_time_usec": 248861
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "delete-enter",
+			"status": "started",
+			"time": 0.827946,
+			"wall_time_usec": 945761
+		},
+		{
+			"event": "request",
+			"name": "delete.react",
+			"request_id": "delete-enter",
+			"time": 0.827946,
+			"wall_time_usec": 945765
+		},
+		{
+			"event": "ack",
+			"reason": "higher_priority_action_active",
+			"request_id": "wave-busy",
+			"status": "rejected",
+			"time": 0.834846,
+			"wall_time_usec": 952814
+		},
+		{
+			"event": "request",
+			"name": "wave",
+			"request_id": "wave-busy",
+			"time": 0.834846,
+			"wall_time_usec": 952834
+		},
+		{
+			"event": "ack",
+			"reason": "placeholder_expression_no_mouth_or_grasp",
+			"request_id": "delete-enter",
+			"status": "finished",
+			"time": 2.02164799999999,
+			"wall_time_usec": 2139483
+		},
+		{
+			"active_turns": 0.0,
+			"busy": false,
+			"event": "snapshot",
+			"revision": 3.0,
+			"time": 3.02214499999999,
+			"wall_time_usec": 3139910
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "work-end",
+			"status": "started",
+			"time": 3.02904499999999,
+			"wall_time_usec": 3146842
+		},
+		{
+			"event": "request",
+			"name": "work.finished",
+			"request_id": "work-end",
+			"time": 3.02904499999999,
+			"wall_time_usec": 3146845
+		},
+		{
+			"event": "ack",
+			"reason": "priority",
+			"request_id": "work-end",
+			"status": "interrupted",
+			"time": 3.28434499999998,
+			"wall_time_usec": 3402267
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "delete-exit",
+			"status": "started",
+			"time": 3.29124499999998,
+			"wall_time_usec": 3409078
+		},
+		{
+			"event": "request",
+			"name": "delete.react",
+			"request_id": "delete-exit",
+			"time": 3.29124499999998,
+			"wall_time_usec": 3409083
+		},
+		{
+			"event": "ack",
+			"reason": "higher_priority_action_active",
+			"request_id": "lower-finish",
+			"status": "rejected",
+			"time": 3.29814499999998,
+			"wall_time_usec": 3415927
+		},
+		{
+			"event": "request",
+			"name": "work.finished",
+			"request_id": "lower-finish",
+			"time": 3.29814499999998,
+			"wall_time_usec": 3415930
+		},
+		{
+			"event": "ack",
+			"reason": "placeholder_expression_no_mouth_or_grasp",
+			"request_id": "delete-exit",
+			"status": "finished",
+			"time": 4.48494499999997,
+			"wall_time_usec": 4602725
+		},
+		{
+			"active_turns": 1.0,
+			"busy": true,
+			"event": "snapshot",
+			"revision": 4.0,
+			"time": 4.49184499999997,
+			"wall_time_usec": 4609602
+		},
+		{
+			"event": "transport",
+			"reason": "disconnected",
+			"time": 5.09214799999996,
+			"wall_time_usec": 5209959
+		},
+		{
+			"event": "disconnected",
+			"time": 5.09214799999996,
+			"wall_time_usec": 5209967
+		},
+		{
+			"event": "connected",
+			"time": 6.23754499999995,
+			"wall_time_usec": 6355360
+		},
+		{
+			"active_turns": 2.0,
+			"busy": true,
+			"event": "snapshot",
+			"revision": 1.0,
+			"time": 6.24444499999995,
+			"wall_time_usec": 6362196
+		},
+		{
+			"event": "transport",
+			"reason": "stale_connection_ignored",
+			"time": 6.24444499999995,
+			"wall_time_usec": 6362213
+		},
+		{
+			"active_turns": 1.0,
+			"busy": true,
+			"event": "snapshot",
+			"revision": 2.0,
+			"time": 6.24444499999995,
+			"wall_time_usec": 6362231
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "ttl",
+			"status": "started",
+			"time": 8.8376209999999,
+			"wall_time_usec": 8956712
+		},
+		{
+			"event": "request",
+			"name": "delete.react",
+			"request_id": "ttl",
+			"time": 8.8376209999999,
+			"wall_time_usec": 8956717
+		},
+		{
+			"event": "ack",
+			"reason": "deadline",
+			"request_id": "ttl",
+			"status": "interrupted",
+			"time": 8.93416499999989,
+			"wall_time_usec": 9053273
+		},
+		{
+			"active_turns": 0.0,
+			"busy": false,
+			"event": "snapshot",
+			"revision": 3.0,
+			"time": 8.94106099999989,
+			"wall_time_usec": 9060132
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "work-end-2",
+			"status": "started",
+			"time": 8.94106099999989,
+			"wall_time_usec": 9060210
+		},
+		{
+			"event": "request",
+			"name": "work.finished",
+			"request_id": "work-end-2",
+			"time": 8.94106099999989,
+			"wall_time_usec": 9060213
+		},
+		{
+			"event": "ack",
+			"reason": "busy_resumed",
+			"request_id": "work-end-2",
+			"status": "interrupted",
+			"time": 9.14794099999987,
+			"wall_time_usec": 9267169
+		},
+		{
+			"active_turns": 1.0,
+			"busy": true,
+			"event": "snapshot",
+			"revision": 4.0,
+			"time": 9.14794099999987,
+			"wall_time_usec": 9267175
+		},
+		{
+			"active_turns": 0.0,
+			"busy": false,
+			"event": "snapshot",
+			"revision": 5.0,
+			"time": 9.15483699999987,
+			"wall_time_usec": 9274105
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "work-end-3",
+			"status": "started",
+			"time": 9.15483699999987,
+			"wall_time_usec": 9274186
+		},
+		{
+			"event": "request",
+			"name": "work.finished",
+			"request_id": "work-end-3",
+			"time": 9.15483699999987,
+			"wall_time_usec": 9274203
+		},
+		{
+			"event": "ack",
+			"reason": "",
+			"request_id": "work-end-3",
+			"status": "finished",
+			"time": 10.1547569999998,
+			"wall_time_usec": 10274563
+		}
+	],
+	"host_mode": {
+		"address": "127.0.0.1",
+		"capabilities": [
+			"activity.idle",
+			"activity.busy",
+			"delete.react",
+			"work.finished",
+			"wave"
+		],
+		"capability_details": {
+			"blend_shapes": [
+				"Blink_L",
+				"Blink_R",
+				"Smile"
+			],
+			"busy_style": "seated_static_workstation",
+			"character_status": "unapproved_proxy_or_candidate",
+			"delete_reaction": "small_head_nod_blink_smile_placeholder_no_file_operation",
+			"facial_owner": "runtime_after_body_clip",
+			"finger_grasp": false,
+			"head_bone": true,
+			"model_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+			"mouth_open_close": false,
+			"typing": false
+		},
+		"enabled": true,
+		"port": 59829
+	},
+	"host_review_limit": "snapshot-driven proxy, static work, no gripping/biting/typing capability claimed",
+	"manual_desktop_composite_review": "pending",
+	"materials": [
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "Ahoge",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "ArmSleeve_L",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "ArmSleeve_R",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "Bang",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "Bang_001",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "Bang_002",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "Bang_003",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "Collar",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "Cuff_L",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "Cuff_R",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"mesh": "FaceFeatures",
+			"outline": false,
+			"source_material": "ToonEyeWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.3655646443367,
+				0.722027361392975,
+				0.977691531181335,
+				1.0
+			],
+			"mesh": "FaceFeatures",
+			"outline": false,
+			"source_material": "ToonIris",
+			"surface": 1
+		},
+		{
+			"base_color": [
+				0.128354042768478,
+				0.205984175205231,
+				0.331830054521561,
+				1.0
+			],
+			"mesh": "FaceFeatures",
+			"outline": false,
+			"source_material": "ToonPupil",
+			"surface": 2
+		},
+		{
+			"base_color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"mesh": "FaceFeatures",
+			"outline": false,
+			"source_material": "ToonHighlight",
+			"surface": 3
+		},
+		{
+			"base_color": [
+				0.527112782001495,
+				0.260067462921143,
+				0.331830054521561,
+				1.0
+			],
+			"mesh": "FaceFeatures",
+			"outline": false,
+			"source_material": "ToonMouth",
+			"surface": 4
+		},
+		{
+			"base_color": [
+				1.0,
+				0.906331777572632,
+				0.86504203081131,
+				1.0
+			],
+			"mesh": "FaceVolume",
+			"outline": true,
+			"source_material": "ToonSkin",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.247800529003143,
+				0.436627060174942,
+				0.687217175960541,
+				1.0
+			],
+			"mesh": "HairBackVolume",
+			"outline": true,
+			"source_material": "ToonHairDark",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				1.0,
+				0.906331777572632,
+				0.86504203081131,
+				1.0
+			],
+			"mesh": "Hand_L",
+			"outline": true,
+			"source_material": "ToonSkin",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				1.0,
+				0.906331777572632,
+				0.86504203081131,
+				1.0
+			],
+			"mesh": "Hand_R",
+			"outline": true,
+			"source_material": "ToonSkin",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "Leg_L",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "Leg_R",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				1.0,
+				0.906331777572632,
+				0.86504203081131,
+				1.0
+			],
+			"mesh": "NeckVolume",
+			"outline": true,
+			"source_material": "ToonSkin",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "PelvisVolume",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "ShirtFront",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "Shoe_L",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "Shoe_R",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "SideHair",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "SideHair_001",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "SkirtClosedHem",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "TailFin",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.331830054521561,
+				0.649956464767456,
+				0.916273534297943,
+				1.0
+			],
+			"mesh": "TailFin_001",
+			"outline": true,
+			"source_material": "ToonHairBlue",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.247800529003143,
+				0.436627060174942,
+				0.687217175960541,
+				1.0
+			],
+			"mesh": "TailStem",
+			"outline": true,
+			"source_material": "ToonHairDark",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.205984175205231,
+				0.260067462921143,
+				0.436627060174942,
+				1.0
+			],
+			"mesh": "Torso",
+			"outline": true,
+			"source_material": "ToonNavy",
+			"surface": 0
+		},
+		{
+			"base_color": [
+				0.9593465924263,
+				0.982207119464874,
+				1.0,
+				1.0
+			],
+			"mesh": "Waistband",
+			"outline": true,
+			"source_material": "ToonWhite",
+			"surface": 0
+		}
+	],
+	"model_path": "res://assets/character.glb",
+	"model_sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3",
+	"native_handle": 0,
+	"native_window_hide": "not_used_main_window_visibility_is_fixed_by_Godot",
+	"os": "Windows",
+	"performance": {
+		"available": false,
+		"reason": "headless_has_no_render_performance"
+	},
+	"performance_scope": "runtime_including_review_readback_and_png_write; not_production_fps",
+	"pid": 14452,
+	"renderer": "gl_compatibility",
+	"rendering_device": "unavailable_in_OpenGL_Compatibility",
+	"rendering_driver": "opengl3",
+	"rest_bounds": {
+		"position": [
+			-0.699985146522522,
+			0.0,
+			-0.605000019073486
+		],
+		"size": [
+			1.39997029304504,
+			2.3296115398407,
+			1.06599998474121
+		]
+	},
+	"review_kind": "demo",
+	"review_profile": {},
+	"review_visibility_scope": "full_model",
+	"sequence": {
+		"animation_fps": 15,
+		"enabled": false,
+		"frame_count": 0,
+		"frames_directory": "frames",
+		"manifest_file": "sequence-manifest.json",
+		"source": "gpu_viewport_after_frame_post_draw",
+		"stride_in_fixed_dt_frames": 4
+	},
+	"shutdown_gpu_frame_presented": false,
+	"shutdown_strategy": "hide_all_visual_content_then_frame_post_draw_then_quit",
+	"shutdown_visible_alpha_pixels": -1,
+	"sit_support": {
+		"center": [
+			0,
+			0.175,
+			-0.18
+		],
+		"size": [
+			0.56,
+			0.35,
+			0.36
+		],
+		"temporary_geometry": "box",
+		"top_y": 0.35,
+		"visible_states": [
+			"sit",
+			"seated",
+			"rise"
+		]
+	},
+	"startup_window_flags": {},
+	"status": "technical_prototype_pending_visual_review",
+	"trace_file": "trace.json",
+	"trace_samples": 232,
+	"visual_capture_completed": false,
+	"wall_duration_seconds": 12.793057,
+	"window": {
+		"always_on_top": false,
+		"borderless": false,
+		"has_focus": true,
+		"position": [
+			0,
+			0
+		],
+		"size": [
+			64,
+			64
+		],
+		"transparent": false,
+		"unfocusable": false,
+		"viewport_transparent_bg": true
+	},
+	"window_id": 0,
+	"window_interactions": [],
+	"window_region_ready": false
+}

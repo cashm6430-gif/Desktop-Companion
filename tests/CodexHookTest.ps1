@@ -14,7 +14,11 @@ try {
         $taskProcess = [Diagnostics.Process]::new()
         try {
             $taskProcess.StartInfo.FileName = (Get-Process -Id $PID).Path
-            foreach ($arg in @('-NoLogo', '-NoProfile', '-NonInteractive', '-Command', $command)) {
+            # Keep checking the installer's exact production command below,
+            # but explicitly isolate these JSON-response executions from any
+            # already running pet's default QLocalServer endpoint.
+            $isolatedCommand = $command + ' --dry-run-hook'
+            foreach ($arg in @('-NoLogo', '-NoProfile', '-NonInteractive', '-Command', $isolatedCommand)) {
                 $taskProcess.StartInfo.ArgumentList.Add($arg)
             }
             $taskProcess.StartInfo.UseShellExecute = $false

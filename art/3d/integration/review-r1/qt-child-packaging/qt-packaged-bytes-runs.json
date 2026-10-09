@@ -1,0 +1,98 @@
+{
+    "environment": {
+        "APPDATA": "C:\\Users\\Administrator\\AppData\\Roaming",
+        "LOCALAPPDATA": "C:\\Users\\Administrator\\AppData\\Local",
+        "SYSTEMROOT": "C:\\Windows",
+        "TEMP": "C:\\Users\\Administrator\\AppData\\Local\\Temp",
+        "TMP": "C:\\Users\\Administrator\\AppData\\Local\\Temp",
+        "USERDOMAIN": "DESKTOP-QR2EAAK",
+        "USERNAME": "Administrator",
+        "USERPROFILE": "C:\\Users\\Administrator",
+        "WINDIR": "C:\\Windows"
+    },
+    "parent_token": {
+        "elevated": true,
+        "integrity_rid": 12288,
+        "restricted": false
+    },
+    "runs": [
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 12288,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "default",
+            "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 12288,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion/.local/authoring/toon-host-20261009-gpu-r1/project",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "default",
+            "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 12288,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide",
+            "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 12288,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion/.local/authoring/toon-host-20261009-gpu-r1/project",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide",
+            "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 12288,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide_no_window",
+            "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n",
+            "started": true
+        },
+        {
+            "child_token": {
+                "elevated": true,
+                "integrity_rid": 12288,
+                "restricted": false
+            },
+            "cwd": "E:/projects/Desktop-Companion/.local/authoring/toon-host-20261009-gpu-r1/project",
+            "exit_code": 0,
+            "finished": true,
+            "mode": "hide_no_window",
+            "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\r\n\r\n",
+            "started": true
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "checks": 20,
+  "failures": [],
+  "status": "passed",
+  "exit_code": 0,
+  "command": [
+    "D:/tool/godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--path",
+    "E:\\projects\\Desktop-Companion\\.local\\authoring\\host-behavior-20261009-r1\\project",
+    "--script",
+    "res://tests/host_behavior_test.gd"
+  ],
+  "source_script": {
+    "bytes": 5058,
+    "sha256": "4ad1a8da6b08156d9d9a23644e0d87dae387a997a3c09c40a2df705e4239dd9c"
+  },
+  "host_behavior": {
+    "bytes": 4419,
+    "sha256": "a9cd5739fcdf91378492d41dd790b47902c5a2e17595fff6de5f706485745ea7"
+  },
+  "limits": [
+    "Pure GDScript state assertions only, not a GPU visual check."
+  ]
+}

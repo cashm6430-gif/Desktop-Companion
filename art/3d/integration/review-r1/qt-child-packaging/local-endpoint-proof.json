@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "server": {
+    "endpoint": "desktop-companion-isolated-low-client-51abd662589f4d7891faf04965ce59c4",
+    "listen": true,
+    "mode": "--server",
+    "token": {
+      "elevated": true,
+      "integrity_rid": 12288,
+      "restricted": false
+    }
+  },
+  "clients": [
+    {
+      "name": "low_source_client",
+      "exit_code": 1,
+      "stdout": {
+        "connected": false,
+        "endpoint": "desktop-companion-isolated-low-client-51abd662589f4d7891faf04965ce59c4",
+        "error": "QLocalSocket::connectToServer: Access denied",
+        "mode": "--client",
+        "reply": false,
+        "token": {
+          "elevated": true,
+          "integrity_rid": 4096,
+          "restricted": false
+        },
+        "written": false
+      },
+      "stderr": ""
+    },
+    {
+      "name": "normal_packaged_client",
+      "exit_code": 0,
+      "stdout": {
+        "connected": true,
+        "endpoint": "desktop-companion-isolated-low-client-51abd662589f4d7891faf04965ce59c4",
+        "error": "Unknown error",
+        "mode": "--client",
+        "reply": true,
+        "token": {
+          "elevated": true,
+          "integrity_rid": 12288,
+          "restricted": false
+        },
+        "written": true
+      },
+      "stderr": ""
+    }
+  ],
+  "production_endpoint_used": false,
+  "hook_config_modified": false,
+  "socket_or_system_acl_changed": false
+}

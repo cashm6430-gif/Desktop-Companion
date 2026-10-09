@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "status": "passed",
+  "recorded_local_date": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "command": "ctest --test-dir E:/projects/Desktop-Companion/build --output-on-failure",
+  "exit_code": 0,
+  "tests_total": 11,
+  "tests_passed": 11,
+  "tests_failed": 0,
+  "total_wall_seconds": 39.79,
+  "test_cases": [],
+  "build": {
+    "status": "passed",
+    "configuration": "Release",
+    "cubism_enabled": true,
+    "sdk_root": "E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5",
+    "compiler": "MSVC 19.51.36256.0",
+    "qt_version": "6.8.4",
+    "qt_runtime_bin": "E:/Qt/release/bin/bin",
+    "host_binary_sha256_at_ctest": "265fa09a846b25b0259ffae9da9c5c5b4cc323e1e3d04224ac792d773eaa0c92",
+    "hook_binary_sha256": "3acf432708c7dd1e3d35f8f22b4dfee91ba211de03f2ac210fdde05445b43133",
+    "bridge_test_binary_sha256": "922ddb31af06c27ea0cd21cbce5785d5179ce177a3df694a92aa3d622be8275e",
+    "signing_invoked": false
+  },
+  "source_sha256_at_ctest": {
+    "CMakeLists.txt": "4e04dbdb3427a52c9e9cb6e6df15e65650404069c5ec201ae995fda958a61531",
+    "src/main.cpp": "e043748bb402a8721ec40d5124315fdcf8048e924826ee143f658e27374b143c",
+    "src/ToonEventBridge.h": "54f5a3372f5f4c4f5b784adfee9e06da206464d2b1e6ef78025b6a6f0d73c1ea",
+    "src/ToonEventBridge.cpp": "e271e47b4e69508951bd2649854d48914227bdb342dbced531849ac2bda69d44",
+    "src/ToonHost.h": "b1ec6ee9427491797cf4ce6fcf3b0c9d81d86ecbb87dcece2668b9207139ef27",
+    "src/ToonHost.cpp": "ec3fce755f1eba16dbf2915309a97fec3dcd4578441c60e18ad8436685593a66",
+    "src/hook_main.cpp": "8fad6d6e9a30cbdd81cd2f6523595865895da1ed7e4c463146df9e5d9d88e573",
+    "tests/ToonEventBridgeTest.cpp": "803da621a391d14080c53efad5af163a5e55942155b69c35d778ec4685f8f2da",
+    "tests/CodexHookTest.ps1": "2f5c4a188ee69da989871912161b83cba66dbe3949a919df3c1ee4415afaf18c",
+    "src/PetController.h": "8770496a61a94e55abe9101a34869082129c85e58759db63ac1b839779c995c6",
+    "src/PetController.cpp": "a70c9e892a96a5efb65a611db0bb5bce86eb4503f7fde4e0bda434a3c28f5ac9"
+  },
+  "log_sha256": "a66b8e8f82c60a7ec5fe264965d548b26f3f52c0db61561e258821fe38687f1a",
+  "hook_isolation": {
+    "mode": "explicit --dry-run-hook",
+    "temporary_installer_config": true,
+    "production_config_modified": false,
+    "production_ipc_messages_sent": false,
+    "events": [
+      "UserPromptSubmit",
+      "Stop",
+      "Interrupt",
+      "SessionEnd"
+    ],
+    "stdout_contract": "{} plus newline",
+    "exit_code_contract": 0
+  },
+  "verification_scope": {
+    "qt_bridge_concurrency_disconnect_stale_ack_timeout": true,
+    "existing_cubism_cpp_tests": true,
+    "live_sources_started": false,
+    "gpu_renderer_run": false,
+    "godot_visual_approval": false,
+    "default_pet_launched": false
+  },
+  "limits": [
+    "CTest does not validate Godot GPU output, production Shell event delivery or startup focus.",
+    "This log is the 39.79-second run before the later review-profile/record-frames CLI-only forwarding addition.",
+    "LastTestsFailed.log is an older stale run and was deliberately not copied.",
+    "The optional launch forwarding addition is separately recorded in incremental-build.json."
+  ]
+}
