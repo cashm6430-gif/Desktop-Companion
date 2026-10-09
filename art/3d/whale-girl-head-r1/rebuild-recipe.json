@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "candidate_art_and_runtime_review_pending",
+  "script": "tools/create_whale_head_candidate.py",
+  "script_sha256": "1af8ae34f9d78558e64659e0fa18f471b88611dc8d5857d37bb068fcb266d52b",
+  "prototype_dependency": "tools/create_toon_prototype.py",
+  "prototype_dependency_sha256": "2a92038ee1be42154179701a51ac99f450ee0bfbc11af95db951cbe72b232f6a",
+  "references": [
+    {
+      "file": "assets/idle.png",
+      "sha256": "6d857c8e3b9f48fc4602f60375aaeb9326e97342de7b80e822c5e71f64e36fd2",
+      "usage": "Appearance guidance only; no image texture or billboard in candidate"
+    }
+  ],
+  "blender_version": "5.2.2 LTS",
+  "blender_build_hash": "d13f752e3b9c",
+  "command": [
+    "D:/tool/blender/blender.exe",
+    "--background",
+    "--factory-startup",
+    "--python",
+    "tools/create_whale_head_candidate.py"
+  ],
+  "author": "art/3d/whale-girl-head-r1/character.blend",
+  "export": "assets/3d/whale-girl-head-r1/character.glb",
+  "export_options": {
+    "export_format": "GLB",
+    "export_yup": true,
+    "export_animations": true,
+    "export_animation_mode": "ACTIONS",
+    "export_def_bones": true,
+    "export_morph": true,
+    "export_morph_normal": true,
+    "export_morph_animation": false,
+    "export_skins": true,
+    "export_all_influences": false,
+    "export_optimize_animation_size": false,
+    "export_apply": false,
+    "export_cameras": false,
+    "export_lights": false,
+    "export_texcoords": true,
+    "export_normals": true,
+    "export_tangents": true,
+    "export_vertex_color": "ACTIVE",
+    "export_all_vertex_colors": false
+  },
+  "source_sha256": "3a96dc07df182883181d11f074de3ff83b7e73ad85ac61693e77ffecd302034c",
+  "glb_sha256": "f7a216b5fe4d54a94ae46a985ce57d58f8a22d8d68d6dd11e6e7e886a9a52f20",
+  "design": {
+    "head": "Opaque volumetric broad-cheek shell",
+    "eyes": "Closed conformal solids, blue nested iris/glints; isolated independent blink",
+    "hair": "Tapered closed curved locks with true front/side/back volume",
+    "details": "White maid pleats, cyan bow, curved ahoge, whale-fin ears",
+    "body": "Temporary existing 21-bone proxy, unchanged technical clips"
+  },
+  "validation": "Source and GLB readback audit; actual GPU multi-angle/art approval separate"
+}

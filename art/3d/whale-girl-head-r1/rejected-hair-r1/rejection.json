@@ -1,0 +1,6 @@
+{
+  "status": "visual_hair_geometry_rejected",
+  "reason": "Native front view curl bends show crossed black fragments and sharp triangular artifacts. Model likeness not yet approved.",
+  "glb_sha256": "956eb6bee98e424bff1cee5d18e0536ef6481d646e7854786c726fe23af01282",
+  "evidence": ".local/authoring/whale-head-20261009-gpu-r1/captures"
+}

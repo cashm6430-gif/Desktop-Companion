@@ -1,0 +1,5128 @@
+{
+  "schema_version": 1,
+  "status": "candidate_art_and_runtime_review_pending",
+  "character_identity": "q_whale_girl_head_candidate",
+  "purpose": "Whale-girl volumetric head candidate on a temporary rigged body; never formal production adoption.",
+  "author_coordinates": {
+    "up": "+Z",
+    "front": "-Y",
+    "units": "meters"
+  },
+  "runtime_coordinates": {
+    "up": "+Y",
+    "front": "+Z",
+    "units": "meters",
+    "conversion": "(x,y,z)->(x,z,-y)"
+  },
+  "ground_y": 0,
+  "head_top_y": 2.188,
+  "total_height_y": 2.516390323638916,
+  "forward_axis": [
+    0,
+    0,
+    1
+  ],
+  "nodes": {
+    "armature": "Armature",
+    "face": "FaceFeatures"
+  },
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "length": 0.15000000596046448,
+      "head_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        0.15000000596046448
+      ],
+      "deform": true
+    },
+    {
+      "name": "pelvis",
+      "parent": "root",
+      "length": 0.18999993801116943,
+      "head_blender": [
+        0.0,
+        0.0,
+        0.7200000286102295
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        0.9100000262260437
+      ],
+      "deform": true
+    },
+    {
+      "name": "spine",
+      "parent": "pelvis",
+      "length": 0.22999995946884155,
+      "head_blender": [
+        0.0,
+        0.0,
+        0.9100000262260437
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        1.1399999856948853
+      ],
+      "deform": true
+    },
+    {
+      "name": "neck",
+      "parent": "spine",
+      "length": 0.11000001430511475,
+      "head_blender": [
+        0.0,
+        0.0,
+        1.1399999856948853
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "deform": true
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "length": 0.6200000047683716,
+      "head_blender": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "tail_blender": [
+        0.0,
+        0.0,
+        1.8700000047683716
+      ],
+      "deform": true
+    },
+    {
+      "name": "hair",
+      "parent": "head",
+      "length": 0.5414794087409973,
+      "head_blender": [
+        0.0,
+        0.1899999976158142,
+        1.659999966621399
+      ],
+      "tail_blender": [
+        0.0,
+        0.23000000417232513,
+        1.1200000047683716
+      ],
+      "deform": true
+    },
+    {
+      "name": "shoulder.L",
+      "parent": "spine",
+      "length": 0.11045362055301666,
+      "head_blender": [
+        0.1899999976158142,
+        0.0,
+        1.1200000047683716
+      ],
+      "tail_blender": [
+        0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.L",
+      "parent": "shoulder.L",
+      "length": 0.24413110315799713,
+      "head_blender": [
+        0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "tail_blender": [
+        0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.L",
+      "parent": "upper_arm.L",
+      "length": 0.21118712425231934,
+      "head_blender": [
+        0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "tail_blender": [
+        0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "deform": true
+    },
+    {
+      "name": "wrist.L",
+      "parent": "forearm.L",
+      "length": 0.0860232412815094,
+      "head_blender": [
+        0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "tail_blender": [
+        0.44999998807907104,
+        -0.07000000029802322,
+        0.6299999952316284
+      ],
+      "deform": true
+    },
+    {
+      "name": "shoulder.R",
+      "parent": "spine",
+      "length": 0.11045362055301666,
+      "head_blender": [
+        -0.1899999976158142,
+        0.0,
+        1.1200000047683716
+      ],
+      "tail_blender": [
+        -0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.R",
+      "parent": "shoulder.R",
+      "length": 0.24413110315799713,
+      "head_blender": [
+        -0.30000001192092896,
+        0.0,
+        1.1100000143051147
+      ],
+      "tail_blender": [
+        -0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.R",
+      "parent": "upper_arm.R",
+      "length": 0.21118712425231934,
+      "head_blender": [
+        -0.4399999976158142,
+        0.0,
+        0.9100000262260437
+      ],
+      "tail_blender": [
+        -0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "deform": true
+    },
+    {
+      "name": "wrist.R",
+      "parent": "forearm.R",
+      "length": 0.0860232412815094,
+      "head_blender": [
+        -0.44999998807907104,
+        -0.019999999552965164,
+        0.699999988079071
+      ],
+      "tail_blender": [
+        -0.44999998807907104,
+        -0.07000000029802322,
+        0.6299999952316284
+      ],
+      "deform": true
+    },
+    {
+      "name": "tail",
+      "parent": "pelvis",
+      "length": 0.4130375385284424,
+      "head_blender": [
+        0.0,
+        0.10000000149011612,
+        0.7900000214576721
+      ],
+      "tail_blender": [
+        0.0,
+        0.5099999904632568,
+        0.8399999737739563
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.L",
+      "parent": "pelvis",
+      "length": 0.3100000023841858,
+      "head_blender": [
+        0.14499999582767487,
+        0.0,
+        0.7200000286102295
+      ],
+      "tail_blender": [
+        0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.L",
+      "parent": "thigh.L",
+      "length": 0.28999999165534973,
+      "head_blender": [
+        0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "tail_blender": [
+        0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.L",
+      "parent": "shin.L",
+      "length": 0.20396079123020172,
+      "head_blender": [
+        0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "tail_blender": [
+        0.14499999582767487,
+        -0.20000000298023224,
+        0.07999999821186066
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.R",
+      "parent": "pelvis",
+      "length": 0.3100000023841858,
+      "head_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.7200000286102295
+      ],
+      "tail_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.R",
+      "parent": "thigh.R",
+      "length": 0.28999999165534973,
+      "head_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.4099999964237213
+      ],
+      "tail_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.R",
+      "parent": "shin.R",
+      "length": 0.20396079123020172,
+      "head_blender": [
+        -0.14499999582767487,
+        0.0,
+        0.11999999731779099
+      ],
+      "tail_blender": [
+        -0.14499999582767487,
+        -0.20000000298023224,
+        0.07999999821186066
+      ],
+      "deform": true
+    }
+  ],
+  "expressions": {
+    "Blink_L": {
+      "range": [
+        0,
+        1
+      ],
+      "default": 0
+    },
+    "Blink_R": {
+      "range": [
+        0,
+        1
+      ],
+      "default": 0
+    },
+    "Smile": {
+      "range": [
+        0,
+        1
+      ],
+      "default": 0.2
+    }
+  },
+  "materials": [
+    "ToonSkin",
+    "ToonHairBlue",
+    "ToonHairDark",
+    "ToonNavy",
+    "ToonWhite",
+    "ToonEyeWhite",
+    "ToonIris",
+    "ToonPupil",
+    "ToonHighlight",
+    "ToonMouth",
+    "WhaleSkin",
+    "WhaleHairRoyal",
+    "WhaleHairMid",
+    "WhaleHairCyan",
+    "WhaleLace",
+    "WhaleRibbon",
+    "WhaleEyeLash",
+    "WhaleEyeBrow",
+    "WhaleEyeWhite",
+    "WhaleIrisDeep",
+    "WhaleIrisBlue",
+    "WhaleIrisGlow",
+    "WhalePupil",
+    "WhaleHighlight",
+    "WhaleMouth",
+    "WhaleEyeBlush"
+  ],
+  "material_alpha": "all opaque geometry; no bitmap cards",
+  "animations": {
+    "idle": {
+      "frames": 120,
+      "duration_seconds": 3.966666666666667,
+      "sample_rate": 30,
+      "max_bone_length_error": 1.1678665923220422e-07,
+      "max_foot_anchor_error": 2.2351741790771484e-08,
+      "contacts": [
+        {
+          "frame": 1,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.4500000476837158,
+            -0.06999999284744263,
+            0.6299998760223389
+          ]
+        },
+        {
+          "frame": 60,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.45000001788139343,
+            -0.06975080072879791,
+            0.6299377679824829
+          ]
+        },
+        {
+          "frame": 120,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.4500000476837158,
+            -0.07024906575679779,
+            0.6300623416900635
+          ]
+        }
+      ]
+    },
+    "wave": {
+      "frames": 75,
+      "duration_seconds": 2.466666666666667,
+      "sample_rate": 30,
+      "max_bone_length_error": 1.0453803811483198e-07,
+      "max_foot_anchor_error": 2.2351741790771484e-08,
+      "contacts": [
+        {
+          "frame": 1,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.44999998807907104,
+            -0.06999996304512024,
+            0.6299998164176941
+          ]
+        },
+        {
+          "frame": 37,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.7006295323371887,
+            -0.06999994814395905,
+            1.4436323642730713
+          ]
+        },
+        {
+          "frame": 75,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.44999998807907104,
+            -0.06999996304512024,
+            0.6299998164176941
+          ]
+        }
+      ],
+      "side": "L",
+      "driven_bone": "upper_arm.L",
+      "wrist_bone": "wrist.L",
+      "follower_bone": "wrist.L"
+    },
+    "sit": {
+      "frames": 90,
+      "duration_seconds": 2.966666666666667,
+      "sample_rate": 30,
+      "max_bone_length_error": 1.2098793877868275e-07,
+      "max_foot_anchor_error": 2.6925371586669463e-07,
+      "contacts": [
+        {
+          "frame": 1,
+          "pelvis_blender": [
+            0.0,
+            0.0,
+            0.7200000286102295
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            0.0,
+            0.1199999749660492
+          ],
+          "wrist_L_blender": [
+            0.44999998807907104,
+            -0.06999995559453964,
+            0.6299998164176941
+          ]
+        },
+        {
+          "frame": 45,
+          "pelvis_blender": [
+            0.0,
+            0.1042645126581192,
+            0.5751882195472717
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            1.1920928955078125e-07,
+            0.11999991536140442
+          ],
+          "wrist_L_blender": [
+            0.4500000476837158,
+            -0.17095965147018433,
+            0.5604538321495056
+          ]
+        },
+        {
+          "frame": 90,
+          "pelvis_blender": [
+            0.0,
+            0.18000002205371857,
+            0.4699999988079071
+          ],
+          "foot_L_blender": [
+            0.14499999582767487,
+            6.705522537231445e-08,
+            0.11999973654747009
+          ],
+          "wrist_L_blender": [
+            0.45000001788139343,
+            -0.16772642731666565,
+            0.5564472675323486
+          ]
+        }
+      ]
+    }
+  },
+  "rise": "play sit backwards; do not scale limbs",
+  "sit_contact": {
+    "stool_top_y": 0.35,
+    "stool_center": [
+      0,
+      0.175,
+      -0.18
+    ],
+    "stool_size": [
+      0.56,
+      0.35,
+      0.36
+    ],
+    "foot_anchor_L": [
+      0.145,
+      0.12,
+      0
+    ],
+    "foot_anchor_R": [
+      -0.145,
+      0.12,
+      0
+    ],
+    "note": "Temporary proxy contact; not a final whale-girl body/clothing rig."
+  },
+  "audit": {
+    "max_weight_sum_error": 2.9802322387695312e-08,
+    "unweighted_vertices": [],
+    "all_deform_bones": true,
+    "structure": {
+      "node_count": 83,
+      "mesh_count": 61,
+      "skin_joint_counts": [
+        21
+      ],
+      "animations": [
+        {
+          "name": "idle",
+          "channels": 63
+        },
+        {
+          "name": "sit",
+          "channels": 63
+        },
+        {
+          "name": "wave",
+          "channels": 63
+        }
+      ],
+      "morph_meshes": [
+        {
+          "name": "WhaleFaceConformalGeometry",
+          "names": [
+            "Blink_L",
+            "Blink_R",
+            "Smile"
+          ]
+        }
+      ]
+    },
+    "expression_isolation": {
+      "Blink_L": {
+        "changed_vertices_by_region": {
+          "eye_L": 3936
+        },
+        "max_delta": 0.1671359746098505,
+        "default": 0.0
+      },
+      "Blink_R": {
+        "changed_vertices_by_region": {
+          "eye_R": 3936
+        },
+        "max_delta": 0.1671359746098505,
+        "default": 0.0
+      },
+      "Smile": {
+        "changed_vertices_by_region": {
+          "mouth": 48
+        },
+        "max_delta": 0.016294158305624497,
+        "default": 0.20000000298023224
+      }
+    },
+    "facial_depth": {
+      "Basis": {
+        "vertices": 8464,
+        "min_front_offset_m": 0.0007999572916346787,
+        "max_front_offset_m": 0.015300021002552733,
+        "passed": true
+      },
+      "Blink_L": {
+        "vertices": 8464,
+        "min_front_offset_m": 0.0007999572916346787,
+        "max_front_offset_m": 0.015300035456979777,
+        "passed": true
+      },
+      "Blink_R": {
+        "vertices": 8464,
+        "min_front_offset_m": 0.0007999572916346787,
+        "max_front_offset_m": 0.015300030700746037,
+        "passed": true
+      },
+      "Smile": {
+        "vertices": 8464,
+        "min_front_offset_m": 0.0007999572916346787,
+        "max_front_offset_m": 0.015300021002552733,
+        "passed": true
+      }
+    },
+    "neutral_bounds_blender": {
+      "min": [
+        -0.8849318623542786,
+        -0.43250492215156555,
+        0.0
+      ],
+      "max": [
+        0.8849318623542786,
+        0.6050000190734863,
+        2.516390323638916
+      ],
+      "vertices": 29176
+    },
+    "uv_and_tangents": {
+      "Torso": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "PelvisVolume": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "NeckVolume": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "ArmSleeve.L": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 420,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Cuff.L": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Hand.L": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Leg.L": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 348,
+        "uv_extent": [
+          0.9999999403953552,
+          0.9999999403953552
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Shoe.L": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "ArmSleeve.R": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 420,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Cuff.R": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Hand.R": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Leg.R": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 348,
+        "uv_extent": [
+          0.9999999403953552,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Shoe.R": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "SkirtClosedHem": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 576,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Waistband": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "TailStem": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 204,
+        "uv_extent": [
+          1.0,
+          0.9999999403953552
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "TailFin": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "TailFin.001": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "ShirtFront": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "Collar": {
+        "uv_layer": "UVMap",
+        "loops": 1584,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "FaceVolume": {
+        "uv_layer": "UVMap",
+        "loops": 14976,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleHairCranium": {
+        "uv_layer": "UVMap",
+        "loops": 7776,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBang.00": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 2652,
+        "uv_extent": [
+          1.0,
+          0.9999999403953552
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBang.01": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 2652,
+        "uv_extent": [
+          0.9999999403953552,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBang.02": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 2652,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBang.03": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 2652,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBang.04": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 2652,
+        "uv_extent": [
+          1.0,
+          0.9999999403953552
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleSideCurl.L": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3948,
+        "uv_extent": [
+          0.9999999403953552,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleOuterCascade.L": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3948,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleEarFin.L": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 1500,
+        "uv_extent": [
+          0.9999999403953552,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleEarFrill.L": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 1500,
+        "uv_extent": [
+          0.9999999403953552,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleSideCurl.R": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3948,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleOuterCascade.R": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3948,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleEarFin.R": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 1500,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleEarFrill.R": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 1500,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBackCascade.00": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3516,
+        "uv_extent": [
+          1.0,
+          0.9999999403953552
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBackCascade.01": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3516,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBackCascade.02": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3516,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBackCascade.03": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3516,
+        "uv_extent": [
+          1.0,
+          0.9999999403953552
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleBackCascade.04": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 3516,
+        "uv_extent": [
+          0.9999999403953552,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleAhoge": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 4380,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidBand": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 2652,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.00": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.01": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.02": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.03": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.04": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.05": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.06": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.07": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.08": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.09": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.10": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.11": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.12": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.13": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleMaidPleat.14": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleRibbonWing.0": {
+        "uv_layer": "UVMap",
+        "loops": 1320,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleRibbonWing.1": {
+        "uv_layer": "UVMap",
+        "loops": 1320,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "WhaleRibbonKnot": {
+        "uv_layer": "UVMap",
+        "loops": 864,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "retained_primitive_spherical_uv",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      },
+      "FaceFeatures": {
+        "uv_layer": "CandidateSurfaceUV",
+        "loops": 46356,
+        "uv_extent": [
+          1.0,
+          1.0
+        ],
+        "method": "angle_aware_packed_surface_charts",
+        "triangulated": true,
+        "tangent_calculation_passed": true
+      }
+    },
+    "exported_surface_attributes": {
+      "mesh_count": 61,
+      "primitive_count": 88,
+      "all_primitives_passed": true,
+      "required_attributes": [
+        "POSITION",
+        "NORMAL",
+        "TANGENT",
+        "TEXCOORD_0"
+      ],
+      "primitives": [
+        {
+          "mesh": "ArmSleeve.L",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 135,
+              "finite": true,
+              "extent": [
+                0.3614528328180313,
+                0.5263484120368958,
+                0.22131284326314926
+              ]
+            },
+            "NORMAL": {
+              "vertices": 135,
+              "finite": true,
+              "extent": [
+                1.9913166761398315,
+                1.7538785934448242,
+                1.997521460056305
+              ]
+            },
+            "TANGENT": {
+              "vertices": 135,
+              "finite": true,
+              "extent": [
+                1.9609999656677246,
+                1.6845999956130981,
+                1.9998000264167786,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 135,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "ArmSleeve.R",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 137,
+              "finite": true,
+              "extent": [
+                0.3614528328180313,
+                0.5263484120368958,
+                0.22131284326314926
+              ]
+            },
+            "NORMAL": {
+              "vertices": 137,
+              "finite": true,
+              "extent": [
+                1.9913166761398315,
+                1.7538785934448242,
+                1.997521460056305
+              ]
+            },
+            "TANGENT": {
+              "vertices": 137,
+              "finite": true,
+              "extent": [
+                1.9071999788284302,
+                1.8788000345230103,
+                1.9991999864578247,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 137,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.019",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.2599998861551285,
+                0.08800005912780762,
+                0.19999997317790985
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.16019999980926514,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.009",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.20799991488456726,
+                0.09000003337860107,
+                0.19599996507167816
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.13519999384880066,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.012",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.20799994468688965,
+                0.09000003337860107,
+                0.19599996507167816
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.13519999384880066,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 2421,
+              "finite": true,
+              "extent": [
+                0.7901984453201294,
+                0.31077492237091064,
+                0.1192493736743927
+              ]
+            },
+            "NORMAL": {
+              "vertices": 2421,
+              "finite": true,
+              "extent": [
+                2.0,
+                1.9991955757141113,
+                1.9926779866218567
+              ]
+            },
+            "TANGENT": {
+              "vertices": 2421,
+              "finite": true,
+              "extent": [
+                1.9765999913215637,
+                1.9949000477790833,
+                1.9799000024795532,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 2421,
+              "finite": true,
+              "extent": [
+                0.9087337851524353,
+                0.9095116853713989
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.7400000095367432,
+                0.2760000228881836,
+                0.09474411606788635
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9999995231628418,
+                1.9990832805633545,
+                1.9863601922988892
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9746000170707703,
+                1.7766000032424927,
+                1.713699996471405,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.920222667471986,
+                0.9361587762832642
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.6600000262260437,
+                0.25199997425079346,
+                0.06884732842445374
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9999980926513672,
+                1.999718964099884,
+                1.9696037769317627
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9824000000953674,
+                1.560800015926361,
+                1.712399959564209,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.9361781298153531,
+                0.9521190524101257
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 3,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.6359999775886536,
+                0.2239999771118164,
+                0.06113225221633911
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9999971389770508,
+                1.9997206926345825,
+                1.9638978242874146
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9829999804496765,
+                1.5522000193595886,
+                1.7016000151634216,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.9521336451400906,
+                0.9521190524101257
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 4,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.6019999980926514,
+                0.12199997901916504,
+                0.0525248646736145
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9999525547027588,
+                1.9998765587806702,
+                1.9427917003631592
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.8711000084877014,
+                1.9970999956130981,
+                1.7289000153541565,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.9680890715285351,
+                0.9680793881416321
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 5,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.5379999876022339,
+                0.13999998569488525,
+                0.027233421802520752
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9999995231628418,
+                1.9995070695877075,
+                1.9386705160140991
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                1.9811000227928162,
+                1.472000002861023,
+                1.654699981212616,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1936,
+              "finite": true,
+              "extent": [
+                0.9680890715285351,
+                0.9840396642684937
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 6,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1544,
+              "finite": true,
+              "extent": [
+                0.5460000038146973,
+                0.21600008010864258,
+                0.03759726881980896
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1544,
+              "finite": true,
+              "extent": [
+                1.9999639987945557,
+                2.0,
+                1.9448320865631104
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1544,
+              "finite": true,
+              "extent": [
+                1.9940000176429749,
+                1.9617000222206116,
+                1.7121999859809875,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1544,
+              "finite": true,
+              "extent": [
+                0.9999999678298046,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 7,
+          "attributes": {
+            "POSITION": {
+              "vertices": 114,
+              "finite": true,
+              "extent": [
+                0.644008606672287,
+                0.04156923294067383,
+                0.07805657386779785
+              ]
+            },
+            "NORMAL": {
+              "vertices": 114,
+              "finite": true,
+              "extent": [
+                1.9970457553863525,
+                1.8837567567825317,
+                1.9361953735351562
+              ]
+            },
+            "TANGENT": {
+              "vertices": 114,
+              "finite": true,
+              "extent": [
+                1.6610999703407288,
+                1.9817000031471252,
+                1.8945000171661377,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 114,
+              "finite": true,
+              "extent": [
+                0.6874175295233727,
+                0.7531638145446777
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 8,
+          "attributes": {
+            "POSITION": {
+              "vertices": 797,
+              "finite": true,
+              "extent": [
+                0.7820000052452087,
+                0.04200005531311035,
+                0.0927790105342865
+              ]
+            },
+            "NORMAL": {
+              "vertices": 797,
+              "finite": true,
+              "extent": [
+                1.9918469190597534,
+                1.9998305439949036,
+                1.7203683853149414
+              ]
+            },
+            "TANGENT": {
+              "vertices": 797,
+              "finite": true,
+              "extent": [
+                1.9172000288963318,
+                1.8956000208854675,
+                1.9829000234603882,
+                2.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 797,
+              "finite": true,
+              "extent": [
+                0.8917407090775669,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleFaceConformalGeometry",
+          "primitive": 9,
+          "attributes": {
+            "POSITION": {
+              "vertices": 70,
+              "finite": true,
+              "extent": [
+                0.09666782990098,
+                0.021528244018554688,
+                0.00912734866142273
+              ]
+            },
+            "NORMAL": {
+              "vertices": 70,
+              "finite": true,
+              "extent": [
+                1.826973795890808,
+                1.8273160457611084,
+                1.957121729850769
+              ]
+            },
+            "TANGENT": {
+              "vertices": 70,
+              "finite": true,
+              "extent": [
+                1.618499994277954,
+                1.9677000045776367,
+                1.762499988079071,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 70,
+              "finite": true,
+              "extent": [
+                0.5655923783779144,
+                0.11226165294647217
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.020",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 2663,
+              "finite": true,
+              "extent": [
+                1.089999794960022,
+                0.9100000858306885,
+                0.7299997806549072
+              ]
+            },
+            "NORMAL": {
+              "vertices": 2663,
+              "finite": true,
+              "extent": [
+                1.999675989151001,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 2663,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.07320000231266022,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 2663,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.010",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.13599997758865356,
+                0.15999996662139893,
+                0.11999998241662979
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.14640000462532043,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.013",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.13599994778633118,
+                0.15999996662139893,
+                0.11999998241662979
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.14640000462532043,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Leg.L",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                0.20399999618530273,
+                0.6000000312924385,
+                0.20399999618530273
+              ]
+            },
+            "NORMAL": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                1.9991356134414673,
+                1.329415500164032,
+                1.9991356134414673
+              ]
+            },
+            "TANGENT": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                1.9997999668121338,
+                1.4206000566482544,
+                1.9997999668121338,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                0.9999999403953552,
+                0.9999999403953552
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Leg.R",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                0.20399999618530273,
+                0.6000000312924385,
+                0.20399999618530273
+              ]
+            },
+            "NORMAL": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                1.9991356134414673,
+                1.329415500164032,
+                1.9991356134414673
+              ]
+            },
+            "TANGENT": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                1.9997999668121338,
+                1.4206000566482544,
+                1.9997999668121338,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 104,
+              "finite": true,
+              "extent": [
+                0.9999999403953552,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.002",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.2099999114871025,
+                0.31999993324279785,
+                0.19999997317790985
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.1363999992609024,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.001",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.45999984443187714,
+                0.24000000953674316,
+                0.2999999672174454
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.1995999962091446,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.018",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.18999993056058884,
+                0.31999993324279785,
+                0.03599999099969864
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.625,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.011",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.19599992036819458,
+                0.12999999523162842,
+                0.35999996215105057
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.0706000030040741,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.014",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.19599992781877518,
+                0.12999999523162842,
+                0.35999996215105057
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.0706000030040741,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "SkirtClosedHem",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 196,
+              "finite": true,
+              "extent": [
+                0.8072999715805054,
+                0.25,
+                0.558899998664856
+              ]
+            },
+            "NORMAL": {
+              "vertices": 196,
+              "finite": true,
+              "extent": [
+                1.8454134464263916,
+                1.5457035303115845,
+                1.8231089115142822
+              ]
+            },
+            "TANGENT": {
+              "vertices": 196,
+              "finite": true,
+              "extent": [
+                1.760200023651123,
+                1.7390000224113464,
+                1.98989999294281,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 196,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.016",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.33450518548488617,
+                0.23169946670532227,
+                0.10999998450279236
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.9997178316116333,
+                1.9954113960266113,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.8007999658584595,
+                0.8723999857902527,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.017",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.33450518548488617,
+                0.23169946670532227,
+                0.10999998450279236
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.9997178316116333,
+                1.9954113960266113,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.8007999658584595,
+                0.8723999857902527,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "TailStem",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 72,
+              "finite": true,
+              "extent": [
+                0.20000000298023224,
+                0.19985222816467285,
+                0.42462974786758423
+              ]
+            },
+            "NORMAL": {
+              "vertices": 72,
+              "finite": true,
+              "extent": [
+                1.9879916906356812,
+                1.9756444692611694,
+                1.4614830613136292
+              ]
+            },
+            "TANGENT": {
+              "vertices": 72,
+              "finite": true,
+              "extent": [
+                1.9997000098228455,
+                1.9926999807357788,
+                1.50900000333786,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 72,
+              "finite": true,
+              "extent": [
+                1.0,
+                0.9999999403953552
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.5099997818470001,
+                0.4700000286102295,
+                0.2999999672174454
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.22059999406337738,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.015",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                0.46999983489513397,
+                0.12999999523162842,
+                0.3099999576807022
+              ]
+            },
+            "NORMAL": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.19460000097751617,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 323,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleAhoge",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1045,
+              "finite": true,
+              "extent": [
+                0.5577417314052582,
+                0.4334728717803955,
+                0.08949507400393486
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1045,
+              "finite": true,
+              "extent": [
+                1.9994778037071228,
+                1.9997084736824036,
+                1.9999521970748901
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1045,
+              "finite": true,
+              "extent": [
+                1.6737000346183777,
+                1.94650000333786,
+                1.9984999895095825,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1045,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.00",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                0.45921656489372253,
+                0.7705827951431274,
+                0.28200991451740265
+              ]
+            },
+            "NORMAL": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                1.9916062355041504,
+                1.376063048839569,
+                1.999590277671814
+              ]
+            },
+            "TANGENT": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                1.9969000220298767,
+                1.354099988937378,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                0.9999999099896115,
+                0.762740433216095
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.00",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                0.39777934551239014,
+                0.3236836791038513,
+                0.20684993267059326
+              ]
+            },
+            "NORMAL": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                1.9727601408958435,
+                0.7319024503231049,
+                1.992242157459259
+              ]
+            },
+            "TANGENT": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                1.9968000054359436,
+                0.5205999910831451,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                0.7538327574729919,
+                0.2784283757209778
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.00",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                0.4193047881126404,
+                0.5677427351474762,
+                0.1701970398426056
+              ]
+            },
+            "NORMAL": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                1.999833881855011,
+                1.9839633107185364,
+                1.9977489113807678
+              ]
+            },
+            "TANGENT": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                1.9987000226974487,
+                1.654300034046173,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                0.9299555420875549,
+                0.8051751255989075
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.01",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                0.3909946084022522,
+                0.7531427145004272,
+                0.28160491585731506
+              ]
+            },
+            "NORMAL": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                1.9972322583198547,
+                1.2326098680496216,
+                1.999595582485199
+              ]
+            },
+            "TANGENT": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                1.401199996471405,
+                1.9998000264167786,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                0.9999999129941415,
+                0.501954197883606
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.01",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                0.369877427816391,
+                0.312078595161438,
+                0.2068406492471695
+              ]
+            },
+            "NORMAL": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                1.9719115495681763,
+                0.6159940361976624,
+                1.9920762181282043
+              ]
+            },
+            "TANGENT": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                0.4016999900341034,
+                1.999500036239624,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                0.7689573913812637,
+                0.23011380434036255
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.01",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 487,
+              "finite": true,
+              "extent": [
+                0.3421689420938492,
+                0.5647182166576385,
+                0.17019198834896088
+              ]
+            },
+            "NORMAL": {
+              "vertices": 487,
+              "finite": true,
+              "extent": [
+                1.9996675252914429,
+                1.9552618861198425,
+                1.997704565525055
+              ]
+            },
+            "TANGENT": {
+              "vertices": 487,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                1.9408000111579895,
+                1.9998000264167786,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 487,
+              "finite": true,
+              "extent": [
+                0.9173532724380493,
+                0.8042073249816895
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.02",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 285,
+              "finite": true,
+              "extent": [
+                0.33999568223953247,
+                0.7309396266937256,
+                0.2813996970653534
+              ]
+            },
+            "NORMAL": {
+              "vertices": 285,
+              "finite": true,
+              "extent": [
+                1.999894917011261,
+                1.1614917814731598,
+                1.9995953440666199
+              ]
+            },
+            "TANGENT": {
+              "vertices": 285,
+              "finite": true,
+              "extent": [
+                1.9986000061035156,
+                1.3683000206947327,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 285,
+              "finite": true,
+              "extent": [
+                0.9999999669229354,
+                0.4831744432449341
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.02",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 120,
+              "finite": true,
+              "extent": [
+                0.34968574345111847,
+                0.3092665672302246,
+                0.2068323791027069
+              ]
+            },
+            "NORMAL": {
+              "vertices": 120,
+              "finite": true,
+              "extent": [
+                1.9900866746902466,
+                0.47030021250247955,
+                1.99192613363266
+              ]
+            },
+            "TANGENT": {
+              "vertices": 120,
+              "finite": true,
+              "extent": [
+                1.9975999593734741,
+                0.2895999997854233,
+                1.9997000098228455,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 120,
+              "finite": true,
+              "extent": [
+                0.8063648932147771,
+                0.2213658094406128
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.02",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 510,
+              "finite": true,
+              "extent": [
+                0.28466250002384186,
+                0.5611355900764465,
+                0.17018663883209229
+              ]
+            },
+            "NORMAL": {
+              "vertices": 510,
+              "finite": true,
+              "extent": [
+                1.9992178082466125,
+                1.901491641998291,
+                1.997684121131897
+              ]
+            },
+            "TANGENT": {
+              "vertices": 510,
+              "finite": true,
+              "extent": [
+                1.9976999759674072,
+                1.9377000331878662,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 510,
+              "finite": true,
+              "extent": [
+                0.9056877493858337,
+                0.8035405278205872
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.03",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                0.3909946084022522,
+                0.7531427145004272,
+                0.28160491585731506
+              ]
+            },
+            "NORMAL": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                1.9972322583198547,
+                1.2326098680496216,
+                1.999595582485199
+              ]
+            },
+            "TANGENT": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                1.401199996471405,
+                1.9998000264167786,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 293,
+              "finite": true,
+              "extent": [
+                0.9858577512204647,
+                0.5019540190696716
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.03",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                0.369877427816391,
+                0.312078595161438,
+                0.2068406492471695
+              ]
+            },
+            "NORMAL": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                1.9719115495681763,
+                0.6159940361976624,
+                1.9920762181282043
+              ]
+            },
+            "TANGENT": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                0.4016999900341034,
+                1.999500036239624,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 117,
+              "finite": true,
+              "extent": [
+                0.8399312653928064,
+                0.23011356592178345
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.03",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 489,
+              "finite": true,
+              "extent": [
+                0.3421689420938492,
+                0.5647182166576385,
+                0.17019198834896088
+              ]
+            },
+            "NORMAL": {
+              "vertices": 489,
+              "finite": true,
+              "extent": [
+                1.9996675252914429,
+                1.9552618861198425,
+                1.997704565525055
+              ]
+            },
+            "TANGENT": {
+              "vertices": 489,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                1.9408000111579895,
+                1.9998000264167786,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 489,
+              "finite": true,
+              "extent": [
+                0.9172295331954956,
+                0.8042321801185608
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.04",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                0.45921656489372253,
+                0.7705827951431274,
+                0.28200991451740265
+              ]
+            },
+            "NORMAL": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                1.9916062355041504,
+                1.376063048839569,
+                1.999590277671814
+              ]
+            },
+            "TANGENT": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                1.9969000220298767,
+                1.354099988937378,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 294,
+              "finite": true,
+              "extent": [
+                0.9667916484177113,
+                0.7627406120300293
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.04",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                0.39777934551239014,
+                0.3236836791038513,
+                0.20684993267059326
+              ]
+            },
+            "NORMAL": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                1.9727601408958435,
+                0.7319024503231049,
+                1.992242157459259
+              ]
+            },
+            "TANGENT": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                1.9968000054359436,
+                0.5205999910831451,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 121,
+              "finite": true,
+              "extent": [
+                0.8546940217493102,
+                0.2784283757209778
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBackCascade.04",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                0.4193047881126404,
+                0.5677427351474762,
+                0.1701970398426056
+              ]
+            },
+            "NORMAL": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                1.999833881855011,
+                1.9839633107185364,
+                1.9977489113807678
+              ]
+            },
+            "TANGENT": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                1.9987000226974487,
+                1.654300034046173,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 484,
+              "finite": true,
+              "extent": [
+                0.9299555420875549,
+                0.8051751852035522
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBang.00",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 675,
+              "finite": true,
+              "extent": [
+                0.3158784806728363,
+                0.4792548418045044,
+                0.26397380232810974
+              ]
+            },
+            "NORMAL": {
+              "vertices": 675,
+              "finite": true,
+              "extent": [
+                1.997632384300232,
+                1.9917086958885193,
+                1.9958544969558716
+              ]
+            },
+            "TANGENT": {
+              "vertices": 675,
+              "finite": true,
+              "extent": [
+                1.9818999767303467,
+                1.8774999976158142,
+                1.981000006198883,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 675,
+              "finite": true,
+              "extent": [
+                1.0,
+                0.9999999403953552
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBang.01",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 636,
+              "finite": true,
+              "extent": [
+                0.3493560180068016,
+                0.4263874292373657,
+                0.23443368077278137
+              ]
+            },
+            "NORMAL": {
+              "vertices": 636,
+              "finite": true,
+              "extent": [
+                1.9439356327056885,
+                1.9436980485916138,
+                1.9998401403427124
+              ]
+            },
+            "TANGENT": {
+              "vertices": 636,
+              "finite": true,
+              "extent": [
+                1.9940000176429749,
+                1.828599989414215,
+                1.9800999760627747,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 636,
+              "finite": true,
+              "extent": [
+                0.9999999403953552,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBang.02",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 649,
+              "finite": true,
+              "extent": [
+                0.3528631627559662,
+                0.5556344985961914,
+                0.21180960536003113
+              ]
+            },
+            "NORMAL": {
+              "vertices": 649,
+              "finite": true,
+              "extent": [
+                1.9872068762779236,
+                1.8907551169395447,
+                1.9995132088661194
+              ]
+            },
+            "TANGENT": {
+              "vertices": 649,
+              "finite": true,
+              "extent": [
+                1.9089999794960022,
+                1.7303000092506409,
+                1.997600018978119,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 649,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBang.03",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 642,
+              "finite": true,
+              "extent": [
+                0.3230835199356079,
+                0.6018785238265991,
+                0.16447891294956207
+              ]
+            },
+            "NORMAL": {
+              "vertices": 642,
+              "finite": true,
+              "extent": [
+                1.984336793422699,
+                1.9238529205322266,
+                1.999643862247467
+              ]
+            },
+            "TANGENT": {
+              "vertices": 642,
+              "finite": true,
+              "extent": [
+                1.960200011730194,
+                1.8158000111579895,
+                1.9991999864578247,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 642,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleBang.04",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 663,
+              "finite": true,
+              "extent": [
+                0.26051098108291626,
+                0.5256180763244629,
+                0.23394577950239182
+              ]
+            },
+            "NORMAL": {
+              "vertices": 663,
+              "finite": true,
+              "extent": [
+                1.9986838698387146,
+                1.8194577097892761,
+                1.9999910593032837
+              ]
+            },
+            "TANGENT": {
+              "vertices": 663,
+              "finite": true,
+              "extent": [
+                1.9943000078201294,
+                1.7964999675750732,
+                1.999899983406067,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 663,
+              "finite": true,
+              "extent": [
+                1.0,
+                0.9999999403953552
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleEarFin.L",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                0.4172039330005646,
+                0.30602705478668213,
+                0.1037138719111681
+              ]
+            },
+            "NORMAL": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                1.9722402095794678,
+                1.996227204799652,
+                1.9908037185668945
+              ]
+            },
+            "TANGENT": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                1.5584999918937683,
+                1.7286999821662903,
+                1.9968000054359436,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                0.9999999403953552,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleEarFin.R",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                0.4172039330005646,
+                0.30602705478668213,
+                0.1037138719111681
+              ]
+            },
+            "NORMAL": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                1.9722402095794678,
+                1.996227204799652,
+                1.9908037185668945
+              ]
+            },
+            "TANGENT": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                1.5584999918937683,
+                1.7286999821662903,
+                1.9968000054359436,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 346,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleEarFrill.L",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                0.3331880569458008,
+                0.25134193897247314,
+                0.08383634500205517
+              ]
+            },
+            "NORMAL": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                1.963927686214447,
+                1.994459629058838,
+                1.9956948161125183
+              ]
+            },
+            "TANGENT": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                1.5643999576568604,
+                1.810200035572052,
+                1.9997000098228455,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                0.9999999403953552,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleEarFrill.R",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                0.3331880569458008,
+                0.25134193897247314,
+                0.08383634500205517
+              ]
+            },
+            "NORMAL": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                1.963927686214447,
+                1.994459629058838,
+                1.9956948161125183
+              ]
+            },
+            "TANGENT": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                1.5643999576568604,
+                1.810200035572052,
+                1.9997000098228455,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 361,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.021",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 1419,
+              "finite": true,
+              "extent": [
+                1.156000792980194,
+                0.9879999160766602,
+                0.71000075340271
+              ]
+            },
+            "NORMAL": {
+              "vertices": 1419,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 1419,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.10620000213384628,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 1419,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleMaidBand",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 646,
+              "finite": true,
+              "extent": [
+                1.1698743104934692,
+                0.4996989965438843,
+                0.06000000052154064
+              ]
+            },
+            "NORMAL": {
+              "vertices": 646,
+              "finite": true,
+              "extent": [
+                1.9901357889175415,
+                2.0,
+                1.999970555305481
+              ]
+            },
+            "TANGENT": {
+              "vertices": 646,
+              "finite": true,
+              "extent": [
+                1.8305000066757202,
+                2.0,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 646,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.022",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.1926048994064331,
+                0.12992477416992188,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9856200218200684,
+                1.9913328886032104,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.3230000138282776,
+                1.9855999946594238,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.023",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.18762609362602234,
+                0.13634610176086426,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9782133102416992,
+                1.9869846105575562,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.642799973487854,
+                1.8938000202178955,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.024",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.17923420667648315,
+                0.14859211444854736,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9964683055877686,
+                1.9927622079849243,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0188000202178955,
+                1.7209999561309814,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.025",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.16733819246292114,
+                0.1623706817626953,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9912382364273071,
+                1.999959111213684,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.351199984550476,
+                1.4745999574661255,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.026",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.15353047847747803,
+                0.17337417602539062,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9871002435684204,
+                1.9785120487213135,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.625599980354309,
+                1.1649999618530273,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.027",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.14219048619270325,
+                0.1850590705871582,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.998781681060791,
+                1.9963366985321045,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.8306000232696533,
+                0.805400013923645,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.028",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.13332749903202057,
+                0.1898484230041504,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9999663829803467,
+                1.9571887254714966,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.957200050354004,
+                0.4115999937057495,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.029",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.12999998778104782,
+                0.1939997673034668,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.29319998621940613,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.030",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.13332749903202057,
+                0.1898484230041504,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9999663829803467,
+                1.9571887254714966,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.957200050354004,
+                0.4115999937057495,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.031",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.14219048619270325,
+                0.1850590705871582,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.998781681060791,
+                1.9963366985321045,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.8306000232696533,
+                0.805400013923645,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.032",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.15353047847747803,
+                0.17337417602539062,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9871002435684204,
+                1.9785120487213135,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.625599980354309,
+                1.1649999618530273,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.033",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.16733819246292114,
+                0.1623706817626953,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9912382364273071,
+                1.999959111213684,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.351199984550476,
+                1.4745999574661255,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.034",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.17923420667648315,
+                0.14859211444854736,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9964683055877686,
+                1.9927622079849243,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0188000202178955,
+                1.7209999561309814,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.035",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.18762609362602234,
+                0.13634610176086426,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9782133102416992,
+                1.9869846105575562,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.642799973487854,
+                1.8938000202178955,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.036",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.1926048994064331,
+                0.12992477416992188,
+                0.0860000029206276
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.9856200218200684,
+                1.9913328886032104,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.3230000138282776,
+                1.9855999946594238,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleOuterCascade.L",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                0.45151132345199585,
+                0.7030309438705444,
+                0.1962176412343979
+              ]
+            },
+            "NORMAL": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                1.9718332886695862,
+                1.2579848766326904,
+                1.9999988079071045
+              ]
+            },
+            "TANGENT": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                1.9521999955177307,
+                1.4051000475883484,
+                1.999899983406067,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                0.8823198825120926,
+                0.5666589140892029
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleOuterCascade.L",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                0.3712886571884155,
+                0.3092978596687317,
+                0.17133701965212822
+              ]
+            },
+            "NORMAL": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                1.963132381439209,
+                0.8325059711933136,
+                1.997857689857483
+              ]
+            },
+            "TANGENT": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                1.94240003824234,
+                0.8598999977111816,
+                1.9991000294685364,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                0.9481111764907837,
+                0.7830728888511658
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleOuterCascade.L",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 579,
+              "finite": true,
+              "extent": [
+                0.3316291570663452,
+                0.385458767414093,
+                0.14953874051570892
+              ]
+            },
+            "NORMAL": {
+              "vertices": 579,
+              "finite": true,
+              "extent": [
+                1.9985767006874084,
+                1.9945446848869324,
+                1.9983141422271729
+              ]
+            },
+            "TANGENT": {
+              "vertices": 579,
+              "finite": true,
+              "extent": [
+                1.998199999332428,
+                1.893999993801117,
+                1.9982999563217163,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 579,
+              "finite": true,
+              "extent": [
+                0.9769937470555305,
+                0.8939213752746582
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleOuterCascade.R",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                0.45151132345199585,
+                0.7030309438705444,
+                0.1962176412343979
+              ]
+            },
+            "NORMAL": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                1.9718332886695862,
+                1.2579848766326904,
+                1.9999988079071045
+              ]
+            },
+            "TANGENT": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                1.9487000107765198,
+                1.4051000475883484,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 289,
+              "finite": true,
+              "extent": [
+                0.9376884899178464,
+                0.5666589140892029
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleOuterCascade.R",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                0.3712886571884155,
+                0.3092978596687317,
+                0.17133701965212822
+              ]
+            },
+            "NORMAL": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                1.963132381439209,
+                0.8325059711933136,
+                1.997857689857483
+              ]
+            },
+            "TANGENT": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                1.9388999938964844,
+                0.8598999977111816,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 167,
+              "finite": true,
+              "extent": [
+                0.9709118884056807,
+                0.7830730080604553
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleOuterCascade.R",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 581,
+              "finite": true,
+              "extent": [
+                0.3316291570663452,
+                0.385458767414093,
+                0.14953874051570892
+              ]
+            },
+            "NORMAL": {
+              "vertices": 581,
+              "finite": true,
+              "extent": [
+                1.9985767006874084,
+                1.9945446848869324,
+                1.9983141422271729
+              ]
+            },
+            "TANGENT": {
+              "vertices": 581,
+              "finite": true,
+              "extent": [
+                1.998699963092804,
+                1.8112000226974487,
+                1.9982999563217163,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 581,
+              "finite": true,
+              "extent": [
+                1.0,
+                0.8939213752746582
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.039",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                0.05200004577636719,
+                0.06999993324279785,
+                0.04999999701976776
+              ]
+            },
+            "NORMAL": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                2.0,
+                0.2046000063419342,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 185,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.037",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                0.16665852069854736,
+                0.12132143974304199,
+                0.07400000840425491
+              ]
+            },
+            "NORMAL": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                1.9900286197662354,
+                1.998059630393982,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                1.9378000497817993,
+                0.498199999332428,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "Sphere.038",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                0.16665852069854736,
+                0.12132143974304199,
+                0.07400000840425491
+              ]
+            },
+            "NORMAL": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                1.9900286197662354,
+                1.998059630393982,
+                2.0
+              ]
+            },
+            "TANGENT": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                1.9378000497817993,
+                0.498199999332428,
+                2.0,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 271,
+              "finite": true,
+              "extent": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleSideCurl.L",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 380,
+              "finite": true,
+              "extent": [
+                0.3423353433609009,
+                0.7014262676239014,
+                0.16674931347370148
+              ]
+            },
+            "NORMAL": {
+              "vertices": 380,
+              "finite": true,
+              "extent": [
+                1.999629020690918,
+                1.1724630296230316,
+                1.9996584057807922
+              ]
+            },
+            "TANGENT": {
+              "vertices": 380,
+              "finite": true,
+              "extent": [
+                1.979200005531311,
+                1.4218000173568726,
+                1.999400019645691,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 380,
+              "finite": true,
+              "extent": [
+                0.9940139055252075,
+                0.8230783939361572
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleSideCurl.L",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 407,
+              "finite": true,
+              "extent": [
+                0.34245091676712036,
+                0.300908625125885,
+                0.13409581407904625
+              ]
+            },
+            "NORMAL": {
+              "vertices": 407,
+              "finite": true,
+              "extent": [
+                1.9996958374977112,
+                1.963155746459961,
+                1.9997726082801819
+              ]
+            },
+            "TANGENT": {
+              "vertices": 407,
+              "finite": true,
+              "extent": [
+                1.9813000559806824,
+                1.9984999895095825,
+                1.999400019645691,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 407,
+              "finite": true,
+              "extent": [
+                0.9808694086968899,
+                0.8943163752555847
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleSideCurl.L",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 257,
+              "finite": true,
+              "extent": [
+                0.2669757008552551,
+                0.15779376029968262,
+                0.11559819430112839
+              ]
+            },
+            "NORMAL": {
+              "vertices": 257,
+              "finite": true,
+              "extent": [
+                1.9762439727783203,
+                1.9795533418655396,
+                1.9850026369094849
+              ]
+            },
+            "TANGENT": {
+              "vertices": 257,
+              "finite": true,
+              "extent": [
+                1.9744000434875488,
+                1.9239000082015991,
+                1.9980999827384949,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 257,
+              "finite": true,
+              "extent": [
+                0.9632586892694235,
+                0.9999999403953552
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleSideCurl.R",
+          "primitive": 0,
+          "attributes": {
+            "POSITION": {
+              "vertices": 376,
+              "finite": true,
+              "extent": [
+                0.3423353433609009,
+                0.7014262676239014,
+                0.16674931347370148
+              ]
+            },
+            "NORMAL": {
+              "vertices": 376,
+              "finite": true,
+              "extent": [
+                1.999629020690918,
+                1.1724630296230316,
+                1.9996584057807922
+              ]
+            },
+            "TANGENT": {
+              "vertices": 376,
+              "finite": true,
+              "extent": [
+                1.9802000522613525,
+                1.4218000173568726,
+                1.9993000030517578,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 376,
+              "finite": true,
+              "extent": [
+                0.9679230764741078,
+                0.8215950131416321
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleSideCurl.R",
+          "primitive": 1,
+          "attributes": {
+            "POSITION": {
+              "vertices": 405,
+              "finite": true,
+              "extent": [
+                0.34245091676712036,
+                0.300908625125885,
+                0.13409581407904625
+              ]
+            },
+            "NORMAL": {
+              "vertices": 405,
+              "finite": true,
+              "extent": [
+                1.9996958374977112,
+                1.963155746459961,
+                1.9997726082801819
+              ]
+            },
+            "TANGENT": {
+              "vertices": 405,
+              "finite": true,
+              "extent": [
+                1.982200026512146,
+                1.9873000383377075,
+                1.999400019645691,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 405,
+              "finite": true,
+              "extent": [
+                1.0,
+                0.8968638777732849
+              ]
+            }
+          }
+        },
+        {
+          "mesh": "WhaleSideCurl.R",
+          "primitive": 2,
+          "attributes": {
+            "POSITION": {
+              "vertices": 255,
+              "finite": true,
+              "extent": [
+                0.2669757008552551,
+                0.15779376029968262,
+                0.11559819430112839
+              ]
+            },
+            "NORMAL": {
+              "vertices": 255,
+              "finite": true,
+              "extent": [
+                1.9762439727783203,
+                1.9795533418655396,
+                1.9860683679580688
+              ]
+            },
+            "TANGENT": {
+              "vertices": 255,
+              "finite": true,
+              "extent": [
+                1.973900020122528,
+                1.9300999641418457,
+                1.9970000386238098,
+                0.0
+              ]
+            },
+            "TEXCOORD_0": {
+              "vertices": 255,
+              "finite": true,
+              "extent": [
+                0.9366368725895882,
+                0.7777128219604492
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "source_sha256": "af0282c92da83f223ba021304fe546ddf39c831f3c6ec6730758a6f4a1efd86f",
+  "glb_sha256": "956eb6bee98e424bff1cee5d18e0536ef6481d646e7854786c726fe23af01282",
+  "visual_status": "pending_actual_godot_review",
+  "limits": [
+    "Candidate head likeness pending review",
+    "temporary prototype torso/limbs and sit animation",
+    "Hair is geometry with stepped color bands, not finished painterly shading",
+    "No hair collisions, fingers or cloth simulation"
+  ]
+}

@@ -77,7 +77,7 @@
  ],
  "push_requested": false,
  "focus_gate_fix": {
-  "design_doc": "godot/toon-prototype/focus-guard/DESIGN.md",
+  "design_doc": "E:/obsidian/workDiary/桌宠项目-FocusGuard窗口说明.md",
   "extension": "godot/toon-prototype/focus-guard (GDExtension, godot-cpp master + engine-dumped extension_api.json)",
   "layers": [
    "thread-level CBT hook vetoes ordinary activations (HCBT_ACTIVATE)",

@@ -1,0 +1,7 @@
+{
+  "status": "rejected_visual",
+  "schema_version": 1,
+  "replacement": "Fresh parallel-transport and curvature-limited sweep candidate; visual review remains separate.",
+  "model_sha256": "956eb6bee98e424bff1cee5d18e0536ef6481d646e7854786c726fe23af01282",
+  "reason": "Actual Godot front/left35/back exposed self-folded tube curls and black crossing edges; UV/tangent import passes do not approve geometry."
+}
