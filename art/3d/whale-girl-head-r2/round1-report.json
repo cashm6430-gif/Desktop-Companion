@@ -1,0 +1,511 @@
+{
+ "blend": "E:\\projects\\Desktop-Companion\\art\\3d\\whale-girl-head-r2\\character.blend",
+ "glb": "E:\\projects\\Desktop-Companion\\assets\\3d\\whale-girl-head-r2\\character.glb",
+ "renders": {
+  "front": "E:\\projects\\Desktop-Companion\\art\\3d\\whale-girl-head-r2\\round1-front.png",
+  "left35": "E:\\projects\\Desktop-Companion\\art\\3d\\whale-girl-head-r2\\round1-left35.png",
+  "right35": "E:\\projects\\Desktop-Companion\\art\\3d\\whale-girl-head-r2\\round1-right35.png"
+ },
+ "sweep_audits": {
+  "HairBack0": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.08603946312167864,
+   "constrained_rings": 14,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairBack1": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.09791246318006107,
+   "constrained_rings": 20,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairBack2": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.09304296053815185,
+   "constrained_rings": 18,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairBack3": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.08902521852991202,
+   "constrained_rings": 14,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairBack4": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.10314171078775719,
+   "constrained_rings": 21,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairSideOuterL": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.1132407529126844,
+   "constrained_rings": 19,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.5600000000000002,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairSideInnerL": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.19170270444302007,
+   "constrained_rings": 5,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairSideOuterR": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.1132407529126844,
+   "constrained_rings": 19,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.5600000000000002,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairSideInnerR": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.19170270444302007,
+   "constrained_rings": 5,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairBackLowL": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.23791619210498582,
+   "constrained_rings": 4,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "HairBackLowR": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.23791619210498582,
+   "constrained_rings": 4,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang0": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.1587071184917861,
+   "constrained_rings": 0,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.2565372372783196,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang1": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.03633463993151841,
+   "constrained_rings": 8,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang2": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.017823875224051655,
+   "constrained_rings": 13,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang3": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.016662212887971286,
+   "constrained_rings": 13,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang4": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.015388524657625847,
+   "constrained_rings": 13,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang5": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.06508544162343233,
+   "constrained_rings": 2,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Bang6": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.04993450030960821,
+   "constrained_rings": 6,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.5600000000000002,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "Ahoge": {
+   "rings": 15,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.08327163514748644,
+   "constrained_rings": 0,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.38428451588975343,
+   "gradient": "linear_COLOR_0_smoothstep_height"
+  },
+  "MaidBand": {
+   "rings": 29,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.5473434910676362,
+   "constrained_rings": 0,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": null,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.0,
+   "maximum_section_to_curve_radius_ratio": 0.1370254716169304,
+   "gradient": "constant material"
+  },
+  "BowLoopL": {
+   "rings": 22,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.027998949119143756,
+   "constrained_rings": 15,
+   "nonlocal_near_pass_pairs": 0,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": 0.03554145660951952,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.7349885019506799,
+   "maximum_section_to_curve_radius_ratio": 0.5600000000000002,
+   "gradient": "constant material"
+  },
+  "BowLoopR": {
+   "rings": 15,
+   "parallel_transport_max_residual_radians": 0.0,
+   "minimum_curve_radius_m": 0.006647622102157305,
+   "constrained_rings": 13,
+   "nonlocal_near_pass_pairs": 12,
+   "inward_side_polygons": [],
+   "degenerate_side_polygons": [],
+   "minimum_nonlocal_centerline_enclosure_clearance_m": 0.010385895204764739,
+   "maximum_nonlocal_enclosing_section_to_separation_ratio": 0.84,
+   "maximum_section_to_curve_radius_ratio": 0.56,
+   "gradient": "constant material"
+  }
+ },
+ "max_weight_sum_error": 2.9802322387695312e-08,
+ "face_anchor": {
+  "ss_px_per_unit": 618.46,
+  "anchor_px": [
+   585.0,
+   445.0
+  ],
+  "eye_z": 1.66,
+  "face_radii": [
+   0.26,
+   0.2,
+   0.2
+  ],
+  "face_center_model": [
+   0.0,
+   -0.02,
+   1.63
+  ]
+ },
+ "animations": {
+  "idle": {
+   "frames": 120,
+   "duration_seconds": 3.966666666666667,
+   "sample_rate": 30,
+   "max_bone_length_error": 1.1678665923220422e-07,
+   "max_foot_anchor_error": 2.2351741790771484e-08,
+   "contacts": [
+    {
+     "frame": 1,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.4500000476837158,
+      -0.06999999284744263,
+      0.6299998760223389
+     ]
+    },
+    {
+     "frame": 60,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.45000001788139343,
+      -0.06975080072879791,
+      0.6299377679824829
+     ]
+    },
+    {
+     "frame": 120,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.4500000476837158,
+      -0.07024906575679779,
+      0.6300623416900635
+     ]
+    }
+   ]
+  },
+  "wave": {
+   "frames": 75,
+   "duration_seconds": 2.466666666666667,
+   "sample_rate": 30,
+   "max_bone_length_error": 1.0453803811483198e-07,
+   "max_foot_anchor_error": 2.2351741790771484e-08,
+   "contacts": [
+    {
+     "frame": 1,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.44999998807907104,
+      -0.06999996304512024,
+      0.6299998164176941
+     ]
+    },
+    {
+     "frame": 37,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.7006295323371887,
+      -0.06999994814395905,
+      1.4436323642730713
+     ]
+    },
+    {
+     "frame": 75,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.44999998807907104,
+      -0.06999996304512024,
+      0.6299998164176941
+     ]
+    }
+   ],
+   "side": "L",
+   "driven_bone": "upper_arm.L",
+   "wrist_bone": "wrist.L",
+   "follower_bone": "wrist.L"
+  },
+  "sit": {
+   "frames": 90,
+   "duration_seconds": 2.966666666666667,
+   "sample_rate": 30,
+   "max_bone_length_error": 1.2098793877868275e-07,
+   "max_foot_anchor_error": 2.6925371586669463e-07,
+   "contacts": [
+    {
+     "frame": 1,
+     "pelvis_blender": [
+      0.0,
+      0.0,
+      0.7200000286102295
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      0.0,
+      0.1199999749660492
+     ],
+     "wrist_L_blender": [
+      0.44999998807907104,
+      -0.06999995559453964,
+      0.6299998164176941
+     ]
+    },
+    {
+     "frame": 45,
+     "pelvis_blender": [
+      0.0,
+      0.1042645126581192,
+      0.5751882195472717
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      1.1920928955078125e-07,
+      0.11999991536140442
+     ],
+     "wrist_L_blender": [
+      0.4500000476837158,
+      -0.17095965147018433,
+      0.5604538321495056
+     ]
+    },
+    {
+     "frame": 90,
+     "pelvis_blender": [
+      0.0,
+      0.18000002205371857,
+      0.4699999988079071
+     ],
+     "foot_L_blender": [
+      0.14499999582767487,
+      6.705522537231445e-08,
+      0.11999973654747009
+     ],
+     "wrist_L_blender": [
+      0.45000001788139343,
+      -0.16772642731666565,
+      0.5564472675323486
+     ]
+    }
+   ]
+  }
+ }
+}
