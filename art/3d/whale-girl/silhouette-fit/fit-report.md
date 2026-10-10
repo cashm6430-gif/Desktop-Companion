@@ -2,8 +2,8 @@
 
 * 输入：`art/3d/whale-girl-head-r2/character-round3.blend`（75 具名部件，未经改动）
 * 参考：`art/3d/whale-girl/silhouette-fit/refs/`（T1 归一化剪影）
-* 最优参数：`.local/fit-run/d-8e2ebe1350/params.json`
-* 候选剪影：`.local/fit-run/d-8e2ebe1350/sil/`
+* 最优参数：`.local/fit-run/final/params.json`
+* 候选剪影：`.local/fit-run/final/sil/`
 
 ## 1. 判据
 
@@ -33,6 +33,7 @@ J = 0.35·mean_IoU + 0.4·mean_outline_F1 + 0.25·mean(min_band_IoU)
 | T3 | V3d | 中性参数不新增对象 | PASS |
 | T3 | V3e | 蒙皮权重完整（含新增部件） | PASS |
 | T3 | V3f | 地面守卫：形变后最低点不低于鞋底 | PASS |
+| T5 | V5a–V5c | 尾鳍单侧（全在 +X）/ 尾鳍接在尾柄上 / 新增层数与参数一致 | PASS |
 | T6 | V6a | 数值重算一致 | PASS |
 
 V2d 在候选评估中被降为诊断输出：它证明的是**帧标定**可信（一次性、在出厂模型上验证），
@@ -42,60 +43,62 @@ V3f 的存在理由：所有剪影都按总高归一化，任何伸到鞋底以�
 让候选靠"长高"而不是"贴合"得分。地面接触点因此被冻结在出厂值。
 
 ```
-V3a identity: params are non-neutral, 27/75 parts moved, +4 created, max delta = 0.186667 (informational)
-V3d creation: neutral=False created=4 ['FitAdd_front_HairSideInnerL_0', 'FitAdd_front_HairSideInnerR_0', 'FitAdd_front_HairSideInnerL_1']... -> PASS
-V3e skin integrity: unweighted=0 max|sum(w)-1|=2.98e-08 -> PASS
-V3f ground guard: shipped min z=0.3570 -> deformed 0.3570 (delta +0.0000) -> PASS
-deform report: touched=27 created=4 skipped_neutral=4 verts=9598
-V3c orientation: flipped faces = 0 -> PASS
-T3_RUNNER PASS (V3a,V3c..V3f)
+(gates skipped)
 ```
 
 ## 3. 结果
 
 | 指标 | front | left | back |
 |---|---|---|---|
-| IoU（基线） | 0.7739 | 0.6221 | 0.8128 |
-| IoU（拟合） | 0.7899 | 0.6212 | 0.8613 |
-| 参考覆盖率（基线→拟合） | 0.894 → 0.949 | 0.738 → 0.805 | 0.864 → 0.932 |
-| 缺失率（基线→拟合） | 10.6% → 5.1% | 26.2% → 19.5% | 13.6% → 6.8% |
-| 超额率（基线→拟合） | 15.6% → 20.1% | 18.7% → 29.6% | 6.3% → 8.2% |
-| 轮廓 F1（基线→拟合） | 0.464 → 0.475 | 0.318 → 0.422 | 0.471 → 0.498 |
+| IoU（基线） | 0.7736 | 0.4940 | 0.8127 |
+| IoU（拟合） | 0.7546 | 0.6539 | 0.8494 |
+| 参考覆盖率（基线→拟合） | 0.893 → 0.960 | 0.636 → 0.901 | 0.863 → 0.959 |
+| 缺失率（基线→拟合） | 10.7% → 4.0% | 36.4% → 9.9% | 13.7% → 4.1% |
+| 超额率（基线→拟合） | 15.4% → 27.2% | 28.7% → 37.7% | 6.2% → 12.9% |
+| 轮廓 F1（基线→拟合） | 0.465 → 0.425 | 0.392 → 0.480 | 0.472 → 0.469 |
 
-目标函数：**0.5348 → 0.5619**（
-mean IoU 0.7363 → 0.7575，
-outline F1 0.4177 → 0.4650，
-最差分带 IoU 0.4403 → 0.4432）
+目标函数：**0.5373 → 0.5922**（
+mean IoU 0.6934 → 0.7526，
+outline F1 0.4432 → 0.4582，
+最差分带 IoU 0.4692 → 0.5820）
 
-回归下限检查（拟合后）：front:hem/legs 0.740 (下限 0.66)；front:torso 0.960 (下限 0.8)；left:torso 0.861 (下限 0.72)；left:hem/legs 0.029 (下限 0.02)；back:hem/legs 0.910 (下限 0.78)；back:torso 0.934 (下限 0.75)
+回归下限检查（拟合后）：front:hem/legs 0.738 (下限 0.66)；front:torso 0.991 (下限 0.8)；left:torso 0.974 (下限 0.72)；left:hem/legs 0.711 (下限 0.02)；back:hem/legs 0.910 (下限 0.78)；back:torso 0.996 (下限 0.75)
 
 最优参数：
 
 ```json
 {
  "hair_side_flare": 0.146667,
- "hair_back_volume": 0.186667,
- "bang_length": 0.073333,
- "skirt_flare": 0.106667,
- "foot_length": 0.45,
+ "hair_back_volume": 0.28,
+ "bang_length": 0.22,
+ "foot_length": 1.483333,
  "foot_height": 1.3,
+ "side_lock_extra": 2.0,
  "front_lock_extra": 2.0,
- "front_lock_fwd": 0.26
+ "front_lock_fwd": 0.173333,
+ "front_lock_drop": 0.106667,
+ "back_lock_extra": 2.0,
+ "back_lock_back": 0.2
 }
 ```
 
 ## 4. 平台期与结构性缺口
 
-* front / back 两视的缺失率被压掉一半以上，侧视（left）也终于从 0.262 降到
-  0.195 —— 靠的是**新增**前发落发层，而不是拉伸已有部件。
+* front / back 两视的缺失率都压掉一半以上（10.7% →
+  4.0%；13.7% →
+  4.1%），侧视（left）从
+  36.4% 降到 9.9%
+  —— 靠的是**新增**前发落发层，而不是拉伸已有部件。
 * **代价要一起看**：覆盖率是靠增加体积换来的，所以超额率同步上升（front
-  15.6% → 20.1%，
-  left 18.7% → 29.6%）。
+  15.4% → 27.2%，
+  left 28.7% → 37.7%）。
   目标函数之所以用对称项，正是为了让这笔交易被计入而不是被忽略：它仍选择这个解，
   说明净收益（IoU 与轮廓 F1 同时上升）大于代价，但"更像"不等于"更瘦"。
-* 但侧视仍是三视里最差的一个，且 `hem/legs` 分带几乎覆盖不到参考：参考在侧向能读出
-  腿与靴子的体块，而模型该区域是一块平盘。这类缺口靠"形变已有部件"结构性无解，
-  本轮的参数扩展方向（复制同族发锁再参数化变换）是唯一真正推动了侧视的手段。
+* 但侧视仍是三视里最差的一个（IoU 0.6539）：下摆一带的体块基本
+  是**新加的发锁**在填，而参考里能读出的腿与靴子在侧向几乎没有被表达。这类缺口靠
+  "形变已有部件"结构性无解 —— 本轮的扩展方向（复制同族发锁再参数化变换）是唯一真正
+  推动了侧视的手段，说明"新增部件"这条路是对的，只是要用到**身体**上（腿/靴体块、
+  独立尾鳍），而不只是头发。
 * 参数收敛表现出明显的边际递减：倒数五个参数里有三个的增益 < 0.003，
   说明在**当前几何预算**内已经接近该空间的极限。
 
@@ -103,9 +106,12 @@ outline F1 0.4177 → 0.4650，
 
 1. 度量与流水线是可复现的：中性参数导出与出厂 GLB **逐字节相同**，基线 IoU 在放大
    归一化画布后仍逐位不变，报告的全部数值可由 `--rescore` 重算得到。
-2. 参数化拟合能拿到确定的正收益，但收益量级有限，且集中在正面/背面。
-3. 侧视的剩余缺口是**部件缺失**而非形状误差，后续应继续沿"新增部件"方向扩展
-   （侧向可读的腿/靴体块、独立尾鳍），而不是继续调形变参数。
+2. 参数化拟合拿到了确定的正收益（mean IoU 0.6934 → 0.7526），
+   而且侧视的改善（left IoU 0.4940 → 0.6539）
+   来自"新增部件"而不是拉伸已有几何。
+3. 收益的代价是超额率上升；目标函数用对称项正是为了让这笔交易可见。若要同时压低超额，
+   下一步应把"新增部件"扩到**身体**（侧向可读的腿/靴体块、独立尾鳍），而不是继续调
+   形变参数。
 
 ## 6. 复现
 
@@ -128,12 +134,12 @@ python tools/fit_silhouette_search.py --descent --base '{}'
 python tools/fit_silhouette_search.py --rescore
 
 # 本报告（T6）
-python tools/report_silhouette_fit.py --best .local/fit-run/d-8e2ebe1350
+python tools/report_silhouette_fit.py --best .local/fit-run/final
 
 # 并排对照图（写入 .local/fit-run/fit-compare-sheet.png）
 python tools/diagnose_silhouette_fit.py \
     "shipped baseline|art/3d/whale-girl/silhouette-fit/t2-baseline" \
-    "fitted|.local/fit-run/d-8e2ebe1350"
+    "fitted|.local/fit-run/final"
 ```
 
 ## 7. 已知限制

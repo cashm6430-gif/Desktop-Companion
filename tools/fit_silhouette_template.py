@@ -227,6 +227,52 @@ def main() -> int:
     if not ok:
         failures.append("V3c")
 
+    # ------------------------------------------------- V5 tail integrity
+    # A regression guard for the defect that started this line of work: the
+    # generated previews grew a fluke on each side of the body. The authoring
+    # template has exactly one tail, and every fitted export must keep it that
+    # way. Two notes on the measurement, both learned by getting it wrong first:
+    #   * the tail ROOT legitimately crosses the centre line (TailStem starts at
+    #     x=-0.062, where it meets the pelvis), so only the FLUKES are required
+    #     to be single-sided;
+    #   * the stem and flukes are separate meshes that overlap in space without
+    #     sharing vertices, so "connected" has to be tested by bounding-box
+    #     overlap along X, not by vertex proximity.
+    def tail_pts(prefix):
+        objs = [o for o in bpy.context.scene.objects
+                if o.type == "MESH" and o.name.startswith(prefix)]
+        return [(o.matrix_world @ v.co) for o in objs for v in o.data.vertices]
+
+    fpts = tail_pts("TailFluke")
+    spts = tail_pts("TailStem")
+    if not fpts or not spts:
+        print(f"V5a tail presence: stem={len(spts)} fluke={len(fpts)} verts -> FAIL")
+        failures.append("V5a")
+    else:
+        fx = [q.x for q in fpts]
+        ok = min(fx) > 0.0
+        print(f"V5a flukes single-sided: {len(fpts)} verts x[{min(fx):+.3f},{max(fx):+.3f}] "
+              f"-> {'PASS' if ok else 'FAIL (a fluke on -X too)'}")
+        if not ok:
+            failures.append("V5a")
+
+        stem_max = max(q.x for q in spts)
+        ok = stem_max >= min(fx)
+        print(f"V5b flukes attached: stem reaches x={stem_max:+.3f}, flukes start at "
+              f"{min(fx):+.3f} -> {'PASS' if ok else 'FAIL (flukes float free)'}")
+        if not ok:
+            failures.append("V5b")
+
+    # V5c: the created hair layers must match what the parameters asked for.
+    asked = (int(round(p.get("side_lock_extra", 0))) + int(round(p.get("front_lock_extra", 0)))
+             + int(round(p.get("back_lock_extra", 0))))
+    made = len([o for o in bpy.context.scene.objects
+                if o.name.startswith(deform.ADD_PREFIX)])
+    ok = (asked == 0 and made == 0) or made == asked * 2      # two templates per layer
+    print(f"V5c created layers: asked={asked} objects={made} -> {'PASS' if ok else 'FAIL'}")
+    if not ok:
+        failures.append("V5c")
+
     # --------------------------------------------------------------- export
     if opts["out"]:
         r2 = load_module("whale_candidate_r2", "tools/create_whale_head_candidate_r2.py")
@@ -255,7 +301,7 @@ def main() -> int:
                "glb": opts["out"], "failures": failures}
     if opts["report"]:
         Path(opts["report"]).write_text(json.dumps(payload, indent=1))
-    print("T3_RUNNER " + ("FAIL " + ",".join(failures) if failures else "PASS (V3a,V3c..V3f)"))
+    print("T3_RUNNER " + ("FAIL " + ",".join(failures) if failures else "PASS (V3a,V3c..V3f,V5a..V5c)"))
     return 1 if failures else 0
 
 

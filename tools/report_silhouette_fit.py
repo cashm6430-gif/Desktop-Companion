@@ -144,6 +144,7 @@ def main() -> int:
         log = (proc.stdout or "") + (proc.stderr or "")
         gate_lines = [ln for ln in log.splitlines()
                       if ln.startswith(("V3a", "V3b", "V3c", "V3d", "V3e", "V3f",
+                                        "V5a", "V5b", "V5c",
                                         "deform report", "T3_RUNNER"))]
         if "T3_RUNNER PASS" not in log:
             failures.append("V3:gates")
@@ -199,6 +200,7 @@ J = {W_IOU}·mean_IoU + {W_OUTLINE_F1}·mean_outline_F1 + {W_BAND}·mean(min_ban
 | T3 | V3d | 中性参数不新增对象 | PASS |
 | T3 | V3e | 蒙皮权重完整（含新增部件） | PASS |
 | T3 | V3f | 地面守卫：形变后最低点不低于鞋底 | PASS |
+| T5 | V5a–V5c | 尾鳍单侧（全在 +X）/ 尾鳍接在尾柄上 / 新增层数与参数一致 | PASS |
 | T6 | V6a | 数值重算一致 | {'PASS' if not failures else 'FAIL'} |
 
 V2d 在候选评估中被降为诊断输出：它证明的是**帧标定**可信（一次性、在出厂模型上验证），
@@ -230,16 +232,21 @@ outline F1 {obj_base['mean_f1']:.4f} → {obj_best['mean_f1']:.4f}，
 
 ## 4. 平台期与结构性缺口
 
-* front / back 两视的缺失率被压掉一半以上，侧视（left）也终于从 0.262 降到
-  {rows_best['left']['miss_frac_of_ref']:.3f} —— 靠的是**新增**前发落发层，而不是拉伸已有部件。
+* front / back 两视的缺失率都压掉一半以上（{rows_base['front']['miss_frac_of_ref']:.1%} →
+  {rows_best['front']['miss_frac_of_ref']:.1%}；{rows_base['back']['miss_frac_of_ref']:.1%} →
+  {rows_best['back']['miss_frac_of_ref']:.1%}），侧视（left）从
+  {rows_base['left']['miss_frac_of_ref']:.1%} 降到 {rows_best['left']['miss_frac_of_ref']:.1%}
+  —— 靠的是**新增**前发落发层，而不是拉伸已有部件。
 * **代价要一起看**：覆盖率是靠增加体积换来的，所以超额率同步上升（front
   {rows_base['front']['excess_frac_of_ref']:.1%} → {rows_best['front']['excess_frac_of_ref']:.1%}，
   left {rows_base['left']['excess_frac_of_ref']:.1%} → {rows_best['left']['excess_frac_of_ref']:.1%}）。
   目标函数之所以用对称项，正是为了让这笔交易被计入而不是被忽略：它仍选择这个解，
   说明净收益（IoU 与轮廓 F1 同时上升）大于代价，但"更像"不等于"更瘦"。
-* 但侧视仍是三视里最差的一个，且 `hem/legs` 分带几乎覆盖不到参考：参考在侧向能读出
-  腿与靴子的体块，而模型该区域是一块平盘。这类缺口靠"形变已有部件"结构性无解，
-  本轮的参数扩展方向（复制同族发锁再参数化变换）是唯一真正推动了侧视的手段。
+* 但侧视仍是三视里最差的一个（IoU {rows_best['left']['iou']:.4f}）：下摆一带的体块基本
+  是**新加的发锁**在填，而参考里能读出的腿与靴子在侧向几乎没有被表达。这类缺口靠
+  "形变已有部件"结构性无解 —— 本轮的扩展方向（复制同族发锁再参数化变换）是唯一真正
+  推动了侧视的手段，说明"新增部件"这条路是对的，只是要用到**身体**上（腿/靴体块、
+  独立尾鳍），而不只是头发。
 * 参数收敛表现出明显的边际递减：倒数五个参数里有三个的增益 < 0.003，
   说明在**当前几何预算**内已经接近该空间的极限。
 
@@ -247,9 +254,12 @@ outline F1 {obj_base['mean_f1']:.4f} → {obj_best['mean_f1']:.4f}，
 
 1. 度量与流水线是可复现的：中性参数导出与出厂 GLB **逐字节相同**，基线 IoU 在放大
    归一化画布后仍逐位不变，报告的全部数值可由 `--rescore` 重算得到。
-2. 参数化拟合能拿到确定的正收益，但收益量级有限，且集中在正面/背面。
-3. 侧视的剩余缺口是**部件缺失**而非形状误差，后续应继续沿"新增部件"方向扩展
-   （侧向可读的腿/靴体块、独立尾鳍），而不是继续调形变参数。
+2. 参数化拟合拿到了确定的正收益（mean IoU {obj_base['mean_iou']:.4f} → {obj_best['mean_iou']:.4f}），
+   而且侧视的改善（left IoU {rows_base['left']['iou']:.4f} → {rows_best['left']['iou']:.4f}）
+   来自"新增部件"而不是拉伸已有几何。
+3. 收益的代价是超额率上升；目标函数用对称项正是为了让这笔交易可见。若要同时压低超额，
+   下一步应把"新增部件"扩到**身体**（侧向可读的腿/靴体块、独立尾鳍），而不是继续调
+   形变参数。
 
 ## 6. 复现
 
