@@ -2,7 +2,7 @@
  "hair_side_flare": 0.146667,
  "hair_length": 0.0,
  "hair_back_volume": 0.28,
- "bang_length": 0.22,
+ "bang_length": 0.073333,
  "ahoge_scale": 1.0,
  "crown_taper": 0.0,
  "skirt_flare": 0.0,
@@ -15,7 +15,7 @@
  "side_lock_drop": 0.0,
  "front_lock_extra": 2.0,
  "front_lock_fwd": 0.173333,
- "front_lock_drop": 0.106667,
+ "front_lock_drop": 0.0,
  "back_lock_extra": 2.0,
  "back_lock_back": 0.2,
  "back_lock_drop": 0.0
