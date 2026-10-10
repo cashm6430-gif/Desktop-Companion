@@ -105,6 +105,56 @@ PARAM_TARGETS: dict[str, tuple] = {
     "back_lock_drop":   (("HairBack0", "HairBack4", "FitAdd_back*"), "min_z", -1, None),
 }
 
+# Which model axis every parameter moves vertices along. Front and back cameras
+# are both orthographic along Y, so a displacement that lies *entirely* on Y
+# projects onto exactly the same pixel before and after: it cannot change either
+# silhouette, at any magnitude.
+#
+# This is not a curiosity, it is the mechanism behind the wig. `hair_back_volume`
+# and `back_lock_back` were driven to their limits to fill an ImageGen-guessed
+# side profile, and the one drawn view never saw them move by a single pixel --
+# so nothing in the objective could object to the character growing a mass of
+# hair behind her head. The reverse holds too: a parameter the scored views
+# cannot see is not a free variable to be optimised, it is an *unidentifiable*
+# one, and the honest move is to freeze it at its factory value rather than let
+# a tie-break decide.
+PARAM_AXIS: dict[str, str] = {
+    "hair_side_flare":  "x",
+    "hair_length":      "z",
+    "hair_back_volume": "y",
+    "bang_length":      "z",
+    "ahoge_scale":      "m",            # uniform scale: carries x and z
+    "crown_taper":      "x",
+    "skirt_flare":      "xy",           # radial push, so the x part is visible
+    "skirt_drop":       "z",
+    "foot_length":      "y",
+    "foot_height":      "z",
+    "tail_flare":       "m",
+    # Created layers carry their own intrinsic step (LAYER_STEP went into the
+    # lateral/forward/back offset, LAYER_DROP into a drop, shrink into all three)
+    # so the count is never a pure-Y move even when the offset parameter is.
+    "side_lock_extra":  "xz",
+    "side_lock_spread": "x",
+    "side_lock_drop":   "z",
+    "front_lock_extra": "xz",
+    "front_lock_fwd":   "y",            # pure -Y: invisible to front and back
+    "front_lock_drop":  "z",
+    "back_lock_extra":  "xz",
+    "back_lock_back":   "y",            # pure +Y: invisible to front and back
+    "back_lock_drop":   "z",
+}
+
+
+def axis_visible(axis: str, frozen: set[str]) -> bool:
+    """True if a displacement on `axis` reaches a view that is not frozen.
+
+    An orthographic camera along Y is blind to Y only, so "visible" means the
+    displacement has any component off the frozen axes. A uniform scale counts
+    as visible because it carries x and z.
+    """
+    return any(c not in frozen for c in axis)
+
+
 # A parameter that only acts on created layers is *gated* by its count: with
 # zero layers the offset has nothing to move. Recording the gate lets both the
 # probe and the optimiser open it before judging the offset, instead of

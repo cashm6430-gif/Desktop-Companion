@@ -362,6 +362,12 @@ def main() -> int:
                     help="comma-separated views the objective scores, e.g. 'front,back' "
                          "(default: front,left,back)")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--freeze-axes", default=None,
+                    help="comma-separated model axes no scored view can see "
+                         "(e.g. 'y' when only front/back are scored). Every "
+                         "parameter whose displacement lies entirely on them is "
+                         "unidentifiable and is held at its factory value "
+                         "instead of being walked by a tie-break.")
     args = ap.parse_args()
 
     global OBJECTIVE_VIEWS
@@ -388,13 +394,23 @@ def main() -> int:
                          "back_lock_extra", "back_lock_back", "back_lock_drop"]
         order = args.order.split(",") if args.order else default_order
         order = [p for p in order if p in deform.PARAM_SPEC]
+        frozen = {a.strip() for a in (args.freeze_axes or "").split(",") if a.strip()}
+        dropped = [p for p in order
+                   if not deform.axis_visible(deform.PARAM_AXIS[p], frozen)]
+        order = [p for p in order if p not in dropped]
         print(f"[objective] views={','.join(OBJECTIVE_VIEWS)}  "
               f"weights ioU={W_IOU} outline_f1={W_OUTLINE_F1} band={W_BAND}")
+        if frozen:
+            print(f"[objective] frozen axes {sorted(frozen)} -> "
+                  f"{len(dropped)} unidentifiable parameter(s) held at factory: "
+                  f"{', '.join(dropped) or 'none'}")
         best, trace = greedy_descent(json.loads(args.base), refs, order,
                                      args.points, args.force)
         (RUN_ROOT / "descent.json").write_text(
             json.dumps({"best": best, "trace": trace,
-                        "objective_views": list(OBJECTIVE_VIEWS)}, indent=1))
+                        "objective_views": list(OBJECTIVE_VIEWS),
+                        "frozen_axes": sorted(frozen),
+                        "frozen_params": dropped}, indent=1))
         print(f"\nDESCENT best score params={json.dumps(best)}")
         print(f"wrote {RUN_ROOT / 'descent.json'}")
         return 0
