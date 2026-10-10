@@ -1,0 +1,35 @@
+layer set: 21 plates from E:\projects\Desktop-Companion\art\live2d\layers
+axis dir=[-0.4777  0.8785]  slope=-0.5437  shoulder=(505.0, 616.0)
+joint=[533. 598.] at seam y=598  sleeve t max=162.5  band=123.9px
+segments 14px (cubic B-spline)  footprint 1.45  supersample 2x  lateral falloff 60/140px
+weight ramp is LINEAR along the arm; segment blend is a cubic B-spline (a tent kernel creases at every segment boundary)
+
+fold criterion  R*d(theta)/ds  (the quantity that broke backward sampling; forward LBS does not depend on it, it explains the controls)
+  +46deg sleeve       mid-band R=   78  R*dtheta/ds=0.51 (stable)
+  +46deg hair/blouse  mid-band R=  135  R*dtheta/ds=0.88 (stable)
+  +70deg sleeve       mid-band R=   78  R*dtheta/ds=0.77 (stable)
+  +70deg hair/blouse  mid-band R=  135  R*dtheta/ds=1.33 (FOLDS)
+
+composited arm plate at rest: sum(alpha)=25138  ink>128=25305px  extent along the rest axis=303px (shrinks as the arm swings; it is not a pose-invariant length)
+  single-plate path -- every row composited the same way, so the ratios are comparable:
+    NEW -46                        sum(alpha)=   26151 (104.0% of rest)
+    NEW -70                        sum(alpha)=   26306 (104.6% of rest)
+    OLD backward field -70, r=70   sum(alpha)=   25132 (100.0% of rest)
+    OLD backward field -70, r=300  sum(alpha)=   25134 (100.0% of rest)
+  per-plate path (3 plates, the path `transforms` uses, elbow included) -- rest total sum(alpha)=26957:
+    NEW -46                        sum(alpha)=   28399 (105.4% of rest)
+    NEW -70                        sum(alpha)=   28604 (106.1% of rest)
+    NEW -70 + elbow                sum(alpha)=   27801 (103.1% of rest)
+  the +4..7% surplus is the 1.45px footprint blooming slightly past unit coverage; it is the price of having no gaps
+  the OLD passes hold 100%: backward sampling under a continuous field does NOT lose mass at these angles, over r=70..300, at either 46 or 70 deg. So mass is not the metric that catches the defect -- the thinness was shear, from a RADIAL field whose gradient also runs across the limb (the two edges of the sleeve end up about 31 deg apart). Reporting "area fell to 47%" earlier was a measurement artifact of comparing plates composited two different ways; retracted.
+
+seam continuity, |delta share| between ADJACENT pixels: vertical cut 0.03133  horizontal cut 0.01791
+  (for scale: a weight scoped to the layer instead of to the canvas position would step by up to 1.0 at this line)
+
+enclosed gaps inside the arm plate: rest 0px, -70 0px
+  (the enclosed background the raised arm leaves against the body -- the armpit -- is expected and is not counted here)
+
+RIGa mass preserved, new passes within 10% of rest: PASS (1.054, 1.061, 1.031)
+RIGb weight field continuous across the cut, adjacent pixels (<0.10 of a full pull): PASS (0.03133, 0.01791)
+RIGc no new gap inside the arm plate (<=32px): PASS (+0px)
+RIG_RESULT PASS (RIGa,RIGb,RIGc)
