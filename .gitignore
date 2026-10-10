@@ -23,3 +23,6 @@ __pycache__/
 # (tools/render_silhouette.py), keep only the report and the small sheets.
 /art/3d/whale-girl/silhouette-fit/**/sil-*.npy
 /art/3d/whale-girl/silhouette-fit/**/render-*.png
+
+# gradio_client download cache (regenerable)
+/gradio/

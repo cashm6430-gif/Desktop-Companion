@@ -87,6 +87,33 @@ def iou(a: np.ndarray, b: np.ndarray) -> float:
     return float((a & b).sum()) / union if union else 0.0
 
 
+def bottom_offset(mask: np.ndarray, frac: float = 0.88) -> float:
+    """Horizontal offset of the bottom band's centroid from the silhouette's.
+
+    The bottom band is the boots; the silhouette centroid is dragged backwards
+    by the hair and the tail, which sit behind the body. So the *sign* of this
+    number says which way the character faces, and it survives the very coarse
+    template silhouette. Aggregate IoU does not: measured on the shipped model,
+    the side reference pairs better with the *mirrored* render than with the
+    correct one (0.622 vs 0.496), while this landmark separates them cleanly
+    (-92 px for the reference, -90 for pos_x, +90 for neg_x).
+    """
+
+    def cx(m: np.ndarray) -> float:
+        w = m.sum(axis=0).astype(float)
+        s = w.sum()
+        return float((np.arange(m.shape[1]) * w).sum() / s) if s else m.shape[1] / 2.0
+
+    ys, _ = np.where(mask)
+    if not len(ys):
+        return 0.0
+    y0, y1 = int(ys.min()), int(ys.max()) + 1
+    band = mask[y0 + int(frac * (y1 - y0)):y1]
+    if not band.any():
+        return 0.0
+    return cx(band) - cx(mask)
+
+
 def is_asset_mesh(obj) -> bool:
     """Reject helper objects the glTF importer fabricates.
 
@@ -223,23 +250,49 @@ def main() -> int:
     print(f"  ref=front -> neg_y  iou={front_iou:.4f}  (convention)")
     print(f"  ref=back  -> pos_y  iou={back_iou:.4f}  (convention)")
 
+    # The reference named "left" is a left-*facing* profile: the character seen
+    # from her own left side. On this rig (facing -Y) that is the +X camera,
+    # pos_x. Neg_x is the opposite side, i.e. the mirrored view.
+    #
+    # IoU cannot be used to settle this, which is how the wrong side got paired
+    # here in the first place. Measured on the shipped model:
+    #     iou(ref_left, neg_x) = 0.6221   <- the mirrored render scores higher
+    #     iou(ref_left, pos_x) = 0.4958
+    #     iou(neg_x, pos_x)    = 0.6176   <- the template's own mirror similarity
+    # The template's side silhouette is a hair-and-hem bell whose coarse mass is
+    # nearly mirror-symmetric, and its asymmetry happens to fall the same way as
+    # the mirrored reference, so the aggregate metric prefers the wrong pairing.
+    # Orientation is therefore fixed by convention (pos_x) and *gated* on the
+    # bottom landmark, whose sign is the one cue that tracks the facing.
+    side_view = "pos_x"
     side_scores = {c: iou(rendered[c], refs["left"]) for c in ("neg_x", "pos_x")}
-    best_side = max(side_scores, key=side_scores.get)
-    side_margin = abs(side_scores["neg_x"] - side_scores["pos_x"])
-    # The template is left/right symmetric, so both side renders are mirror-equal
-    # and the side pair cannot discriminate orientation -- that is expected and
-    # only reported. What is gated is that the side reference overlaps the model
-    # at all (a mis-framed or wrong-axis render would collapse to near zero).
-    side_ok = side_scores[best_side] >= 0.20
-    print(f"  ref=left  -> neg_x={side_scores['neg_x']:.4f} pos_x={side_scores['pos_x']:.4f} "
-          f"best={best_side} |diff|={side_margin:.4f} (symmetric, not gated)")
-    print(f"  side overlap {side_scores[best_side]:.4f} (gate 0.20) -> "
+    ref_landmark = bottom_offset(refs["left"])
+    landmarks = {c: bottom_offset(rendered[c]) for c in ("neg_x", "pos_x")}
+    landmark_ok = landmarks[side_view] * ref_landmark > 0
+
+    print("  ref=left  -> pos_x={:.4f} neg_x={:.4f} (mirror; IoU is not "
+          "orientation-safe here)".format(side_scores["pos_x"], side_scores["neg_x"]))
+    print("  bottom landmark (boots minus centroid): "
+          f"ref={ref_landmark:+.1f}px  pos_x={landmarks['pos_x']:+.1f}  "
+          f"neg_x={landmarks['neg_x']:+.1f}  -> sign "
+          f"{'agrees' if landmark_ok else 'DISAGREES'} for {side_view}")
+    if not landmark_ok:
+        print("V2b FAIL: the side reference and the side render face opposite ways")
+        return 1
+
+    # The template's side silhouette overlaps the reference only where the two
+    # are genuinely comparable; a mis-framed or wrong-axis render collapses to
+    # near zero.
+    side_ok = side_scores[side_view] >= 0.20
+    print(f"  side overlap {side_scores[side_view]:.4f} (gate 0.20) -> "
           f"{'PASS' if side_ok else 'FAIL'}")
     if not side_ok:
         print("V2b FAIL: side silhouette does not overlap the reference at all")
         return 1
-    calibration["left"] = {"view": best_side, "iou": round(side_scores[best_side], 4),
-                           "all": {c: round(v, 4) for c, v in side_scores.items()}}
+    calibration["left"] = {"view": side_view, "iou": round(side_scores[side_view], 4),
+                           "all": {c: round(v, 4) for c, v in side_scores.items()},
+                           "bottom_offset": {c: round(v, 1) for c, v in landmarks.items()},
+                           "ref_bottom_offset": round(ref_landmark, 1)}
 
     print("--- V2c reference sanity band ---")
     ref_ceiling = iou(refs["front"], refs["back"])
@@ -250,9 +303,11 @@ def main() -> int:
         return 1
 
     print("--- V2d cross-pairing discrimination (calibration proof) ---")
+    # Each reference must pair far better with the view it belongs to than with
+    # a view on a different axis. This is what proves the frame is not scrambled.
     wrong_pairs = {
         "front": ("neg_y", "pos_x"),
-        "left": ("neg_x", "neg_y"),
+        "left": (side_view, "neg_y"),
         "back": ("pos_y", "neg_x"),
     }
     worst_margin = 1.0
@@ -264,12 +319,27 @@ def main() -> int:
         worst_margin = min(worst_margin, margin)
         if margin >= 0.10:
             strong += 1
-        print(f"  {ref_name}: correct({good})={g:.4f} vs wrong({bad})={b:.4f} "
+        print(f"  {ref_name}: {good}={g:.4f} vs different-axis({bad})={b:.4f} "
               f"margin={margin:+.4f} {'OK' if margin >= 0.10 else 'WEAK'}")
-    # Calibration is proven when the majority of views pair correctly; a single
-    # weak view is a shape defect of the template (its side silhouette is too
-    # close to its front one) and is carried forward as a fitting target rather
-    # than treated as a broken frame.
+
+    print("--- V2e mirror ambiguity (reported, not gated) ---")
+    # This is the reading that a previous version of this tool mistook for
+    # evidence: it paired each reference with whichever mirror scored higher and
+    # called that the orientation. For the side pair the *mirrored* render wins
+    # by a wide margin even though it is the wrong side -- which is exactly why
+    # V2b decides the side on the bottom landmark instead.
+    mirror_of = {"neg_y": "pos_y", "pos_y": "neg_y", "neg_x": "pos_x", "pos_x": "neg_x"}
+    for ref_name, view in (("front", "neg_y"), ("left", side_view), ("back", "pos_y")):
+        mirror = mirror_of[view]
+        g = iou(refs[ref_name], rendered[view])
+        b = iou(refs[ref_name], rendered[mirror])
+        print(f"  {ref_name}: {view}={g:.4f} vs mirror({mirror})={b:.4f} "
+              f"margin={g - b:+.4f}")
+    # Calibration is proven when the majority of views pair with their own axis.
+    # The side entry is expected to be weak *on IoU* even now that it is paired
+    # correctly, because the template's side silhouette is close to its own
+    # mirror image; the side assignment is proven in V2b by the bottom landmark,
+    # which is not gated here and must not be.
     disc_ok = strong >= 2
     verdict = ("PASS" if disc_ok else
                ("FAIL" if strict else "INFO (candidate is more symmetric; scored, not rejected)"))

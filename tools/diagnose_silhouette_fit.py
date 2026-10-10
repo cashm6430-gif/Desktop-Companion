@@ -43,7 +43,11 @@ OUTLINE_R = 14          # outline band half-width in px
 MIN_BLOB_PX = 1500      # ignore specks below this many full-res pixels
 REDUCE = 4              # grid stride used for labelling / distance fields
 
-VIEWS = {"front": "neg_y", "left": "neg_x", "back": "pos_y"}
+VIEWS = {"front": "neg_y", "left": "pos_x", "back": "pos_y"}
+# "left" is the character's left side, i.e. the +X camera: the reference named
+# left is a left-facing profile, which is what a +X camera sees on this rig
+# (it faces -Y). Pairing it with neg_x compared the reference against its own
+# mirror. See tools/render_silhouette.py:bottom_offset for the landmark evidence.
 BANDS = [("head-top", 0.00, 0.20), ("head-low", 0.20, 0.40),
          ("torso", 0.40, 0.60), ("skirt", 0.60, 0.80), ("hem/legs", 0.80, 1.00)]
 
@@ -399,6 +403,25 @@ def main() -> int:
         alt.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(alt)
         print(f"\nwrote {alt.relative_to(ROOT)}")
+
+    # Keep the machine-readable sidecar in step with the sheet: it is the record
+    # of the per-view decomposition and it must not be left behind when the
+    # metrics or the view pairing change.
+    sidecar = BASE_DIR / "t2-diagnosis.json"
+    if products and len(runs) == 1:
+        base_side = BASE_DIR / "t2-baseline.json"
+        sidecar.write_text(json.dumps({
+            "baseline": products[0][0],
+            "views_map": dict(VIEWS),          # reference name -> rendered camera
+            "baseline_iou": (json.loads(base_side.read_text()).get("baseline_iou")
+                             if base_side.exists() else None),
+            "views": products[0][1],
+        }, indent=1))
+    elif sidecar.exists():
+        stale = json.loads(sidecar.read_text()).get("baseline", "")
+        if stale != products[0][0]:
+            print(f"note: {sidecar.name} describes '{stale}', not this run; "
+                  "run with a single directory to refresh it")
 
     print(f"wrote {out.relative_to(ROOT)}")
     if failures:

@@ -3,9 +3,9 @@
  "calibration": {
   "front": {
    "view": "neg_y",
-   "iou": 0.7739,
+   "iou": 0.7736,
    "note": "convention (rig faces -Y)",
-   "aligned_iou": 0.7878,
+   "aligned_iou": 0.7888,
    "residual_shift": [
     -14,
     22
@@ -13,40 +13,45 @@
   },
   "back": {
    "view": "pos_y",
-   "iou": 0.8128,
+   "iou": 0.8127,
    "note": "convention",
-   "aligned_iou": 0.8128,
+   "aligned_iou": 0.8127,
    "residual_shift": [
     0,
     0
    ]
   },
   "left": {
-   "view": "neg_x",
-   "iou": 0.6221,
+   "view": "pos_x",
+   "iou": 0.494,
    "all": {
     "neg_x": 0.6221,
-    "pos_x": 0.4958
+    "pos_x": 0.494
    },
-   "aligned_iou": 0.6514,
+   "bottom_offset": {
+    "neg_x": 90.1,
+    "pos_x": -90.2
+   },
+   "ref_bottom_offset": -92.2,
+   "aligned_iou": 0.5599,
    "residual_shift": [
     -30,
-    -6
+    2
    ]
   }
  },
  "baseline_iou": {
-  "front": 0.7739,
-  "left": 0.6221,
-  "back": 0.8128
+  "front": 0.7736,
+  "left": 0.494,
+  "back": 0.8127
  },
- "baseline_mean_iou": 0.7363,
+ "baseline_mean_iou": 0.6934,
  "ref_ceiling_front_back_iou": 0.7951,
  "aspect": {
   "ref_front": 0.861,
   "ref_left": 0.674,
   "ref_back": 0.882,
-  "model_front": 0.713,
-  "model_left": 0.567
+  "model_front": 0.712,
+  "model_left": 0.566
  }
 }

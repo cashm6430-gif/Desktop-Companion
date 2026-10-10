@@ -41,7 +41,10 @@ RUN_ROOT = ROOT / ".local/fit-run"
 # cached candidate silhouettes are only comparable inside one generation.
 # v3 = camera framed on the skinned asset instead of the whole imported scene
 #      (measured effect on the baseline IoU: 0.7363 -> 0.7361).
-CACHE_VERSION = 3
+# v4 = the side reference is paired with pos_x instead of neg_x. Every cached
+#      candidate was scored against a mirrored side reference; the side IoU of
+#      the shipped model moves 0.6221 -> 0.4958.
+CACHE_VERSION = 4
 
 # Objective weights. Every term is SYMMETRIC: the first coordinate-descent run
 # showed what one-sided terms do -- "outline recall" and "band coverage" both
