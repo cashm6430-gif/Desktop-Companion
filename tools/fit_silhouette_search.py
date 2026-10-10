@@ -83,6 +83,21 @@ FLOORS = [("front", "hem/legs", 0.66), ("front", "torso", 0.80),
 OCC_TOTAL_LIMIT = 0.5937      # shipped 0.5637 + 0.03 of tolerance
 OCC_ADDED_LIMIT = 0.02        # new face the fitting layers may take away
 
+# Which views the objective is allowed to score. Set by --views.
+#
+# Only the FRONT reference is authoritative: it is the PSD composite. left and
+# back are ImageGen extrapolations, i.e. a model's guess at a view nobody drew.
+# Scoring all three equally cost more than it looked: decomposed per view, the
+# three-view fit is a *regression* on the only reference that is not a guess
+# (front 0.5984 -> 0.5750, IoU 0.7736 -> 0.7546, outline F1 0.4652 -> 0.4249)
+# while it gains almost everything on the guessed left view (0.3537 -> 0.5354)
+# and is nearly flat on the guessed back (0.6598 -> 0.6714). The extra volume
+# that fills the guessed profile is what reads as a wig in 3D.
+# `back` stays in by default because its gains come from real back-of-head
+# volume and back locks, which are visually benign; `left` is the one whose
+# reward is only payable by swinging locks out in front of the character.
+OBJECTIVE_VIEWS: tuple[str, ...] = ("front", "left", "back")
+
 
 BLEND_SCRIPTS = (RUNNER, FACE_MASKER)      # these take the blend as a file argument
 
@@ -204,30 +219,38 @@ def attach_occlusion(res: dict, occ: dict | None, params: dict, tag: str) -> dic
     return res
 
 
-def score_sils(sils: dict, refs: dict, params: dict, tag: str) -> dict:
-    """Score one set of rendered silhouettes against the T1 references."""
-    views = {n: diag.analyse(refs[n], sils[n]) for n in diag.VIEWS}
+def score_sils(sils: dict, refs: dict, params: dict, tag: str,
+               views: tuple[str, ...] | None = None) -> dict:
+    """Score one set of rendered silhouettes against the T1 references.
 
-    mean_iou = float(np.mean([views[n]["iou"] for n in views]))
-    mean_f1 = float(np.mean([views[n]["outline_f1"] for n in views]))
-    band_min = {n: min(b["iou"] for b in views[n]["bands"]) for n in views}
-    mean_band = float(np.mean(list(band_min.values())))
+    Every view is measured and reported; only `views` (default OBJECTIVE_VIEWS)
+    are averaged into the score. Keeping the unweighted numbers in the result
+    is deliberate -- the whole reason the objective was wrong for a while is
+    that a per-view decomposition was not visible at decision time.
+    """
+    measured = {n: diag.analyse(refs[n], sils[n]) for n in diag.VIEWS}
+    use = tuple(views or OBJECTIVE_VIEWS)
+
+    mean_iou = float(np.mean([measured[n]["iou"] for n in use]))
+    mean_f1 = float(np.mean([measured[n]["outline_f1"] for n in use]))
+    band_min = {n: min(b["iou"] for b in measured[n]["bands"]) for n in measured}
+    mean_band = float(np.mean([band_min[n] for n in use]))
     score = W_IOU * mean_iou + W_OUTLINE_F1 * mean_f1 + W_BAND * mean_band
 
     breached = []
     for view, band, floor in FLOORS:
-        row = next(b for b in views[view]["bands"] if b["band"] == band)
+        row = next(b for b in measured[view]["bands"] if b["band"] == band)
         if (row["coverage"] or 0.0) < floor:
             breached.append(f"{view}:{band}={row['coverage']:.3f}<{floor}")
 
-    return {"tag": tag, "params": params, "ok": True,
-            "coverage": {n: views[n]["coverage"] for n in views},
-            "iou": {n: views[n]["iou"] for n in views},
-            "outline_recall": {n: views[n]["outline_recall"] for n in views},
-            "outline_f1": {n: views[n]["outline_f1"] for n in views},
+    return {"tag": tag, "params": params, "ok": True, "objective_views": list(use),
+            "coverage": {n: measured[n]["coverage"] for n in measured},
+            "iou": {n: measured[n]["iou"] for n in measured},
+            "outline_recall": {n: measured[n]["outline_recall"] for n in measured},
+            "outline_f1": {n: measured[n]["outline_f1"] for n in measured},
             "band_min": band_min,
-            "miss_frac": {n: views[n]["miss_frac_of_ref"] for n in views},
-            "excess_frac": {n: views[n]["excess_frac_of_ref"] for n in views},
+            "miss_frac": {n: measured[n]["miss_frac_of_ref"] for n in measured},
+            "excess_frac": {n: measured[n]["excess_frac_of_ref"] for n in measured},
             "mean_iou": round(mean_iou, 4), "mean_outline": round(mean_f1, 4),
             "mean_band": round(mean_band, 4), "score": round(score, 4),
             "floor_breaches": breached}
@@ -293,18 +316,29 @@ def greedy_descent(base: dict, refs: dict, order: list[str], points: int,
                           "score": current["score"], "gain": 0.0, "kept": True,
                           "rejected": infeasible})
             continue
-        step.sort(key=lambda s: (-s[0], s[1]))
-        gain = step[0][0] - current["score"]
-        chosen = step[0][2]
-        if chosen != best_params:
-            best_params = chosen                  # adopt the whole move, gate included
-        current = step[0][3]
-        trace.append({"param": param, "value": step[0][1], "score": step[0][0],
+        # Ties are broken towards the value already in hand, not towards the
+        # lowest: a parameter the objective cannot see (foot_length in a
+        # front/back pass) scores identically everywhere, and "smallest" then
+        # walks it to an extreme for nothing -- it halved the shoe length once.
+        step.sort(key=lambda s: (-s[0], abs(s[1] - best_params[param]), s[1]))
+        best_score, best_value, chosen, result = step[0]
+        gain = best_score - current["score"]
+        # Only move on an improvement. Adopting the best sample regardless (what
+        # this used to do) lets a step that costs score hand the descent a worse
+        # position than it already had -- and a later step is not obliged to
+        # recover it. It did not: 0.6469 was reached and 0.6232 was reported.
+        if gain > 1e-9:
+            if chosen != best_params:
+                best_params = chosen              # adopt the whole move, gate included
+            current = result
+        trace.append({"param": param, "value": best_value, "score": best_score,
                       "gain": round(gain, 4), "gate_opened": opened,
+                      "adopted": gain > 1e-9,
                       "tried": [{"value": v, "score": s} for s, v, _, _ in step],
                       "rejected": infeasible})
-        print(f"[{param}] -> {step[0][1]:.4f}{' (gate opened)' if opened else ''}  "
-              f"score {current['score']:.4f} ({gain:+.4f})  "
+        print(f"[{param}] -> {best_value:.4f}{' (gate opened)' if opened else ''}  "
+              f"score {best_score:.4f} ({gain:+.4f})  "
+              f"{'adopted' if gain > 1e-9 else 'not adopted'}  "
               f"iou={current['mean_iou']:.4f} outline={current['mean_outline']:.4f} "
               f"bandmin={current['mean_band']:.4f} "
               f"occ={current['occ_total']:.4f}(new {current['occ_added_new']:.4f})  "
@@ -324,8 +358,20 @@ def main() -> int:
     ap.add_argument("--rescore", action="store_true", help="re-rank every cached candidate")
     ap.add_argument("--order", default=None, help="comma-separated parameter order")
     ap.add_argument("--points", type=int, default=4)
+    ap.add_argument("--views", default=None,
+                    help="comma-separated views the objective scores, e.g. 'front,back' "
+                         "(default: front,left,back)")
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
+
+    global OBJECTIVE_VIEWS
+    if args.views:
+        chosen = tuple(v.strip() for v in args.views.split(",") if v.strip())
+        unknown = [v for v in chosen if v not in diag.VIEWS]
+        if unknown or not chosen:
+            print(f"unknown views {unknown}; pick from {list(diag.VIEWS)}")
+            return 2
+        OBJECTIVE_VIEWS = chosen
 
     refs = {n: diag.canonical(diag.load_png_mask(diag.REF_DIR / f"{n}-mask.png"))
             for n in diag.VIEWS}
@@ -342,10 +388,13 @@ def main() -> int:
                          "back_lock_extra", "back_lock_back", "back_lock_drop"]
         order = args.order.split(",") if args.order else default_order
         order = [p for p in order if p in deform.PARAM_SPEC]
+        print(f"[objective] views={','.join(OBJECTIVE_VIEWS)}  "
+              f"weights ioU={W_IOU} outline_f1={W_OUTLINE_F1} band={W_BAND}")
         best, trace = greedy_descent(json.loads(args.base), refs, order,
                                      args.points, args.force)
         (RUN_ROOT / "descent.json").write_text(
-            json.dumps({"best": best, "trace": trace}, indent=1))
+            json.dumps({"best": best, "trace": trace,
+                        "objective_views": list(OBJECTIVE_VIEWS)}, indent=1))
         print(f"\nDESCENT best score params={json.dumps(best)}")
         print(f"wrote {RUN_ROOT / 'descent.json'}")
         return 0

@@ -43,14 +43,23 @@ def load_masks(run_dir: Path) -> dict:
     return diag.sils_in(run_dir)
 
 
-def objective(rows: dict) -> dict:
-    mean_iou = float(np.mean([rows[n]["iou"] for n in rows]))
-    mean_f1 = float(np.mean([rows[n]["outline_f1"] for n in rows]))
+def objective(rows: dict, views: tuple[str, ...] | None = None) -> dict:
+    use = tuple(views or diag.VIEWS)
+    mean_iou = float(np.mean([rows[n]["iou"] for n in use]))
+    mean_f1 = float(np.mean([rows[n]["outline_f1"] for n in use]))
     band_min = {n: min(b["iou"] for b in rows[n]["bands"]) for n in rows}
-    mean_band = float(np.mean(list(band_min.values())))
+    mean_band = float(np.mean([band_min[n] for n in use]))
     return {"mean_iou": round(mean_iou, 4), "mean_f1": round(mean_f1, 4),
             "mean_band": round(mean_band, 4),
             "score": round(W_IOU * mean_iou + W_OUTLINE_F1 * mean_f1 + W_BAND * mean_band, 4)}
+
+
+def view_score(row: dict) -> float:
+    """The objective restricted to one view. Reported for every view even when
+    the objective only scores some of them: a mean can hide a regression on the
+    one view whose reference is not a guess, which is exactly what happened."""
+    band = min(b["iou"] for b in row["bands"])
+    return round(W_IOU * row["iou"] + W_OUTLINE_F1 * row["outline_f1"] + W_BAND * band, 4)
 
 
 def table(rows_a: dict, rows_b: dict) -> str:
@@ -79,7 +88,23 @@ def main() -> int:
     ap.add_argument("--best", default=None, help="run dir holding the chosen candidate")
     ap.add_argument("--params", default=None, help="params json (defaults to the run's)")
     ap.add_argument("--skip-gates", action="store_true")
+    ap.add_argument("--views", default=None,
+                    help="views the objective scores (default: the ones the "
+                         "descent recorded, else all three)")
     args = ap.parse_args()
+
+    # Which views the score was optimised over. Defaulting to the descent's own
+    # record rather than to "all three" keeps V6a (recomputation) honest: a
+    # front+back descent recomputed with equal weights would not match.
+    objective_views = tuple(diag.VIEWS)
+    if args.views:
+        objective_views = tuple(v.strip() for v in args.views.split(",") if v.strip())
+    else:
+        recorded = RUN_ROOT / "descent.json"
+        if recorded.exists():
+            stored = json.loads(recorded.read_text()).get("objective_views")
+            if stored:
+                objective_views = tuple(stored)
 
     if args.best is None:
         table_path = RUN_ROOT / "search-table.json"
@@ -111,23 +136,26 @@ def main() -> int:
 
     rows_base = {n: diag.analyse(refs[n], m) for n, m in load_masks(BASELINE).items()}
     rows_best = {n: diag.analyse(refs[n], m) for n, m in load_masks(best_dir).items()}
-    obj_base, obj_best = objective(rows_base), objective(rows_best)
+    obj_base = objective(rows_base, objective_views)
+    obj_best = objective(rows_best, objective_views)
     params = json.loads((best_dir / "params.json").read_text())
 
     # ------------------------------------------------------------- V6a numeric
     print("--- V6a recomputation consistency ---")
+    recomputed = score_sils(load_masks(best_dir), refs, params, best_dir.name,
+                            views=objective_views)
     if best is None:
-        recomputed = score_sils(load_masks(best_dir), refs, params, best_dir.name)
         recorded = recomputed["score"]
     else:
         recorded = best["score"]
-        recomputed = score_sils(load_masks(best_dir), refs, params, best_dir.name)
     ok = abs(recomputed["score"] - recorded) <= 1e-6
     print(f"  candidate score: recomputed={recomputed['score']:.6f} "
           f"recorded={recorded:.6f} -> {'PASS' if ok else 'FAIL'}")
     if not ok:
         failures.append("V6a:candidate")
     base_recorded = json.loads((BASELINE / "t2-baseline.json").read_text())["baseline_mean_iou"]
+    # Deliberately all-view: t2-baseline.json records the unweighted three-view
+    # mean, so this check verifies the masks, not the objective's view set.
     base_recomputed = objective(rows_base)["mean_iou"]
     ok = abs(base_recomputed - base_recorded) <= 1e-3
     print(f"  baseline mean IoU: recomputed={base_recomputed:.4f} "
@@ -231,6 +259,17 @@ def main() -> int:
         face_verdict = "FAIL"
         failures.append("V7:verdict")
 
+    authority = {"front": "权威（PSD 合成）", "left": "ImageGen 推演",
+                 "back": "ImageGen 推演"}
+    view_table = "\n".join([
+        "| 视图 | 进入目标函数 | 出厂 J | 拟合 J | Δ |",
+        "|---|---|---|---|---|",
+        *[f"| {n}（{authority[n]}） | {'是' if n in objective_views else '否'} | "
+          f"{view_score(rows_base[n]):.4f} | {view_score(rows_best[n]):.4f} | "
+          f"{view_score(rows_best[n]) - view_score(rows_base[n]):+.4f} |"
+          for n in diag.VIEWS],
+    ])
+
     floor_note = []
     for view, band, floor in FLOORS:
         row = next(b for b in rows_best[view]["bands"] if b["band"] == band)
@@ -298,6 +337,16 @@ J = {W_IOU}·mean_IoU + {W_OUTLINE_F1}·mean_outline_F1 + {W_BAND}·mean(min_ban
 头发整体吹大就把分数推到 0.7417，而 mean IoU 从 0.756 掉到 0.627；换成对称项后该解
 在 53 个候选里排第 30 名（低于原始模型）。
 
+### 1.0 目标函数只看哪些视图
+
+由 `--views` 决定（`fit_silhouette_search.py`）。**只有正面参考是权威的**（PSD 合成）；
+left / back 是 ImageGen 推演 —— 即"没人画过的视图由模型猜"。
+
+三视等权曾经代价很大，而这件事在均值里完全看不见：拆开算，拟合在**唯一非猜测**的视图上是
+**退步**（front J 0.5984 → 0.5750，IoU 0.7736 → 0.7546，轮廓 F1 0.4652 → 0.4249），
+分数几乎全部来自猜出来的左视（0.3537 → 0.5354）。而填"猜出来的轮廓"所需的体积在 3D 里
+读作一顶假发。所以 §3.1 的按视图拆解是决策依据，不是附录。
+
 ### 1.1 遮脸硬约束（T7）
 
 目标函数对"头发挡脸"是结构性失明的：垂在脸前的发锁与垂在脸侧的发锁给出**完全相同**的
@@ -352,10 +401,16 @@ V3f 的存在理由：所有剪影都按总高归一化，任何伸到鞋底以�
 
 {table(rows_base, rows_best)}
 
-目标函数：**{obj_base['score']:.4f} → {obj_best['score']:.4f}**（
+目标函数（{'、'.join(objective_views)}）：**{obj_base['score']:.4f} → {obj_best['score']:.4f}**（
 mean IoU {obj_base['mean_iou']:.4f} → {obj_best['mean_iou']:.4f}，
 outline F1 {obj_base['mean_f1']:.4f} → {obj_best['mean_f1']:.4f}，
 最差分带 IoU {obj_base['mean_band']:.4f} → {obj_best['mean_band']:.4f}）
+
+### 3.1 按视图拆解（决策依据）
+
+{view_table}
+
+目标函数实际平均的是：{'、'.join(objective_views)}。
 
 回归下限检查（拟合后）：{'；'.join(floor_note)}
 
