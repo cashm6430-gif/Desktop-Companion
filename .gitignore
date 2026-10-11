@@ -26,3 +26,7 @@ __pycache__/
 
 # gradio_client download cache (regenerable)
 /gradio/
+
+# windows-cli MCP local config artifact (dropped in the cwd on first use)
+/wcli0-config.json
+/wcli*-config.json
