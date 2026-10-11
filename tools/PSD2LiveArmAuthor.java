@@ -88,16 +88,26 @@ public final class PSD2LiveArmAuthor {
         return HexFormat.of().formatHex(digest.digest());
     }
 
-    private static Map<String, String> arguments(String[] values) {
-        Map<String, String> result = new LinkedHashMap<>();
-        List<String> allowed = List.of("--install", "--input", "--output", "--store", "--timeout-seconds");
+    private static Map<String, Object> arguments(String[] values) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        List<String> singles = List.of("--install", "--input", "--output", "--store", "--timeout-seconds");
+        List<String> allowed = new ArrayList<>(singles);
+        allowed.add("--hide");
+        allowed.add("--only");
         for (int i = 0; i < values.length; i += 2) {
             String name = values[i];
-            if (!allowed.contains(name) || i + 1 >= values.length || result.containsKey(name))
-                throw new IllegalArgumentException("Expected unique option/value pairs: " + allowed);
-            result.put(name, values[i + 1]);
+            if (!allowed.contains(name) || i + 1 >= values.length)
+                throw new IllegalArgumentException("Expected option/value pairs: " + allowed);
+            if (name.equals("--hide") || name.equals("--only")) {
+                @SuppressWarnings("unchecked")
+                List<String> list = (List<String>) result.computeIfAbsent(name, k -> new ArrayList<String>());
+                list.add(values[i + 1]);
+            } else {
+                if (result.containsKey(name)) throw new IllegalArgumentException("Duplicate " + name);
+                result.put(name, values[i + 1]);
+            }
         }
-        for (String name : allowed.subList(0, 4)) {
+        for (String name : singles) {
             if (!result.containsKey(name)) throw new IllegalArgumentException("Missing " + name);
         }
         return result;
@@ -213,11 +223,14 @@ public final class PSD2LiveArmAuthor {
         return new Moc3ExportOptions(false, false, false, false, false, true, null);
     }
 
-    private static void execute(Map<String, String> options) throws Exception {
-        Path install = absolute(options.get("--install"), "--install").toRealPath();
-        Path archive = absolute(options.get("--input"), "--input").toRealPath();
-        Path output = target(options.get("--output"), "--output");
-        Path store = target(options.get("--store"), "--store");
+    @SuppressWarnings("unchecked")
+    private static void execute(Map<String, Object> options) throws Exception {
+        Path install = absolute((String) options.get("--install"), "--install").toRealPath();
+        Path archive = absolute((String) options.get("--input"), "--input").toRealPath();
+        Path output = target((String) options.get("--output"), "--output");
+        Path store = target((String) options.get("--store"), "--store");
+        List<String> hides = (List<String>) options.getOrDefault("--hide", List.of());
+        List<String> onlys = (List<String>) options.getOrDefault("--only", List.of());
         if (!Files.isRegularFile(archive) || !archive.toString().toLowerCase().endsWith(".cmo3"))
             throw new IllegalArgumentException("Expected an existing isolated .cmo3 copy");
         if (overlap(output, store) || overlap(output, install) || overlap(store, install)
@@ -244,6 +257,31 @@ public final class PSD2LiveArmAuthor {
         Files.writeString(output.resolve("decoded-model-public-graph.json"),
             json(publicGraph(decoded, 0)) + "\n");
 
+        PuppetModel model = decoded;
+        List<String> hiddenNames = new ArrayList<>();
+        if (!hides.isEmpty() || !onlys.isEmpty()) {
+            List<Drawable> drawables = new ArrayList<>(decoded.getDrawables());
+            for (int i = 0; i < drawables.size(); i++) {
+                Drawable d = drawables.get(i);
+                String n = d.getName() == null ? "" : d.getName().toLowerCase();
+                boolean hideThis;
+                if (!onlys.isEmpty()) {
+                    hideThis = true;
+                    for (String o : onlys) if (n.contains(o.toLowerCase())) { hideThis = false; break; }
+                } else {
+                    hideThis = false;
+                    for (String h : hides) if (n.contains(h.toLowerCase())) { hideThis = true; break; }
+                }
+                if (hideThis) {
+                    drawables.set(i, (Drawable) publicCopy(d, Map.of(16, false)));
+                    hiddenNames.add(d.getName());
+                    System.out.println("HIDE #" + i + " '" + d.getName() + "'");
+                }
+            }
+            model = (PuppetModel) publicCopy(model, Map.of(4, drawables));
+            System.out.println("HIDDEN_DRAWABLES " + hiddenNames.size());
+        }
+
         Map<String, Object> report = new LinkedHashMap<>();
         report.put("schema_version", 1);
         report.put("kind", "public_api_arm_author_identity_probe");
@@ -253,12 +291,13 @@ public final class PSD2LiveArmAuthor {
         report.put("canvas_width", decoded.getCanvasWidth());
         report.put("canvas_height", decoded.getCanvasHeight());
         report.put("pixels_per_unit", decoded.getPixelsPerUnit());
+        report.put("hidden_drawables", hiddenNames);
         Map<String, Object> strategies = new LinkedHashMap<>();
 
         // Strategy A ("asis"): hand the decoded model straight to the writer.
         try {
-            Function2<DrawableId, float[], float[]> space = Moc3RestMeshKt.canvasToParentSpaceFor(decoded, Map.of());
-            Pair<byte[], ?> pair = Moc3Export.INSTANCE.write(decoded, MocVersion.V50, space, exportOptions());
+            Function2<DrawableId, float[], float[]> space = Moc3RestMeshKt.canvasToParentSpaceFor(model, Map.of());
+            Pair<byte[], ?> pair = Moc3Export.INSTANCE.write(model, MocVersion.V50, space, exportOptions());
             byte[] moc = pair.getFirst();
             Files.write(output.resolve("identity_asis.moc3"), moc);
             Map<String, Object> entry = new LinkedHashMap<>();
@@ -273,7 +312,7 @@ public final class PSD2LiveArmAuthor {
 
         // Strategy B ("canvas"): convert rest meshes to canvas space, then write.
         try {
-            PuppetModel canvas = Moc3RestMeshKt.restMeshesToCanvasSpace(decoded, Map.of());
+            PuppetModel canvas = Moc3RestMeshKt.restMeshesToCanvasSpace(model, Map.of());
             Function2<DrawableId, float[], float[]> space = Moc3RestMeshKt.canvasToParentSpaceFor(canvas, Map.of());
             Pair<byte[], ?> pair = Moc3Export.INSTANCE.write(canvas, MocVersion.V50, space, exportOptions());
             byte[] moc = pair.getFirst();
@@ -297,8 +336,8 @@ public final class PSD2LiveArmAuthor {
 
     public static void main(String[] args) {
         try {
-            Map<String, String> options = arguments(args);
-            int seconds = Integer.parseInt(options.getOrDefault("--timeout-seconds", "120"));
+            Map<String, Object> options = arguments(args);
+            int seconds = Integer.parseInt((String) options.getOrDefault("--timeout-seconds", "120"));
             if (seconds < 1 || seconds > 600) throw new IllegalArgumentException("Timeout must be 1..600 seconds");
             Thread worker = new Thread(() -> {
                 try { execute(options); }
