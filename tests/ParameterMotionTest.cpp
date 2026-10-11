@@ -692,14 +692,19 @@ void ParameterMotionTest::waveRaisesSwingsAndSettles() {
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.05);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) <= 0.31);
     advanceFrames(motion, 25); // 0.80s: first swing-out peak
-    QVERIFY(motion.waveArm() > 55.0);   // the swing pivots at the shoulder
-    QVERIFY(motion.waveWrist() < 10.0); // the wrist only follows (r2 ruling)
-    advanceFrames(motion, 41); // 1.62s: deep in the second swing-in leg
+    // The SHOULDER holds; the ELBOW swings the forearm up. Constant ParamArmRA
+    // is what keeps the arm from telescoping -- ParamArmRA's keyforms scale the
+    // arm, ParamElbowRA is a pure in-plane rotation about the elbow (WaveBehavior.cpp).
+    QVERIFY(motion.waveArm() > 48.0 && motion.waveArm() < 56.0);  // shoulder held
+    QVERIFY(motion.waveElbow() > 48.0);                           // forearm up
+    QVERIFY(motion.waveWrist() > 5.0 && motion.waveWrist() < 10.0); // only follows (r2)
+    advanceFrames(motion, 10); // 1.00s: swing-in leg
+    QVERIFY(motion.waveElbow() < 30.0);                           // forearm down
     QVERIFY(motion.waveWrist() < 0.0);
-    QVERIFY(motion.waveArm() > 30.0 && motion.waveArm() < 50.0);
+    QVERIFY(motion.waveArm() > 48.0 && motion.waveArm() < 56.0);  // arm still held
     // Settle: the arm glides home while the eye smile blooms. The mouth
     // stays the idle closed omega -- the open grin is banned (user r2).
-    advanceFrames(motion, 24); // 2.10s
+    advanceFrames(motion, 55); // 2.10s
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.5);
     QVERIFY(motion.values().value(QStringLiteral("ParamSmileOpen")) < 0.01);
     QVERIFY(motion.waveArm() < 10.0);

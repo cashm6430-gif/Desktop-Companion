@@ -19,36 +19,39 @@ constexpr double kGazeX = 0.2;
 
 // --- Concept-card keyframe targets -------------------------------------------
 
+// The joint that waves is the FOREARM (ParamElbowRA), not the shoulder.
+// Verified 2026-10-11 by a rendered elbow sweep on the checked-in model: with
+// ParamArmRA held, ElbowRA rotates the forearm about the elbow in the picture
+// plane with CONSTANT length (a geometry fit gives a single fixed pivot, rms
+// 0.05 px) -- so the hand sweeps, it does not telescope. The telescoping came
+// from changing ParamArmRA instead: its keyforms carry real scale (sleeve
+// ~+/-7%, upper arm down to 59%), so rocking the shoulder shortens the arm.
+// Therefore the wave keeps ParamArmRA fixed at the raised value and swings
+// ParamElbowRA. (The earlier 46 deg constant-elbow + shoulder-rock did not fix
+// the telescoping for exactly this reason: it still varied ParamArmRA.)
+
 WaveBehavior::Channels WaveBehavior::raiseTarget() {
     Channels c;
-    c.arm = 52.0;
-    // The elbow raises ONCE here, bringing the forearm up to the waving pose,
-    // and then holds (see the swing targets). Folding it during the swing is
-    // what made the old wave read as the forearm telescoping (user, 10-11):
-    // a forearm whose elbow angle changes foreshortens, so the "wave" looked
-    // like a front-back stretch instead of a hand moving.
-    c.elbow = 46.0;
+    c.arm = 52.0;   // held for the whole wave (see the swing targets)
+    c.elbow = 30.0; // forearm comes up to a mid pose, then sweeps around it
     c.gazeX = kGazeX;
     return c;
 }
 
 WaveBehavior::Channels WaveBehavior::swingOutTarget() {
     Channels c;
-    // The shoulder rocks the whole arm; the elbow is held at the raise value so
-    // the forearm keeps a constant length and the hand sweeps instead of
-    // telescoping. The wrist only follows by a hint.
-    c.arm = 62.0;
-    c.elbow = 46.0;
-    c.wrist = 9.0;
+    c.arm = 52.0;   // constant: the shoulder does not move during the wave
+    c.elbow = 55.0; // forearm up
+    c.wrist = 8.0;  // the hand only follows by a hint
     c.gazeX = kGazeX;
     return c;
 }
 
 WaveBehavior::Channels WaveBehavior::swingInTarget() {
     Channels c;
-    c.arm = 38.0;
-    c.elbow = 46.0;
-    c.wrist = -9.0;
+    c.arm = 52.0;  // constant: the shoulder does not move during the wave
+    c.elbow = 6.0; // forearm down
+    c.wrist = -8.0;
     c.gazeX = kGazeX;
     return c;
 }
