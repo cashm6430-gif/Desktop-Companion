@@ -109,6 +109,8 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
+    // Wheel over the pet scales her (chrome-like), clamped and persisted.
+    void wheelEvent(QWheelEvent* event) override;
     void contextMenuEvent(QContextMenuEvent* event) override;
     // Dropping a file on the character is the feed gesture: the eat action
     // plays for whatever was dropped. Windows click-through already scopes
@@ -180,6 +182,9 @@ private:
     // Tray "性能" menu + global hotkey plumbing (see the .cpp).
     void setFrameInterval(int ms);
     void toggleVisibility();
+    // Live scale (wheel) + edge snap (drag release); both in the .cpp.
+    void setRenderSize(int px);
+    void snapToEdges();
     void playGrass();
     bool grassInteractionApproved() const;
     QPixmap idleImage_;
@@ -206,6 +211,8 @@ private:
     // actually registered (see the constructor).
     QAction* toggleVisibilityAction_ = nullptr;
     QImage hitCoverage_;
+    // Current square side in pixels (default 280), user-scalable and persisted.
+    int renderSize_ = 280;
     QElapsedTimer frameClock_;
     ParameterMotion motion_;
     PetController* controller_;

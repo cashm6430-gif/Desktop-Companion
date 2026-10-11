@@ -29,6 +29,7 @@
 #include <QSettings>
 #include <QtMath>
 #include <QUrl>
+#include <QWheelEvent>
 #include <algorithm>
 #include <functional>
 
@@ -457,6 +458,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     spontaneousTimer_.start(1000);
 
     QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    // Restore the saved scale first, so the position fallback below uses it.
+    renderSize_ = std::clamp(settings.value(QStringLiteral("renderSize"), 280).toInt(), 180, 560);
+    setFixedSize(renderSize_, renderSize_);
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) cubismCanvas_->setFixedSize(size());
+#endif
     const QPoint saved = settings.value(QStringLiteral("position")).toPoint();
     if (!saved.isNull()) move(saved);
     else if (const QScreen* screen = QGuiApplication::primaryScreen()) {
@@ -649,6 +656,39 @@ void PetWindow::toggleVisibility() {
         show();
         raise();
     }
+}
+
+void PetWindow::setRenderSize(int px) {
+    renderSize_ = std::clamp(px, 180, 560);
+    setFixedSize(renderSize_, renderSize_);
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) cubismCanvas_->setFixedSize(size());
+#endif
+    constrainPositionToScreen();   // growing must not push her off-screen
+    QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    settings.setValue(QStringLiteral("renderSize"), renderSize_);
+}
+
+// On drag release, dock flush to a screen edge we were dropped near. Keeps the
+// pet tidy without a hard dock; a drop away from every edge is left alone.
+void PetWindow::snapToEdges() {
+    const QScreen* screen = this->screen() ? this->screen() : QGuiApplication::primaryScreen();
+    if (!screen) return;
+    const QRect a = screen->availableGeometry();
+    constexpr int kSnap = 24;
+    int x = pos().x(), y = pos().y();
+    if (qAbs(x - a.left()) <= kSnap) x = a.left();
+    else if (qAbs(x + width() - (a.right() + 1)) <= kSnap) x = a.right() + 1 - width();
+    if (qAbs(y - a.top()) <= kSnap) y = a.top();
+    else if (qAbs(y + height() - (a.bottom() + 1)) <= kSnap) y = a.bottom() + 1 - height();
+    if (QPoint(x, y) != pos()) move(x, y);
+}
+
+void PetWindow::wheelEvent(QWheelEvent* event) {
+    const int notches = event->angleDelta().y() / 120;   // 120 = one wheel step
+    if (notches == 0) { QWidget::wheelEvent(event); return; }
+    setRenderSize(renderSize_ + notches * 24);
+    event->accept();
 }
 
 void PetWindow::setState(PetController::State state) {
@@ -1472,6 +1512,7 @@ void PetWindow::releasePointerGesture() {
     if (dragging_) {
         motion_.endDragMotion();
         constrainPositionToScreen();
+        snapToEdges();   // dock flush to a nearby screen edge
         QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         settings.setValue(QStringLiteral("position"), pos());
     }
