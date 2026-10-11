@@ -185,6 +185,8 @@ private:
     // Live scale (wheel) + edge snap (drag release); both in the .cpp.
     void setRenderSize(int px);
     void snapToEdges();
+    // Time-of-day greeting (a short sticky note shortly after start).
+    void greetByTimeOfDay();
     void playGrass();
     bool grassInteractionApproved() const;
     QPixmap idleImage_;
