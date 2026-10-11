@@ -1163,9 +1163,23 @@ void ParameterMotion::advance(double seconds) {
     // blinking it out, but short enough that the authored pop survives it.
     bubblePulse_ += (bubble - bubblePulse_) * (1.0 - qExp(-seconds / 0.07));
 
-    // Short asymmetric blink. It stays procedural across action transitions.
-    const double blinkPhase = std::fmod(blinkClock_, 4.3);
-    const double eye = 1.0 - pulse(blinkPhase, 0.0, 0.075, 0.16);
+    // Blink: a short asymmetric blink at jittered intervals, with the occasional
+    // double blink. The first blink is anchored at t = 0; later gaps vary so the
+    // rhythm reads as alive rather than metronomic. It stays procedural across
+    // state transitions (it multiplies the authored eye-open, see below).
+    double eye = 1.0;
+    if (blinkEnabled_) {
+        while (blinkClock_ >= nextBlinkAt_) {
+            blinkStart_ = nextBlinkAt_;
+            const double gap = kBlinkGapMin
+                + blinkRandom_.generateDouble() * (kBlinkGapMax - kBlinkGapMin);
+            const bool doubleBlink = blinkRandom_.generateDouble() < kBlinkDoubleChance;
+            nextBlinkAt_ = blinkStart_ + (doubleBlink ? kBlinkDoubleGap : gap);
+        }
+        const double blinkPhase = blinkClock_ - blinkStart_;
+        if (blinkPhase >= 0.0 && blinkPhase < kBlinkLen)
+            eye = 1.0 - pulse(blinkPhase, 0.0, kBlinkClose, kBlinkLen);
+    }
     // Time-based exponential blending is stable at both 30 and 60 Hz.
     const double alpha = 1.0 - qExp(-seconds / kDefaultBlend);
     const Parameters releasingChannels = releasingReaction_ ? headPatClip_.sample(interactionTime_) : Parameters{};

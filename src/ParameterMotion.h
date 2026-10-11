@@ -195,6 +195,11 @@ public:
     double waveWrist() const { return wave_.wrist(); }
 
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
+    // Test seam: freeze the procedural blink (the eyes stay as authored). The
+    // blink is a cosmetic overlay orthogonal to authored eye keys, so a test
+    // that asserts an authored eye-open at a fixed frame turns it off so a
+    // jittered blink cannot land on that frame.
+    void setProceduralBlink(bool on) { blinkEnabled_ = on; }
     void forceLaptopBusy(); // Native review / manual preview, uses the real player.
     // Same, but pins the standing variant so the busy curve can be reviewed
     // without depending on the 40% random laptop choice.
@@ -220,6 +225,15 @@ public:
 private:
     // Blend time used for every parameter that no clip overrides.
     static constexpr double kDefaultBlend = 0.12;
+    // Procedural blink (see advance()). Intervals are jittered so the rhythm
+    // reads as alive rather than metronomic; a double blink is a second beat
+    // kBlinkDoubleGap after the first.
+    static constexpr double kBlinkClose = 0.075;    // fully shut at this phase
+    static constexpr double kBlinkLen = 0.16;       // seconds, shut -> open
+    static constexpr double kBlinkGapMin = 2.8;     // jittered interval range (s)
+    static constexpr double kBlinkGapMax = 6.5;
+    static constexpr double kBlinkDoubleGap = 0.32; // second beat of a double
+    static constexpr double kBlinkDoubleChance = 0.18;
     // Releasing a head pat hands the face back to the background. Exponential
     // blending needs about three time constants to settle, so at the authored
     // 50ms eye constant the recovery still spends several frames crossing from
@@ -285,6 +299,12 @@ private:
     double actionTime_ = 0.0;
     double bubblePulse_ = 0.0;
     double blinkClock_ = 0.0;
+    // Blink schedule: blinkClock_ time of the next blink, the start of the
+    // active one, and the jitter RNG. The first blink is anchored at t = 0.
+    double blinkStart_ = -1.0;
+    double nextBlinkAt_ = 0.0;
+    QRandomGenerator blinkRandom_{20261011u};
+    bool blinkEnabled_ = true;
     double leftEyeExpression_ = 1.0;
     double rightEyeExpression_ = 1.0;
     MotionLibrary library_;

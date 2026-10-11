@@ -862,6 +862,7 @@ void ParameterMotionTest::sleepMotionNapsWakesAndYieldsToEvents() {
     QVERIFY(writeReactionFixture(dir));
     ParameterMotion motion;
     QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.setProceduralBlink(false); // isolate the authored eye keys from the blink
     advanceFrames(motion, 50);
     QVERIFY(!motion.sleepMotionActive());
     QCOMPARE(motion.sleepMaskEnvelope(), 0.0);
@@ -890,9 +891,8 @@ void ParameterMotionTest::sleepMotionNapsWakesAndYieldsToEvents() {
     QCOMPARE(motion.sleepMaskEnvelope(), 0.0);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.85);
 
-    // Interactive wake: one eye first, then the other. Timed past the 4.3s
-    // procedural blink pulse so the blink multiply cannot close the eye under
-    // test.
+    // Interactive wake: one eye first, then the other. (The procedural blink is
+    // off in this test, so the authored eye-open reads exactly.)
     motion.beginSleepMotion();
     advanceFrames(motion, 50); // into Asleep
     motion.wakeFromSleep(true);
