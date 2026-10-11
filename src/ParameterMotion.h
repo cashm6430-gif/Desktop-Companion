@@ -9,6 +9,7 @@
 #include "motion/GrassTouchBehavior.h"
 #include "motion/MemoBehavior.h"
 #include "motion/SleepBehavior.h"
+#include "motion/GazeBehavior.h"
 
 #include <QHash>
 #include <QRandomGenerator>
@@ -106,6 +107,16 @@ public:
     void endDragMotion();
     void cancelDragMotion();
     bool dragMotionActive() const { return drag_.active(); }
+
+    // Presence gaze (interaction-first r1). The window layer feeds the
+    // normalised cursor each frame; the base face layer always follows it with
+    // the eyes (and a small head turn), looks at the user when the cursor is
+    // near, and glances around once the cursor has been still for a while.
+    // `cursorActive` is true on frames the cursor moved. Additive; it stands
+    // down whenever a higher-priority owner holds the face (see gazeSuppressed).
+    void setGazeTarget(double nx, double ny, bool nearCursor, bool cursorActive);
+    double gazeEyeX() const { return gaze_.eyeX(); }
+    double gazeEyeY() const { return gaze_.eyeY(); }
 
     // Sticky-note gaze (motion card 5). The note itself is window-layer art;
     // the motion layer only carries the eyes: a glance at the desk edge, then
@@ -226,6 +237,11 @@ private:
     void applyInteraction(Parameters& desired) const;
     void captureInteractionSeat();
     void advanceDeskWork(double seconds, const Parameters& previous);
+    // True while a higher-priority behaviour owns the face, so the presence gaze
+    // must not add to it: a delete, a grass hold, a memo gaze, a drag, the nap,
+    // the box, the rice bowl, the wave, or any short reaction (head pat,
+    // stretch, turn-ended).
+    bool gazeSuppressed() const;
 
     // Card-approved choreography: she sits down in full view, then the desk
     // and laptop arrive; leaving reverses it (desk first, then she stands).
@@ -304,4 +320,5 @@ private:
     RiceBowlBehavior rice_;
     WaveBehavior wave_;
     GrassTouchBehavior grassTouch_;
+    GazeBehavior gaze_;
 };

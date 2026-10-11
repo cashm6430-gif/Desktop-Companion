@@ -206,6 +206,10 @@ private:
     bool grassTouchPressed_ = false;
     bool dragging_ = false;
     int frame_ = 0;
+    // Global-cursor memory for the gaze idle timer (see updateInputTransparency):
+    // last read position, and whether the cursor has been read at least once.
+    QPoint lastCursor_;
+    bool cursorSeen_ = false;
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
     QPixmap wrapProp_;

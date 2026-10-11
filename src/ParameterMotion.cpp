@@ -572,6 +572,22 @@ double ParameterMotion::grassInteractionMaxDuration() const {
 // State and physics live in motion/DragBehavior; these wrappers keep the
 // coordinator's public API stable.
 
+void ParameterMotion::setGazeTarget(double nx, double ny, bool nearCursor, bool cursorActive) {
+    gaze_.setTarget(nx, ny, nearCursor, cursorActive);
+}
+
+bool ParameterMotion::gazeSuppressed() const {
+    return state_ == PetController::State::Delete
+        || interactionActive()
+        || drag_.active()
+        || memo_.active()
+        || sleep_.active()
+        || box_.active()
+        || rice_.active()
+        || wave_.active()
+        || grassTouch_.active();
+}
+
 void ParameterMotion::beginDragMotion() { drag_.begin(); }
 void ParameterMotion::updateDragMotion(double vx, double vy) { drag_.update(vx, vy); }
 void ParameterMotion::endDragMotion() { drag_.end(); }
@@ -961,6 +977,9 @@ void ParameterMotion::advance(double seconds) {
     box_.advance(seconds);
     rice_.advance(seconds);
     wave_.advance(seconds);
+    // Presence gaze is the base face layer: advanced last so it sees every
+    // higher-priority owner's state, and applied first so they layer over it.
+    gaze_.advance(seconds, gazeSuppressed());
     // The reaction face releases at the authored pace once the pat is over; see
     // kExpressionReleaseBlend. Cleared below when the interaction ends.
     releasingReaction_ = headPatReleasing_;
@@ -1125,6 +1144,7 @@ void ParameterMotion::advance(double seconds) {
             desired[QStringLiteral("ParamEyeBallX")] = std::clamp(
                 desired.value(QStringLiteral("ParamEyeBallX")) + 0.18 * grassTouch_.look(), -1.0, 1.0);
     }
+    gaze_.apply(desired);
     applyInteraction(desired);
     drag_.apply(desired);
     memo_.apply(desired);

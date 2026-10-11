@@ -608,6 +608,24 @@ void PetWindow::updateInputTransparency() {
     const int windowWidth = bounds.right - bounds.left;
     const int windowHeight = bounds.bottom - bounds.top;
     if (windowWidth <= 0 || windowHeight <= 0) return;
+    // Presence gaze: the same cursor read that drives click-through also drives
+    // the pet's eyes. Normalise against the window centre. Tracking is ALWAYS
+    // on (the eyes follow the cursor everywhere, saturating when far); "near"
+    // now only adds the look-at-you smile, and cursor MOVEMENT -- not distance
+    // -- drives the idle timer, so she stops watching only once the mouse has
+    // gone quiet (see GazeBehavior).
+    if (cursorOk) {
+        const double cx = 0.5 * (bounds.left + bounds.right);
+        const double cy = 0.5 * (bounds.top + bounds.bottom);
+        const double nx = (cursor.x - cx) / (0.5 * windowWidth);
+        const double ny = (cursor.y - cy) / (0.5 * windowHeight);
+        const bool nearCursor = qAbs(nx) <= 1.2 && qAbs(ny) <= 1.2;
+        const bool cursorActive = !cursorSeen_
+            || (qAbs(cursor.x - lastCursor_.x()) + qAbs(cursor.y - lastCursor_.y())) > 2;
+        lastCursor_ = QPoint(cursor.x, cursor.y);
+        cursorSeen_ = true;
+        motion_.setGazeTarget(nx, ny, nearCursor, cursorActive);
+    }
     const int x = (cursor.x - bounds.left) * hitCoverage_.width() / windowWidth;
     const int y = (cursor.y - bounds.top) * hitCoverage_.height() / windowHeight;
     const bool buttonHeld = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;

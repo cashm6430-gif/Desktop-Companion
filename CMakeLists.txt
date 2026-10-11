@@ -48,6 +48,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
     src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/WaveBehavior.h src/motion/WaveBehavior.cpp
+    src/motion/GazeBehavior.h src/motion/GazeBehavior.cpp
     src/TriggerDirector.h src/TriggerDirector.cpp
     src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
     src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
@@ -139,6 +140,7 @@ if(BUILD_TESTING)
         src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
         src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/WaveBehavior.h src/motion/WaveBehavior.cpp
+    src/motion/GazeBehavior.h src/motion/GazeBehavior.cpp
     src/TriggerDirector.h src/TriggerDirector.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
@@ -155,6 +157,7 @@ if(BUILD_TESTING)
         src/motion/BoxBehavior.h src/motion/BoxBehavior.cpp
         src/motion/RiceBowlBehavior.h src/motion/RiceBowlBehavior.cpp
     src/motion/WaveBehavior.h src/motion/WaveBehavior.cpp
+    src/motion/GazeBehavior.h src/motion/GazeBehavior.cpp
     src/TriggerDirector.h src/TriggerDirector.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp

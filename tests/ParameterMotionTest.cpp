@@ -143,6 +143,7 @@ private slots:
     void grassInteractionInterruptionsAndRestartStayContinuous();
     void grassInteractionRootAndSoftTipStayBounded();
     void grassInteractionConfigurationRejectsBadPhasesAndGrip();
+    void gazeFollowsCursorAndSettlesToCenter();
 };
 
 void ParameterMotionTest::grassInteractionRespondsOnlyDuringHold() {
@@ -1811,6 +1812,40 @@ void ParameterMotionTest::deskVisibilityIsReservedForActivity() {
     QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
     QVERIFY(error.contains(QStringLiteral("ParamDeskVisible")));
     QVERIFY(error.contains(QStringLiteral("activity")));
+}
+
+// Presence gaze (interaction-first r1): the eyes follow the cursor WHEREVER it
+// is (near or far), settle to centre only once the cursor has been still for a
+// while, and stand down for a state that owns the face. Sign-agnostic on
+// purpose -- the pose probe fixes the direction; this proves the coupling, the
+// still-cursor idle, and the suppression.
+void ParameterMotionTest::gazeFollowsCursorAndSettlesToCenter() {
+    ParameterMotion motion;
+    motion.setState(PetController::State::Idle);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamEyeBallX")), 0.0);
+
+    // Tracking stays on even when the cursor is FAR (near=false): she follows
+    // the direction it sits in, wherever the mouse is.
+    motion.setGazeTarget(1.0, 0.0, false, true);   // to one side, moving
+    advanceFrames(motion, 60);                     // ~1.2 s to settle
+    const double far = motion.values().value(QStringLiteral("ParamEyeBallX"));
+    QVERIFY(qAbs(far) > 0.1);
+
+    // "Near" only adds the smile -- it must not change the eye direction.
+    motion.setGazeTarget(1.0, 0.0, true, true);
+    advanceFrames(motion, 20);
+    QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamEyeBallX")) - far) < 0.08);
+
+    // Cursor to the side but STILL for a while -> idle: settle back to centre.
+    motion.setGazeTarget(1.0, 0.0, false, false);
+    advanceFrames(motion, 400);                    // 8 s > kIdleAfter (6 s)
+    QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.15);
+
+    // A delete owns the face; the gaze must stand down and stop adding.
+    motion.setState(PetController::State::Delete);
+    motion.setGazeTarget(1.0, 0.0, true, true);
+    advanceFrames(motion, 40);
+    QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.1);
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)
