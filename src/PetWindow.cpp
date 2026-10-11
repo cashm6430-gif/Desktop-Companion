@@ -614,6 +614,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
+    // Long-press (hold on her without dragging) greets: a distinct, art-free
+    // gesture, cancelled as soon as a drag begins or the button is released.
+    longPressTimer_.setSingleShot(true);
+    connect(&longPressTimer_, &QTimer::timeout, this, [this] {
+        if (dragging_) return;   // a drag started -- this is not a long-press
+        releasePointerGesture();
+        startWave();
+    });
     trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
         if (motion_.sleepMotionActive()) return;
         setInteractionPreviewEnabled(true);
@@ -1646,6 +1654,9 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
             && controller_->state() != PetController::State::Delete
             && controller_->state() != PetController::State::Grass;
         pointerGesture_.press(event->position(), allowPat && isHeadAt(event->position()));
+        // A plain hold on her (not a head pat) becomes a greeting if she is
+        // still holding after the delay -- see longPressTimer_.
+        if (!(allowPat && isHeadAt(event->position()))) longPressTimer_.start(600);
         event->accept();
     }
 }
@@ -1688,6 +1699,7 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
 
 void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
+        longPressTimer_.stop();
         releasePointerGesture();
         updateInputTransparency();
         event->accept();

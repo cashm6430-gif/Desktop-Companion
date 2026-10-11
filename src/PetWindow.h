@@ -226,6 +226,8 @@ private:
     QPointF dragVelocity_;
     QElapsedTimer dragClock_;
     PetPointerGesture pointerGesture_;
+    // Long-press (hold without dragging) greets; see the .cpp.
+    QTimer longPressTimer_;
     bool patAttempted_ = false;
     bool interactionPreviewEnabled_ = false;
     bool grassTouchPressed_ = false;
