@@ -8,6 +8,7 @@
 #include <QApplication>
 #include <QAction>
 #include <QActionGroup>
+#include <QAbstractNativeEventFilter>
 #include <QContextMenuEvent>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -29,9 +30,45 @@
 #include <QtMath>
 #include <QUrl>
 #include <algorithm>
+#include <functional>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+
+// System-wide hotkeys via Win32 RegisterHotKey. A desktop pet is almost never
+// the foreground window, so a Qt shortcut can't fire; RegisterHotKey posts
+// WM_HOTKEY to our HWND regardless of focus and the app-wide native event
+// filter catches it. Failure (combo already taken) is non-fatal -- the caller
+// simply runs without the hotkey.
+class GlobalHotkeys : public QAbstractNativeEventFilter {
+public:
+    // Returns the number of hotkeys actually registered.
+    int registerDefaults(HWND hwnd) {
+        hwnd_ = hwnd;
+        if (!hwnd_) return 0;
+        // MOD_NOREPEAT so holding the key does not toggle repeatedly.
+        registered_ = RegisterHotKey(hwnd_, kToggleId, MOD_CONTROL | MOD_ALT | MOD_NOREPEAT, 'H');
+        return registered_ ? 1 : 0;
+    }
+    void unregisterDefaults() {
+        if (hwnd_ && registered_) UnregisterHotKey(hwnd_, kToggleId);
+        hwnd_ = nullptr;
+        registered_ = false;
+    }
+    bool nativeEventFilter(const QByteArray&, void* message, qintptr*) override {
+        auto* msg = static_cast<MSG*>(message);
+        if (msg && msg->message == WM_HOTKEY && msg->wParam == kToggleId && onToggle) {
+            onToggle();
+            return true;
+        }
+        return false;
+    }
+    std::function<void()> onToggle;
+private:
+    static constexpr int kToggleId = 1;
+    HWND hwnd_ = nullptr;
+    bool registered_ = false;
+};
 #endif
 
 namespace {
@@ -358,7 +395,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     controller_->setActionDuration(PetController::State::Grass,
                                    motion_.actionDuration(PetController::State::Grass));
 
-    frameTimer_.setInterval(40);
+    // Frame interval: user-selectable from the tray ("性能") and persisted.
+    // Larger interval = fewer fps = less GPU. Clamp against a bad stored value.
+    {
+        QSettings perf(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        frameIntervalMs_ = std::clamp(
+            perf.value(QStringLiteral("frameIntervalMs"), 40).toInt(), 10, 200);
+    }
+    frameTimer_.setInterval(frameIntervalMs_);
     frameClock_.start();
     deleteOverlay_ = new DeleteOverlay(this);
     // Desktop deletions carry the file's snapshot (path, icon-grid position,
@@ -425,7 +469,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 
     tray_.setIcon(QIcon(idleImage_.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     tray_.setToolTip(windowTitle());
-    trayMenu_.addAction(QStringLiteral("显示 / 隐藏"), this, [this] { if (isVisible()) hide(); else show(); });
+    toggleVisibilityAction_ = trayMenu_.addAction(QStringLiteral("显示 / 隐藏"), this, [this] { toggleVisibility(); });
     trayMenu_.addAction(QStringLiteral("播放删除动作"), this, [this] {
         controller_->desktopItemDeleted();
     });
@@ -510,6 +554,26 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
             a->setChecked(director_.frequency()
                           == TriggerDirector::Frequency(a->data().toInt()));
     });
+    // Performance: frame interval (larger = fewer fps = less power).
+    auto* perfMenu = trayMenu_.addMenu(QStringLiteral("性能"));
+    const std::array rates{
+        std::pair{66, QStringLiteral("省电（~15 fps）")},
+        std::pair{40, QStringLiteral("标准（~25 fps）")},
+        std::pair{16, QStringLiteral("流畅（~60 fps）")},
+    };
+    auto* rateGroup = new QActionGroup(perfMenu);
+    for (const auto& [ms, label] : rates) {
+        auto* action = perfMenu->addAction(label);
+        action->setCheckable(true);
+        action->setChecked(frameIntervalMs_ == ms);
+        action->setData(ms);
+        rateGroup->addAction(action);
+        connect(action, &QAction::triggered, this, [this, ms] { setFrameInterval(ms); });
+    }
+    connect(perfMenu, &QMenu::aboutToShow, perfMenu, [this, perfMenu] {
+        for (QAction* a : perfMenu->actions())
+            a->setChecked(frameIntervalMs_ == a->data().toInt());
+    });
     patPreviewTimer_.setSingleShot(true);
     connect(&patPreviewTimer_, &QTimer::timeout, this, [this] { motion_.endHeadPat(); });
     trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
@@ -542,12 +606,49 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         }
     });
     tray_.show();
+
+#ifdef Q_OS_WIN
+    // System-wide hotkey: Ctrl+Alt+H toggles show/hide even when the pet is not
+    // focused (a pet is almost never the foreground window). Registered against
+    // the window's HWND; failure (combo taken) is non-fatal.
+    hotkeys_ = new GlobalHotkeys;
+    hotkeys_->onToggle = [this] { toggleVisibility(); };
+    const bool hotkeyOk = hotkeys_->registerDefaults(reinterpret_cast<HWND>(winId())) > 0;
+    qApp->installNativeEventFilter(hotkeys_);
+    // Only advertise the key if it actually registered (the combo may be taken).
+    if (hotkeyOk && toggleVisibilityAction_)
+        toggleVisibilityAction_->setText(QStringLiteral("显示 / 隐藏  (Ctrl+Alt+H)"));
+#endif
 }
 
 PetWindow::~PetWindow() {
+#ifdef Q_OS_WIN
+    if (hotkeys_) {
+        qApp->removeNativeEventFilter(hotkeys_);
+        hotkeys_->unregisterDefaults();
+        delete hotkeys_;
+        hotkeys_ = nullptr;
+    }
+#endif
 #ifdef HAVE_CUBISM
     delete cubismCanvas_;
 #endif
+}
+
+void PetWindow::setFrameInterval(int ms) {
+    frameIntervalMs_ = std::clamp(ms, 10, 200);
+    frameTimer_.setInterval(frameIntervalMs_);
+    QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    settings.setValue(QStringLiteral("frameIntervalMs"), frameIntervalMs_);
+}
+
+void PetWindow::toggleVisibility() {
+    if (isVisible()) {
+        hide();
+    } else {
+        show();
+        raise();
+    }
 }
 
 void PetWindow::setState(PetController::State state) {
@@ -1323,6 +1424,19 @@ bool PetWindow::event(QEvent* event) {
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
         if (motion_.grassInteractionActive()) controller_->actionFinished();
+        // Low power: nothing needs rendering while the pet is hidden. Only
+        // record the pause if WE stopped it, so a review-driven stop is never
+        // restarted behind the reviewer's back.
+        if (frameTimer_.isActive()) {
+            frameTimer_.stop();
+            framePausedForHide_ = true;
+        }
+    } else if (event->type() == QEvent::Show) {
+        if (framePausedForHide_) {
+            frameClock_.restart();   // avoid one huge dt after the pause
+            frameTimer_.start();
+            framePausedForHide_ = false;
+        }
     }
     return QWidget::event(event);
 }

@@ -28,6 +28,8 @@ class CubismCanvas;
 // PetWindow.cpp; only the pointer lives here.
 class DeleteOverlay;
 class QAction;
+// System-wide hotkeys (RegisterHotKey); defined in PetWindow.cpp.
+class GlobalHotkeys;
 
 class PetWindow final : public QWidget {
     Q_OBJECT
@@ -175,6 +177,9 @@ private:
     void drawRiceBowlProp(QPainter& painter, const QSize& size);
     void drawRiceDelight(QPainter& painter);
     void advanceLiveFrame(double seconds);
+    // Tray "性能" menu + global hotkey plumbing (see the .cpp).
+    void setFrameInterval(int ms);
+    void toggleVisibility();
     void playGrass();
     bool grassInteractionApproved() const;
     QPixmap idleImage_;
@@ -188,9 +193,18 @@ private:
     QSystemTrayIcon tray_;
     QMenu trayMenu_;
     QTimer frameTimer_;
+    // User-selectable frame interval (ms; larger = fewer fps / less power). The
+    // low-power pause stops rendering while the pet is hidden, and only resumes
+    // if THAT is why it stopped (a review stop is never overridden).
+    int frameIntervalMs_ = 40;
+    bool framePausedForHide_ = false;
+    GlobalHotkeys* hotkeys_ = nullptr;
     QTimer laptopPreviewTimer_;
     QTimer patPreviewTimer_;
     QAction* interactionPreviewAction_ = nullptr;
+    // Tray "显示 / 隐藏"; its text gains the hotkey hint only if the hotkey
+    // actually registered (see the constructor).
+    QAction* toggleVisibilityAction_ = nullptr;
     QImage hitCoverage_;
     QElapsedTimer frameClock_;
     ParameterMotion motion_;
