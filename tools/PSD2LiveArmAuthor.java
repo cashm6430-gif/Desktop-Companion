@@ -94,6 +94,7 @@ public final class PSD2LiveArmAuthor {
         List<String> allowed = new ArrayList<>(singles);
         allowed.add("--hide");
         allowed.add("--only");
+        allowed.add("--inset");
         for (int i = 0; i < values.length; i += 2) {
             String name = values[i];
             if (!allowed.contains(name) || i + 1 >= values.length)
@@ -172,6 +173,83 @@ public final class PSD2LiveArmAuthor {
             .findFirst().orElseThrow(() -> new IllegalStateException("No public value constructor: " + type));
         Object[] supplied = java.util.Arrays.copyOf(arguments, arguments.length + 1);
         return constructor.newInstance(supplied);
+    }
+
+    private static String axisParamId(KeyformAxis axis) throws Exception {
+        Method getter = java.util.Arrays.stream(axis.getClass().getMethods())
+            .filter(m -> m.getParameterCount() == 0 && m.getName().startsWith("getParameterId-"))
+            .findFirst().orElseThrow();
+        return (String) getter.invoke(axis);
+    }
+
+    private static double[] solve3(double[][] a, double[] b) {
+        double[][] m = new double[3][4];
+        for (int i = 0; i < 3; i++) { System.arraycopy(a[i], 0, m[i], 0, 3); m[i][3] = b[i]; }
+        for (int col = 0; col < 3; col++) {
+            int piv = col;
+            for (int r = col + 1; r < 3; r++) if (Math.abs(m[r][col]) > Math.abs(m[piv][col])) piv = r;
+            double[] tmp = m[col]; m[col] = m[piv]; m[piv] = tmp;
+            if (Math.abs(m[col][col]) < 1e-12) return new double[]{Double.NaN, Double.NaN, Double.NaN};
+            for (int r = 0; r < 3; r++) {
+                if (r == col) continue;
+                double f = m[r][col] / m[col][col];
+                for (int c = col; c < 4; c++) m[r][c] -= f * m[col][c];
+            }
+        }
+        return new double[]{m[0][3] / m[0][0], m[1][3] / m[1][1], m[2][3] / m[2][2]};
+    }
+
+    /** Move boundary vertices inward toward the centroid and crop their UVs by the mesh's affine pos->UV map. */
+    private static Drawable insetDrawable(Drawable d, double px) throws Exception {
+        DrawableMesh m = d.getMesh();
+        float[] P = m.getPositions();
+        float[] U = m.getUvs();
+        int[] idx = m.getIndices();
+        int n = P.length / 2;
+        double dNorm = px / PPU;   // canvas px -> normalized (canvas == PPU)
+        java.util.Map<Long, Integer> edges = new java.util.HashMap<>();
+        for (int t = 0; t + 2 < idx.length; t += 3) {
+            int[] v = {idx[t], idx[t + 1], idx[t + 2]};
+            for (int e = 0; e < 3; e++) {
+                int a = v[e], b = v[(e + 1) % 3];
+                long key = Math.min(a, b) * (long) n + Math.max(a, b);
+                edges.merge(key, 1, Integer::sum);
+            }
+        }
+        boolean[] boundary = new boolean[n];
+        for (var en : edges.entrySet()) if (en.getValue() == 1) {
+            boundary[(int) (en.getKey() / n)] = true;
+            boundary[(int) (en.getKey() % n)] = true;
+        }
+        double cx = 0, cy = 0;
+        for (int i = 0; i < n; i++) { cx += P[2 * i]; cy += P[2 * i + 1]; }
+        cx /= n; cy /= n;
+        double[][] M = new double[3][3];
+        double[] bu = new double[3], bv = new double[3];
+        for (int i = 0; i < n; i++) {
+            double[] row = {P[2 * i], P[2 * i + 1], 1};
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) M[r][c] += row[r] * row[c];
+                bu[r] += row[r] * U[2 * i];
+                bv[r] += row[r] * U[2 * i + 1];
+            }
+        }
+        double[] au = solve3(M, bu), av = solve3(M, bv);
+        float[] np = P.clone(), nu = U.clone();
+        for (int i = 0; i < n; i++) {
+            if (!boundary[i]) continue;
+            double dx = P[2 * i] - cx, dy = P[2 * i + 1] - cy;
+            double len = Math.hypot(dx, dy);
+            if (len < 1e-9) continue;
+            double npx = P[2 * i] - dx / len * dNorm;
+            double npy = P[2 * i + 1] - dy / len * dNorm;
+            np[2 * i] = (float) npx; np[2 * i + 1] = (float) npy;
+            if (!Double.isNaN(au[0])) {
+                nu[2 * i] = (float) (au[0] * npx + au[1] * npy + au[2]);
+                nu[2 * i + 1] = (float) (av[0] * npx + av[1] * npy + av[2]);
+            }
+        }
+        return (Drawable) publicCopy(d, Map.of(6, new DrawableMesh(np, nu, idx)));
     }
 
     /** Public getters only; never setAccessible, fields, or mutators. */
@@ -280,6 +358,30 @@ public final class PSD2LiveArmAuthor {
             }
             model = (PuppetModel) publicCopy(model, Map.of(4, drawables));
             System.out.println("HIDDEN_DRAWABLES " + hiddenNames.size());
+        }
+
+        double insetPx = options.containsKey("--inset") ? Double.parseDouble((String) options.get("--inset")) : 0.0;
+        if (insetPx > 0.0) {
+            List<Drawable> drs = new ArrayList<>(model.getDrawables());
+            int count = 0;
+            for (int i = 0; i < drs.size(); i++) {
+                Drawable d = drs.get(i);
+                String n = (d.getName() == null ? "" : d.getName()).toLowerCase();
+                if (!n.contains("handwear") && !n.contains("upperarm")) continue;
+                boolean grass = false;
+                for (KeyformAxis axis : d.getGeometryGrid().getAxes()) {
+                    String id = axisParamId(axis).toLowerCase();
+                    // the arm sleeve/hand share ParamGrassReach; only the grass PROP
+                    // has the grass-only axes, so exclude on those, not on "grass".
+                    if (id.contains("grass") && !id.contains("grassreach")) { grass = true; break; }
+                }
+                if (grass) continue;
+                drs.set(i, insetDrawable(d, insetPx));
+                System.out.println("INSET #" + i + " '" + d.getName() + "' by " + insetPx + "px");
+                count++;
+            }
+            model = (PuppetModel) publicCopy(model, Map.of(4, drs));
+            System.out.println("INSET_DRAWABLES " + count);
         }
 
         Map<String, Object> report = new LinkedHashMap<>();
