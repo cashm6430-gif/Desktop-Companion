@@ -21,29 +21,34 @@ constexpr double kGazeX = 0.2;
 
 WaveBehavior::Channels WaveBehavior::raiseTarget() {
     Channels c;
-    c.arm = 50.0;
-    c.elbow = 35.0;
+    c.arm = 52.0;
+    // The elbow raises ONCE here, bringing the forearm up to the waving pose,
+    // and then holds (see the swing targets). Folding it during the swing is
+    // what made the old wave read as the forearm telescoping (user, 10-11):
+    // a forearm whose elbow angle changes foreshortens, so the "wave" looked
+    // like a front-back stretch instead of a hand moving.
+    c.elbow = 46.0;
     c.gazeX = kGazeX;
     return c;
 }
 
 WaveBehavior::Channels WaveBehavior::swingOutTarget() {
     Channels c;
-    // Shoulder-driven swing (user ruling r2: the wave must not read as a
-    // wrist flip). The whole arm pivots at the shoulder with a 26-degree
-    // span; the elbow folds along and the wrist only follows by a hint.
+    // The shoulder rocks the whole arm; the elbow is held at the raise value so
+    // the forearm keeps a constant length and the hand sweeps instead of
+    // telescoping. The wrist only follows by a hint.
     c.arm = 62.0;
-    c.elbow = 20.0;
-    c.wrist = 6.0;
+    c.elbow = 46.0;
+    c.wrist = 9.0;
     c.gazeX = kGazeX;
     return c;
 }
 
 WaveBehavior::Channels WaveBehavior::swingInTarget() {
     Channels c;
-    c.arm = 36.0;
-    c.elbow = 52.0;
-    c.wrist = -6.0;
+    c.arm = 38.0;
+    c.elbow = 46.0;
+    c.wrist = -9.0;
     c.gazeX = kGazeX;
     return c;
 }
