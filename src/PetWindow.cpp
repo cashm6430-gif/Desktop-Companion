@@ -78,6 +78,30 @@ QString imagePath(const char* name) {
     return QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("assets/") + QLatin1String(name));
 }
 
+#ifdef Q_OS_WIN
+// True when a window other than the shell or the pet covers the whole monitor
+// and owns the foreground -- a game, a slideshow, a full-screen video. The pet
+// goes quiet then (no spontaneous scenes) so she never pops over it.
+bool foregroundCoversScreen(HWND self) {
+    const HWND fg = GetForegroundWindow();
+    if (!fg || fg == self) return false;
+    wchar_t cls[64] = {};
+    GetClassNameW(fg, cls, 64);
+    const QString name = QString::fromWCharArray(cls);
+    if (name == QStringLiteral("Progman") || name == QStringLiteral("WorkerW")
+        || name == QStringLiteral("Shell_TrayWnd"))
+        return false;
+    RECT r{};
+    if (!GetWindowRect(fg, &r)) return false;
+    const HMONITOR mon = MonitorFromWindow(fg, MONITOR_DEFAULTTONEAREST);
+    MONITORINFO mi{};
+    mi.cbSize = sizeof(MONITORINFO);
+    if (!GetMonitorInfoW(mon, &mi)) return false;
+    return r.left <= mi.rcMonitor.left && r.top <= mi.rcMonitor.top
+        && r.right >= mi.rcMonitor.right && r.bottom >= mi.rcMonitor.bottom;
+}
+#endif
+
 // ------------------------------------------------------- comic thought bubble
 // The "?" bubble is window-layer art: no drawable in the MOC3 paints it, so it
 // has to be composed into every frame the pet presents, live and captured.
@@ -453,10 +477,16 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     });
     director_.setStartRice([this] { return startRiceBowl(); });
     connect(&spontaneousTimer_, &QTimer::timeout, this, [this] {
+        if (fullscreenPresent_) return;   // do not pop over a full-screen app
         director_.tick(1.0, controller_->state() == PetController::State::Idle,
                        controller_->state() == PetController::State::Busy);
     });
     spontaneousTimer_.start(1000);
+
+    // Foreground watch (light): go quiet while a full-screen app owns the screen.
+    connect(&displayWatchTimer_, &QTimer::timeout, this, [this] { updateFullscreenPresence(); });
+    displayWatchTimer_.start(1000);
+    updateFullscreenPresence();
 
     QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
     // Restore the saved scale first, so the position fallback below uses it.
@@ -695,8 +725,15 @@ void PetWindow::wheelEvent(QWheelEvent* event) {
     event->accept();
 }
 
+void PetWindow::updateFullscreenPresence() {
+#ifdef Q_OS_WIN
+    fullscreenPresent_ = foregroundCoversScreen(reinterpret_cast<HWND>(winId()));
+#endif
+}
+
 void PetWindow::greetByTimeOfDay() {
     // Greet only into a calm idle moment, and never over a note or a nap.
+    if (fullscreenPresent_) return;
     if (controller_->state() != PetController::State::Idle) return;
     if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
     const int hour = QTime::currentTime().hour();

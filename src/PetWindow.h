@@ -187,6 +187,8 @@ private:
     void snapToEdges();
     // Time-of-day greeting (a short sticky note shortly after start).
     void greetByTimeOfDay();
+    // Foreground awareness (light): quiet while a full-screen app owns the screen.
+    void updateFullscreenPresence();
     void playGrass();
     bool grassInteractionApproved() const;
     QPixmap idleImage_;
@@ -242,6 +244,10 @@ private:
     // Spontaneous-scene scheduler (see TriggerDirector) and its 1s tick.
     TriggerDirector director_;
     QTimer spontaneousTimer_;
+    // Foreground watch (light): suppresses spontaneous scenes during full-screen
+    // apps so the pet never pops over them.
+    QTimer displayWatchTimer_;
+    bool fullscreenPresent_ = false;
     // True while a deletion triggered a lunge towards a file on the pet's
     // left: the Cubism frame is mirrored so the authored right-hand reach
     // plays as a left-hand one. Reset when the delete state ends.
