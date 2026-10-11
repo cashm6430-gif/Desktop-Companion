@@ -653,8 +653,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     });
     tray_.show();
 
-    // Greet by time of day once, shortly after start (see greetByTimeOfDay).
-    QTimer::singleShot(8000, this, [this] { greetByTimeOfDay(); });
+    // Non-verbal greeting shortly after start (see greetOnStart).
+    QTimer::singleShot(8000, this, [this] { greetOnStart(); });
 
 #ifdef Q_OS_WIN
     // System-wide hotkey: Ctrl+Alt+H toggles show/hide even when the pet is not
@@ -739,19 +739,16 @@ void PetWindow::updateFullscreenPresence() {
 #endif
 }
 
-void PetWindow::greetByTimeOfDay() {
-    // Greet only into a calm idle moment, and never over a note or a nap.
+void PetWindow::greetOnStart() {
+    // Non-verbal hello shortly after launch: she looks up and waves. No sticky
+    // note -- a note on startup read as abrupt (user, 10-11). Kept off while a
+    // full-screen app owns the screen, and skipped at night so she stays calm.
     if (fullscreenPresent_) return;
     if (controller_->state() != PetController::State::Idle) return;
-    if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
+    if (motion_.sleepMotionActive()) return;
     const int hour = QTime::currentTime().hour();
-    QString text;
-    if (hour >= 5 && hour < 11) text = QStringLiteral("早上好～一起加油鸭");
-    else if (hour >= 11 && hour < 14) text = QStringLiteral("中午好，记得吃饭哦");
-    else if (hour >= 14 && hour < 18) text = QStringLiteral("下午好，慢慢来就好");
-    else if (hour >= 18 && hour < 23) text = QStringLiteral("晚上好，别太累啦");
-    else text = QStringLiteral("夜深了，早点休息…");
-    createStickyNote(text);
+    if (hour >= 23 || hour < 6) return;   // quiet at night
+    startWave();
 }
 
 void PetWindow::setState(PetController::State state) {

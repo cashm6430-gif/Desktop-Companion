@@ -185,8 +185,8 @@ private:
     // Live scale (wheel) + edge snap (drag release); both in the .cpp.
     void setRenderSize(int px);
     void snapToEdges();
-    // Time-of-day greeting (a short sticky note shortly after start).
-    void greetByTimeOfDay();
+    // Non-verbal launch greeting (look up + wave); see the .cpp.
+    void greetOnStart();
     // Foreground awareness (light): quiet while a full-screen app owns the screen.
     void updateFullscreenPresence();
     void playGrass();
