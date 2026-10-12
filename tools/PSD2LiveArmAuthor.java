@@ -361,7 +361,7 @@ public final class PSD2LiveArmAuthor {
         }
 
         double insetPx = options.containsKey("--inset") ? Double.parseDouble((String) options.get("--inset")) : 0.0;
-        if (insetPx > 0.0) {
+        if (insetPx != 0.0) {
             List<Drawable> drs = new ArrayList<>(model.getDrawables());
             int count = 0;
             for (int i = 0; i < drs.size(); i++) {
