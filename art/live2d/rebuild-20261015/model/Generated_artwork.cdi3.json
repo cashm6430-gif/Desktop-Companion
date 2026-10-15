@@ -235,14 +235,6 @@
 	],
 	"Drawables": [
 		{
-			"Id": "ArtMeshLayer",
-			"Name": "handwear.right"
-		},
-		{
-			"Id": "ArtMeshHandwearR",
-			"Name": "handwear right"
-		},
-		{
 			"Id": "ArtMeshHandwearR2",
 			"Name": "handwear_r"
 		},

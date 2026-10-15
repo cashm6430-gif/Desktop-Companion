@@ -91,15 +91,14 @@ def main():
     call("deform", {"state": state(), "changes": ch})
     print("deform keys:", len(ch))
 
-    # 5. hand-grip / grass visibility (opacity channels, values mirror R19)
-    sets = []
-    for tgt, pid, pairs in [("mesh:ArtMeshHandwearR2", "ParamHandRGrip", [(0.0, 1.0), (1.0, 0.0)]),
-                            ("mesh:ArtMeshLayer", "ParamHandRGrip", [(0.0, 0.0), (1.0, 1.0)]),
-                            ("mesh:ArtMeshHandwearR", "ParamGrassVisible", [(0.0, 0.0), (1.0, 1.0)])]:
-        for v, val in pairs:
-            sets.append({"op": "set", "target": tgt, "key": {pid: v}, "channel": "OPACITY", "value": val})
-    call("form", {"state": state(), "changes": sets})
-    print("opacity keys:", len(sets))
+    # 5. hide the alternate right hand (grip) and the grass so only the plain
+    #    hand shows and nothing overlaps. NOTE: appearance ids are BARE (no
+    #    "mesh:" prefix), and "handwear right" (grass-prop) is the fist+grass.
+    call("appearance", {"state": state(), "edits": [
+        {"action": "visibility", "kind": "mesh", "id": "ArtMeshHandwearR", "visible": False},
+        {"action": "visibility", "kind": "mesh", "id": "ArtMeshLayer", "visible": False},
+    ]})
+    print("hid grip hand + grass")
 
     # 6. export
     os.makedirs(OUT, exist_ok=True)

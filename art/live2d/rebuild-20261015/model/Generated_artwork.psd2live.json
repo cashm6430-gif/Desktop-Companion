@@ -40,5 +40,5 @@
   {"source":"handwear right","type":"preset","tag":"handwear","side":"RIGHT","parameter":"","switchId":0,"drawable":"ArtMeshHandwearR"},
   {"source":"handwear.right","type":"preset","tag":"unknown","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshLayer"}
   ],
-  "warnings": ["检测到同名图层：footwear, upperarm, eyewhite, irides, eyelash, handwear；已通过稳定图层 ID 区分。"]
+  "warnings": ["检测到同名图层：footwear, upperarm, eyewhite, irides, eyelash, handwear；已通过稳定图层 ID 区分。","MOC3：UnsupportedChange(category=Drawable, subject=ArtMeshLayer, reason=HiddenDrawableOmittedByExportOption)","MOC3：UnsupportedChange(category=Drawable, subject=ArtMeshHandwearR, reason=HiddenDrawableOmittedByExportOption)","MOC3 回读后的 画元 不一致；缺少=[ArtMeshLayer, ArtMeshHandwearR]，多出=[]"]
 }
