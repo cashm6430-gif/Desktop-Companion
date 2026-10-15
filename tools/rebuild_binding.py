@@ -79,7 +79,7 @@ def main():
 
     # 6. export. Pad the atlas tiles so adjacent-tile bleed does not leave thin
     #    cracks/dots at part edges.
-    call("settings", {"state": state(), "changes": {"texturePadding": 4}})
+    call("settings", {"state": state(), "changes": {"texturePadding": 12}})
     os.makedirs(OUT, exist_ok=True)
     r, _ = c.call("tools/call", {"name": "export", "arguments": {"state": state(), "output_directory": OUT}}, 11, S)
     print("export ok:", os.path.exists(os.path.join(OUT, "Generated_artwork.moc3")), OUT)

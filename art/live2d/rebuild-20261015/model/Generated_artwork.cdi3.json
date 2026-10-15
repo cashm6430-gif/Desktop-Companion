@@ -127,21 +127,6 @@
 			"Name": "上身"
 		},
 		{
-			"Id": "ParamArmLA",
-			"GroupId": "ParamGroupSkeleton",
-			"Name": "左大臂"
-		},
-		{
-			"Id": "ParamArmLB",
-			"GroupId": "ParamGroupSkeleton",
-			"Name": "左小臂"
-		},
-		{
-			"Id": "ParamHandL",
-			"GroupId": "ParamGroupSkeleton",
-			"Name": "左手"
-		},
-		{
 			"Id": "ParamArmRA",
 			"GroupId": "ParamGroupSkeleton",
 			"Name": "右大臂"
@@ -155,6 +140,21 @@
 			"Id": "ParamHandR",
 			"GroupId": "ParamGroupSkeleton",
 			"Name": "右手"
+		},
+		{
+			"Id": "ParamArmLA",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左大臂"
+		},
+		{
+			"Id": "ParamArmLB",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左小臂"
+		},
+		{
+			"Id": "ParamHandL",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左手"
 		},
 		{
 			"Id": "ParamSkelLowerBody",
