@@ -2,16 +2,6 @@
 	"Version": 3,
 	"Parameters": [
 		{
-			"Id": "ParamGrassVisible",
-			"GroupId": "",
-			"Name": "草显示"
-		},
-		{
-			"Id": "ParamHandRGrip",
-			"GroupId": "",
-			"Name": "握持手"
-		},
-		{
 			"Id": "ParamMouthGape",
 			"GroupId": "",
 			"Name": "张嘴"
@@ -30,31 +20,6 @@
 			"Id": "ParamEyeSmile",
 			"GroupId": "",
 			"Name": "眼笑"
-		},
-		{
-			"Id": "ParamWristRA",
-			"GroupId": "",
-			"Name": "手腕 R"
-		},
-		{
-			"Id": "ParamElbowLA",
-			"GroupId": "",
-			"Name": "肘 L"
-		},
-		{
-			"Id": "ParamElbowRA",
-			"GroupId": "",
-			"Name": "肘 R"
-		},
-		{
-			"Id": "ParamArmLA",
-			"GroupId": "",
-			"Name": "手臂 L"
-		},
-		{
-			"Id": "ParamArmRA",
-			"GroupId": "",
-			"Name": "手臂 R"
 		},
 		{
 			"Id": "ParamAngleX",
@@ -155,6 +120,81 @@
 			"Id": "ParamHairBack",
 			"GroupId": "ParamGroupPhysics",
 			"Name": "后发摆动"
+		},
+		{
+			"Id": "ParamSkelUpperBody",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "上身"
+		},
+		{
+			"Id": "ParamArmRA",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "右大臂"
+		},
+		{
+			"Id": "ParamArmRB",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "右小臂"
+		},
+		{
+			"Id": "ParamHandR",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "右手"
+		},
+		{
+			"Id": "ParamArmLA",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左大臂"
+		},
+		{
+			"Id": "ParamArmLB",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左小臂"
+		},
+		{
+			"Id": "ParamHandL",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左手"
+		},
+		{
+			"Id": "ParamSkelLowerBody",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "下身"
+		},
+		{
+			"Id": "ParamFootL",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "左脚"
+		},
+		{
+			"Id": "ParamFootR",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "右脚"
+		},
+		{
+			"Id": "ParamTail1",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "尾巴 1"
+		},
+		{
+			"Id": "ParamTail2",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "尾巴 2"
+		},
+		{
+			"Id": "ParamTail3",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "尾巴 3"
+		},
+		{
+			"Id": "ParamTail4",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "尾巴 4"
+		},
+		{
+			"Id": "ParamSkelTailSwing",
+			"GroupId": "ParamGroupSkeleton",
+			"Name": "甩尾"
 		}
 	],
 	"ParameterGroups": [
@@ -187,6 +227,11 @@
 			"Id": "ParamGroupPhysics",
 			"GroupId": "",
 			"Name": "物理"
+		},
+		{
+			"Id": "ParamGroupSkeleton",
+			"GroupId": "",
+			"Name": "骨骼"
 		}
 	],
 	"Parts": [

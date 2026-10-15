@@ -10,8 +10,8 @@
   "config": {"atlasSize":4096,"meshSpacing":40,"headTurnStrength":1.0,"bodyStrength":1.0,"meshOnly":false,"generateDeformers":true,"exportMotions":true},
   "faceRig": {"algorithm":"perspective-parallelogram-nine-pose-v2","angleX":[-45,0,45],"angleY":[-30,0,30],"initialAngleZ":-3.8981092,"centerX":631.14215,"centerY":481.8114,"radiusX":244.5232,"radiusY":182.98868},
   "deformerHierarchy": {"head":"DeformHeadContainer","face":"DeformFaceNinePose","frontHair":["DeformHairFrontFollow","DeformHairFrontPhysics"],"backHair":["DeformHairBackFollow","DeformHairBackPhysics"]},
-  "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":true,"groups":["PhysicsHairBack","PhysicsHairFront","PhysicsEyeJelly"]},
-  "summary": {"layers":26,"drawables":26,"deformers":30,"parameters":31,"atlasPages":1},
+  "physics": {"enabled":true,"frontHair":true,"backHair":true,"eyeJelly":true,"groups":["PhysicsHairBack","PhysicsHairFront","PhysicsEyeJelly","PhysicsSkel_tail_2","PhysicsSkel_tail_3","PhysicsSkel_tail_4"]},
+  "summary": {"layers":26,"drawables":26,"deformers":33,"parameters":39,"atlasPages":1},
   "layers": [
     {"source":"back hair","type":"preset","tag":"back hair","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshBackHair"},
   {"source":"arm backing","type":"preset","tag":"handwear","side":"NONE","parameter":"","switchId":0,"drawable":"ArtMeshHandwear"},

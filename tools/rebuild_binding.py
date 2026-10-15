@@ -50,46 +50,23 @@ def main():
     t = txt(call("asset", {"request": {"mode": "create", "width": 1254, "height": 1254, "layers": layers}}))
     print("create:", t if "state" not in t else "ok layers=" + str(len(layers)))
 
-    # 2. parameters (ranges mirror R19)
-    P = [("ParamArmRA", "手臂 R", -65, 65), ("ParamArmLA", "手臂 L", -65, 65),
-         ("ParamElbowRA", "肘 R", -35, 55), ("ParamElbowLA", "肘 L", -35, 55),
-         ("ParamWristRA", "手腕 R", -25, 25),
-         ("ParamEyeSmile", "眼笑", 0, 1), ("ParamCheek", "腮红", 0, 1),
-         ("ParamSmileOpen", "笑口", 0, 1), ("ParamMouthGape", "张嘴", 0, 1),
-         ("ParamHandRGrip", "握持手", 0, 1), ("ParamGrassVisible", "草显示", 0, 1)]
+    # 3. arm rig via the SKELETON: PSD2Live infers a bone armature (UPPER_ARM /
+    #    FOREARM / HAND with joints + drawable bindings), we put it and the bake
+    #    generates the arm parameters (ParamArmRA/RB/HandR, ...LA/LB/HandL).
+    #    (The old rig+deform approach is abandoned: rotating a big Warp pivoted
+    #    in place instead of lifting the arm.)
+    spec = txt(call("skeleton", {"request": {"mode": "propose"}}))["spec"]
+    call("skeleton", {"request": {"mode": "put", "state": state(), "spec": spec}})
+    print("skeleton bones:", [b["id"] for b in spec["bones"]])
+
+    # 4. expression parameters (ranges mirror R19); the arm params come from the
+    #    skeleton bake.
+    P = [("ParamEyeSmile", "眼笑", 0, 1), ("ParamCheek", "腮红", 0, 1),
+         ("ParamSmileOpen", "笑口", 0, 1), ("ParamMouthGape", "张嘴", 0, 1)]
     for pid, nm, mn, mx in P:
         call("parameter", {"request": {"mode": "create", "parameter_id": pid, "state": state(),
                                        "name": nm, "min": mn, "max": mx, "default": 0}})
-    print("params added:", len(P))
-
-    # 3. rigs: upper arms (shoulder) + hands (wrist) + forearms (elbow) via rig
-    def rig(name, meshes):
-        t = txt(call("rig", {"state": state(), "name": name, "targets": meshes}))
-        return t.get("target")
-
-    up = {"R": rig("RigUpperarmR", ["mesh:ArtMeshLayerR"]), "L": rig("RigUpperarmL", ["mesh:ArtMeshLayerL"])}
-    fore = {"R": rig("RigForearmR", ["mesh:ArtMeshHandwearR3", "mesh:ArtMeshHandwearR2", "mesh:ArtMeshHandwearR"]),
-            "L": rig("RigForearmL", ["mesh:ArtMeshHandwearL"])}
-    hand = {"R": rig("RigHandR", ["mesh:ArtMeshHandwearR", "mesh:ArtMeshHandwearR2"])}
-    print("rigs:", up, fore, hand)
-
-    # 4. keyforms
-    def rot(target, key, deg, pivot):
-        return {"target": target, "key": key, "operations": [{"type": "rotate", "degrees": deg, "pivot": pivot}]}
-
-    ch = []
-    for side, pid, piv, sgn in [("R", "ParamArmRA", [0.68, 0.38], -1), ("L", "ParamArmLA", [0.32, 0.38], 1)]:
-        for v, deg in [(65.0, 35.0 * sgn), (-65.0, -35.0 * sgn)]:
-            ch.append(rot(up[side], {pid: v}, deg, piv))                       # upper arm about shoulder
-            ch.append(rot(fore[side], {pid: v, ("ParamElbowR" if side == "R" else "ParamElbowL") + "A": 0.0}, deg, piv))
-    for v, deg in [(55.0, -45.0), (-35.0, 30.0)]:                              # right elbow
-        ch.append(rot(fore["R"], {"ParamElbowRA": v}, deg, [0.68, 0.42]))
-    for v, deg in [(55.0, 45.0), (-35.0, -30.0)]:                              # left elbow
-        ch.append(rot(fore["L"], {"ParamElbowLA": v}, deg, [0.32, 0.42]))
-    for v, deg in [(25.0, -25.0), (-25.0, 25.0)]:                              # right wrist
-        ch.append(rot(hand["R"], {"ParamWristRA": v}, deg, [0.70, 0.55]))
-    call("deform", {"state": state(), "changes": ch})
-    print("deform keys:", len(ch))
+    print("expression params added:", len(P))
 
     # 5. hide the alternate right hand (grip) and the grass so only the plain
     #    hand shows and nothing overlaps. NOTE: appearance ids are BARE (no

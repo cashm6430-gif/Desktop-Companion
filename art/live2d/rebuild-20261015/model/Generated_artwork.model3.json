@@ -27,6 +27,41 @@
 				{
 					"File": "Generated_artwork.shake.motion3.json"
 				}
+			],
+			"TailSwing": [
+				{
+					"File": "Generated_artwork.tailSwing.motion3.json"
+				}
+			],
+			"Shy": [
+				{
+					"File": "Generated_artwork.shy.motion3.json"
+				}
+			],
+			"Wave": [
+				{
+					"File": "Generated_artwork.wave.motion3.json"
+				}
+			],
+			"HeadTilt": [
+				{
+					"File": "Generated_artwork.headTilt.motion3.json"
+				}
+			],
+			"Cheer": [
+				{
+					"File": "Generated_artwork.cheer.motion3.json"
+				}
+			],
+			"LegKick": [
+				{
+					"File": "Generated_artwork.legKick.motion3.json"
+				}
+			],
+			"Sway": [
+				{
+					"File": "Generated_artwork.sway.motion3.json"
+				}
 			]
 		}
 	},
