@@ -550,6 +550,18 @@ void CubismMaterialTextureTest::exportedWhaleGirlHasOneNeckAndSeparateClothing()
     QCOMPARE(hash(underpaintBytes), ownership.value(QStringLiteral("underpaint_sha256")).toString());
     QCOMPARE(hash(neckBytes), ownership.value(QStringLiteral("neck_mask_sha256")).toString());
     QCOMPARE(hash(neckEraseBytes), ownership.value(QStringLiteral("neck_erase_mask_sha256")).toString());
+    // The runtime backdrop cleanup pins texture page 0 by hash. A stale value
+    // here is not cosmetic: CubismCanvas rejects the whole model (it falls back
+    // to image_preview and renders nothing) if the declared atlas hash does not
+    // match. Editing the atlas page must refresh BOTH this and ownership's
+    // atlas_sha256 above.
+    const auto backdrop = QJsonDocument::fromJson(metadataBytes).object()
+        .value(QStringLiteral("runtimeBackdropCleanup")).toObject();
+    if (!backdrop.isEmpty()) {
+        const auto page0 = read(textures.at(0).toString());
+        QVERIFY(!page0.isEmpty());
+        QCOMPARE(hash(page0), backdrop.value(QStringLiteral("atlasSha256")).toString());
+    }
     const auto atlas = QImage::fromData(atlasBytes).convertToFormat(QImage::Format_RGBA8888);
     const auto bodyMask = QImage::fromData(bodyBytes).convertToFormat(QImage::Format_Grayscale8);
     const auto eraseMask = QImage::fromData(eraseBytes).convertToFormat(QImage::Format_Grayscale8);
