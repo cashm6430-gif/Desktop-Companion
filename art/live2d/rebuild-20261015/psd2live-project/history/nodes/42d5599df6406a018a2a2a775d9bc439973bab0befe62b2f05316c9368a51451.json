@@ -1,0 +1,10 @@
+{
+    "version": 1,
+    "id": "history-627bc1bf-9908-4e4e-ba56-2f51b29d03a9",
+    "parentId": "history-9dd626bc-02b3-477f-8f3a-a77972b8ee9e",
+    "revisionId": "revision-24d84a678ae873b09193f158bbaa08d206a52d78e26d2fa06c1333a0dab1525a",
+    "snapshotHash": "revision-24d84a678ae873b09193f158bbaa08d206a52d78e26d2fa06c1333a0dab1525a",
+    "summary": "Created parameter ParamSmileOpen",
+    "actor": "agent",
+    "createdAt": "2026-10-15T11:27:22.124412100Z"
+}

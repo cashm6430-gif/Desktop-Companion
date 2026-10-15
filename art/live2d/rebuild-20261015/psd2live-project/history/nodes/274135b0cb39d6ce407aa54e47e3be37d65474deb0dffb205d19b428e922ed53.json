@@ -1,0 +1,10 @@
+{
+    "version": 1,
+    "id": "history-c44bb3c9-3bf8-4436-ae60-cfbb6ee3eab7",
+    "parentId": "history-20883162-fdf7-42ba-95ab-4a93caf3f691",
+    "revisionId": "revision-611caf215f7829e41414b9485354ac0de5f428284b2bac20ff5324462f1a20af",
+    "snapshotHash": "revision-611caf215f7829e41414b9485354ac0de5f428284b2bac20ff5324462f1a20af",
+    "summary": "Created parameter ParamGrassVisible",
+    "actor": "agent",
+    "createdAt": "2026-10-15T11:27:22.256411500Z"
+}
