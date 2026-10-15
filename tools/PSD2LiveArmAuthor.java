@@ -94,12 +94,13 @@ public final class PSD2LiveArmAuthor {
         List<String> allowed = new ArrayList<>(singles);
         allowed.add("--hide");
         allowed.add("--only");
+        allowed.add("--only-index");
         allowed.add("--inset");
         for (int i = 0; i < values.length; i += 2) {
             String name = values[i];
             if (!allowed.contains(name) || i + 1 >= values.length)
                 throw new IllegalArgumentException("Expected option/value pairs: " + allowed);
-            if (name.equals("--hide") || name.equals("--only")) {
+            if (name.equals("--hide") || name.equals("--only") || name.equals("--only-index")) {
                 @SuppressWarnings("unchecked")
                 List<String> list = (List<String>) result.computeIfAbsent(name, k -> new ArrayList<String>());
                 list.add(values[i + 1]);
@@ -309,6 +310,7 @@ public final class PSD2LiveArmAuthor {
         Path store = target((String) options.get("--store"), "--store");
         List<String> hides = (List<String>) options.getOrDefault("--hide", List.of());
         List<String> onlys = (List<String>) options.getOrDefault("--only", List.of());
+        List<String> onlyIdxs = (List<String>) options.getOrDefault("--only-index", List.of());
         if (!Files.isRegularFile(archive) || !archive.toString().toLowerCase().endsWith(".cmo3"))
             throw new IllegalArgumentException("Expected an existing isolated .cmo3 copy");
         if (overlap(output, store) || overlap(output, install) || overlap(store, install)
@@ -337,13 +339,17 @@ public final class PSD2LiveArmAuthor {
 
         PuppetModel model = decoded;
         List<String> hiddenNames = new ArrayList<>();
-        if (!hides.isEmpty() || !onlys.isEmpty()) {
+        if (!hides.isEmpty() || !onlys.isEmpty() || !onlyIdxs.isEmpty()) {
             List<Drawable> drawables = new ArrayList<>(decoded.getDrawables());
+            java.util.Set<Integer> keep = new java.util.HashSet<>();
+            for (String s : onlyIdxs) keep.add(Integer.parseInt(s.trim()));
             for (int i = 0; i < drawables.size(); i++) {
                 Drawable d = drawables.get(i);
                 String n = d.getName() == null ? "" : d.getName().toLowerCase();
                 boolean hideThis;
-                if (!onlys.isEmpty()) {
+                if (!onlyIdxs.isEmpty()) {
+                    hideThis = !keep.contains(i);
+                } else if (!onlys.isEmpty()) {
                     hideThis = true;
                     for (String o : onlys) if (n.contains(o.toLowerCase())) { hideThis = false; break; }
                 } else {

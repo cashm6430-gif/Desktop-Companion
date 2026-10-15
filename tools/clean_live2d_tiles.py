@@ -94,6 +94,11 @@ def main():
         # tiny-vertex meshes have no meaningful per-component tile to clean.
         if d["getMesh"]["getVertexCount"] <= 8 or (x1 - x0) > 0.5 or (y1 - y0) > 0.5:
             continue
+        # skip functional BACKING layers: their content deliberately fills the
+        # gaps behind other parts, so cleaning them opens holes.
+        name = (d.get("getName") or "").lower()
+        if "backing" in name:
+            continue
         b = (max(0, int(x0 * W)), max(0, int(y0 * H)), min(W, int(x1 * W)), min(H, int(y1 * H)))
         if b[2] - b[0] < 4 or b[3] - b[1] < 4:
             continue
