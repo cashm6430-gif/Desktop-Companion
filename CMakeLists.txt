@@ -55,6 +55,8 @@ qt_add_executable(DesktopCompanion WIN32
     src/overlay/FrameOverlay.h
     src/overlay/FrameComposer.h src/overlay/FrameComposer.cpp
     src/PetWindow.h src/PetWindow.cpp
+    src/TrayMenuStyle.h
+    resources/peticons.qrc
     src/DesktopDeleteSource.h src/DesktopDeleteSource.cpp
     src/CodexTurnSource.h src/CodexTurnSource.cpp
     src/ToonEventBridge.h src/ToonEventBridge.cpp
@@ -82,6 +84,14 @@ endif()
 
 add_executable(DesktopCompanionHook src/hook_main.cpp src/CodexTurnSource.h src/CodexTurnSource.cpp)
 target_link_libraries(DesktopCompanionHook PRIVATE Qt6::Core Qt6::Network)
+
+# Dev tool: renders the tray menu with the shared stylesheet to a PNG so the
+# look (padding, colors, submenu arrow) can be checked without a live tray icon.
+add_executable(TrayMenuPreview tools/tray_preview.cpp resources/peticons.qrc)
+target_link_libraries(TrayMenuPreview PRIVATE Qt6::Widgets)
+# Compile the tray-menu icon resource into both (the app shows it live; the
+# preview renders it) -- without this the submenu arrow silently goes missing.
+set_target_properties(DesktopCompanion TrayMenuPreview PROPERTIES AUTORCC ON)
 
 add_custom_target(DesktopCompanionAssets ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory

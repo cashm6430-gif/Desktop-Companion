@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/peticons">
+    <file alias="chevron-right.png">peticons/chevron-right.png</file>
+  </qresource>
+</RCC>

@@ -3,6 +3,7 @@
 #include "CubismCanvas.h"
 #endif
 #include "StartupTrace.h"
+#include "TrayMenuStyle.h"
 #include "overlay/FrameOverlay.h"
 
 #include <QApplication>
@@ -519,40 +520,49 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 
     tray_.setIcon(QIcon(idleImage_.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     tray_.setToolTip(windowTitle());
+    // The menu used to be a flat list of ~20 entries. Group by intent so it
+    // reads at a glance; submenus are added in reading order. The review-only
+    // previews live under 预览（开发用） so end users never see them mixed in.
+    trayMenu_.setStyleSheet(tray_style::menuStyleSheet());
     toggleVisibilityAction_ = trayMenu_.addAction(QStringLiteral("显示 / 隐藏"), this, [this] { toggleVisibility(); });
-    trayMenu_.addAction(QStringLiteral("播放删除动作"), this, [this] {
+    trayMenu_.addSeparator();
+    auto* lookMenu = trayMenu_.addMenu(QStringLiteral("互动"));
+    auto* workMenu = trayMenu_.addMenu(QStringLiteral("工作与休息"));
+    auto* settingMenu = trayMenu_.addMenu(QStringLiteral("设置"));
+    auto* previewMenu = trayMenu_.addMenu(QStringLiteral("预览（开发用）"));
+    previewMenu->addAction(QStringLiteral("模拟文件删除"), this, [this] {
         controller_->desktopItemDeleted();
     });
-    trayMenu_.addAction(QStringLiteral("玩狗尾巴草"), this, &PetWindow::playGrass);
-    interactionPreviewAction_ = trayMenu_.addAction(QStringLiteral("预览新互动（待审批）"));
+    lookMenu->addAction(QStringLiteral("玩狗尾巴草"), this, &PetWindow::playGrass);
+    interactionPreviewAction_ = previewMenu->addAction(QStringLiteral("新互动（待审批）"));
     interactionPreviewAction_->setCheckable(true);
     connect(interactionPreviewAction_, &QAction::toggled, this, &PetWindow::setInteractionPreviewEnabled);
     if (!grassInteractionApproved()) {
-        trayMenu_.addAction(QStringLiteral("预览草穗接招"), this, [this] {
+        previewMenu->addAction(QStringLiteral("草穗接招"), this, [this] {
             setInteractionPreviewEnabled(true);
             startGrassInteraction();
         });
     }
-    trayMenu_.addAction(QStringLiteral("预览收工回望"), this, [this] {
+    previewMenu->addAction(QStringLiteral("收工回望"), this, [this] {
         if (controller_->state() != PetController::State::Idle) return;
         setInteractionPreviewEnabled(true);
         motion_.playTurnEnded();
     });
-    trayMenu_.addAction(QStringLiteral("歇一下（伸展偷看）"), this, [this] {
+    workMenu->addAction(QStringLiteral("歇一下（伸展偷看）"), this, [this] {
         if (controller_->state() != PetController::State::Busy) return;
         motion_.playStretch();
     });
-    trayMenu_.addAction(QStringLiteral("眯一会儿（眼罩）"), this, [this] {
+    lookMenu->addAction(QStringLiteral("眯一会儿（眼罩）"), this, [this] {
         startNap();
     });
-    trayMenu_.addAction(QStringLiteral("放个便笺…"), this, [this] {
+    lookMenu->addAction(QStringLiteral("放个便笺…"), this, [this] {
         if (motion_.sleepMotionActive()) return;
         const QString text = QInputDialog::getMultiLineText(this, QStringLiteral("便笺"),
             QStringLiteral("这件小事，先替你放这里："), memoText_);
         if (text.trimmed().isEmpty()) return;
         createStickyNote(text);
     });
-    QAction* boxAction = trayMenu_.addAction(QStringLiteral("躲一下"), this, [this] {
+    QAction* boxAction = lookMenu->addAction(QStringLiteral("躲一下"), this, [this] {
         // Toggle: the same entry starts the peek and calls her back out.
         if (motion_.boxPeekActive()) exitBoxPeek();
         else startBoxPeek();
@@ -561,7 +571,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         boxAction->setText(motion_.boxPeekActive() ? QStringLiteral("不躲啦")
                                                    : QStringLiteral("躲一下"));
     });
-    QAction* riceAction = trayMenu_.addAction(QStringLiteral("来碗饭香"), this, [this] {
+    QAction* riceAction = lookMenu->addAction(QStringLiteral("来碗饭香"), this, [this] {
         // Toggle: the same entry starts the break and sends the bowl away.
         if (motion_.riceBowlActive()) motion_.exitRiceBowl();
         else if (controller_->state() == PetController::State::Busy) motion_.playRiceBowl();
@@ -570,7 +580,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         riceAction->setText(motion_.riceBowlActive() ? QStringLiteral("吃完啦")
                                                      : QStringLiteral("来碗饭香"));
     });
-    QAction* waveAction = trayMenu_.addAction(QStringLiteral("打个招呼"), this, [this] {
+    QAction* waveAction = lookMenu->addAction(QStringLiteral("打个招呼（挥手）"), this, [this] {
         motion_.playWave();
     });
     connect(&trayMenu_, &QMenu::aboutToShow, this, [this, waveAction] {
@@ -581,11 +591,11 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // Manual un-stick: a work turn only ends on Stop/SessionEnd, so a client
     // that dies hard (crashed terminal, taskkill) can leave the pet "busy" and
     // seated until the stale-turn expiry. This clears every active turn at once.
-    trayMenu_.addAction(QStringLiteral("结束忙碌（复位）"), this, [this] {
+    workMenu->addAction(QStringLiteral("结束忙碌（复位）"), this, [this] {
         controller_->resetBusy();
     });
     // Spontaneous pace (TriggerDirector): the user outranks every watcher.
-    auto* paceMenu = trayMenu_.addMenu(QStringLiteral("自发行为"));
+    auto* paceMenu = settingMenu->addMenu(QStringLiteral("自发行为"));
     const std::array levels{
         std::pair{TriggerDirector::Frequency::Off, QStringLiteral("关闭")},
         std::pair{TriggerDirector::Frequency::Sparse, QStringLiteral("少一些")},
@@ -611,7 +621,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
                           == TriggerDirector::Frequency(a->data().toInt()));
     });
     // Performance: frame interval (larger = fewer fps = less power).
-    auto* perfMenu = trayMenu_.addMenu(QStringLiteral("性能"));
+    auto* perfMenu = settingMenu->addMenu(QStringLiteral("性能"));
     const std::array rates{
         std::pair{66, QStringLiteral("省电（~15 fps）")},
         std::pair{40, QStringLiteral("标准（~25 fps）")},
@@ -640,7 +650,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         releasePointerGesture();
         startWave();
     });
-    trayMenu_.addAction(QStringLiteral("预览摸头"), this, [this] {
+    previewMenu->addAction(QStringLiteral("摸头"), this, [this] {
         if (motion_.sleepMotionActive()) return;
         setInteractionPreviewEnabled(true);
         if (motion_.beginHeadPat(1.0)) patPreviewTimer_.start(1600);
@@ -649,7 +659,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     connect(&laptopPreviewTimer_, &QTimer::timeout, this, [this] {
         controller_->turnStopped(QStringLiteral("local-preview"), QStringLiteral("laptop"));
     });
-    trayMenu_.addAction(QStringLiteral("预览抱电脑工作"), this, [this] {
+    previewMenu->addAction(QStringLiteral("抱电脑工作"), this, [this] {
         if (controller_->state() == PetController::State::Delete
             || controller_->state() == PetController::State::Grass) return;
         // A preview turn participates in the same concurrent-turn accounting.
@@ -657,7 +667,6 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         motion_.forceLaptopBusy();
         laptopPreviewTimer_.start(16000);
     });
-    trayMenu_.addAction(QStringLiteral("重置忙碌状态"), controller_, &PetController::resetBusy);
     trayMenu_.addSeparator();
     trayMenu_.addAction(QStringLiteral("退出"), this, [this] {
         shutdown();
