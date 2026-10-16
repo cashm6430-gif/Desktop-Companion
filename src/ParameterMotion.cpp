@@ -331,9 +331,13 @@ bool ParameterMotion::configureInteractions(QString* error) {
     const MotionClip* turnEnded = library_.clip(QStringLiteral("turn-ended"));
     const MotionClip* headPat = library_.clip(QStringLiteral("head-pat"));
     const MotionClip* stretch = library_.clip(QStringLiteral("busy-stretch"));
+    const MotionClip* greet = library_.clip(QStringLiteral("greet"));
+    const MotionClip* cheer = library_.clip(QStringLiteral("cheer"));
     if (turnEnded && !validateReaction(*turnEnded, error)) return false;
     if (headPat && !validateReaction(*headPat, error)) return false;
     if (stretch && !validateStretch(*stretch, error)) return false;
+    if (greet && !validateReaction(*greet, error)) return false;
+    if (cheer && !validateReaction(*cheer, error)) return false;
     double enterEnd = 0.8;
     double holdEnd = 1.6;
     if (headPat) {
@@ -356,6 +360,8 @@ bool ParameterMotion::configureInteractions(QString* error) {
     turnEndedClip_ = turnEnded ? *turnEnded : MotionClip{};
     headPatClip_ = headPat ? *headPat : MotionClip{};
     stretchClip_ = stretch ? *stretch : MotionClip{};
+    greetClip_ = greet ? *greet : MotionClip{};
+    cheerClip_ = cheer ? *cheer : MotionClip{};
     headPatEnterEnd_ = enterEnd;
     headPatHoldEnd_ = holdEnd;
     return true;
@@ -370,6 +376,8 @@ QString ParameterMotion::interactionId() const {
     case Interaction::TurnEnded: return QStringLiteral("turn-ended");
     case Interaction::HeadPat: return QStringLiteral("head-pat");
     case Interaction::Stretch: return QStringLiteral("busy-stretch");
+    case Interaction::Greet: return QStringLiteral("greet");
+    case Interaction::Cheer: return QStringLiteral("cheer");
     default: return {};
     }
 }
@@ -405,6 +413,34 @@ bool ParameterMotion::playTurnEnded() {
     interactionTime_ = interactionElapsed_ = 0.0;
     // setState(Idle) retains the previous pose. Keep a settled seated computer
     // while looking up; the usual put-away starts after the reaction.
+    captureInteractionSeat();
+    return true;
+}
+
+// Work-companion beats. Head+body reactions that may play over the idle base
+// OR the seated work pose (unlike turn-ended, which needs a settled Idle seat):
+// they own only the expressive/silhouette channels, so the seated desk pose
+// underneath is preserved. `preview_` refusals keep captures honest.
+bool ParameterMotion::playGreet() {
+    if (preview_ || interactionActive() || !greetClip_.isValid()) return false;
+    if (state_ == PetController::State::Delete || state_ == PetController::State::Grass) return false;
+    if (memoMotionActive() || sleepMotionActive() || dragMotionActive()
+        || boxPeekActive() || riceBowlActive() || grassTouch_.active()) return false;
+    preemptSpontaneous();
+    interaction_ = Interaction::Greet;
+    interactionTime_ = interactionElapsed_ = 0.0;
+    captureInteractionSeat();
+    return true;
+}
+
+bool ParameterMotion::playCheer() {
+    if (preview_ || interactionActive() || !cheerClip_.isValid()) return false;
+    if (state_ == PetController::State::Delete || state_ == PetController::State::Grass) return false;
+    if (memoMotionActive() || sleepMotionActive() || dragMotionActive()
+        || boxPeekActive() || riceBowlActive() || grassTouch_.active()) return false;
+    preemptSpontaneous();
+    interaction_ = Interaction::Cheer;
+    interactionTime_ = interactionElapsed_ = 0.0;
     captureInteractionSeat();
     return true;
 }
@@ -495,6 +531,12 @@ void ParameterMotion::advanceInteraction(double seconds) {
         }
         return;
     }
+    if (interaction_ == Interaction::Greet || interaction_ == Interaction::Cheer) {
+        const MotionClip& clip = interaction_ == Interaction::Greet ? greetClip_ : cheerClip_;
+        interactionTime_ += seconds;
+        if (interactionTime_ >= clip.duration()) cancelInteraction();
+        return;
+    }
     if (interaction_ == Interaction::Stretch) {
         interactionTime_ += seconds;
         if (interactionTime_ >= stretchClip_.duration()) {
@@ -526,7 +568,9 @@ void ParameterMotion::advanceInteraction(double seconds) {
 void ParameterMotion::applyInteraction(Parameters& desired) const {
     if (!interactionActive()) return;
     const MotionClip& clip = interaction_ == Interaction::TurnEnded ? turnEndedClip_
-        : interaction_ == Interaction::Stretch ? stretchClip_ : headPatClip_;
+        : interaction_ == Interaction::Stretch ? stretchClip_
+        : interaction_ == Interaction::Greet ? greetClip_
+        : interaction_ == Interaction::Cheer ? cheerClip_ : headPatClip_;
     const auto pose = clip.sample(interactionTime_);
     for (auto it = pose.cbegin(); it != pose.cend(); ++it) desired[it.key()] = it.value();
     if (state_ == PetController::State::Idle && !interactionSeat_.isEmpty()) {

@@ -105,6 +105,7 @@ private slots:
     void laptopTypingAndShortTaskExit();
     void deskSitPrecedesCoverAndLeavesLast();
     void deskSitWaitsForSustainedWork();
+    void workCompanionBeatsReadAndRestore();
     void deskShortTasksReverseWithoutDesk();
     void deskVariantChangesAndReactionsKeepCover();
     void deskInterruptionsKeepActionHandsAndDeadlines();
@@ -1616,6 +1617,47 @@ void ParameterMotionTest::deskSitWaitsForSustainedWork() {
             QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
         }
     }
+}
+
+void ParameterMotionTest::workCompanionBeatsReadAndRestore() {
+    // 开工致意 / 完成庆祝 drive the silhouette levers (ParamBodyAngleX/Z +
+    // ParamShiftX) so they actually read at 280px. They may play over idle OR
+    // the seated work pose; the seated pose underneath must be preserved.
+    ParameterMotion idle;
+    QVERIFY(idle.loadMotionLibrary(QStringLiteral("assets/motions")));
+    idle.setState(PetController::State::Idle);
+    for (int i = 0; i < 10; ++i) idle.advance(0.02);
+    QVERIFY(idle.playGreet());
+    QCOMPARE(idle.interactionId(), QStringLiteral("greet"));
+    double peakBody = 0.0;
+    while (idle.interactionActive()) {
+        idle.advance(0.02);
+        peakBody = std::max(peakBody, idle.values().value(QStringLiteral("ParamBodyAngleX")));
+    }
+    QVERIFY2(peakBody > 2.0, qPrintable(QStringLiteral("greet body peak %1").arg(peakBody)));
+    for (int i = 0; i < 40; ++i) idle.advance(0.02);
+    // Back to the idle base (whose own sway is within ~0.8), well under the peak.
+    QVERIFY(std::abs(idle.values().value(QStringLiteral("ParamBodyAngleX"))) < 2.0);
+
+    // Cheer over the seated desk pose leaves the seat/laptop untouched.
+    ParameterMotion seated;
+    QVERIFY(seated.loadBusyLaptopMotion(QStringLiteral("assets/motions/busy-laptop.motion.json")));
+    QVERIFY(seated.loadMotionLibrary(QStringLiteral("assets/motions")));
+    seated.setDeskWorkMode(true);
+    seated.forceLaptopBusy();
+    for (int i = 0; i < 60; ++i) seated.advance(0.02);
+    QVERIFY(seated.values().value(QStringLiteral("ParamSitPose")) > 0.9);
+    QVERIFY(seated.playCheer());
+    QCOMPARE(seated.interactionId(), QStringLiteral("cheer"));
+    while (seated.interactionActive()) {
+        seated.advance(0.02);
+        QVERIFY(seated.values().value(QStringLiteral("ParamSitPose")) > 0.9);   // seat preserved
+    }
+    // A beat never stacks on another reaction.
+    QVERIFY(seated.playGreet());
+    QVERIFY(!seated.playCheer());
+    seated.cancelInteraction();
+    QVERIFY(!seated.interactionActive());
 }
 
 void ParameterMotionTest::deskShortTasksReverseWithoutDesk() {

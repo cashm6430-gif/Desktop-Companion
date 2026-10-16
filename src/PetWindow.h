@@ -230,6 +230,7 @@ private:
     QTimer longPressTimer_;
     bool patAttempted_ = false;
     bool interactionPreviewEnabled_ = false;
+    bool workSessionGreeted_ = false;   // one 开工致意 per continuous work session
     bool grassTouchPressed_ = false;
     bool dragging_ = false;
     int frame_ = 0;

@@ -62,6 +62,12 @@ public:
     // loaded for explicit previews as well as the eventual approved actions.
     bool configureInteractions(QString* error = nullptr);
     bool playTurnEnded();
+    // Work-companion beats (2026-10-16): 开工致意 (Greet) and 完成庆祝 (Cheer).
+    // Both ride the silhouette levers (ParamBodyAngleX/Z + ParamShiftX) so they
+    // actually read at the pet's 280px size. Drafts: driven only under the
+    // window's interaction-preview toggle until the user signs them off.
+    bool playGreet();
+    bool playCheer();
     // Authored stretch-and-peek pause ("歇一下"). Only meaningful while the
     // seated laptop busy loop is playing; the clip carries the full seated
     // pose, so it overrides the loop and resumes typing from its start.
@@ -279,10 +285,12 @@ private:
 
     bool actionFinishedReported_ = false;
 
-    enum class Interaction { None, TurnEnded, HeadPat, Stretch };
+    enum class Interaction { None, TurnEnded, HeadPat, Stretch, Greet, Cheer };
     MotionClip turnEndedClip_;
     MotionClip headPatClip_;
     MotionClip stretchClip_;
+    MotionClip greetClip_;
+    MotionClip cheerClip_;
     QString interactionDirectory_;
     Interaction interaction_ = Interaction::None;
     double interactionTime_ = 0.0;

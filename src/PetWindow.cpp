@@ -439,6 +439,17 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (interactionPreviewEnabled_ && controller_->state() == PetController::State::Idle)
             motion_.playTurnEnded();
     });
+    // Work-companion beats (drafts, preview-gated until the user signs them off):
+    // the first turn of a session earns 开工致意, a turn that really worked ends
+    // with 完成庆祝. Both ride the silhouette levers so they read at 280px.
+    connect(controller_, &PetController::stateChanged, this, [this](PetController::State state) {
+        if (state == PetController::State::Busy && !workSessionGreeted_) {
+            workSessionGreeted_ = true;
+            if (interactionPreviewEnabled_) motion_.playGreet();
+        } else if (state == PetController::State::Idle) {
+            workSessionGreeted_ = false;
+        }
+    });
     // A real turn just ended: like an assistant pinning a note before leaving,
     // a turn that actually worked for a while folds a small summary onto the
     // desk corner. It starts as the badge (no float-up, no gaze beat -- the
@@ -447,6 +458,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     connect(controller_, &PetController::turnEnded, this, [this](const QString&, qint64 workedMs) {
         constexpr qint64 kMinAutoNoteMs = 30 * 1000;
         if (workedMs < kMinAutoNoteMs) return;
+        if (interactionPreviewEnabled_) motion_.playCheer();
         if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
         const qint64 secs = workedMs / 1000;
         memoText_ = QStringLiteral("✓ %1 · 这轮忙了 %2 分 %3 秒")

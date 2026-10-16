@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "approval": "pending",
+  "conceptApproval": "pending",
+  "revision": 1,
+  "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
+  "duration": 1.4,
+  "loop": false,
+  "interpolation": "smoothstep",
+  "blendSeconds": 0.1,
+  "blendSecondsPerParameter": {
+    "ParamEyeLOpen": 0.05,
+    "ParamEyeROpen": 0.05,
+    "ParamEyeSmile": 0.05
+  },
+  "mode": "absolute",
+  "description": "开工致意：一个轻量的\"我注意到你开工了\"。抬眼看向用户、身体微微前倾侧转、轻点头一次，浅笑一拍后回正。身体用回测试过的大杆（BodyAngleX/Z + ShiftX），看得见但不喧宾夺主。",
+  "reviewNotes": {
+    "scope": "reaction (head+body silhouette levers). Uses ParamBodyAngleX/Z + ParamShiftX, verified 2026-10-16 to carry the arms with the torso."
+  },
+  "keyframes": [
+    {
+      "time": 0.0,
+      "label": "停下手里的事",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamShiftX": 0,
+        "ParamHairFront": 0,
+        "ParamHairBack": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      }
+    },
+    {
+      "time": 0.22,
+      "label": "抬眼，身体微微倾向你",
+      "parameters": {
+        "ParamAngleX": 6,
+        "ParamAngleY": 2,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 2,
+        "ParamBodyAngleZ": 1,
+        "ParamShiftX": 6,
+        "ParamHairFront": 0.12,
+        "ParamHairBack": 0.2,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.4,
+        "ParamEyeBallY": 0.15,
+        "ParamEyeSmile": 0.1,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.1,
+        "ParamCheek": 0.05
+      }
+    },
+    {
+      "time": 0.45,
+      "label": "轻点头",
+      "parameters": {
+        "ParamAngleX": 10,
+        "ParamAngleY": -3,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 3.5,
+        "ParamBodyAngleZ": 2,
+        "ParamShiftX": 10,
+        "ParamHairFront": 0.2,
+        "ParamHairBack": 0.34,
+        "ParamEyeLOpen": 0.9,
+        "ParamEyeROpen": 0.9,
+        "ParamEyeBallX": -0.55,
+        "ParamEyeBallY": 0.2,
+        "ParamEyeSmile": 0.35,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.18,
+        "ParamCheek": 0.12
+      }
+    },
+    {
+      "time": 0.68,
+      "label": "回弹，浅笑",
+      "parameters": {
+        "ParamAngleX": 10,
+        "ParamAngleY": 2,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 3.5,
+        "ParamBodyAngleZ": 2,
+        "ParamShiftX": 10,
+        "ParamHairFront": 0.2,
+        "ParamHairBack": 0.34,
+        "ParamEyeLOpen": 0.95,
+        "ParamEyeROpen": 0.95,
+        "ParamEyeBallX": -0.5,
+        "ParamEyeBallY": 0.15,
+        "ParamEyeSmile": 0.45,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.25,
+        "ParamCheek": 0.18
+      }
+    },
+    {
+      "time": 1.0,
+      "label": "笑意收回",
+      "parameters": {
+        "ParamAngleX": 5,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 1.5,
+        "ParamBodyAngleZ": 1,
+        "ParamShiftX": 5,
+        "ParamHairFront": 0.08,
+        "ParamHairBack": 0.14,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": -0.2,
+        "ParamEyeBallY": 0.05,
+        "ParamEyeSmile": 0.2,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0.12,
+        "ParamCheek": 0.08
+      }
+    },
+    {
+      "time": 1.4,
+      "label": "回正",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamAngleZ": 0,
+        "ParamBodyAngleX": 0,
+        "ParamBodyAngleZ": 0,
+        "ParamShiftX": 0,
+        "ParamHairFront": 0,
+        "ParamHairBack": 0,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0,
+        "ParamEyeSmile": 0,
+        "ParamSmileOpen": 0,
+        "ParamMouthOpenY": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      }
+    }
+  ]
+}
