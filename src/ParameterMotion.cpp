@@ -24,6 +24,12 @@ namespace {
 
 constexpr double pi = 3.14159265358979323846;
 
+// The desk scene (she seats herself at the desk) only engages after this much
+// continuous Busy time, so a brief turn -- or launching straight into an
+// already-active turn -- does not seat her the instant work begins. The moment
+// Busy ends the clock resets, so each session re-earns its sit-down.
+constexpr double kDeskSitDelay = 10.0;
+
 const QStringList& deskPostureChannels() {
     static const QStringList ids{
         QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
@@ -694,6 +700,10 @@ void ParameterMotion::forceLaptopBusy() {
     laptopBusy_ = true;
     busyTime_ = 0;
     nextBusyChoice_ = 40;
+    // This is the explicit capture/review seam: forcing the seated variant
+    // also satisfies the live sit-down delay, so desk captures and the desk
+    // regression tests see the scene begin at once rather than 10 s later.
+    workBusyTime_ = kDeskSitDelay;
 }
 
 void ParameterMotion::forceStandingBusy() {
@@ -736,7 +746,10 @@ void ParameterMotion::advanceDeskWork(double seconds, const Parameters& previous
     const bool keepReactionDesk = interactionActive() && deskVisible_ > 0.0;
     // The nap is also a desk scene (seated at the table, no laptop): the same
     // sit-down / stand-back-up choreography owns the posture both ways.
-    const bool workWanted = (state_ == PetController::State::Busy && laptopBusy_)
+    // The desk scene shares the seated variant AND the same sustained-work
+    // delay as the seated pose, so furniture and pose arrive together.
+    const bool workWanted = (state_ == PetController::State::Busy && laptopBusy_
+            && workBusyTime_ >= kDeskSitDelay)
         || keepReactionDesk || sleepMotionActive();
     const auto holdPosture = [&](const QString& except = {}) {
         for (const QString& id : deskPostureChannels()) {
@@ -1059,7 +1072,21 @@ void ParameterMotion::advance(double seconds) {
         desired[breath] = 0.5 + 0.5 * qSin(clock_ * 2.1);
     }
 
+    // Continuous work clock: drives the delayed desk sit-down. It resets only
+    // when the pet returns to Idle; a momentary Delete/Grass interruption
+    // holds the clock so a session that has already earned its sit keeps it.
+    if (state_ == PetController::State::Idle) workBusyTime_ = 0.0;
+    else if (state_ == PetController::State::Busy) workBusyTime_ += seconds;
     if (state_ == PetController::State::Busy) {
+        // Early in a work session she stays on her feet: the seated pose rides
+        // on the laptop variant (its loop writes ParamSitPose, and workWanted
+        // rides the same flag), so the laptop choice renders as the standing
+        // accent until the session has run for kDeskSitDelay. The variant FLAG
+        // itself is untouched -- only its seated rendering waits -- so the
+        // choice still persists for the whole session the way the desk tests
+        // require. This is what keeps a launch straight into an active turn from
+        // seating her the moment work begins.
+        const bool seatedNow = laptopBusy_ && workBusyTime_ >= kDeskSitDelay;
         // The standing accent is additive: it layers onto the idle base rather
         // than replacing it, so the breathing curve lives in exactly one place.
         // It is the standing variant's accent and nobody else's. The seated
@@ -1067,7 +1094,7 @@ void ParameterMotion::advance(double seconds) {
         // keyframes carry -- a seated laptop pose has no opinion about mouth
         // shape, cheek or hair, so anything the accent writes there would ride
         // along on the seated pose instead of being overwritten.
-        if (!laptopBusy_) {
+        if (!seatedNow) {
             if (busyStandClip_.isValid()) {
                 // Looped on the busy clock, not sampled on the global one. A
                 // track past its last key is clamped rather than wrapped, and the
@@ -1093,7 +1120,10 @@ void ParameterMotion::advance(double seconds) {
             laptopBusy_ = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
             nextBusyChoice_ += 40.0;
         }
-        if (laptopBusy_) {
+        // The flip above takes effect on the seated branch this frame, matching
+        // the original pre/post-flip split.
+        const bool seatedAfter = laptopBusy_ && workBusyTime_ >= kDeskSitDelay;
+        if (seatedAfter) {
             // A stretch pause freezes the laptop loop clock: the choice timer
             // must not flip the busy variant mid-stretch, and the loop resumes
             // from its typing start when advanceInteraction ends the stretch.

@@ -447,6 +447,24 @@
  "warnings": [
   "检测到同名图层：footwear, upperarm, eyewhite, irides, eyelash, handwear；已通过稳定图层 ID 区分。"
  ],
+ "runtimeDeskWorkMode": {
+  "version": 1,
+  "stage": "complete",
+  "adopted": true,
+  "mocSha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "parameter": "ParamDeskVisible",
+  "drawableIds": [
+   "ArtMeshWorkstationDesk",
+   "ArtMeshWorkstationDeskTop"
+  ],
+  "floorOwner": "runtime",
+  "bodySource": "formal-equivalent master; legacy approved registration retained",
+  "replacementLaptop": "ArtMeshWorkstationLaptop",
+  "replacementSleeves": {
+   "ArtMeshObjects2": "ArtMeshWorkstationSleeveR"
+  },
+  "hiddenLeftHand": true
+ },
  "runtimeHairBacking": {
   "version": 1,
   "stage": "complete",

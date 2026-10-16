@@ -265,6 +265,12 @@ private:
     bool deskWorkMode_ = false;
     DeskPhase deskPhase_ = DeskPhase::Hidden;
     double deskVisible_ = 0.0;
+    // Continuous time in the Busy (work) state. The seated desk scene only
+    // engages once work has run for kDeskSitDelay seconds, so a quick turn --
+    // or a launch straight into an active turn -- does not seat her at once.
+    // It resets only on a return to Idle; a momentary Delete/Grass interruption
+    // holds it, so a session that earned its sit keeps it.
+    double workBusyTime_ = 0.0;
     // Visible sit ramp: from -> to over duration, smoothed. Clock counts up.
     double deskSitFrom_ = 0.0;
     double deskSitTo_ = 0.0;

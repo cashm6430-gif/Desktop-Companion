@@ -104,6 +104,7 @@ private slots:
     void laptopSelectionAndInterruptions();
     void laptopTypingAndShortTaskExit();
     void deskSitPrecedesCoverAndLeavesLast();
+    void deskSitWaitsForSustainedWork();
     void deskShortTasksReverseWithoutDesk();
     void deskVariantChangesAndReactionsKeepCover();
     void deskInterruptionsKeepActionHandsAndDeadlines();
@@ -1594,6 +1595,26 @@ void ParameterMotionTest::deskSitPrecedesCoverAndLeavesLast() {
         QVERIFY(sawPutAway && sawReveal && sawVisibleStand);
         QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
         QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+    }
+}
+
+void ParameterMotionTest::deskSitWaitsForSustainedWork() {
+    // Live policy: during the first kDeskSitDelay (~10 s) of a work session she
+    // stays on her feet -- no seated pose, no desk -- so a launch straight into
+    // an active turn does not seat her the moment work begins. forceLaptopBusy
+    // primes the clock for captures and the choreography tests, so drive the
+    // natural path here.
+    for (int seed = 1; seed <= 20; ++seed) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+        motion.setBusyRandomSeed(seed);
+        motion.setDeskWorkMode(true);
+        motion.setState(PetController::State::Busy);
+        for (int i = 1; i <= 95; ++i) {        // 9.5 s, still under the delay
+            motion.advance(0.1);
+            QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+            QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+        }
     }
 }
 
