@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "approval": "pending",
-  "conceptApproval": "pending",
+  "approval": "approved",
+  "conceptApproval": "approved",
   "revision": 1,
   "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
   "duration": 1.8,
@@ -16,7 +16,8 @@
   "mode": "absolute",
   "description": "完成庆祝：收工时的一记开心小庆祝。前倾侧转、两次欢快的点头，笑眼合上、脸颊泛红，比开工致意更亮更弹。不表示任务成功与否，只是\"这一轮辛苦啦\"。",
   "reviewNotes": {
-    "scope": "reaction (head+body silhouette levers). Brighter/bouncier sibling of turn-ended; uses ParamBodyAngleX/Z + ParamShiftX."
+    "scope": "reaction (head+body silhouette levers). Brighter/bouncier sibling of turn-ended; uses ParamBodyAngleX/Z + ParamShiftX.",
+    "approved": "User approved the rendered draft 2026-10-16 (turn-ended rev10 body-lever lean; greet/cheer)."
   },
   "keyframes": [
     {

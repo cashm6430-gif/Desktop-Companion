@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "approval": "pending",
+  "approval": "approved",
   "conceptApproval": "approved",
   "revision": 10,
   "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
@@ -26,7 +26,8 @@
     "noHeadTilt": "Revisions 3-6 all drove ParamAngleZ. Measured from a clean zero base with the hem as anchor, that axis translates the whole upper body sideways instead of rotating the head in place: at 840px the shift is +9.5 at the hair, -20.1 at the neck, -24.5 at the chest, -18.2 at the apron and ~0 at the skirt, i.e. it flips sign at the waist. That is the split the user reports, and at the 280px desktop size it is -6.7px at the neck and -8.2px at the chest for a tilt of 8 degrees. ParamAngleZ also bought almost nothing: per-axis isolation put its contribution to the collar/sleeve mismatch at -3.2px. Revision 7 therefore sets it to zero and keeps the head turn on ParamAngleX (0.4px of outline movement) with the side lean on ParamBodyAngleZ. Verified with build/_zoom_review/z_block.py.",
     "bodyRemoved": "Revisions 3-7 drove the body (ParamBodyAngleX/Z, ParamShiftX) to raise readability. The defect the user reports is a misalignment, and on the peak pose the figure's centre of mass moves +31.9px while the two arm windows move only +13.3px and +3.4px: the arms lag the body. Which deformer path leaves the arms behind could not be isolated from the exported rig data, so revision 8 removes the body motion from this action. A head/face-only reaction cannot misalign against itself. Kept: the head turn, the gaze lead, the nod, the eye-smile beat and the hair follow. The body-axis readability gain is deferred until the rig routing is understood.",
     "turnHalved": "Revision 8 removed the body channels, but the preview still showed a misalignment. Measured on its key poses (clip rendered alone, no background layer), the torso and skirt do not move at all while the left arm window drifts up to +5.1px: armL-torso reaches +5.2px at a 26 degree turn. Since the body channels are zero, that residual tracks ParamAngleX, which drives the same upper-body warp the tilt did. Revision 9 therefore halves the turn to 13 degrees, expecting ~2.6px. If that is still visible the remaining lever is the rig, not the data.",
-    "rev10": "Re-verified the body levers empirically (2026-10-16): ParamBodyAngleX/Z carry the arms with the torso (row-by-row displacement is smooth, no seam); the earlier 'arms lag the body' reading was a whole-figure-centroid artifact, so rev8's body removal was over-cautious. The lean/shift are restored at ~half amplitude (BodyAngleX 5, BodyAngleZ 3, ShiftX 20) and the action now reads at 280px (~5x the changed-pixel energy of rev9, still seam-free)."
+    "rev10": "Re-verified the body levers empirically (2026-10-16): ParamBodyAngleX/Z carry the arms with the torso (row-by-row displacement is smooth, no seam); the earlier 'arms lag the body' reading was a whole-figure-centroid artifact, so rev8's body removal was over-cautious. The lean/shift are restored at ~half amplitude (BodyAngleX 5, BodyAngleZ 3, ShiftX 20) and the action now reads at 280px (~5x the changed-pixel energy of rev9, still seam-free).",
+    "approved": "User approved the rendered draft 2026-10-16 (turn-ended rev10 body-lever lean; greet/cheer)."
   },
   "keyframes": [
     {

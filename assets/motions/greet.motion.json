@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "approval": "pending",
-  "conceptApproval": "pending",
+  "approval": "approved",
+  "conceptApproval": "approved",
   "revision": 1,
   "modelVersion": "whale-girl-layered-draft-34L-40P-moc5",
   "duration": 1.4,
@@ -16,7 +16,8 @@
   "mode": "absolute",
   "description": "开工致意：一个轻量的\"我注意到你开工了\"。抬眼看向用户、身体微微前倾侧转、轻点头一次，浅笑一拍后回正。身体用回测试过的大杆（BodyAngleX/Z + ShiftX），看得见但不喧宾夺主。",
   "reviewNotes": {
-    "scope": "reaction (head+body silhouette levers). Uses ParamBodyAngleX/Z + ParamShiftX, verified 2026-10-16 to carry the arms with the torso."
+    "scope": "reaction (head+body silhouette levers). Uses ParamBodyAngleX/Z + ParamShiftX, verified 2026-10-16 to carry the arms with the torso.",
+    "approved": "User approved the rendered draft 2026-10-16 (turn-ended rev10 body-lever lean; greet/cheer)."
   },
   "keyframes": [
     {
