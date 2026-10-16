@@ -578,6 +578,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         waveAction->setEnabled(controller_->state() == PetController::State::Idle
                                && !motion_.waveActive());
     });
+    // Manual un-stick: a work turn only ends on Stop/SessionEnd, so a client
+    // that dies hard (crashed terminal, taskkill) can leave the pet "busy" and
+    // seated until the stale-turn expiry. This clears every active turn at once.
+    trayMenu_.addAction(QStringLiteral("结束忙碌（复位）"), this, [this] {
+        controller_->resetBusy();
+    });
     // Spontaneous pace (TriggerDirector): the user outranks every watcher.
     auto* paceMenu = trayMenu_.addMenu(QStringLiteral("自发行为"));
     const std::array levels{

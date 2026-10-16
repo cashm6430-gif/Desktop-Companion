@@ -149,7 +149,11 @@ void PetController::resetBusy() {
 }
 
 void PetController::expireOldTurns() {
-    constexpr qint64 maxAgeMs = 12LL * 60 * 60 * 1000;
+    // Turns normally end on Stop/SessionEnd. This is the safety net for a client
+    // that died without one (crashed terminal, taskkill): 12 h left the pet
+    // "busy" for most of a day, so cap stale turns at 4 h -- long enough for any
+    // real agent task, short enough to self-heal. The tray has a manual reset too.
+    constexpr qint64 maxAgeMs = 4LL * 60 * 60 * 1000;
     const qint64 now = QDateTime::currentMSecsSinceEpoch();
     for (auto it = activeTurns_.begin(); it != activeTurns_.end();) {
         if (now - it.value() > maxAgeMs) it = activeTurns_.erase(it);
