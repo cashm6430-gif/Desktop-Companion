@@ -69,6 +69,7 @@ if (-not $SkipZip) {
 
 if (-not $SkipSetup) {
     $iscc = @(
+        (Join-Path $env:LOCALAPPDATA 'Programs\Inno Setup 6\ISCC.exe'),
         "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
         (Join-Path $env:ProgramFiles 'Inno Setup 6\ISCC.exe')
     ) | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
