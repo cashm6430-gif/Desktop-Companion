@@ -26,7 +26,7 @@
 
 ### 安装（Windows）
 
-1. 下载 **`DesktopCompanion-1.0.0-setup.exe`** 并运行；**免管理员**（装到当前用户目录）。
+1. 下载 **`DesktopCompanion-1.0.1-setup.exe`** 并运行；**免管理员**（装到当前用户目录）。
 2. 安装向导里可选：**接入 AI 助手钩子**（默认勾选）、**开机自启**、**桌面快捷方式**。
 3. 装完她就会出现在桌角。**右键托盘图标**打开菜单。
 
@@ -49,7 +49,7 @@ powershell -ExecutionPolicy Bypass -File tools\install-hooks.ps1
 | Codex | `~/.codex/hooks.json` | — |
 | WorkBuddy | `~/.workbuddy/settings.json` | — |
 | Claude Code（CLI） | `~/.claude/settings.json` | 命令行版会读 |
-| **Claude 桌面端** | `<每个会话>\.claude\settings.json` | 桌面端用 `--setting-sources=user`，只读会话级配置；`tools/seed-cowork-hooks.ps1` 负责补种（可配计划任务） |
+| **Claude 桌面端** | `<每个会话>\.claude\settings.json` | 桌面端用 `--setting-sources=user`，只读会话级配置；**装完就不用管——桌宠开着时会自己静默补种**（新对话也会）。要手动补一次用 `tools\seed-cowork-hooks.ps1` |
 
 > 桌宠必须**开着**，钩子才有接收方。
 
@@ -65,7 +65,7 @@ tools\build.cmd
 :: 受限终端里改用（手工拼 MSVC 环境，只做增量构建 + ctest）
 tools\dev.cmd
 :: 打包（portable zip；装了 Inno Setup 6 还会出 setup.exe）
-powershell -ExecutionPolicy Bypass -File tools\package.ps1 -Version 1.0.0
+powershell -ExecutionPolicy Bypass -File tools\package.ps1 -Version 1.0.1
 ```
 
 ### 目录结构
@@ -105,7 +105,7 @@ And she **works alongside you**: hooked to your AI coding agent (**Codex / Claud
 
 ### Install (Windows)
 
-1. Download **`DesktopCompanion-1.0.0-setup.exe`** and run it — **no admin needed** (per-user install).
+1. Download **`DesktopCompanion-1.0.1-setup.exe`** and run it — **no admin needed** (per-user install).
 2. Optional steps in the wizard: **install AI-agent hooks** (on by default), **start at login**, **desktop shortcut**.
 3. She shows up in a corner of your desktop. **Right-click the tray icon** for the menu.
 
@@ -124,9 +124,11 @@ powershell -ExecutionPolicy Bypass -File tools\install-hooks.ps1   # -Clients co
 | Codex | `~/.codex/hooks.json` |
 | WorkBuddy | `~/.workbuddy/settings.json` |
 | Claude Code (CLI) | `~/.claude/settings.json` |
-| **Claude Desktop** | per-session `.claude\settings.json` (it runs with `--setting-sources=user`; `tools/seed-cowork-hooks.ps1` seeds them) |
+| **Claude Desktop** | per-session `.claude\settings.json` (it runs with `--setting-sources=user`) |
 
 The pet must be **running** to receive the events.
+
+Claude Desktop keeps its hooks in a **per-session** config dir, so the pet re-seeds them itself as conversations appear — nothing to do after install. `tools\seed-cowork-hooks.ps1` is there for a manual one-off.
 
 ### Build from source
 
@@ -137,7 +139,7 @@ The pet must be **running** to receive the events.
 ```bat
 tools\build.cmd                                   :: official (conan + configure + windeployqt + ctest)
 tools\dev.cmd                                     :: restricted-terminal build + ctest
-powershell -File tools\package.ps1 -Version 1.0.0 :: portable zip, and setup.exe if Inno Setup 6 is installed
+powershell -File tools\package.ps1 -Version 1.0.1 :: portable zip, and setup.exe if Inno Setup 6 is installed
 ```
 
 ### Layout

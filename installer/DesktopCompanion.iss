@@ -63,3 +63,7 @@ Filename: "{app}\{#AppExe}"; Description: "Launch {#AppName}"; Flags: nowait pos
 
 [UninstallRun]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\tools\install-hooks.ps1"" -HelperPath ""{app}\DesktopCompanionHook.exe"" -Remove"; Flags: runhidden; RunOnceId: "RemovePetHooks"
+; The pet seeds the Claude-Desktop per-session configs itself, so those entries have
+; to be taken back out here too -- otherwise uninstalling would leave hooks pointing
+; at a helper that no longer exists. The script is still on disk at this point.
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\tools\seed-cowork-hooks.ps1"" -Remove"; Flags: runhidden; RunOnceId: "RemoveCoworkHooks"

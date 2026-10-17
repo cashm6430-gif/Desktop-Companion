@@ -48,9 +48,12 @@ foreach ($dir in @('platforms', 'FrameworkShaders')) {
 }
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets') -Destination $stage -Recurse
 
-# Self-contained hook installer + one-click wrappers (portable flavour).
+# Self-contained hook installers + one-click wrappers (portable flavour). The
+# Cowork seeding script ships too: the pet does that seeding in-process, but this is
+# the documented manual fallback, and the uninstaller needs it to undo the seeding.
 New-Item -ItemType Directory -Path (Join-Path $stage 'tools') -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\install-hooks.ps1') -Destination (Join-Path $stage 'tools')
+Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\seed-cowork-hooks.ps1') -Destination (Join-Path $stage 'tools')
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'installer\portable\install-hooks.cmd') -Destination $stage
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'installer\portable\uninstall-hooks.cmd') -Destination $stage
 

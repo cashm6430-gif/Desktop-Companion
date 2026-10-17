@@ -1,5 +1,41 @@
 # 更新日志 · Changelog
 
+## 1.0.1 — 2026-10-17
+
+修掉三个用户报的问题，外加 Claude 桌面端联动方式的一次改造。
+
+### 中文
+
+**修复**
+- **思考冒泡在靠屏幕右边时被切掉**：她坐在屏幕右缘时，"?" 冒泡会整块跑到屏幕外（而她自己看着还是好好的），把窗口拖回来也修不好。根因不在画：冒泡画在**窗口右侧三分之一**，而窗口原本允许最多探出屏幕右缘 184px。现在**整个窗口必须留在屏幕内**（拖拽、缩放、启动恢复位置都走同一条约束），贴边吸附照旧；历史遗留的越界位置启动时会自愈。
+- **Codex 读不了钩子配置**：安装器写出的 `~/.codex/hooks.json` 带 UTF-8 BOM，Codex 会**整个拒读**，桌宠于是静默不再反应。原因是 PowerShell 5.1 的 `Set-Content -Encoding utf8` 会写 BOM（pwsh 7 不会）。现在所有钩子配置一律以**无 BOM UTF-8** 写出。
+- **开发构建其实一直没签名**：签名脚本的时间戳要走直连网络，本机只能走代理，所以每次构建都在静默发**未签名**的 exe（正是脚本想避免的"未知发布者"提示）。现在时间戳不可达时退回不带时间戳签名。
+
+**改动**
+- **思考时不再咧嘴笑**：之前"想到办法"那一拍会把嘴张开成露齿笑，观感诡异。现在改成**闭口浅笑**（同一拍的表现力由嘴型、脸颊和眼眸承担）。
+- **Claude 桌面端的钩子改由桌宠自己补种**：桌面端只认**每个会话各自的** `.claude/settings.json`，所以每个新对话都得补一次。以前靠一个每 2 分钟跑一次的计划任务，PowerShell 会**闪一下黑框**；现在桌宠启动后自己静默补种（进程内、不弹窗），随安装包一起生效。只想手动补一次时仍可用 `tools\seed-cowork-hooks.ps1`；卸载时同一脚本的 `-Remove` 会把补种过的会话配置清干净，所以「卸载不留痕」照旧成立。
+
+**安装包**
+- `DesktopCompanion-1.0.1-setup.exe`。
+
+---
+
+### English
+
+**Fixes**
+- **The thinking bubble was cut off near the right edge of the screen.** With the pet docked right, the "?" bubble moved entirely off-screen while she still looked fine, and dragging her back did not repair it. The cause was not the painting: the bubble is drawn in the **right third of the window**, and the window was allowed to hang up to 184 px past the screen edge. The **whole window must now stay on screen** (drag, zoom and the startup restore all use the same rule); edge snapping is unchanged, and a position saved under the old rule heals on the next launch.
+- **Codex could not read its hook config.** The installer wrote `~/.codex/hooks.json` with a UTF-8 BOM, which Codex rejects outright — the pet then silently stopped reacting. Cause: PowerShell 5.1's `Set-Content -Encoding utf8` stamps a BOM (pwsh 7 does not). Every hook config is now written as **BOM-less UTF-8**.
+- **Dev builds were shipping unsigned.** The signing script's timestamp step needs a direct connection; this host has only a proxy, so every rebuild silently produced an **unsigned** exe — exactly the "unknown publisher" prompt the script exists to prevent. Signing now falls back to no timestamp when the timestamp server is unreachable.
+
+**Changes**
+- **No more grin while thinking.** The "eureka" beat used to open the mouth into a bare-toothed grin, which read as creepy. It is now a **closed smile** (mouth shape, cheek and eye smile carry the beat).
+- **The pet now installs the Claude Desktop hooks itself.** The desktop app only reads the **per-session** `.claude/settings.json`, so every new conversation needs seeding. That used to be a Scheduled Task running every two minutes, which flashed a console window; the pet now does it in-process and windowless, and the behaviour ships with the installer. `tools\seed-cowork-hooks.ps1` remains for a manual one-off, and uninstall runs the same script with `-Remove` — so the seeded per-session configs are cleaned up too and uninstalling still leaves no trace.
+
+**Installer**
+- `DesktopCompanion-1.0.1-setup.exe`.
+
+---
+
 ## 1.0.0 — 2026-10-16
 
 **首个正式版。** 一个用 Live2D 实时驱动的鲸鱼娘桌宠，能陪你的 AI 编码助手一起工作。
