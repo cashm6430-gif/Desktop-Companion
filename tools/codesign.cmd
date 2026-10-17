@@ -15,4 +15,14 @@ if not exist "%SIGNTOOL%" (
     )
 )
 "%SIGNTOOL%" sign /fd SHA256 /n "DesktopCompanion Dev" /tr http://timestamp.digicert.com /td SHA256 %*
+rem The timestamp step needs the internet, and this machine reaches the outside
+rem world only through the socks5 proxy -- which signtool does not use. Signing
+rem then fails silently behind dev.cmd's "warning: signing failed" and ships an
+rem UNSIGNED exe, i.e. the exact Explorer prompt this script exists to avoid
+rem (2026-10-17). A local self-signed cert gains nothing from a timestamp, so
+rem retry without one instead of leaving the binary unsigned.
+if errorlevel 1 (
+    echo [codesign] timestamp server unreachable -- signing without a timestamp
+    "%SIGNTOOL%" sign /fd SHA256 /n "DesktopCompanion Dev" %*
+)
 endlocal
