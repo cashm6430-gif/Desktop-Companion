@@ -59,6 +59,7 @@ qt_add_executable(DesktopCompanion WIN32
     resources/peticons.qrc
     src/DesktopDeleteSource.h src/DesktopDeleteSource.cpp
     src/CodexTurnSource.h src/CodexTurnSource.cpp
+    src/CoworkHookSeeder.h src/CoworkHookSeeder.cpp
     src/ToonEventBridge.h src/ToonEventBridge.cpp
     src/ToonHost.h src/ToonHost.cpp
 )
@@ -144,6 +145,15 @@ if(BUILD_TESTING)
     add_executable(ScreenPlacementTest tests/ScreenPlacementTest.cpp src/ScreenPlacement.h)
     target_link_libraries(ScreenPlacementTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME ScreenPlacementTest COMMAND ScreenPlacementTest)
+    # The Claude-Desktop session seeding runs inside the pet, so its merge rules
+    # (preserve everything else, never rewrite what we cannot parse, no BOM) are
+    # pinned here rather than by driving the app.
+    add_executable(CoworkHookSeederTest tests/CoworkHookSeederTest.cpp
+        src/CoworkHookSeeder.h src/CoworkHookSeeder.cpp
+        src/StartupTrace.h)
+    target_link_libraries(CoworkHookSeederTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME CoworkHookSeederTest COMMAND CoworkHookSeederTest)
+    set_tests_properties(CoworkHookSeederTest PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
     add_executable(ToonEventBridgeTest tests/ToonEventBridgeTest.cpp
         src/ToonEventBridge.h src/ToonEventBridge.cpp
         src/PetController.h src/PetController.cpp)
@@ -215,5 +225,12 @@ if(BUILD_TESTING)
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/CodexHookTest.ps1"
             -HelperPath "$<TARGET_FILE:DesktopCompanionHook>"
             -InstallerPath "${CMAKE_CURRENT_SOURCE_DIR}/tools/install-codex-hooks.ps1")
+        # The Claude-Desktop script is what the uninstaller runs, so its seed/remove
+        # round trip is a shipping contract, not a convenience: "uninstalling leaves
+        # no trace" has to keep being true now the pet seeds those files itself.
+        add_test(NAME CoworkSeedScriptTest COMMAND "${POWERSHELL_EXECUTABLE}"
+            -NoLogo -NoProfile -NonInteractive -File
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/CoworkSeedScriptTest.ps1"
+            -ScriptPath "${CMAKE_CURRENT_SOURCE_DIR}/tools/seed-cowork-hooks.ps1")
     endif()
 endif()

@@ -1,4 +1,5 @@
 #include "CodexTurnSource.h"
+#include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
 #include "PetController.h"
 #include "PetWindow.h"
@@ -868,6 +869,13 @@ int main(int argc, char** argv) {
     QObject::connect(&window, &PetWindow::filesDropped,
                      &controller, &PetController::fileDropped);
 
+    // Claude Desktop reads its hooks from a PER-SESSION config dir, so every new
+    // conversation needs seeding. The pet is already running and windowless, so it
+    // does that itself -- the old external seeder was a Scheduled Task polling
+    // every two minutes, which flashed a console window each time.
+    CoworkHookSeeder coworkSeeder;
+    coworkSeeder.start();
+
     CodexTurnSource codexSource;
     QObject::connect(&codexSource, &CodexTurnSource::turnStarted,
                      &controller, &PetController::turnStarted);
@@ -875,7 +883,7 @@ int main(int argc, char** argv) {
                      &controller, &PetController::turnStopped);
     QObject::connect(&codexSource, &CodexTurnSource::sessionEnded,
                      &controller, &PetController::sessionEnded);
-    codexSource.setStatusProvider([&controller, &desktopSource, &window] {
+    codexSource.setStatusProvider([&controller, &desktopSource, &window, &coworkSeeder] {
         QString state;
         switch (controller.state()) {
         case PetController::State::Idle: state = QStringLiteral("idle"); break;
@@ -893,7 +901,14 @@ int main(int argc, char** argv) {
                            {QStringLiteral("active_turns"), controller.activeTurnCount()},
                            {QStringLiteral("desktop_watching"), desktopSource.isWatching()},
                            {QStringLiteral("desktop_error"), desktopSource.error()},
-                           {QStringLiteral("desktop_paths"), QJsonArray::fromStringList(desktopSource.desktopPaths())}};
+                           {QStringLiteral("desktop_paths"), QJsonArray::fromStringList(desktopSource.desktopPaths())},
+                           // Observable proof of the Claude-Desktop hook seeding: how
+                           // many session dirs the last sweep saw and what it touched.
+                           {QStringLiteral("cowork_hooks"), QJsonObject{
+                                {QStringLiteral("sessions"), coworkSeeder.lastResult().sessions},
+                                {QStringLiteral("written"), coworkSeeder.lastResult().written},
+                                {QStringLiteral("failed"), coworkSeeder.lastResult().failed},
+                                {QStringLiteral("helper"), coworkSeeder.lastHelperPath()}}}};
     });
     codexSource.start();
     return app.exec();
