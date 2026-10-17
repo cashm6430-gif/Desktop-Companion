@@ -2,6 +2,7 @@
 #ifdef HAVE_CUBISM
 #include "CubismCanvas.h"
 #endif
+#include "ScreenPlacement.h"
 #include "StartupTrace.h"
 #include "TrayMenuStyle.h"
 #include "overlay/FrameOverlay.h"
@@ -513,6 +514,19 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     else if (const QScreen* screen = QGuiApplication::primaryScreen()) {
         const QRect r = screen->availableGeometry();
         move(r.right() - width() - 24, r.bottom() - height() - 24);
+    }
+    // A position saved before this contract existed can be off the right edge by
+    // up to 184 px, which parks the thought bubble off-screen for good -- she
+    // then looks broken from the first work turn of the session. Heal it here
+    // rather than waiting for the user to drag her back. Resolve the screen from
+    // the saved point itself: QWidget::screen() is only reliable once the window
+    // is shown, and a pet parked on a second monitor must heal onto THAT monitor
+    // instead of jumping to the primary one.
+    const QScreen* target = QGuiApplication::screenAt(pos());
+    if (!target) target = QGuiApplication::primaryScreen();
+    if (target) {
+        const QPoint healed = pet_placement::clampToScreen(target->availableGeometry(), size(), pos());
+        if (healed != pos()) move(healed);
     }
     director_.setFrequency(static_cast<TriggerDirector::Frequency>(
         settings.value(QStringLiteral("spontaneousFrequency"),
@@ -1607,18 +1621,17 @@ void PetWindow::releasePointerGesture() {
     grassTouchPressed_ = false;
 }
 
-// Motion card 4: after a scene move the window must stay reachable -- keep a
-// visible strip on the current screen so the pet is never lost behind the
-// taskbar or past a monitor edge.
+// Motion card 4: after a scene move the window must stay on the current screen.
+// This used to keep a visible *strip* of the pet on screen, which is enough to
+// grab her but not enough to keep her art intact: the thought bubble and the
+// sticky note are painted in the right third of the widget, so an overhang of a
+// few tens of pixels cut the bubble and a larger one hid it outright while she
+// still looked fine (see pet_placement::clampToScreen). Docking flush to an
+// edge is snapToEdges' job; this only guarantees the whole window is on screen.
 void PetWindow::constrainPositionToScreen() {
     const QScreen* screen = this->screen() ? this->screen() : QGuiApplication::primaryScreen();
     if (!screen) return;
-    const QRect avail = screen->availableGeometry();
-    const int minX = avail.left() - width() + 96;
-    const int maxX = avail.right() - 96;
-    const int minY = avail.top();
-    const int maxY = avail.bottom() - 96;
-    const QPoint clamped(std::clamp(x(), minX, maxX), std::clamp(y(), minY, maxY));
+    const QPoint clamped = pet_placement::clampToScreen(screen->availableGeometry(), size(), pos());
     if (clamped != pos()) move(clamped);
 }
 

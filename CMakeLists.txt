@@ -138,6 +138,12 @@ if(BUILD_TESTING)
         src/TriggerDirector.h src/TriggerDirector.cpp)
     target_link_libraries(TriggerDirectorTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME TriggerDirectorTest COMMAND TriggerDirectorTest)
+    # No assets, no widget: the placement contract is pure arithmetic, so this
+    # one runs anywhere and is the guard against the thought bubble being parked
+    # off-screen again by a partial screen overhang.
+    add_executable(ScreenPlacementTest tests/ScreenPlacementTest.cpp src/ScreenPlacement.h)
+    target_link_libraries(ScreenPlacementTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME ScreenPlacementTest COMMAND ScreenPlacementTest)
     add_executable(ToonEventBridgeTest tests/ToonEventBridgeTest.cpp
         src/ToonEventBridge.h src/ToonEventBridge.cpp
         src/PetController.h src/PetController.cpp)
