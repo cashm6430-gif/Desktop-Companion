@@ -23,6 +23,17 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $helper = (Resolve-Path -LiteralPath $HelperPath).Path
+
+# Write JSON as BOM-less UTF-8. `Set-Content -Encoding utf8` under PowerShell
+# 5.1 stamps a UTF-8 BOM, which strict JSON readers (Codex) reject outright.
+# Same contract as the helper in install-hooks.ps1 -- keep the two in step.
+function Write-JsonFile {
+    param([string]$Path, [string]$Content)
+    $full = if ([IO.Path]::IsPathRooted($Path)) { $Path }
+            else { Join-Path (Get-Location).Path $Path }
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [IO.File]::WriteAllText($full, $Content + [Environment]::NewLine, $utf8NoBom)
+}
 # Claude Desktop runs hook commands through the Windows shell; a quoted absolute
 # path is what the desktop config already uses successfully (see .workbuddy).
 $command = '"' + $helper + '"'
@@ -45,7 +56,7 @@ Get-ChildItem -LiteralPath $root -Directory -Recurse -Depth 3 -Filter '.claude' 
                 ForEach-Object { if ($_.Name -ne 'hooks') { $config[$_.Name] = $_.Value } }
         }
         $config['hooks'] = $hookGroups
-        ($config | ConvertTo-Json -Depth 20) | Set-Content -LiteralPath $settings -Encoding utf8
+        Write-JsonFile -Path $settings -Content ($config | ConvertTo-Json -Depth 20)
         Write-Host "seeded $settings"
         $script:seeded++
     }

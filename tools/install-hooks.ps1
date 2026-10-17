@@ -72,6 +72,18 @@ function New-ClientSpec {
     }
 }
 
+# Write JSON as BOM-less UTF-8. `Set-Content -Encoding utf8` under PowerShell
+# 5.1 stamps a UTF-8 BOM (EF BB BF) on the file, and Codex's config reader
+# rejects the whole hooks.json when it starts with one -- the pet silently stops
+# reacting. Keep this the ONLY way these scripts write a config file.
+function Write-JsonFile {
+    param([string]$Path, [string]$Content)
+    $full = if ([IO.Path]::IsPathRooted($Path)) { $Path }
+            else { Join-Path (Get-Location).Path $Path }
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [IO.File]::WriteAllText($full, $Content + [Environment]::NewLine, $utf8NoBom)
+}
+
 # A hook group belongs to the pet when any of its commands references the helper.
 function Test-PetGroup {
     param($Group)
@@ -144,6 +156,6 @@ foreach ($name in $names) {
         $parent = Split-Path -Parent $path
         if ($parent -and -not (Test-Path -LiteralPath $parent)) { New-Item -ItemType Directory -Path $parent -Force | Out-Null }
     }
-    $config | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $path -Encoding utf8
+    Write-JsonFile -Path $path -Content ($config | ConvertTo-Json -Depth 20)
     Write-Host "$action pet hooks for $name in $path ($($spec.Events -join ', '))"
 }

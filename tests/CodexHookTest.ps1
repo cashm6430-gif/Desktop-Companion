@@ -7,6 +7,32 @@ $ErrorActionPreference = 'Stop'
 $configPath = Join-Path ([IO.Path]::GetTempPath()) ("pet-hooks-test-" + [guid]::NewGuid() + '.json')
 try {
     & $InstallerPath -TargetPath $configPath -HelperPath $HelperPath
+    # Byte-level guard: a UTF-8 BOM (EF BB BF) makes Codex refuse the whole
+    # hooks.json, and `Get-Content | ConvertFrom-Json` below would NOT notice it
+    # (it tolerates a BOM), so the regression has to be caught here.
+    $bytes = [IO.File]::ReadAllBytes($configPath)
+    if ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) {
+        throw 'hooks.json was written with a UTF-8 BOM; Codex cannot parse it'
+    }
+    # The regression only shows up under Windows PowerShell 5.1: its
+    # `Set-Content -Encoding utf8` stamps a BOM, pwsh 7's does not -- and CI runs
+    # this test on pwsh, so the host that actually broke has to be driven here.
+    # Product usage is `powershell -File tools\install-hooks.ps1` (setup.exe and
+    # the README), i.e. 5.1.
+    $legacyShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+    if (Test-Path -LiteralPath $legacyShell) {
+        $legacyConfig = Join-Path ([IO.Path]::GetTempPath()) ("pet-hooks-test-ps51-" + [guid]::NewGuid() + '.json')
+        try {
+            $legacyArgs = @('-NoLogo', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
+                '-File', $InstallerPath, '-TargetPath', $legacyConfig, '-HelperPath', $HelperPath)
+            & $legacyShell @legacyArgs | Out-Null
+            $legacyBytes = [IO.File]::ReadAllBytes($legacyConfig)
+            $hasBom = ($legacyBytes.Length -ge 3) -and ($legacyBytes[0] -eq 0xEF) -and ($legacyBytes[1] -eq 0xBB) -and ($legacyBytes[2] -eq 0xBF)
+            if ($hasBom) { throw 'Windows PowerShell 5.1 wrote hooks.json with a UTF-8 BOM; Codex cannot parse it' }
+        } finally {
+            if (Test-Path -LiteralPath $legacyConfig) { Remove-Item -LiteralPath $legacyConfig }
+        }
+    }
     $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
     foreach ($event in @('UserPromptSubmit', 'Stop', 'Interrupt', 'SessionEnd')) {
         $command = $config.hooks.$event[0].hooks[0].command
