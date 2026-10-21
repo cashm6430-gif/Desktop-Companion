@@ -4,8 +4,11 @@
 
 #include <algorithm>
 #include <cmath>
+#include <utility>
 
-PetController::PetController(QObject* parent) : QObject(parent) {
+PetController::PetController(QObject* parent, NowMs nowMs)
+    : QObject(parent), nowMs_(nowMs ? std::move(nowMs)
+        : NowMs{[] { return QDateTime::currentMSecsSinceEpoch(); }}) {
     actionTimer_.setSingleShot(true);
     connect(&actionTimer_, &QTimer::timeout, this, &PetController::restoreBackgroundState);
     expiryTimer_.setInterval(60 * 1000);
@@ -48,7 +51,7 @@ void PetController::actionFinished() {
 
 void PetController::turnStarted(const QString& sessionId, const QString& turnId) {
     if (sessionId.isEmpty() || turnId.isEmpty()) return;
-    activeTurns_.insert(sessionId + QChar::Null + turnId, QDateTime::currentMSecsSinceEpoch());
+    activeTurns_.insert(sessionId + QChar::Null + turnId, nowMs_());
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
 }
 
@@ -82,7 +85,7 @@ void PetController::turnStopped(const QString& sessionId, const QString& turnId)
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
     if (removed) {
         if (activeTurns_.isEmpty()) emit allTurnsStopped();
-        emit turnEnded(sessionId, qMax<qint64>(0, QDateTime::currentMSecsSinceEpoch() - endedStartedMs));
+        emit turnEnded(sessionId, qMax<qint64>(0, nowMs_() - endedStartedMs));
     }
 }
 
@@ -154,7 +157,7 @@ void PetController::expireOldTurns() {
     // "busy" for most of a day, so cap stale turns at 4 h -- long enough for any
     // real agent task, short enough to self-heal. The tray has a manual reset too.
     constexpr qint64 maxAgeMs = 4LL * 60 * 60 * 1000;
-    const qint64 now = QDateTime::currentMSecsSinceEpoch();
+    const qint64 now = nowMs_();
     for (auto it = activeTurns_.begin(); it != activeTurns_.end();) {
         if (now - it.value() > maxAgeMs) it = activeTurns_.erase(it);
         else ++it;

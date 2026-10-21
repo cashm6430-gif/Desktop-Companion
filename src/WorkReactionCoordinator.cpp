@@ -1,0 +1,53 @@
+#include "WorkReactionCoordinator.h"
+
+#include "ParameterMotion.h"
+
+#include <utility>
+
+WorkReactionCoordinator::WorkReactionCoordinator(
+    PetController* controller, ParameterMotion* motion, QObject* parent,
+    StateSink applyState, DurationNote durationNote, ObserveAttempt observe)
+    : QObject(parent), controller_(controller), motion_(motion),
+      stateSink_(std::move(applyState)), durationNote_(std::move(durationNote)),
+      observe_(std::move(observe)) {
+    connect(controller_, &PetController::stateChanged, this,
+            [this](PetController::State state) { this->applyState(state); });
+    connect(controller_, &PetController::allTurnsStopped, this,
+            [this] { returnGaze(); });
+    connect(controller_, &PetController::turnEnded, this,
+            [this](const QString&, qint64 workedMs) {
+        if (workedMs >= kMinimumNoteMs && durationNote_) durationNote_(workedMs);
+    });
+}
+
+void WorkReactionCoordinator::applyState(PetController::State state) {
+    // Apply the real background first. In particular a fresh Busy cancels an
+    // old return-gaze before this session's greeting is offered.
+    if (stateSink_) stateSink_(state);
+    else motion_->setState(state);
+
+    if (state == PetController::State::Idle) {
+        greeted_ = false;
+    } else if (state == PetController::State::Busy && !greeted_) {
+        greeted_ = true;
+        const bool started = motion_->playGreet();
+        report(QStringLiteral("greet"), started,
+               started ? QStringLiteral("started") : QStringLiteral("motion_gate_refused"));
+    }
+}
+
+void WorkReactionCoordinator::returnGaze() {
+    // Do not steal Delete/Grass or replay a refused cue once it becomes Idle.
+    if (controller_->activeTurnCount() != 0
+        || controller_->state() != PetController::State::Idle) {
+        report(QStringLiteral("turn-ended"), false, QStringLiteral("activity_owns_stage"));
+        return;
+    }
+    const bool started = motion_->playTurnEnded();
+    report(QStringLiteral("turn-ended"), started,
+           started ? QStringLiteral("started") : QStringLiteral("motion_gate_refused"));
+}
+
+void WorkReactionCoordinator::report(const QString& id, bool started, const QString& reason) {
+    if (observe_) observe_(id, started, reason);
+}

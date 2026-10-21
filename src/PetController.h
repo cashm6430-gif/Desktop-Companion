@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QPointF>
 #include <QTimer>
+#include <functional>
 
 // Owns the priority, de-duplication and active-turn bookkeeping, and decides
 // which state the pet is in.
@@ -19,7 +20,10 @@ public:
     enum class State { Idle, Busy, Delete, Grass };
     Q_ENUM(State)
 
-    explicit PetController(QObject* parent = nullptr);
+    using NowMs = std::function<qint64()>;
+    // The injectable clock keeps controller event-chain tests deterministic;
+    // default construction retains the wall-clock behavior used by hooks.
+    explicit PetController(QObject* parent = nullptr, NowMs nowMs = {});
     State state() const { return state_; }
     int activeTurnCount() const { return activeTurns_.size(); }
     // The file the pet was last fed by drag-and-drop, empty before the first
@@ -83,6 +87,7 @@ private:
     void expireOldTurns();
     int durationMs(State state) const;
     QHash<QString, qint64> activeTurns_;
+    NowMs nowMs_;
     State state_ = State::Idle;
     QTimer actionTimer_;
     QTimer expiryTimer_;

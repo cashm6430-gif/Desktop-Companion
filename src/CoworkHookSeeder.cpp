@@ -14,6 +14,7 @@
 #include <QTimer>
 
 #include <algorithm>
+#include <utility>
 
 namespace {
 
@@ -49,7 +50,17 @@ QJsonObject petGroup(const QString& helperPath)
 } // namespace
 
 CoworkHookSeeder::CoworkHookSeeder(QObject* parent)
-    : QObject(parent) {}
+    : CoworkHookSeeder(Schedule{defaultHelperPath(), sessionRoot()}, parent) {}
+
+CoworkHookSeeder::CoworkHookSeeder(Schedule schedule, QObject* parent)
+    : QObject(parent), schedule_(std::move(schedule))
+{
+    startupTimer_ = new QTimer(this);
+    startupTimer_->setSingleShot(true);
+    connect(startupTimer_, &QTimer::timeout, this, &CoworkHookSeeder::sweep);
+    timer_ = new QTimer(this);
+    connect(timer_, &QTimer::timeout, this, &CoworkHookSeeder::sweep);
+}
 
 QString CoworkHookSeeder::sessionRoot()
 {
@@ -183,22 +194,29 @@ CoworkSeedResult CoworkHookSeeder::seedOnce(const QString& helperPath, const QSt
 
 void CoworkHookSeeder::start(int intervalMs)
 {
-    bool firstSweep = true;
-    const auto sweep = [this, &firstSweep] {
-        lastHelperPath_ = defaultHelperPath();
-        lastResult_ = seedOnce(lastHelperPath_);
-        // Quiet by design: only the first sweep and anything that actually moved
-        // leave a line, so the trace file does not grow all day.
-        if (firstSweep || lastResult_.written || lastResult_.failed) {
-            startup::trace(QStringLiteral("cowork hooks: %1 session dir(s), %2 written, %3 failed")
-                .arg(lastResult_.sessions).arg(lastResult_.written).arg(lastResult_.failed));
-        }
-        firstSweep = false;
-    };
+    stop();
+    firstSweep_ = true;
     // After the first paint, so a capture run is not delayed by a filesystem walk.
-    QTimer::singleShot(1200, this, sweep);
-    timer_ = new QTimer(this);
-    timer_->setInterval(std::max(10000, intervalMs));
-    connect(timer_, &QTimer::timeout, this, sweep);
-    timer_->start();
+    startupTimer_->start(std::max(0, schedule_.startupDelayMs));
+    timer_->start(std::max(std::max(1, schedule_.minimumIntervalMs), intervalMs));
+}
+
+void CoworkHookSeeder::stop()
+{
+    startupTimer_->stop();
+    timer_->stop();
+}
+
+void CoworkHookSeeder::sweep()
+{
+    lastHelperPath_ = schedule_.helperPath;
+    lastResult_ = seedOnce(lastHelperPath_, schedule_.root);
+    // Only the first sweep and actual changes leave a log line. Every piece of
+    // state used by delayed callbacks belongs to this object, as do both timers.
+    if (firstSweep_ || lastResult_.written || lastResult_.failed) {
+        startup::trace(QStringLiteral("cowork hooks: %1 session dir(s), %2 written, %3 failed")
+            .arg(lastResult_.sessions).arg(lastResult_.written).arg(lastResult_.failed));
+    }
+    firstSweep_ = false;
+    emit sweepFinished();
 }

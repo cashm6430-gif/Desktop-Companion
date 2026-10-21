@@ -31,6 +31,16 @@ class CoworkHookSeeder : public QObject {
 public:
     explicit CoworkHookSeeder(QObject* parent = nullptr);
 
+    // Explicit per-instance paths/scheduling also let an isolated runtime use
+    // a different session tree without changing process-wide environment.
+    struct Schedule {
+        QString helperPath;
+        QString root;
+        int startupDelayMs = 1200;
+        int minimumIntervalMs = 10000;
+    };
+    explicit CoworkHookSeeder(Schedule schedule, QObject* parent = nullptr);
+
     // %LOCALAPPDATA%\Claude-3p\local-agent-mode-sessions
     static QString sessionRoot();
     // The helper this build should point clients at: the one next to the app.
@@ -50,15 +60,24 @@ public:
     static CoworkSeedResult seedOnce(const QString& helperPath = defaultHelperPath(),
                                      const QString& root = sessionRoot());
 
-    // Seed shortly after startup, then every `intervalMs`. Safe to call in a
-    // capture run too: it touches no rendering state.
+    // Seed shortly after startup, then every `intervalMs`. Repeated starts
+    // replace the previous schedule; stop cancels the pending first sweep too.
     void start(int intervalMs = 120000);
+    void stop();
 
     CoworkSeedResult lastResult() const { return lastResult_; }
     QString lastHelperPath() const { return lastHelperPath_; }
 
+signals:
+    void sweepFinished();
+
 private:
+    void sweep();
+
+    Schedule schedule_;
+    QTimer* startupTimer_ = nullptr;
     QTimer* timer_ = nullptr;
+    bool firstSweep_ = true;
     CoworkSeedResult lastResult_;
     QString lastHelperPath_;
 };

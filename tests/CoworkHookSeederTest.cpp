@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTemporaryDir>
+#include <memory>
 
 // Claude Desktop keeps its hooks in a PER-SESSION config dir, so something has to
 // keep seeding them as conversations appear. That job used to be a Scheduled Task
@@ -271,6 +272,117 @@ private slots:
         QCOMPARE(result.sessions, 0);
         QCOMPARE(result.written, 0);
         QCOMPARE(result.failed, 0);
+    }
+
+    // Exercise the actual event-loop path, after start() has returned.
+    // Configuration writes stay in this temporary tree with a stand-in helper.
+    void scheduledSweepsWriteOnceAndThenStayQuiet()
+    {
+        QTemporaryDir temp;
+        QVERIFY(temp.isValid());
+        makeSession(temp.path(), QStringLiteral("s1"), QByteArray());
+        const QString self = makeFakeHelper(temp.path());
+        QVERIFY(QFileInfo::exists(self));
+        CoworkHookSeeder seeder({self, temp.path(), 5, 20});
+        QSignalSpy sweeps(&seeder, &CoworkHookSeeder::sweepFinished);
+        QList<CoworkSeedResult> results;
+        connect(&seeder, &CoworkHookSeeder::sweepFinished, this,
+                [&] { results.append(seeder.lastResult()); });
+        seeder.start(200);
+
+        QTRY_VERIFY_WITH_TIMEOUT(sweeps.count() >= 1, 1000);
+        QCOMPARE(results.first().sessions, 1);
+        QCOMPARE(results.first().written, 1);
+        QCOMPARE(results.first().failed, 0);
+        QCOMPARE(seeder.lastHelperPath(), self);
+        QFile file(settingsAt(temp.path(), QStringLiteral("s1")));
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        const QByteArray first = file.readAll();
+        QVERIFY(!first.startsWith("\xEF\xBB\xBF"));
+        QCOMPARE(first.count("DesktopCompanionHook.exe"), qsizetype(3));
+        file.close();
+
+        QTRY_VERIFY_WITH_TIMEOUT(sweeps.count() >= 2, 1000);
+        seeder.stop();
+        QCOMPARE(seeder.lastResult().written, 0);
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        QCOMPARE(file.readAll(), first);
+    }
+
+    void repeatedStartReplacesPendingAndPeriodicCallbacks()
+    {
+        QTemporaryDir temp;
+        QVERIFY(temp.isValid());
+        const QString self = makeFakeHelper(temp.path());
+        QVERIFY(QFileInfo::exists(self));
+        CoworkHookSeeder seeder({self, temp.path(), 5, 20});
+        QSignalSpy sweeps(&seeder, &CoworkHookSeeder::sweepFinished);
+        // The first schedule's short recurring timer must not survive a
+        // restart, and ten starts must not leave ten pending initial sweeps.
+        seeder.start(20);
+        for (int i = 0; i < 9; ++i) seeder.start(5000);
+        QTRY_VERIFY_WITH_TIMEOUT(sweeps.count() >= 1, 1000);
+        QTest::qWait(100);
+        QCOMPARE(sweeps.count(), 1);
+        seeder.stop();
+    }
+
+    void stopCancelsPendingAndPeriodicSweeps()
+    {
+        QTemporaryDir temp;
+        QVERIFY(temp.isValid());
+        makeSession(temp.path(), QStringLiteral("s1"), QByteArray());
+        const QString self = makeFakeHelper(temp.path());
+        QVERIFY(QFileInfo::exists(self));
+        CoworkHookSeeder seeder({self, temp.path(), 5, 20});
+        QSignalSpy sweeps(&seeder, &CoworkHookSeeder::sweepFinished);
+        seeder.start(40);
+        seeder.stop();
+        QTest::qWait(100);
+        QCOMPARE(sweeps.count(), 0);
+        QVERIFY(!QFileInfo::exists(settingsAt(temp.path(), QStringLiteral("s1"))));
+
+        seeder.start(40);
+        QTRY_VERIFY_WITH_TIMEOUT(sweeps.count() >= 1, 1000);
+        seeder.stop();
+        const qsizetype stoppedCount = sweeps.count();
+        makeSession(temp.path(), QStringLiteral("s2"), QByteArray());
+        QTest::qWait(100);
+        QCOMPARE(sweeps.count(), stoppedCount);
+        QVERIFY(!QFileInfo::exists(settingsAt(temp.path(), QStringLiteral("s2"))));
+    }
+
+    void destructionCancelsPendingAndPeriodicSweeps()
+    {
+        QTemporaryDir temp;
+        QVERIFY(temp.isValid());
+        const QString self = makeFakeHelper(temp.path());
+        QVERIFY(QFileInfo::exists(self));
+        const QString before = temp.path() + QStringLiteral("/before");
+        makeSession(before, QStringLiteral("s1"), QByteArray());
+        int callbacks = 0;
+        auto pending = std::make_unique<CoworkHookSeeder>(
+            CoworkHookSeeder::Schedule{self, before, 5, 20});
+        connect(pending.get(), &CoworkHookSeeder::sweepFinished, this, [&] { ++callbacks; });
+        pending->start(40);
+        pending.reset();
+        QTest::qWait(100);
+        QCOMPARE(callbacks, 0);
+        QVERIFY(!QFileInfo::exists(settingsAt(before, QStringLiteral("s1"))));
+
+        const QString after = temp.path() + QStringLiteral("/after");
+        makeSession(after, QStringLiteral("s1"), QByteArray());
+        auto running = std::make_unique<CoworkHookSeeder>(
+            CoworkHookSeeder::Schedule{self, after, 5, 20});
+        connect(running.get(), &CoworkHookSeeder::sweepFinished, this, [&] { ++callbacks; });
+        running->start(40);
+        QTRY_VERIFY_WITH_TIMEOUT(callbacks >= 1, 1000);
+        running.reset();
+        const int destroyedCount = callbacks;
+        makeSession(after, QStringLiteral("s2"), QByteArray());
+        QTest::qWait(100);
+        QCOMPARE(callbacks, destroyedCount);
+        QVERIFY(!QFileInfo::exists(settingsAt(after, QStringLiteral("s2"))));
     }
 
     // The helper's FILE NAME is the de-dup marker shared with

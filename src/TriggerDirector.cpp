@@ -1,6 +1,7 @@
 #include "TriggerDirector.h"
 
 #include <algorithm>
+#include <cmath>
 
 namespace {
 // Discipline constants (seconds, Normal pace). The chance values are per
@@ -25,6 +26,10 @@ TriggerDirector::TriggerDirector() {
     // Working-busy scenes: the desk break choreography.
     stretch_ = {nullptr, "stretch", 1500.0, 1500.0, 0.02, true, -1e9, -1e9}; // 25 min / 25 min
     rice_ = {nullptr, "rice", 2700.0, 2700.0, 0.02, true, -1e9, -1e9};       // 45 min / 45 min
+}
+
+void TriggerDirector::setChanceScale(double scale) {
+    chanceScale_ = std::isfinite(scale) ? std::max(0.0, scale) : 0.0;
 }
 
 double TriggerDirector::cooldownOf(const Scene& scene) const {
@@ -93,9 +98,12 @@ void TriggerDirector::tick(double dt, bool idle, bool busy) {
                                            : frequency_ == Frequency::Often
                                                ? kOftenChanceScale : 1.0);
     const auto hit = [&](const Scene& scene) {
-        if (chanceScale <= 0.0) return false;
-        if (chanceScale >= 1.0) return true;
-        return std::uniform_real_distribution<>(0.0, 1.0)(rng_) < scene.chance * chanceScale;
+        // The scale is a multiplier, not the probability itself. Normal=1
+        // and Often=2 must still roll the scene's 0.015..0.03 chance.
+        const double probability = std::clamp(scene.chance * chanceScale, 0.0, 1.0);
+        if (probability <= 0.0) return false;
+        if (probability >= 1.0) return true;
+        return std::uniform_real_distribution<>(0.0, 1.0)(rng_) < probability;
     };
 
     if (busy) {

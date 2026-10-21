@@ -5,6 +5,7 @@
 #include "ScreenPlacement.h"
 #include "StartupTrace.h"
 #include "TrayMenuStyle.h"
+#include "WorkReactionCoordinator.h"
 #include "overlay/FrameOverlay.h"
 
 #include <QApplication>
@@ -437,48 +438,33 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // icon); drops arrive here too, through the shared triggerEat entry.
     connect(controller_, &PetController::eatTriggered,
             this, &PetWindow::onEatTriggered);
-    connect(controller_, &PetController::allTurnsStopped, this, [this] {
-        if (controller_->state() == PetController::State::Idle)
-            motion_.playTurnEnded();
-    });
-    // Work-companion beats (approved 2026-10-16): the first turn of a session
-    // earns 开工致意, a turn that really worked ends with 完成庆祝. Both ride the
-    // silhouette levers so they read at 280px.
-    connect(controller_, &PetController::stateChanged, this, [this](PetController::State state) {
-        if (state == PetController::State::Busy && !workSessionGreeted_) {
-            workSessionGreeted_ = true;
-            motion_.playGreet();
-        } else if (state == PetController::State::Idle) {
-            workSessionGreeted_ = false;
-        }
-    });
-    // A real turn just ended: like an assistant pinning a note before leaving,
-    // a turn that actually worked for a while folds a small summary onto the
-    // desk corner. It starts as the badge (no float-up, no gaze beat -- the
-    // turn-ended animation owns the moment), and clicking the badge re-opens
-    // it with the usual memo interaction. The user's own note always wins.
-    connect(controller_, &PetController::turnEnded, this, [this](const QString&, qint64 workedMs) {
-        constexpr qint64 kMinAutoNoteMs = 30 * 1000;
-        if (workedMs < kMinAutoNoteMs) return;
-        motion_.playCheer();
-        if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
-        const qint64 secs = workedMs / 1000;
-        memoText_ = QStringLiteral("✓ %1 · 这轮忙了 %2 分 %3 秒")
-            .arg(QDateTime::currentDateTime().toString(QStringLiteral("HH:mm")))
-            .arg(secs / 60)
-            .arg(secs % 60, 2, 10, QChar('0'));
-        memoVisual_ = MemoVisual::Badge;
-        memoRiseSeen_ = false;
-        memoVisualClock_.restart();
-    });
+    // Share this ordering with the controller-to-player regression tests.
+    // Stop/Interrupt do not prove success, so automatic work-end gets one
+    // neutral return-gaze. The approved cheer remains an explicit preview.
+    new WorkReactionCoordinator(controller_, &motion_, this,
+        [this](PetController::State state) { setState(state); },
+        [this](qint64 workedMs) {
+            // The badge records duration only. The user's own note always wins.
+            if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
+            const qint64 secs = workedMs / 1000;
+            memoText_ = QStringLiteral("✓ %1 · 这轮忙了 %2 分 %3 秒")
+                .arg(QDateTime::currentDateTime().toString(QStringLiteral("HH:mm")))
+                .arg(secs / 60)
+                .arg(secs % 60, 2, 10, QChar('0'));
+            memoVisual_ = MemoVisual::Badge;
+            memoRiseSeen_ = false;
+            memoVisualClock_.restart();
+        }, [](const QString& id, bool started, const QString& reason) {
+            startup::trace(QStringLiteral("work reaction %1: %2 (%3)")
+                .arg(id, started ? QStringLiteral("started") : QStringLiteral("refused"), reason));
+        });
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;
         advanceLiveFrame(seconds);
     });
     frameTimer_.start();
-    connect(controller_, &PetController::stateChanged, this, &PetWindow::setState);
-    setState(PetController::State::Idle);
+    setState(controller_->state());
 
     // Spontaneous-scene scheduler: the same start code paths as the tray
     // menu, driven by the director's nominations every second.

@@ -146,6 +146,7 @@ private slots:
     void grassInteractionRootAndSoftTipStayBounded();
     void grassInteractionConfigurationRejectsBadPhasesAndGrip();
     void gazeFollowsCursorAndSettlesToCenter();
+    void workReactionsYieldToForeground();
 };
 
 void ParameterMotionTest::grassInteractionRespondsOnlyDuringHold() {
@@ -1914,6 +1915,44 @@ void ParameterMotionTest::gazeFollowsCursorAndSettlesToCenter() {
     motion.setGazeTarget(1.0, 0.0, true, true);
     advanceFrames(motion, 40);
     QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.1);
+}
+
+void ParameterMotionTest::workReactionsYieldToForeground() {
+    for (const bool seated : {false, true}) {
+        for (const bool cheer : {false, true}) {
+            for (const auto foreground : {PetController::State::Delete, PetController::State::Grass}) {
+                ParameterMotion motion;
+                QString error;
+                QVERIFY2(motion.loadMotionLibrary(QStringLiteral("assets/motions"), &error), qPrintable(error));
+                motion.setDeskWorkMode(true);
+                if (seated) {
+                    motion.forceLaptopBusy();
+                    advanceFrames(motion, 80);
+                } else {
+                    motion.setState(PetController::State::Idle);
+                    advanceFrames(motion, 1);
+                }
+                QVERIFY(cheer ? motion.playCheer() : motion.playGreet());
+                advanceFrames(motion, 10);
+                QVERIFY(motion.interactionActive());
+
+                // An event owns the face as well as the body. A work cue left
+                // running here would overwrite the deletion/grass face later
+                // in applyInteraction(), despite the background state changing.
+                motion.setState(foreground);
+                QVERIFY(!motion.interactionActive());
+                QVERIFY(motion.interactionId().isEmpty());
+                motion.advance(0.02);
+                for (double value : motion.values()) QVERIFY(std::isfinite(value));
+
+                // Returning to the latest background must not resurrect a
+                // greeting or celebration that the event already interrupted.
+                motion.setState(seated ? PetController::State::Busy : PetController::State::Idle);
+                advanceFrames(motion, 10);
+                QVERIFY(!motion.interactionActive());
+            }
+        }
+    }
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

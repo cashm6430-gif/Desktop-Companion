@@ -60,9 +60,10 @@ public:
 
     // Deterministic nomination for tests and for reproducible captures.
     void seed(unsigned int s) { rng_.seed(s); }
-    // Test hook: multiplies every per-tick chance (values >1 make a hit
-    // immediate, 0 disables chance-based hits but not the startup wave).
-    void setChanceScale(double scale) { chanceScale_ = scale; }
+    // Test hook: multiplies each scene's probability before clamping to [0, 1].
+    // 1000 forces all current scenes to hit; 0 disables chance-based hits but
+    // not the startup wave. Non-finite/negative input also disables scene rolls.
+    void setChanceScale(double scale);
 
     // Advance by dt seconds with the current controller state. At most one
     // nomination per tick.

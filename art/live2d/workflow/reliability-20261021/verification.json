@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "created_at": "2026-10-21T20:31:55+08:00",
+  "scope": "P0 reliability: timer lifetime, work reaction arbitration, spontaneous probability",
+  "base_commit": "2ca48ed53e39c99387bddc468d996018b50ba656",
+  "route": "Qt + Cubism Native R19; no model or animation asset changes",
+  "build": {
+    "configuration": "Release",
+    "cubism_enabled": true,
+    "exit_code": 0,
+    "command": "cmake --build build -j 4"
+  },
+  "regression": {
+    "command": "ctest --test-dir build --output-on-failure",
+    "passed_targets": 14,
+    "failed_targets": 0,
+    "duration_seconds": 43.29,
+    "targets": [
+      {
+        "name": "PetControllerTest",
+        "seconds": 6.84728,
+        "status": "passed"
+      },
+      {
+        "name": "PetPointerGestureTest",
+        "seconds": 0.0610822,
+        "status": "passed"
+      },
+      {
+        "name": "TriggerDirectorTest",
+        "seconds": 0.0980404,
+        "status": "passed"
+      },
+      {
+        "name": "ScreenPlacementTest",
+        "seconds": 0.17575,
+        "status": "passed"
+      },
+      {
+        "name": "CoworkHookSeederTest",
+        "seconds": 1.07842,
+        "status": "passed"
+      },
+      {
+        "name": "ToonEventBridgeTest",
+        "seconds": 14.4797,
+        "status": "passed"
+      },
+      {
+        "name": "ParameterMotionTest",
+        "seconds": 3.61527,
+        "status": "passed"
+      },
+      {
+        "name": "MotionClipTest",
+        "seconds": 0.557045,
+        "status": "passed"
+      },
+      {
+        "name": "CubismMaterialBindingTest",
+        "seconds": 0.17576,
+        "status": "passed"
+      },
+      {
+        "name": "CubismNeckBindingTest",
+        "seconds": 10.4193,
+        "status": "passed"
+      },
+      {
+        "name": "CubismPostureTransitionTest",
+        "seconds": 0.0610993,
+        "status": "passed"
+      },
+      {
+        "name": "CubismMaterialTextureTest",
+        "seconds": 1.80144,
+        "status": "passed"
+      },
+      {
+        "name": "CodexHookTest",
+        "seconds": 2.14922,
+        "status": "passed"
+      },
+      {
+        "name": "CoworkSeedScriptTest",
+        "seconds": 1.49808,
+        "status": "passed"
+      }
+    ],
+    "added_cases": {
+      "CoworkHookSeederTest": [
+        "scheduledSweepsWriteOnceAndThenStayQuiet",
+        "repeatedStartReplacesPendingAndPeriodicCallbacks",
+        "stopCancelsPendingAndPeriodicSweeps",
+        "destructionCancelsPendingAndPeriodicSweeps"
+      ],
+      "TriggerDirectorTest": [
+        "defaultPacesRollAfterEligibility",
+        "fixedSeedReplaysNominationTimes",
+        "invalidScalesDisableRollsButNotStartup",
+        "busyNominationStartsAtMostOneScenePerTick"
+      ],
+      "MotionClipTest": [
+        "workStopsUseOneNeutralReactionAfterConcurrentTurns",
+        "workDurationNotesUseControllerClockAndThreshold",
+        "newTurnsAndForegroundActionsInterruptWorkEnd",
+        "workEndDuringForegroundIsDroppedWithoutReplay",
+        "cleanupAndDuplicateStopsDoNotInventCompletion",
+        "refusedWorkEndIsObservedWithoutQueueing",
+        "workEndPreservesSeatedPoseThroughRealSignals"
+      ],
+      "ParameterMotionTest": [
+        "workReactionsYieldToForeground (8 combinations)"
+      ]
+    }
+  },
+  "behavior": {
+    "seeder": "QObject-owned startup/periodic timers, one connection each; start replaces; stop/destruction cancel",
+    "probability": "clamp(scene.chance * paceScale * chanceScale, 0, 1); deterministic seeded regression",
+    "work_end": "last real turn only: one neutral return gaze; no automatic cheer; >=30s duration note independent",
+    "priority": "new Busy interrupts old gaze; Delete/Grass own foreground; rejected cue is observed and never queued",
+    "cleanup": "SessionEnd/reset/expiry do not invent completion"
+  },
+  "render_smoke": {
+    "command": "build/DesktopCompanion.exe --render-smoke <output.png>",
+    "exit_code": 0,
+    "frame_saved": true,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "render_samples": 4,
+    "state": "idle",
+    "visual_check": "idle frame inspected; no new visual adoption"
+  },
+  "formal_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "local_build_signing": {
+    "status": "Valid",
+    "timestamped": false,
+    "certificate_sha1": "1425E9059052C49BD37AFB28B8C6162017C32643"
+  },
+  "source_hashes": {
+    "CMakeLists.txt": {
+      "bytes": 13929,
+      "sha256": "c2ee04b1819f1f6d1aa42b60ae11aa9703666cb68188df8dd3691f5f747f2f98"
+    },
+    "src/CoworkHookSeeder.cpp": {
+      "bytes": 9169,
+      "sha256": "06e3217d2e6da890610e8664a646764101789ec2c3d9312ee1cca52f20889c72"
+    },
+    "src/CoworkHookSeeder.h": {
+      "bytes": 3466,
+      "sha256": "61bbdedd104c1acf6bd54eae31b748427eaa973d0734ab32d41e43076cd889dc"
+    },
+    "src/TriggerDirector.cpp": {
+      "bytes": 5117,
+      "sha256": "986540989c6b632babc2d8b0e368dc36de188ea0cdb5e752dd56022d33d79ea3"
+    },
+    "src/TriggerDirector.h": {
+      "bytes": 4348,
+      "sha256": "8bcd92434c2653b63d836be963de2e8bb3ead444ce6196d80907235a33f50dab"
+    },
+    "src/ParameterMotion.cpp": {
+      "bytes": 64278,
+      "sha256": "93a888797f61684e82b2cd1ad9c8a06f565c3cb1cee4fce0ca1ccfb278db19f9"
+    },
+    "src/PetController.cpp": {
+      "bytes": 7030,
+      "sha256": "4aed5fe08510b984cb2ea1105fe6ebd46ba02059222640e2098ab243860cf495"
+    },
+    "src/PetController.h": {
+      "bytes": 4955,
+      "sha256": "78b77d0ddba8050a18ad4cfe67ee1bb0553ced426a5061dccb570653345fcda2"
+    },
+    "src/PetWindow.cpp": {
+      "bytes": 85997,
+      "sha256": "c3e15ffbe4660bcc26c109dcaba7ce4a92b3cd86f423f6e71ff26d7ab02b7e02"
+    },
+    "src/PetWindow.h": {
+      "bytes": 12914,
+      "sha256": "6f99e3b645614e6139bc6ee98decfbc75d61a9b6dd15ee715cfad574f29623f2"
+    },
+    "src/WorkReactionCoordinator.cpp": {
+      "bytes": 2261,
+      "sha256": "4a88e9d81d3bb0edff29ffc29bb1a86ad84b02cf52eba801362eae37af8a7849"
+    },
+    "src/WorkReactionCoordinator.h": {
+      "bytes": 1273,
+      "sha256": "8a1774fa617730f87f55b6b9f9517cb321d81c15e118c6134035d35f96bf907c"
+    },
+    "tests/CoworkHookSeederTest.cpp": {
+      "bytes": 19377,
+      "sha256": "f85dcd4a99b87b2b881ce0cd0048addd1e224e514e50b57b00b7052e20eb13b6"
+    },
+    "tests/TriggerDirectorTest.cpp": {
+      "bytes": 10014,
+      "sha256": "b4e302e695c8de9a2e864e89078949253497743d201b779dc48c834cffaa4cb2"
+    },
+    "tests/MotionClipTest.cpp": {
+      "bytes": 34659,
+      "sha256": "714de75986e345bfa6ab6177b259cf9fe3e08f6e68fd7ec81d605bf2dd5bc46c"
+    },
+    "tests/ParameterMotionTest.cpp": {
+      "bytes": 98734,
+      "sha256": "ca574d7ea87e695c967e6e1d0ee90f1bcc8e43a405d41fc64c7ac537d2994d70"
+    }
+  },
+  "evidence_hashes": {
+    "ctest-junit.xml": {
+      "bytes": 3931,
+      "sha256": "71d026385a4ea1c68718329af02c8f30ae89e557f73b000b0ccfb6595f569e4a"
+    },
+    "ctest.log": {
+      "bytes": 1673,
+      "sha256": "70c531a3c9dedbc03e35e918603bd902513c50cfe95368934e9f51f9c832566b"
+    },
+    "render-smoke.png": {
+      "bytes": 84334,
+      "sha256": "c6810b747c787accab83f77954a2911c4b7bd0243d8abfe2f27fb16e24506902"
+    },
+    "render-smoke.png.json": {
+      "bytes": 137,
+      "sha256": "2735263d8940cf96e8092902fa6960eab43d2058dca417f6d6c5f38530b1671c"
+    }
+  },
+  "limits": [
+    "Seeder scheduling tests use temporary configuration trees and a stand-in helper.",
+    "Controller event tests use real signal wiring with an injected clock; no real hooks sent.",
+    "Native smoke exits before desktop deletion watcher, hook seeder and real client listeners start.",
+    "Installer/upgrade/uninstall and real desktop-client end-to-end acceptance remain pending.",
+    "Code regression and idle smoke do not approve future animation art."
+  ]
+}

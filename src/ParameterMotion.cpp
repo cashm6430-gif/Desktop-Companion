@@ -208,6 +208,8 @@ void ParameterMotion::setState(PetController::State state) {
     sequencePhysics_ = false;
     if ((interaction_ == Interaction::TurnEnded && state != PetController::State::Idle)
         || (interaction_ == Interaction::Stretch && state != PetController::State::Busy)
+        || ((interaction_ == Interaction::Greet || interaction_ == Interaction::Cheer)
+            && (state == PetController::State::Delete || state == PetController::State::Grass))
         || (interaction_ == Interaction::HeadPat
             && (state == PetController::State::Delete || state == PetController::State::Grass)))
         cancelInteraction();

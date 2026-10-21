@@ -38,6 +38,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/MotionClip.h src/MotionClip.cpp
     src/MotionLibrary.h src/MotionLibrary.cpp
     src/PetController.h src/PetController.cpp
+    src/WorkReactionCoordinator.h src/WorkReactionCoordinator.cpp
     src/PetPointerGesture.h src/PetPointerGesture.cpp
     src/ParameterMotion.h src/ParameterMotion.cpp
     src/motion/MotionMath.h
@@ -187,7 +188,8 @@ if(BUILD_TESTING)
     src/TriggerDirector.h src/TriggerDirector.cpp
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
-        src/PetController.h src/PetController.cpp)
+        src/PetController.h src/PetController.cpp
+        src/WorkReactionCoordinator.h src/WorkReactionCoordinator.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
     foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)

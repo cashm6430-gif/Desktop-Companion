@@ -2,6 +2,7 @@
 #include "../src/MotionLibrary.h"
 #include "../src/ParameterMotion.h"
 #include "../src/PetController.h"
+#include "../src/WorkReactionCoordinator.h"
 
 #include <QFile>
 #include <QtMath>
@@ -31,6 +32,13 @@ private slots:
     void busyStandReadsAsThinking();
     void thinkingBubblePopsWhileBusy();
     void deleteSwingIsReadable();
+    void workStopsUseOneNeutralReactionAfterConcurrentTurns();
+    void workDurationNotesUseControllerClockAndThreshold();
+    void newTurnsAndForegroundActionsInterruptWorkEnd();
+    void workEndDuringForegroundIsDroppedWithoutReplay();
+    void cleanupAndDuplicateStopsDoNotInventCompletion();
+    void refusedWorkEndIsObservedWithoutQueueing();
+    void workEndPreservesSeatedPoseThroughRealSignals();
 };
 
 namespace {
@@ -40,6 +48,47 @@ bool writeJson(QTemporaryFile& file, const QByteArray& json) {
     file.flush();
     return true;
 }
+
+struct WorkAttempt {
+    QString id;
+    bool started;
+    QString reason;
+};
+
+// Uses the same signal wiring as PetWindow, with the real controller/player.
+// Only elapsed wall time is substituted: a 30-second turn is exercised without
+// sleeping, sending hooks, creating a widget, or changing installed settings.
+struct WorkHarness {
+    qint64 now = 1000;
+    PetController controller{nullptr, [this] { return now; }};
+    ParameterMotion motion;
+    QList<WorkAttempt> attempts;
+    QList<qint64> notes;
+    QStringList reactionAtNote;
+    WorkReactionCoordinator coordinator{&controller, &motion, nullptr,
+        [this](PetController::State state) { motion.setState(state); },
+        [this](qint64 duration) {
+            notes.append(duration);
+            reactionAtNote.append(motion.interactionId());
+        },
+        [this](const QString& id, bool started, const QString& reason) {
+            attempts.append({id, started, reason});
+        }};
+
+    bool load() {
+        controller.setActionFallbackEnabled(false);
+        motion.setDeskWorkMode(true);
+        return motion.loadMotionLibrary(QStringLiteral("assets/motions"));
+    }
+    void advance(double seconds) {
+        for (int i = 0; i < qRound(seconds / 0.02); ++i) motion.advance(0.02);
+    }
+    int returns() const {
+        return std::count_if(attempts.cbegin(), attempts.cend(), [](const WorkAttempt& attempt) {
+            return attempt.id == QStringLiteral("turn-ended");
+        });
+    }
+};
 
 // QCOMPARE compares doubles with an absolute tolerance, which would hide a
 // changed summation order. The migration must reproduce the curves it replaced
@@ -475,6 +524,189 @@ void MotionClipTest::deleteSwingIsReadable() {
     const auto settled = remove.sample(remove.duration());
     for (auto it = settled.cbegin(); it != settled.cend(); ++it)
         QVERIFY2(qAbs(it.value()) < 1e-9, qPrintable(it.key()));
+}
+
+void MotionClipTest::workStopsUseOneNeutralReactionAfterConcurrentTurns() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+    work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+    QCOMPARE(work.controller.activeTurnCount(), 2);
+    QCOMPARE(work.attempts.size(), 1); // Busy-to-Busy is still the same work session.
+    work.advance(2.0);
+    QVERIFY(!work.motion.interactionActive());
+    work.now += 31000;
+
+    // A long individual turn may leave a duration note; it must not celebrate
+    // completion while another turn is still working. The old wiring did.
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.controller.state(), PetController::State::Busy);
+    QCOMPARE(work.controller.activeTurnCount(), 1);
+    QCOMPARE(work.notes, QList<qint64>{31000});
+    QCOMPARE(work.returns(), 0);
+    QVERIFY(!work.motion.interactionActive());
+
+    // This traverses actual allTurnsStopped -> turnEnded signal order. The
+    // second callback records duration and never competes for the player.
+    work.controller.turnStopped(QStringLiteral("b"), QStringLiteral("two"));
+    QCOMPARE(work.controller.state(), PetController::State::Idle);
+    QCOMPARE(work.controller.activeTurnCount(), 0);
+    QCOMPARE(work.returns(), 1);
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+    QCOMPARE(work.notes.size(), 2);
+    QCOMPARE(work.reactionAtNote.last(), QStringLiteral("turn-ended"));
+    QVERIFY(work.attempts.last().started);
+    for (const auto& attempt : work.attempts)
+        QVERIFY(attempt.id != QStringLiteral("cheer"));
+    work.advance(4.0);
+    QVERIFY(!work.motion.interactionActive());
+    QCOMPARE(work.returns(), 1);
+}
+
+void MotionClipTest::workDurationNotesUseControllerClockAndThreshold() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("short"));
+    work.advance(2.0);
+    work.now += WorkReactionCoordinator::kMinimumNoteMs - 1;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("short"));
+    QVERIFY(work.notes.isEmpty());
+    work.advance(3.0);
+
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("long"));
+    work.advance(2.0);
+    work.now += WorkReactionCoordinator::kMinimumNoteMs;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("long"));
+    QCOMPARE(work.notes, QList<qint64>{WorkReactionCoordinator::kMinimumNoteMs});
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+    QCOMPARE(work.returns(), 2);
+}
+
+void MotionClipTest::newTurnsAndForegroundActionsInterruptWorkEnd() {
+    for (const auto event : {PetController::State::Busy, PetController::State::Delete,
+                             PetController::State::Grass}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        work.advance(2.0);
+        work.now += 31000;
+        work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+        work.advance(0.3);
+        if (event == PetController::State::Busy)
+            work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+        else if (event == PetController::State::Delete)
+            work.controller.desktopItemDeleted();
+        else work.controller.playGrass();
+        QCOMPARE(work.controller.state(), event);
+        QVERIFY(work.motion.interactionId() != QStringLiteral("turn-ended"));
+        if (event == PetController::State::Busy) {
+            // State is applied before the greeting, so the old reaction has
+            // already released its channels when the new work begins.
+            QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+            QVERIFY(work.attempts.last().started);
+        } else {
+            QVERIFY(!work.motion.interactionActive());
+        }
+        work.advance(4.0);
+        QVERIFY(work.motion.interactionId() != QStringLiteral("turn-ended"));
+        QCOMPARE(work.returns(), 1);
+    }
+}
+
+void MotionClipTest::workEndDuringForegroundIsDroppedWithoutReplay() {
+    for (const auto event : {PetController::State::Delete, PetController::State::Grass}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        work.advance(2.0);
+        if (event == PetController::State::Delete) work.controller.desktopItemDeleted();
+        else work.controller.playGrass();
+        work.now += 31000;
+        work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.controller.activeTurnCount(), 0);
+        QCOMPARE(work.controller.state(), event);
+        QVERIFY(!work.motion.interactionActive());
+        QCOMPARE(work.notes, QList<qint64>{31000});
+        QCOMPARE(work.returns(), 1);
+        QVERIFY(!work.attempts.last().started);
+        QCOMPARE(work.attempts.last().reason, QStringLiteral("activity_owns_stage"));
+        work.controller.actionFinished();
+        QCOMPARE(work.controller.state(), PetController::State::Idle);
+        work.advance(4.0);
+        QVERIFY(!work.motion.interactionActive());
+        QCOMPARE(work.returns(), 1); // No stale return-gaze/cheer was queued.
+    }
+}
+
+void MotionClipTest::cleanupAndDuplicateStopsDoNotInventCompletion() {
+    for (bool reset : {false, true}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        work.advance(2.0);
+        work.now += 31000;
+        if (reset) work.controller.resetBusy();
+        else work.controller.sessionEnded(QStringLiteral("a"));
+        work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.controller.state(), PetController::State::Idle);
+        QVERIFY(work.notes.isEmpty());
+        QCOMPARE(work.returns(), 0);
+        QVERIFY(!work.motion.interactionActive());
+    }
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    work.advance(2.0);
+    work.now += 31000;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.notes.size(), 1);
+    QCOMPARE(work.returns(), 1);
+}
+
+void MotionClipTest::refusedWorkEndIsObservedWithoutQueueing() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    work.advance(2.0);
+    QVERIFY(work.motion.beginHeadPat(0.4));
+    work.now += 31000;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("head-pat"));
+    QCOMPARE(work.returns(), 1);
+    QVERIFY(!work.attempts.last().started);
+    QCOMPARE(work.attempts.last().reason, QStringLiteral("motion_gate_refused"));
+    work.motion.cancelInteraction();
+    work.advance(4.0);
+    QVERIFY(!work.motion.interactionActive());
+    QCOMPARE(work.returns(), 1);
+}
+
+void MotionClipTest::workEndPreservesSeatedPoseThroughRealSignals() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    work.motion.forceLaptopBusy();
+    work.advance(6.0);
+    const auto seated = work.motion.values();
+    QVERIFY(seated.value(QStringLiteral("ParamDeskVisible")) > 0.99);
+    QVERIFY(seated.value(QStringLiteral("ParamBusyLaptop")) > 0.99);
+    work.now += 31000;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+    work.advance(0.6);
+    for (const auto& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+                           QStringLiteral("ParamDeskVisible"), QStringLiteral("ParamLaptopVisible"),
+                           QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA")})
+        QCOMPARE(work.motion.values().value(id), seated.value(id));
+    QVERIFY(work.motion.values().value(QStringLiteral("ParamBusyTypingR")) < 0.001);
+    QCOMPARE(work.notes.size(), 1);
+    work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+    QCOMPARE(work.controller.state(), PetController::State::Busy);
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+    QCOMPARE(work.returns(), 1);
 }
 
 QTEST_GUILESS_MAIN(MotionClipTest)

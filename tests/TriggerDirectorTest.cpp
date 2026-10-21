@@ -2,6 +2,9 @@
 
 #include <QtTest/QtTest>
 
+#include <array>
+#include <limits>
+
 // The director is driven by explicit ticks with an injected clock, so every
 // test is deterministic: the chance scale pins the per-tick rolls and the
 // start callbacks are scripted.
@@ -14,6 +17,10 @@ private slots:
     void busyScenesWaitForTheirThresholdAndRefusalsBackOff();
     void sparsePaceDoublesCooldowns();
     void startupGreetsOncePerLaunch();
+    void defaultPacesRollAfterEligibility();
+    void fixedSeedReplaysNominationTimes();
+    void invalidScalesDisableRollsButNotStartup();
+    void busyNominationStartsAtMostOneScenePerTick();
 
 private:
     // Drives `seconds` of one-second ticks. `idle`/`busy` select the state
@@ -126,6 +133,110 @@ void TriggerDirectorTest::startupGreetsOncePerLaunch() {
     // it does consume the global interval).
     run(director, 300, true, false);
     QCOMPARE(waves, 1);
+}
+
+void TriggerDirectorTest::defaultPacesRollAfterEligibility() {
+    // A fixed seed corpus checks the user-visible contract rather than a
+    // particular STL distribution's first floating-point result. At the first
+    // eligible tick, no cooldown or refusal can explain a missed nomination.
+    // For the same random draw, Sparse's hits must be a subset of Normal's,
+    // which must in turn be a subset of Often's. None of them is a forced hit.
+    constexpr unsigned int samples = 1024;
+    std::array<int, 3> hits{};
+    const std::array<TriggerDirector::Frequency, 3> paces{
+        TriggerDirector::Frequency::Sparse,
+        TriggerDirector::Frequency::Normal,
+        TriggerDirector::Frequency::Often};
+    for (unsigned int seed = 0; seed < samples; ++seed) {
+        std::array<bool, 3> nominated{};
+        for (std::size_t pace = 0; pace < paces.size(); ++pace) {
+            TriggerDirector director;
+            director.seed(seed);
+            director.setFrequency(paces[pace]);
+            director.setStartStretch([&] { nominated[pace] = true; return true; });
+            director.tick(10.0, false, false); // no wave callback: startup gives up
+            director.tick(1500.0, false, true); // stretch's first eligible tick
+            if (nominated[pace]) ++hits[pace];
+        }
+        QVERIFY(!nominated[0] || nominated[1]);
+        QVERIFY(!nominated[1] || nominated[2]);
+    }
+    // Strict differences ensure pace scaling has an observable effect. This
+    // uses no system entropy or timing; rerunning the corpus is identical.
+    QVERIFY(hits[0] > 0);
+    QVERIFY(hits[0] < hits[1]);
+    QVERIFY(hits[1] < hits[2]);
+    QVERIFY(hits[2] < int(samples));
+}
+
+void TriggerDirectorTest::fixedSeedReplaysNominationTimes() {
+    const auto replay = [](unsigned int seed) {
+        TriggerDirector director;
+        director.seed(seed);
+        QStringList trace;
+        const auto callback = [&](const QString& name) {
+            return [&, name] {
+                trace << name + QLatin1Char(':') + QString::number(director.runningSeconds());
+                return true;
+            };
+        };
+        director.setStartBox(callback(QStringLiteral("box")));
+        director.setStartWave(callback(QStringLiteral("wave")));
+        director.setStartNap(callback(QStringLiteral("nap")));
+        director.setStartStretch(callback(QStringLiteral("stretch")));
+        director.setStartRice(callback(QStringLiteral("rice")));
+        run(director, 3600.0, true, false);
+        run(director, 3600.0, false, true);
+        return trace;
+    };
+    const auto first = replay(20261021);
+    QVERIFY(first.size() > 5);
+    QCOMPARE(replay(20261021), first);
+    QVERIFY(replay(20261022) != first);
+}
+
+void TriggerDirectorTest::invalidScalesDisableRollsButNotStartup() {
+    const std::array<double, 5> scales{0.0, -1.0,
+        std::numeric_limits<double>::quiet_NaN(),
+        std::numeric_limits<double>::infinity(),
+        -std::numeric_limits<double>::infinity()};
+    for (double scale : scales) {
+        TriggerDirector director;
+        director.setChanceScale(scale);
+        int waves = 0, otherStarts = 0;
+        director.setStartWave([&] { ++waves; return true; });
+        const auto other = [&] { ++otherStarts; return true; };
+        director.setStartBox(other);
+        director.setStartNap(other);
+        director.setStartStretch(other);
+        director.setStartRice(other);
+        run(director, 3600.0, true, false);
+        run(director, 3600.0, false, true);
+        QCOMPARE(waves, 1); // startup is an explicit greeting, not a chance roll
+        QCOMPARE(otherStarts, 0);
+        QCOMPARE(director.startedCount(), 1);
+    }
+}
+
+void TriggerDirectorTest::busyNominationStartsAtMostOneScenePerTick() {
+    TriggerDirector director;
+    director.setChanceScale(1000.0);
+    int callsThisTick = 0, stretches = 0, rice = 0;
+    director.setStartStretch([&] { ++callsThisTick; ++stretches; return true; });
+    director.setStartRice([&] { ++callsThisTick; ++rice; return true; });
+    director.tick(10.0, false, false); // finish startup without a wave callback
+    // Both work scenes become eligible together; only the priority scene wins.
+    director.tick(2700.0, false, true);
+    QCOMPARE(callsThisTick, 1);
+    QCOMPARE(stretches, 1);
+    QCOMPARE(rice, 0);
+    for (int tick = 0; tick < 300; ++tick) {
+        callsThisTick = 0;
+        director.tick(1.0, false, true);
+        QVERIFY(callsThisTick <= 1);
+    }
+    QCOMPARE(stretches, 1);
+    QCOMPARE(rice, 1); // after global spacing, not on the stretch's first tick
 }
 QTEST_MAIN(TriggerDirectorTest)
 #include "TriggerDirectorTest.moc"
