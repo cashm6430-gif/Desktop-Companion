@@ -23,6 +23,7 @@ from review_session import (
 
 SCENARIOS = ('turn-ended-standing', 'turn-ended-laptop', 'turn-ended-interrupt',
              'head-pat', 'head-pat-busy', 'head-pat-interrupt',
+             'head-pat-left', 'head-pat-right', 'head-pat-busy-left', 'head-pat-busy-right',
              'grass-touch', 'grass-timeout', 'grass-delete-busy', 'grass-approved')
 SCOPE = 'real_interaction_player_and_native_model'
 GRASS_SCOPE = 'window_player_and_synthetic_qt_pointer_with_native_model'
@@ -89,9 +90,15 @@ def check_scene(path, scenario):
                    and frame['parameters']['ParamLaptopVisible'] >= 0.99 for frame in active), \
             'Seated glance lost its computer before responding'
         assert frames[-1]['parameters']['ParamBusyLaptop'] < 0.01
-    if scenario == 'head-pat-busy':
-        assert all(frame['parameters']['ParamBusyLaptop'] >= 0.99 for frame in frames), \
-            'Head pat changed the working body'
+    if scenario.startswith('head-pat-busy'):
+        assert all(frame['parameters'][axis] >= 0.99
+                   for frame in frames
+                   for axis in ('ParamBusyLaptop', 'ParamSitPose', 'ParamLaptopVisible', 'ParamDeskVisible')), \
+            'Head pat lost the seated work pose or props'
+    if scenario.startswith('head-pat') and scenario.endswith(('-left', '-right')):
+        direction = -1 if scenario.endswith('-left') else 1
+        peak = max(direction * frame['parameters']['ParamAngleZ'] for frame in active)
+        assert 4.6 < peak <= 5.0, f'Fixed direction did not exercise the authored peak: {peak}'
     if scenario.endswith('interrupt'):
         assert not any(frame['interaction'] for frame in frames if frame['time'] >= 1.2), \
             'A higher-priority event did not cancel the reaction'
@@ -169,7 +176,12 @@ def main():
     if not EXE.is_file():
         parser.error('Build DesktopCompanion first.')
     deployment_snapshot()
-    subprocess.run([sys.executable, str(ROOT / 'tools/validate_live2d_assets.py')], check=True)
+    validation = [sys.executable, str(ROOT / 'tools/validate_live2d_assets.py')]
+    if args.scenario != 'all':
+        motion = ('grass-touch' if args.scenario.startswith('grass-')
+                  else 'turn-ended' if args.scenario.startswith('turn-ended') else 'head-pat')
+        validation += ['--motion', motion]
+    subprocess.run(validation, check=True)
     for scenario in SCENARIOS if args.scenario == 'all' else (args.scenario,):
         review(scenario)
 

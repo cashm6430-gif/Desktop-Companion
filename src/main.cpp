@@ -1,6 +1,7 @@
 #include "CodexTurnSource.h"
 #include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
+#include "HeadPatInputReview.h"
 #include "PetController.h"
 #include "PetWindow.h"
 #include "StartupTrace.h"
@@ -140,6 +141,8 @@ int main(int argc, char** argv) {
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         const QString scenario = QString::fromLocal8Bit(argv[3]);
+        if (scenario.startsWith(QStringLiteral("head-pat-input-")))
+            return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {
             const QStringList grassScenes{QStringLiteral("grass-touch"), QStringLiteral("grass-timeout"),
                 QStringLiteral("grass-delete-busy"), QStringLiteral("grass-approved")};
@@ -460,6 +463,8 @@ int main(int argc, char** argv) {
         const QStringList scenarios{QStringLiteral("turn-ended-standing"), QStringLiteral("turn-ended-laptop"),
             QStringLiteral("turn-ended-interrupt"), QStringLiteral("head-pat"),
             QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt"),
+            QStringLiteral("head-pat-left"), QStringLiteral("head-pat-right"),
+            QStringLiteral("head-pat-busy-left"), QStringLiteral("head-pat-busy-right"),
             QStringLiteral("desk-delete")};
         if (!scenarios.contains(scenario) || !QDir().mkpath(output)) return 2;
         const bool deskDelete = scenario == QStringLiteral("desk-delete");
@@ -472,7 +477,11 @@ int main(int argc, char** argv) {
             return 2;
         }
         const bool glance = scenario.startsWith(QStringLiteral("turn-ended"));
-        const bool laptop = deskDelete || scenario == QStringLiteral("turn-ended-laptop") || scenario == QStringLiteral("head-pat-busy");
+        const bool laptop = deskDelete || scenario == QStringLiteral("turn-ended-laptop")
+            || scenario.startsWith(QStringLiteral("head-pat-busy"));
+        const bool fixedPatDirection = scenario.endsWith(QStringLiteral("-left"))
+            || scenario.endsWith(QStringLiteral("-right"));
+        const double patDirection = scenario.endsWith(QStringLiteral("-left")) ? -1.0 : 1.0;
         const bool interrupted = scenario.endsWith(QStringLiteral("interrupt"));
         sampler.setBusyRandomSeed(20261002);
         if (laptop) sampler.forceLaptopBusy();
@@ -500,7 +509,7 @@ int main(int argc, char** argv) {
                     if (!sampler.playTurnEnded()) { app.exit(2); return; }
                     event = QStringLiteral("last_turn_stopped");
                 } else {
-                    if (!sampler.beginHeadPat(1.0)) { app.exit(2); return; }
+                    if (!sampler.beginHeadPat(patDirection)) { app.exit(2); return; }
                     event = QStringLiteral("head_pat_begin");
                 }
             }
@@ -516,7 +525,7 @@ int main(int argc, char** argv) {
                 event = QStringLiteral("head_pat_release");
             }
             if (!deskDelete && !glance && started && !released && !cancelled)
-                sampler.updateHeadPat(std::cos((time - 0.4) * 2.0));
+                sampler.updateHeadPat(fixedPatDirection ? patDirection : std::cos((time - 0.4) * 2.0));
             if (sampler.consumeActionFinished()) {
                 sampler.setState(deskDelete ? PetController::State::Busy : PetController::State::Idle);
                 if (deskDelete) {

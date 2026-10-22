@@ -1,0 +1,19 @@
+{
+  "scope": "window_player_and_synthetic_qt_pointer_with_native_model",
+  "passed": true,
+  "scenarios": [
+    {
+      "scenario": "head-pat-input-deactivate",
+      "frames": 17,
+      "passed": true,
+      "checks": {
+        "no_wave_past_600ms_wall_deadline": true,
+        "pending_cancelled_before_deadline": true,
+        "press_head_hit": false
+      }
+    }
+  ],
+  "physical_windows_pointer_routing": "not_exercised",
+  "executable_sha256": "2ad6d63c565e891cd89c3a3b553f38fa80ddabcfc28ceb29241a02d3520ccefb",
+  "provenance_checks": "source/deployment, renderer, Core and tool unchanged"
+}

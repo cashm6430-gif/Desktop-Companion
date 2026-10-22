@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Win32-ninja"
+	tests="14"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="DESKTOP-QR2EAAK"
+	time="43"
+	timestamp="2026-10-22T19:57:31"
+	>
+	<testcase name="PetControllerTest" classname="PetControllerTest" time="6.72193" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="PetPointerGestureTest" classname="PetPointerGestureTest" time="0.0578844" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="TriggerDirectorTest" classname="TriggerDirectorTest" time="0.195474" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ScreenPlacementTest" classname="ScreenPlacementTest" time="0.169098" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CoworkHookSeederTest" classname="CoworkHookSeederTest" time="1.48281" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ToonEventBridgeTest" classname="ToonEventBridgeTest" time="14.1353" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ParameterMotionTest" classname="ParameterMotionTest" time="3.79927" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="MotionClipTest" classname="MotionClipTest" time="0.899525" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialBindingTest" classname="CubismMaterialBindingTest" time="0.162545" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismNeckBindingTest" classname="CubismNeckBindingTest" time="10.4668" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismPostureTransitionTest" classname="CubismPostureTransitionTest" time="0.171748" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialTextureTest" classname="CubismMaterialTextureTest" time="1.66452" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CodexHookTest" classname="CodexHookTest" time="2.23297" status="run">
+		<properties/>
+		<system-out>Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-5de5acbf-7d4c-49f4-8460-3cd76019a2bd.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+UserPromptSubmit : exit 0, valid JSON
+Stop : exit 0, valid JSON
+Interrupt : exit 0, valid JSON
+SessionEnd : exit 0, valid JSON
+</system-out>
+	</testcase>
+	<testcase name="CoworkSeedScriptTest" classname="CoworkSeedScriptTest" time="1.49168" status="run">
+		<properties/>
+		<system-out>seeded   C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-dce244bbefc847639cac5d9008a6f811\Claude-3p\local-agent-mode-sessions\acct\00000000\s1\.claude\settings.json
+seeded   C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-dce244bbefc847639cac5d9008a6f811\Claude-3p\local-agent-mode-sessions\acct\00000000\s2\.claude\settings.json
+WARNING: Not JSON, leaving alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-dce244bbefc847639cac5d9008a6f811\Claude-3p\local-agent-mode-sessions\acct\00000000\s3\.claude\settings.json
+Seeded 2 session config dir(s).
+cleaned  C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-dce244bbefc847639cac5d9008a6f811\Claude-3p\local-agent-mode-sessions\acct\00000000\s1\.claude\settings.json
+cleaned  C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-dce244bbefc847639cac5d9008a6f811\Claude-3p\local-agent-mode-sessions\acct\00000000\s2\.claude\settings.json
+WARNING: Not JSON, leaving alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>

@@ -35,6 +35,7 @@ endif()
 
 qt_add_executable(DesktopCompanion WIN32
     src/main.cpp
+    src/HeadPatInputReview.h src/HeadPatInputReview.cpp
     src/MotionClip.h src/MotionClip.cpp
     src/MotionLibrary.h src/MotionLibrary.cpp
     src/PetController.h src/PetController.cpp

@@ -1,0 +1,34 @@
+[
+  {
+    "scenario": "head-pat-left",
+    "peak_angle_z": -4.9232656937495705,
+    "peak_frame": 26,
+    "frames": 75,
+    "seat_verified": false,
+    "released": true
+  },
+  {
+    "scenario": "head-pat-right",
+    "peak_angle_z": 4.923269523702989,
+    "peak_frame": 26,
+    "frames": 75,
+    "seat_verified": false,
+    "released": true
+  },
+  {
+    "scenario": "head-pat-busy-left",
+    "peak_angle_z": -4.893955835052782,
+    "peak_frame": 25,
+    "frames": 75,
+    "seat_verified": true,
+    "released": true
+  },
+  {
+    "scenario": "head-pat-busy-right",
+    "peak_angle_z": 4.894138285796904,
+    "peak_frame": 25,
+    "frames": 75,
+    "seat_verified": true,
+    "released": true
+  }
+]

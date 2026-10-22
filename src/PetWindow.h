@@ -55,6 +55,7 @@ public:
     void setInteractionPreviewEnabled(bool enabled);
     bool interactionPreviewEnabled() const { return interactionPreviewEnabled_; }
     bool isHeadAt(const QPointF& position) const;
+    QJsonObject pointerReviewState() const;
     // Tray entry and the --nap debug switch both land here. Returns false
     // when the current state refuses the nap (delete/grass own the body).
     bool startNap();
@@ -191,6 +192,7 @@ private:
     void updateFullscreenPresence();
     void playGrass();
     bool grassInteractionApproved() const;
+    bool headPatApproved() const;
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
@@ -230,6 +232,7 @@ private:
     QTimer longPressTimer_;
     bool patAttempted_ = false;
     bool interactionPreviewEnabled_ = false;
+    bool liveInteractionReview_ = false;
     bool grassTouchPressed_ = false;
     bool dragging_ = false;
     int frame_ = 0;

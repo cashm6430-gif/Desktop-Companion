@@ -1,0 +1,652 @@
+{
+  "version": 1,
+  "created_at": "2026-10-22T20:10:21+08:00",
+  "base_commit": "ddf4c9605974b285076d5714ef9d48badeb01347",
+  "scope": "Approved R19 head-pat normal entry, gesture arbitration, and current-model regression",
+  "formal_assets_unchanged": true,
+  "formal_moc": {
+    "bytes": 12016704,
+    "sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+  },
+  "head_pat_clip": {
+    "bytes": 5276,
+    "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+  },
+  "approval": "Reuse existing approved revision 1; no axes, amplitudes, keyframes, model or textures changed",
+  "build": {
+    "configuration": "Release/Cubism Native",
+    "exit_code": 0,
+    "command": "cmake --build build -j 4",
+    "signed_application": {
+      "bytes": 1782256,
+      "sha256": "2ad6d63c565e891cd89c3a3b553f38fa80ddabcfc28ceb29241a02d3520ccefb"
+    },
+    "local_developer_signature": "Valid; existing certificate; no timestamp"
+  },
+  "tests": {
+    "ctest_passed": 14,
+    "ctest_failed": 0,
+    "seconds": 43.92,
+    "added_cases": [
+      "PetPointerGestureTest::rejectedPatOutsideBodyThresholdImmediatelyBecomesDrag",
+      "ParameterMotionTest::realHeadPatDirectionsPreserveActivityAndRelease",
+      "ParameterMotionTest::headPatRefusesExistingFaceOverlays",
+      "ParameterMotionTest::realHeadPatYieldsToWorkAndForegroundEvents"
+    ],
+    "qt_input_scenarios": [
+      {
+        "scenario": "head-pat-input-left",
+        "frames": 37,
+        "passed": true,
+        "checks": {
+          "pointer_released": true,
+          "press_head_hit": true,
+          "real_pointer_started_head_pat": true,
+          "recovered_after_release": true
+        }
+      },
+      {
+        "scenario": "head-pat-input-right",
+        "frames": 37,
+        "passed": true,
+        "checks": {
+          "pointer_released": true,
+          "press_head_hit": true,
+          "real_pointer_started_head_pat": true,
+          "recovered_after_release": true
+        }
+      },
+      {
+        "scenario": "head-pat-input-busy-left",
+        "frames": 47,
+        "passed": true,
+        "checks": {
+          "busy_automatic_short_release": true,
+          "pointer_released": true,
+          "press_head_hit": true,
+          "real_pointer_started_head_pat": true,
+          "recovered_after_release": true,
+          "seated_before_stroke": true
+        }
+      },
+      {
+        "scenario": "head-pat-input-busy-right",
+        "frames": 47,
+        "passed": true,
+        "checks": {
+          "busy_automatic_short_release": true,
+          "pointer_released": true,
+          "press_head_hit": true,
+          "real_pointer_started_head_pat": true,
+          "recovered_after_release": true,
+          "seated_before_stroke": true
+        }
+      },
+      {
+        "scenario": "head-pat-input-ungrab",
+        "frames": 14,
+        "passed": true,
+        "checks": {
+          "no_wave_past_600ms_wall_deadline": true,
+          "pending_cancelled_before_deadline": true,
+          "press_head_hit": false
+        }
+      },
+      {
+        "scenario": "head-pat-input-deactivate",
+        "frames": 17,
+        "passed": true,
+        "checks": {
+          "no_wave_past_600ms_wall_deadline": true,
+          "pending_cancelled_before_deadline": true,
+          "press_head_hit": false
+        }
+      },
+      {
+        "scenario": "head-pat-input-hide",
+        "frames": 17,
+        "passed": true,
+        "checks": {
+          "no_wave_past_600ms_wall_deadline": true,
+          "pending_cancelled_before_deadline": true,
+          "press_head_hit": false
+        }
+      },
+      {
+        "scenario": "head-pat-input-delete",
+        "frames": 17,
+        "passed": true,
+        "checks": {
+          "no_wave_past_600ms_wall_deadline": true,
+          "pending_cancelled_before_deadline": true,
+          "press_head_hit": false
+        }
+      },
+      {
+        "scenario": "head-pat-input-grass",
+        "frames": 17,
+        "passed": true,
+        "checks": {
+          "no_wave_past_600ms_wall_deadline": true,
+          "pending_cancelled_before_deadline": true,
+          "press_head_hit": false
+        }
+      },
+      {
+        "scenario": "head-pat-input-wave",
+        "frames": 40,
+        "passed": true,
+        "checks": {
+          "press_head_hit": true,
+          "stationary_head_long_press_waved": true,
+          "wave_recovered": true
+        }
+      },
+      {
+        "scenario": "head-pat-input-drag",
+        "frames": 21,
+        "passed": true,
+        "checks": {
+          "drag_released_and_recovered": true,
+          "press_head_hit": true,
+          "quick_head_drag_initialized": true
+        }
+      }
+    ]
+  },
+  "native_motion": {
+    "static_poses": 22,
+    "sequences": [
+      {
+        "scenario": "head-pat-left",
+        "peak_angle_z": -4.9232656937495705,
+        "peak_frame": 26,
+        "frames": 75,
+        "seat_verified": false,
+        "released": true
+      },
+      {
+        "scenario": "head-pat-right",
+        "peak_angle_z": 4.923269523702989,
+        "peak_frame": 26,
+        "frames": 75,
+        "seat_verified": false,
+        "released": true
+      },
+      {
+        "scenario": "head-pat-busy-left",
+        "peak_angle_z": -4.893955835052782,
+        "peak_frame": 25,
+        "frames": 75,
+        "seat_verified": true,
+        "released": true
+      },
+      {
+        "scenario": "head-pat-busy-right",
+        "peak_angle_z": 4.894138285796904,
+        "peak_frame": 25,
+        "frames": 75,
+        "seat_verified": true,
+        "released": true
+      }
+    ],
+    "visual_inspection": "Static and sampled anticipation/peak/recovery sheets plus full-resolution standing/seat peaks inspected; no new connection break observed in these samples",
+    "range_limit": "Only original head-pat +/-5 with its authored small X/Y combinations; no general head-angle or larger-angle guarantee"
+  },
+  "behavior": {
+    "entry": "Approved clip works with preview disabled; deliberate 2px out-and-return stroke with at least 0.2s hold",
+    "arbitration": "Stationary Idle head/body hold retains 600ms wave; fast pending head drag uses 18px threshold; recognized pat stays locked until release",
+    "limits": "Idle hold at most 8s; Busy bounds total hold to 1.3s followed by release tail",
+    "ownership": "Drag/memo/sleep refuse new pat; Delete/Grass cancel active pat; no stale replay",
+    "cancellation": "Release/UngrabMouse/WindowDeactivate/Hide/foreground takeover cancel pending long press"
+  },
+  "asset_validation": {
+    "selected_head_pat": {
+      "exit_code": 0,
+      "output": "Validated 12 Cubism files, 40 parameters and 1 authored motions (head-pat)"
+    },
+    "native_inventory": {
+      "parameters": 41,
+      "cdi_parameters": 40,
+      "extra": [
+        "ParamDeskVisible"
+      ]
+    },
+    "global_gate": {
+      "passed": false,
+      "exit_code": 1,
+      "reason": "busy-stretch.motion.json drives parameters keyed by no drawable: ['ParamBrowLY', 'ParamBrowRY']. Those curves render no pixels; drop them or give them art.",
+      "also_detected": "Existing busy-stretch contains grounded ParamShiftY",
+      "disposition": "Existing unrelated stretch asset unchanged; handle with next standing-break work item"
+    }
+  },
+  "deployment": [
+    {
+      "path": "assets/live2d/whale-girl/hit-mask.png",
+      "source_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f",
+      "deployed_sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/arm-backing-hair-only.png",
+      "source_sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20",
+      "deployed_sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png",
+      "source_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93",
+      "deployed_sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-underpaint.png",
+      "source_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8",
+      "deployed_sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/duplicate-mask.png",
+      "source_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb",
+      "deployed_sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png",
+      "source_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c",
+      "deployed_sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-mask.png",
+      "source_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3",
+      "deployed_sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/ownership.json",
+      "source_sha256": "b21d47db33edef1faa7879bb8a76fb074656bd6716a3ea496dabf790cd355a39",
+      "deployed_sha256": "b21d47db33edef1faa7879bb8a76fb074656bd6716a3ea496dabf790cd355a39"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/neck-surface.moc3",
+      "source_sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8",
+      "deployed_sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/neck-surface.model3.json",
+      "source_sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d",
+      "deployed_sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/neck-surface.rig.json",
+      "source_sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb",
+      "deployed_sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/texture_0.png",
+      "source_sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47",
+      "deployed_sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png",
+      "source_sha256": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58",
+      "deployed_sha256": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_01.png",
+      "source_sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+      "deployed_sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_02.png",
+      "source_sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e",
+      "deployed_sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_03.png",
+      "source_sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+      "deployed_sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_04.png",
+      "source_sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20",
+      "deployed_sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json",
+      "source_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+      "deployed_sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json",
+      "source_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+      "deployed_sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json",
+      "source_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+      "deployed_sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+      "source_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+      "deployed_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+      "source_sha256": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+      "deployed_sha256": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json",
+      "source_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+      "deployed_sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json",
+      "source_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+      "deployed_sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",
+      "source_sha256": "db1b5aad0dc9f5e2c31bddac8278ae596c6283c22991b9a9aba6f7775a42aa54",
+      "deployed_sha256": "db1b5aad0dc9f5e2c31bddac8278ae596c6283c22991b9a9aba6f7775a42aa54"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json",
+      "source_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+      "deployed_sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    {
+      "path": "assets/motions/busy-laptop.motion.json",
+      "source_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39",
+      "deployed_sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+    },
+    {
+      "path": "assets/motions/busy-stand.motion.json",
+      "source_sha256": "737d6f15345b11a302dcf376517c85ea5b3578009e3c0c152a81278106d40cc9",
+      "deployed_sha256": "737d6f15345b11a302dcf376517c85ea5b3578009e3c0c152a81278106d40cc9"
+    },
+    {
+      "path": "assets/motions/busy-stretch.motion.json",
+      "source_sha256": "653d1734b99f1f86fa700874b9ae97b5c89450d33f1de5decc3dd62207f7b553",
+      "deployed_sha256": "653d1734b99f1f86fa700874b9ae97b5c89450d33f1de5decc3dd62207f7b553"
+    },
+    {
+      "path": "assets/motions/cheer.motion.json",
+      "source_sha256": "3bf4d5526c811317faea59a9a7a84fd3b2ac582598fa6505b6e23402ee648b06",
+      "deployed_sha256": "3bf4d5526c811317faea59a9a7a84fd3b2ac582598fa6505b6e23402ee648b06"
+    },
+    {
+      "path": "assets/motions/delete.motion.json",
+      "source_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25",
+      "deployed_sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+    },
+    {
+      "path": "assets/motions/grass-touch.motion.json",
+      "source_sha256": "b63774d42a31b1c93cc7a9a598f718e0fe9f379ae9fdc89b2215963a28b6fc9e",
+      "deployed_sha256": "b63774d42a31b1c93cc7a9a598f718e0fe9f379ae9fdc89b2215963a28b6fc9e"
+    },
+    {
+      "path": "assets/motions/grass.motion.json",
+      "source_sha256": "023e693ece896a8be6c8f570bc6a9e1158fb084ccc72e324b3ee36bb067b2e0e",
+      "deployed_sha256": "023e693ece896a8be6c8f570bc6a9e1158fb084ccc72e324b3ee36bb067b2e0e"
+    },
+    {
+      "path": "assets/motions/greet.motion.json",
+      "source_sha256": "a19277838b54669b01da1e8ecd5db02bd34ec439a70813b8a873d96a73274e26",
+      "deployed_sha256": "a19277838b54669b01da1e8ecd5db02bd34ec439a70813b8a873d96a73274e26"
+    },
+    {
+      "path": "assets/motions/head-pat.motion.json",
+      "source_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3",
+      "deployed_sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+    },
+    {
+      "path": "assets/motions/idle.motion.json",
+      "source_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef",
+      "deployed_sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+    },
+    {
+      "path": "assets/motions/turn-ended.motion.json",
+      "source_sha256": "c4b4aabac93aa2e75b8bb8b9a3374448b196b06912360523fef5a80c21a49b32",
+      "deployed_sha256": "c4b4aabac93aa2e75b8bb8b9a3374448b196b06912360523fef5a80c21a49b32"
+    }
+  ],
+  "source_hashes": {
+    "CMakeLists.txt": {
+      "bytes": 13985,
+      "sha256": "880771dcbdf9e280fe5741562d463b0dbec164e8c83301bb2f7e720150a9bf62"
+    },
+    "src/main.cpp": {
+      "bytes": 54640,
+      "sha256": "17536163d38818d232bfb072e67ab7298a44b80085a1d96181027450957ce22a"
+    },
+    "src/HeadPatInputReview.h": {
+      "bytes": 476,
+      "sha256": "caba142af8d21603e552f0e2d444ad96b2b5cefb96a144014a6c1ea84037aebb"
+    },
+    "src/HeadPatInputReview.cpp": {
+      "bytes": 19096,
+      "sha256": "b25582572ef5d2f5fa044ab301a8904a045083cc4a704e7fd496be9ba08d83ae"
+    },
+    "src/PetWindow.h": {
+      "bytes": 13033,
+      "sha256": "dfba5830b01c1a21fb4560d11c86fa2a1c64248a3c8e04d31113776ca5f8208b"
+    },
+    "src/PetWindow.cpp": {
+      "bytes": 88044,
+      "sha256": "e9b48f48e5dcd9fa41bbe0c0537deaaa90f021ac547c9b47c7bdfd757981cc7e"
+    },
+    "src/ParameterMotion.cpp": {
+      "bytes": 64356,
+      "sha256": "f097d0a8810bf10d5695ac6fc180a5a7bc6a57826c796432e4fac80323f770a1"
+    },
+    "tests/PetPointerGestureTest.cpp": {
+      "bytes": 6085,
+      "sha256": "f9df051880bed8afae3981e747ea9fb3e76c544aa18655f3d765b1c3ff0ca4b8"
+    },
+    "tests/ParameterMotionTest.cpp": {
+      "bytes": 106167,
+      "sha256": "9a1c78a77fcd0fff51ee499af162901574d7ce8a3d794e183f3a8d923a3e7e5f"
+    },
+    "tools/review_head_pat_input.py": {
+      "bytes": 5682,
+      "sha256": "60bcecd1361b9f814fe1fc388aa425187e7f1a302dc4a160df86808174fe2384"
+    },
+    "tools/review_interactions.py": {
+      "bytes": 10946,
+      "sha256": "ea353e9204976fe39a2522823b2f13af2e0b1d93698478b7e52155fff751de8b"
+    },
+    "tools/validate_live2d_assets.py": {
+      "bytes": 17148,
+      "sha256": "103fed65735e3017933405863b9fae02539213a6bbd69080189362f3d2454cb0"
+    },
+    "src/CubismCanvas.cpp": {
+      "bytes": 74586,
+      "sha256": "811221b6911abf7675e99cd6623f7557e40b54893bcfec87a9c2c7d85ad1bda3"
+    },
+    "src/WorkReactionCoordinator.cpp": {
+      "bytes": 2261,
+      "sha256": "4a88e9d81d3bb0edff29ffc29bb1a86ad84b02cf52eba801362eae37af8a7849"
+    }
+  },
+  "evidence_hashes": {
+    "asset-validation-check.json": {
+      "bytes": 3901,
+      "sha256": "f0ae7acdb323c44996acbc75ad2737010f1e8fedb5558ec1518c035cec75921f"
+    },
+    "ctest-junit.xml": {
+      "bytes": 3931,
+      "sha256": "97a016ef70d02e7904da27d0645d7e0dec584fd9a14f22c19630e58d8d57c7d5"
+    },
+    "ctest.log": {
+      "bytes": 1673,
+      "sha256": "1f6d214371f06f046a9718cda1c72321b798a52f1971c6aff7ce26d46ca72514"
+    },
+    "head-pat-standing-seated.gif": {
+      "bytes": 4175729,
+      "sha256": "7b51b1ae3ed897329f83eda5b480cc34a2c65af7bfcb8e15975ddcda55f896b5"
+    },
+    "input/head-pat-input-busy-left/example.png": {
+      "bytes": 75226,
+      "sha256": "077fd5d61e0c0d893b2fae41e6b235974da334b91e9cc9b45d901d7359c886b0"
+    },
+    "input/head-pat-input-busy-left/scene.json": {
+      "bytes": 125640,
+      "sha256": "436837769dfb91f843b7a418eda523ddf59694360d89e442c3b02aa0ed5ad84c"
+    },
+    "input/head-pat-input-busy-right/example.png": {
+      "bytes": 76413,
+      "sha256": "22c578305eacdd81ce5bec9c4b496f3fc597ee7b62ea3422cb4dabb78771b6e8"
+    },
+    "input/head-pat-input-busy-right/scene.json": {
+      "bytes": 125587,
+      "sha256": "55713efb960f4290fa7e15a33d37fb26c010c86f57b261ed1d1df92a9a3911cb"
+    },
+    "input/head-pat-input-deactivate/scene.json": {
+      "bytes": 41734,
+      "sha256": "0c8de6e32a7837adcbe55d75fc3dac120d94fa99b6529d7b548537fa94a4e8e7"
+    },
+    "input/head-pat-input-delete/scene.json": {
+      "bytes": 41730,
+      "sha256": "7380a33006f259d99cf0a072d32dd8d56ffb3a97e0bfe95779ef5621c71820da"
+    },
+    "input/head-pat-input-drag/example.png": {
+      "bytes": 84745,
+      "sha256": "20ec061df6c0f5c5906450d0f3012a3f157512c404c7459df5add6e2c8e0ba15"
+    },
+    "input/head-pat-input-drag/scene.json": {
+      "bytes": 51526,
+      "sha256": "711dbc98a4a415ecb97fe8fa1fa41e8dc0ca9d52c41214c039f74734cf1d466c"
+    },
+    "input/head-pat-input-grass/scene.json": {
+      "bytes": 41729,
+      "sha256": "1407f208786d187a275dff4e254e154ff238f4dd6f236add9a07707192158b5e"
+    },
+    "input/head-pat-input-hide/scene.json": {
+      "bytes": 41728,
+      "sha256": "7b173218fa4ab063210aa29eff21cf6a699aa16223eb7706bc3762ada139e4c9"
+    },
+    "input/head-pat-input-left/example.png": {
+      "bytes": 82556,
+      "sha256": "07e1c3e930bf03e52adacba33e622815dc4fc4789602d02a1bf2fdd347c4ea8e"
+    },
+    "input/head-pat-input-left/scene.json": {
+      "bytes": 93115,
+      "sha256": "93dfa9151fee9d70d472e2165e72b95ec059562c36fb7945989f1aaaa584408b"
+    },
+    "input/head-pat-input-right/example.png": {
+      "bytes": 84288,
+      "sha256": "ffa0832642ce777442b794cf83253a75dc86c30236a0a16a0a55b3b41b30dccd"
+    },
+    "input/head-pat-input-right/scene.json": {
+      "bytes": 93014,
+      "sha256": "51ba7893b95257886e14364941c7febe8a068a89af460988e7d471758c466f34"
+    },
+    "input/head-pat-input-ungrab/scene.json": {
+      "bytes": 34526,
+      "sha256": "32f4849b95fa065003f7e9b175e4e8acf9e890fd27f36e3e2ae65b705bb194ce"
+    },
+    "input/head-pat-input-wave/example.png": {
+      "bytes": 84303,
+      "sha256": "f36470ad1c972828fb44e14ed784a96cbb8c2975383a770e075bb7273772e0df"
+    },
+    "input/head-pat-input-wave/scene.json": {
+      "bytes": 98301,
+      "sha256": "fab034d6df0e0d4601ff6827d80cd7f6a8840801e14c94f844241eb69870a7bc"
+    },
+    "input-check.json": {
+      "bytes": 3437,
+      "sha256": "f72d439d65465ac3f375b1d59a74bc1d0367e606881f9d29edd0e43e57cf432a"
+    },
+    "input-provenance.json": {
+      "bytes": 10412,
+      "sha256": "366815f7f12eedb8a759f9ba51fb2cb0beb95ed8345599a40c2041c47278965e"
+    },
+    "motion/head-pat-busy-left/peak.png": {
+      "bytes": 507645,
+      "sha256": "c4ce6552b14cebd70f3ac03b19711a5f8099db482ccb803ffa259f3fcb851979"
+    },
+    "motion/head-pat-busy-left/recovery.png": {
+      "bytes": 516718,
+      "sha256": "7dbbb9ae21d7377ca483b26eeae07d8a8d7080b11bce16423138e10009d0d48a"
+    },
+    "motion/head-pat-busy-left/scene.json": {
+      "bytes": 157853,
+      "sha256": "8e9eb9f4471aa5be2e8edf6a9f6dce86335200ce31a418a950e72e52e1f5f100"
+    },
+    "motion/head-pat-busy-right/peak.png": {
+      "bytes": 517637,
+      "sha256": "567eab6a2aeecd6afb08fbe3dfe8c043b7434858b70af323a3ad0782fddab6aa"
+    },
+    "motion/head-pat-busy-right/recovery.png": {
+      "bytes": 516409,
+      "sha256": "c03779d2666a70e6b5e2d4dd4d263637dfac38faced034f8d372f8b7ba17e125"
+    },
+    "motion/head-pat-busy-right/scene.json": {
+      "bytes": 157743,
+      "sha256": "aed90515b1a0a9a1bbc57b7668fd03204157facab82042d2e9ab81f18af10235"
+    },
+    "motion/head-pat-left/peak.png": {
+      "bytes": 563751,
+      "sha256": "a6bb09f6adf15d24cd580b76d3c6a2dfc64fe22c8f4a79415c7cbd348bf9a5e2"
+    },
+    "motion/head-pat-left/recovery.png": {
+      "bytes": 567846,
+      "sha256": "40cc0f9e6aacd529e49b37e56373de16a1583f2d72fb416d3b0870dd9a662be8"
+    },
+    "motion/head-pat-left/scene.json": {
+      "bytes": 149297,
+      "sha256": "fd96b6c48e81f281336392ca199e6b6a8331809f8a6174ceba24657f193472ff"
+    },
+    "motion/head-pat-right/peak.png": {
+      "bytes": 574467,
+      "sha256": "4f1ee4bd1080d4fb9526c759b7d322f1744941bb2b658bb28c2e716127a2d17c"
+    },
+    "motion/head-pat-right/recovery.png": {
+      "bytes": 571368,
+      "sha256": "84bb1be56cef3346bbccfd20ea50c19c6adb752edce1dd7c393f8feba32d79b0"
+    },
+    "motion/head-pat-right/scene.json": {
+      "bytes": 149148,
+      "sha256": "a5afd4f689b5eab96273de0c2966e39958b03a9f2d11c57adacd4eaa8e3c880e"
+    },
+    "motion-sequences.png": {
+      "bytes": 2244872,
+      "sha256": "87023fad6abe7726532e35a14bd1db68024bf2b9a20f46c889f2566b79e0078c"
+    },
+    "provenance-gate-smoke.json": {
+      "bytes": 618,
+      "sha256": "993edd30158615d7771de8493084a78c18e2b991f5bf7a63f733069006ee48ef"
+    },
+    "sequence-capture-provenance.json": {
+      "bytes": 807,
+      "sha256": "dd61e4b2839bba78dec4b0c9bcda8c682223a20447b98d273aef60a52ca1e742"
+    },
+    "sequence-check.json": {
+      "bytes": 730,
+      "sha256": "367666ed8dd69e833bb943159423b133aa7f2aafdfd4acc8ceee2704e27e7f55"
+    },
+    "static-native-capture.json": {
+      "bytes": 24926,
+      "sha256": "4d3eb23579ffa9d594d732caff1f504df9064f9b724a4e7e922e028e7bd7657a"
+    },
+    "static-poses.json": {
+      "bytes": 15532,
+      "sha256": "a7de8ceea408fcb70d1258b29f5a683be34273840bb5e22380bae59828816e46"
+    },
+    "static-poses.png": {
+      "bytes": 946383,
+      "sha256": "4fb7baf920426848dc926647cb7b831afd9d6f0118ce712bf17b97d200b8df09"
+    }
+  },
+  "reproduce": [
+    "ctest --test-dir build --output-on-failure",
+    "python tools/validate_live2d_assets.py --motion head-pat",
+    "python tools/review_interactions.py head-pat-left (also right, busy-left, busy-right)",
+    "python tools/review_head_pat_input.py .local/authoring/<new-directory>",
+    "python tools/review_head_pat_input.py art/live2d/workflow/head-pat-entry-20261022/input --verify-only",
+    "build/DesktopCompanion.exe --review-motion <fresh-output> art/live2d/workflow/head-pat-entry-20261022/static-poses.json pose"
+  ],
+  "limits": [
+    "Qt input is synthetic QApplication::sendEvent through actual PetWindow; physical Windows mouse routing remains untested.",
+    "No real hooks, desktop file deletions, installer/upgrade/uninstall changes or user position writes were used.",
+    "All motion assets are unchanged; full legacy asset gate is still blocked by existing busy-stretch policy violations.",
+    "Native motion captures precede linking the separate input-review module; phase executable/source hashes are preserved."
+  ]
+}

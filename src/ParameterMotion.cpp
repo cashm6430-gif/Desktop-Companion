@@ -485,6 +485,7 @@ void ParameterMotion::captureInteractionSeat() {
 bool ParameterMotion::canBeginHeadPat() const {
     return !preview_ && headPatClip_.isValid() && headPatCooldown_ <= 0.0
         && state_ != PetController::State::Delete && state_ != PetController::State::Grass
+        && !dragMotionActive() && !memoMotionActive() && !sleepMotionActive()
         && interaction_ != Interaction::HeadPat;
 }
 

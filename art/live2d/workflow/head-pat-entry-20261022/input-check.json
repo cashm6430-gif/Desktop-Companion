@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "scope": "window_player_and_synthetic_qt_pointer_with_native_model",
+  "physical_windows_pointer_routing": "not_exercised",
+  "scenarios": [
+    {
+      "scenario": "head-pat-input-left",
+      "frames": 37,
+      "passed": true,
+      "checks": {
+        "pointer_released": true,
+        "press_head_hit": true,
+        "real_pointer_started_head_pat": true,
+        "recovered_after_release": true
+      }
+    },
+    {
+      "scenario": "head-pat-input-right",
+      "frames": 37,
+      "passed": true,
+      "checks": {
+        "pointer_released": true,
+        "press_head_hit": true,
+        "real_pointer_started_head_pat": true,
+        "recovered_after_release": true
+      }
+    },
+    {
+      "scenario": "head-pat-input-busy-left",
+      "frames": 47,
+      "passed": true,
+      "checks": {
+        "busy_automatic_short_release": true,
+        "pointer_released": true,
+        "press_head_hit": true,
+        "real_pointer_started_head_pat": true,
+        "recovered_after_release": true,
+        "seated_before_stroke": true
+      }
+    },
+    {
+      "scenario": "head-pat-input-busy-right",
+      "frames": 47,
+      "passed": true,
+      "checks": {
+        "busy_automatic_short_release": true,
+        "pointer_released": true,
+        "press_head_hit": true,
+        "real_pointer_started_head_pat": true,
+        "recovered_after_release": true,
+        "seated_before_stroke": true
+      }
+    },
+    {
+      "scenario": "head-pat-input-ungrab",
+      "frames": 14,
+      "passed": true,
+      "checks": {
+        "no_wave_past_600ms_wall_deadline": true,
+        "pending_cancelled_before_deadline": true,
+        "press_head_hit": false
+      }
+    },
+    {
+      "scenario": "head-pat-input-deactivate",
+      "frames": 17,
+      "passed": true,
+      "checks": {
+        "no_wave_past_600ms_wall_deadline": true,
+        "pending_cancelled_before_deadline": true,
+        "press_head_hit": false
+      }
+    },
+    {
+      "scenario": "head-pat-input-hide",
+      "frames": 17,
+      "passed": true,
+      "checks": {
+        "no_wave_past_600ms_wall_deadline": true,
+        "pending_cancelled_before_deadline": true,
+        "press_head_hit": false
+      }
+    },
+    {
+      "scenario": "head-pat-input-delete",
+      "frames": 17,
+      "passed": true,
+      "checks": {
+        "no_wave_past_600ms_wall_deadline": true,
+        "pending_cancelled_before_deadline": true,
+        "press_head_hit": false
+      }
+    },
+    {
+      "scenario": "head-pat-input-grass",
+      "frames": 17,
+      "passed": true,
+      "checks": {
+        "no_wave_past_600ms_wall_deadline": true,
+        "pending_cancelled_before_deadline": true,
+        "press_head_hit": false
+      }
+    },
+    {
+      "scenario": "head-pat-input-wave",
+      "frames": 40,
+      "passed": true,
+      "checks": {
+        "press_head_hit": true,
+        "stationary_head_long_press_waved": true,
+        "wave_recovered": true
+      }
+    },
+    {
+      "scenario": "head-pat-input-drag",
+      "frames": 21,
+      "passed": true,
+      "checks": {
+        "drag_released_and_recovered": true,
+        "press_head_hit": true,
+        "quick_head_drag_initialized": true
+      }
+    }
+  ],
+  "capture_executable_sha256": "c9b089200e5afc8873b02a9b8ab4e9c31fa6228a4b499af5843791a3954f5838"
+}

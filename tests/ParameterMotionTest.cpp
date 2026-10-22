@@ -139,6 +139,9 @@ private slots:
     void earlyHeadPatReleaseDoesNotForceClosedEyes();
     void headPatReleaseRestoresAuthoredFacePace();
     void headPatReleaseDoesNotAccelerateUnownedBackgroundChannels();
+    void realHeadPatDirectionsPreserveActivityAndRelease();
+    void headPatRefusesExistingFaceOverlays();
+    void realHeadPatYieldsToWorkAndForegroundEvents();
     void grassInteractionRespondsOnlyDuringHold();
     void grassInteractionTimeoutSkipsResponse();
     void grassInteractionIgnoresLegacyCompletionDeadline();
@@ -1147,6 +1150,143 @@ void ParameterMotionTest::headPatWhileBusyLeavesHandsAndComputerAlone() {
     QVERIFY(typingHigh - typingLow > 0.2);
     QVERIFY(!reaction.interactionActive());
     QCOMPARE(reaction.library().clip(QStringLiteral("head-pat"))->approval(), QStringLiteral("pending"));
+}
+
+void ParameterMotionTest::realHeadPatDirectionsPreserveActivityAndRelease() {
+    // The fixture tests above isolate player mechanics at three degrees. This
+    // checks the shipped approved five-degree clip and its mirrored direction
+    // over both real activities; it does not prove Native mesh continuity.
+    for (const bool seated : {false, true}) for (const double direction : {-1.0, 1.0}) {
+        ParameterMotion reaction, reference;
+        QString error;
+        for (auto* motion : {&reaction, &reference}) {
+            QVERIFY2(motion->loadMotionLibrary(QStringLiteral("assets/motions"), &error), qPrintable(error));
+            motion->setProceduralBlink(false); // measure authored expression, not blink timing
+            motion->setDeskWorkMode(true);
+            if (seated) motion->forceLaptopBusy();
+            advanceFrames(*motion, 200);
+        }
+        const auto* clip = reaction.library().clip(QStringLiteral("head-pat"));
+        QVERIFY(clip);
+        QCOMPARE(clip->approval(), QStringLiteral("approved"));
+        QCOMPARE(clip->sample(1.2).value(QStringLiteral("ParamAngleZ")), 5.0);
+        QCOMPARE(reaction.values().value(QStringLiteral("ParamDeskVisible")), seated ? 1.0 : 0.0);
+        QVERIFY(reaction.beginHeadPat(direction));
+        double directionalPeak = 0.0, smilePeak = 0.0;
+        bool released = false;
+        for (int frame = 0; frame < 140; ++frame) {
+            // Idle gets a sustained hold. Busy keeps its real 1.3-second limit
+            // and starts the authored recovery without waiting for this call.
+            if (!seated && frame == 100) reaction.endHeadPat();
+            reaction.advance(0.02);
+            reference.advance(0.02);
+            if (reaction.interactionActive()) {
+                directionalPeak = std::max(directionalPeak,
+                    direction * reaction.values().value(QStringLiteral("ParamAngleZ")));
+                smilePeak = std::max(smilePeak,
+                    reaction.values().value(QStringLiteral("ParamEyeSmile")));
+                released |= reaction.headPatReleasing();
+            }
+            // Hands may keep typing; compare the same advancing activity, not
+            // a frozen pose that would hide accidental typing cancellation.
+            for (const auto& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+                 QStringLiteral("ParamDeskVisible"), QStringLiteral("ParamLaptopVisible"),
+                 QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA"),
+                 QStringLiteral("ParamElbowLA"), QStringLiteral("ParamElbowRA"),
+                 QStringLiteral("ParamWristRA"), QStringLiteral("ParamLaptopRock"),
+                 QStringLiteral("ParamBusyTypingL"), QStringLiteral("ParamBusyTypingR")})
+                QCOMPARE(reaction.values().value(id), reference.values().value(id));
+        }
+        QVERIFY2(directionalPeak > 4.6 && directionalPeak <= 5.0,
+                 qPrintable(QStringLiteral("seated=%1 direction=%2 peak=%3")
+                     .arg(seated).arg(direction).arg(directionalPeak)));
+        QVERIFY(smilePeak > 0.9);
+        QVERIFY(released);
+        QVERIFY(!reaction.interactionActive());
+        advanceFrames(reaction, 80);
+        advanceFrames(reference, 80);
+        for (const auto& id : {QStringLiteral("ParamAngleX"), QStringLiteral("ParamAngleY"),
+             QStringLiteral("ParamAngleZ"), QStringLiteral("ParamEyeBallX"), QStringLiteral("ParamEyeBallY"),
+             QStringLiteral("ParamEyeLOpen"), QStringLiteral("ParamEyeROpen"),
+             QStringLiteral("ParamEyeSmile"), QStringLiteral("ParamMouthForm"),
+             QStringLiteral("ParamMouthOpenY"), QStringLiteral("ParamCheek")})
+            QVERIFY2(std::abs(reaction.values().value(id) - reference.values().value(id)) < 0.001,
+                     qPrintable(QStringLiteral("Head pat did not return %1 to its background").arg(id)));
+    }
+}
+
+void ParameterMotionTest::headPatRefusesExistingFaceOverlays() {
+    for (const QString overlay : {QStringLiteral("drag"), QStringLiteral("memo"), QStringLiteral("sleep")}) {
+        ParameterMotion motion;
+        QString error;
+        QVERIFY2(motion.loadMotionLibrary(QStringLiteral("assets/motions"), &error), qPrintable(error));
+        advanceFrames(motion, 50);
+        if (overlay == QStringLiteral("drag")) motion.beginDragMotion();
+        else if (overlay == QStringLiteral("memo")) motion.beginMemoMotion();
+        else motion.beginSleepMotion();
+        advanceFrames(motion, 12);
+        const auto before = motion.values();
+        QVERIFY(!motion.canBeginHeadPat());
+        QVERIFY(!motion.beginHeadPat(1));
+        QCOMPARE(motion.values(), before);
+        QVERIFY(!motion.interactionActive());
+        if (overlay == QStringLiteral("drag")) {
+            QVERIFY(motion.dragMotionActive());
+            motion.cancelDragMotion();
+        } else if (overlay == QStringLiteral("memo")) {
+            QVERIFY(motion.memoMotionActive());
+            motion.cancelMemoMotion();
+        } else {
+            QVERIFY(motion.sleepMotionActive());
+            motion.cancelSleepMotion();
+        }
+        // Refusal neither creates an invisible interaction nor spends cooldown.
+        QVERIFY(motion.canBeginHeadPat());
+        QVERIFY(motion.beginHeadPat(-1));
+    }
+}
+
+void ParameterMotionTest::realHeadPatYieldsToWorkAndForegroundEvents() {
+    ParameterMotion working;
+    QString error;
+    QVERIFY2(working.loadMotionLibrary(QStringLiteral("assets/motions"), &error), qPrintable(error));
+    advanceFrames(working, 50);
+    QVERIFY(working.beginHeadPat(-1));
+    advanceFrames(working, 50); // already holding while Idle
+    const auto held = working.values();
+    const double heldTime = working.interactionTime();
+    working.forceStandingBusy();
+    QCOMPARE(working.values(), held);
+    QCOMPARE(working.interactionTime(), heldTime);
+    QVERIFY(working.interactionActive());
+    QVERIFY(!working.headPatReleasing());
+    advanceFrames(working, 5);
+    QVERIFY(!working.headPatReleasing());
+    advanceFrames(working, 11); // Busy bounds total hold at 1.3 seconds
+    QVERIFY(working.headPatReleasing());
+    advanceFrames(working, 40);
+    QVERIFY(!working.interactionActive());
+
+    for (const bool seated : {false, true})
+    for (const auto foreground : {PetController::State::Delete, PetController::State::Grass}) {
+        ParameterMotion motion;
+        QVERIFY2(motion.loadMotionLibrary(QStringLiteral("assets/motions"), &error), qPrintable(error));
+        motion.setDeskWorkMode(true);
+        if (seated) motion.forceLaptopBusy();
+        advanceFrames(motion, 160);
+        QVERIFY(motion.beginHeadPat(seated ? -1 : 1));
+        advanceFrames(motion, 50);
+        QVERIFY(motion.interactionActive());
+        const auto before = motion.values();
+        motion.setState(foreground);
+        QCOMPARE(motion.values(), before);
+        QVERIFY(!motion.interactionActive());
+        advanceFrames(motion, 10);
+        for (double value : motion.values()) QVERIFY(std::isfinite(value));
+        motion.setState(seated ? PetController::State::Busy : PetController::State::Idle);
+        advanceFrames(motion, 100);
+        QVERIFY(!motion.interactionActive()); // interrupted hold is never replayed
+    }
 }
 
 void ParameterMotionTest::reactionInterruptionsKeepPoseContinuous() {

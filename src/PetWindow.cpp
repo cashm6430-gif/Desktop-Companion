@@ -646,9 +646,11 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // gesture, cancelled as soon as a drag begins or the button is released.
     longPressTimer_.setSingleShot(true);
     connect(&longPressTimer_, &QTimer::timeout, this, [this] {
-        if (dragging_) return;   // a drag started -- this is not a long-press
+        if (pointerGesture_.mode() != PetPointerGesture::Mode::Pending || dragging_) return;
+        const bool mayWave = controller_->state() == PetController::State::Idle
+            && !motion_.sleepMotionActive();
         releasePointerGesture();
-        startWave();
+        if (mayWave) startWave();
     });
     previewMenu->addAction(QStringLiteral("摸头"), this, [this] {
         if (motion_.sleepMotionActive()) return;
@@ -1466,6 +1468,7 @@ void PetWindow::advanceLiveFrame(double seconds) {
 }
 
 void PetWindow::prepareLiveInteractionReview(int pixels) {
+    liveInteractionReview_ = true;
     frameTimer_.stop();
     spontaneousTimer_.stop();  // a nomination must never race a scripted capture
     // Keep the busy branch after interruption reproducible in review captures.
@@ -1501,6 +1504,11 @@ bool PetWindow::grassInteractionApproved() const {
     return clip && clip->approval() == QStringLiteral("approved");
 }
 
+bool PetWindow::headPatApproved() const {
+    const auto* clip = motion_.library().clip(QStringLiteral("head-pat"));
+    return clip && clip->approval() == QStringLiteral("approved");
+}
+
 QPainterPath PetWindow::grassTipHitPath() const {
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
@@ -1526,11 +1534,35 @@ void PetWindow::setInteractionPreviewEnabled(bool enabled) {
     if (interactionPreviewAction_ && interactionPreviewAction_->isChecked() != enabled)
         interactionPreviewAction_->setChecked(enabled);
     if (!enabled) {
-        patPreviewTimer_.stop();
-        releasePointerGesture();
-        motion_.cancelInteraction();
+        const auto* activeClip = motion_.library().clip(motion_.interactionId());
+        const bool approvedReaction = activeClip && activeClip->approval() == QStringLiteral("approved");
+        const bool approvedPat = approvedReaction && motion_.interactionId() == QStringLiteral("head-pat");
+        if (!approvedPat) {
+            patPreviewTimer_.stop();
+            releasePointerGesture();
+        }
+        if (!approvedReaction) motion_.cancelInteraction();
         if (motion_.grassInteractionActive() && !grassInteractionApproved()) controller_->actionFinished();
     }
+}
+
+QJsonObject PetWindow::pointerReviewState() const {
+    QString gesture;
+    switch (pointerGesture_.mode()) {
+    case PetPointerGesture::Mode::None: gesture = QStringLiteral("none"); break;
+    case PetPointerGesture::Mode::Pending: gesture = QStringLiteral("pending"); break;
+    case PetPointerGesture::Mode::Pat: gesture = QStringLiteral("pat"); break;
+    case PetPointerGesture::Mode::Drag: gesture = QStringLiteral("drag"); break;
+    }
+    return {{QStringLiteral("gesture"), gesture},
+        {QStringLiteral("reaction"), motion_.interactionId()},
+        {QStringLiteral("reaction_time"), motion_.interactionTime()},
+        {QStringLiteral("head_pat_approved"), headPatApproved()},
+        {QStringLiteral("long_press_pending"), longPressTimer_.isActive()},
+        {QStringLiteral("dragging"), dragging_},
+        {QStringLiteral("drag_motion_active"), motion_.dragMotionActive()},
+        {QStringLiteral("wave_active"), motion_.waveActive()},
+        {QStringLiteral("preview_enabled"), interactionPreviewEnabled_}};
 }
 
 bool PetWindow::isHeadAt(const QPointF& position) const {
@@ -1576,12 +1608,17 @@ void PetWindow::updatePointerGesture() {
             if (!motion_.beginHeadPat(pointerGesture_.normalizedPatDirection())) {
                 patAttempted_ = false;
                 pointerGesture_.rejectPat();
-                dragging_ = pointerGesture_.mode() == PetPointerGesture::Mode::Drag;
-                return;
+            } else {
+                longPressTimer_.stop();
             }
         }
-        motion_.updateHeadPat(pointerGesture_.normalizedPatDirection());
-    } else if (pointerGesture_.mode() == PetPointerGesture::Mode::Drag) {
+        if (pointerGesture_.mode() == PetPointerGesture::Mode::Pat)
+            motion_.updateHeadPat(pointerGesture_.normalizedPatDirection());
+    }
+    // A rejected pat may already exceed the body's drag threshold. It needs
+    // the same drag initialization as a gesture that began on the body.
+    if (pointerGesture_.mode() == PetPointerGesture::Mode::Drag) {
+        longPressTimer_.stop();
         if (!dragging_) {
             dragging_ = true;
             dragLastGlobal_ = QPointF();
@@ -1593,15 +1630,18 @@ void PetWindow::updatePointerGesture() {
 }
 
 void PetWindow::releasePointerGesture() {
+    longPressTimer_.stop();
     if (patAttempted_) motion_.endHeadPat();
     pointerGesture_.release();
     patAttempted_ = false;
     if (dragging_) {
         motion_.endDragMotion();
-        constrainPositionToScreen();
-        snapToEdges();   // dock flush to a nearby screen edge
-        QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
-        settings.setValue(QStringLiteral("position"), pos());
+        if (!liveInteractionReview_) {
+            constrainPositionToScreen();
+            snapToEdges();   // dock flush to a nearby screen edge
+            QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+            settings.setValue(QStringLiteral("position"), pos());
+        }
     }
     dragging_ = false;
     grassTouchPressed_ = false;
@@ -1672,14 +1712,14 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
         }
         gestureWindowOrigin_ = pos();
         dragOffset_ = event->globalPosition().toPoint() - pos();
-        const bool allowPat = interactionPreviewEnabled_ && motion_.canBeginHeadPat()
+        const bool allowPat = (headPatApproved() || interactionPreviewEnabled_) && motion_.canBeginHeadPat()
             && renderBackend() == QStringLiteral("cubism_native")
             && controller_->state() != PetController::State::Delete
             && controller_->state() != PetController::State::Grass;
         pointerGesture_.press(event->position(), allowPat && isHeadAt(event->position()));
         // A plain hold on her (not a head pat) becomes a greeting if she is
         // still holding after the delay -- see longPressTimer_.
-        if (!(allowPat && isHeadAt(event->position()))) longPressTimer_.start(600);
+        longPressTimer_.start(600);
         event->accept();
     }
 }

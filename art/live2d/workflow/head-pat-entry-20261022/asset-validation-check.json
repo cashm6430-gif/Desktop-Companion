@@ -1,0 +1,94 @@
+{
+  "scope": "static_validator_and_actual_cubism_native_parameter_ids_not_visual_approval",
+  "validator_sha256": "103fed65735e3017933405863b9fae02539213a6bbd69080189362f3d2454cb0",
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "metadata_sha256": "db1b5aad0dc9f5e2c31bddac8278ae596c6283c22991b9a9aba6f7775a42aa54",
+  "cdi_count": 40,
+  "native_count": 41,
+  "native_extra": [
+    "ParamDeskVisible"
+  ],
+  "build_core_and_sdk_core_match": true,
+  "all_motion_parameter_bindings": "passed",
+  "offline_cdi_complete": "passed",
+  "legacy_and_runtime_desk_structure": "passed",
+  "negative_checks": {
+    "invented_native_id": "fake.motion.json uses unbound model parameters: ['ParamDefinitelyNotBound']",
+    "stale_cdi_not_unioned": "fake.motion.json uses unbound model parameters: ['ParamDefinitelyNotBound']",
+    "missing_core_unknown_id": "Cubism Native Core is unavailable; cannot verify motion parameters missing from DisplayInfo against the actual MOC. Provide the matching local Core library or SDK.",
+    "missing_legacy_sleeve": "Seated binding requires one layer with source 'busy sleeve r'",
+    "replacement_laptop_wrong_parameter": "Invalid seated source/parameter/type/drawable binding: busy workstation laptop",
+    "replacement_sleeve_wrong_type": "Invalid seated source/parameter/type/drawable binding: busy workstation sleeve r",
+    "replacement_laptop_wrong_drawable": "Invalid seated source/parameter/type/drawable binding: busy workstation laptop",
+    "desk_hash_mismatch": "runtimeDeskWorkMode MOC hash does not match the actual model",
+    "desk_preview_not_adopted_complete": "Adopted runtimeDeskWorkMode requires complete version 1 bindings",
+    "desk_boolean_version": "Adopted runtimeDeskWorkMode requires complete version 1 bindings",
+    "undeclared_extra_seated_piece": "Unexpected or missing seated pieces outside the declared legacy/replacement bindings"
+  },
+  "commands": [
+    {
+      "arguments": [
+        "--motion",
+        "head-pat"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "Validated 12 Cubism files, 40 parameters and 1 authored motions (head-pat)",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "--motion",
+        "head-pat",
+        "--motion",
+        "turn-ended"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "Validated 12 Cubism files, 40 parameters and 2 authored motions (head-pat, turn-ended)",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "--motion",
+        "head-pat",
+        "--motion",
+        "head-pat"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "Validated 12 Cubism files, 40 parameters and 1 authored motions (head-pat)",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "--motion",
+        "definitely-not-a-clip"
+      ],
+      "exit_code": 2,
+      "expected": 2,
+      "stdout": "",
+      "stderr": "usage: validate_live2d_assets.py [-h] [--motion CLIP_ID]\nvalidate_live2d_assets.py: error: Unknown motion IDs: ['definitely-not-a-clip']; available IDs: ['busy-laptop', 'busy-stand', 'busy-stretch', 'cheer', 'delete', 'grass', 'grass-touch', 'greet', 'head-pat', 'idle', 'turn-ended']"
+    },
+    {
+      "arguments": [],
+      "exit_code": 1,
+      "expected": 1,
+      "stdout": "",
+      "stderr": "busy-stretch.motion.json drives parameters keyed by no drawable: ['ParamBrowLY', 'ParamBrowRY']. Those curves render no pixels; drop them or give them art."
+    }
+  ],
+  "known_full_asset_gate": "failed_existing_busy_stretch_inert_and_grounded_channels",
+  "existing_motion_rule_violations": [
+    {
+      "motion": "busy-stretch.motion.json",
+      "inert": [
+        "ParamBrowLY",
+        "ParamBrowRY"
+      ],
+      "grounded": [
+        "ParamShiftY"
+      ]
+    }
+  ]
+}

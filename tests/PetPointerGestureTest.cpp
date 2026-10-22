@@ -13,6 +13,7 @@ private slots:
     void patDoesNotBecomeDrag();
     void releaseAndCancelReset();
     void rejectedPatStillAllowsDragging();
+    void rejectedPatOutsideBodyThresholdImmediatelyBecomesDrag();
 };
 
 void PetPointerGestureTest::rejectedPatStillAllowsDragging() {
@@ -27,6 +28,30 @@ void PetPointerGestureTest::rejectedPatStillAllowsDragging() {
     QVERIFY(!gesture.pressedOnHead());
     gesture.move(QPointF(108, 100));
     QCOMPARE(gesture.mode(), PetPointerGesture::Mode::Drag);
+}
+
+void PetPointerGestureTest::rejectedPatOutsideBodyThresholdImmediatelyBecomesDrag() {
+    for (const double direction : {-1.0, 1.0}) {
+        PetPointerGesture gesture;
+        gesture.press(QPointF(100, 100), true);
+        gesture.move(QPointF(100 + direction * 12, 100));
+        gesture.move(QPointF(100 + direction * 8, 100));
+        gesture.advance(0.2);
+        QCOMPARE(gesture.mode(), PetPointerGesture::Mode::Pat);
+
+        // The motion owner may refuse after recognition. The pointer is
+        // already outside the body's 6px threshold, so the caller must
+        // initialize a drag in this update rather than wait for another move.
+        gesture.rejectPat();
+        QCOMPARE(gesture.mode(), PetPointerGesture::Mode::Drag);
+        QVERIFY(!gesture.pressedOnHead());
+        QCOMPARE(gesture.displacement(), QPointF(direction * 8, 0));
+        gesture.move(QPointF(100, 100));
+        gesture.advance(1.0);
+        QCOMPARE(gesture.mode(), PetPointerGesture::Mode::Drag);
+        gesture.release();
+        QCOMPARE(gesture.mode(), PetPointerGesture::Mode::None);
+    }
 }
 
 void PetPointerGestureTest::deliberateHeadStrokeNeedsReturnAndTime() {
