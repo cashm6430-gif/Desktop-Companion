@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-22T12:54:15.890930+00:00",
+  "parent_commit": "676f241",
+  "candidate": "busy-rest rev1",
+  "approval": "pending",
+  "formal_model_unchanged": true,
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "source_files": {
+    "assets/motions/busy-rest.motion.json": "d58d81c5e11ddb2584f4796e807f279a8c38cd3f10c09ccbf38938466a230975",
+    "assets/motions/busy-stretch.motion.json": "4b726a19c365ef63fad5f5f54d690506c07c5b2959efbfe2b1427b9c9ff9bc7f",
+    "src/ParameterMotion.cpp": "cbacbde90afbae7c834edbec4cfae4681a039c70555cadeadfa16393053a5c6a",
+    "src/ParameterMotion.h": "811d06f980d4fd7619360e6888ff203577eac117d7a3e7a38b3b5fb341e0b571",
+    "src/PetWindow.cpp": "4c4657754ce202d9445ce44d41d607a43e52188fe43dfe69084423b2cc7dfbc3",
+    "src/main.cpp": "d1fd3c325a520aab9fde435d2c65bcab2923ea2241c7e629c82f2ab21c14e610",
+    "tests/ParameterMotionTest.cpp": "47d13cc6fbaccf0615359bde6726e424439fa9e61a91978ae4417abefb6bd43b",
+    "tools/review_work_pause.py": "095a6c4c1a3cc1bdc78dd20fe1ea0189c824893564f1350ef78d92ce7717d6ed"
+  },
+  "capture_provenance": "capture-start.json (unsigned renderer payload at capture)",
+  "signed_renderer_sha256": "83a89898ef6370476c117f43b6042d799104af1da57952357ef90294485f9f83",
+  "signing": {
+    "certificate": "DesktopCompanion Dev",
+    "status": "Valid",
+    "timestamp": null
+  },
+  "asset_gate": {
+    "passed": true,
+    "cubism_files": 12,
+    "parameters": 41,
+    "authored_motions": 12,
+    "log": "assets-check.log"
+  },
+  "ctest": {
+    "passed": 14,
+    "total": 14,
+    "seconds": 43.92,
+    "new_work_pause_slots": 5,
+    "log": "ctest-final.log",
+    "junit": "ctest-final.xml"
+  },
+  "native_player": {
+    "passed_scenarios": 7,
+    "total_scenarios": 7,
+    "frames_each": 75,
+    "frames_total": 525,
+    "static_keyposes": 9,
+    "check": "scene-check.json",
+    "approval": "pending",
+    "scope": "ParameterMotion event calls with Native rendering; not Qt/Windows input"
+  },
+  "maintenance": {
+    "clip": "busy-stretch",
+    "revision_before": 3,
+    "revision_after": 4,
+    "approval": "retain existing r3 visual approval",
+    "removed_axes": [
+      "ParamBrowLY",
+      "ParamBrowRY",
+      "ParamShiftY"
+    ],
+    "effective_curves_and_timing_unchanged": true,
+    "strict_pixel_equal": false,
+    "exact_native_pairs": 45,
+    "total_native_pairs": 65,
+    "max_core_vertex_delta_model_units": 1.1920928955078125e-07,
+    "silhouette_mask_changed_pixels": 0,
+    "detail": [
+      "axis-audit.json",
+      "equivalence-summary.json"
+    ],
+    "original_exact_git_blob": "busy-stretch-r3.motion.json"
+  },
+  "visual_review": {
+    "reviewer": "root multimodal inspection",
+    "standing_approval": "pending user",
+    "inspected": [
+      "all9 static poses on light/dark backgrounds at desktop size",
+      "9 selected times per7 Native scenarios (63 samples)",
+      "840px static inhale and peek poses",
+      "4 largest-difference old/clean paired poses on light/dark backgrounds"
+    ],
+    "observation": "No new neck/waist/sleeve/prop disconnect observed in these samples; small quiet performance.",
+    "not_claimed": [
+      "every525 frame visually inspected",
+      "arbitrary head/body angle combinations safe"
+    ],
+    "recapture_equivalence": "recapture-check.json: 525/525 PNG hashes identical after approval-aware review routing change"
+  },
+  "limitations": [
+    "User approval pending; default standing entry remains refused",
+    "Physical mouse/menu routing and installed build not exercised",
+    "Installation/upgrade/uninstall and real-client end-to-end acceptance pending",
+    "Core audit and paired maintenance frames exclude Qt temporal transition equivalence"
+  ],
+  "reproduce": [
+    "python tools/review_work_pause.py <fresh-output-directory>",
+    "python tools/review_work_pause.py <existing-output-directory> --verify-only",
+    "build/DesktopCompanion.exe --review-motion <fresh-directory> art/live2d/workflow/standing-rest-20261022/stretch-equivalence-poses.json pose",
+    "ctest --test-dir build --output-on-failure",
+    "python tools/validate_live2d_assets.py"
+  ],
+  "capture_source_snapshots": "capture-sources scripts preserve the historical .local/authoring run; use above public commands for a new run"
+}

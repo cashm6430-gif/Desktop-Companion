@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "scenario": "stretch-standing",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "pending_refused",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "pending"
+    },
+    {
+      "scenario": "stretch-laptop",
+      "frames": 75,
+      "clip": "busy-stretch",
+      "passed": true,
+      "default_entry": "approved_accepted",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "approved"
+    },
+    {
+      "scenario": "stretch-stop",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "pending_refused",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "pending"
+    },
+    {
+      "scenario": "stretch-delete",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "pending_refused",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "pending"
+    },
+    {
+      "scenario": "stretch-drag",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "pending_refused",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "pending"
+    },
+    {
+      "scenario": "stretch-pat",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "pending_refused",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "pending"
+    },
+    {
+      "scenario": "stretch-preview-off",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "pending_refused",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "pending"
+    }
+  ],
+  "live_provenance_checked": true,
+  "visual_approval": "pending"
+}

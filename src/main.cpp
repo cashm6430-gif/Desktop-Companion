@@ -465,6 +465,10 @@ int main(int argc, char** argv) {
             QStringLiteral("head-pat-busy"), QStringLiteral("head-pat-interrupt"),
             QStringLiteral("head-pat-left"), QStringLiteral("head-pat-right"),
             QStringLiteral("head-pat-busy-left"), QStringLiteral("head-pat-busy-right"),
+            QStringLiteral("stretch-standing"), QStringLiteral("stretch-laptop"),
+            QStringLiteral("stretch-stop"), QStringLiteral("stretch-delete"),
+            QStringLiteral("stretch-drag"), QStringLiteral("stretch-pat"),
+            QStringLiteral("stretch-preview-off"),
             QStringLiteral("desk-delete")};
         if (!scenarios.contains(scenario) || !QDir().mkpath(output)) return 2;
         const bool deskDelete = scenario == QStringLiteral("desk-delete");
@@ -477,15 +481,17 @@ int main(int argc, char** argv) {
             return 2;
         }
         const bool glance = scenario.startsWith(QStringLiteral("turn-ended"));
+        const bool workPause = scenario.startsWith(QStringLiteral("stretch-"));
         const bool laptop = deskDelete || scenario == QStringLiteral("turn-ended-laptop")
-            || scenario.startsWith(QStringLiteral("head-pat-busy"));
+            || scenario.startsWith(QStringLiteral("head-pat-busy"))
+            || scenario == QStringLiteral("stretch-laptop");
         const bool fixedPatDirection = scenario.endsWith(QStringLiteral("-left"))
             || scenario.endsWith(QStringLiteral("-right"));
         const double patDirection = scenario.endsWith(QStringLiteral("-left")) ? -1.0 : 1.0;
         const bool interrupted = scenario.endsWith(QStringLiteral("interrupt"));
         sampler.setBusyRandomSeed(20261002);
         if (laptop) sampler.forceLaptopBusy();
-        else if (glance) sampler.forceStandingBusy();
+        else if (glance || workPause) sampler.forceStandingBusy();
         for (int i = 0; i < 90; ++i) sampler.advance(1.0 / 30.0);
         window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);
@@ -493,6 +499,9 @@ int main(int argc, char** argv) {
         constexpr int frameCount = 75;
         int frame = 0;
         bool started = false, released = false, cancelled = false;
+        bool defaultPauseAccepted = false;
+        PetController::State reviewState = laptop || glance || workPause
+            ? PetController::State::Busy : PetController::State::Idle;
         QJsonArray trace;
         QTimer timer;
         timer.setInterval(100);
@@ -503,9 +512,16 @@ int main(int argc, char** argv) {
                 started = true;
                 if (deskDelete) {
                     sampler.setState(PetController::State::Delete);
+                    reviewState = PetController::State::Delete;
                     event = QStringLiteral("delete_from_desk");
+                } else if (workPause) {
+                    defaultPauseAccepted = sampler.playStretch();
+                    if (!defaultPauseAccepted && !sampler.playStretch(true)) { app.exit(2); return; }
+                    event = defaultPauseAccepted ? QStringLiteral("approved_work_pause")
+                                                 : QStringLiteral("explicit_draft_work_pause");
                 } else if (glance) {
                     sampler.setState(PetController::State::Idle);
+                    reviewState = PetController::State::Idle;
                     if (!sampler.playTurnEnded()) { app.exit(2); return; }
                     event = QStringLiteral("last_turn_stopped");
                 } else {
@@ -513,21 +529,51 @@ int main(int argc, char** argv) {
                     event = QStringLiteral("head_pat_begin");
                 }
             }
+            if (workPause && scenario != QStringLiteral("stretch-standing")
+                && scenario != QStringLiteral("stretch-laptop") && !cancelled && time >= 1.2) {
+                cancelled = true;
+                if (scenario == QStringLiteral("stretch-stop")) {
+                    sampler.setState(PetController::State::Idle);
+                    reviewState = PetController::State::Idle;
+                    event = QStringLiteral("stop_to_idle");
+                } else if (scenario == QStringLiteral("stretch-delete")) {
+                    sampler.setState(PetController::State::Delete);
+                    reviewState = PetController::State::Delete;
+                    event = QStringLiteral("delete_interrupt");
+                } else if (scenario == QStringLiteral("stretch-drag")) {
+                    sampler.beginDragMotion();
+                    sampler.updateDragMotion(120.0, -20.0);
+                    event = QStringLiteral("drag_interrupt");
+                } else if (scenario == QStringLiteral("stretch-pat")) {
+                    if (!sampler.beginHeadPat(1.0)) { app.exit(2); return; }
+                    event = QStringLiteral("pat_interrupt");
+                } else {
+                    event = sampler.cancelPendingInteraction() ? QStringLiteral("preview_disabled")
+                        : QStringLiteral("preview_disabled_approved_retained");
+                }
+            }
+            if (workPause && cancelled && !released && time >= 1.8) {
+                released = true;
+                if (scenario == QStringLiteral("stretch-drag")) sampler.endDragMotion();
+                if (scenario == QStringLiteral("stretch-pat")) sampler.endHeadPat();
+            }
             if (interrupted && !cancelled && time >= 1.2) {
                 cancelled = true;
                 sampler.setState(glance ? PetController::State::Busy : PetController::State::Delete);
+                reviewState = glance ? PetController::State::Busy : PetController::State::Delete;
                 if (glance) sampler.forceStandingBusy();
                 event = glance ? QStringLiteral("new_turn_started") : QStringLiteral("delete_interrupt");
             }
-            if (!deskDelete && !glance && !interrupted && !released && time >= 2.4) {
+            if (!deskDelete && !workPause && !glance && !interrupted && !released && time >= 2.4) {
                 released = true;
                 sampler.endHeadPat();
                 event = QStringLiteral("head_pat_release");
             }
-            if (!deskDelete && !glance && started && !released && !cancelled)
+            if (!deskDelete && !workPause && !glance && started && !released && !cancelled)
                 sampler.updateHeadPat(fixedPatDirection ? patDirection : std::cos((time - 0.4) * 2.0));
             if (sampler.consumeActionFinished()) {
-                sampler.setState(deskDelete ? PetController::State::Busy : PetController::State::Idle);
+                sampler.setState(deskDelete || workPause ? PetController::State::Busy : PetController::State::Idle);
+                reviewState = deskDelete || workPause ? PetController::State::Busy : PetController::State::Idle;
                 if (deskDelete) {
                     sampler.forceLaptopBusy();
                     event = QStringLiteral("delete_finished_resume_busy");
@@ -543,6 +589,12 @@ int main(int argc, char** argv) {
             trace.append(QJsonObject{{QStringLiteral("time"), time}, {QStringLiteral("event"), event},
                 {QStringLiteral("interaction"), sampler.interactionId()},
                 {QStringLiteral("interaction_time"), sampler.interactionTime()},
+                {QStringLiteral("default_pause_accepted"), defaultPauseAccepted},
+                {QStringLiteral("state"), static_cast<int>(reviewState)},
+                {QStringLiteral("busy_phase"), sampler.busyPhaseTime()},
+                {QStringLiteral("busy_choice_at"), sampler.nextBusyChoiceTime()},
+                {QStringLiteral("continuous_busy"), sampler.continuousBusyTime()},
+                {QStringLiteral("thought_bubble"), sampler.bubblePulse()},
                 {QStringLiteral("parameters"), parameters},
                 {QStringLiteral("head_center_hit"), window.isHeadAt(QPointF(window.width() * 0.5, window.height() * 0.3))},
                 {QStringLiteral("foot_not_head"), !window.isHeadAt(QPointF(window.width() * 0.5, window.height() * 0.95))}});

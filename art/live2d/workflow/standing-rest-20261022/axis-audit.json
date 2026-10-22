@@ -1,0 +1,1503 @@
+{
+  "version": 1,
+  "capture_started_at_utc": "2026-10-22T12:35:42.614481+00:00",
+  "capture_finished_at_utc": "2026-10-22T12:35:43.328664+00:00",
+  "moc": {
+    "path": "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.moc3",
+    "sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+  },
+  "core": {
+    "path": "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll",
+    "sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+  },
+  "original_clip": {
+    "path": "E:\\projects\\Desktop-Companion\\assets\\motions\\busy-stretch.motion.json",
+    "sha256": "653d1734b99f1f86fa700874b9ae97b5c89450d33f1de5decc3dd62207f7b553",
+    "revision": 3,
+    "approval": "approved"
+  },
+  "method": {
+    "api": "Cubism Core csmInitializeModelInPlace / reset all parameters to native defaults / set sampled raw parameter float values / csmUpdateModel",
+    "comparison": "For every sample compare original full pose against identical pose with exactly ParamBrowLY, ParamBrowRY, ParamShiftY omitted; separately compare brows without ShiftY.",
+    "interpolation": "Current old clip keyframes, smoothstep; 15 Hz endpoints plus every authored key time; float inputs stored in Core float32.",
+    "geometry_scope": "Every XY coordinate of every vertex of every Native drawable, including hidden drawables; no opacity/visibility filtering.",
+    "opacity_scope": "Every Native drawable opacity.",
+    "excluded": [
+      "Pixels/textures/render rasterization",
+      "Qt input/player temporal smoothing",
+      "Physics",
+      "Post-Core renderer ground/material/neck/desk corrections",
+      "Render order/color outputs"
+    ],
+    "interpretation": "This is a Native geometry/opacity probe, not a pixel equivalence claim. Real paired renders are a separate gate. Extreme axis probes do not establish arbitrary combined-pose capability."
+  },
+  "inventory": {
+    "parameters": 41,
+    "drawables": 39,
+    "vertices": 6553,
+    "xy_coordinates": 13106,
+    "drawable_vertex_counts": {
+      "ArtMeshTopwear": 158,
+      "ArtMeshBottomwear": 276,
+      "ArtMeshFootwearR": 112,
+      "ArtMeshFootwearL": 112,
+      "ArtMeshHandwearR5": 40,
+      "ArtMeshHandwearL2": 41,
+      "ArtMeshHandwearR4": 63,
+      "ArtMeshHandwearL": 70,
+      "ArtMeshHandwearR3": 34,
+      "ArtMeshHandwearR2": 878,
+      "ArtMeshHandwearR": 32,
+      "ArtMeshWorkstationLaptop": 4,
+      "ArtMeshWorkstationSleeveR": 4,
+      "ArtMeshWorkstationDesk": 4,
+      "ArtMeshWorkstationDeskTop": 4,
+      "ArtMeshTail": 229,
+      "ArtMeshObjects8": 132,
+      "ArtMeshObjects7": 321,
+      "ArtMeshObjects6": 108,
+      "ArtMeshObjects5": 106,
+      "ArtMeshObjects4": 66,
+      "ArtMeshObjects3": 42,
+      "ArtMeshObjects2": 69,
+      "ArtMeshObjects": 110,
+      "ArtMeshHeadwear": 656,
+      "ArtMeshFrontHair": 475,
+      "ArtMeshFace": 355,
+      "ArtMeshMouthClose": 16,
+      "ArtMeshEyewhiteR": 87,
+      "ArtMeshEyewhiteL": 94,
+      "ArtMeshIridesR": 43,
+      "ArtMeshIridesL": 75,
+      "ArtMeshEyelashR": 46,
+      "ArtMeshEyelashL": 411,
+      "ArtMeshMouthOpen2": 33,
+      "ArtMeshMouthOpen": 30,
+      "ArtMeshHairBackingPure": 335,
+      "ArtMeshBackHair2": 547,
+      "ArtMeshBackHair": 335
+    }
+  },
+  "sample_count": 65,
+  "samples": [
+    {
+      "time_seconds": 0.0,
+      "original_removed_values": {
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamShiftY": 0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.06666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.12962964074074088
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.13333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.3703703592592591
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.2,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.5
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.26666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.02429629860740745,
+        "ParamBrowRY": 0.02429629860740745,
+        "ParamShiftY": 0.6214814930370373
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.33333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.08770369979259261,
+        "ParamBrowRY": 0.08770369979259261,
+        "ParamShiftY": 0.9385184989629631
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.4,
+      "original_removed_values": {
+        "ParamBrowLY": 0.17600000000000005,
+        "ParamBrowRY": 0.17600000000000005,
+        "ParamShiftY": 1.3800000000000003
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.46666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.2749629679407408,
+        "ParamBrowRY": 0.2749629679407408,
+        "ParamShiftY": 1.874814839703704
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 1.1920928955078125e-07,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [
+          "ArtMeshBackHair2"
+        ],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.53333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.37037036592592604,
+        "ParamBrowRY": 0.37037036592592604,
+        "ParamShiftY": 2.3518518296296302
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 1.1920928955078125e-07,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [
+          "ArtMeshObjects5"
+        ],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.6,
+      "original_removed_values": {
+        "ParamBrowLY": 0.44800000000000006,
+        "ParamBrowRY": 0.44800000000000006,
+        "ParamShiftY": 2.74
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.66666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.4936296308740741,
+        "ParamBrowRY": 0.4936296308740741,
+        "ParamShiftY": 2.9681481543703705
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.7,
+      "original_removed_values": {
+        "ParamBrowLY": 0.5,
+        "ParamBrowRY": 0.5,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.73333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.5037037030092593,
+        "ParamBrowRY": 0.5037037030092593,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.8,
+      "original_removed_values": {
+        "ParamBrowLY": 0.525,
+        "ParamBrowRY": 0.525,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.86666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.5462962969907408,
+        "ParamBrowRY": 0.5462962969907408,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.9,
+      "original_removed_values": {
+        "ParamBrowLY": 0.55,
+        "ParamBrowRY": 0.55,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 0.93333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.55,
+        "ParamBrowRY": 0.55,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.0,
+      "original_removed_values": {
+        "ParamBrowLY": 0.55,
+        "ParamBrowRY": 0.55,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.05,
+      "original_removed_values": {
+        "ParamBrowLY": 0.55,
+        "ParamBrowRY": 0.55,
+        "ParamShiftY": 3.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 7.450580596923828e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.06666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.5379972519067212,
+        "ParamBrowRY": 0.5517146782990399,
+        "ParamShiftY": 2.914266085048008
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 1.1920928955078125e-07,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [
+          "ArtMeshFootwearR"
+        ],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.13333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.3459533722908097,
+        "ParamBrowRY": 0.57914951824417,
+        "ParamShiftY": 1.5425240877914974
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.2,
+      "original_removed_values": {
+        "ParamBrowLY": 0.2,
+        "ParamBrowRY": 0.6,
+        "ParamShiftY": 0.5
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.26666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.19921759886704263,
+        "ParamBrowRY": 0.5992175988670426,
+        "ParamShiftY": 0.4921759886704262
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.33333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.19703297275618553,
+        "ParamBrowRY": 0.5970329727561855,
+        "ParamShiftY": 0.47032972756185537
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.4,
+      "original_removed_values": {
+        "ParamBrowLY": 0.19368998628257889,
+        "ParamBrowRY": 0.5936899862825789,
+        "ParamShiftY": 0.4368998628257888
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 7.450580596923828e-09,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.46666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.1894325049758675,
+        "ParamBrowRY": 0.5894325049758675,
+        "ParamShiftY": 0.394325049758675
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 1.4901161193847656e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.53333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.18450439491439313,
+        "ParamBrowRY": 0.5845043949143931,
+        "ParamShiftY": 0.3450439491439312
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.6,
+      "original_removed_values": {
+        "ParamBrowLY": 0.17914951989026062,
+        "ParamBrowRY": 0.5791495198902606,
+        "ParamShiftY": 0.2914951989026063
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 1.4901161193847656e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.66666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.1736117458995072,
+        "ParamBrowRY": 0.5736117458995073,
+        "ParamShiftY": 0.23611745899507203
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.73333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.16813493904790935,
+        "ParamBrowRY": 0.5681349390479093,
+        "ParamShiftY": 0.1813493904790936
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.8,
+      "original_removed_values": {
+        "ParamBrowLY": 0.16296296296296298,
+        "ParamBrowRY": 0.562962962962963,
+        "ParamShiftY": 0.12962962962962965
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.86666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.15833968377787938,
+        "ParamBrowRY": 0.5583396837778795,
+        "ParamShiftY": 0.08339683777879386
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 5.960464477539063e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 1.93333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.15450896729665192,
+        "ParamBrowRY": 0.554508967296652,
+        "ParamShiftY": 0.04508967296651939
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 2.9802322387695312e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.0,
+      "original_removed_values": {
+        "ParamBrowLY": 0.15171467764060356,
+        "ParamBrowRY": 0.5517146776406037,
+        "ParamShiftY": 0.01714677640603568
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 2.9802322387695312e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.06666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.1502006807509018,
+        "ParamBrowRY": 0.5502006807509019,
+        "ParamShiftY": 0.0020068075090179383
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 8.940696716308594e-08,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.1,
+      "original_removed_values": {
+        "ParamBrowLY": 0.15,
+        "ParamBrowRY": 0.55,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.13333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.1480888892622222,
+        "ParamBrowRY": 0.5429925939614815,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.2,
+      "original_removed_values": {
+        "ParamBrowLY": 0.13439999999999996,
+        "ParamBrowRY": 0.49279999999999996,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.26666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.11111110977777772,
+        "ParamBrowRY": 0.40740740251851837,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.33333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.08248889038222232,
+        "ParamBrowRY": 0.3024592647348152,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.4,
+      "original_removed_values": {
+        "ParamBrowLY": 0.052800000000000055,
+        "ParamBrowRY": 0.19360000000000027,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.46666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.02631110993777784,
+        "ParamBrowRY": 0.09647406977185208,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.53333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.007288889582222263,
+        "ParamBrowRY": 0.026725928468148252,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.6,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.66666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.73333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.8,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.86666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 2.93333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.0,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.06666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.13333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.2,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.26666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.33333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.4,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.46666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.53333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.6,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.66666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.73333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.8,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.86666667,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 3.93333333,
+      "original_removed_values": {
+        "ParamBrowLY": 0.0,
+        "ParamBrowRY": 0.0,
+        "ParamShiftY": 0.0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    },
+    {
+      "time_seconds": 4.0,
+      "original_removed_values": {
+        "ParamBrowLY": 0,
+        "ParamBrowRY": 0,
+        "ParamShiftY": 0
+      },
+      "brow_only_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      },
+      "all_three_difference": {
+        "max_abs_vertex_coordinate_delta_model_units": 0.0,
+        "max_abs_drawable_opacity_delta": 0.0,
+        "drawable_geometry_changes_over_1e_7": [],
+        "drawable_opacity_changes_over_1e_7": []
+      }
+    }
+  ],
+  "max_original_vs_cleaned_vertex_delta_model_units": 1.1920928955078125e-07,
+  "max_original_vs_cleaned_opacity_delta": 0.0,
+  "max_brow_only_vertex_delta_model_units": 0.0,
+  "extreme_axis_probes": [
+    {
+      "regime": "neutral-standing",
+      "axis": "ParamBrowLY",
+      "value": -1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "neutral-standing",
+      "axis": "ParamBrowLY",
+      "value": 1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "neutral-standing",
+      "axis": "ParamBrowRY",
+      "value": -1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "neutral-standing",
+      "axis": "ParamBrowRY",
+      "value": 1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "neutral-standing",
+      "axis": "ParamShiftY",
+      "value": -100.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "neutral-standing",
+      "axis": "ParamShiftY",
+      "value": 100.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "seated-desk-key-0.7",
+      "axis": "ParamBrowLY",
+      "value": -1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "seated-desk-key-0.7",
+      "axis": "ParamBrowLY",
+      "value": 1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "seated-desk-key-0.7",
+      "axis": "ParamBrowRY",
+      "value": -1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "seated-desk-key-0.7",
+      "axis": "ParamBrowRY",
+      "value": 1.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "seated-desk-key-0.7",
+      "axis": "ParamShiftY",
+      "value": -100.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    },
+    {
+      "regime": "seated-desk-key-0.7",
+      "axis": "ParamShiftY",
+      "value": 100.0,
+      "max_abs_vertex_coordinate_delta_model_units": 0.0,
+      "max_abs_drawable_opacity_delta": 0.0,
+      "drawable_geometry_changes_over_1e_7": [],
+      "drawable_opacity_changes_over_1e_7": []
+    }
+  ]
+}

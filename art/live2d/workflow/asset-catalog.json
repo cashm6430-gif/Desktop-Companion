@@ -5324,6 +5324,198 @@
       "bytes": 7965,
       "sha256": "22ef2ef2acc0fda2fd0127970ef9bd311f1d4f52ee9b6ec459901e96c3220b3d"
     },
+    "art/live2d/workflow/standing-rest-20261022/assets-check.log": {
+      "bytes": 187,
+      "sha256": "c7443cc46b1956605ab5ed7ba6a3f52ae357e44e1aa4c1db545343b02554a5b9"
+    },
+    "art/live2d/workflow/standing-rest-20261022/axis-audit.json": {
+      "bytes": 53854,
+      "sha256": "59bd3233f172d8301ff7ad34a997c32506accb0846cfb3c4f0d1e0c4e14bb88d"
+    },
+    "art/live2d/workflow/standing-rest-20261022/busy-stretch-r3.motion.json": {
+      "bytes": 10233,
+      "sha256": "653d1734b99f1f86fa700874b9ae97b5c89450d33f1de5decc3dd62207f7b553"
+    },
+    "art/live2d/workflow/standing-rest-20261022/capture-sources/axis_audit.py": {
+      "bytes": 8283,
+      "sha256": "944f23285ab8c26ae37c22be8444ad517384bf2a33e8f1c3550c4796a732855f"
+    },
+    "art/live2d/workflow/standing-rest-20261022/capture-sources/equivalence.py": {
+      "bytes": 1751,
+      "sha256": "cd458f06c23778e798d04a0ec4375c5f74a840d4ffa46c8fdf411e5dfafb105f"
+    },
+    "art/live2d/workflow/standing-rest-20261022/capture-sources/summarize_equivalence.py": {
+      "bytes": 2869,
+      "sha256": "f54760e2fb072c20c9238ddb2052e60b1dd46cb78cf06696f8d597692d41c840"
+    },
+    "art/live2d/workflow/standing-rest-20261022/capture-start.json": {
+      "bytes": 11297,
+      "sha256": "f1eaf83458fc6866242eae0e574e0249e2ccd8f84f9f2eed18421df5943544f4"
+    },
+    "art/live2d/workflow/standing-rest-20261022/ctest-final.log": {
+      "bytes": 1673,
+      "sha256": "0479f62ab9aff3a435b60dc93a55dc810d93a2847eddf0e5f7cf559c9147f43c"
+    },
+    "art/live2d/workflow/standing-rest-20261022/ctest-final.xml": {
+      "bytes": 3932,
+      "sha256": "8d8c822abebaaff4c76520ce6112b98e4ac5d66462dcb20901c9d4ee8af769b9"
+    },
+    "art/live2d/workflow/standing-rest-20261022/equivalence-check.json": {
+      "bytes": 7570,
+      "sha256": "eb37e50ee176431285fa82abab0d098cb4859615d7f8e9208967f4080e617b31"
+    },
+    "art/live2d/workflow/standing-rest-20261022/equivalence-diff.png": {
+      "bytes": 742127,
+      "sha256": "82ea03910ea90d6b5aaa48e37e1afb49366872a70c4f8098d5cdb505d1d119f4"
+    },
+    "art/live2d/workflow/standing-rest-20261022/equivalence-summary.json": {
+      "bytes": 59588,
+      "sha256": "d6a02b6e91c78f9590065b414a3f962388c9f171a8c84b7ba59e1a69f511228d"
+    },
+    "art/live2d/workflow/standing-rest-20261022/interruption-samples.png": {
+      "bytes": 4653114,
+      "sha256": "8e35034651778bc0beb6ba5cc309a10ceb11ba2362b0209d5a94d596f6b3ae25"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-16.png": {
+      "bytes": 514646,
+      "sha256": "f67f64fafdb6139803f221990889dbba1100dcefabc4fd68559b7bca38a67db2"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-17.png": {
+      "bytes": 514661,
+      "sha256": "5ce780dbd398f5e2944153bd800f1ab7d6cc478e6ea8d2df87d2021a1096ea5d"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-20.png": {
+      "bytes": 515430,
+      "sha256": "979cf78a403569c123160ecabb2e05bafb029a96c93e114c88560e72c397dc4e"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-21.png": {
+      "bytes": 515412,
+      "sha256": "01e15d6139d1418efe088724e71365244833f65aebd05460bef86531c9e8a572"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-58.png": {
+      "bytes": 515316,
+      "sha256": "20cbba5452a7d77235347f60f1e7a09db1f4c31487f69c3f9e83cd1124eada5f"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-59.png": {
+      "bytes": 515342,
+      "sha256": "05ce35bf2f2dcb6ec957d828887e03c4e90fe6b225bb2cfc0fdd39885438dc34"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-68.png": {
+      "bytes": 514623,
+      "sha256": "ddba7e47803f35e233795d978f06588ca99bef6138863db06732c6b1ebefc699"
+    },
+    "art/live2d/workflow/standing-rest-20261022/maintenance-pixel-samples/pose-69.png": {
+      "bytes": 514603,
+      "sha256": "5c34ff7294a8477687c6e6e70ecd4ed14f89dc123b01167617d7483a8f322419"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-00.png": {
+      "bytes": 573419,
+      "sha256": "e606df9235b7e0e98b3ef12eba0457b91ef1980296df557026a7132c9eb59036"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-01.png": {
+      "bytes": 572499,
+      "sha256": "c2d259608421f34f2830cf885e329a5a0627cab1425689707c8525d2fc6903b2"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-02.png": {
+      "bytes": 569359,
+      "sha256": "0113c3512b7d65a16b2f6d2be07cabebb4a1f65f74808e699e99aef1618cf60f"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-03.png": {
+      "bytes": 567107,
+      "sha256": "b55162be3d763732524aec0e33bb33f0473653ae2859b0e58df96295347dfd74"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-04.png": {
+      "bytes": 570111,
+      "sha256": "344d807b84a85b87cba38d0f349f86957f2172b5b3d45e819b66a6d352f6e7b1"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-05.png": {
+      "bytes": 572439,
+      "sha256": "755970de525ebe3e97255b333181d562df66b7f62fc244eef5046c46bea2fbf5"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-06.png": {
+      "bytes": 571955,
+      "sha256": "e72379f1cb8c443a8cf0eeff2be3219dd6a8e27a6499b9952ff5558843a3a83c"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-07.png": {
+      "bytes": 573156,
+      "sha256": "a9bf1e8d8c75119d1c18728c589fa361dbc62127c3a4cdab8217a57a998a971e"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest-08.png": {
+      "bytes": 573419,
+      "sha256": "e606df9235b7e0e98b3ef12eba0457b91ef1980296df557026a7132c9eb59036"
+    },
+    "art/live2d/workflow/standing-rest-20261022/poses/rest.capture.json": {
+      "bytes": 9842,
+      "sha256": "ccbc939545d32aa7322283a5dcab6c0631782d5ec1acafe588a549cfeb1deefc"
+    },
+    "art/live2d/workflow/standing-rest-20261022/recapture-check.json": {
+      "bytes": 146,
+      "sha256": "6b86a1b0dbfe0eaa648b1686f7f930575d76df84a1bfe204f62f7a0a97b4fee5"
+    },
+    "art/live2d/workflow/standing-rest-20261022/scene-check.json": {
+      "bytes": 2691,
+      "sha256": "470010388c554111d96d5abc132137e999387ae8a02778fb5a1359eb2c6ab04b"
+    },
+    "art/live2d/workflow/standing-rest-20261022/standing-rest-keyposes.png": {
+      "bytes": 1215822,
+      "sha256": "7c0f7bcc1d4b1cf8b0623544fe892e1e8c8609abcbc24e7f3e90fde126605d89"
+    },
+    "art/live2d/workflow/standing-rest-20261022/standing-rest-preview.gif": {
+      "bytes": 4682744,
+      "sha256": "48804849de0dd5a00640d27ebf3173d820f0d92bc869b7fd51351d3645e7d86b"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-delete/scene.json": {
+      "bytes": 180493,
+      "sha256": "1bc7e9c4245facad0f6280a1895567d85bddca68d4851011a12181fdf350643a"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-drag/scene.json": {
+      "bytes": 174071,
+      "sha256": "c6fa18f9639bb60d38763939bb6880f8bab94a749d920ca3393ba8e4f7d68745"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-equivalence-poses.json": {
+      "bytes": 135501,
+      "sha256": "b7083cafa785bf1ab172ae05413cdd28a9924e4698ff006932fb79328801457c"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-laptop/frame-029.png": {
+      "bytes": 514517,
+      "sha256": "af9a7da8f0ca5909a543a30d7f2a027ed4f0ddcfa2e0a9a28878eba6e73a6dc1"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-laptop/scene.json": {
+      "bytes": 178086,
+      "sha256": "cfe08187857030a43430c2075bf6a661f6b397a4b2403f83b5721eab55ec6023"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-pat/scene.json": {
+      "bytes": 174254,
+      "sha256": "2facca14e7475058c8ffb579fa0b56ae41cb4e46248e8cb7d5984e219b3008e6"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-preview-off/scene.json": {
+      "bytes": 174091,
+      "sha256": "8a027f365f8345fa648539b5cddbf4643097353b5b8d5f9855ec7e3d7850f94b"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-standing/frame-022.png": {
+      "bytes": 570720,
+      "sha256": "df46e579f3362fa07241301d82ddd52e86598e662393276069d52c5218aa5288"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-standing/frame-029.png": {
+      "bytes": 572875,
+      "sha256": "fee286844fbdc4d8ff091191c8d8746ffe22baacc106952f97f14a277eda8d84"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-standing/frame-044.png": {
+      "bytes": 572405,
+      "sha256": "3e1a8e2b8ad68d06a6c1b3c22593a452457bfbf2077a913c5b91fbcdf615f32d"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-standing/scene.json": {
+      "bytes": 174877,
+      "sha256": "a331ec8c53faa196dca83f5340be49276c2ff2e53ed08a80d71d3ed88a611668"
+    },
+    "art/live2d/workflow/standing-rest-20261022/stretch-stop/scene.json": {
+      "bytes": 173101,
+      "sha256": "ffa7f6abe869d7b30376753b2cab95bfb25456188b3132476bccbf684bc37b2c"
+    },
+    "art/live2d/workflow/standing-rest-20261022/verification.json": {
+      "bytes": 4412,
+      "sha256": "a653ffaa5898add799ab26fee516749746423cffa54d1d4bc48f395f3c47eab3"
+    },
     "art/live2d/workflow/verification-20261003.json": {
       "bytes": 5741,
       "sha256": "d010134dd542c8297e84a1901fa00269f52d9c3dba001c968900696e33c1247e"
@@ -5604,13 +5796,17 @@
       "bytes": 4834,
       "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
     },
+    "assets/motions/busy-rest.motion.json": {
+      "bytes": 7364,
+      "sha256": "d58d81c5e11ddb2584f4796e807f279a8c38cd3f10c09ccbf38938466a230975"
+    },
     "assets/motions/busy-stand.motion.json": {
       "bytes": 9778,
       "sha256": "737d6f15345b11a302dcf376517c85ea5b3578009e3c0c152a81278106d40cc9"
     },
     "assets/motions/busy-stretch.motion.json": {
-      "bytes": 10233,
-      "sha256": "653d1734b99f1f86fa700874b9ae97b5c89450d33f1de5decc3dd62207f7b553"
+      "bytes": 10829,
+      "sha256": "4b726a19c365ef63fad5f5f54d690506c07c5b2959efbfe2b1427b9c9ff9bc7f"
     },
     "assets/motions/cheer.motion.json": {
       "bytes": 5596,
@@ -5905,12 +6101,12 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 64356,
-      "sha256": "f097d0a8810bf10d5695ac6fc180a5a7bc6a57826c796432e4fac80323f770a1"
+      "bytes": 68413,
+      "sha256": "cbacbde90afbae7c834edbec4cfae4681a039c70555cadeadfa16393053a5c6a"
     },
     "src/ParameterMotion.h": {
-      "bytes": 18433,
-      "sha256": "f132d3f9484cbf60d27b34cb4f11d7b11bc734cf95b5b4a2ee8665bacbd59661"
+      "bytes": 19175,
+      "sha256": "811d06f980d4fd7619360e6888ff203577eac117d7a3e7a38b3b5fb341e0b571"
     },
     "src/PetController.cpp": {
       "bytes": 7030,
@@ -5929,8 +6125,8 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 88044,
-      "sha256": "e9b48f48e5dcd9fa41bbe0c0537deaaa90f021ac547c9b47c7bdfd757981cc7e"
+      "bytes": 88305,
+      "sha256": "4c4657754ce202d9445ce44d41d607a43e52188fe43dfe69084423b2cc7dfbc3"
     },
     "src/PetWindow.h": {
       "bytes": 13033,
@@ -5985,8 +6181,8 @@
       "sha256": "8fad6d6e9a30cbdd81cd2f6523595865895da1ed7e4c463146df9e5d9d88e573"
     },
     "src/main.cpp": {
-      "bytes": 54640,
-      "sha256": "17536163d38818d232bfb072e67ab7298a44b80085a1d96181027450957ce22a"
+      "bytes": 58269,
+      "sha256": "d1fd3c325a520aab9fde435d2c65bcab2923ea2241c7e629c82f2ab21c14e610"
     },
     "src/motion/BoxBehavior.cpp": {
       "bytes": 6397,
@@ -6109,8 +6305,8 @@
       "sha256": "714de75986e345bfa6ab6177b259cf9fe3e08f6e68fd7ec81d605bf2dd5bc46c"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 106167,
-      "sha256": "9a1c78a77fcd0fff51ee499af162901574d7ce8a3d794e183f3a8d923a3e7e5f"
+      "bytes": 123092,
+      "sha256": "47d13cc6fbaccf0615359bde6726e424439fa9e61a91978ae4417abefb6bd43b"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 14249,
@@ -6535,6 +6731,10 @@
     "tools/review_toon_prototype.py": {
       "bytes": 21201,
       "sha256": "c7d00dd936ae0b694a171261d305e0f2d7db2d9a33dbee43186a4ee0d502b0e2"
+    },
+    "tools/review_work_pause.py": {
+      "bytes": 9011,
+      "sha256": "095a6c4c1a3cc1bdc78dd20fe1ea0189c824893564f1350ef78d92ce7717d6ed"
     },
     "tools/run-toon-host.cmd": {
       "bytes": 346,

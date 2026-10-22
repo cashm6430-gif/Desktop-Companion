@@ -68,20 +68,25 @@ public:
     // window's interaction-preview toggle until the user signs them off.
     bool playGreet();
     bool playCheer();
-    // Authored stretch-and-peek pause ("歇一下"). Only meaningful while the
-    // seated laptop busy loop is playing; the clip carries the full seated
-    // pose, so it overrides the loop and resumes typing from its start.
-    bool playStretch();
+    // Work pause ("歇一下"): dispatch to the settled seated stretch or the
+    // standing rest without changing posture. Unapproved clips require an
+    // explicit review call; automatic and ordinary menu calls never allow them.
+    bool playStretch(bool allowDraft = false);
     // True while the stretch-and-peek pause is playing. A click during the
     // peek is "caught you": pokeStretch skips to the recovery beat instead of
     // starting a head pat.
     bool stretchActive() const { return interaction_ == Interaction::Stretch; }
+    bool restActive() const { return interaction_ == Interaction::Rest; }
+    bool workPauseActive() const { return stretchActive() || restActive(); }
     void pokeStretch();
     bool beginHeadPat(double direction = 0.0);
     bool canBeginHeadPat() const;
     void updateHeadPat(double direction);
     void endHeadPat();
     void cancelInteraction();
+    // Shared by the preview toggle and native review: only an unapproved
+    // current clip is cancelled; approved work pauses/pats keep playing.
+    bool cancelPendingInteraction();
     // User hooks (pat / turn-ended / stretch) outrank the spontaneous
     // director: the lightweight scenes stand down at once so a hook never
     // overlaps or gets refused by them.
@@ -211,6 +216,11 @@ public:
     // without depending on the 40% random laptop choice.
     void forceStandingBusy();
     bool isLaptopBusy() const { return laptopBusy_; }
+    // Read-only review trace for pause/variant timing; these clocks resume from
+    // the same phase after an interaction and never queue a replacement beat.
+    double busyPhaseTime() const { return busyTime_; }
+    double nextBusyChoiceTime() const { return nextBusyChoice_; }
+    double continuousBusyTime() const { return workBusyTime_; }
     // Enable only for a model with an opaque ParamDeskVisible cover. The desk
     // covers before laptop posture changes and leaves after recovery. Disabled
     // by default; preview/sequence poses keep their explicitly supplied values.
@@ -285,10 +295,11 @@ private:
 
     bool actionFinishedReported_ = false;
 
-    enum class Interaction { None, TurnEnded, HeadPat, Stretch, Greet, Cheer };
+    enum class Interaction { None, TurnEnded, HeadPat, Stretch, Rest, Greet, Cheer };
     MotionClip turnEndedClip_;
     MotionClip headPatClip_;
     MotionClip stretchClip_;
+    MotionClip restClip_;
     MotionClip greetClip_;
     MotionClip cheerClip_;
     QString interactionDirectory_;
