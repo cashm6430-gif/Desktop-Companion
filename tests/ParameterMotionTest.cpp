@@ -1097,8 +1097,10 @@ void ParameterMotionTest::workPauseFreezesClocksAndPreservesStandingPosture() {
     const double workTime = motion.continuousBusyTime();
     const double choice = motion.nextBusyChoiceTime();
     QVERIFY(busyTime < choice && choice - busyTime < 0.03);
-    QVERIFY(motion.playStretch(true));
-    QVERIFY(oppositeCursor.playStretch(true));
+    // The real approved standing clip must use the same ordinary entry as
+    // the tray and director; no draft-preview exception is needed.
+    QVERIFY(motion.playStretch());
+    QVERIFY(oppositeCursor.playStretch());
     ParameterMotion::Parameters faceDifferenceAtFullOwnership;
     double fullOwnershipTime = 0.0;
     int faceOwnershipChecks = 0;
@@ -1232,7 +1234,7 @@ void ParameterMotionTest::workPauseInterruptionsDoNotReplay() {
             if (seated) motion.forceLaptopBusy();
             else motion.forceStandingBusy();
             advanceFrames(motion, seated ? 200 : 50);
-            QVERIFY(motion.playStretch(true));
+            QVERIFY(motion.playStretch());
             advanceFrames(motion, 5);
             QVERIFY(motion.workPauseActive());
             if (event == QStringLiteral("stop")) motion.setState(PetController::State::Idle);
@@ -1243,12 +1245,16 @@ void ParameterMotionTest::workPauseInterruptionsDoNotReplay() {
             if (event == QStringLiteral("memo")) motion.beginMemoMotion();
             if (event == QStringLiteral("sleep")) motion.beginSleepMotion();
             if (event == QStringLiteral("preview-off")) {
-                if (seated) {
-                    QVERIFY(!motion.cancelPendingInteraction());
-                    QVERIFY(motion.stretchActive());
-                    continue; // approved seated pause retains its authored playback
-                }
-                QVERIFY(motion.cancelPendingInteraction());
+                QVERIFY(!motion.cancelPendingInteraction());
+                QVERIFY(motion.workPauseActive());
+                QCOMPARE(motion.interactionId(), seated ? QStringLiteral("busy-stretch")
+                                                       : QStringLiteral("busy-rest"));
+                // Both real clips are approved: closing draft preview keeps
+                // the authored pause alive until its normal tail completes.
+                advanceFrames(motion, 220);
+                QVERIFY(!motion.workPauseActive());
+                QVERIFY(!motion.interactionActive());
+                continue;
             }
             QVERIFY2(!motion.workPauseActive(), qPrintable(event));
             if (event == QStringLiteral("pat")) QCOMPARE(motion.interactionId(), QStringLiteral("head-pat"));

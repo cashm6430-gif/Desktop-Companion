@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "scenario": "stretch-standing",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "approved_accepted",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "approved"
+    },
+    {
+      "scenario": "stretch-preview-off",
+      "frames": 75,
+      "clip": "busy-rest",
+      "passed": true,
+      "default_entry": "approved_accepted",
+      "pose_and_props_preserved": true,
+      "busy_choice_clock_frozen": true,
+      "interruption_or_release": true,
+      "physical_mouse": "not_exercised",
+      "visual_approval": "approved"
+    }
+  ],
+  "visual_approval": "approved",
+  "choreography_unchanged": true,
+  "physical_input": "not_exercised"
+}

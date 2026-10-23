@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "adopted_on": "2026-10-23",
+  "created_utc": "2026-10-23T13:32:44.128884+00:00",
+  "parent_commit": "82711c2",
+  "clip": "busy-rest",
+  "revision": 1,
+  "approval": "approved",
+  "approval_source": "Direct user reply to the reviewed Native preview: 通过，正式采用",
+  "approved_preview": "art/live2d/workflow/standing-rest-20261022/standing-rest-preview.gif",
+  "choreography_and_formal_model_unchanged": true,
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "motion_sha256": "6e8f6b3f86a0a794c1d93fd85e7404713bf130ab800fb9fa6e691e43518ffb13",
+  "runtime": {
+    "normal_entry": "ordinary work menu and existing long-busy nomination",
+    "pose": "settled standing Busy only; seated dispatch keeps busy-stretch",
+    "draft_menu": "hidden for approved clip",
+    "preview_off": "approved pause retained until natural release"
+  },
+  "build": {
+    "passed": true,
+    "configuration": "Release / Cubism Native",
+    "log": "build.log"
+  },
+  "ctest": {
+    "scope": "ParameterMotionTest only",
+    "passed": 1,
+    "total": 1,
+    "seconds": 5.96,
+    "log": "ctest.log",
+    "junit": "ctest.xml",
+    "full_suite_rerun": false,
+    "previous_full_suite": "2026-10-22 14/14 in standing-rest-20261022; historical"
+  },
+  "assets": {
+    "passed": true,
+    "cubism_files": 12,
+    "parameters": 41,
+    "motions": 12,
+    "log": "assets-check.log"
+  },
+  "native": {
+    "scenarios": 2,
+    "passed": 2,
+    "frames_each": 75,
+    "frames_total": 150,
+    "scope": "ordinary ParameterMotion entry + pending-cancellation helper, Native rendering",
+    "checks": "adoption-check.json",
+    "comparison": "render-comparison.json"
+  },
+  "capture_provenance": "capture-start.json (renderer payload before signing)",
+  "signed_renderer_sha256": "b1890219e8dbe9277772fc7111d7baa1eeadaa330523c5de539d6fbb0351674f",
+  "signing": {
+    "status": "Valid",
+    "certificate": "DesktopCompanion Dev",
+    "timestamp": null
+  },
+  "limitations": [
+    "Physical Windows mouse/tray routing not exercised",
+    "Installed app / installation-upgrade-uninstall loop not exercised",
+    "Automatic nomination eligibility/probability reused unchanged; no real 25-minute wait test"
+  ],
+  "reproduce": [
+    "python tools/review_work_pause.py <fresh-output-directory>",
+    "ctest --test-dir build -R ^ParameterMotionTest$ --output-on-failure",
+    "python tools/validate_live2d_assets.py"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "standing_vs_preview_off": {
+    "frames": 75,
+    "identical_pngs": 75
+  },
+  "approved_vs_reviewed_candidate": {
+    "frames": 75,
+    "identical_pngs": 75,
+    "reference": "2026-10-22 reviewed candidate Native standing sequence"
+  }
+}

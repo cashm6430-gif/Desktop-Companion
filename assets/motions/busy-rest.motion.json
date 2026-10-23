@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "approval": "pending",
-  "conceptApproval": "pending",
+  "approval": "approved",
+  "conceptApproval": "approved",
   "revision": 1,
   "modelVersion": "whale-girl-R19-f6929a38",
   "duration": 2.6,
@@ -22,9 +22,9 @@
     "全程不抬臂、不垂直搬移、不切换站坐或道具；AngleZ=0，避免扩大颈腰侧倾组合。"
   ],
   "reviewNotes": {
-    "status": "Candidate only; requires user approval after Native key-pose and continuous review.",
+    "status": "User approved rev1 Native key poses and continuous preview: 通过，正式采用. Adopted 2026-10-23; choreography unchanged.",
     "ownership": "Expressive head/face/hair, small body X/Z and breath; no pose/prop/arm/shift channels.",
-    "runtime": "Busy standing only; explicit draft preview, default scheduler/manual work entry refuse pending.",
+    "runtime": "Settled Busy standing only; ordinary work menu and spontaneous work-pause nominations use the approved clip without draft previews.",
     "interrupts": "Stop/Delete/Grass/drag/pat yield immediately without replay; no cooldown reward or obligation."
   },
   "keyframes": [

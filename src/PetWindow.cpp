@@ -548,11 +548,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         setInteractionPreviewEnabled(true);
         motion_.playTurnEnded();
     });
-    previewMenu->addAction(QStringLiteral("站姿歇一下（待审批，仅站姿忙碌）"), this, [this] {
-        if (controller_->state() != PetController::State::Busy || motion_.isLaptopBusy()) return;
-        setInteractionPreviewEnabled(true);
-        motion_.playStretch(true);
-    });
+    const auto* standingRestClip = motion_.library().clip(QStringLiteral("busy-rest"));
+    if (!standingRestClip || standingRestClip->approval() != QStringLiteral("approved")) {
+        previewMenu->addAction(QStringLiteral("站姿歇一下（待审批，仅站姿忙碌）"), this, [this] {
+            if (controller_->state() != PetController::State::Busy || motion_.isLaptopBusy()) return;
+            setInteractionPreviewEnabled(true);
+            motion_.playStretch(true);
+        });
+    }
     workMenu->addAction(QStringLiteral("歇一下"), this, [this] {
         if (controller_->state() != PetController::State::Busy) return;
         motion_.playStretch();

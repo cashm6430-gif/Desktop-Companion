@@ -4,8 +4,8 @@
     python tools/review_work_pause.py <existing-run> --verify-only
 
 Offscreen Native rendering and direct player events; no physical input, hooks,
-desktop deletion, installation or user settings are exercised. New standing
-choreography remains pending. Reuse a fresh directory for every capture.
+desktop deletion, installation or user settings are exercised. Approval is read
+from the captured assets. Reuse a fresh directory for every capture.
 """
 import argparse
 import json
