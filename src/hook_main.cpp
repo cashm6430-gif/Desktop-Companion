@@ -5,6 +5,8 @@
 #include <QJsonObject>
 #include <QLocalSocket>
 #include <QDateTime>
+#include <QElapsedTimer>
+#include <QStringList>
 #include <iostream>
 #include <string>
 
@@ -25,22 +27,46 @@ int main(int argc, char** argv) {
     // Explicit test entry: validate the installed hook's JSON response without
     // sending synthetic turns to a user's running pet. Production hook
     // commands never pass this flag and keep the existing IPC behavior.
-    const bool dryRunHook = argc > 1 && std::string(argv[1]) == "--dry-run-hook";
-    if (argc > 1 && std::string(argv[1]) == "--status") {
+    bool dryRunHook = false;
+    QString client;
+    QStringList positional;
+    const QStringList arguments = app.arguments();
+    for (int index = 1; index < arguments.size(); ++index) {
+        const QString& argument = arguments[index];
+        if (argument == QStringLiteral("--dry-run-hook")) dryRunHook = true;
+        else if (argument == QStringLiteral("--client") && index + 1 < arguments.size()
+                 && !arguments[index + 1].startsWith(QStringLiteral("--"))) client = arguments[++index];
+        else positional.append(argument);
+    }
+    if (!positional.isEmpty() && positional.front() == QStringLiteral("--status")) {
+        QElapsedTimer deadline;
+        deadline.start();
+        const auto remaining = [&deadline] { return qMax(0, 180 - int(deadline.elapsed())); };
         QLocalSocket socket;
         socket.connectToServer(CodexTurnSource::serverName());
-        if (!socket.waitForConnected(180)) return 1;
+        if (!socket.waitForConnected(remaining())) return 1;
         socket.write("{\"event\":\"status\"}\n");
-        if (!socket.waitForBytesWritten(180) || !socket.waitForReadyRead(180)) return 1;
-        std::cout << socket.readAll().trimmed().toStdString() << std::endl;
-        return 0;
+        if (socket.bytesToWrite() > 0 && !socket.waitForBytesWritten(remaining())) return 1;
+        QByteArray reply;
+        for (;;) {
+            reply.append(socket.readAll());
+            if (reply.size() > 1024 * 1024) return 1;
+            const qsizetype newline = reply.indexOf('\n');
+            if (newline >= 0) {
+                std::cout << reply.left(newline).trimmed().toStdString() << std::endl;
+                return 0;
+            }
+            if (socket.state() == QLocalSocket::UnconnectedState || remaining() <= 0) return 1;
+            if (!socket.waitForReadyRead(remaining()) && socket.bytesAvailable() == 0) return 1;
+        }
     }
-    if (argc > 1 && std::string(argv[1]) == "--send") {
-        if (argc < 3) return 2;
-        const QString action = QString::fromLocal8Bit(argv[2]);
-        const QString session = argc > 3 ? QString::fromLocal8Bit(argv[3]) : QStringLiteral("manual");
-        const QString turn = argc > 4 ? QString::fromLocal8Bit(argv[4]) : QStringLiteral("test");
+    if (!positional.isEmpty() && positional.front() == QStringLiteral("--send")) {
+        if (positional.size() < 2) return 2;
+        const QString action = positional[1];
+        const QString session = positional.size() > 2 ? positional[2] : QStringLiteral("manual");
+        const QString turn = positional.size() > 3 ? positional[3] : QStringLiteral("test");
         return sendMessage({{QStringLiteral("event"), action},
+                            {QStringLiteral("client"), QStringLiteral("manual")},
                             {QStringLiteral("session_id"), session},
                             {QStringLiteral("turn_id"), turn}}) ? 0 : 1;
     }
@@ -64,10 +90,11 @@ int main(int argc, char** argv) {
         }
         // Stop/SessionEnd keep the empty turn_id so PetController ends the
         // session's latest turn (or the whole session) instead of missing.
-        if (!dryRunHook)
-            sendMessage({{QStringLiteral("event"), action},
-                         {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
-                         {QStringLiteral("turn_id"), turn}});
+        QJsonObject message{{QStringLiteral("event"), action},
+                            {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
+                            {QStringLiteral("turn_id"), turn}};
+        if (!client.isNull()) message.insert(QStringLiteral("client"), client);
+        if (!dryRunHook) sendMessage(message);
     }
     // Valid JSON for Stop/Interrupt; no prompt text or hook output is retained.
     std::cout << "{}" << std::endl;

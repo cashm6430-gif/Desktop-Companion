@@ -2,6 +2,7 @@
 #include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
 #include "HeadPatInputReview.h"
+#include "IntegrationStatusModel.h"
 #include "PetController.h"
 #include "PetWindow.h"
 #include "StartupTrace.h"
@@ -939,13 +940,16 @@ int main(int argc, char** argv) {
     coworkSeeder.start();
 
     CodexTurnSource codexSource;
+    IntegrationStatusModel integrationStatus;
     QObject::connect(&codexSource, &CodexTurnSource::turnStarted,
                      &controller, &PetController::turnStarted);
     QObject::connect(&codexSource, &CodexTurnSource::turnStopped,
                      &controller, &PetController::turnStopped);
     QObject::connect(&codexSource, &CodexTurnSource::sessionEnded,
                      &controller, &PetController::sessionEnded);
-    codexSource.setStatusProvider([&controller, &desktopSource, &window, &coworkSeeder] {
+    QObject::connect(&codexSource, &CodexTurnSource::eventReceived,
+                     &integrationStatus, &IntegrationStatusModel::observeEvent);
+    const auto petState = [&controller] {
         QString state;
         switch (controller.state()) {
         case PetController::State::Idle: state = QStringLiteral("idle"); break;
@@ -953,10 +957,24 @@ int main(int argc, char** argv) {
         case PetController::State::Delete: state = QStringLiteral("delete"); break;
         case PetController::State::Grass: state = QStringLiteral("grass"); break;
         }
+        return state;
+    };
+    const auto integrationSnapshot = [&] {
+        return integrationStatus.snapshot(codexSource.isListening(), codexSource.error(),
+                                          controller.activeTurnCount(), petState());
+    };
+    const auto resetBusy = [&] {
+        controller.resetBusy();
+        integrationStatus.recordReset();
+    };
+    window.setIntegrationStatusProvider(integrationSnapshot, resetBusy);
+    codexSource.setStatusProvider([&controller, &desktopSource, &window, &coworkSeeder,
+                                  &petState, &integrationSnapshot] {
         QJsonObject parameters;
         for (auto it = window.motionParameters().cbegin(); it != window.motionParameters().cend(); ++it)
             parameters.insert(it.key(), it.value());
-        return QJsonObject{{QStringLiteral("state"), state},
+        return QJsonObject{{QStringLiteral("state"), petState()},
+                           {QStringLiteral("integration"), integrationSnapshot()},
                            {QStringLiteral("render_backend"), window.renderBackend()},
                            {QStringLiteral("render_error"), window.renderError()},
                            {QStringLiteral("cubism_parameters"), parameters},

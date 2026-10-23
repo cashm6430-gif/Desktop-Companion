@@ -56,6 +56,11 @@ try {
     Assert (-not ($bytes2[0] -eq 0xEF -and $bytes2[1] -eq 0xBB -and $bytes2[2] -eq 0xBF)) `
         'settings.json must not carry a UTF-8 BOM'
     Assert ((CountPetEntries $settings2) -eq 3) 'a stale pet entry must be replaced, not stacked'
+    $taggedConfig = Get-Content -LiteralPath $settings1 -Raw | ConvertFrom-Json
+    foreach ($taggedEvent in @('UserPromptSubmit', 'Stop', 'SessionEnd')) {
+        Assert ($taggedConfig.hooks.$taggedEvent[0].hooks[0].command -eq ('"' + $helper + '" --client claude')) `
+            'Claude session hooks must declare their source without changing executable quoting'
+    }
     $seeded = [IO.File]::ReadAllText($settings2, [Text.Encoding]::UTF8)
     Assert ($seeded -match 'Bash\(ls:\*\)') 'permissions must survive seeding'
     Assert ($seeded -match '"FOO"') 'env must survive seeding'

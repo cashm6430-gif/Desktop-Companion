@@ -41,6 +41,8 @@ qt_add_executable(DesktopCompanion WIN32
     src/PetController.h src/PetController.cpp
     src/WorkReactionCoordinator.h src/WorkReactionCoordinator.cpp
     src/QuietPolicy.h src/QuietPolicy.cpp
+    src/IntegrationStatusModel.h src/IntegrationStatusModel.cpp
+    src/IntegrationStatusPanel.h src/IntegrationStatusPanel.cpp
     src/PetPointerGesture.h src/PetPointerGesture.cpp
     src/ParameterMotion.h src/ParameterMotion.cpp
     src/motion/MotionMath.h
@@ -146,6 +148,26 @@ if(BUILD_TESTING)
         src/QuietPolicy.h src/QuietPolicy.cpp)
     target_link_libraries(QuietPolicyTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME QuietPolicyTest COMMAND QuietPolicyTest)
+    add_executable(CodexTurnSourceTest tests/CodexTurnSourceTest.cpp
+        src/CodexTurnSource.h src/CodexTurnSource.cpp)
+    target_link_libraries(CodexTurnSourceTest PRIVATE Qt6::Core Qt6::Network Qt6::Test)
+    add_test(NAME CodexTurnSourceTest COMMAND CodexTurnSourceTest)
+    add_executable(IntegrationStatusModelTest tests/IntegrationStatusModelTest.cpp
+        src/IntegrationStatusModel.h src/IntegrationStatusModel.cpp)
+    target_link_libraries(IntegrationStatusModelTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME IntegrationStatusModelTest COMMAND IntegrationStatusModelTest)
+    add_executable(IntegrationStatusPanelTest tests/IntegrationStatusPanelTest.cpp
+        src/IntegrationStatusPanel.h src/IntegrationStatusPanel.cpp)
+    target_link_libraries(IntegrationStatusPanelTest PRIVATE Qt6::Widgets Qt6::Test)
+    add_test(NAME IntegrationStatusPanelTest COMMAND IntegrationStatusPanelTest)
+    # Isolated IPC/controller/widget evidence; never touches the live endpoint
+    # or installed hooks and does not need Cubism or the character assets.
+    add_executable(IntegrationStatusPanelPreview tools/status_panel_preview.cpp
+        src/CodexTurnSource.h src/CodexTurnSource.cpp
+        src/PetController.h src/PetController.cpp
+        src/IntegrationStatusModel.h src/IntegrationStatusModel.cpp
+        src/IntegrationStatusPanel.h src/IntegrationStatusPanel.cpp)
+    target_link_libraries(IntegrationStatusPanelPreview PRIVATE Qt6::Widgets Qt6::Network)
     # No assets, no widget: the placement contract is pure arithmetic, so this
     # one runs anywhere and is the guard against the thought bubble being parked
     # off-screen again by a partial screen overhang.
@@ -199,7 +221,7 @@ if(BUILD_TESTING)
         src/QuietPolicy.h src/QuietPolicy.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
-    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest QuietPolicyTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
+    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest QuietPolicyTest CodexTurnSourceTest IntegrationStatusModelTest IntegrationStatusPanelTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
         set_tests_properties(${test_name} PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
     endforeach()
     if(HAVE_CUBISM)

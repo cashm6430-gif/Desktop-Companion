@@ -42,7 +42,7 @@ QJsonObject petGroup(const QString& helperPath)
 {
     // Quoted absolute path, the form the desktop app's own config already accepts.
     const QJsonObject hook{{QStringLiteral("type"), QStringLiteral("command")},
-                           {QStringLiteral("command"), QStringLiteral("\"") + helperPath + QStringLiteral("\"")},
+                           {QStringLiteral("command"), QStringLiteral("\"") + helperPath + QStringLiteral("\" --client claude")},
                            {QStringLiteral("timeout"), 5}};
     return QJsonObject{{QStringLiteral("hooks"), QJsonArray{hook}}};
 }

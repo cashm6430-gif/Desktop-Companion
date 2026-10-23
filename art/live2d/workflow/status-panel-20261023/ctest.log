@@ -1,0 +1,41 @@
+Test project E:/projects/Desktop-Companion/build
+      Start  1: PetControllerTest
+ 1/18 Test  #1: PetControllerTest ................   Passed    6.64 sec
+      Start  2: PetPointerGestureTest
+ 2/18 Test  #2: PetPointerGestureTest ............   Passed    0.02 sec
+      Start  3: TriggerDirectorTest
+ 3/18 Test  #3: TriggerDirectorTest ..............   Passed    0.06 sec
+      Start  4: QuietPolicyTest
+ 4/18 Test  #4: QuietPolicyTest ..................   Passed    0.02 sec
+      Start  5: CodexTurnSourceTest
+ 5/18 Test  #5: CodexTurnSourceTest ..............   Passed    2.52 sec
+      Start  6: IntegrationStatusModelTest
+ 6/18 Test  #6: IntegrationStatusModelTest .......   Passed    0.07 sec
+      Start  7: IntegrationStatusPanelTest
+ 7/18 Test  #7: IntegrationStatusPanelTest .......   Passed    3.62 sec
+      Start  8: ScreenPlacementTest
+ 8/18 Test  #8: ScreenPlacementTest ..............   Passed    0.14 sec
+      Start  9: CoworkHookSeederTest
+ 9/18 Test  #9: CoworkHookSeederTest .............   Passed    1.04 sec
+      Start 10: ToonEventBridgeTest
+10/18 Test #10: ToonEventBridgeTest ..............   Passed   14.24 sec
+      Start 11: ParameterMotionTest
+11/18 Test #11: ParameterMotionTest ..............   Passed    4.87 sec
+      Start 12: MotionClipTest
+12/18 Test #12: MotionClipTest ...................   Passed    0.61 sec
+      Start 13: CubismMaterialBindingTest
+13/18 Test #13: CubismMaterialBindingTest ........   Passed    0.12 sec
+      Start 14: CubismNeckBindingTest
+14/18 Test #14: CubismNeckBindingTest ............   Passed   10.16 sec
+      Start 15: CubismPostureTransitionTest
+15/18 Test #15: CubismPostureTransitionTest ......   Passed    0.03 sec
+      Start 16: CubismMaterialTextureTest
+16/18 Test #16: CubismMaterialTextureTest ........   Passed    1.49 sec
+      Start 17: CodexHookTest
+17/18 Test #17: CodexHookTest ....................   Passed    2.16 sec
+      Start 18: CoworkSeedScriptTest
+18/18 Test #18: CoworkSeedScriptTest .............   Passed    1.33 sec
+
+100% tests passed out of 18
+
+Total Test time (real) =  49.24 sec

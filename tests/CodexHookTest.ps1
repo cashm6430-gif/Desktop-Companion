@@ -74,8 +74,64 @@ try {
         }
     }
     # Check the configured executable too, rather than only the command prefix.
-    $expected = "& '" + (Resolve-Path -LiteralPath $HelperPath).Path.Replace("'", "''") + "'"
+    $resolvedHelper = (Resolve-Path -LiteralPath $HelperPath).Path
+    $expected = "& '" + $resolvedHelper.Replace("'", "''") + "' --client codex"
     if ($config.hooks.Stop[0].hooks[0].command -ne $expected) { throw 'Wrong hook executable' }
+
+    # All writes stay in throwaway fixtures. New source metadata is generated
+    # for each supported client; legacy commands still work without metadata.
+    $multiClientInstaller = Join-Path (Split-Path -Parent $InstallerPath) 'install-hooks.ps1'
+    foreach ($client in @('workbuddy', 'claude')) {
+        $clientConfig = Join-Path ([IO.Path]::GetTempPath()) ("pet-hooks-test-$client-" + [guid]::NewGuid() + '.json')
+        try {
+            & $multiClientInstaller -Clients $client -TargetPath $clientConfig -HelperPath $HelperPath | Out-Null
+            $clientBytes = [IO.File]::ReadAllBytes($clientConfig)
+            if ($clientBytes.Length -ge 3 -and $clientBytes[0] -eq 0xEF -and $clientBytes[1] -eq 0xBB -and $clientBytes[2] -eq 0xBF) {
+                throw "$client config has a UTF-8 BOM"
+            }
+            $clientHooks = Get-Content -LiteralPath $clientConfig -Raw | ConvertFrom-Json
+            $expectedClientCommand = '"' + $resolvedHelper + '" --client ' + $client
+            foreach ($event in @('UserPromptSubmit', 'Stop', 'SessionEnd')) {
+                if ($clientHooks.hooks.$event[0].hooks[0].command -ne $expectedClientCommand) {
+                    throw "$client $event has wrong executable or source metadata"
+                }
+            }
+        } finally {
+            if (Test-Path -LiteralPath $clientConfig) { Remove-Item -LiteralPath $clientConfig }
+        }
+    }
+
+    # Exercise the optional flags in both orders, including production's
+    # `--client codex --dry-run-hook` tail, without touching the live endpoint.
+    $argumentCases = @(
+        @('--dry-run-hook'),
+        @('--client', 'codex', '--dry-run-hook'),
+        @('--dry-run-hook', '--client', 'workbuddy'),
+        @('--client', 'claude', '--dry-run-hook'),
+        @('--client', 'unrecognized', '--dry-run-hook')
+    )
+    foreach ($arguments in $argumentCases) {
+        $probe = [Diagnostics.Process]::new()
+        try {
+            $probe.StartInfo.FileName = $resolvedHelper
+            foreach ($argument in $arguments) { $probe.StartInfo.ArgumentList.Add($argument) }
+            $probe.StartInfo.UseShellExecute = $false
+            $probe.StartInfo.CreateNoWindow = $true
+            $probe.StartInfo.RedirectStandardInput = $true
+            $probe.StartInfo.RedirectStandardOutput = $true
+            $probe.StartInfo.RedirectStandardError = $true
+            [void]$probe.Start()
+            $probe.StandardInput.WriteLine('{"hook_event_name":"UserPromptSubmit","session_id":"protocol-test"}')
+            $probe.StandardInput.Close()
+            if (-not $probe.WaitForExit(3000)) { $probe.Kill($true); throw 'dry-run flag combination timed out' }
+            $stdout = $probe.StandardOutput.ReadToEnd()
+            $stderr = $probe.StandardError.ReadToEnd()
+            if ($probe.ExitCode -ne 0 -or $stderr.Trim() -or $stdout.Trim() -ne '{}') {
+                throw "dry-run flag combination failed: exit=$($probe.ExitCode), stdout=$stdout, stderr=$stderr"
+            }
+            [void]($stdout | ConvertFrom-Json -ErrorAction Stop)
+        } finally { $probe.Dispose() }
+    }
 } finally {
     if (Test-Path -LiteralPath $configPath) { Remove-Item -LiteralPath $configPath }
 }

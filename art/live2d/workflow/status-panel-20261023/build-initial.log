@@ -1,0 +1,66 @@
+[0/1] Re-running CMake...
+-- Conan: Component target declared 'GLEW::glew_s'
+-- Conan: Target declared 'GLEW::GLEW'
+-- Conan: Target declared 'glu::glu'
+-- Conan: Target declared 'opengl::opengl'
+-- Configuring done (0.4s)
+-- Generating done (0.3s)
+-- Build files have been written to: E:/projects/Desktop-Companion/build
+[1/86] Automatic MOC for target TrayMenuPreview
+[2/84] Automatic MOC for target PetControllerTest
+[3/82] Automatic MOC for target PetPointerGestureTest
+[4/80] Automatic MOC for target TriggerDirectorTest
+[5/78] Automatic MOC for target QuietPolicyTest
+[6/76] Automatic MOC for target DesktopCompanionHook
+[7/76] Automatic MOC for target DesktopCompanion
+[8/76] Automatic MOC for target IntegrationStatusModelTest
+[9/76] Automatic MOC for target CodexTurnSourceTest
+[10/76] Automatic MOC for target IntegrationStatusPanelTest
+[11/76] Building CXX object CMakeFiles\DesktopCompanion.dir\src\IntegrationStatusModel.cpp.obj
+[12/76] Building CXX object CMakeFiles\DesktopCompanion.dir\src\HeadPatInputReview.cpp.obj
+[13/76] Building CXX object CMakeFiles\DesktopCompanion.dir\DesktopCompanion_autogen\mocs_compilation.cpp.obj
+[14/76] Building CXX object CMakeFiles\DesktopCompanion.dir\src\main.cpp.obj
+[15/76] Building CXX object CMakeFiles\DesktopCompanion.dir\src\IntegrationStatusPanel.cpp.obj
+[16/76] Building CXX object CMakeFiles\DesktopCompanion.dir\src\CodexTurnSource.cpp.obj
+[17/76] Automatic MOC for target IntegrationStatusPanelPreview
+[18/76] Automatic MOC for target ScreenPlacementTest
+[19/74] Automatic MOC for target CoworkHookSeederTest
+[20/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\CoworkHookSeeder.cpp.obj
+[21/73] Automatic MOC for target ToonEventBridgeTest
+[22/71] Automatic MOC for target ParameterMotionTest
+[23/69] Automatic MOC for target MotionClipTest
+[24/67] Automatic MOC for target CubismMaterialBindingTest
+[25/65] Automatic MOC for target CubismNeckBindingTest
+[26/63] Automatic MOC for target CubismPostureTransitionTest
+[27/61] Automatic MOC for target CubismMaterialTextureTest
+[28/59] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetWindow.cpp.obj
+[29/59] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ToonHost.cpp.obj
+[30/59] Building CXX object CMakeFiles\DesktopCompanionHook.dir\DesktopCompanionHook_autogen\mocs_compilation.cpp.obj
+[31/59] Building CXX object CMakeFiles\DesktopCompanionHook.dir\src\hook_main.cpp.obj
+[32/59] Linking CXX executable DesktopCompanion.exe
+[33/59] Building CXX object CMakeFiles\DesktopCompanionHook.dir\src\CodexTurnSource.cpp.obj
+[34/59] Building CXX object CMakeFiles\CodexTurnSourceTest.dir\CodexTurnSourceTest_autogen\mocs_compilation.cpp.obj
+[35/59] Building CXX object CMakeFiles\CodexTurnSourceTest.dir\src\CodexTurnSource.cpp.obj
+[36/59] Building CXX object CMakeFiles\IntegrationStatusModelTest.dir\IntegrationStatusModelTest_autogen\mocs_compilation.cpp.obj
+[37/59] Building CXX object CMakeFiles\CodexTurnSourceTest.dir\tests\CodexTurnSourceTest.cpp.obj
+[38/59] Building CXX object CMakeFiles\IntegrationStatusModelTest.dir\src\IntegrationStatusModel.cpp.obj
+[39/59] Building CXX object CMakeFiles\IntegrationStatusPanelTest.dir\IntegrationStatusPanelTest_autogen\mocs_compilation.cpp.obj
+[40/59] Building CXX object CMakeFiles\IntegrationStatusModelTest.dir\tests\IntegrationStatusModelTest.cpp.obj
+[41/59] Building CXX object CMakeFiles\IntegrationStatusPanelTest.dir\tests\IntegrationStatusPanelTest.cpp.obj
+[42/59] Building CXX object CMakeFiles\IntegrationStatusPanelTest.dir\src\IntegrationStatusPanel.cpp.obj
+[43/59] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\IntegrationStatusPanelPreview_autogen\mocs_compilation.cpp.obj
+[44/59] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\tools\status_panel_preview.cpp.obj
+[45/59] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\src\CodexTurnSource.cpp.obj
+[46/59] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\src\PetController.cpp.obj
+[47/59] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\src\IntegrationStatusModel.cpp.obj
+[48/59] Linking CXX executable DesktopCompanionHook.exe
+[49/59] Linking CXX executable CodexTurnSourceTest.exe
+[50/59] Linking CXX executable IntegrationStatusModelTest.exe
+[51/59] Linking CXX executable IntegrationStatusPanelTest.exe
+[52/59] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+[53/59] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[54/59] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\src\IntegrationStatusPanel.cpp.obj
+[55/59] Linking CXX executable IntegrationStatusPanelPreview.exe
+[56/59] Building CXX object CMakeFiles\CoworkHookSeederTest.dir\src\CoworkHookSeeder.cpp.obj
+[57/59] Building CXX object CMakeFiles\CoworkHookSeederTest.dir\tests\CoworkHookSeederTest.cpp.obj
+[58/59] Linking CXX executable CoworkHookSeederTest.exe

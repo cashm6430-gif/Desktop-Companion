@@ -33,8 +33,8 @@
       "sha256": "62667fccbad729ec041684659202f2582578577d88ad8e56c2ed3aa77c578565"
     },
     "CMakeLists.txt": {
-      "bytes": 14327,
-      "sha256": "758dcb86a73bcd0f409807a9e281ade6a2b27a726f1c2892278f0c5fc0c11141"
+      "bytes": 16007,
+      "sha256": "d7d77921ea563cb9c8022644c3a10ea332b68490d7d5973db0b47da661da542c"
     },
     "art/3d/integration/replay-smoke-v1.json": {
       "bytes": 731,
@@ -5608,6 +5608,74 @@
       "bytes": 2515,
       "sha256": "61296e93e6b64d3012a3d309e2b2d1c56235441332b105ea9b6ae03b24750a86"
     },
+    "art/live2d/workflow/status-panel-20261023/assets-check.log": {
+      "bytes": 187,
+      "sha256": "c7443cc46b1956605ab5ed7ba6a3f52ae357e44e1aa4c1db545343b02554a5b9"
+    },
+    "art/live2d/workflow/status-panel-20261023/build-initial.log": {
+      "bytes": 5533,
+      "sha256": "d88caf7f8ee8fa3d24787f8bed1a3f6936b977c07933dbd80f63f7e54ddb64ed"
+    },
+    "art/live2d/workflow/status-panel-20261023/build-preview-default.log": {
+      "bytes": 940,
+      "sha256": "6bf81fd1e1cb5b7389ff801ca9e56194bb1ab58594b1221ea13f35b1da86e204"
+    },
+    "art/live2d/workflow/status-panel-20261023/build.log": {
+      "bytes": 1371,
+      "sha256": "2be83bdd288c8dd7652dfadaa56b03906ad0d6465e8792fc4691c54f670c0022"
+    },
+    "art/live2d/workflow/status-panel-20261023/ctest-ui.log": {
+      "bytes": 230,
+      "sha256": "0fee43e4c222fd6d47383579afe0e666d88334974223955eb9488489918288de"
+    },
+    "art/live2d/workflow/status-panel-20261023/ctest-ui.xml": {
+      "bytes": 393,
+      "sha256": "78923fc40c06dac17b8cfb749bfee3fcc4f64fb756d6bbc216a96ae756d05337"
+    },
+    "art/live2d/workflow/status-panel-20261023/ctest.log": {
+      "bytes": 2123,
+      "sha256": "29261e71d5cc312b666f93844b8a9ca716be68f933a0fd76382b5e60885151e1"
+    },
+    "art/live2d/workflow/status-panel-20261023/ctest.xml": {
+      "bytes": 4956,
+      "sha256": "b2bc3925aa99258d154899dbcf17eb32f3cb4cea8549033d66e578dfad4f63df"
+    },
+    "art/live2d/workflow/status-panel-20261023/native-smoke.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "art/live2d/workflow/status-panel-20261023/panel-listener-failed.png": {
+      "bytes": 35434,
+      "sha256": "e58fcc0ad7159383dcf84c3a78f237f20f139a112669526723dd8b94303c9907"
+    },
+    "art/live2d/workflow/status-panel-20261023/panel-listening.png": {
+      "bytes": 34913,
+      "sha256": "3c8f0917eeab2f08dcd30a5136811a3d8c57426a7fc018d147d7aee00f514d73"
+    },
+    "art/live2d/workflow/status-panel-20261023/panel-reset.png": {
+      "bytes": 35786,
+      "sha256": "82f6663edce72e5b93b2d04c53bce7c57922fbb797451ffc7a74a56f6cb5ef86"
+    },
+    "art/live2d/workflow/status-panel-20261023/preview-final.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "art/live2d/workflow/status-panel-20261023/smoke.png": {
+      "bytes": 84328,
+      "sha256": "ff4e26a73b8601c13ed51e975b6bc901906ea2be744d1a240d493dfc165a7681"
+    },
+    "art/live2d/workflow/status-panel-20261023/smoke.png.json": {
+      "bytes": 137,
+      "sha256": "2735263d8940cf96e8092902fa6960eab43d2058dca417f6d6c5f38530b1671c"
+    },
+    "art/live2d/workflow/status-panel-20261023/status-panel-check.json": {
+      "bytes": 11178,
+      "sha256": "ea9c78aee89cbcf7f48e2e2a9a7863b83993759c9050d7332eb918367c69581e"
+    },
+    "art/live2d/workflow/status-panel-20261023/verification.json": {
+      "bytes": 7367,
+      "sha256": "361e5c73b3c4476f1f9d8f7571b98d1a4c7091a5a867f2ab014d656736213085"
+    },
     "art/live2d/workflow/verification-20261003.json": {
       "bytes": 5741,
       "sha256": "d010134dd542c8297e84a1901fa00269f52d9c3dba001c968900696e33c1247e"
@@ -6109,16 +6177,16 @@
       "sha256": "9f52af18fd4fe8dc6e50aed3439dd87df945e43440b0b060eb3df3a241e76e69"
     },
     "src/CodexTurnSource.cpp": {
-      "bytes": 2189,
-      "sha256": "1834a3c7424798ba40c095ed3f8030ea26189dc50d8a35513b66e90718bd70a0"
+      "bytes": 3935,
+      "sha256": "3124565fd86c269be86d6854af2202cec25e4650bf8c3f9886fc2888ad561b55"
     },
     "src/CodexTurnSource.h": {
-      "bytes": 708,
-      "sha256": "a0cff5edf81c83e90483fe47bf09a7339ad23d75a4b520454019dfa5199de9da"
+      "bytes": 1108,
+      "sha256": "10817bd89c1bcb8ebb9f1358848d03f56d82952e5ad956c87ad05b2889465069"
     },
     "src/CoworkHookSeeder.cpp": {
-      "bytes": 9169,
-      "sha256": "06e3217d2e6da890610e8664a646764101789ec2c3d9312ee1cca52f20889c72"
+      "bytes": 9185,
+      "sha256": "9607be7ec9f5e36395ba8b9ba5a93811b18102ed35364d40537eb1ffc4744fc2"
     },
     "src/CoworkHookSeeder.h": {
       "bytes": 3466,
@@ -6176,6 +6244,22 @@
       "bytes": 476,
       "sha256": "caba142af8d21603e552f0e2d444ad96b2b5cefb96a144014a6c1ea84037aebb"
     },
+    "src/IntegrationStatusModel.cpp": {
+      "bytes": 3147,
+      "sha256": "12c6f309a065618e359b8b95ca365267547e45998b0694bdf52738d35e93ed17"
+    },
+    "src/IntegrationStatusModel.h": {
+      "bytes": 1069,
+      "sha256": "d0deb65b35717a25dc0ca74ebf71119a116030eff759f08d32ddb0dc0475718a"
+    },
+    "src/IntegrationStatusPanel.cpp": {
+      "bytes": 10532,
+      "sha256": "6efdc3e98d869b6fb00485f3bcae0463b6d1019e7a45908d7c253d7d903bbfe6"
+    },
+    "src/IntegrationStatusPanel.h": {
+      "bytes": 1246,
+      "sha256": "9e60bcf516259607e1010a42a16d3b1d4ffdc6586c1eb73cda17e3b20f025edc"
+    },
     "src/MotionClip.cpp": {
       "bytes": 17401,
       "sha256": "efe5c315102d7c9629b11501420d2d52d887c5453db4a8ef81cdf7cccd11558b"
@@ -6217,12 +6301,12 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 90343,
-      "sha256": "699abd596afeb56b5dbcd8ea0f567663dcfd8f04be10a2c9ac94ad842c78e1d9"
+      "bytes": 91517,
+      "sha256": "60cb017b1eccea712a2abf2f70e66e833bcaa7538053d1b621666dffeaa60d3c"
     },
     "src/PetWindow.h": {
-      "bytes": 12937,
-      "sha256": "186e9459cc370da7d10941a14d0c4abbe90fb38202a51b125bd9342e26649b3e"
+      "bytes": 13360,
+      "sha256": "528f1964795dafa30642281889a114f090d9483faa81767bc37c828cc1e1b606"
     },
     "src/QuietPolicy.cpp": {
       "bytes": 1802,
@@ -6277,12 +6361,12 @@
       "sha256": "4c2fee21d88f456f95174b5b48aaa300f4ddcb425122bc447bbe5e2ae65bd1ae"
     },
     "src/hook_main.cpp": {
-      "bytes": 3598,
-      "sha256": "8fad6d6e9a30cbdd81cd2f6523595865895da1ed7e4c463146df9e5d9d88e573"
+      "bytes": 4989,
+      "sha256": "a813517c8b79a98f80543a1ffa59f63676c95bff7a3c593f04d9a3f2e105848f"
     },
     "src/main.cpp": {
-      "bytes": 58339,
-      "sha256": "814694bf4c3885c7297941ec82dc52f0690c390c5972012f5571e0d9c111e594"
+      "bytes": 59225,
+      "sha256": "802860d665835ea5873ffe0b8a87a09b7aac5f0817906b4c58e826ef80a502a8"
     },
     "src/motion/BoxBehavior.cpp": {
       "bytes": 6397,
@@ -6373,16 +6457,20 @@
       "sha256": "192852eb3dfaed48f9e8ca0fc8fefbf9b86272539d50d18fdd8600365a6044b7"
     },
     "tests/CodexHookTest.ps1": {
-      "bytes": 4813,
-      "sha256": "a9155ee3e9a1b9cdde22c856bada234e8241428d136fd44fafc4235e1f9392d2"
+      "bytes": 7985,
+      "sha256": "7cabe25da24a4980d80f17dc8ff2cd3f3ced03b0812a0df85aa2a273a03103ea"
+    },
+    "tests/CodexTurnSourceTest.cpp": {
+      "bytes": 12157,
+      "sha256": "5c39e3f045f7cde5f6a9a4f0fdbb3af61815ad81fd810b0a5b7fa65d6316024c"
     },
     "tests/CoworkHookSeederTest.cpp": {
-      "bytes": 19377,
-      "sha256": "f85dcd4a99b87b2b881ce0cd0048addd1e224e514e50b57b00b7052e20eb13b6"
+      "bytes": 19353,
+      "sha256": "89e58bf5ea1a2c35506c3d3aa73a90f0d5a8eafe55afc748f7c742c31ebaff7f"
     },
     "tests/CoworkSeedScriptTest.ps1": {
-      "bytes": 6812,
-      "sha256": "dd8b67ef58faa72181293019a3fced340c26f8072cb474de44a0f4d994ad1223"
+      "bytes": 7185,
+      "sha256": "298ab16fa839523cdcdd6fea612bb418d469c900c850859c06fe4b55dc186037"
     },
     "tests/CubismMaterialBindingTest.cpp": {
       "bytes": 13507,
@@ -6399,6 +6487,14 @@
     "tests/CubismPostureTransitionTest.cpp": {
       "bytes": 9465,
       "sha256": "006fc4b6abd35506b377d2ca5a9a0805404712fd64333deefe3324cc7bcbc2dc"
+    },
+    "tests/IntegrationStatusModelTest.cpp": {
+      "bytes": 12742,
+      "sha256": "c65ba51d03ec5c7ab20fc48750a377d6a0fa196c37b47949252b70a630bddc8b"
+    },
+    "tests/IntegrationStatusPanelTest.cpp": {
+      "bytes": 8141,
+      "sha256": "de94c01de93130171d9edfac6536d40e76ae2860e68adb6072c51f63c41de395"
     },
     "tests/MotionClipTest.cpp": {
       "bytes": 46756,
@@ -6677,8 +6773,8 @@
       "sha256": "9899532d520fdab5bb52094a106ed9929cc6db6409afa42df77418fbcaca5792"
     },
     "tools/install-hooks.ps1": {
-      "bytes": 6461,
-      "sha256": "5d5b76194e8dec134d5342eca36c37c7ac066f6b48dae861be7bcd687357d056"
+      "bytes": 6521,
+      "sha256": "73c58cc955bf8e73d3d5c915f4aa5098b158eaf06716deb9d8037d439ecad210"
     },
     "tools/live2d_arm_rig.py": {
       "bytes": 3817,
@@ -6853,8 +6949,8 @@
       "sha256": "0acd358c7eab504c43ec906d23a81fca941a03ffae864f2fae4d170357f5d7b0"
     },
     "tools/seed-cowork-hooks.ps1": {
-      "bytes": 6424,
-      "sha256": "dbb08d7e38217bf37e0cd3761f9217dfc99d96b84916d17ec275a12d79126a72"
+      "bytes": 6440,
+      "sha256": "2764610c3447aeea837ea808c8d76f8cc07e22bc647bd216b060f0b08483968c"
     },
     "tools/stage_desk_work.py": {
       "bytes": 10613,
@@ -6863,6 +6959,10 @@
     "tools/stage_hair_backing.py": {
       "bytes": 10532,
       "sha256": "d69e2908ba9d60d9e39e0dfd70af730d15321db665dfceeb0eed32a0dccb4653"
+    },
+    "tools/status_panel_preview.cpp": {
+      "bytes": 12577,
+      "sha256": "87f3eed67fd906a774eabf40535fd47fcf00db3920f543ac9af144f41682584a"
     },
     "tools/tray_preview.cpp": {
       "bytes": 2056,

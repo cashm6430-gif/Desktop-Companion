@@ -60,7 +60,7 @@ function Test-PetGroup($Group) {
 $command = ''
 if (-not $Remove) {
     $helper = (Resolve-Path -LiteralPath $HelperPath).Path
-    $command = '"' + $helper + '"'
+    $command = '"' + $helper + '" --client claude'
 }
 $events = @('UserPromptSubmit', 'Stop', 'SessionEnd')
 

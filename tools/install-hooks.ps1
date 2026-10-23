@@ -48,7 +48,7 @@ function New-ClientSpec {
                Events = @('UserPromptSubmit', 'Stop', 'Interrupt', 'SessionEnd')
                Timeout = 3
                Matcher = $null
-               Command = "& '" + $Helper.Replace("'", "''") + "'" }
+               Command = "& '" + $Helper.Replace("'", "''") + "' --client codex" }
         }
         'workbuddy' {
             @{ Name = 'workbuddy'
@@ -57,7 +57,7 @@ function New-ClientSpec {
                Events = @('UserPromptSubmit', 'Stop', 'SessionEnd')
                Timeout = 5
                Matcher = ''
-               Command = $quoted }
+               Command = $quoted + ' --client workbuddy' }
         }
         'claude' {
             @{ Name = 'claude'
@@ -66,7 +66,7 @@ function New-ClientSpec {
                Events = @('UserPromptSubmit', 'Stop', 'SessionEnd')
                Timeout = 5
                Matcher = ''
-               Command = $quoted }
+               Command = $quoted + ' --client claude' }
         }
         default { throw "Unknown client '$Name'" }
     }

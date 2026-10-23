@@ -1,0 +1,11 @@
+[1/14] Automatic MOC for target IntegrationStatusPanelPreview
+[2/13] Automatic MOC for target DesktopCompanion
+[3/12] Automatic MOC for target IntegrationStatusPanelTest
+[4/11] Building CXX object CMakeFiles\IntegrationStatusPanelPreview.dir\src\IntegrationStatusPanel.cpp.obj
+[5/11] Building CXX object CMakeFiles\IntegrationStatusPanelTest.dir\src\IntegrationStatusPanel.cpp.obj
+[6/11] Building CXX object CMakeFiles\DesktopCompanion.dir\src\IntegrationStatusPanel.cpp.obj
+[7/11] Linking CXX executable IntegrationStatusPanelPreview.exe
+[8/11] Linking CXX executable IntegrationStatusPanelTest.exe
+[9/11] Linking CXX executable DesktopCompanion.exe
+[10/11] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[11/11] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Win32-ninja"
+	tests="18"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="DESKTOP-QR2EAAK"
+	time="49"
+	timestamp="2026-10-23T22:11:58"
+	>
+	<testcase name="PetControllerTest" classname="PetControllerTest" time="6.63665" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="PetPointerGestureTest" classname="PetPointerGestureTest" time="0.0225759" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="TriggerDirectorTest" classname="TriggerDirectorTest" time="0.055888" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="QuietPolicyTest" classname="QuietPolicyTest" time="0.0173007" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CodexTurnSourceTest" classname="CodexTurnSourceTest" time="2.52331" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="IntegrationStatusModelTest" classname="IntegrationStatusModelTest" time="0.0669088" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="IntegrationStatusPanelTest" classname="IntegrationStatusPanelTest" time="3.61968" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ScreenPlacementTest" classname="ScreenPlacementTest" time="0.135065" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CoworkHookSeederTest" classname="CoworkHookSeederTest" time="1.04127" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ToonEventBridgeTest" classname="ToonEventBridgeTest" time="14.239" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ParameterMotionTest" classname="ParameterMotionTest" time="4.87353" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="MotionClipTest" classname="MotionClipTest" time="0.609709" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialBindingTest" classname="CubismMaterialBindingTest" time="0.124436" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismNeckBindingTest" classname="CubismNeckBindingTest" time="10.1619" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismPostureTransitionTest" classname="CubismPostureTransitionTest" time="0.0291829" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialTextureTest" classname="CubismMaterialTextureTest" time="1.48671" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CodexHookTest" classname="CodexHookTest" time="2.1626" status="run">
+		<properties/>
+		<system-out>Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-15e17e98-6169-4dd1-a151-ecc517cd6615.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+UserPromptSubmit : exit 0, valid JSON
+Stop : exit 0, valid JSON
+Interrupt : exit 0, valid JSON
+SessionEnd : exit 0, valid JSON
+Installed pet hooks for workbuddy in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-workbuddy-82c179bc-d8ac-4b7c-94e1-e5a626f04f26.json (UserPromptSubmit, Stop, SessionEnd)
+Installed pet hooks for claude in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-claude-71784fb8-cbd9-4c43-a549-dcaccfd1182d.json (UserPromptSubmit, Stop, SessionEnd)
+</system-out>
+	</testcase>
+	<testcase name="CoworkSeedScriptTest" classname="CoworkSeedScriptTest" time="1.33395" status="run">
+		<properties/>
+		<system-out>seeded   C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-253b75191739447ab258950d2ba0e711\Claude-3p\local-agent-mode-sessions\acct\00000000\s1\.claude\settings.json
+seeded   C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-253b75191739447ab258950d2ba0e711\Claude-3p\local-agent-mode-sessions\acct\00000000\s2\.claude\settings.json
+WARNING: Not JSON, leaving alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-253b75191739447ab258950d2ba0e711\Claude-3p\local-agent-mode-sessions\acct\00000000\s3\.claude\settings.json
+Seeded 2 session config dir(s).
+cleaned  C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-253b75191739447ab258950d2ba0e711\Claude-3p\local-agent-mode-sessions\acct\00000000\s1\.claude\settings.json
+cleaned  C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-253b75191739447ab258950d2ba0e711\Claude-3p\local-agent-mode-sessions\acct\00000000\s2\.claude\settings.json
+WARNING: Not JSON, leaving alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "completed_on": "2026-10-23",
+  "created_utc": "2026-10-23T14:19:32.360552+00:00",
+  "parent_commit": "77ae8a3",
+  "scope": "Qt integration status panel and source-labeled hook metadata",
+  "entry": "Work and rest tray menu -> Integration status",
+  "behavior": {
+    "listener": "actual local receiver listening state and startup failure",
+    "work": "current real total active turns and foreground pet state",
+    "sources": [
+      "codex",
+      "workbuddy",
+      "claude",
+      "unknown",
+      "manual"
+    ],
+    "receipt_storage": "one fixed whitelist event/time per source, current process only",
+    "presence": "event receipt never claims client is online or installed",
+    "status_query": "does not alter last receipt",
+    "reset": "clears local Busy accounting only, records manual/reset; never stops the agent",
+    "polling": "one second while visible; stopped on hide/close; reusable dialog",
+    "privacy": "panel/model exclude prompt, session, turn, file paths and arbitrary raw payloads",
+    "hook_metadata": "new installer commands append --client; legacy commands remain unknown",
+    "claude_seeding": "C++ and PowerShell source commands both append --client claude",
+    "ipc": "strict JSON object/required IDs, fragmented one-line requests, 4096-byte limit",
+    "helper_status": "line aggregation, total 180ms budget, bounded to 1MiB"
+  },
+  "build": {
+    "passed": true,
+    "configuration": "Release / Cubism Native",
+    "initial_log": "build-initial.log",
+    "final_log": "build.log",
+    "final_increment": "preview CLI name/deployed Windows QPA default and manual source display label; other app and test sources unchanged"
+  },
+  "ctest": {
+    "passed": 18,
+    "total": 18,
+    "seconds": 49.24,
+    "full_suite_rerun": true,
+    "new_targets": [
+      "CodexTurnSourceTest",
+      "IntegrationStatusModelTest",
+      "IntegrationStatusPanelTest"
+    ],
+    "log": "ctest.log",
+    "junit": "ctest.xml",
+    "hook_fixture_scope": "temporary config trees and helper dry-run only; no installed hooks"
+  },
+  "ui_copy_followup": {
+    "passed": 1,
+    "total": 1,
+    "seconds": 3.7,
+    "scope": "IntegrationStatusPanelTest after manual-row wording refinement; full suite not repeated for that text-only change",
+    "log": "ctest-ui.log",
+    "junit": "ctest-ui.xml"
+  },
+  "isolated_qt": {
+    "passed": true,
+    "counts": [
+      0,
+      1,
+      2,
+      1,
+      0,
+      1,
+      0,
+      0
+    ],
+    "scope": "real private IPC -> Controller -> Model -> QWidget and actual reset button",
+    "trace": "status-panel-check.json",
+    "images": [
+      "panel-listening.png",
+      "panel-reset.png",
+      "panel-listener-failed.png"
+    ],
+    "reset_button_calls": 1,
+    "status_query_preserved_history": true,
+    "listener_failure": "invalid isolated endpoint length",
+    "physical_tray_routing_tested": false,
+    "default_endpoint_used": false
+  },
+  "visual_review": "listening/reset/failure QWidget captures checked for readable layout and clipping; final capture uses the same panel code",
+  "native_smoke": {
+    "frame_saved": true,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "render_samples": 4,
+    "state": "idle",
+    "exit_code": 0,
+    "image": "smoke.png"
+  },
+  "assets": {
+    "passed": true,
+    "cubism_files": 12,
+    "parameters": 41,
+    "motions": 12,
+    "log": "assets-check.log",
+    "all_assets_unchanged": true,
+    "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "d7d77921ea563cb9c8022644c3a10ea332b68490d7d5973db0b47da661da542c",
+    "src/CodexTurnSource.cpp": "3124565fd86c269be86d6854af2202cec25e4650bf8c3f9886fc2888ad561b55",
+    "src/CodexTurnSource.h": "10817bd89c1bcb8ebb9f1358848d03f56d82952e5ad956c87ad05b2889465069",
+    "src/CoworkHookSeeder.cpp": "9607be7ec9f5e36395ba8b9ba5a93811b18102ed35364d40537eb1ffc4744fc2",
+    "src/IntegrationStatusModel.cpp": "12c6f309a065618e359b8b95ca365267547e45998b0694bdf52738d35e93ed17",
+    "src/IntegrationStatusModel.h": "d0deb65b35717a25dc0ca74ebf71119a116030eff759f08d32ddb0dc0475718a",
+    "src/IntegrationStatusPanel.cpp": "6efdc3e98d869b6fb00485f3bcae0463b6d1019e7a45908d7c253d7d903bbfe6",
+    "src/IntegrationStatusPanel.h": "9e60bcf516259607e1010a42a16d3b1d4ffdc6586c1eb73cda17e3b20f025edc",
+    "src/PetWindow.cpp": "60cb017b1eccea712a2abf2f70e66e833bcaa7538053d1b621666dffeaa60d3c",
+    "src/PetWindow.h": "528f1964795dafa30642281889a114f090d9483faa81767bc37c828cc1e1b606",
+    "src/hook_main.cpp": "a813517c8b79a98f80543a1ffa59f63676c95bff7a3c593f04d9a3f2e105848f",
+    "src/main.cpp": "802860d665835ea5873ffe0b8a87a09b7aac5f0817906b4c58e826ef80a502a8",
+    "tests/CodexHookTest.ps1": "7cabe25da24a4980d80f17dc8ff2cd3f3ced03b0812a0df85aa2a273a03103ea",
+    "tests/CodexTurnSourceTest.cpp": "5c39e3f045f7cde5f6a9a4f0fdbb3af61815ad81fd810b0a5b7fa65d6316024c",
+    "tests/CoworkHookSeederTest.cpp": "89e58bf5ea1a2c35506c3d3aa73a90f0d5a8eafe55afc748f7c742c31ebaff7f",
+    "tests/CoworkSeedScriptTest.ps1": "298ab16fa839523cdcdd6fea612bb418d469c900c850859c06fe4b55dc186037",
+    "tests/IntegrationStatusModelTest.cpp": "c65ba51d03ec5c7ab20fc48750a377d6a0fa196c37b47949252b70a630bddc8b",
+    "tests/IntegrationStatusPanelTest.cpp": "de94c01de93130171d9edfac6536d40e76ae2860e68adb6072c51f63c41de395",
+    "tools/install-hooks.ps1": "73c58cc955bf8e73d3d5c915f4aa5098b158eaf06716deb9d8037d439ecad210",
+    "tools/seed-cowork-hooks.ps1": "2764610c3447aeea837ea808c8d76f8cc07e22bc647bd216b060f0b08483968c",
+    "tools/status_panel_preview.cpp": "87f3eed67fd906a774eabf40535fd47fcf00db3920f543ac9af144f41682584a"
+  },
+  "binary_sha256": {
+    "DesktopCompanion.exe": "1f376c76ccb6d7130d072542b2c4a797ef0b2d1ebee4bf1d644001d77d45563c",
+    "DesktopCompanionHook.exe": "1ab9f03466a5d5536cb4106a5bf6e8d478cc38e3bef66e0e9fad0f80e013da19",
+    "IntegrationStatusPanelPreview.exe": "e170bec5dc878a222c0c2643d8ed4f342083995868beedcf0eb54c7739b6a491",
+    "CodexTurnSourceTest.exe": "1e1e8a5af8fcdbdc6daea4346ab807d0aa861af3f18398b482d91640598189a4",
+    "IntegrationStatusModelTest.exe": "6d52defa5b6fbb76f226fce2b09e6bce6e5e1d516df3c25d89fb48c7a0d333b1",
+    "IntegrationStatusPanelTest.exe": "0d6233e5572b84a067b28c3c9aa6b6769791a2b8809484e415bda5f748f28acb",
+    "Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+  },
+  "signing": {
+    "status": "Valid",
+    "certificate": "DesktopCompanion Dev",
+    "timestamp": null
+  },
+  "limitations": [
+    "Physical Windows tray/mouse/fullscreen routing not exercised",
+    "Existing installed hooks not rewritten or reinstalled; old hooks show unknown source",
+    "Installed upgrade/real multiclient interruptions/crash recovery/uninstall loop remains unaccepted",
+    "No new motion or model changes; no new full Native motion matrix requested"
+  ],
+  "reproduce": [
+    "cmake --build build -j4",
+    "ctest --test-dir build --output-on-failure --output-junit <output>/ctest.xml",
+    "build/IntegrationStatusPanelPreview.exe <fresh-output-directory>",
+    "python tools/validate_live2d_assets.py",
+    "build/DesktopCompanion.exe --render-smoke <output>/smoke.png"
+  ]
+}

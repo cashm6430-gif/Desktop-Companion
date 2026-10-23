@@ -23,7 +23,7 @@ class CoworkHookSeederTest : public QObject {
 
 private:
     static QString helper() { return QStringLiteral("C:\\pet\\DesktopCompanionHook.exe"); }
-    static QString quotedHelper() { return QStringLiteral("\"") + helper() + QStringLiteral("\""); }
+    static QString quotedHelper() { return QStringLiteral("\"") + helper() + QStringLiteral("\" --client claude"); }
 
     // The sweep needs a helper that EXISTS to seed at all, and its file name is
     // also the marker that recognises the pet's own entries (so a re-run replaces
@@ -86,7 +86,7 @@ private slots:
             const QJsonObject hook = groups.at(0).toObject().value(QStringLiteral("hooks"))
                                          .toArray().at(0).toObject();
             QCOMPARE(hook.value(QStringLiteral("command")).toString(),
-                     QStringLiteral("\"") + helper() + QStringLiteral("\""));
+                     quotedHelper());
             QCOMPARE(hook.value(QStringLiteral("timeout")).toInt(), 5);
             QCOMPARE(hook.value(QStringLiteral("type")).toString(), QStringLiteral("command"));
         }

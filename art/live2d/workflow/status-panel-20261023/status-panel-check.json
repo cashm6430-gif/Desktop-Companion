@@ -1,0 +1,339 @@
+{
+    "default_endpoint_used": false,
+    "failure_trigger": "invalid isolated endpoint length",
+    "images": [
+        "panel-listening.png",
+        "panel-reset.png",
+        "panel-listener-failed.png"
+    ],
+    "passed": true,
+    "physical_tray_routing_tested": false,
+    "reset_button_calls": 1,
+    "schema": 1,
+    "scope": "isolated real IPC/controller/model and QWidget button",
+    "status_query_preserved_history": true,
+    "trace": [
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "idle"
+            },
+            "step": "initial"
+        },
+        {
+            "snapshot": {
+                "active_turns": 1,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "start",
+                        "last_seen": "2026-10-23T14:19:27.168Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-23T14:19:27.168Z",
+                    "client": "codex",
+                    "event": "start"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "busy"
+            },
+            "step": "codex_start"
+        },
+        {
+            "snapshot": {
+                "active_turns": 2,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "start",
+                        "last_seen": "2026-10-23T14:19:27.168Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "start",
+                        "last_seen": "2026-10-23T14:19:27.168Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-23T14:19:27.168Z",
+                    "client": "claude",
+                    "event": "start"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "busy"
+            },
+            "step": "claude_start"
+        },
+        {
+            "snapshot": {
+                "active_turns": 1,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "start",
+                        "last_seen": "2026-10-23T14:19:27.168Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-23T14:19:27.240Z",
+                    "client": "codex",
+                    "event": "stop"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "busy"
+            },
+            "step": "codex_stop"
+        },
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "session_end",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-23T14:19:27.240Z",
+                    "client": "claude",
+                    "event": "session_end"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "idle"
+            },
+            "step": "claude_session_end"
+        },
+        {
+            "snapshot": {
+                "active_turns": 1,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "start",
+                        "last_seen": "2026-10-23T14:19:27.241Z"
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "session_end",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-23T14:19:27.241Z",
+                    "client": "workbuddy",
+                    "event": "start"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "busy"
+            },
+            "step": "workbuddy_start_before_reset"
+        },
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "start",
+                        "last_seen": "2026-10-23T14:19:27.241Z"
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "session_end",
+                        "last_seen": "2026-10-23T14:19:27.240Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "reset",
+                        "last_seen": "2026-10-23T14:19:27.242Z"
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-23T14:19:27.242Z",
+                    "client": "manual",
+                    "event": "reset"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pet_state": "idle"
+            },
+            "step": "panel_button_reset"
+        },
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                },
+                "listener_error": "QLocalServerPrivate::addListener: 系统找不到指定的路径。",
+                "listening": false,
+                "pet_state": "idle"
+            },
+            "step": "listener_failed"
+        }
+    ]
+}

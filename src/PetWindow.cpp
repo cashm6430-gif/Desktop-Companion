@@ -6,6 +6,7 @@
 #include "StartupTrace.h"
 #include "TrayMenuStyle.h"
 #include "WorkReactionCoordinator.h"
+#include "IntegrationStatusPanel.h"
 #include "overlay/FrameOverlay.h"
 
 #include <QApplication>
@@ -35,6 +36,7 @@
 #include <QWheelEvent>
 #include <algorithm>
 #include <functional>
+#include <utility>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -529,6 +531,18 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     trayMenu_.addSeparator();
     auto* lookMenu = trayMenu_.addMenu(QStringLiteral("互动"));
     auto* workMenu = trayMenu_.addMenu(QStringLiteral("工作与休息"));
+    integrationStatusAction_ = workMenu->addAction(QStringLiteral("联动状态…"), this, [this] {
+        if (!integrationStatusProvider_) return;
+        if (!integrationStatusPanel_)
+            integrationStatusPanel_ = new IntegrationStatusPanel(
+                [this] { return integrationStatusProvider_(); },
+                [this] { if (integrationResetBusy_) integrationResetBusy_(); }, this);
+        integrationStatusPanel_->refresh();
+        integrationStatusPanel_->show();
+        integrationStatusPanel_->raise();
+        integrationStatusPanel_->activateWindow();
+    });
+    integrationStatusAction_->setEnabled(false);
     auto* settingMenu = trayMenu_.addMenu(QStringLiteral("设置"));
     auto* previewMenu = trayMenu_.addMenu(QStringLiteral("预览（开发用）"));
     previewMenu->addAction(QStringLiteral("模拟文件删除"), this, [this] {
@@ -601,7 +615,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // that dies hard (crashed terminal, taskkill) can leave the pet "busy" and
     // seated until the stale-turn expiry. This clears every active turn at once.
     workMenu->addAction(QStringLiteral("结束忙碌（复位）"), this, [this] {
-        controller_->resetBusy();
+        if (integrationResetBusy_) integrationResetBusy_();
+        else controller_->resetBusy();
     });
     // Spontaneous pace (TriggerDirector): the user outranks every watcher.
     auto* paceMenu = settingMenu->addMenu(QStringLiteral("自发行为"));
@@ -911,6 +926,7 @@ void PetWindow::updateInputTransparency() {
 }
 
 void PetWindow::shutdown() {
+    if (integrationStatusPanel_) integrationStatusPanel_->hide();
     hide();
 #ifdef HAVE_CUBISM
     if (cubismCanvas_) cubismCanvas_->hide();
@@ -920,6 +936,13 @@ void PetWindow::shutdown() {
     laptopPreviewTimer_.stop();
     motion_.cancelInteraction();
     tray_.hide();
+}
+
+void PetWindow::setIntegrationStatusProvider(std::function<QJsonObject()> provider,
+                                             std::function<void()> resetBusy) {
+    integrationStatusProvider_ = std::move(provider);
+    integrationResetBusy_ = std::move(resetBusy);
+    integrationStatusAction_->setEnabled(bool(integrationStatusProvider_));
 }
 
 void PetWindow::paintEvent(QPaintEvent*) {

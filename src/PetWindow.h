@@ -18,6 +18,7 @@
 #include <QSystemTrayIcon>
 #include <QTimer>
 #include <QWidget>
+#include <functional>
 
 #ifdef HAVE_CUBISM
 class CubismCanvas;
@@ -31,6 +32,7 @@ class DeleteOverlay;
 class QAction;
 // System-wide hotkeys (RegisterHotKey); defined in PetWindow.cpp.
 class GlobalHotkeys;
+class IntegrationStatusPanel;
 
 class PetWindow final : public QWidget {
     Q_OBJECT
@@ -46,6 +48,8 @@ public:
     QJsonObject modelParameterRanges() const;
     bool saveRenderFrame(const QString& path);
     void shutdown();
+    void setIntegrationStatusProvider(std::function<QJsonObject()> provider,
+                                      std::function<void()> resetBusy);
     void setPreviewPose(const ParameterMotion::Parameters& parameters, int pixels = 840);
     // `bubblePulse` is the thinking-bubble envelope for this instant. A comic
     // bubble is not a MOC3 parameter, so it rides beside the pose rather than
@@ -216,6 +220,10 @@ private:
     // Tray "显示 / 隐藏"; its text gains the hotkey hint only if the hotkey
     // actually registered (see the constructor).
     QAction* toggleVisibilityAction_ = nullptr;
+    QAction* integrationStatusAction_ = nullptr;
+    IntegrationStatusPanel* integrationStatusPanel_ = nullptr;
+    std::function<QJsonObject()> integrationStatusProvider_;
+    std::function<void()> integrationResetBusy_;
     QImage hitCoverage_;
     // Current square side in pixels (default 280), user-scalable and persisted.
     int renderSize_ = 280;
