@@ -40,6 +40,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/MotionLibrary.h src/MotionLibrary.cpp
     src/PetController.h src/PetController.cpp
     src/WorkReactionCoordinator.h src/WorkReactionCoordinator.cpp
+    src/QuietPolicy.h src/QuietPolicy.cpp
     src/PetPointerGesture.h src/PetPointerGesture.cpp
     src/ParameterMotion.h src/ParameterMotion.cpp
     src/motion/MotionMath.h
@@ -141,6 +142,10 @@ if(BUILD_TESTING)
         src/TriggerDirector.h src/TriggerDirector.cpp)
     target_link_libraries(TriggerDirectorTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME TriggerDirectorTest COMMAND TriggerDirectorTest)
+    add_executable(QuietPolicyTest tests/QuietPolicyTest.cpp
+        src/QuietPolicy.h src/QuietPolicy.cpp)
+    target_link_libraries(QuietPolicyTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME QuietPolicyTest COMMAND QuietPolicyTest)
     # No assets, no widget: the placement contract is pure arithmetic, so this
     # one runs anywhere and is the guard against the thought bubble being parked
     # off-screen again by a partial screen overhang.
@@ -190,10 +195,11 @@ if(BUILD_TESTING)
         src/motion/SleepBehavior.h src/motion/SleepBehavior.cpp
         src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
         src/PetController.h src/PetController.cpp
-        src/WorkReactionCoordinator.h src/WorkReactionCoordinator.cpp)
+        src/WorkReactionCoordinator.h src/WorkReactionCoordinator.cpp
+        src/QuietPolicy.h src/QuietPolicy.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
-    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
+    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest QuietPolicyTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
         set_tests_properties(${test_name} PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
     endforeach()
     if(HAVE_CUBISM)

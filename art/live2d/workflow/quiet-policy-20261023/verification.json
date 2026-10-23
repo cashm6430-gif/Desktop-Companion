@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "completed_on": "2026-10-23",
+  "created_utc": "2026-10-23T13:55:31.026576+00:00",
+  "parent_commit": "1f5eabc",
+  "scope": "Unified quiet policy for new unsolicited Qt companion reactions",
+  "policy": {
+    "snooze_minutes": [
+      30,
+      60
+    ],
+    "snooze_clock": "steady_clock",
+    "snooze_persistence": "current process only",
+    "night": "local [23:00, 06:00), default enabled, toggle persisted",
+    "fullscreen_poll_seconds": 1,
+    "automatic_gates": [
+      "startup-wave",
+      "greet",
+      "turn-ended",
+      "duration-note",
+      "spontaneous box/wave/nap/rest/rice"
+    ],
+    "suppressed_events": "discarded, never queued for replay",
+    "scene_eligibility_after_quiet": "continuous due clocks restart; cooldown clock continues",
+    "existing_reactions": "finish naturally",
+    "unaffected": [
+      "real turn accounting",
+      "manual interactions",
+      "desktop deletion linkage"
+    ],
+    "startup": "removed duplicate 8-second timer; director is the sole launch entry",
+    "review_isolation": "per-process reviewCapture bypass; spontaneous director stopped"
+  },
+  "build": {
+    "passed": true,
+    "configuration": "Release / Cubism Native",
+    "log": "build.log"
+  },
+  "ctest": {
+    "passed": 15,
+    "total": 15,
+    "full_suite_rerun": true,
+    "seconds": 45.1,
+    "log": "ctest.log",
+    "junit": "ctest.xml"
+  },
+  "coverage": [
+    "night endpoint boundaries, overlapping reasons, resume only clears snooze",
+    "wall-clock jumps do not change monotonic snooze, repeated snooze replaces its duration",
+    "director startup consumed, all scenes suppressed, fresh eligibility after quiet",
+    "real concurrent controller turns still update Busy and reach motion",
+    "quiet greet, neutral work end and duration notes discarded without replay",
+    "quiet turn starts hidden behind Delete/Grass consumed before foreground ends",
+    "duplicate turn starts and fresh sessions behind the same foreground action",
+    "direct manual reaction entry retained; running reactions finish naturally"
+  ],
+  "assets": {
+    "passed": true,
+    "cubism_files": 12,
+    "parameters": 41,
+    "motions": 12,
+    "log": "assets-check.log",
+    "all_assets_unchanged": true,
+    "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+  },
+  "native_smoke": {
+    "frame_saved": true,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "render_samples": 4,
+    "state": "idle",
+    "exit_code": 0,
+    "image": "smoke.png",
+    "scope": "idle Qt/Native renderer startup, not quiet-menu or physical input acceptance"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "758dcb86a73bcd0f409807a9e281ade6a2b27a726f1c2892278f0c5fc0c11141",
+    "src/PetController.h": "572286fe87e19567a4b31a0710ab5d0ef9388931a4f38506f1314234aa8ddee7",
+    "src/PetController.cpp": "8c9f86708c0a4bde54a0c97797222e8bb8e8bb65f62f32bc9d7a7c476383dfa6",
+    "src/QuietPolicy.h": "7481de1563b71b450e70145c5f226c757bf8954c97324dd8c20e0319e1135f06",
+    "src/QuietPolicy.cpp": "e71764a14086c9527bfcd73526c79fb0bcebbc3340d1f5450c6af48c06be58d9",
+    "src/TriggerDirector.h": "5466d7f6ed49ca3a9a9e4ed2e8b47161c6d5371f98bd9c64dc582b0f25dfb203",
+    "src/TriggerDirector.cpp": "01b4b03fb4d0383f092a689865600bce5dd1912748a56577bf002fc1fd295ad5",
+    "src/WorkReactionCoordinator.h": "4c2fee21d88f456f95174b5b48aaa300f4ddcb425122bc447bbe5e2ae65bd1ae",
+    "src/WorkReactionCoordinator.cpp": "9228b4bfd46575ba7a0f0328969c55be45ff1faae3e724465dda0fcd30d9ab2a",
+    "src/PetWindow.h": "186e9459cc370da7d10941a14d0c4abbe90fb38202a51b125bd9342e26649b3e",
+    "src/PetWindow.cpp": "699abd596afeb56b5dbcd8ea0f567663dcfd8f04be10a2c9ac94ad842c78e1d9",
+    "src/main.cpp": "814694bf4c3885c7297941ec82dc52f0690c390c5972012f5571e0d9c111e594",
+    "tests/QuietPolicyTest.cpp": "7e3ccac07d8a5d06e6d8ea83ff0e410c7cf05bd6b522f7d2029a0b8e791ef78c",
+    "tests/TriggerDirectorTest.cpp": "c4e123fd4b95a94a25b36e403151d5430d2b457b7fb954b5d4f4a20e7ff04d9f",
+    "tests/MotionClipTest.cpp": "c6c7721e819123ab9f60c04c84faa840c898a1521e70295e0aed42f7606055c4"
+  },
+  "binary_sha256": {
+    "DesktopCompanion.exe": "5e1379ba83b3a9e908481e105961f720378479cf7a56bc4888edc3185fca9939",
+    "DesktopCompanionHook.exe": "ae235e87bd2caefea7b961c8206c6675035d9589a79c6c7451aaeec0bbb40307",
+    "Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "QuietPolicyTest.exe": "2b2137a60de53a8f4298a093cfc31f1223c66a58e5719dee0fe8a2bbf1f05f5e",
+    "TriggerDirectorTest.exe": "b7985111209b6f035464eb18bf79a3f8306666c71eb084f6fb54d9ea6b401b36",
+    "MotionClipTest.exe": "b320ba3cca250d086440fce3dc110c43fa9c3a50c19458efeb0e6826e95a3826"
+  },
+  "signing": {
+    "status": "Valid",
+    "certificate": "DesktopCompanion Dev",
+    "timestamp": null
+  },
+  "limitations": [
+    "Physical Windows tray input and actual fullscreen-window detection not exercised",
+    "Night and timed pause tested with injected clocks, not real overnight/30-minute waits",
+    "Installation/upgrade/multiclient hook/abnormal-exit/recovery/uninstall loop remains unaccepted",
+    "No new motion choreography; no new full Native action matrix or pose approval requested"
+  ],
+  "reproduce": [
+    "cmake --build build -j4",
+    "ctest --test-dir build --output-on-failure --output-junit <output>/ctest.xml",
+    "python tools/validate_live2d_assets.py",
+    "build/DesktopCompanion.exe --render-smoke <output>/smoke.png"
+  ]
+}

@@ -4,6 +4,7 @@
 #include "ParameterMotion.h"
 #include "PetPointerGesture.h"
 #include "TriggerDirector.h"
+#include "QuietPolicy.h"
 #include "overlay/FrameComposer.h"
 
 #include <QElapsedTimer>
@@ -186,9 +187,8 @@ private:
     // Live scale (wheel) + edge snap (drag release); both in the .cpp.
     void setRenderSize(int px);
     void snapToEdges();
-    // Non-verbal launch greeting (look up + wave); see the .cpp.
-    void greetOnStart();
-    // Foreground awareness (light): quiet while a full-screen app owns the screen.
+    bool allowAutomaticReactions() const;
+    // Foreground awareness feeds the same policy as snooze and local night.
     void updateFullscreenPresence();
     void playGrass();
     bool grassInteractionApproved() const;
@@ -249,10 +249,9 @@ private:
     // Spontaneous-scene scheduler (see TriggerDirector) and its 1s tick.
     TriggerDirector director_;
     QTimer spontaneousTimer_;
-    // Foreground watch (light): suppresses spontaneous scenes during full-screen
-    // apps so the pet never pops over them.
+    QuietPolicy quietPolicy_;
+    // Foreground watch (light): suppresses new automatic reactions.
     QTimer displayWatchTimer_;
-    bool fullscreenPresent_ = false;
     // True while a deletion triggered a lunge towards a file on the pet's
     // left: the Cubism frame is mirrored so the authored right-hand reach
     // plays as a left-hand one. Reset when the delete state ends.

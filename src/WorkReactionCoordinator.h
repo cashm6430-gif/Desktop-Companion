@@ -16,22 +16,26 @@ public:
     using StateSink = std::function<void(PetController::State)>;
     using DurationNote = std::function<void(qint64)>;
     using ObserveAttempt = std::function<void(const QString&, bool, const QString&)>;
+    using AllowAutomatic = std::function<bool()>;
 
     static constexpr qint64 kMinimumNoteMs = 30 * 1000;
 
     WorkReactionCoordinator(PetController* controller, ParameterMotion* motion,
                             QObject* parent = nullptr, StateSink applyState = {},
-                            DurationNote durationNote = {}, ObserveAttempt observe = {});
+                            DurationNote durationNote = {}, ObserveAttempt observe = {},
+                            AllowAutomatic allowAutomatic = {});
 
 private:
     void applyState(PetController::State state);
     void returnGaze();
     void report(const QString& id, bool started, const QString& reason);
+    bool allowAutomatic() const;
 
     PetController* controller_;
     ParameterMotion* motion_;
     StateSink stateSink_;
     DurationNote durationNote_;
     ObserveAttempt observe_;
+    AllowAutomatic allowAutomatic_;
     bool greeted_ = false;
 };

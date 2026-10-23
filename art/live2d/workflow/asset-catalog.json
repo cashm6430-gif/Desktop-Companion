@@ -33,8 +33,8 @@
       "sha256": "62667fccbad729ec041684659202f2582578577d88ad8e56c2ed3aa77c578565"
     },
     "CMakeLists.txt": {
-      "bytes": 13985,
-      "sha256": "880771dcbdf9e280fe5741562d463b0dbec164e8c83301bb2f7e720150a9bf62"
+      "bytes": 14327,
+      "sha256": "758dcb86a73bcd0f409807a9e281ade6a2b27a726f1c2892278f0c5fc0c11141"
     },
     "art/3d/integration/replay-smoke-v1.json": {
       "bytes": 731,
@@ -5300,6 +5300,34 @@
       "bytes": 22428,
       "sha256": "02b3959b0c9aa3fbbd2b3130ebf33506b6578a95f8d3f8f696ac18fcb743749c"
     },
+    "art/live2d/workflow/quiet-policy-20261023/assets-check.log": {
+      "bytes": 187,
+      "sha256": "c7443cc46b1956605ab5ed7ba6a3f52ae357e44e1aa4c1db545343b02554a5b9"
+    },
+    "art/live2d/workflow/quiet-policy-20261023/build.log": {
+      "bytes": 5422,
+      "sha256": "9b1907b5159733362a53da0beeed4afc53938e724c5e2056aec53806e48fb6c0"
+    },
+    "art/live2d/workflow/quiet-policy-20261023/ctest.log": {
+      "bytes": 1779,
+      "sha256": "de7dc749441944fe9e3f5d0bf31e06201229dfd83714d39b5c48cbfda4d6ed40"
+    },
+    "art/live2d/workflow/quiet-policy-20261023/ctest.xml": {
+      "bytes": 4087,
+      "sha256": "1e215aaa11fb1b33851e90a41cd6bf7492e74ac28a428e67eadbf77a977723bd"
+    },
+    "art/live2d/workflow/quiet-policy-20261023/smoke.png": {
+      "bytes": 84319,
+      "sha256": "7f6cf6560d35fd8350dfc85cbce9d256dc04e8e13870fd056922455ac03c17ff"
+    },
+    "art/live2d/workflow/quiet-policy-20261023/smoke.png.json": {
+      "bytes": 137,
+      "sha256": "2735263d8940cf96e8092902fa6960eab43d2058dca417f6d6c5f38530b1671c"
+    },
+    "art/live2d/workflow/quiet-policy-20261023/verification.json": {
+      "bytes": 5595,
+      "sha256": "f2c08562dbac7a588a06f71357f8b4376ce9f2c7d83ceea02bb6d1409d324005"
+    },
     "art/live2d/workflow/raw-mouth-review-fixture.json": {
       "bytes": 944,
       "sha256": "b358cd2b553efb8799fe79630d22da6e2b5d76d3e38cbb107a0ea9a8506e1bc8"
@@ -6173,12 +6201,12 @@
       "sha256": "811d06f980d4fd7619360e6888ff203577eac117d7a3e7a38b3b5fb341e0b571"
     },
     "src/PetController.cpp": {
-      "bytes": 7030,
-      "sha256": "4aed5fe08510b984cb2ea1105fe6ebd46ba02059222640e2098ab243860cf495"
+      "bytes": 7178,
+      "sha256": "8c9f86708c0a4bde54a0c97797222e8bb8e8bb65f62f32bc9d7a7c476383dfa6"
     },
     "src/PetController.h": {
-      "bytes": 4955,
-      "sha256": "78b77d0ddba8050a18ad4cfe67ee1bb0553ced426a5061dccb570653345fcda2"
+      "bytes": 5264,
+      "sha256": "572286fe87e19567a4b31a0710ab5d0ef9388931a4f38506f1314234aa8ddee7"
     },
     "src/PetPointerGesture.cpp": {
       "bytes": 2535,
@@ -6189,12 +6217,20 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 88510,
-      "sha256": "0a24b036ea67979928b54a01da1f8bfc029a6abed0a7acf9a42f743f7791c69a"
+      "bytes": 90343,
+      "sha256": "699abd596afeb56b5dbcd8ea0f567663dcfd8f04be10a2c9ac94ad842c78e1d9"
     },
     "src/PetWindow.h": {
-      "bytes": 13033,
-      "sha256": "dfba5830b01c1a21fb4560d11c86fa2a1c64248a3c8e04d31113776ca5f8208b"
+      "bytes": 12937,
+      "sha256": "186e9459cc370da7d10941a14d0c4abbe90fb38202a51b125bd9342e26649b3e"
+    },
+    "src/QuietPolicy.cpp": {
+      "bytes": 1802,
+      "sha256": "e71764a14086c9527bfcd73526c79fb0bcebbc3340d1f5450c6af48c06be58d9"
+    },
+    "src/QuietPolicy.h": {
+      "bytes": 1185,
+      "sha256": "7481de1563b71b450e70145c5f226c757bf8954c97324dd8c20e0319e1135f06"
     },
     "src/ScreenPlacement.h": {
       "bytes": 1997,
@@ -6225,28 +6261,28 @@
       "sha256": "2480c0cdf3fc24b8827741b73ce42cf4e1fc698bad5ffbafb742a339921de701"
     },
     "src/TriggerDirector.cpp": {
-      "bytes": 5117,
-      "sha256": "986540989c6b632babc2d8b0e368dc36de188ea0cdb5e752dd56022d33d79ea3"
+      "bytes": 5285,
+      "sha256": "01b4b03fb4d0383f092a689865600bce5dd1912748a56577bf002fc1fd295ad5"
     },
     "src/TriggerDirector.h": {
-      "bytes": 4348,
-      "sha256": "8bcd92434c2653b63d836be963de2e8bb3ead444ce6196d80907235a33f50dab"
+      "bytes": 4575,
+      "sha256": "5466d7f6ed49ca3a9a9e4ed2e8b47161c6d5371f98bd9c64dc582b0f25dfb203"
     },
     "src/WorkReactionCoordinator.cpp": {
-      "bytes": 2261,
-      "sha256": "4a88e9d81d3bb0edff29ffc29bb1a86ad84b02cf52eba801362eae37af8a7849"
+      "bytes": 3863,
+      "sha256": "9228b4bfd46575ba7a0f0328969c55be45ff1faae3e724465dda0fcd30d9ab2a"
     },
     "src/WorkReactionCoordinator.h": {
-      "bytes": 1273,
-      "sha256": "8a1774fa617730f87f55b6b9f9517cb321d81c15e118c6134035d35f96bf907c"
+      "bytes": 1456,
+      "sha256": "4c2fee21d88f456f95174b5b48aaa300f4ddcb425122bc447bbe5e2ae65bd1ae"
     },
     "src/hook_main.cpp": {
       "bytes": 3598,
       "sha256": "8fad6d6e9a30cbdd81cd2f6523595865895da1ed7e4c463146df9e5d9d88e573"
     },
     "src/main.cpp": {
-      "bytes": 58269,
-      "sha256": "d1fd3c325a520aab9fde435d2c65bcab2923ea2241c7e629c82f2ab21c14e610"
+      "bytes": 58339,
+      "sha256": "814694bf4c3885c7297941ec82dc52f0690c390c5972012f5571e0d9c111e594"
     },
     "src/motion/BoxBehavior.cpp": {
       "bytes": 6397,
@@ -6365,8 +6401,8 @@
       "sha256": "006fc4b6abd35506b377d2ca5a9a0805404712fd64333deefe3324cc7bcbc2dc"
     },
     "tests/MotionClipTest.cpp": {
-      "bytes": 34659,
-      "sha256": "714de75986e345bfa6ab6177b259cf9fe3e08f6e68fd7ec81d605bf2dd5bc46c"
+      "bytes": 46756,
+      "sha256": "c6c7721e819123ab9f60c04c84faa840c898a1521e70295e0aed42f7606055c4"
     },
     "tests/ParameterMotionTest.cpp": {
       "bytes": 123530,
@@ -6380,6 +6416,10 @@
       "bytes": 6085,
       "sha256": "f9df051880bed8afae3981e747ea9fb3e76c544aa18655f3d765b1c3ff0ca4b8"
     },
+    "tests/QuietPolicyTest.cpp": {
+      "bytes": 4794,
+      "sha256": "7e3ccac07d8a5d06e6d8ea83ff0e410c7cf05bd6b522f7d2029a0b8e791ef78c"
+    },
     "tests/ScreenPlacementTest.cpp": {
       "bytes": 5163,
       "sha256": "7c9029993189661194c4beb57a991623dd0431148017430956cbb95fda0b6e8b"
@@ -6389,8 +6429,8 @@
       "sha256": "803da621a391d14080c53efad5af163a5e55942155b69c35d778ec4685f8f2da"
     },
     "tests/TriggerDirectorTest.cpp": {
-      "bytes": 10014,
-      "sha256": "b4e302e695c8de9a2e864e89078949253497743d201b779dc48c834cffaa4cb2"
+      "bytes": 13511,
+      "sha256": "c4e123fd4b95a94a25b36e403151d5430d2b457b7fb954b5d4f4a20e7ff04d9f"
     },
     "tests/test_asset_catalog_index.py": {
       "bytes": 3066,

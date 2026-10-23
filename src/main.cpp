@@ -88,6 +88,7 @@ int main(int argc, char** argv) {
         QStringLiteral("--render-motion"), QStringLiteral("--render-interaction"),
         QStringLiteral("--render-smoke"), QStringLiteral("--dump-parameters")};
     const bool reviewCommand = captureCommands.contains(command);
+    app.setProperty("desktopCompanionReviewCapture", reviewCommand);
     const QString modelFlag = QStringLiteral("--review-model");
     const QString rawFlag = QStringLiteral("--review-raw-export");
     if (arguments.count(modelFlag) > 1 || arguments.count(rawFlag) > 1) return 2;

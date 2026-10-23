@@ -51,7 +51,10 @@ void PetController::actionFinished() {
 
 void PetController::turnStarted(const QString& sessionId, const QString& turnId) {
     if (sessionId.isEmpty() || turnId.isEmpty()) return;
-    activeTurns_.insert(sessionId + QChar::Null + turnId, nowMs_());
+    const QString key = sessionId + QChar::Null + turnId;
+    const bool newlyTracked = !activeTurns_.contains(key);
+    activeTurns_.insert(key, nowMs_());
+    if (newlyTracked) emit turnBegan(sessionId, turnId);
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
 }
 

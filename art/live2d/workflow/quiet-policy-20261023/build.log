@@ -1,0 +1,67 @@
+[0/1] Re-running CMake...
+-- Conan: Component target declared 'GLEW::glew_s'
+-- Conan: Target declared 'GLEW::GLEW'
+-- Conan: Target declared 'glu::glu'
+-- Conan: Target declared 'opengl::opengl'
+-- Configuring done (2.3s)
+-- Generating done (0.6s)
+-- Build files have been written to: E:/projects/Desktop-Companion/build
+[1/80] Automatic MOC for target TrayMenuPreview
+[2/78] Automatic MOC for target DesktopCompanionHook
+[3/76] Automatic MOC for target PetPointerGestureTest
+[4/74] Automatic MOC for target DesktopCompanion
+[5/74] Automatic MOC for target PetControllerTest
+[6/74] Automatic MOC for target QuietPolicyTest
+[7/74] Automatic MOC for target TriggerDirectorTest
+[8/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetController.cpp.obj
+[9/73] Building CXX object CMakeFiles\DesktopCompanion.dir\DesktopCompanion_autogen\mocs_compilation.cpp.obj
+[10/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\HeadPatInputReview.cpp.obj
+[11/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\main.cpp.obj
+[12/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\TriggerDirector.cpp.obj
+[13/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\WorkReactionCoordinator.cpp.obj
+[14/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\QuietPolicy.cpp.obj
+[15/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ParameterMotion.cpp.obj
+[16/73] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ToonEventBridge.cpp.obj
+[17/73] Automatic MOC for target ScreenPlacementTest
+[18/71] Automatic MOC for target CoworkHookSeederTest
+[19/69] Automatic MOC for target ToonEventBridgeTest
+[20/69] Automatic MOC for target ParameterMotionTest
+[21/68] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetWindow.cpp.obj
+[22/68] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ToonHost.cpp.obj
+[23/68] Automatic MOC for target CubismMaterialBindingTest
+[24/66] Automatic MOC for target CubismNeckBindingTest
+[25/64] Automatic MOC for target CubismPostureTransitionTest
+[26/62] Automatic MOC for target CubismMaterialTextureTest
+[27/60] Automatic MOC for target MotionClipTest
+[28/60] Building CXX object CMakeFiles\DesktopCompanion.dir\src\CubismCanvas.cpp.obj
+[29/60] Linking CXX executable DesktopCompanion.exe
+[30/60] Building CXX object CMakeFiles\PetControllerTest.dir\PetControllerTest_autogen\mocs_compilation.cpp.obj
+[31/60] Building CXX object CMakeFiles\PetControllerTest.dir\src\PetController.cpp.obj
+[32/60] Building CXX object CMakeFiles\QuietPolicyTest.dir\QuietPolicyTest_autogen\mocs_compilation.cpp.obj
+[33/60] Building CXX object CMakeFiles\PetControllerTest.dir\tests\PetControllerTest.cpp.obj
+[34/60] Building CXX object CMakeFiles\TriggerDirectorTest.dir\src\TriggerDirector.cpp.obj
+[35/60] Building CXX object CMakeFiles\TriggerDirectorTest.dir\tests\TriggerDirectorTest.cpp.obj
+[36/60] Building CXX object CMakeFiles\QuietPolicyTest.dir\src\QuietPolicy.cpp.obj
+[37/60] Building CXX object CMakeFiles\QuietPolicyTest.dir\tests\QuietPolicyTest.cpp.obj
+[38/60] Building CXX object CMakeFiles\ToonEventBridgeTest.dir\ToonEventBridgeTest_autogen\mocs_compilation.cpp.obj
+[39/60] Building CXX object CMakeFiles\ToonEventBridgeTest.dir\src\ToonEventBridge.cpp.obj
+[40/60] Building CXX object CMakeFiles\ToonEventBridgeTest.dir\tests\ToonEventBridgeTest.cpp.obj
+[41/60] Building CXX object CMakeFiles\ToonEventBridgeTest.dir\src\PetController.cpp.obj
+[42/60] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\TriggerDirector.cpp.obj
+[43/60] Building CXX object CMakeFiles\ParameterMotionTest.dir\tests\ParameterMotionTest.cpp.obj
+[44/60] Building CXX object CMakeFiles\MotionClipTest.dir\MotionClipTest_autogen\mocs_compilation.cpp.obj
+[45/60] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\ParameterMotion.cpp.obj
+[46/60] Building CXX object CMakeFiles\MotionClipTest.dir\src\TriggerDirector.cpp.obj
+[47/60] Building CXX object CMakeFiles\MotionClipTest.dir\src\ParameterMotion.cpp.obj
+[48/60] Building CXX object CMakeFiles\MotionClipTest.dir\tests\MotionClipTest.cpp.obj
+[49/60] Linking CXX executable PetControllerTest.exe
+[50/60] Linking CXX executable TriggerDirectorTest.exe
+[51/60] Linking CXX executable QuietPolicyTest.exe
+[52/60] Linking CXX executable ToonEventBridgeTest.exe
+[53/60] Building CXX object CMakeFiles\MotionClipTest.dir\src\PetController.cpp.obj
+[54/60] Linking CXX executable ParameterMotionTest.exe
+[55/60] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[56/60] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+[57/60] Building CXX object CMakeFiles\MotionClipTest.dir\src\WorkReactionCoordinator.cpp.obj
+[58/60] Building CXX object CMakeFiles\MotionClipTest.dir\src\QuietPolicy.cpp.obj
+[59/60] Linking CXX executable MotionClipTest.exe

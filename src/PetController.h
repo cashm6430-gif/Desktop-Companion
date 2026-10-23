@@ -65,6 +65,10 @@ public slots:
 
 signals:
     void stateChanged(PetController::State state);
+    // A newly tracked real turn, after insertion and before any background
+    // state change. Delete/Grass can keep Busy hidden while work still starts.
+    // Repeated starts for an already active key do not emit another beginning.
+    void turnBegan(const QString& sessionId, const QString& turnId);
     // A real stop removed the last active turn across all sessions. The
     // background state has already been restored when this is emitted.
     // Session cleanup, expiry and manual reset deliberately stay silent.

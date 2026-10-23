@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QtMath>
 #include <QtTest/QTest>
+#include <QtTest/QSignalSpy>
 #include <QTemporaryDir>
 #include <QTemporaryFile>
 #include <algorithm>
@@ -39,6 +40,12 @@ private slots:
     void cleanupAndDuplicateStopsDoNotInventCompletion();
     void refusedWorkEndIsObservedWithoutQueueing();
     void workEndPreservesSeatedPoseThroughRealSignals();
+    void quietWorkTracksConcurrentTurnsWithoutReplay();
+    void quietWorkStartedBehindForegroundNeverReplaysGreeting();
+    void quietWorkSessionsBehindForegroundConsumeSeparately();
+    void quietWorkPreservesForegroundAndManualReactions();
+    void quietPolicyLetsRunningReactionsFinish();
+    void absentQuietPredicateAllowsWorkReactions();
 };
 
 namespace {
@@ -65,6 +72,7 @@ struct WorkHarness {
     QList<WorkAttempt> attempts;
     QList<qint64> notes;
     QStringList reactionAtNote;
+    bool automaticAllowed = true;
     WorkReactionCoordinator coordinator{&controller, &motion, nullptr,
         [this](PetController::State state) { motion.setState(state); },
         [this](qint64 duration) {
@@ -73,7 +81,7 @@ struct WorkHarness {
         },
         [this](const QString& id, bool started, const QString& reason) {
             attempts.append({id, started, reason});
-        }};
+        }, [this] { return automaticAllowed; }};
 
     bool load() {
         controller.setActionFallbackEnabled(false);
@@ -707,6 +715,232 @@ void MotionClipTest::workEndPreservesSeatedPoseThroughRealSignals() {
     QCOMPARE(work.controller.state(), PetController::State::Busy);
     QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
     QCOMPARE(work.returns(), 1);
+}
+
+void MotionClipTest::quietWorkTracksConcurrentTurnsWithoutReplay() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.automaticAllowed = false;
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.controller.state(), PetController::State::Busy);
+    QCOMPARE(work.controller.activeTurnCount(), 1);
+    QVERIFY(!work.motion.interactionActive());
+    QCOMPARE(work.attempts.size(), 1);
+    QCOMPARE(work.attempts.first().id, QStringLiteral("greet"));
+    QCOMPARE(work.attempts.first().reason, QStringLiteral("quiet_policy"));
+    QVERIFY(!work.attempts.first().started);
+    work.advance(2.0);
+    QVERIFY(work.motion.busyPhaseTime() > 1.0); // Real Busy still reaches the player.
+
+    // Ending quiet while the session continues does not revive its greeting,
+    // even when a second client starts a concurrent turn.
+    work.automaticAllowed = true;
+    work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+    QCOMPARE(work.controller.activeTurnCount(), 2);
+    QCOMPARE(work.attempts.size(), 1);
+    QVERIFY(!work.motion.interactionActive());
+    work.automaticAllowed = false;
+    work.now += WorkReactionCoordinator::kMinimumNoteMs;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.controller.state(), PetController::State::Busy);
+    QCOMPARE(work.controller.activeTurnCount(), 1);
+    QCOMPARE(work.returns(), 0);
+    QVERIFY(work.notes.isEmpty());
+    QCOMPARE(work.attempts.last().id, QStringLiteral("duration-note"));
+    QCOMPARE(work.attempts.last().reason, QStringLiteral("quiet_policy"));
+
+    work.controller.turnStopped(QStringLiteral("b"), QStringLiteral("two"));
+    QCOMPARE(work.controller.state(), PetController::State::Idle);
+    QCOMPARE(work.controller.activeTurnCount(), 0);
+    QCOMPARE(work.returns(), 1);
+    QCOMPARE(work.attempts.size(), 4); // Greeting, two notes, one neutral return.
+    for (const auto& attempt : work.attempts) {
+        QVERIFY(!attempt.started);
+        QCOMPARE(attempt.reason, QStringLiteral("quiet_policy"));
+    }
+    QVERIFY(work.notes.isEmpty());
+    QVERIFY(!work.motion.interactionActive());
+
+    work.automaticAllowed = true;
+    work.advance(4.0);
+    QCOMPARE(work.attempts.size(), 4);
+    QVERIFY(work.notes.isEmpty());
+    QVERIFY(!work.motion.interactionActive());
+    // A genuinely new work session can greet and leave its own note normally.
+    work.controller.turnStarted(QStringLiteral("c"), QStringLiteral("three"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+    QVERIFY(work.attempts.last().started);
+    work.advance(2.0);
+    work.now += WorkReactionCoordinator::kMinimumNoteMs;
+    work.controller.turnStopped(QStringLiteral("c"), QStringLiteral("three"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+    QCOMPARE(work.notes, QList<qint64>{WorkReactionCoordinator::kMinimumNoteMs});
+}
+
+void MotionClipTest::quietWorkStartedBehindForegroundNeverReplaysGreeting() {
+    for (const auto foreground : {PetController::State::Delete, PetController::State::Grass}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        if (foreground == PetController::State::Delete) work.controller.desktopItemDeleted();
+        else work.controller.playGrass();
+        work.automaticAllowed = false;
+        QSignalSpy beginnings(&work.controller, &PetController::turnBegan);
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.controller.state(), foreground);
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+        QCOMPARE(beginnings.size(), 1);
+        QCOMPARE(work.attempts.size(), 1);
+        QCOMPARE(work.attempts.first().id, QStringLiteral("greet"));
+        QCOMPARE(work.attempts.first().reason, QStringLiteral("quiet_policy"));
+        QVERIFY(!work.attempts.first().started);
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+        QCOMPARE(work.controller.activeTurnCount(), 2);
+        QCOMPARE(beginnings.size(), 2); // A duplicate start is not a new turn.
+        QCOMPARE(work.attempts.size(), 1);
+        work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+        QCOMPARE(work.controller.state(), foreground);
+        QCOMPARE(work.returns(), 0);
+
+        work.automaticAllowed = true;
+        work.controller.actionFinished();
+        QCOMPARE(work.controller.state(), PetController::State::Busy);
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+        QVERIFY(!work.motion.interactionActive());
+        QCOMPARE(work.attempts.size(), 1);
+        work.advance(2.0);
+        QVERIFY(work.motion.busyPhaseTime() > 1.0);
+        QVERIFY(!work.motion.interactionActive());
+        work.controller.turnStopped(QStringLiteral("b"), QStringLiteral("two"));
+        QCOMPARE(work.controller.activeTurnCount(), 0);
+        QCOMPARE(work.controller.state(), PetController::State::Idle);
+        QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+        QCOMPARE(work.returns(), 1);
+        work.advance(4.0);
+        // The consumed greeting belongs only to its real work session.
+        work.controller.turnStarted(QStringLiteral("c"), QStringLiteral("three"));
+        QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+        QVERIFY(work.attempts.last().started);
+    }
+}
+
+void MotionClipTest::quietWorkSessionsBehindForegroundConsumeSeparately() {
+    for (const auto foreground : {PetController::State::Delete, PetController::State::Grass}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        if (foreground == PetController::State::Delete) work.controller.desktopItemDeleted();
+        else work.controller.playGrass();
+        work.automaticAllowed = false;
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.controller.activeTurnCount(), 0);
+        QCOMPARE(work.controller.state(), foreground);
+        QCOMPARE(work.attempts.size(), 2); // One quiet greet, one foreground-owned return.
+        work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+        QCOMPARE(work.attempts.size(), 3);
+        QCOMPARE(work.attempts.last().id, QStringLiteral("greet"));
+        QCOMPARE(work.attempts.last().reason, QStringLiteral("quiet_policy"));
+        QVERIFY(!work.attempts.last().started);
+        work.automaticAllowed = true;
+        work.controller.actionFinished();
+        QCOMPARE(work.controller.state(), PetController::State::Busy);
+        QVERIFY(!work.motion.interactionActive());
+        QCOMPARE(work.attempts.size(), 3);
+    }
+}
+
+void MotionClipTest::quietWorkPreservesForegroundAndManualReactions() {
+    for (const auto foreground : {PetController::State::Delete, PetController::State::Grass}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.automaticAllowed = false;
+        work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+        if (foreground == PetController::State::Delete) work.controller.desktopItemDeleted();
+        else work.controller.playGrass();
+        QCOMPARE(work.controller.state(), foreground);
+        QVERIFY(!work.motion.playGreet());
+        work.now += WorkReactionCoordinator::kMinimumNoteMs;
+        work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+        QCOMPARE(work.controller.activeTurnCount(), 0);
+        QCOMPARE(work.controller.state(), foreground);
+        QVERIFY(!work.motion.interactionActive());
+        QVERIFY(work.notes.isEmpty());
+        QCOMPARE(work.returns(), 1);
+        const auto ended = std::find_if(work.attempts.cbegin(), work.attempts.cend(),
+            [](const WorkAttempt& attempt) { return attempt.id == QStringLiteral("turn-ended"); });
+        QVERIFY(ended != work.attempts.cend());
+        QVERIFY(!ended->started);
+        QCOMPARE(ended->reason, QStringLiteral("activity_owns_stage"));
+        QCOMPARE(work.attempts.last().id, QStringLiteral("duration-note"));
+        QCOMPARE(work.attempts.last().reason, QStringLiteral("quiet_policy"));
+
+        work.controller.actionFinished();
+        QCOMPARE(work.controller.state(), PetController::State::Idle);
+        work.advance(4.0);
+        QVERIFY(!work.motion.interactionActive());
+        // Quiet applies only to automatic nominations. Direct user entries
+        // remain usable after the foreground action has released the stage.
+        QVERIFY(work.motion.playGreet());
+        QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+        work.advance(2.0);
+        QVERIFY(work.motion.playTurnEnded());
+        QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+        work.advance(4.0);
+        work.automaticAllowed = true;
+        work.advance(4.0);
+        QCOMPARE(work.returns(), 1);
+        QVERIFY(work.notes.isEmpty());
+        QVERIFY(!work.motion.interactionActive());
+    }
+}
+
+void MotionClipTest::quietPolicyLetsRunningReactionsFinish() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+    work.automaticAllowed = false;
+    work.advance(0.2);
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("greet"));
+    work.advance(2.0);
+    QVERIFY(!work.motion.interactionActive());
+    work.now += WorkReactionCoordinator::kMinimumNoteMs;
+    work.controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QVERIFY(!work.motion.interactionActive());
+    QVERIFY(work.notes.isEmpty());
+
+    work.automaticAllowed = true;
+    work.controller.turnStarted(QStringLiteral("b"), QStringLiteral("two"));
+    work.advance(2.0);
+    work.now += WorkReactionCoordinator::kMinimumNoteMs;
+    work.controller.turnStopped(QStringLiteral("b"), QStringLiteral("two"));
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+    work.automaticAllowed = false;
+    work.advance(0.2);
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("turn-ended"));
+    work.advance(4.0);
+    QVERIFY(!work.motion.interactionActive());
+    QCOMPARE(work.notes, QList<qint64>{WorkReactionCoordinator::kMinimumNoteMs});
+    QCOMPARE(work.returns(), 2);
+}
+
+void MotionClipTest::absentQuietPredicateAllowsWorkReactions() {
+    qint64 now = 1000;
+    PetController controller{nullptr, [&now] { return now; }};
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+    QList<qint64> notes;
+    WorkReactionCoordinator coordinator{&controller, &motion, nullptr, {},
+        [&notes](qint64 duration) { notes.append(duration); }};
+    controller.turnStarted(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(motion.interactionId(), QStringLiteral("greet"));
+    for (int i = 0; i < 100; ++i) motion.advance(0.02);
+    now += WorkReactionCoordinator::kMinimumNoteMs;
+    controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
+    QCOMPARE(motion.interactionId(), QStringLiteral("turn-ended"));
+    QCOMPARE(notes, QList<qint64>{WorkReactionCoordinator::kMinimumNoteMs});
 }
 
 QTEST_GUILESS_MAIN(MotionClipTest)

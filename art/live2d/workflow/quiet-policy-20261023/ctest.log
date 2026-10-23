@@ -1,0 +1,35 @@
+Test project E:/projects/Desktop-Companion/build
+      Start  1: PetControllerTest
+ 1/15 Test  #1: PetControllerTest ................   Passed    6.77 sec
+      Start  2: PetPointerGestureTest
+ 2/15 Test  #2: PetPointerGestureTest ............   Passed    0.06 sec
+      Start  3: TriggerDirectorTest
+ 3/15 Test  #3: TriggerDirectorTest ..............   Passed    0.09 sec
+      Start  4: QuietPolicyTest
+ 4/15 Test  #4: QuietPolicyTest ..................   Passed    0.06 sec
+      Start  5: ScreenPlacementTest
+ 5/15 Test  #5: ScreenPlacementTest ..............   Passed    0.17 sec
+      Start  6: CoworkHookSeederTest
+ 6/15 Test  #6: CoworkHookSeederTest .............   Passed    1.06 sec
+      Start  7: ToonEventBridgeTest
+ 7/15 Test  #7: ToonEventBridgeTest ..............   Passed   14.40 sec
+      Start  8: ParameterMotionTest
+ 8/15 Test  #8: ParameterMotionTest ..............   Passed    5.13 sec
+      Start  9: MotionClipTest
+ 9/15 Test  #9: MotionClipTest ...................   Passed    0.79 sec
+      Start 10: CubismMaterialBindingTest
+10/15 Test #10: CubismMaterialBindingTest ........   Passed    0.17 sec
+      Start 11: CubismNeckBindingTest
+11/15 Test #11: CubismNeckBindingTest ............   Passed   10.61 sec
+      Start 12: CubismPostureTransitionTest
+12/15 Test #12: CubismPostureTransitionTest ......   Passed    0.06 sec
+      Start 13: CubismMaterialTextureTest
+13/15 Test #13: CubismMaterialTextureTest ........   Passed    1.74 sec
+      Start 14: CodexHookTest
+14/15 Test #14: CodexHookTest ....................   Passed    2.21 sec
+      Start 15: CoworkSeedScriptTest
+15/15 Test #15: CoworkSeedScriptTest .............   Passed    1.48 sec
+
+100% tests passed out of 15
+
+Total Test time (real) =  45.10 sec

@@ -66,8 +66,10 @@ public:
     void setChanceScale(double scale);
 
     // Advance by dt seconds with the current controller state. At most one
-    // nomination per tick.
-    void tick(double dt, bool idle, bool busy);
+    // nomination per tick. A quiet-policy veto consumes the launch greeting
+    // and resets continuous eligibility time, so nothing queues for recovery.
+    // The running clock still advances (including cooldowns/backoff).
+    void tick(double dt, bool idle, bool busy, bool allowAutomatic = true);
 
     // Trace/test observations.
     int startedCount() const { return startedCount_; }

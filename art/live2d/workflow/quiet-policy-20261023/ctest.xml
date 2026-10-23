@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Win32-ninja"
+	tests="15"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="DESKTOP-QR2EAAK"
+	time="45"
+	timestamp="2026-10-23T21:51:11"
+	>
+	<testcase name="PetControllerTest" classname="PetControllerTest" time="6.77381" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="PetPointerGestureTest" classname="PetPointerGestureTest" time="0.0599642" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="TriggerDirectorTest" classname="TriggerDirectorTest" time="0.0928233" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="QuietPolicyTest" classname="QuietPolicyTest" time="0.0639653" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ScreenPlacementTest" classname="ScreenPlacementTest" time="0.169944" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CoworkHookSeederTest" classname="CoworkHookSeederTest" time="1.06002" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ToonEventBridgeTest" classname="ToonEventBridgeTest" time="14.4023" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ParameterMotionTest" classname="ParameterMotionTest" time="5.13104" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="MotionClipTest" classname="MotionClipTest" time="0.794303" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialBindingTest" classname="CubismMaterialBindingTest" time="0.167994" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismNeckBindingTest" classname="CubismNeckBindingTest" time="10.6093" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismPostureTransitionTest" classname="CubismPostureTransitionTest" time="0.0584946" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialTextureTest" classname="CubismMaterialTextureTest" time="1.74337" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CodexHookTest" classname="CodexHookTest" time="2.20623" status="run">
+		<properties/>
+		<system-out>Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-dd5a988f-9209-4c2f-8798-f642c257bae2.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+UserPromptSubmit : exit 0, valid JSON
+Stop : exit 0, valid JSON
+Interrupt : exit 0, valid JSON
+SessionEnd : exit 0, valid JSON
+</system-out>
+	</testcase>
+	<testcase name="CoworkSeedScriptTest" classname="CoworkSeedScriptTest" time="1.47742" status="run">
+		<properties/>
+		<system-out>seeded   C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-7f33f16fb73b4c3facf7e89de645952d\Claude-3p\local-agent-mode-sessions\acct\00000000\s1\.claude\settings.json
+seeded   C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-7f33f16fb73b4c3facf7e89de645952d\Claude-3p\local-agent-mode-sessions\acct\00000000\s2\.claude\settings.json
+WARNING: Not JSON, leaving alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-7f33f16fb73b4c3facf7e89de645952d\Claude-3p\local-agent-mode-sessions\acct\00000000\s3\.claude\settings.json
+Seeded 2 session config dir(s).
+cleaned  C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-7f33f16fb73b4c3facf7e89de645952d\Claude-3p\local-agent-mode-sessions\acct\00000000\s1\.claude\settings.json
+cleaned  C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-7f33f16fb73b4c3facf7e89de645952d\Claude-3p\local-agent-mode-sessions\acct\00000000\s2\.claude\settings.json
+WARNING: Not JSON, leaving alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>

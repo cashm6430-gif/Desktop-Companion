@@ -21,6 +21,11 @@ private slots:
     void fixedSeedReplaysNominationTimes();
     void invalidScalesDisableRollsButNotStartup();
     void busyNominationStartsAtMostOneScenePerTick();
+    void quietGateSilencesEverySceneAndConsumesStartup();
+    void quietGateRestartsEligibility_data();
+    void quietGateRestartsEligibility();
+    void quietTimeStillAdvancesCooldowns();
+    void offFrequencyRetainsItsExistingEligibilitySemantics();
 
 private:
     // Drives `seconds` of one-second ticks. `idle`/`busy` select the state
@@ -237,6 +242,89 @@ void TriggerDirectorTest::busyNominationStartsAtMostOneScenePerTick() {
     }
     QCOMPARE(stretches, 1);
     QCOMPARE(rice, 1); // after global spacing, not on the stretch's first tick
+}
+
+void TriggerDirectorTest::quietGateSilencesEverySceneAndConsumesStartup() {
+    TriggerDirector director;
+    director.setChanceScale(1000.0);
+    int starts = 0;
+    const auto start = [&] { ++starts; return true; };
+    director.setStartWave(start);
+    director.setStartBox(start);
+    director.setStartNap(start);
+    director.setStartStretch(start);
+    director.setStartRice(start);
+    // Even a brief quiet tick consumes the greeting before its 0.8s delay.
+    director.tick(0.25, true, false, false);
+    director.tick(1.0, true, false);
+    QCOMPARE(starts, 0);
+    director.tick(3600.0, true, false, false);
+    director.tick(3600.0, false, true, false);
+    QCOMPARE(director.attemptCount(), 0);
+    QCOMPARE(director.startedCount(), 0);
+    QCOMPARE(starts, 0);
+    QCOMPARE(director.runningSeconds(), 7201.25);
+    director.tick(1.0, true, false);
+    director.tick(1.0, false, true);
+    QCOMPARE(starts, 0); // no greeting, scene or busy-break backlog on recovery
+}
+
+void TriggerDirectorTest::quietGateRestartsEligibility_data() {
+    QTest::addColumn<bool>("busy");
+    QTest::addColumn<double>("due");
+    QTest::newRow("standing-box") << false << 480.0;
+    QTest::newRow("busy-rest") << true << 1500.0;
+}
+
+void TriggerDirectorTest::quietGateRestartsEligibility() {
+    QFETCH(bool, busy);
+    QFETCH(double, due);
+    TriggerDirector director;
+    director.setChanceScale(1000.0);
+    int starts = 0;
+    const auto start = [&] { ++starts; return true; };
+    if (busy) director.setStartStretch(start);
+    else director.setStartBox(start);
+    director.tick(1.0, !busy, busy, false); // consume startup, accrue no due
+    run(director, due - 1.0, !busy, busy);
+    QCOMPARE(starts, 0);
+    director.tick(3600.0, !busy, busy, false); // resets near-due history
+    QCOMPARE(director.attemptCount(), 0);
+    run(director, due - 1.0, !busy, busy);
+    QCOMPARE(starts, 0);
+    director.tick(1.0, !busy, busy);
+    QCOMPARE(starts, 1); // must earn a fresh full uninterrupted interval
+}
+
+void TriggerDirectorTest::quietTimeStillAdvancesCooldowns() {
+    TriggerDirector director;
+    director.setChanceScale(1000.0);
+    int boxes = 0;
+    director.setStartBox([&] { ++boxes; return true; });
+    director.tick(1.0, true, false, false);
+    run(director, 480.0, true, false);
+    QCOMPARE(boxes, 1);
+    director.tick(1200.0, true, false, false);
+    run(director, 479.0, true, false);
+    QCOMPARE(boxes, 1);
+    director.tick(1.0, true, false);
+    QCOMPARE(boxes, 2); // elapsed quiet time satisfied the existing cooldown
+    QCOMPARE(director.runningSeconds(), 2161.0);
+}
+
+void TriggerDirectorTest::offFrequencyRetainsItsExistingEligibilitySemantics() {
+    TriggerDirector director;
+    director.setChanceScale(1000.0);
+    int boxes = 0;
+    director.setStartBox([&] { ++boxes; return true; });
+    director.setFrequency(TriggerDirector::Frequency::Off);
+    director.tick(600.0, true, false);
+    QCOMPARE(director.attemptCount(), 0);
+    director.setFrequency(TriggerDirector::Frequency::Normal);
+    director.tick(1.0, true, false); // startup gives up with no wave callback
+    QCOMPARE(boxes, 0);
+    director.tick(1.0, true, false);
+    QCOMPARE(boxes, 1); // frequency Off still accrues due, unlike quiet policy
 }
 QTEST_MAIN(TriggerDirectorTest)
 #include "TriggerDirectorTest.moc"

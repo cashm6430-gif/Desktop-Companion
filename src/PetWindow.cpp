@@ -32,7 +32,6 @@
 #include <QSettings>
 #include <QtMath>
 #include <QUrl>
-#include <QTime>
 #include <QWheelEvent>
 #include <algorithm>
 #include <functional>
@@ -84,7 +83,7 @@ QString imagePath(const char* name) {
 #ifdef Q_OS_WIN
 // True when a window other than the shell or the pet covers the whole monitor
 // and owns the foreground -- a game, a slideshow, a full-screen video. The pet
-// goes quiet then (no spontaneous scenes) so she never pops over it.
+// suppresses new automatic reactions while that app owns the screen.
 bool foregroundCoversScreen(HWND self) {
     const HWND fg = GetForegroundWindow();
     if (!fg || fg == self) return false;
@@ -430,6 +429,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         QSettings perf(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         frameIntervalMs_ = std::clamp(
             perf.value(QStringLiteral("frameIntervalMs"), 40).toInt(), 10, 200);
+        quietPolicy_.setNightEnabled(
+            perf.value(QStringLiteral("quietAtNight"), true).toBool());
     }
     frameTimer_.setInterval(frameIntervalMs_);
     frameClock_.start();
@@ -457,7 +458,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         }, [](const QString& id, bool started, const QString& reason) {
             startup::trace(QStringLiteral("work reaction %1: %2 (%3)")
                 .arg(id, started ? QStringLiteral("started") : QStringLiteral("refused"), reason));
-        });
+        }, [this] { return allowAutomaticReactions(); });
     connect(&frameTimer_, &QTimer::timeout, this, [this] {
         ++frame_;
         const double seconds = frameClock_.restart() / 1000.0;
@@ -477,13 +478,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     });
     director_.setStartRice([this] { return startRiceBowl(); });
     connect(&spontaneousTimer_, &QTimer::timeout, this, [this] {
-        if (fullscreenPresent_) return;   // do not pop over a full-screen app
         director_.tick(1.0, controller_->state() == PetController::State::Idle,
-                       controller_->state() == PetController::State::Busy);
+                       controller_->state() == PetController::State::Busy,
+                       allowAutomaticReactions());
     });
     spontaneousTimer_.start(1000);
 
-    // Foreground watch (light): go quiet while a full-screen app owns the screen.
+    // Poll once per second even while hidden; real turn state keeps updating.
     connect(&displayWatchTimer_, &QTimer::timeout, this, [this] { updateFullscreenPresence(); });
     displayWatchTimer_.start(1000);
     updateFullscreenPresence();
@@ -628,6 +629,45 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
             a->setChecked(director_.frequency()
                           == TriggerDirector::Frequency(a->data().toInt()));
     });
+    auto* quietMenu = settingMenu->addMenu(QStringLiteral("安静策略"));
+    auto* quietStatus = quietMenu->addAction(QString());
+    quietStatus->setEnabled(false);
+    quietMenu->addSeparator();
+    quietMenu->addAction(QStringLiteral("安静 30 分钟"), this, [this] {
+        quietPolicy_.snoozeFor(30LL * 60 * 1000);
+    });
+    quietMenu->addAction(QStringLiteral("安静 1 小时"), this, [this] {
+        quietPolicy_.snoozeFor(60LL * 60 * 1000);
+    });
+    auto* resumeAction = quietMenu->addAction(QStringLiteral("结束临时安静"), this, [this] {
+        quietPolicy_.resume();
+    });
+    quietMenu->addSeparator();
+    auto* nightAction = quietMenu->addAction(QStringLiteral("夜间安静（23:00–06:00）"));
+    nightAction->setCheckable(true);
+    nightAction->setChecked(quietPolicy_.nightEnabled());
+    connect(nightAction, &QAction::toggled, this, [this](bool enabled) {
+        quietPolicy_.setNightEnabled(enabled);
+        QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        settings.setValue(QStringLiteral("quietAtNight"), enabled);
+    });
+    auto* fullscreenHint = quietMenu->addAction(QStringLiteral("全屏时自动安静"));
+    fullscreenHint->setEnabled(false);
+    connect(quietMenu, &QMenu::aboutToShow, quietMenu,
+            [this, quietStatus, resumeAction] {
+        const QString reason = quietPolicy_.reason();
+        if (reason == QStringLiteral("snoozed")) {
+            const qint64 minutes = (quietPolicy_.snoozeRemainingMs() + 59999) / 60000;
+            quietStatus->setText(QStringLiteral("临时安静：还剩 %1 分钟").arg(minutes));
+        } else if (reason == QStringLiteral("night")) {
+            quietStatus->setText(QStringLiteral("夜间安静中"));
+        } else if (reason == QStringLiteral("fullscreen")) {
+            quietStatus->setText(QStringLiteral("全屏安静中"));
+        } else {
+            quietStatus->setText(QStringLiteral("自动回应已开启"));
+        }
+        resumeAction->setEnabled(quietPolicy_.snoozeRemainingMs() > 0);
+    });
     // Performance: frame interval (larger = fewer fps = less power).
     auto* perfMenu = settingMenu->addMenu(QStringLiteral("性能"));
     const std::array rates{
@@ -689,9 +729,6 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         }
     });
     tray_.show();
-
-    // Non-verbal greeting shortly after start (see greetOnStart).
-    QTimer::singleShot(8000, this, [this] { greetOnStart(); });
 
 #ifdef Q_OS_WIN
     // System-wide hotkey: Ctrl+Alt+H toggles show/hide even when the pet is not
@@ -772,20 +809,15 @@ void PetWindow::wheelEvent(QWheelEvent* event) {
 
 void PetWindow::updateFullscreenPresence() {
 #ifdef Q_OS_WIN
-    fullscreenPresent_ = foregroundCoversScreen(reinterpret_cast<HWND>(winId()));
+    quietPolicy_.setFullscreenPresent(foregroundCoversScreen(reinterpret_cast<HWND>(winId())));
 #endif
 }
 
-void PetWindow::greetOnStart() {
-    // Non-verbal hello shortly after launch: she looks up and waves. No sticky
-    // note -- a note on startup read as abrupt (user, 10-11). Kept off while a
-    // full-screen app owns the screen, and skipped at night so she stays calm.
-    if (fullscreenPresent_) return;
-    if (controller_->state() != PetController::State::Idle) return;
-    if (motion_.sleepMotionActive()) return;
-    const int hour = QTime::currentTime().hour();
-    if (hour >= 23 || hour < 6) return;   // quiet at night
-    startWave();
+bool PetWindow::allowAutomaticReactions() const {
+    // Scripted captures replay their explicit events independently of the
+    // user's night setting and current foreground app. Their director is off.
+    return qApp->property("desktopCompanionReviewCapture").toBool()
+        || !quietPolicy_.suppressAutomatic();
 }
 
 void PetWindow::setState(PetController::State state) {
