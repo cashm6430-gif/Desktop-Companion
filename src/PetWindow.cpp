@@ -7,6 +7,8 @@
 #include "TrayMenuStyle.h"
 #include "WorkReactionCoordinator.h"
 #include "IntegrationStatusPanel.h"
+#include "MemoStore.h"
+#include "StickyNoteModel.h"
 #include "overlay/FrameOverlay.h"
 
 #include <QApplication>
@@ -14,6 +16,8 @@
 #include <QActionGroup>
 #include <QAbstractNativeEventFilter>
 #include <QContextMenuEvent>
+#include <QCryptographicHash>
+#include <QDateTime>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
@@ -25,12 +29,15 @@
 #include <QGuiApplication>
 #include <QInputDialog>
 #include <QMenu>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
 #include <QScreen>
 #include <QSettings>
+#include <QSignalBlocker>
+#include <QStandardPaths>
 #include <QtMath>
 #include <QUrl>
 #include <QWheelEvent>
@@ -154,7 +161,10 @@ void paintStickyPaper(QPainter& painter, const QRectF& rect, const QString& text
         painter.setFont(font);
         painter.setPen(QColor(0x4A, 0x42, 0x34));
         painter.setClipRect(textRect);
-        painter.drawText(textRect, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, text);
+        // The paper is a compact summary; the edit dialog keeps the full text.
+        const QString summary = QFontMetrics(font).elidedText(
+            text.simplified(), Qt::ElideRight, int(textRect.width()));
+        painter.drawText(textRect, Qt::AlignLeft | Qt::AlignTop | Qt::TextSingleLine, summary);
     }
     painter.restore();
 }
@@ -350,6 +360,17 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
 #endif
       trayMenu_(this),
       controller_(controller) {
+    const bool review = qApp->property("desktopCompanionReviewCapture").toBool();
+    const QString reviewMemoPath = qApp->property("desktopCompanionReviewMemoPath").toString();
+    if (!review || !reviewMemoPath.isEmpty()) {
+        const QString path = review ? reviewMemoPath
+            : QDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation))
+                .filePath(QStringLiteral("DesktopCompanion/WhaleGirl/memo.json"));
+        memoStore_ = std::make_unique<MemoStore>(path);
+    }
+    memo_ = std::make_unique<StickyNoteModel>(memoStore_.get());
+    memoStoreOk_ = memo_->restore();
+    memoReceiptClock_.start();
     setWindowTitle(QStringLiteral("DeepSeek 鲸鱼娘"));
     setWindowFlags(Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint
                    | Qt::WindowStaysOnTopHint | Qt::Tool);
@@ -374,7 +395,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // The sticky note rides the same composition path so the interaction mask
     // (built from the composed frame) makes exactly the paper clickable.
     overlays_.add(std::make_shared<FunctionOverlay>(
-        [this](const FrameContext&) { return memoVisual_ != MemoVisual::None; },
+        [this](const FrameContext&) { return memo_->visual() != StickyNoteModel::Visual::None; },
         [this](QPainter& painter, const QSize& size, const FrameContext&) {
             drawMemoNote(painter, size);
         }));
@@ -428,11 +449,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // Frame interval: user-selectable from the tray ("性能") and persisted.
     // Larger interval = fewer fps = less GPU. Clamp against a bad stored value.
     {
-        QSettings perf(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        QSettings perf(QSettings::defaultFormat(), QSettings::UserScope,
+            QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         frameIntervalMs_ = std::clamp(
             perf.value(QStringLiteral("frameIntervalMs"), 40).toInt(), 10, 200);
         quietPolicy_.setNightEnabled(
             perf.value(QStringLiteral("quietAtNight"), true).toBool());
+        memo_->setAutomaticEnabled(perf.value(QStringLiteral("automaticWorkNotes"), true).toBool());
     }
     frameTimer_.setInterval(frameIntervalMs_);
     frameClock_.start();
@@ -446,18 +469,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     // neutral return-gaze. The approved cheer remains an explicit preview.
     new WorkReactionCoordinator(controller_, &motion_, this,
         [this](PetController::State state) { setState(state); },
-        [this](qint64 workedMs) {
-            // The badge records duration only. The user's own note always wins.
-            if (memoVisual_ != MemoVisual::None || motion_.sleepMotionActive()) return;
-            const qint64 secs = workedMs / 1000;
-            memoText_ = QStringLiteral("✓ %1 · 这轮忙了 %2 分 %3 秒")
-                .arg(QDateTime::currentDateTime().toString(QStringLiteral("HH:mm")))
-                .arg(secs / 60)
-                .arg(secs % 60, 2, 10, QChar('0'));
-            memoVisual_ = MemoVisual::Badge;
-            memoRiseSeen_ = false;
-            memoVisualClock_.restart();
-        }, [](const QString& id, bool started, const QString& reason) {
+        [this](qint64 workedMs) { recordWorkDuration(workedMs); },
+        [](const QString& id, bool started, const QString& reason) {
             startup::trace(QStringLiteral("work reaction %1: %2 (%3)")
                 .arg(id, started ? QStringLiteral("started") : QStringLiteral("refused"), reason));
         }, [this] { return allowAutomaticReactions(); });
@@ -491,7 +504,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     displayWatchTimer_.start(1000);
     updateFullscreenPresence();
 
-    QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+        QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
     // Restore the saved scale first, so the position fallback below uses it.
     renderSize_ = std::clamp(settings.value(QStringLiteral("renderSize"), 280).toInt(), 180, 560);
     setFixedSize(renderSize_, renderSize_);
@@ -578,13 +592,35 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     lookMenu->addAction(QStringLiteral("眯一会儿（眼罩）"), this, [this] {
         startNap();
     });
-    lookMenu->addAction(QStringLiteral("放个便笺…"), this, [this] {
-        if (motion_.sleepMotionActive()) return;
-        const QString text = QInputDialog::getMultiLineText(this, QStringLiteral("便笺"),
-            QStringLiteral("这件小事，先替你放这里："), memoText_);
-        if (text.trimmed().isEmpty()) return;
-        createStickyNote(text);
+    auto* memoMenu = lookMenu->addMenu(QStringLiteral("便笺"));
+    memoStorageStatusAction_ = memoMenu->addAction(QStringLiteral("便笺操作未完成，原内容已保留"));
+    memoStorageStatusAction_->setEnabled(false);
+    memoStorageStatusAction_->setObjectName(QStringLiteral("memoStorageStatusAction"));
+    memoCreateAction_ = memoMenu->addAction(QStringLiteral("放个便笺…"), this, &PetWindow::editStickyNote);
+    memoCreateAction_->setObjectName(QStringLiteral("memoCreateAction"));
+    memoReopenAction_ = memoMenu->addAction(QStringLiteral("展开便笺"), this, [this] {
+        if (!reopenMemo()) reportMemoFailure();
     });
+    memoReopenAction_->setObjectName(QStringLiteral("memoReopenAction"));
+    memoFoldAction_ = memoMenu->addAction(QStringLiteral("先收起来"), this, [this] {
+        if (!foldMemo()) reportMemoFailure();
+    });
+    memoFoldAction_->setObjectName(QStringLiteral("memoFoldAction"));
+    memoCompleteAction_ = memoMenu->addAction(QStringLiteral("完成了"), this, [this] {
+        if (!finishMemo()) reportMemoFailure();
+    });
+    memoCompleteAction_->setObjectName(QStringLiteral("memoCompleteAction"));
+    memoDiscardAction_ = memoMenu->addAction(QStringLiteral("移除便笺"), this, [this] {
+        if (!discardMemo()) reportMemoFailure();
+    });
+    memoDiscardAction_->setObjectName(QStringLiteral("memoDiscardAction"));
+    connect(memoMenu, &QMenu::aboutToShow, this, &PetWindow::refreshMemoActions);
+    automaticWorkNotesAction_ = workMenu->addAction(QStringLiteral("记录回合耗时"));
+    automaticWorkNotesAction_->setObjectName(QStringLiteral("automaticWorkNotesAction"));
+    automaticWorkNotesAction_->setCheckable(true);
+    automaticWorkNotesAction_->setChecked(memo_->automaticEnabled());
+    connect(automaticWorkNotesAction_, &QAction::toggled, this, &PetWindow::setAutomaticWorkNotesEnabled);
+    refreshMemoActions();
     QAction* boxAction = lookMenu->addAction(QStringLiteral("躲一下"), this, [this] {
         // Toggle: the same entry starts the peek and calls her back out.
         if (motion_.boxPeekActive()) exitBoxPeek();
@@ -635,7 +671,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         group->addAction(action);
         connect(action, &QAction::triggered, this, [this, level] {
             director_.setFrequency(level);
-            QSettings pace(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+            QSettings pace(QSettings::defaultFormat(), QSettings::UserScope,
+                QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
             pace.setValue(QStringLiteral("spontaneousFrequency"), int(level));
         });
     }
@@ -663,7 +700,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     nightAction->setChecked(quietPolicy_.nightEnabled());
     connect(nightAction, &QAction::toggled, this, [this](bool enabled) {
         quietPolicy_.setNightEnabled(enabled);
-        QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+            QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         settings.setValue(QStringLiteral("quietAtNight"), enabled);
     });
     auto* fullscreenHint = quietMenu->addAction(QStringLiteral("全屏时自动安静"));
@@ -776,7 +814,8 @@ PetWindow::~PetWindow() {
 void PetWindow::setFrameInterval(int ms) {
     frameIntervalMs_ = std::clamp(ms, 10, 200);
     frameTimer_.setInterval(frameIntervalMs_);
-    QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+        QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
     settings.setValue(QStringLiteral("frameIntervalMs"), frameIntervalMs_);
 }
 
@@ -796,7 +835,8 @@ void PetWindow::setRenderSize(int px) {
     if (cubismCanvas_) cubismCanvas_->setFixedSize(size());
 #endif
     constrainPositionToScreen();   // growing must not push her off-screen
-    QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+        QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
     settings.setValue(QStringLiteral("renderSize"), renderSize_);
 }
 
@@ -836,8 +876,13 @@ bool PetWindow::allowAutomaticReactions() const {
 }
 
 void PetWindow::setState(PetController::State state) {
-    if (state == PetController::State::Delete || state == PetController::State::Grass)
+    if (state == PetController::State::Delete || state == PetController::State::Grass) {
         releasePointerGesture();
+        if (memo_->visual() == StickyNoteModel::Visual::Bubble) {
+            if (!memo_->interrupt()) memoStoreOk_ = false;
+            motion_.cancelMemoMotion();
+        }
+    }
     motion_.setState(state);
     frame_ = 0;
     // Leaving the delete state cancels the sideways lunge: the next delete
@@ -1040,7 +1085,7 @@ double PetWindow::memoEnvelope() const {
     if (motion_.memoMotionActive()) return motion_.memoBubbleRise();
     // The gaze overlay ends by itself; the note stays up until the user acts
     // or the unattended timeout folds it into a corner badge.
-    return memoRiseSeen_ ? 1.0 : 0.0;
+    return memo_->riseSeen() ? 1.0 : 0.0;
 }
 
 QRectF PetWindow::memoBubbleRect(const QSizeF& s, double rise) const {
@@ -1062,7 +1107,7 @@ QRectF PetWindow::memoBadgeRect(const QSizeF& s) const {
 
 void PetWindow::drawMemoNote(QPainter& painter, const QSize& size) const {
     const QSizeF s(size);
-    if (memoVisual_ == MemoVisual::Bubble) {
+    if (memo_->visual() == StickyNoteModel::Visual::Bubble) {
         const double rise = memoEnvelope();
         if (rise <= 0.001) return;
         const QRectF rect = memoBubbleRect(s, rise);
@@ -1073,12 +1118,13 @@ void PetWindow::drawMemoNote(QPainter& painter, const QSize& size) const {
         painter.rotate(-3.0);
         painter.scale(0.7 + 0.3 * rise, 0.7 + 0.3 * rise);
         painter.translate(-rect.center());
-        paintStickyPaper(painter, rect, memoText_);
+        paintStickyPaper(painter, rect, memo_->text());
         painter.restore();
-    } else if (memoVisual_ == MemoVisual::Badge) {
-        paintStickyPaper(painter, memoBadgeRect(s), QStringLiteral("…"));
-    } else if (memoVisual_ == MemoVisual::Done) {
-        const double t = memoVisualClock_.elapsed() / 1000.0;
+    } else if (memo_->visual() == StickyNoteModel::Visual::Badge) {
+        paintStickyPaper(painter, memoBadgeRect(s),
+            memo_->hasUserNote() ? QStringLiteral("…") : QStringLiteral("时"));
+    } else if (memo_->visual() == StickyNoteModel::Visual::Done) {
+        const double t = memo_->visualAge();
         if (t >= 0.8) return;
         painter.save();
         painter.setOpacity(1.0 - t / 0.8);
@@ -1087,45 +1133,165 @@ void PetWindow::drawMemoNote(QPainter& painter, const QSize& size) const {
     }
 }
 
-void PetWindow::createStickyNote(const QString& text) {
-    memoText_ = text;
-    memoVisual_ = MemoVisual::Bubble;
-    memoRiseSeen_ = false;
-    memoVisualClock_.restart();
-    motion_.beginMemoMotion();
+bool PetWindow::canPresentMemo() const {
+    return canShowAutomaticMemo() && !motion_.interactionActive()
+        && pointerGesture_.mode() == PetPointerGesture::Mode::None;
+}
+
+bool PetWindow::canShowAutomaticMemo() const {
+    return (controller_->state() == PetController::State::Idle
+            || controller_->state() == PetController::State::Busy)
+        && !motion_.sleepMotionActive() && !motion_.dragMotionActive()
+        && !motion_.boxPeekActive() && !motion_.riceBowlActive()
+        && !motion_.waveActive() && !motion_.workPauseActive();
+}
+
+void PetWindow::reportMemoFailure() {
+    QMessageBox::warning(this, QStringLiteral("便笺未能保存"),
+        memo_->error().isEmpty() ? QStringLiteral("操作未完成，原便笺已保留。") : memo_->error());
+}
+
+void PetWindow::editStickyNote() {
+    bool accepted = false;
+    const QString text = QInputDialog::getMultiLineText(this, QStringLiteral("便笺"),
+        QStringLiteral("这件小事，先替你放这里（最多 2000 字符）："),
+        memo_->hasUserNote() ? memo_->text() : QString{}, &accepted);
+    if (!accepted || text.trimmed().isEmpty()) return;
+    if (!setUserMemo(text)) reportMemoFailure();
+}
+
+bool PetWindow::setUserMemo(const QString& text) {
+    const bool animate = canPresentMemo();
+    if (!memo_->createUser(text, animate)) { memoStoreOk_ = false; return false; }
+    memoStoreOk_ = true;
+    motion_.cancelMemoMotion();
+    if (animate) motion_.beginMemoMotion();
+    refreshMemoActions();
+    update();
+    return true;
+}
+
+bool PetWindow::reopenMemo() {
+    const bool animate = memo_->visual() == StickyNoteModel::Visual::Badge && canPresentMemo();
+    if (!memo_->reopen(animate)) { memoStoreOk_ = false; refreshMemoActions(); return false; }
+    if (animate && memo_->hasUserNote()) memoStoreOk_ = true;
+    if (animate && memo_->visual() == StickyNoteModel::Visual::Bubble) motion_.beginMemoMotion();
+    refreshMemoActions();
+    update();
+    return true;
+}
+
+bool PetWindow::foldMemo() {
+    const bool saved = memo_->fold();
+    if (!saved) memoStoreOk_ = false;
+    else if (memo_->hasUserNote()) memoStoreOk_ = true;
+    motion_.cancelMemoMotion();
+    refreshMemoActions();
+    update();
+    return saved;
+}
+
+bool PetWindow::finishMemo() {
+    const bool celebrate = memo_->hasUserNote() && canPresentMemo();
+    if (!memo_->complete(celebrate)) {
+        if (!memo_->error().isEmpty()) memoStoreOk_ = false;
+        refreshMemoActions();
+        return false;
+    }
+    memoStoreOk_ = true;
+    motion_.cancelMemoMotion();
+    if (celebrate) motion_.beginMemoCelebrate();
+    refreshMemoActions();
+    update();
+    return true;
+}
+
+bool PetWindow::discardMemo() {
+    const bool wasUser = memo_->hasUserNote();
+    if (!memo_->discard()) { memoStoreOk_ = false; return false; }
+    if (wasUser) memoStoreOk_ = true;
+    motion_.cancelMemoMotion();
+    refreshMemoActions();
+    update();
+    return true;
+}
+
+void PetWindow::setAutomaticWorkNotesEnabled(bool enabled) {
+    const bool wasAutomatic = memo_->origin() == StickyNoteModel::Origin::WorkDuration;
+    memo_->setAutomaticEnabled(enabled);
+    if (!enabled && wasAutomatic) motion_.cancelMemoMotion();
+    QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+        QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    settings.setValue(QStringLiteral("automaticWorkNotes"), enabled);
+    if (automaticWorkNotesAction_ && automaticWorkNotesAction_->isChecked() != enabled) {
+        const QSignalBlocker blocker(automaticWorkNotesAction_);
+        automaticWorkNotesAction_->setChecked(enabled);
+    }
+    refreshMemoActions();
+    update();
+}
+
+void PetWindow::recordWorkDuration(qint64 workedMs) {
+    memo_->recordDuration(workedMs, memoReceiptClock_.elapsed(),
+        QDateTime::currentDateTime().toString(QStringLiteral("HH:mm")), canShowAutomaticMemo());
+    refreshMemoActions();
+    update();
+}
+
+void PetWindow::refreshMemoActions() {
+    if (!memoCreateAction_) return;
+    memoStorageStatusAction_->setVisible(!memoStoreOk_);
+    memoCreateAction_->setText(memo_->hasUserNote() ? QStringLiteral("查看 / 修改便笺…") : QStringLiteral("放个便笺…"));
+    memoReopenAction_->setEnabled(memo_->visual() == StickyNoteModel::Visual::Badge && canPresentMemo());
+    memoFoldAction_->setEnabled(memo_->visual() == StickyNoteModel::Visual::Bubble);
+    memoCompleteAction_->setEnabled(memo_->hasUserNote());
+    memoDiscardAction_->setEnabled(memo_->origin() != StickyNoteModel::Origin::None);
+}
+
+QJsonObject PetWindow::memoReviewState() const {
+    const auto origin = memo_->origin();
+    const auto visual = memo_->visual();
+    const QRectF badge = memoBadgeRect(size());
+    return {{QStringLiteral("origin"), origin == StickyNoteModel::Origin::User ? QStringLiteral("user")
+                : origin == StickyNoteModel::Origin::WorkDuration ? QStringLiteral("work_duration") : QStringLiteral("none")},
+        {QStringLiteral("visual"), visual == StickyNoteModel::Visual::Bubble ? QStringLiteral("bubble")
+            : visual == StickyNoteModel::Visual::Badge ? QStringLiteral("badge")
+            : visual == StickyNoteModel::Visual::Done ? QStringLiteral("done") : QStringLiteral("none")},
+        {QStringLiteral("text_length"), memo_->text().size()},
+        {QStringLiteral("text_sha256"), QString::fromLatin1(QCryptographicHash::hash(
+            memo_->text().toUtf8(), QCryptographicHash::Sha256).toHex())},
+        {QStringLiteral("rise_seen"), memo_->riseSeen()},
+        {QStringLiteral("motion_active"), motion_.memoMotionActive()},
+        {QStringLiteral("work_count"), memo_->workCount()},
+        {QStringLiteral("worked_ms"), memo_->workedMs()},
+        {QStringLiteral("automatic_enabled"), memo_->automaticEnabled()},
+        {QStringLiteral("age_seconds"), memo_->visualAge()},
+        {QStringLiteral("store_ok"), memoStoreOk_},
+        {QStringLiteral("badge_rect"), QJsonObject{{QStringLiteral("x"), badge.x()}, {QStringLiteral("y"), badge.y()},
+            {QStringLiteral("width"), badge.width()}, {QStringLiteral("height"), badge.height()}}}};
 }
 
 bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos) {
     const QSizeF s(size());
-    if (memoVisual_ == MemoVisual::Bubble && memoEnvelope() > 0.9
+    if (memo_->visual() == StickyNoteModel::Visual::Bubble && memoEnvelope() > 0.9
         && memoBubbleRect(s, 1.0).contains(localPos)) {
         QMenu menu(this);
-        QAction* done = menu.addAction(QStringLiteral("完成了"));
+        QAction* edit = memo_->hasUserNote() ? menu.addAction(QStringLiteral("查看 / 修改便笺…")) : nullptr;
+        QAction* view = memo_->hasUserNote() ? nullptr : menu.addAction(QStringLiteral("查看回合耗时…"));
+        QAction* done = memo_->hasUserNote() ? menu.addAction(QStringLiteral("完成了")) : nullptr;
         QAction* later = menu.addAction(QStringLiteral("先收起来"));
-        QAction* drop = menu.addAction(QStringLiteral("丢掉"));
+        QAction* drop = menu.addAction(QStringLiteral("移除便笺"));
         QAction* picked = menu.exec(globalPos);
-        if (picked == done) {
-            // Ticking the note off folds it to the corner while the pet gives
-            // a pleased nod. The animation only answers the user's own click;
-            // it never claims the task itself is done.
-            memoVisual_ = MemoVisual::Done;
-            memoVisualClock_.restart();
-            motion_.beginMemoCelebrate();
-        } else if (picked == later) {
-            memoVisual_ = MemoVisual::Badge;
-            memoVisualClock_.restart();
-        } else if (picked == drop) {
-            memoVisual_ = MemoVisual::None;
-            memoRiseSeen_ = false;
-        }
+        if (picked && picked == edit) editStickyNote();
+        else if (picked && picked == view) QMessageBox::information(this, QStringLiteral("回合耗时"), memo_->text());
+        else if (picked && picked == done) { if (!finishMemo()) reportMemoFailure(); }
+        else if (picked == later) { if (!foldMemo()) reportMemoFailure(); }
+        else if (picked == drop) { if (!discardMemo()) reportMemoFailure(); }
         return true;
     }
-    if (memoVisual_ == MemoVisual::Badge && memoBadgeRect(s).contains(localPos)) {
+    if (memo_->visual() == StickyNoteModel::Visual::Badge && memoBadgeRect(s).contains(localPos)) {
         // Re-open: the note rises again with the same glance beat.
-        memoVisual_ = MemoVisual::Bubble;
-        memoRiseSeen_ = false;
-        memoVisualClock_.restart();
-        motion_.beginMemoMotion();
+        if (!reopenMemo()) reportMemoFailure();
         return true;
     }
     return false;
@@ -1509,15 +1675,14 @@ void PetWindow::advanceLiveFrame(double seconds) {
     if (motion_.consumeActionFinished()) controller_->actionFinished();
     // Sticky note lifecycle: hold the risen note, fold it into a corner badge
     // when the user ignores it for a while, fade the badge once completed.
-    if (motion_.memoMotionActive()) {
-        if (motion_.memoBubbleRise() > 0.99) memoRiseSeen_ = true;
-    } else if (memoVisual_ == MemoVisual::Bubble && memoRiseSeen_
-               && memoVisualClock_.elapsed() > 20000) {
-        memoVisual_ = MemoVisual::Badge;
-        memoVisualClock_.restart();
+    const auto previousMemo = memo_->visual();
+    if (previousMemo == StickyNoteModel::Visual::Bubble && !canShowAutomaticMemo()) {
+        if (!memo_->interrupt()) memoStoreOk_ = false;
+        motion_.cancelMemoMotion();
     }
-    if (memoVisual_ == MemoVisual::Done && memoVisualClock_.elapsed() > 800)
-        memoVisual_ = MemoVisual::None;
+    memo_->advance(seconds, motion_.memoMotionActive(), motion_.memoBubbleRise());
+    if (!memo_->error().isEmpty()) memoStoreOk_ = false;
+    if (memo_->visual() != previousMemo) refreshMemoActions();
 #ifdef HAVE_CUBISM
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
         cubismCanvas_->advance(seconds);
@@ -1702,7 +1867,8 @@ void PetWindow::releasePointerGesture() {
         if (!liveInteractionReview_) {
             constrainPositionToScreen();
             snapToEdges();   // dock flush to a nearby screen edge
-            QSettings settings(QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+            QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+                QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
             settings.setValue(QStringLiteral("position"), pos());
         }
     }

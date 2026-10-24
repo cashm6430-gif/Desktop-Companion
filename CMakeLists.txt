@@ -36,6 +36,9 @@ endif()
 qt_add_executable(DesktopCompanion WIN32
     src/main.cpp
     src/HeadPatInputReview.h src/HeadPatInputReview.cpp
+    src/MemoInputReview.h src/MemoInputReview.cpp
+    src/MemoStore.h src/MemoStore.cpp
+    src/StickyNoteModel.h src/StickyNoteModel.cpp
     src/MotionClip.h src/MotionClip.cpp
     src/MotionLibrary.h src/MotionLibrary.cpp
     src/PetController.h src/PetController.cpp
@@ -148,6 +151,13 @@ if(BUILD_TESTING)
         src/QuietPolicy.h src/QuietPolicy.cpp)
     target_link_libraries(QuietPolicyTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME QuietPolicyTest COMMAND QuietPolicyTest)
+    add_executable(MemoStoreTest tests/MemoStoreTest.cpp src/MemoStore.h src/MemoStore.cpp)
+    target_link_libraries(MemoStoreTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME MemoStoreTest COMMAND MemoStoreTest)
+    add_executable(StickyNoteModelTest tests/StickyNoteModelTest.cpp
+        src/StickyNoteModel.h src/StickyNoteModel.cpp src/MemoStore.h src/MemoStore.cpp)
+    target_link_libraries(StickyNoteModelTest PRIVATE Qt6::Core Qt6::Test)
+    add_test(NAME StickyNoteModelTest COMMAND StickyNoteModelTest)
     add_executable(CodexTurnSourceTest tests/CodexTurnSourceTest.cpp
         src/CodexTurnSource.h src/CodexTurnSource.cpp)
     target_link_libraries(CodexTurnSourceTest PRIVATE Qt6::Core Qt6::Network Qt6::Test)
@@ -228,7 +238,7 @@ if(BUILD_TESTING)
         src/QuietPolicy.h src/QuietPolicy.cpp)
     target_link_libraries(MotionClipTest PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
     add_test(NAME MotionClipTest COMMAND MotionClipTest)
-    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest QuietPolicyTest CodexTurnSourceTest HookLifecycleTest IntegrationStatusModelTest IntegrationStatusPanelTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
+    foreach(test_name PetControllerTest PetPointerGestureTest TriggerDirectorTest QuietPolicyTest MemoStoreTest StickyNoteModelTest CodexTurnSourceTest HookLifecycleTest IntegrationStatusModelTest IntegrationStatusPanelTest ToonEventBridgeTest ParameterMotionTest MotionClipTest)
         set_tests_properties(${test_name} PROPERTIES ENVIRONMENT "${PET_TEST_ENV}")
     endforeach()
     if(HAVE_CUBISM)

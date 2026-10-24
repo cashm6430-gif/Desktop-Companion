@@ -467,6 +467,9 @@ void ParameterMotion::preemptSpontaneous() {
 }
 
 bool ParameterMotion::playTurnEnded() {
+    // A work-end cue must not take the face from an ongoing user activity.
+    // Refuse now; a later explicit request can run after that owner releases.
+    if (memoMotionActive() || sleepMotionActive() || dragMotionActive()) return false;
     preemptSpontaneous();
     if (state_ != PetController::State::Idle || preview_ || interactionActive()
         || !turnEndedClip_.isValid()) return false;

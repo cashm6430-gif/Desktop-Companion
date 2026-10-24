@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "frames": 108,
+  "checks": 41,
+  "scope": "native_window_memo_actions_synthetic_qt_badge_click_and_real_controller_events",
+  "privacy": {
+    "default_endpoint_used": false,
+    "desktop_files_changed": false,
+    "fixture_only": true,
+    "isolated_settings": true,
+    "isolated_store": true,
+    "raw_text_in_trace": false,
+    "real_hooks_used": false
+  },
+  "scene_sha256": "062b22849d6768868c72c84d400346f8dfc64e13a8d59fe93b3b5d471a4a8edc",
+  "executable_sha256": "a1f76c539884b560231f4a6aa01d5f7fb16fbb7b46d327a494bf113512bea05f",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tool_sha256": "fa0a83fb564dc253abcaeb9b971518017b7e5ef02905dcc438e6fd0ff086e688",
+  "live_capture_performed": true,
+  "source_deployment_equal": true
+}

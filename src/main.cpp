@@ -2,6 +2,8 @@
 #include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
 #include "HeadPatInputReview.h"
+#include "MemoInputReview.h"
+#include "MemoStore.h"
 #include "IntegrationStatusModel.h"
 #include "PetController.h"
 #include "PetWindow.h"
@@ -17,6 +19,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMouseEvent>
+#include <QSettings>
 #include <QTimer>
 #include <QVariant>
 #include <algorithm>
@@ -127,7 +130,30 @@ int main(int argc, char** argv) {
         !app.property("desktopCompanionReviewRawExport").toBool()
             && deskModeForModel(activeModelPath, !reviewModelPath.isEmpty()));
     startup::trace(QStringLiteral("desk mode probed"));
-    PetController controller;
+    const bool memoReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3) == QStringLiteral("memo-recovery");
+    qint64 memoReviewNowMs = 1000;
+    if (memoReview) {
+        const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
+        if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
+        // Explicit process-local paths: neither settings nor the user note are
+        // read from or written to the live profile during this review.
+        QSettings::setDefaultFormat(QSettings::IniFormat);
+        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QDir(output).filePath(QStringLiteral("settings")));
+        QSettings::setPath(QSettings::IniFormat, QSettings::SystemScope, QDir(output).filePath(QStringLiteral("system-settings")));
+        const QSettings probe(QSettings::defaultFormat(), QSettings::UserScope,
+            QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        if (probe.format() != QSettings::IniFormat
+            || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
+            return 2;
+        app.setProperty("desktopCompanionReviewSettingsIsolated", true);
+        const QString notePath = QDir(output).filePath(QStringLiteral("memo.json"));
+        app.setProperty("desktopCompanionReviewMemoPath", notePath);
+        MemoStore store(notePath);
+        if (!store.save({QStringLiteral("先喝口水，再继续"), false})) return 2;
+    }
+    PetController controller(nullptr, memoReview
+        ? PetController::NowMs{[&memoReviewNowMs] { return memoReviewNowMs; }} : PetController::NowMs{});
     PetWindow window(&controller);
     startup::trace(QStringLiteral("window constructed"));
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
@@ -143,6 +169,7 @@ int main(int argc, char** argv) {
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         const QString scenario = QString::fromLocal8Bit(argv[3]);
+        if (memoReview) return runMemoInputReview(app, controller, window, output, memoReviewNowMs);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
             return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {

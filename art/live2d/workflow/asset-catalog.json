@@ -33,8 +33,8 @@
       "sha256": "62667fccbad729ec041684659202f2582578577d88ad8e56c2ed3aa77c578565"
     },
     "CMakeLists.txt": {
-      "bytes": 16862,
-      "sha256": "825cde3b907a529f6d5ea2912afa2d80271a2ec4bf9d4f744b885f2d7373d0ee"
+      "bytes": 17550,
+      "sha256": "2aa08c738f39d70576cab09ce08e8e0877ca51f539095702a142020ed0dd3a7b"
     },
     "art/3d/integration/replay-smoke-v1.json": {
       "bytes": 731,
@@ -5344,6 +5344,474 @@
       "bytes": 8289,
       "sha256": "ea93c7150b1686fd0fa912042b1ddfd1c6911343195d2ba0071fd6aae3c26557"
     },
+    "art/live2d/workflow/memo-recovery-20261024/build.log": {
+      "bytes": 964,
+      "sha256": "cda91c7d3df00b390e0825ec806ccfedbefccb20b2f585ea00121711e359aeda"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/contact-sheet.png": {
+      "bytes": 1275062,
+      "sha256": "8be797b9c728c8201c59d82fb8031d72c6a71d60ab1c0855fee2a5f1e5ca8f37"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/ctest.log": {
+      "bytes": 2560,
+      "sha256": "87a1467a6ab539339929131af440042d47adbd5bc560e9cfcf182c70ded7d127"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/ctest.xml": {
+      "bytes": 6712,
+      "sha256": "9cc9816096203fb9984b29b4aa8e56003ae4be44df45b56861cd665baa795527"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/memo-recovery.gif": {
+      "bytes": 3302884,
+      "sha256": "df13f84b381ba34a4c5c2bfa71ba678136c638263c117155cac42137a736844b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/capture.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-000.png": {
+      "bytes": 83174,
+      "sha256": "ef93ecbda2da0c3551391b730672f4d3f81f5162e1315138ed80cd20b3f4addf"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-001.png": {
+      "bytes": 84315,
+      "sha256": "0500d5a9214350b322d4cbd37802b9cbb213202b25aaff3fe8042ccaf21529e4"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-002.png": {
+      "bytes": 84471,
+      "sha256": "5a788a9bd4e30ab0e46fea41b1efca6cf23f4f2478beb60dc37745cc80c4a1f4"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-003.png": {
+      "bytes": 84526,
+      "sha256": "b346aecbcc33f84505e82d05ec9a9cf56c35f498d7b7434cc141859e507f5b66"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-004.png": {
+      "bytes": 85173,
+      "sha256": "25cd2030d45e54b5c9ce622e7bd70e792b9f23b1ec0b87a97a00ace0d14b9f35"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-005.png": {
+      "bytes": 85104,
+      "sha256": "92df9ce18f9f0729035916923b085d55f483700f770d4b4b15bd7c08b722e65b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-006.png": {
+      "bytes": 83864,
+      "sha256": "3815b7a12dacc655be076f720cf461255b2ba44daf00ced35fa93d3aa9b190e6"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-007.png": {
+      "bytes": 82157,
+      "sha256": "6cd673b0553ae77fade45e39580028fe6d360d280105f0f71522e592580d6040"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-008.png": {
+      "bytes": 82140,
+      "sha256": "00f4ef9e794cfc5d0f64fb23df95ccaac31670d5bfea742fcf7aa26b71207a7b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-009.png": {
+      "bytes": 82149,
+      "sha256": "44ecaf5c66499d198ec24f615d351c388d1f2b21507c2e7e56bbaf746f84e699"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-010.png": {
+      "bytes": 81883,
+      "sha256": "c5c0846dc8a704de32d5bb39e8097399bf2730724ebdf1459bd763c5fc098b5f"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-011.png": {
+      "bytes": 81742,
+      "sha256": "147582e54369573d6cb8abfbbc9448832e0a86162b67a311ca9f60d9e83ec77b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-012.png": {
+      "bytes": 81677,
+      "sha256": "57ddb30db14b95e6b2525897ee284aac1bcd67a6c3da4bf8d47a9a46bda1e80d"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-013.png": {
+      "bytes": 81709,
+      "sha256": "8eb2cb1598b2f3236016a06717b6ec54fd3733b048c8b15a9d873c9b28f0c2b1"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-014.png": {
+      "bytes": 81598,
+      "sha256": "8d942d29329c3360dd120a95d10d989e79debb0e2db6179d4457c95ca3a5b1c6"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-015.png": {
+      "bytes": 81558,
+      "sha256": "e9d6cc2a944c61ba44f9a9fe94e5574372b5794cb144c1e2a4636b7c18339b3c"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-016.png": {
+      "bytes": 81328,
+      "sha256": "40bb03a506ebc30c99869b13e3834e2b4b1daf0aa1659b89e0505b37dc0e4f66"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-017.png": {
+      "bytes": 81214,
+      "sha256": "d0b230a6e0a1e72753678141889d818d88f2f9c3c8e61d92bf209188db16318f"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-018.png": {
+      "bytes": 81233,
+      "sha256": "231b9812ec467daff90e860daef92e9b20d0f3a4cb1aa63b74e3996e4e39acbc"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-019.png": {
+      "bytes": 81150,
+      "sha256": "0c36ea865b0141c763e5030e7e9afbb4f6796b6c0e24c2680268b423d9645107"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-020.png": {
+      "bytes": 83486,
+      "sha256": "4ca4db62df57e261e805d51b262db3208298bec7ae79d3f42b34bf63c33c7d70"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-021.png": {
+      "bytes": 83858,
+      "sha256": "07e7e36201cbb4405f54d7e2ca54ce4a7411559b3089027faf2a5ebd6e10106c"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-022.png": {
+      "bytes": 83357,
+      "sha256": "f938188322b2a9691c81f375cb6942d663594faad8fd504d709c1d005ff0e3bc"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-023.png": {
+      "bytes": 83344,
+      "sha256": "d033c88ff6a3a98ea05e24fa6d0cd10ba833dabef313165852f99a7cfa6eda7d"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-024.png": {
+      "bytes": 83268,
+      "sha256": "51097a3daa1f25b95d8ec0159e83e67efb3964c36a4dcc1c85671e9985bb70d9"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-025.png": {
+      "bytes": 83449,
+      "sha256": "5b9ae9742655cc91f031c24b85fedcfd1901948d6dfe1948187b16b913d4cf06"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-026.png": {
+      "bytes": 83733,
+      "sha256": "db8f2264a51a0044e83ef20ecdd3b63be7f8a303e6d4a9f6e5e4f1432b393941"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-027.png": {
+      "bytes": 83723,
+      "sha256": "3514a42e58f631b6a0d9aae639f54df9b8b77d604b50d38a200615c2fcdcee44"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-028.png": {
+      "bytes": 83902,
+      "sha256": "525c1aa6318dbbcd5fe6637244942cc6baddbcc09d2673f6c8a24f3080a66315"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-029.png": {
+      "bytes": 84021,
+      "sha256": "a6ffcd3777aed58009bc05c00ebd61a7b6aef6fcad16f01a5ce673b4301cb871"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-030.png": {
+      "bytes": 84028,
+      "sha256": "f035b3d35e2e69ab540b18d062d3d1335e40b52653f01754bb12e896ad646e2b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-031.png": {
+      "bytes": 84048,
+      "sha256": "b632231cf116e6f2670c302109a0e31814fdb9bfe62f7963a3397611339ebf60"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-032.png": {
+      "bytes": 83999,
+      "sha256": "dad4c079ad713baec1997d0e4af30d2ffe80c8a2a82cd0f84ff55d6cb96c3d82"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-033.png": {
+      "bytes": 83844,
+      "sha256": "f4f3d249758e2a4bb3a7c5f548572498ca232a5493504593acc31fc19c1a0268"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-034.png": {
+      "bytes": 83854,
+      "sha256": "d9c24f687e4beebcee527428d8031cee8b1d2aef5915fb90294036a8c9db97a1"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-035.png": {
+      "bytes": 84028,
+      "sha256": "640be5e9954dc0aea0f2e24e04f213df84ac1326e0714439f6056d6124ec2f12"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-036.png": {
+      "bytes": 83896,
+      "sha256": "61c1a96cdd3d9b4096e23fa77e5daa2e33743e0077edcf39fd35d7294c6b04f6"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-037.png": {
+      "bytes": 83859,
+      "sha256": "26f79649171cc04c3003c73e8dd7505e6686f359489e1d8c5d1673c342403a04"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-038.png": {
+      "bytes": 84044,
+      "sha256": "94d5c08bc393b403e160e4f295a3a832a0e3007643fa86d3c460dc3335e1b970"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-039.png": {
+      "bytes": 84205,
+      "sha256": "5c0c49eeb7a7b48686a9c4727b69b7a8294a2d015c2b79b85def3d920defb006"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-040.png": {
+      "bytes": 84157,
+      "sha256": "386825bf4c98fe754b805015ec0403e8ebdd09ac321500724b9b0b4baebb8ea9"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-041.png": {
+      "bytes": 84130,
+      "sha256": "04e1c0887689aee3415a43e891074022c254928fc935884937a1a4beb3e41d59"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-042.png": {
+      "bytes": 84420,
+      "sha256": "71acb1a33da769394e9c993e7b10b3a23e91c95eb9f7e9f2a1bdc2144983e367"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-043.png": {
+      "bytes": 84136,
+      "sha256": "d75c63e4c053052eb688218f8aad53e16355cf848d9961a9bcb1c8f1cc37b2a8"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-044.png": {
+      "bytes": 84021,
+      "sha256": "ea4949e955cee0bc5e682b34e01e4e264aa6495ad64afd74645f3d48b9984b92"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-045.png": {
+      "bytes": 84000,
+      "sha256": "38d9db6ff5a20b774e52743752659c745018f22972d1a2d313ca145b5c73c0e4"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-046.png": {
+      "bytes": 83921,
+      "sha256": "37fb5e420457f9ba8424d21bad870557a8a1a14fbc65304b62b75b89146ca7e1"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-047.png": {
+      "bytes": 83637,
+      "sha256": "ace63c6cbcafbd35fc3399ef2b70d00ff3bed64eeb3742a51163a513d3c634dc"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-048.png": {
+      "bytes": 82731,
+      "sha256": "afcaa0e48108360ff79bd6889b8e4a5e552294639d89634c23389f0b01bd7039"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-049.png": {
+      "bytes": 83124,
+      "sha256": "9a316630b5dae25014a5df70d891be269d5de7663068acc940266bbd1bba83c1"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-050.png": {
+      "bytes": 83012,
+      "sha256": "325a3acca6c9bef4ddffa683ee0047b6171e8e3cb65f1bc2980891f72a765dbd"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-051.png": {
+      "bytes": 82033,
+      "sha256": "6d3bca6a311692cbf13fcad67dc5fc3db0ef50cc5d34d02d303d70dbfc8dd8e3"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-052.png": {
+      "bytes": 82750,
+      "sha256": "ae445dc5adadc100038620a74df9eb3a02364b885be47f2f5c4f33e1d4deb161"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-053.png": {
+      "bytes": 82884,
+      "sha256": "74828e04a6e45df188668cc0251b13a0801479831e8c40e84079c7f9e3ba3112"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-054.png": {
+      "bytes": 83322,
+      "sha256": "44509c221417fc16f1e90e99e760768a7ced8edaf1cdd2719d1d51a9cb0c7039"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-055.png": {
+      "bytes": 83397,
+      "sha256": "664897c7cf257c3acd762c822fc22acb8446a85118483ad7a196a431de44474c"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-056.png": {
+      "bytes": 83592,
+      "sha256": "2282c5be0e050a72125d3039258d6466e5fdca6a08c4f89aa772385ed6d8773b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-057.png": {
+      "bytes": 83718,
+      "sha256": "a39dfd71c2c977e542ce5aa8dd7f098e8073f6e6d3c82e30b2b6dc4a267cad73"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-058.png": {
+      "bytes": 83887,
+      "sha256": "1dc08183544fd4904363bff995de3f32cd17af978db1229d639b28f38befb4d3"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-059.png": {
+      "bytes": 84088,
+      "sha256": "356168d6397a628be141db15852da18936c5c9a653a70ab70e9343e3b2b092fe"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-060.png": {
+      "bytes": 84047,
+      "sha256": "314b2ae6c97a2bf55b78f648e10a9f00a195cc8109d27d1406f5404755789b0a"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-061.png": {
+      "bytes": 84182,
+      "sha256": "f1b4d729216eba8f1a738cf68ffa346bfa3e58dba1f1a951ce0329a0674aae16"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-062.png": {
+      "bytes": 84026,
+      "sha256": "d78f9b1fdd90be1f602888319a16702bd43c62b3cb403c5285a385d84dad7c2f"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-063.png": {
+      "bytes": 83743,
+      "sha256": "d860a61613785fa1c7897b308d3f499e1c9d5eab521575e803a7b3f4d1a76b81"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-064.png": {
+      "bytes": 83673,
+      "sha256": "b677e483ca8e3fa7396f3516bd30b9f81f9a9024f219da00815431710096af1b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-065.png": {
+      "bytes": 83482,
+      "sha256": "dd28e18b20c1dbc4aff12cbd7557a4cf189a6c44d12cfdb4cd19a836738cfd72"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-066.png": {
+      "bytes": 83513,
+      "sha256": "66a4e7fa44c77fbc046bf8b10e2549455ab0ca019c3cb846fff9b35e83bfdd56"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-067.png": {
+      "bytes": 83542,
+      "sha256": "e5a3e5197901fa0a07a9c54f1a63dc8f5185f9c3ea074bad91c666b06a92fa4d"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-068.png": {
+      "bytes": 83824,
+      "sha256": "e211c96ace10993218af55c16834e768184ccb19777b9561828ddd0da526a813"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-069.png": {
+      "bytes": 83796,
+      "sha256": "bda4b7e62e952b6ec14ae57297cb524765599d0617e69db9f2cbe7d46089dd1d"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-070.png": {
+      "bytes": 84013,
+      "sha256": "edd93e8d6478ff444a3b4f17cace577c962da049a7bf48493af8155b659bef99"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-071.png": {
+      "bytes": 83876,
+      "sha256": "468104f5341027cdb2b8c78021f0e98234ed79b228eb5e7b4ec7d0b9d7906e9a"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-072.png": {
+      "bytes": 83876,
+      "sha256": "f2d39ca427188f0516ba1b32d54701d0b74880dce7eb796672ab1c418db999d9"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-073.png": {
+      "bytes": 84087,
+      "sha256": "06fae41d517285d137fa9c743abd7211f10d31591c0d5f41a806d47c6b888927"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-074.png": {
+      "bytes": 83944,
+      "sha256": "47f48c0c3116e555cf67441827d881a81f5199a5f48e4b6334f747247e0e3067"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-075.png": {
+      "bytes": 84104,
+      "sha256": "d778514d9d4b8a3d9ca0b9870ce5a185fff04c092d7b0ffea4166b737a5b6386"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-076.png": {
+      "bytes": 84118,
+      "sha256": "726e13f8c51231e35f9f57102fa672b0027c02e67ef1148a917035a60c872d4e"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-077.png": {
+      "bytes": 84031,
+      "sha256": "886c6339e25b8aa25ef5de5fc8c16dc6c7d2e4b996c6bb0f29ed5b0ca2b117fe"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-078.png": {
+      "bytes": 84683,
+      "sha256": "d4ca40e98b96b9096b0bcb2a39f247cc2bd77292e906ec667334ad0beb11b498"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-079.png": {
+      "bytes": 84403,
+      "sha256": "69b456f2b7427ee89deec88b88410fdfaeba0af5b19a443ec759a241d69f88e0"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-080.png": {
+      "bytes": 83201,
+      "sha256": "c0009a110a5f032e3679925893114143fcc54969ab585a3cd89c68945019462f"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-081.png": {
+      "bytes": 81275,
+      "sha256": "a274e118e2ea13c8d77b5e3abc23b5a54de0b4abea4300aa0e10f6eef109330e"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-082.png": {
+      "bytes": 81399,
+      "sha256": "d480b69ac6537ae046c4ee0f2f3406ac623a9c725a5da522ce0f700471020e3c"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-083.png": {
+      "bytes": 81348,
+      "sha256": "844d02c30b4fafc2216582e0775ca7935ae2d51502ba9a9ceb85da3e14f3133d"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-084.png": {
+      "bytes": 81187,
+      "sha256": "4f4a45e15c7d7fc41a1a8b9d98b207479ca1243e2150d38e242970d73b3b5da5"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-085.png": {
+      "bytes": 81157,
+      "sha256": "35fc2d807ac7c3c8bbe79a474165b5c24cd56f6ea8d56dadaa15728a812e6c41"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-086.png": {
+      "bytes": 81189,
+      "sha256": "33f280592f98b32e72bca680b29dff130a4ad37814d27ed9be141d7640622959"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-087.png": {
+      "bytes": 81305,
+      "sha256": "0e5d7dc21a756224c60f0cd75a81017581470ffba5d6c7fb1b85348ee240317a"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-088.png": {
+      "bytes": 81293,
+      "sha256": "9448b3816fff4fa9b89895081dd3e7acd19c3934d15588590992a7855d0e28cd"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-089.png": {
+      "bytes": 81427,
+      "sha256": "83ad44ba37f24e3dda0d4d8d97594765bb9cf1c8a08e78e4d95ca69158d3c566"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-090.png": {
+      "bytes": 81527,
+      "sha256": "8b764bf51b93c746e17a38560362db62c179d0a1324e18ded99ec5ecfc17b742"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-091.png": {
+      "bytes": 81646,
+      "sha256": "f560bc0aa605e14c2c5e5022436de89424d52a80be14857f5698001eb16d307e"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-092.png": {
+      "bytes": 81675,
+      "sha256": "5033e680fa366fec49b555c47100098c7887ab2f57a11afe9a1961cdc3ed64f6"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-093.png": {
+      "bytes": 81684,
+      "sha256": "1e0c189a005c48e7913180c8cc335e2eb0042847e579c12c0bcc37cd20e816a0"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-094.png": {
+      "bytes": 81724,
+      "sha256": "2509e1f8ee0eb65d68de516ca049f7bcd9fea80b011c52918f817dd33d25551d"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-095.png": {
+      "bytes": 84310,
+      "sha256": "d8e4ab67a81ca8f7ba52e00704d91ece7ed1d6bd6745c97fb9a64c1a170384fb"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-096.png": {
+      "bytes": 84719,
+      "sha256": "91c689bd93cca1b31bc60cfcc76c581886a2bfb3e9060b93667130be318cbd8e"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-097.png": {
+      "bytes": 84635,
+      "sha256": "c2b0e8dbc02599d4af5bd580ddcabd76db221b09a38ca03ccecb48af0f2fea1f"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-098.png": {
+      "bytes": 84588,
+      "sha256": "13956799418f60bbf8778d956a7bfc2a5cad8cd45b268f1d3f378f419372e3c2"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-099.png": {
+      "bytes": 84414,
+      "sha256": "e7353859d50b15c0a4290c9a420584fc09f8a1695f257685b87bcf96ffd1b7df"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-100.png": {
+      "bytes": 84475,
+      "sha256": "0ef94a45498718ea5706b580174b0ee7c111d0216b4db30573052792750440e7"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-101.png": {
+      "bytes": 84365,
+      "sha256": "cc8aa1e7f146a1e196825d283480799911bade0e109b4770350b7b1b1a0b4471"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-102.png": {
+      "bytes": 84288,
+      "sha256": "a36db07684b375a3dcad178fc286a8d750f377c1d46ff63791945a48777d2567"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-103.png": {
+      "bytes": 84244,
+      "sha256": "d9d13de4879e72864a211da1fecec36a14198d1ad1b71357a1b4bfb1c5d357f0"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-104.png": {
+      "bytes": 84163,
+      "sha256": "a82a4ec809496d9786fa3e7ddd22da78e0d24e12097ca67a8fc65f2a45a03005"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-105.png": {
+      "bytes": 84083,
+      "sha256": "0fcee387058a9438600d1c1800ac91a0932cd46d1d7bf47e48a38693d06c6492"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-106.png": {
+      "bytes": 83828,
+      "sha256": "604e95eb53db53ecfecb53d73406aa6644f1ae7cf372173a13bc8543c7aa8b35"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/frame-107.png": {
+      "bytes": 83000,
+      "sha256": "0161a7846f7eef6d0f3e81ae2666dbebdb05e05e8feb1849282550d822f3ea5b"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/memo-check.json": {
+      "bytes": 829,
+      "sha256": "b21b9d04a71498140bb76175c447bbe8f8eea5d86fef8921fd04b5640c23fb3f"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/native/scene.json": {
+      "bytes": 303833,
+      "sha256": "062b22849d6768868c72c84d400346f8dfc64e13a8d59fe93b3b5d471a4a8edc"
+    },
+    "art/live2d/workflow/memo-recovery-20261024/verification.json": {
+      "bytes": 16984,
+      "sha256": "bfbfd06bc21eb62c29aa0aaaf5ffde74057363cf7590af84552786103cf278ea"
+    },
     "art/live2d/workflow/native-parameter-ranges.json": {
       "bytes": 6622,
       "sha256": "d78312918c31460212f9a84d4f90f37b162281d47e5e54b16b41ed8eca690dcd"
@@ -6324,6 +6792,22 @@
       "bytes": 1246,
       "sha256": "9e60bcf516259607e1010a42a16d3b1d4ffdc6586c1eb73cda17e3b20f025edc"
     },
+    "src/MemoInputReview.cpp": {
+      "bytes": 19534,
+      "sha256": "5ff77e6e7b6b2490a00a1dacda2d42477528156d9588b8c9cd59c3abefe69a6b"
+    },
+    "src/MemoInputReview.h": {
+      "bytes": 522,
+      "sha256": "7e00b8d7a94f3cbdb58148c5c081285de9cfb9ed91b9a0caef8a12c952abd697"
+    },
+    "src/MemoStore.cpp": {
+      "bytes": 6206,
+      "sha256": "b5a05a93a9825e4d26d00498f73519f3d5b06831cf3f0f8ac6364d832b0f4e46"
+    },
+    "src/MemoStore.h": {
+      "bytes": 1202,
+      "sha256": "0b571867289975cd421965d5b9c6434d8314886b4d5fc78e2cdef1fc6b9eeea2"
+    },
     "src/MotionClip.cpp": {
       "bytes": 17401,
       "sha256": "efe5c315102d7c9629b11501420d2d52d887c5453db4a8ef81cdf7cccd11558b"
@@ -6341,8 +6825,8 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 68413,
-      "sha256": "cbacbde90afbae7c834edbec4cfae4681a039c70555cadeadfa16393053a5c6a"
+      "bytes": 68655,
+      "sha256": "e76fb0cc9e012b83b0ebdbce83455cf41021ffe66d8c9d51359ef929a31a6fd3"
     },
     "src/ParameterMotion.h": {
       "bytes": 19175,
@@ -6365,12 +6849,12 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 91517,
-      "sha256": "60cb017b1eccea712a2abf2f70e66e833bcaa7538053d1b621666dffeaa60d3c"
+      "bytes": 100271,
+      "sha256": "34aa9cfcb0e6001b0fbd6115ce2e304d71aeeed5665a94919812c1982ea48491"
     },
     "src/PetWindow.h": {
-      "bytes": 13360,
-      "sha256": "528f1964795dafa30642281889a114f090d9483faa81767bc37c828cc1e1b606"
+      "bytes": 14230,
+      "sha256": "9bf36b8db3bc6bf96e02cc1f12905bd1898426e4df2be5217a084f64c274df76"
     },
     "src/QuietPolicy.cpp": {
       "bytes": 1802,
@@ -6387,6 +6871,14 @@
     "src/StartupTrace.h": {
       "bytes": 793,
       "sha256": "facaf13e0ddc5f299868cb5d2d1b7c0a2a6a28c57eadb4cb51589046a56de0ed"
+    },
+    "src/StickyNoteModel.cpp": {
+      "bytes": 6479,
+      "sha256": "d6a3c99fdfaa29cb89f8f37eb879a9d5b671d23c549c36db89d8837897a93965"
+    },
+    "src/StickyNoteModel.h": {
+      "bytes": 2254,
+      "sha256": "b2d56a95a68fd0ade34dbe18329dc9f11e8c1a7f151ea9cd207ae6b26eba7ad0"
     },
     "src/ToonEventBridge.cpp": {
       "bytes": 15133,
@@ -6429,8 +6921,8 @@
       "sha256": "aae7f180a1d8a238b593e278108a01869287faa6582ce7f82daee087f3c3ac05"
     },
     "src/main.cpp": {
-      "bytes": 59225,
-      "sha256": "802860d665835ea5873ffe0b8a87a09b7aac5f0817906b4c58e826ef80a502a8"
+      "bytes": 61121,
+      "sha256": "8bbd61163625ead747b18aef5236b9720eb7fae3dcbbd36be1622d70f3ff2dd0"
     },
     "src/motion/BoxBehavior.cpp": {
       "bytes": 6397,
@@ -6568,13 +7060,17 @@
       "bytes": 8141,
       "sha256": "de94c01de93130171d9edfac6536d40e76ae2860e68adb6072c51f63c41de395"
     },
+    "tests/MemoStoreTest.cpp": {
+      "bytes": 9803,
+      "sha256": "f52537575a5ed265077961f1465418b2faed6405c02c1d5a7fac9928b4e84229"
+    },
     "tests/MotionClipTest.cpp": {
       "bytes": 46756,
       "sha256": "c6c7721e819123ab9f60c04c84faa840c898a1521e70295e0aed42f7606055c4"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 123530,
-      "sha256": "4b0e24ddc49de93851a779bd6005540418acb93202c99a89cd5c46c2d410c9af"
+      "bytes": 126088,
+      "sha256": "10ee7692dd08561e315fd0ee285ebc3be4900fd9385d1840c0cf353fe041e052"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 14249,
@@ -6591,6 +7087,10 @@
     "tests/ScreenPlacementTest.cpp": {
       "bytes": 5163,
       "sha256": "7c9029993189661194c4beb57a991623dd0431148017430956cbb95fda0b6e8b"
+    },
+    "tests/StickyNoteModelTest.cpp": {
+      "bytes": 14022,
+      "sha256": "fe3b00f3581d6f052af89d3808fbcfadb307435f4dca3e756897d4b68dc38a5b"
     },
     "tests/ToonEventBridgeTest.cpp": {
       "bytes": 16167,
@@ -6979,6 +7479,10 @@
     "tools/review_isolated_model.py": {
       "bytes": 1483,
       "sha256": "dcd522f5caf1da18f090338fea91e8a961d5287a72a71513d8b4d08a8182d22b"
+    },
+    "tools/review_memo_recovery.py": {
+      "bytes": 4216,
+      "sha256": "fa0a83fb564dc253abcaeb9b971518017b7e5ef02905dcc438e6fd0ff086e688"
     },
     "tools/review_model_equivalence.py": {
       "bytes": 16304,

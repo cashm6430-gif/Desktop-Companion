@@ -19,6 +19,7 @@
 #include <QTimer>
 #include <QWidget>
 #include <functional>
+#include <memory>
 
 #ifdef HAVE_CUBISM
 class CubismCanvas;
@@ -33,6 +34,8 @@ class QAction;
 // System-wide hotkeys (RegisterHotKey); defined in PetWindow.cpp.
 class GlobalHotkeys;
 class IntegrationStatusPanel;
+class MemoStore;
+class StickyNoteModel;
 
 class PetWindow final : public QWidget {
     Q_OBJECT
@@ -107,6 +110,15 @@ public:
     // with a manual frame clock instead of the desktop's wall clock.
     void prepareLiveInteractionReview(int pixels = 840);
     bool renderLiveInteractionFrame(double seconds, const QString& path);
+    // The tray and isolated Native review share these note operations. User
+    // text is saved before display; automatic duration notes remain in memory.
+    bool setUserMemo(const QString& text);
+    bool reopenMemo();
+    bool foldMemo();
+    bool finishMemo();
+    bool discardMemo();
+    void setAutomaticWorkNotesEnabled(bool enabled);
+    QJsonObject memoReviewState() const;
 
 protected:
     bool event(QEvent* event) override;
@@ -167,7 +179,12 @@ private:
     // the desk edge; the motion layer carries only the gaze. The note is
     // painted into the composed frame, so the per-pixel input mask picks it up
     // and clicks land exactly on the paper.
-    void createStickyNote(const QString& text);
+    void editStickyNote();
+    bool canPresentMemo() const;
+    bool canShowAutomaticMemo() const;
+    void refreshMemoActions();
+    void reportMemoFailure();
+    void recordWorkDuration(qint64 workedMs);
     bool handleMemoPress(const QPointF& localPos, const QPoint& globalPos);
     void drawMemoNote(QPainter& painter, const QSize& size) const;
     QRectF memoBubbleRect(const QSizeF& size, double rise) const;
@@ -267,11 +284,17 @@ private:
     DeleteOverlay* deleteOverlay_ = nullptr;
     // Sticky note state. The bubble rises with the gaze overlay, then holds;
     // unattended notes fold into a corner badge that can be re-opened.
-    QString memoText_;
-    enum class MemoVisual { None, Bubble, Badge, Done };
-    MemoVisual memoVisual_ = MemoVisual::None;
-    QElapsedTimer memoVisualClock_;
-    bool memoRiseSeen_ = false;
+    std::unique_ptr<MemoStore> memoStore_;
+    std::unique_ptr<StickyNoteModel> memo_;
+    bool memoStoreOk_ = true;
+    QAction* memoCreateAction_ = nullptr;
+    QAction* memoReopenAction_ = nullptr;
+    QAction* memoFoldAction_ = nullptr;
+    QAction* memoCompleteAction_ = nullptr;
+    QAction* memoDiscardAction_ = nullptr;
+    QAction* memoStorageStatusAction_ = nullptr;
+    QAction* automaticWorkNotesAction_ = nullptr;
+    QElapsedTimer memoReceiptClock_;
     // Drives the slow bob of the sleep "z Z Z" bubble.
     QElapsedTimer sleepClock_;
 };

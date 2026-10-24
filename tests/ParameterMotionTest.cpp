@@ -130,6 +130,7 @@ private slots:
     void standingAccentKeepsMovingAfterOneCycle();
     void absentReactionsLeaveExistingMotionAvailable();
     void turnEndedPreservesSeatThenPutsLaptopAway();
+    void turnEndedYieldsToUserOverlaysWithoutReplay();
     void stretchPausePlaysOverSeatedLaptopOnlyAndResumesTyping();
     void stretchPokeSkipsToCaughtRecoveryAndResumesTyping();
     void workPauseDispatchRespectsApprovalAndSettledPosture();
@@ -464,6 +465,60 @@ void ParameterMotionTest::turnEndedPreservesSeatThenPutsLaptopAway() {
     QVERIFY(motion.values().value(QStringLiteral("ParamBusyLaptop")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) < 0.001);
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeLOpen")) > 0.9);
+}
+
+void ParameterMotionTest::turnEndedYieldsToUserOverlaysWithoutReplay() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    for (const QString owner : {QStringLiteral("memo"), QStringLiteral("sleep"), QStringLiteral("drag")}) {
+        ParameterMotion motion;
+        ParameterMotion reference;
+        for (ParameterMotion* player : {&motion, &reference}) {
+            QVERIFY(player->loadMotionLibrary(dir.path()));
+            advanceFrames(*player, 50);
+            if (owner == QStringLiteral("memo")) player->beginMemoMotion();
+            else if (owner == QStringLiteral("sleep")) player->beginSleepMotion();
+            else {
+                player->beginDragMotion();
+                player->updateDragMotion(320.0, -80.0);
+            }
+            advanceFrames(*player, 12);
+        }
+        const auto before = motion.values();
+        QVERIFY2(!motion.playTurnEnded(), qPrintable(owner));
+        QCOMPARE(motion.values(), before);
+        QVERIFY(!motion.interactionActive());
+        if (owner == QStringLiteral("memo")) QVERIFY(motion.memoMotionActive());
+        else if (owner == QStringLiteral("sleep")) QVERIFY(motion.sleepMotionActive());
+        else QVERIFY(motion.dragMotionActive());
+
+        // A refused cue leaves the existing owner's actual trajectory intact.
+        for (int frame = 0; frame < 12; ++frame) {
+            motion.advance(0.02);
+            reference.advance(0.02);
+            QCOMPARE(motion.values(), reference.values());
+            QVERIFY(!motion.interactionActive());
+        }
+        for (ParameterMotion* player : {&motion, &reference}) {
+            if (owner == QStringLiteral("memo")) player->cancelMemoMotion();
+            else if (owner == QStringLiteral("sleep")) player->cancelSleepMotion();
+            else player->cancelDragMotion();
+        }
+        // Releasing an owner never replays a discarded work-end cue.
+        for (int frame = 0; frame < 100; ++frame) {
+            motion.advance(0.02);
+            reference.advance(0.02);
+            QVERIFY(!motion.interactionActive());
+            QCOMPARE(motion.values(), reference.values());
+        }
+        QVERIFY(motion.playTurnEnded());
+        QCOMPARE(motion.interactionId(), QStringLiteral("turn-ended"));
+        advanceFrames(motion, 35);
+        QVERIFY(motion.interactionActive());
+        QVERIFY(motion.values().value(QStringLiteral("ParamAngleY")) > 1.0);
+        advanceFrames(motion, 60);
+        QVERIFY(!motion.interactionActive());
+    }
 }
 
 void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
