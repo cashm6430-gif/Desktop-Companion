@@ -40,18 +40,23 @@ private slots:
         QVERIFY(source.error().isEmpty());
         QSignalSpy metadata(&source, &CodexTurnSource::eventReceived);
         QStringList order;
+        QString expectedClient;
+        const auto expectedSession = [&] {
+            return QString::fromUtf8(QJsonDocument(QJsonArray{expectedClient, QStringLiteral("private-session")})
+                                         .toJson(QJsonDocument::Compact));
+        };
         connect(&source, &CodexTurnSource::turnStarted, this, [&](const QString& session, const QString& turn) {
-            QCOMPARE(session, QStringLiteral("private-session"));
+            QCOMPARE(session, expectedSession());
             QCOMPARE(turn, QStringLiteral("private-turn"));
             order.append(QStringLiteral("start"));
         });
         connect(&source, &CodexTurnSource::turnStopped, this, [&](const QString& session, const QString& turn) {
-            QCOMPARE(session, QStringLiteral("private-session"));
+            QCOMPARE(session, expectedSession());
             QVERIFY(turn.isEmpty()); // Legacy Stop has no turn id.
             order.append(QStringLiteral("stop"));
         });
         connect(&source, &CodexTurnSource::sessionEnded, this, [&](const QString& session) {
-            QCOMPARE(session, QStringLiteral("private-session"));
+            QCOMPARE(session, expectedSession());
             order.append(QStringLiteral("session_end"));
         });
         connect(&source, &CodexTurnSource::eventReceived, this, [&](const QString&, const QString& action) {
@@ -62,6 +67,7 @@ private slots:
         const QStringList clients{QStringLiteral("codex"), QStringLiteral("workbuddy"), QStringLiteral("claude"),
                                   QStringLiteral("manual"), QStringLiteral("unknown"), QStringLiteral("other")};
         for (qsizetype index = 0; index < clients.size(); ++index) {
+            expectedClient = index < 4 ? clients[index] : QStringLiteral("unknown");
             QLocalSocket socket;
             QJsonObject payload = event(QStringLiteral("start"), clients[index]);
             payload.insert(QStringLiteral("prompt"), QStringLiteral("private prompt must not become metadata"));
@@ -72,6 +78,7 @@ private slots:
             QTRY_COMPARE(socket.state(), QLocalSocket::UnconnectedState);
         }
         QJsonObject stop = event(QStringLiteral("stop"));
+        expectedClient = QStringLiteral("unknown");
         stop.remove(QStringLiteral("client"));
         stop.remove(QStringLiteral("turn_id"));
         QLocalSocket legacy;

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "completed_on": "2026-10-24",
+  "created_utc": "2026-10-24T12:59:27.703130+00:00",
+  "parent_commit": "e5ee869",
+  "scope": "installation lifecycle safeguards and isolated packaged-runtime acceptance",
+  "changes": {
+    "ipc": "canonical (client,session) JSON tuple prevents cross-client ID and controller delimiter collisions",
+    "legacy": "missing or unrecognized client remains one shared unknown scope",
+    "helper": "explicit --endpoint enables private fixture; production default unchanged",
+    "ownership": "match executable basename exactly; remove only pet commands, preserve mixed-group metadata and other commands",
+    "config": "strict object/group validation; explicit UTF-8, byte-level no-BOM comparison, same-directory atomic replace with unique backups",
+    "idempotence": "no-op install/remove does not rewrite bytes, mtime or backups; Remove works without helper",
+    "portable": "deployed default helper path and cleanup of Claude session hooks, wrappers propagate failure exit code",
+    "package": "fresh stage, no overwrite/delete; runtime allowlist plus app-local x64 release MSVC CRT; manifest hashes exact shipped bytes",
+    "review": "exact stage/ZIP bytes, required motion/metadata/props and model references, isolated copied Native smoke and packaged helper"
+  },
+  "build": {
+    "passed": true,
+    "configuration": "Release / Cubism Native",
+    "log": "build.log"
+  },
+  "ctest": {
+    "passed": 20,
+    "total": 20,
+    "seconds": 58.87,
+    "full_suite_rerun": true,
+    "log": "ctest.log",
+    "junit": "ctest.xml",
+    "new_targets": [
+      "HookLifecycleTest",
+      "HookInstallLifecycleTest"
+    ],
+    "windows_powershell_5_1_fixture_passed": true
+  },
+  "package_unit_tests": {
+    "passed": 8,
+    "total": 8,
+    "log": "package-unit.log",
+    "scope": "modified/missing/extra files, required CRT/motion/metadata, model references, path/duplicate checks and ZIP mismatch"
+  },
+  "hook_end_to_end": {
+    "passed": true,
+    "behavior_scenarios": 7,
+    "qt_total_with_init_cleanup": 9,
+    "trace": "hook-lifecycle.txt",
+    "helper": "actual packaged executable",
+    "path": "QProcess -> private named pipe -> CodexTurnSource -> PetController -> IntegrationStatusModel",
+    "consumption": "online requests wait for actual eventReceived, including duplicate/no-op events",
+    "tested": [
+      "same session+turn across three clients counts 1,2,3",
+      "duplicate explicit-ID start/stop",
+      "Stop/Interrupt/SessionEnd isolation",
+      "legacy/unknown bucket",
+      "embedded delimiter collision",
+      "offline helper returns {} quickly, new listener recovers without replay",
+      "missing-turn fallback, manual reset/late stop, private status and manual commands"
+    ],
+    "real_client_processes": false,
+    "default_endpoint_used": false
+  },
+  "package": {
+    "version": "1.0.1-candidate.20261024",
+    "directory": "build/package/install-lifecycle-20261024-r2",
+    "files": 102,
+    "bytes": 132146713,
+    "manifest": "package-manifest.json",
+    "receipt": "package-check.json",
+    "manifest_source": {
+      "head": "e5ee869a88a4ab4d98999f26dd5a284385ab3173",
+      "dirty": true
+    },
+    "source_note": "Candidate packaged during this change; parent HEAD plus dirty=true is intentional. Source bytes are recorded below and committed with this evidence.",
+    "archives": [
+      {
+        "file": "DesktopCompanion-1.0.1-candidate.20261024-portable.zip",
+        "bytes": 58499539,
+        "sha256": "419c8029c966c97de1bd2d8c5046d156b463f463672353ca0289aae3ea153b1d"
+      },
+      {
+        "file": "DesktopCompanion-1.0.1-candidate.20261024-setup.exe",
+        "bytes": 44430452,
+        "sha256": "e139134a6f540b3d114631f0602b6271845b8147b3b00f616d647732d739d70a"
+      }
+    ],
+    "setup_compiled": true,
+    "setup_executed": false,
+    "crt": "10 app-local release x64 DLLs from matching MSVC 14.51.36231 redistributable directory",
+    "existing_stage_guard": "attempted repeat packaging rejected existing stage; manifest SHA256 stayed unchanged",
+    "rejected_candidate": "initial install-lifecycle-20261024 package lacked CRT and is not the delivery candidate"
+  },
+  "native_smoke": {
+    "frame_saved": true,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "render_samples": 4,
+    "state": "idle",
+    "qt_sdk_path_removed": true,
+    "image": "smoke.png"
+  },
+  "visual_review": "Packaged idle frame inspected; no motion or model changes. No new full motion matrix claimed.",
+  "assets": {
+    "validator_passed": true,
+    "cubism_files": 12,
+    "parameters": 41,
+    "authored_motions": 12,
+    "unchanged": true,
+    "formal_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "log": "assets-check.log"
+  },
+  "signatures": [
+    {
+      "file": "DesktopCompanion.exe",
+      "status": "Valid"
+    },
+    {
+      "file": "DesktopCompanionHook.exe",
+      "status": "Valid"
+    },
+    {
+      "file": "DesktopCompanion-1.0.1-candidate.20261024-setup.exe",
+      "status": "NotSigned"
+    }
+  ],
+  "limitations": [
+    "Actual setup/upgrade/uninstall and real Codex/WorkBuddy/Claude concurrent sessions still need a separate standard Windows account or VM.",
+    "No installed hooks, registry installation state or desktop files were modified in this batch.",
+    "Same-account alternate /DIR is not isolation: AppId, QSettings, production endpoint and automatic Claude seeding are shared.",
+    "Cleanup recognizes helper filename across all installations; multiple copies have no independent ownership.",
+    "No turn_id means generated starts and latest-turn stop fallback cannot provide exact cross-turn duplicate/late-stop matching.",
+    "Migrate source tags only while idle or after local reset; old unknown start cannot match a new source-tagged stop.",
+    "Lost-stop expiry remains 4 hours with 60-second scans and wall-clock behavior; short tests do not establish actual crash expiry.",
+    "Inno Run/UninstallRun still lacks explicit handling of hidden PowerShell exit codes; real failure UX and running-process races remain acceptance items.",
+    "Native smoke on this developer machine plus required app-local CRT does not replace clean-machine installation acceptance."
+  ],
+  "source_sha256": {
+    "CMakeLists.txt": "825cde3b907a529f6d5ea2912afa2d80271a2ec4bf9d4f744b885f2d7373d0ee",
+    "installer/portable/install-hooks.cmd": "f0fc12fde5c3f557e23a743e8a75c91e28285bb1caebd2953eede09d90a00c57",
+    "installer/portable/uninstall-hooks.cmd": "cbf189a0b4ca16d99538003ee3ec882b53bd7884d4cc0d612971955fe0b10a4a",
+    "src/CodexTurnSource.cpp": "24a5261c1861a374ba26d281ac99f5df18e33d99d27e055a214637713f907b42",
+    "src/CodexTurnSource.h": "4028ccc47312864bd3e6735b4fd6f8f2dcd1d4c5a225f95f51d7373a74ccae61",
+    "src/CoworkHookSeeder.cpp": "afa27035a2e37e923ff6f401542f919b36ce61a05ab334e115b3b0db23a5c2f5",
+    "src/hook_main.cpp": "aae7f180a1d8a238b593e278108a01869287faa6582ce7f82daee087f3c3ac05",
+    "tests/CodexTurnSourceTest.cpp": "ab003f4e5b985222346a32391f710fefdb3f3ed25485c3aea8cdeb8608a1c361",
+    "tests/CoworkHookSeederTest.cpp": "ca58589245338d8698883ef68b82d727a441b4e1b660ee87dd17a20e3d13cb07",
+    "tests/CoworkSeedScriptTest.ps1": "4e792989d435a6f9722b5601d9e356fba650785894275016edffc9209e65a215",
+    "tests/HookInstallLifecycleTest.ps1": "0f00d309859ec381f186638c2c442f029722b566fb38e2e3bd3f76fb7670d9a9",
+    "tests/HookLifecycleTest.cpp": "28d86330e227638dbf3d1e17f0cae3f13e5ce5c94c2e5b98d345fb2cb88f2169",
+    "tests/test_review_package.py": "b8e37627a712c899dda0d35e0ad1e488373a9da6c8ddf31a3e1137e4a0ded7c4",
+    "tools/install-hooks.ps1": "93b0ee0e80f62593f72782c68d1511e018d25546c8cdb872be377cf306152b10",
+    "tools/package.ps1": "f931ea6ac5dac3a4cf2e26ada2fd353a1621b38c96f7361a31ad51e6d29f0573",
+    "tools/seed-cowork-hooks.ps1": "95f1e5c3d17af2ad429f3e4ccfccdc3354e8054dfd839f16eea4d2b2e9e571ca",
+    "tools/hook-config-common.ps1": "ba8a8567c5493af791592d2a1937c2315d274f45356e3400b3cbbc73a0acd81f",
+    "tools/review_package.py": "596c1ec2aff94e67876fac0bc6084734d51ddc64ec817f44c32210efc4c78687"
+  }
+}

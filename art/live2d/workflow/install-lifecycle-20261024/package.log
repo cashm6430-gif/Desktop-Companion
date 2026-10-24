@@ -1,0 +1,172 @@
+Staging into E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion
+Portable zip: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion-1.0.1-candidate.20261024-portable.zip
+Inno Setup 6 Command-Line Compiler
+Copyright (C) 1997-2026 Jordan Russell. All rights reserved.
+Portions Copyright (C) 2000-2026 Martijn Laan. All rights reserved.
+Portions Copyright (C) 2001-2004 Alex Yackimoff. All rights reserved.
+https://www.innosetup.com
+
+Compiler engine version: Inno Setup 6.7.3
+Non-commercial use only
+
+Preprocessing
+   Reading file: C:\Users\Administrator\AppData\Local\Programs\Inno Setup 6\ISPPBuiltins.iss
+Parsing [Setup] section, line 26
+Parsing [Setup] section, line 27
+Parsing [Setup] section, line 28
+Parsing [Setup] section, line 29
+Parsing [Setup] section, line 30
+Parsing [Setup] section, line 31
+Parsing [Setup] section, line 32
+Parsing [Setup] section, line 33
+Parsing [Setup] section, line 34
+Parsing [Setup] section, line 35
+Parsing [Setup] section, line 36
+Parsing [Setup] section, line 37
+Parsing [Setup] section, line 38
+Parsing [Setup] section, line 39
+Parsing [Setup] section, line 40
+Parsing [Setup] section, line 41
+Reading file (WizardImageFile)
+Reading file (WizardSmallImageFile)
+Preparing Setup program executable
+   Verification successful
+   Updating icons (Setup.e32)
+   Updating version info (Setup.e32)
+Determining language code pages
+Parsing [Languages] section, line 44
+   Reading file: C:\Users\Administrator\AppData\Local\Programs\Inno Setup 6\Default.isl
+   Messages in script file
+Reading default messages from Default.isl
+Parsing [Languages] section, line 44
+   Reading file: C:\Users\Administrator\AppData\Local\Programs\Inno Setup 6\Default.isl
+Parsing [LangOptions], [Messages], and [CustomMessages] sections
+   Messages in script file
+Reading [Code] section
+Parsing [Tasks] section, line 47
+Parsing [Tasks] section, line 48
+Parsing [Tasks] section, line 49
+Parsing [Icons] section, line 55
+Parsing [Icons] section, line 56
+Parsing [Icons] section, line 57
+Parsing [Icons] section, line 58
+Parsing [Run] section, line 61
+Parsing [Run] section, line 62
+Parsing [UninstallRun] section, line 65
+Parsing [UninstallRun] section, line 69
+Parsing [Files] section, line 52
+Creating setup files
+   Verification successful
+   Updating icons (Setup.exe)
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\concrt140.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\d3dcompiler_47.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\DesktopCompanion.exe
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\DesktopCompanionHook.exe
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\dxcompiler.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\dxil.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\install-hooks.cmd
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Live2DCubismCore.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\msvcp140.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\msvcp140_1.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\msvcp140_2.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\msvcp140_atomic_wait.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\msvcp140_codecvt_ids.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\package-manifest.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6Core.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6Gui.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6Network.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6OpenGL.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6OpenGLWidgets.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6Svg.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\Qt6Widgets.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\uninstall-hooks.cmd
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\vccorlib140.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\vcruntime140.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\vcruntime140_1.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\vcruntime140_threads.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\busy.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\delete.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\grass.gif
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\idle.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\prototype\character.glb
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\whale-girl\reference-seed777.glb
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\whale-girl-head-r1\character.glb
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\whale-girl-head-r2\character-round3.glb
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\whale-girl-head-r2\character.glb
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\whale-girl-head-r2\fitted\candidate.glb
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\3d\whale-girl-head-r2\fitted\params.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\hit-mask.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.blink.motion3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.cdi3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.idle.motion3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.moc3
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.model3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.nod.motion3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.physics3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.psd2live.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.shake.motion3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\arm-backing-hair-only.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\body-clothing-mask.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\body-underpaint.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\duplicate-mask.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\neck-erase-mask.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\neck-mask.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\material-ownership\ownership.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\neck-component\neck-surface.moc3
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\neck-component\neck-surface.model3.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\neck-component\neck-surface.rig.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\neck-component\texture_0.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.4096\texture_00.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.4096\texture_01.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.4096\texture_02.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.4096\texture_03.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\live2d\whale-girl\whale-girl-layered-draft.4096\texture_04.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\busy-laptop.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\busy-rest.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\busy-stand.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\busy-stretch.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\cheer.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\delete.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\grass-touch.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\grass.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\greet.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\head-pat.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\idle.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\motions\turn-ended.motion.json
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\props\box.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\assets\props\rice-bowl.png
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrc.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcAlphaBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcColorBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcCopy.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMask.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskInverted.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskInvertedBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskInvertedPremultipliedAlpha.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskInvertedPremultipliedAlphaBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskPremultipliedAlpha.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcMaskPremultipliedAlphaBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcPremultipliedAlpha.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcPremultipliedAlphaBlend.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\FragShaderSrcSetupMask.frag
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\VertShaderSrc.vert
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\VertShaderSrcBlend.vert
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\VertShaderSrcCopy.vert
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\VertShaderSrcMasked.vert
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\VertShaderSrcMaskedBlend.vert
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\FrameworkShaders\VertShaderSrcSetupMask.vert
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\platforms\qwindows.dll
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\tools\hook-config-common.ps1
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\tools\install-hooks.ps1
+   Compressing: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion\tools\seed-cowork-hooks.ps1
+   Compressing Setup program executable
+   Updating version info (Setup.exe)
+   Updating manifest (Setup.exe)
+
+
+Successful compile (22.891 sec). Resulting Setup program filename is:
+E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion-1.0.1-candidate.20261024-setup.exe
+Setup: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion-1.0.1-candidate.20261024-setup.exe
+Done. Staged folder: E:\projects\Desktop-Companion\build\package\install-lifecycle-20261024-r2\DesktopCompanion

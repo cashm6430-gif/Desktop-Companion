@@ -29,13 +29,15 @@
 param(
     [ValidateSet('auto', 'codex', 'workbuddy', 'claude', 'all')]
     [string]$Clients = 'auto',
-    [string]$HelperPath = (Join-Path $PSScriptRoot '..\build\DesktopCompanionHook.exe'),
+    [string]$HelperPath = '',
     [string]$TargetPath,
     [switch]$Remove,
     [switch]$DryRun
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'hook-config-common.ps1')
+if (-not $HelperPath) { $HelperPath = Get-DefaultPetHelperPath -ScriptDirectory $PSScriptRoot }
 
 function New-ClientSpec {
     param([string]$Name, [string]$Helper)
@@ -72,28 +74,9 @@ function New-ClientSpec {
     }
 }
 
-# Write JSON as BOM-less UTF-8. `Set-Content -Encoding utf8` under PowerShell
-# 5.1 stamps a UTF-8 BOM (EF BB BF) on the file, and Codex's config reader
-# rejects the whole hooks.json when it starts with one -- the pet silently stops
-# reacting. Keep this the ONLY way these scripts write a config file.
-function Write-JsonFile {
-    param([string]$Path, [string]$Content)
-    $full = if ([IO.Path]::IsPathRooted($Path)) { $Path }
-            else { Join-Path (Get-Location).Path $Path }
-    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-    [IO.File]::WriteAllText($full, $Content + [Environment]::NewLine, $utf8NoBom)
-}
-
-# A hook group belongs to the pet when any of its commands references the helper.
-function Test-PetGroup {
-    param($Group)
-    foreach ($hook in @($Group.hooks)) {
-        if ($hook.command -match 'DesktopCompanionHook') { return $true }
-    }
-    return $false
-}
-
-$helper = (Resolve-Path -LiteralPath $HelperPath).Path
+# Removal identifies commands, so it must work after the executable is gone.
+$helper = if ($Remove) { [IO.Path]::GetFullPath($HelperPath) }
+          else { (Resolve-Path -LiteralPath $HelperPath).Path }
 
 if ($TargetPath -and ($Clients -eq 'auto' -or $Clients -eq 'all')) {
     throw '-TargetPath requires a single -Clients value (codex|workbuddy|claude).'
@@ -120,26 +103,29 @@ foreach ($name in $names) {
         $config = New-Object psobject
         $hadHooks = $false
     } else {
-        $config = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
+        $config = Read-HookConfig -Path $path -Events $spec.Events
         $hadHooks = @($config.PSObject.Properties.Name) -contains 'hooks'
     }
 
+    if ($Remove -and -not $hadHooks) { continue }
     if (-not $hadHooks) { $config | Add-Member -NotePropertyName hooks -NotePropertyValue (New-Object psobject) -Force }
 
+    $changed = $false
     foreach ($event in $spec.Events) {
         $existing = @()
         if (@($config.hooks.PSObject.Properties.Name) -contains $event) { $existing = @($config.hooks.$event) }
-        $kept = @($existing | Where-Object { -not (Test-PetGroup $_) })
+        $kept = Remove-PetHookCommands -Groups $existing -Changed ([ref]$changed)
         if (-not $Remove) {
-            $group = @{ hooks = @(@{ type = 'command'; command = $spec.Command; timeout = $spec.Timeout }) }
+            $group = [ordered]@{ hooks = @([ordered]@{ type = 'command'; command = $spec.Command; timeout = $spec.Timeout }) }
             if ($null -ne $spec.Matcher) { $group['matcher'] = $spec.Matcher }
             $kept += $group
         }
-        $config.hooks | Add-Member -NotePropertyName $event -NotePropertyValue $kept -Force
+        if ($Remove -and $kept.Count -eq 0) { $config.hooks.PSObject.Properties.Remove($event) }
+        else { $config.hooks | Add-Member -NotePropertyName $event -NotePropertyValue @($kept) -Force }
     }
 
-    # Drop an empty hooks object we created and never populated.
-    if (-not $Remove -and -not $spec.Events) { continue }
+    if ($Remove -and -not $changed) { continue }
+    if ($Remove -and @($config.hooks.PSObject.Properties).Count -eq 0) { $config.PSObject.Properties.Remove('hooks') }
 
     $action = if ($Remove) { 'Removed' } else { 'Installed' }
     if ($DryRun) {
@@ -148,14 +134,6 @@ foreach ($name in $names) {
         continue
     }
 
-    if (Test-Path -LiteralPath $path) {
-        $backup = "$path.backup-$(Get-Date -Format yyyyMMdd-HHmmss)"
-        Copy-Item -LiteralPath $path -Destination $backup
-        Write-Host "Backup: $backup"
-    } else {
-        $parent = Split-Path -Parent $path
-        if ($parent -and -not (Test-Path -LiteralPath $parent)) { New-Item -ItemType Directory -Path $parent -Force | Out-Null }
-    }
-    Write-JsonFile -Path $path -Content ($config | ConvertTo-Json -Depth 20)
+    $written = Write-HookConfig -Path $path -Config $config
     Write-Host "$action pet hooks for $name in $path ($($spec.Events -join ', '))"
 }

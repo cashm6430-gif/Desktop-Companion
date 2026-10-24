@@ -1,0 +1,14 @@
+[
+  {
+    "file": "DesktopCompanion.exe",
+    "status": "Valid"
+  },
+  {
+    "file": "DesktopCompanionHook.exe",
+    "status": "Valid"
+  },
+  {
+    "file": "DesktopCompanion-1.0.1-candidate.20261024-setup.exe",
+    "status": "NotSigned"
+  }
+]

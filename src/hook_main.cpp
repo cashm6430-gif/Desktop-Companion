@@ -11,9 +11,9 @@
 #include <string>
 
 namespace {
-bool sendMessage(const QJsonObject& payload) {
+bool sendMessage(const QJsonObject& payload, const QString& endpoint) {
     QLocalSocket socket;
-    socket.connectToServer(CodexTurnSource::serverName());
+    socket.connectToServer(endpoint);
     if (!socket.waitForConnected(180)) return false;
     QByteArray bytes = QJsonDocument(payload).toJson(QJsonDocument::Compact);
     bytes.append('\n');
@@ -29,6 +29,8 @@ int main(int argc, char** argv) {
     // commands never pass this flag and keep the existing IPC behavior.
     bool dryRunHook = false;
     QString client;
+    QString endpoint = CodexTurnSource::serverName();
+    bool invalidEndpoint = false;
     QStringList positional;
     const QStringList arguments = app.arguments();
     for (int index = 1; index < arguments.size(); ++index) {
@@ -36,14 +38,25 @@ int main(int argc, char** argv) {
         if (argument == QStringLiteral("--dry-run-hook")) dryRunHook = true;
         else if (argument == QStringLiteral("--client") && index + 1 < arguments.size()
                  && !arguments[index + 1].startsWith(QStringLiteral("--"))) client = arguments[++index];
+        else if (argument == QStringLiteral("--endpoint")) {
+            // An explicit override lets tests exercise the real helper without
+            // contacting the running pet. Production commands omit this flag.
+            if (index + 1 >= arguments.size() || arguments[index + 1].startsWith(QStringLiteral("--"))
+                || arguments[index + 1].trimmed().isEmpty()) invalidEndpoint = true;
+            else endpoint = arguments[++index];
+        }
         else positional.append(argument);
+    }
+    if (invalidEndpoint) {
+        std::cout << "{}" << std::endl;
+        return 2;
     }
     if (!positional.isEmpty() && positional.front() == QStringLiteral("--status")) {
         QElapsedTimer deadline;
         deadline.start();
         const auto remaining = [&deadline] { return qMax(0, 180 - int(deadline.elapsed())); };
         QLocalSocket socket;
-        socket.connectToServer(CodexTurnSource::serverName());
+        socket.connectToServer(endpoint);
         if (!socket.waitForConnected(remaining())) return 1;
         socket.write("{\"event\":\"status\"}\n");
         if (socket.bytesToWrite() > 0 && !socket.waitForBytesWritten(remaining())) return 1;
@@ -68,7 +81,7 @@ int main(int argc, char** argv) {
         return sendMessage({{QStringLiteral("event"), action},
                             {QStringLiteral("client"), QStringLiteral("manual")},
                             {QStringLiteral("session_id"), session},
-                            {QStringLiteral("turn_id"), turn}}) ? 0 : 1;
+                            {QStringLiteral("turn_id"), turn}}, endpoint) ? 0 : 1;
     }
 
     std::string input;
@@ -94,7 +107,7 @@ int main(int argc, char** argv) {
                             {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
                             {QStringLiteral("turn_id"), turn}};
         if (!client.isNull()) message.insert(QStringLiteral("client"), client);
-        if (!dryRunHook) sendMessage(message);
+        if (!dryRunHook) sendMessage(message, endpoint);
     }
     // Valid JSON for Stop/Interrupt; no prompt text or hook output is retained.
     std::cout << "{}" << std::endl;

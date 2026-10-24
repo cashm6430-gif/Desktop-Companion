@@ -150,6 +150,51 @@ private slots:
         }
     }
 
+    void mixedGroupsKeepOtherCommandsAndMetadata()
+    {
+        const auto command = [](const QString& value) {
+            return QJsonObject{{QStringLiteral("type"), QStringLiteral("command")},
+                               {QStringLiteral("command"), value}};
+        };
+        const QJsonArray others{
+            command(QStringLiteral("C:\\other\\notify.exe DesktopCompanionHook.exe")),
+            command(QStringLiteral("C:\\other\\DesktopCompanionHook.exe.bak")),
+            command(QStringLiteral("C:\\other\\MyDesktopCompanionHook.exe"))};
+        QJsonArray mixed = others;
+        mixed.append(command(QStringLiteral("& 'C:\\old path\\DesktopCompanionHook.exe'")));
+        const QJsonObject group{{QStringLiteral("hooks"), mixed},
+                                {QStringLiteral("matcher"), QStringLiteral("Bash")},
+                                {QStringLiteral("future_metadata"), 42}};
+        const QJsonObject existing{{QStringLiteral("hooks"), QJsonObject{
+            {QStringLiteral("Stop"), QJsonArray{group}}}}};
+        bool changed = false;
+        QString error;
+        const QString result = CoworkHookSeeder::mergeSettings(
+            QString::fromUtf8(QJsonDocument(existing).toJson()), helper(), &changed, &error);
+        QVERIFY2(error.isEmpty(), qPrintable(error));
+        QVERIFY(changed);
+        const auto groups = QJsonDocument::fromJson(result.toUtf8()).object()
+            .value(QStringLiteral("hooks")).toObject().value(QStringLiteral("Stop")).toArray();
+        QCOMPARE(groups.size(), 2);
+        const auto retained = groups.at(0).toObject();
+        QCOMPARE(retained.value(QStringLiteral("hooks")).toArray(), others);
+        QCOMPARE(retained.value(QStringLiteral("matcher")), group.value(QStringLiteral("matcher")));
+        QCOMPARE(retained.value(QStringLiteral("future_metadata")), group.value(QStringLiteral("future_metadata")));
+    }
+
+    void malformedManagedGroupsAreRejected()
+    {
+        for (const auto& invalid : {QStringLiteral("{\"hooks\":{\"Stop\":[{}]}}"),
+                                   QStringLiteral("{\"hooks\":{\"Stop\":[{\"hooks\":[null]}]}}")}) {
+            bool changed = true;
+            QString error;
+            const auto result = CoworkHookSeeder::mergeSettings(invalid, helper(), &changed, &error);
+            QVERIFY(result.isEmpty());
+            QVERIFY(!error.isEmpty());
+            QVERIFY(!changed);
+        }
+    }
+
     // A stale duplicate (an older install, or the PS script and the pet both having
     // run) collapses back to one entry pointing at the current helper.
     void staleDuplicatesCollapseToOne()

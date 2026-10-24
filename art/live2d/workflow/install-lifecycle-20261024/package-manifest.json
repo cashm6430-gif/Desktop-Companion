@@ -1,0 +1,522 @@
+{
+  "schema_version": 1,
+  "package_version": "1.0.1-candidate.20261024",
+  "binary_product_version": "1.0.1.0",
+  "created_utc": "2026-10-24T12:54:52.1790582Z",
+  "source": {
+    "head": "e5ee869a88a4ab4d98999f26dd5a284385ab3173",
+    "dirty": true
+  },
+  "files": [
+    {
+      "path": "assets/3d/prototype/character.glb",
+      "bytes": 960020,
+      "sha256": "0d406207ede1b76946367f8ddbece7825ef8205022ad0cfb7c0145ef269391c3"
+    },
+    {
+      "path": "assets/3d/whale-girl-head-r1/character.glb",
+      "bytes": 4450912,
+      "sha256": "f7a216b5fe4d54a94ae46a985ce57d58f8a22d8d68d6dd11e6e7e886a9a52f20"
+    },
+    {
+      "path": "assets/3d/whale-girl-head-r2/character-round3.glb",
+      "bytes": 2838664,
+      "sha256": "3838db8771743a4e897ddbcd811d106f0ecdac70b110157bf506ad7133d40d08"
+    },
+    {
+      "path": "assets/3d/whale-girl-head-r2/character.glb",
+      "bytes": 1792548,
+      "sha256": "ec34c5ff314fa9aeb66475704c5ac08849f8d021119df31c11099fbd6d60375c"
+    },
+    {
+      "path": "assets/3d/whale-girl-head-r2/fitted/candidate.glb",
+      "bytes": 2838664,
+      "sha256": "7776869874cef86b4d64addfea5b5dd21ad8978390d77f4191ba805b67595b34"
+    },
+    {
+      "path": "assets/3d/whale-girl-head-r2/fitted/params.json",
+      "bytes": 489,
+      "sha256": "d256e5d1281afd68152d832968d671835191fe92706f9aceaeda07b5d9307eb2"
+    },
+    {
+      "path": "assets/3d/whale-girl/reference-seed777.glb",
+      "bytes": 39295404,
+      "sha256": "cf674681aa22751190842de302c5f8976647819848cec86f5fa306bb31d1efd6"
+    },
+    {
+      "path": "assets/busy.png",
+      "bytes": 1624841,
+      "sha256": "b8a3c846969524460c8148a42431c78c7026298c2288a35331619f746ae0f547"
+    },
+    {
+      "path": "assets/delete.png",
+      "bytes": 1621786,
+      "sha256": "a06ac821f683daa279387c22b7e45111505bf7afb276ccd5842d0f7e10b1f8d2"
+    },
+    {
+      "path": "assets/grass.gif",
+      "bytes": 2232756,
+      "sha256": "ef8a24d2324e3a1e70176982aea3cc4170c196c9c406f6758df06e52b6686351"
+    },
+    {
+      "path": "assets/idle.png",
+      "bytes": 1579993,
+      "sha256": "6d857c8e3b9f48fc4602f60375aaeb9326e97342de7b80e822c5e71f64e36fd2"
+    },
+    {
+      "path": "assets/live2d/whale-girl/hit-mask.png",
+      "bytes": 1382290,
+      "sha256": "7ce8ed22169bc2b0ba7b23fbddcf0edf6d847368c3c801ab74779824fee2e13f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/arm-backing-hair-only.png",
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-clothing-mask.png",
+      "bytes": 16808,
+      "sha256": "093d12e9a201177eaea1fc4595b09ea392ac998008e99f2434958b722f32bf93"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/body-underpaint.png",
+      "bytes": 65857,
+      "sha256": "0fb2781502fdef71ce6c705c4945e96d414172c2df4adf7da93390b7ed6589c8"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/duplicate-mask.png",
+      "bytes": 17062,
+      "sha256": "642381a656c2dd617dfc699d1b450d077412523d7484397e2219b5aa1c45f4eb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-erase-mask.png",
+      "bytes": 16538,
+      "sha256": "e9a095ccc6e8c288e2b55bbc945e8123ce1660ac71f60da1082fa9ef4e0a3b6c"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/neck-mask.png",
+      "bytes": 16556,
+      "sha256": "ce895e3328ed33c2893f48251ed22a2dc37dda04149b13d963e433413a5f79b3"
+    },
+    {
+      "path": "assets/live2d/whale-girl/material-ownership/ownership.json",
+      "bytes": 6041,
+      "sha256": "b21d47db33edef1faa7879bb8a76fb074656bd6716a3ea496dabf790cd355a39"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/neck-surface.moc3",
+      "bytes": 22976,
+      "sha256": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/neck-surface.model3.json",
+      "bytes": 88,
+      "sha256": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/neck-surface.rig.json",
+      "bytes": 1442,
+      "sha256": "e89852fa2b96624eeafcbd6bbea2474c31d8960cc1c3335c637990401d0a8edb"
+    },
+    {
+      "path": "assets/live2d/whale-girl/neck-component/texture_0.png",
+      "bytes": 4922,
+      "sha256": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_00.png",
+      "bytes": 2920658,
+      "sha256": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_01.png",
+      "bytes": 1039594,
+      "sha256": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_02.png",
+      "bytes": 861642,
+      "sha256": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_03.png",
+      "bytes": 721101,
+      "sha256": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.4096/texture_04.png",
+      "bytes": 603280,
+      "sha256": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.blink.motion3.json",
+      "bytes": 1155,
+      "sha256": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.cdi3.json",
+      "bytes": 7252,
+      "sha256": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.idle.motion3.json",
+      "bytes": 18820,
+      "sha256": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
+      "bytes": 12016704,
+      "sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+      "bytes": 1282,
+      "sha256": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.nod.motion3.json",
+      "bytes": 1751,
+      "sha256": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.physics3.json",
+      "bytes": 6067,
+      "sha256": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",
+      "bytes": 11681,
+      "sha256": "db1b5aad0dc9f5e2c31bddac8278ae596c6283c22991b9a9aba6f7775a42aa54"
+    },
+    {
+      "path": "assets/live2d/whale-girl/whale-girl-layered-draft.shake.motion3.json",
+      "bytes": 1571,
+      "sha256": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01"
+    },
+    {
+      "path": "assets/motions/busy-laptop.motion.json",
+      "bytes": 4834,
+      "sha256": "6902735907e51008b64e56e1cad03d83488784c9e19dc2d617822c2cb1622a39"
+    },
+    {
+      "path": "assets/motions/busy-rest.motion.json",
+      "bytes": 7445,
+      "sha256": "6e8f6b3f86a0a794c1d93fd85e7404713bf130ab800fb9fa6e691e43518ffb13"
+    },
+    {
+      "path": "assets/motions/busy-stand.motion.json",
+      "bytes": 9778,
+      "sha256": "737d6f15345b11a302dcf376517c85ea5b3578009e3c0c152a81278106d40cc9"
+    },
+    {
+      "path": "assets/motions/busy-stretch.motion.json",
+      "bytes": 10829,
+      "sha256": "4b726a19c365ef63fad5f5f54d690506c07c5b2959efbfe2b1427b9c9ff9bc7f"
+    },
+    {
+      "path": "assets/motions/cheer.motion.json",
+      "bytes": 5596,
+      "sha256": "3bf4d5526c811317faea59a9a7a84fd3b2ac582598fa6505b6e23402ee648b06"
+    },
+    {
+      "path": "assets/motions/delete.motion.json",
+      "bytes": 9638,
+      "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
+    },
+    {
+      "path": "assets/motions/grass-touch.motion.json",
+      "bytes": 23241,
+      "sha256": "b63774d42a31b1c93cc7a9a598f718e0fe9f379ae9fdc89b2215963a28b6fc9e"
+    },
+    {
+      "path": "assets/motions/grass.motion.json",
+      "bytes": 11442,
+      "sha256": "023e693ece896a8be6c8f570bc6a9e1158fb084ccc72e324b3ee36bb067b2e0e"
+    },
+    {
+      "path": "assets/motions/greet.motion.json",
+      "bytes": 4467,
+      "sha256": "a19277838b54669b01da1e8ecd5db02bd34ec439a70813b8a873d96a73274e26"
+    },
+    {
+      "path": "assets/motions/head-pat.motion.json",
+      "bytes": 5276,
+      "sha256": "d135b3375cd10e3982afd041cacd2b341a70182cc724e6acf7c592c8a3a6bdf3"
+    },
+    {
+      "path": "assets/motions/idle.motion.json",
+      "bytes": 929,
+      "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
+    },
+    {
+      "path": "assets/motions/turn-ended.motion.json",
+      "bytes": 12721,
+      "sha256": "c4b4aabac93aa2e75b8bb8b9a3374448b196b06912360523fef5a80c21a49b32"
+    },
+    {
+      "path": "assets/props/box.png",
+      "bytes": 345459,
+      "sha256": "761f6fccf5b0bb30f89cb67ac8c1049a5e204b2586f886046804eec595d4c2ae"
+    },
+    {
+      "path": "assets/props/rice-bowl.png",
+      "bytes": 629926,
+      "sha256": "bdc436cb710d87af7ea925de9a9d8e83198a3952d21a1c9486da645025845d03"
+    },
+    {
+      "path": "concrt140.dll",
+      "bytes": 374200,
+      "sha256": "54716f0738af891f283d213b5c8d11b25896bb8ee3097d301eae718560cf974e"
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "bytes": 4741568,
+      "sha256": "e407b9ffadef47e87994dc488214f75405cf04ee99589f2315fc7ab99fd1dfe2"
+    },
+    {
+      "path": "DesktopCompanion.exe",
+      "bytes": 1900016,
+      "sha256": "ad8f093c128f9744fcf261ffe72ebc702555993b0b2a159c03981919c97ab699"
+    },
+    {
+      "path": "DesktopCompanionHook.exe",
+      "bytes": 70640,
+      "sha256": "9cf7b2af6e03f46d8b3c6970e5684324caf9e72bc14b35728b45ed5462ed519c"
+    },
+    {
+      "path": "dxcompiler.dll",
+      "bytes": 14317000,
+      "sha256": "a5aa1d9a95bf9ea68eff4502eb687161464bb5a505e817782b7a770a2a312044"
+    },
+    {
+      "path": "dxil.dll",
+      "bytes": 1509800,
+      "sha256": "95ac1bb413178c4596f49498e912c270f8f343282b63840f174cbf5154ad1557"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrc.frag",
+      "bytes": 740,
+      "sha256": "a05759315a2471adad530e58e0a7ced243b87bb25250fb522a188cfd9f6f4c65"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcAlphaBlend.frag",
+      "bytes": 2320,
+      "sha256": "2b778f70fd42e1e6cac4660dcdbe377ae8f23d49e9c08672ab6b0371477211fb"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcBlend.frag",
+      "bytes": 1146,
+      "sha256": "e555ddadc1cfa80d2de0f909f3577eef86b345ba821ee25be535288ff0c7d304"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcColorBlend.frag",
+      "bytes": 7737,
+      "sha256": "d6f40b618f72e6a19d1e43776de8d24bd4c800055c80779611126972ddc688d1"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcCopy.frag",
+      "bytes": 416,
+      "sha256": "7490f94676b1498468917b79f04a64ccbbeeaea369f09a3201aa346f1a6d2aa5"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMask.frag",
+      "bytes": 1030,
+      "sha256": "eded9e550c7c59c3afbb7e35b3f0b2323f01531cac5f0c3b4a28375827cc91d8"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskBlend.frag",
+      "bytes": 1426,
+      "sha256": "70f8d0c8e0a9fc1c181058bd1d9806c099ddab617db2fdfa92b3cd79d1c2c761"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskInverted.frag",
+      "bytes": 1038,
+      "sha256": "50e07d507b4147b1b96619e1fdf4a7415ace37c6cd8e47c55b5f6fe5ae1c99ed"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskInvertedBlend.frag",
+      "bytes": 1434,
+      "sha256": "e102020be68acca0fc0fe1366ce2d6d915c51e7fbba30e940a74005417a60ad1"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskInvertedPremultipliedAlpha.frag",
+      "bytes": 997,
+      "sha256": "8a83ad7025a6399c9a05f4e9b167de0587a1df9d5cb9773d0e9cafd24b51b809"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskInvertedPremultipliedAlphaBlend.frag",
+      "bytes": 1481,
+      "sha256": "162843847b89ba572d2ab3918f2eed1a6b2353201d31b0dbce317280e5f9100f"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskPremultipliedAlpha.frag",
+      "bytes": 989,
+      "sha256": "b23218f67e607850f047b21f2a85da57e0dd44def02bc2262a9f757097db6453"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcMaskPremultipliedAlphaBlend.frag",
+      "bytes": 1473,
+      "sha256": "0e31cd1bafd40361f904c1aa3d7492b5fa2b8aa0461cb104964626376fe05c20"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcPremultipliedAlpha.frag",
+      "bytes": 702,
+      "sha256": "b10b5533752f1f53fff9de51d833c672956fb26a582a178323836e36c71e0206"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcPremultipliedAlphaBlend.frag",
+      "bytes": 1192,
+      "sha256": "1b0277e5edc44bae7340c3f2fe13a7212de9553061ce6c0aed180fd7c5148672"
+    },
+    {
+      "path": "FrameworkShaders/FragShaderSrcSetupMask.frag",
+      "bytes": 706,
+      "sha256": "e93547427c052a54f36c3e668cebf443313d996686a00077dbef08d733617574"
+    },
+    {
+      "path": "FrameworkShaders/VertShaderSrc.vert",
+      "bytes": 517,
+      "sha256": "31224999977586c5e4054a2276df5e30c7062ce276c22981c0da8b0a5d50ecde"
+    },
+    {
+      "path": "FrameworkShaders/VertShaderSrcBlend.vert",
+      "bytes": 633,
+      "sha256": "31f913762b7cf6b1a3120a94c7cb860e4ac82378174faca1335a584f77b22db8"
+    },
+    {
+      "path": "FrameworkShaders/VertShaderSrcCopy.vert",
+      "bytes": 405,
+      "sha256": "c9fa34f75f725640bfe0d0e60d05bac54608a8be6bb35d2e3dbb3dd1f0a7154e"
+    },
+    {
+      "path": "FrameworkShaders/VertShaderSrcMasked.vert",
+      "bytes": 572,
+      "sha256": "e68ff07c63a6fde693da8acf5eea27094cce29cf2afa448b251602fd3a6324b2"
+    },
+    {
+      "path": "FrameworkShaders/VertShaderSrcMaskedBlend.vert",
+      "bytes": 688,
+      "sha256": "b025c0256252dcc1deace19f125e241112f0df5ac97269ce15c3ec7a17b3883d"
+    },
+    {
+      "path": "FrameworkShaders/VertShaderSrcSetupMask.vert",
+      "bytes": 549,
+      "sha256": "24f566347bd2f1e17ef9e5a96ba3870ff4bfd4fb8d3caf5586a1dab2ae372e0a"
+    },
+    {
+      "path": "install-hooks.cmd",
+      "bytes": 475,
+      "sha256": "f0fc12fde5c3f557e23a743e8a75c91e28285bb1caebd2953eede09d90a00c57"
+    },
+    {
+      "path": "Live2DCubismCore.dll",
+      "bytes": 249800,
+      "sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+    },
+    {
+      "path": "msvcp140_1.dll",
+      "bytes": 35768,
+      "sha256": "206c931bf90fdad8816de3b5e2ef80b2bcaa9406c89ecc05fe6fddffe251e982"
+    },
+    {
+      "path": "msvcp140_2.dll",
+      "bytes": 274872,
+      "sha256": "d50d7883f20d1dc6191768d3746f52dd9cac89c346ffaed5be1f110c2f34a838"
+    },
+    {
+      "path": "msvcp140_atomic_wait.dll",
+      "bytes": 57792,
+      "sha256": "3d0cbfaa1bf3eecf5a3f4491d2960ee803cb994f30292c6adc4a07c498f60e2b"
+    },
+    {
+      "path": "msvcp140_codecvt_ids.dll",
+      "bytes": 31160,
+      "sha256": "8a65c7596ef2e6938731f5a1058e7e40145b6d97967cc649231a076b9a608d78"
+    },
+    {
+      "path": "msvcp140.dll",
+      "bytes": 643512,
+      "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca"
+    },
+    {
+      "path": "platforms/qwindows.dll",
+      "bytes": 867840,
+      "sha256": "96746e334f8cf495a0bf04af2eff2a3eb9d64447410b6740cf334884cbc82cac"
+    },
+    {
+      "path": "Qt6Core.dll",
+      "bytes": 6080512,
+      "sha256": "49c423dd982a55a547ac63e4423aa0bbfc6336ff388e2b9a4ce767f30f7f96a5"
+    },
+    {
+      "path": "Qt6Gui.dll",
+      "bytes": 8952832,
+      "sha256": "08ea1398cf7d590edd327bcc0a4a5c98c604f48a35d7d389669a04e87784a46f"
+    },
+    {
+      "path": "Qt6Network.dll",
+      "bytes": 1730560,
+      "sha256": "6120f54b84e4e3257f6b1ecc0e06a0fc1a3bdbdb9c97ac2f64658ab5cd33a947"
+    },
+    {
+      "path": "Qt6OpenGL.dll",
+      "bytes": 1960960,
+      "sha256": "3d63894e81881457859d479ef4b3ca18aa71608992b764fd52fed38d63321934"
+    },
+    {
+      "path": "Qt6OpenGLWidgets.dll",
+      "bytes": 51712,
+      "sha256": "fa2f77e8230790902151c80e80cf90cc1afd3866e121df713845d1ce97502f63"
+    },
+    {
+      "path": "Qt6Svg.dll",
+      "bytes": 515072,
+      "sha256": "69a08f2aa24442379f636dcfe93d8308ae2f99e9128f646c69862e944130c05f"
+    },
+    {
+      "path": "Qt6Widgets.dll",
+      "bytes": 6436352,
+      "sha256": "199b4402f1ca4820e887b5a4a6b919478393e5e0106186e0b94459193e9b33a4"
+    },
+    {
+      "path": "tools/hook-config-common.ps1",
+      "bytes": 4715,
+      "sha256": "ba8a8567c5493af791592d2a1937c2315d274f45356e3400b3cbbc73a0acd81f"
+    },
+    {
+      "path": "tools/install-hooks.ps1",
+      "bytes": 5695,
+      "sha256": "93b0ee0e80f62593f72782c68d1511e018d25546c8cdb872be377cf306152b10"
+    },
+    {
+      "path": "tools/seed-cowork-hooks.ps1",
+      "bytes": 2816,
+      "sha256": "95f1e5c3d17af2ad429f3e4ccfccdc3354e8054dfd839f16eea4d2b2e9e571ca"
+    },
+    {
+      "path": "uninstall-hooks.cmd",
+      "bytes": 561,
+      "sha256": "cbf189a0b4ca16d99538003ee3ec882b53bd7884d4cc0d612971955fe0b10a4a"
+    },
+    {
+      "path": "vccorlib140.dll",
+      "bytes": 350648,
+      "sha256": "09f93d5ff96ae09767f3e1af3cdd43a5a58f2598654fc63089429bb6f9f4737f"
+    },
+    {
+      "path": "vcruntime140_1.dll",
+      "bytes": 50112,
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e"
+    },
+    {
+      "path": "vcruntime140_threads.dll",
+      "bytes": 38840,
+      "sha256": "40f39e8cee5f5a531b4010e18b807e8fe265b908dc58f959ecb7ebc6ea6cb11a"
+    },
+    {
+      "path": "vcruntime140.dll",
+      "bytes": 178616,
+      "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7"
+    }
+  ]
+}

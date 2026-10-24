@@ -16,6 +16,8 @@ public:
     void setStatusProvider(std::function<QJsonObject()> provider) { statusProvider_ = std::move(provider); }
 
 signals:
+    // Session ids are an unambiguous (normalized client, original session) tuple.
+    // Untagged and unrecognized clients share the legacy "unknown" scope.
     void turnStarted(const QString& sessionId, const QString& turnId);
     void turnStopped(const QString& sessionId, const QString& turnId);
     void sessionEnded(const QString& sessionId);

@@ -15,6 +15,7 @@ $acct = Join-Path $root 'Claude-3p\local-agent-mode-sessions\acct\00000000'
 $s1 = Join-Path $acct 's1\.claude'          # brand new conversation: no settings yet
 $s2 = Join-Path $acct 's2\.claude'          # another tool's config we must not disturb
 $s3 = Join-Path $acct 's3\.claude'          # a file we cannot parse: hands off
+$s4 = Join-Path $acct 's4\.claude'          # valid JSON, invalid hook structure
 $helper = Join-Path $root 'fake\DesktopCompanionHook.exe'
 $originalLocalAppData = $env:LOCALAPPDATA
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
@@ -37,9 +38,10 @@ function Assert([bool]$condition, [string]$message) {
 try {
     New-Item -ItemType Directory -Path (Split-Path $helper) -Force | Out-Null
     New-Item -ItemType File -Path $helper | Out-Null
-    New-Item -ItemType Directory -Path $s1, $s2, $s3 -Force | Out-Null
+    New-Item -ItemType Directory -Path $s1, $s2, $s3, $s4 -Force | Out-Null
     [IO.File]::WriteAllText((Join-Path $s2 'settings.json'), $otherTool, $utf8NoBom)
     [IO.File]::WriteAllText((Join-Path $s3 'settings.json'), '{ not json', $utf8NoBom)
+    [IO.File]::WriteAllText((Join-Path $s4 'settings.json'), '{"hooks":{"Stop":[{"hooks":null}]}}', $utf8NoBom)
 
     # Redirect the script's scan root at the throwaway tree for the whole run, so a
     # test never writes into the real session configs.
@@ -69,6 +71,16 @@ try {
     Assert ($seeded -notmatch 'C:\\\\old\\\\DesktopCompanionHook') 'the stale helper path must be gone'
     Assert (([IO.File]::ReadAllText((Join-Path $s3 'settings.json'), [Text.Encoding]::UTF8)) -eq '{ not json') `
         'a config we cannot parse must not be rewritten'
+    Assert (([IO.File]::ReadAllText((Join-Path $s4 'settings.json'), [Text.Encoding]::UTF8)) -eq '{"hooks":{"Stop":[{"hooks":null}]}}') `
+        'a structurally invalid config must not be rewritten'
+    $beforeSeed = (Get-FileHash -LiteralPath $settings2).Hash
+    $beforeTime = (Get-Item -LiteralPath $settings2).LastWriteTimeUtc.Ticks
+    $beforeBackups = @(Get-ChildItem -LiteralPath $s2 -Filter 'settings.json.backup-*').Count
+    & $ScriptPath -HelperPath $helper
+    Assert ((Get-FileHash -LiteralPath $settings2).Hash -eq $beforeSeed -and
+        (Get-Item -LiteralPath $settings2).LastWriteTimeUtc.Ticks -eq $beforeTime -and
+        @(Get-ChildItem -LiteralPath $s2 -Filter 'settings.json.backup-*').Count -eq $beforeBackups) `
+        'a repeated seed must not change bytes, timestamp or backups'
 
     & $ScriptPath -Remove
 
@@ -85,6 +97,8 @@ try {
     Assert ($null -ne ($removed2 | ConvertFrom-Json)) 'the file must stay valid JSON'
     Assert (([IO.File]::ReadAllText((Join-Path $s3 'settings.json'), [Text.Encoding]::UTF8)) -eq '{ not json') `
         'Remove must not rewrite a config we cannot parse'
+    Assert (([IO.File]::ReadAllText((Join-Path $s4 'settings.json'), [Text.Encoding]::UTF8)) -eq '{"hooks":{"Stop":[{"hooks":null}]}}') `
+        'Remove must not rewrite a structurally invalid config'
 
     # The uninstaller may run more than once (a repair, a manual re-run): the second
     # pass must not touch a file it has nothing to do in.

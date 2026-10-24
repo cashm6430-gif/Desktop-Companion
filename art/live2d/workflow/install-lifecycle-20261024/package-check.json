@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "package_version": "1.0.1-candidate.20261024",
+  "source": {
+    "head": "e5ee869a88a4ab4d98999f26dd5a284385ab3173",
+    "dirty": true
+  },
+  "files": 102,
+  "bytes": 132146713,
+  "manifest_sha256": "ce1537749729ccb193f72915c2181885e0a0e81439f86a0b25635e2107a2de68",
+  "portable": {
+    "verified": true,
+    "sha256": "419c8029c966c97de1bd2d8c5046d156b463f463672353ca0289aae3ea153b1d"
+  },
+  "setup": {
+    "sha256": "e139134a6f540b3d114631f0602b6271845b8147b3b00f616d647732d739d70a",
+    "executed": false
+  },
+  "native_smoke": {
+    "frame_saved": true,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "render_samples": 4,
+    "state": "idle"
+  },
+  "qt_sdk_path_removed": true,
+  "packaged_helper_lifecycle_test": true,
+  "real_client_hooks_executed": false,
+  "installed_acceptance": false,
+  "default_endpoint_used": false,
+  "user_configs_modified": false,
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+}

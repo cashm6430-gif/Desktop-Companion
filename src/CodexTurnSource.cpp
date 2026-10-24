@@ -1,5 +1,6 @@
 #include "CodexTurnSource.h"
 
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
@@ -13,6 +14,13 @@ QString diagnosticClient(const QJsonValue& value) {
         || client == QStringLiteral("claude") || client == QStringLiteral("manual"))
         return client;
     return QStringLiteral("unknown");
+}
+
+QString controllerSession(const QString& client, const QString& session) {
+    // A session id belongs to its client. JSON also escapes embedded NULs and
+    // separators, so neither a source prefix nor PetController's key delimiter
+    // can make distinct (client, session) pairs alias one another.
+    return QString::fromUtf8(QJsonDocument(QJsonArray{client, session}).toJson(QJsonDocument::Compact));
 }
 }
 
@@ -72,10 +80,12 @@ void CodexTurnSource::acceptConnections() {
             if (session.trimmed().isEmpty()
                 || (data.contains(QStringLiteral("turn_id")) && !data.value(QStringLiteral("turn_id")).isString())
                 || (event == QStringLiteral("start") && turn.trimmed().isEmpty())) { finish(); return; }
-            if (event == QStringLiteral("start")) emit turnStarted(session, turn);
-            else if (event == QStringLiteral("stop")) emit turnStopped(session, turn);
-            else if (event == QStringLiteral("session_end")) emit sessionEnded(session);
-            emit eventReceived(diagnosticClient(data.value(QStringLiteral("client"))), event);
+            const QString client = diagnosticClient(data.value(QStringLiteral("client")));
+            const QString scopedSession = controllerSession(client, session);
+            if (event == QStringLiteral("start")) emit turnStarted(scopedSession, turn);
+            else if (event == QStringLiteral("stop")) emit turnStopped(scopedSession, turn);
+            else if (event == QStringLiteral("session_end")) emit sessionEnded(scopedSession);
+            emit eventReceived(client, event);
             finish();
         };
         connect(socket, &QLocalSocket::readyRead, this, readRequest);

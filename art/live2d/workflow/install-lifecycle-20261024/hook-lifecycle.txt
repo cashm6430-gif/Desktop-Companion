@@ -1,0 +1,13 @@
+********* Start testing of HookLifecycleTest *********
+Config: Using QtTest library 6.8.4, Qt 6.8.4 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 10
+PASS   : HookLifecycleTest::initTestCase()
+PASS   : HookLifecycleTest::sameIdsAcrossThreeClientsStayIndependent()
+PASS   : HookLifecycleTest::sessionCleanupAndMissingTurnStopAffectOnlyTheirClient()
+PASS   : HookLifecycleTest::legacyAndUnknownClientsShareOnlyLegacyScope()
+PASS   : HookLifecycleTest::sessionEncodingCannotAliasControllerDelimiters()
+PASS   : HookLifecycleTest::offlineHelperReturnsJsonAndNewListenerRecoversWithoutReplay()
+PASS   : HookLifecycleTest::missingTurnIdsAndResetKeepExistingRecoveryContract()
+PASS   : HookLifecycleTest::statusAndManualCommandsUseOnlyExplicitFixtureEndpoint()
+PASS   : HookLifecycleTest::cleanupTestCase()
+Totals: 9 passed, 0 failed, 0 skipped, 0 blacklisted, 1265ms
+********* Finished testing of HookLifecycleTest *********

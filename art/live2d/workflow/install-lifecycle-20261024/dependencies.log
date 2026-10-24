@@ -1,0 +1,123 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36256.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file build\DesktopCompanion.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Image has the following dependencies:
+
+    Qt6Network.dll
+    SHELL32.dll
+    Qt6OpenGLWidgets.dll
+    Qt6Widgets.dll
+    Qt6Gui.dll
+    Qt6Core.dll
+    Live2DCubismCore.dll
+    OPENGL32.dll
+    KERNEL32.dll
+    USER32.dll
+    ole32.dll
+    MSVCP140.dll
+    VCRUNTIME140.dll
+    api-ms-win-crt-string-l1-1-0.dll
+    api-ms-win-crt-heap-l1-1-0.dll
+    api-ms-win-crt-math-l1-1-0.dll
+    api-ms-win-crt-stdio-l1-1-0.dll
+    api-ms-win-crt-utility-l1-1-0.dll
+    api-ms-win-crt-runtime-l1-1-0.dll
+    api-ms-win-crt-locale-l1-1-0.dll
+
+Dump of file build\DesktopCompanionHook.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Image has the following dependencies:
+
+    Qt6Network.dll
+    Qt6Core.dll
+    MSVCP140.dll
+    VCRUNTIME140.dll
+    VCRUNTIME140_1.dll
+    api-ms-win-crt-string-l1-1-0.dll
+    api-ms-win-crt-heap-l1-1-0.dll
+    api-ms-win-crt-runtime-l1-1-0.dll
+    api-ms-win-crt-math-l1-1-0.dll
+    api-ms-win-crt-stdio-l1-1-0.dll
+    api-ms-win-crt-locale-l1-1-0.dll
+    KERNEL32.dll
+
+Dump of file build\Qt6Core.dll
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    api-ms-win-core-synch-l1-2-0.dll
+    MPR.dll
+    USERENV.dll
+    ADVAPI32.dll
+    AUTHZ.dll
+    KERNEL32.dll
+    NETAPI32.dll
+    ole32.dll
+    SHELL32.dll
+    USER32.dll
+    VERSION.dll
+    WINMM.dll
+    WS2_32.dll
+    MSVCP140.dll
+    MSVCP140_1.dll
+    VCRUNTIME140.dll
+    VCRUNTIME140_1.dll
+    api-ms-win-crt-string-l1-1-0.dll
+    api-ms-win-crt-stdio-l1-1-0.dll
+    api-ms-win-crt-environment-l1-1-0.dll
+    api-ms-win-crt-heap-l1-1-0.dll
+    api-ms-win-crt-runtime-l1-1-0.dll
+    api-ms-win-crt-math-l1-1-0.dll
+    api-ms-win-crt-utility-l1-1-0.dll
+    api-ms-win-crt-time-l1-1-0.dll
+    api-ms-win-crt-filesystem-l1-1-0.dll
+
+Dump of file build\Qt6Gui.dll
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    d3d11.dll
+    dxgi.dll
+    d3d12.dll
+    GDI32.dll
+    ole32.dll
+    SHELL32.dll
+    USER32.dll
+    UxTheme.dll
+    DWrite.dll
+    Qt6Core.dll
+    KERNEL32.dll
+    MSVCP140.dll
+    MSVCP140_1.dll
+    MSVCP140_2.dll
+    VCRUNTIME140.dll
+    VCRUNTIME140_1.dll
+    api-ms-win-crt-heap-l1-1-0.dll
+    api-ms-win-crt-string-l1-1-0.dll
+    api-ms-win-crt-math-l1-1-0.dll
+    api-ms-win-crt-stdio-l1-1-0.dll
+    api-ms-win-crt-environment-l1-1-0.dll
+    api-ms-win-crt-utility-l1-1-0.dll
+    api-ms-win-crt-convert-l1-1-0.dll
+    api-ms-win-crt-runtime-l1-1-0.dll
+
+  Summary
+
+       4C000 .data
+       91000 .pdata
+        C000 .qtmimed
+      42F000 .rdata
+        E000 .reloc
+       2D000 .rsrc
+      B0A000 .text

@@ -11,6 +11,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QSaveFile>
+#include <QRegularExpression>
 #include <QTimer>
 
 #include <algorithm>
@@ -24,18 +25,20 @@ namespace {
 const QStringList kEvents{
     QStringLiteral("UserPromptSubmit"), QStringLiteral("Stop"), QStringLiteral("SessionEnd")};
 
-// A hook group belongs to the pet when any of its commands references the helper.
-// Same marker install-hooks.ps1 uses, so the two never fight over an entry.
-const QString kMarker = QStringLiteral("DesktopCompanionHook");
-
-bool isPetGroup(const QJsonValue& group)
+bool isPetCommand(const QJsonValue& hook)
 {
-    const QJsonArray hooks = group.toObject().value(QStringLiteral("hooks")).toArray();
-    for (const QJsonValue& hook : hooks) {
-        if (hook.toObject().value(QStringLiteral("command")).toString().contains(kMarker))
-            return true;
-    }
-    return false;
+    // Match the executable token, not an argument or a similarly named program.
+    static const QRegularExpression executable(QStringLiteral(
+        R"re(^\s*(?:&\s+)?(?:'((?:[^']|'')*)'|"([^"]+)"|([^\s'"]+))(?=\s|$))re"));
+    const auto match = executable.match(hook.toObject().value(QStringLiteral("command")).toString());
+    if (!match.hasMatch()) return false;
+    QString path = match.captured(1);
+    if (match.capturedStart(1) >= 0) path.replace(QStringLiteral("''"), QStringLiteral("'"));
+    else path = match.capturedStart(2) >= 0 ? match.captured(2) : match.captured(3);
+    path.replace(QLatin1Char('\\'), QLatin1Char('/'));
+    const QString leaf = path.section(QLatin1Char('/'), -1);
+    return leaf.compare(QStringLiteral("DesktopCompanionHook.exe"), Qt::CaseInsensitive) == 0
+        || leaf.compare(QStringLiteral("DesktopCompanionHook"), Qt::CaseInsensitive) == 0;
 }
 
 QJsonObject petGroup(const QString& helperPath)
@@ -110,7 +113,32 @@ QString CoworkHookSeeder::mergeSettings(const QString& existing, const QString& 
         }
         QJsonArray kept;
         for (const QJsonValue& group : hooks.value(event).toArray()) {
-            if (!isPetGroup(group)) kept.append(group);
+            if (!group.isObject() || !group.toObject().value(QStringLiteral("hooks")).isArray()) {
+                if (error) *error = QStringLiteral("hook event \"%1\" contains an invalid group").arg(event);
+                return {};
+            }
+            QJsonObject retained = group.toObject();
+            const QJsonArray original = retained.value(QStringLiteral("hooks")).toArray();
+            QJsonArray remaining;
+            for (const QJsonValue& hook : original) {
+                if (!hook.isObject()) {
+                    if (error) *error = QStringLiteral("hook event \"%1\" contains an invalid hook").arg(event);
+                    return {};
+                }
+                const auto object = hook.toObject();
+                if ((object.contains(QStringLiteral("command"))
+                     || object.value(QStringLiteral("type")).toString() == QStringLiteral("command"))
+                    && !object.value(QStringLiteral("command")).isString()) {
+                    if (error) *error = QStringLiteral("hook event \"%1\" contains an invalid command").arg(event);
+                    return {};
+                }
+                if (!isPetCommand(hook)) remaining.append(hook);
+            }
+            if (remaining.size() == original.size()) kept.append(group);
+            else if (!remaining.isEmpty()) {
+                retained.insert(QStringLiteral("hooks"), remaining);
+                kept.append(retained);
+            }
         }
         kept.append(petGroup(helperPath));
         hooks.insert(event, kept);
