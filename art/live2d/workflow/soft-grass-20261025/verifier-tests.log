@@ -1,0 +1,14 @@
+test_complete_default_retains_approved_click (test_review_grass_drag.GrassEvidenceTest.test_complete_default_retains_approved_click) ... ok
+test_missing_frame_or_hold_geometry_is_rejected (test_review_grass_drag.GrassEvidenceTest.test_missing_frame_or_hold_geometry_is_rejected) ... ok
+test_missing_pin_or_controller_event_is_rejected (test_review_grass_drag.GrassEvidenceTest.test_missing_pin_or_controller_event_is_rejected) ... ok
+test_production_event_source_is_rejected (test_review_grass_drag.GrassEvidenceTest.test_production_event_source_is_rejected) ... ok
+test_released_press_cannot_reappear (test_review_grass_drag.GrassEvidenceTest.test_released_press_cannot_reappear) ... ok
+test_renderer_error_or_self_reported_failure_is_rejected (test_review_grass_drag.GrassEvidenceTest.test_renderer_error_or_self_reported_failure_is_rejected) ... ok
+test_required_check_cannot_be_omitted (test_review_grass_drag.GrassEvidenceTest.test_required_check_cannot_be_omitted) ... ok
+test_simultaneous_controls_detect_a_moved_palm (test_review_grass_drag.GrassEvidenceTest.test_simultaneous_controls_detect_a_moved_palm) ... ok
+test_unbounded_or_nonfinite_motion_is_rejected (test_review_grass_drag.GrassEvidenceTest.test_unbounded_or_nonfinite_motion_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.029s
+
+OK

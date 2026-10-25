@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <cmath>
+#include <limits>
 
 namespace {
 bool writeReactionFixture(const QTemporaryDir& dir) {
@@ -100,6 +101,25 @@ bool writeGrassInteractionFixture(const QTemporaryDir& dir, double maxHold = 3.0
     const auto json = QJsonDocument(root).toJson();
     return file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(json) == json.size();
 }
+
+bool writeStationaryGrassInteractionFixture(const QTemporaryDir& dir) {
+    if (!writeGrassInteractionFixture(dir)) return false;
+    QFile file(dir.filePath(QStringLiteral("grass-touch.motion.json")));
+    if (!file.open(QIODevice::ReadOnly)) return false;
+    auto root = QJsonDocument::fromJson(file.readAll()).object();
+    file.close();
+    auto keys = root.value(QStringLiteral("keyframes")).toArray();
+    for (int i = 0; i < keys.size(); ++i) {
+        auto key = keys.at(i).toObject();
+        auto parameters = key.value(QStringLiteral("parameters")).toObject();
+        parameters.insert(QStringLiteral("ParamWristRA"), 0.0);
+        key.insert(QStringLiteral("parameters"), parameters);
+        keys[i] = key;
+    }
+    root.insert(QStringLiteral("keyframes"), keys);
+    const auto json = QJsonDocument(root).toJson();
+    return file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(json) == json.size();
+}
 }
 
 class ParameterMotionTest final : public QObject {
@@ -169,6 +189,10 @@ private slots:
     void grassInteractionInterruptionsAndRestartStayContinuous();
     void grassInteractionRootAndSoftTipStayBounded();
     void grassInteractionConfigurationRejectsBadPhasesAndGrip();
+    void grassTipDragRequiresExplicitDraftAndFiniteBoundedInput();
+    void grassTipDragDisabledAndZeroInputPreserveExactTrajectory();
+    void grassTipDragLagsReboundsAndPreservesOtherChannels();
+    void grassTipDragKeepsHoldDeadlineAndClearsOnInterruptions();
     void gazeFollowsCursorAndSettlesToCenter();
     void workReactionsYieldToForeground();
 };
@@ -354,6 +378,227 @@ void ParameterMotionTest::grassInteractionConfigurationRejectsBadPhasesAndGrip()
     fixture.close();
     QVERIFY(!motion.loadMotionLibrary(dir.path(), &error));
     QVERIFY(error.contains(QStringLiteral("grip")));
+}
+
+void ParameterMotionTest::grassTipDragRequiresExplicitDraftAndFiniteBoundedInput() {
+    QTemporaryDir dir;
+    QVERIFY(writeStationaryGrassInteractionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QVERIFY(!motion.beginGrassTipDrag(true));
+    motion.setState(PetController::State::Grass);
+    QVERIFY(motion.beginGrassInteraction());
+    QVERIFY(!motion.beginGrassTipDrag(true)); // Enter is not a draggable phase.
+    advanceFrames(motion, 210);
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("hold"));
+    QVERIFY(!motion.beginGrassTipDrag()); // Approval of the old clip is insufficient.
+    motion.updateGrassTipDrag(1.0);
+    QCOMPARE(motion.grassTipDragOffset(), 0.0);
+    QVERIFY(motion.beginGrassTipDrag(true));
+    const auto before = motion.values();
+    motion.updateGrassTipDrag(100.0);
+    QCOMPARE(motion.grassTipDragOffset(), 0.35);
+    QCOMPARE(motion.values(), before); // Input changes force, not the pose directly.
+    QVERIFY(!motion.beginGrassTipDrag(true));
+    QCOMPARE(motion.grassTipDragOffset(), 0.35);
+    motion.updateGrassTipDrag(std::numeric_limits<double>::quiet_NaN());
+    motion.updateGrassTipDrag(std::numeric_limits<double>::infinity());
+    QCOMPARE(motion.grassTipDragOffset(), 0.35);
+    motion.updateGrassTipDrag(-100.0);
+    QCOMPARE(motion.grassTipDragOffset(), -0.35);
+    for (int i = 0; i < 25; ++i) {
+        motion.advance(0.02);
+        for (const auto& value : motion.values()) QVERIFY(qIsFinite(value));
+        QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamGrassSwing"))) <= 1.0);
+        QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamGrassTipBend"))) <= 1.0);
+    }
+    motion.endGrassTipDrag();
+    QVERIFY(!motion.grassTipDragActive());
+    QVERIFY(motion.grassTipDragSettling());
+    QCOMPARE(motion.grassTipDragOffset(), 0.0);
+    motion.endGrassTipDrag(); // Duplicate release must not restart the clock.
+    advanceFrames(motion, 61);
+    QVERIFY(!motion.grassTipDragSettling());
+    QVERIFY(motion.beginGrassTipDrag(true));
+    motion.updateGrassTipDrag(1.0);
+    QVERIFY(motion.respondToGrass());
+    QVERIFY(!motion.grassTipDragActive());
+    QVERIFY(!motion.grassTipDragSettling());
+    QCOMPARE(motion.grassTipDragOffset(), 0.0);
+    QVERIFY(!motion.beginGrassTipDrag(true));
+    motion.setPreviewPose(motion.values());
+    QVERIFY(!motion.beginGrassTipDrag(true));
+}
+
+void ParameterMotionTest::grassTipDragDisabledAndZeroInputPreserveExactTrajectory() {
+    QTemporaryDir dir;
+    QVERIFY(writeStationaryGrassInteractionFixture(dir));
+    for (const bool zeroForceDraft : {false, true}) {
+        ParameterMotion motion, control;
+        for (auto* sampler : {&motion, &control}) {
+            QVERIFY(sampler->loadMotionLibrary(dir.path()));
+            sampler->setProceduralBlink(false);
+            sampler->setState(PetController::State::Grass);
+            QVERIFY(sampler->beginGrassInteraction());
+        }
+        bool began = false;
+        for (int i = 0; i < 500; ++i) {
+            if (zeroForceDraft && !began && motion.grassInteractionPhase() == QStringLiteral("hold")) {
+                QVERIFY(motion.beginGrassTipDrag(true));
+                began = true;
+            } else if (!zeroForceDraft) {
+                QVERIFY(!motion.beginGrassTipDrag());
+            }
+            motion.updateGrassTipDrag(zeroForceDraft ? 0.0 : 100.0);
+            if (i == 220) motion.endGrassTipDrag();
+            motion.advance(0.02);
+            control.advance(0.02);
+            QCOMPARE(motion.values(), control.values());
+            QCOMPARE(motion.grassInteractionPhase(), control.grassInteractionPhase());
+            QCOMPARE(motion.grassInteractionTime(), control.grassInteractionTime());
+            QCOMPARE(motion.consumeActionFinished(), control.consumeActionFinished());
+        }
+        QCOMPARE(began, zeroForceDraft);
+        QVERIFY(!motion.grassTipDragActive());
+        QVERIFY(!motion.grassTipDragSettling());
+    }
+}
+
+void ParameterMotionTest::grassTipDragLagsReboundsAndPreservesOtherChannels() {
+    QTemporaryDir dir;
+    QVERIFY(writeStationaryGrassInteractionFixture(dir));
+    QList<QPair<double, double>> finalOffsets;
+    const QString bendAxis = QStringLiteral("ParamGrassSwing");
+    const QString tipAxis = QStringLiteral("ParamGrassTipBend");
+    for (const int rate : {30, 60, 120}) {
+        ParameterMotion motion, control;
+        const double dt = 1.0 / rate;
+        for (auto* sampler : {&motion, &control}) {
+            QVERIFY(sampler->loadMotionLibrary(dir.path()));
+            sampler->setProceduralBlink(false);
+            sampler->setState(PetController::State::Grass);
+            QVERIFY(sampler->beginGrassInteraction());
+            for (int i = 0; i < rate * 42 / 10; ++i) sampler->advance(dt);
+        }
+        QVERIFY(motion.beginGrassTipDrag(true));
+        motion.updateGrassTipDrag(1.0);
+        const auto samplePair = [&] {
+            motion.advance(dt);
+            control.advance(dt);
+            const auto values = motion.values();
+            const auto baseline = control.values();
+            return qMakePair(values.value(bendAxis) - baseline.value(bendAxis),
+                             values.value(tipAxis) - baseline.value(tipAxis));
+        };
+        auto offset = samplePair();
+        QVERIFY(offset.first > 0.0);
+        QVERIFY(offset.second < 0.0); // Tip trails the middle, rather than a rigid turn.
+        const double tipDisplacement = offset.first + offset.second / 0.85;
+        QVERIFY(tipDisplacement >= 0.0 && tipDisplacement < offset.first);
+        for (int i = 1; i < rate * 4 / 10; ++i) samplePair();
+        QVERIFY(motion.values().value(bendAxis) - control.values().value(bendAxis) > 0.3);
+        motion.endGrassTipDrag();
+        QVERIFY(motion.grassTipDragSettling());
+        double minimumBend = 0.0, earlyPeak = 0.0, latePeak = 0.0;
+        for (int i = 0; i < rate * 14 / 10; ++i) {
+            offset = samplePair();
+            minimumBend = std::min(minimumBend, offset.first);
+            const double amplitude = std::max(qAbs(offset.first), qAbs(offset.second));
+            if (i < rate / 2) earlyPeak = std::max(earlyPeak, amplitude);
+            if (i >= rate * 9 / 10) latePeak = std::max(latePeak, amplitude);
+            const auto values = motion.values();
+            const auto baseline = control.values();
+            for (auto it = values.cbegin(); it != values.cend(); ++it) {
+                QVERIFY(qIsFinite(it.value()));
+                if (it.key() == bendAxis || it.key() == tipAxis) {
+                    QVERIFY(qAbs(it.value()) <= 1.0);
+                } else {
+                    // Covers palm grip, reach, shoulder/elbow/wrist, body and
+                    // every face channel; the drag may own only flexibility.
+                    QCOMPARE(it.value(), baseline.value(it.key()));
+                }
+            }
+        }
+        QVERIFY(minimumBend < -0.05); // Release crosses equilibrium once.
+        QVERIFY(latePeak < earlyPeak * 0.4); // Subsequent oscillation decays.
+        QVERIFY(!motion.grassTipDragActive());
+        QVERIFY(!motion.grassTipDragSettling());
+        QCOMPARE(motion.grassTipDragOffset(), 0.0);
+        QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("hold"));
+        finalOffsets.append(offset);
+    }
+    for (const auto& offset : finalOffsets) {
+        QVERIFY(qAbs(offset.first - finalOffsets.first().first) < 0.025);
+        QVERIFY(qAbs(offset.second - finalOffsets.first().second) < 0.025);
+    }
+}
+
+void ParameterMotionTest::grassTipDragKeepsHoldDeadlineAndClearsOnInterruptions() {
+    QTemporaryDir dir;
+    QVERIFY(writeStationaryGrassInteractionFixture(dir));
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    motion.setState(PetController::State::Grass);
+    QVERIFY(motion.beginGrassInteraction());
+    advanceFrames(motion, 210);
+    QVERIFY(motion.beginGrassTipDrag(true));
+    motion.updateGrassTipDrag(1.0);
+    advanceFrames(motion, 119);
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("hold"));
+    QVERIFY(motion.grassTipDragActive());
+    motion.advance(0.02); // Exactly 3 s total Hold, including captured time.
+    QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("timeout"));
+    QVERIFY(!motion.grassTipDragActive());
+    QVERIFY(!motion.grassTipDragSettling());
+    QCOMPARE(motion.grassTipDragOffset(), 0.0);
+    motion.updateGrassTipDrag(-1.0);
+    QVERIFY(!motion.beginGrassTipDrag(true));
+    advanceFrames(motion, 130);
+    QVERIFY(!motion.grassInteractionActive());
+    QVERIFY(motion.consumeActionFinished());
+
+    for (const auto next : {PetController::State::Idle, PetController::State::Busy,
+                           PetController::State::Delete, PetController::State::Grass}) {
+        ParameterMotion subject, explicitlyCancelled;
+        for (auto* sampler : {&subject, &explicitlyCancelled}) {
+            QVERIFY(sampler->loadMotionLibrary(dir.path()));
+            sampler->setProceduralBlink(false);
+            sampler->setState(PetController::State::Grass);
+            QVERIFY(sampler->beginGrassInteraction());
+            advanceFrames(*sampler, 210);
+            QVERIFY(sampler->beginGrassTipDrag(true));
+            sampler->updateGrassTipDrag(1.0);
+            advanceFrames(*sampler, 10);
+        }
+        explicitlyCancelled.cancelGrassTipDrag();
+        const auto pose = subject.values();
+        subject.setState(next);
+        explicitlyCancelled.setState(next);
+        QCOMPARE(subject.values(), pose); // No pose jump at the ownership handoff.
+        QVERIFY(!subject.grassTipDragActive());
+        QVERIFY(!subject.grassTipDragSettling());
+        QCOMPARE(subject.grassTipDragOffset(), 0.0);
+        for (int i = 0; i < 50; ++i) {
+            subject.updateGrassTipDrag(-1.0); // Stale mouse input cannot replay.
+            subject.advance(0.02);
+            explicitlyCancelled.advance(0.02);
+            QCOMPARE(subject.values(), explicitlyCancelled.values());
+        }
+        for (auto* sampler : {&subject, &explicitlyCancelled}) {
+            sampler->setState(PetController::State::Grass);
+            QVERIFY(sampler->beginGrassInteraction());
+            advanceFrames(*sampler, 190);
+        }
+        QVERIFY(!subject.grassTipDragActive());
+        QCOMPARE(subject.grassTipDragOffset(), 0.0);
+        QCOMPARE(subject.values(), explicitlyCancelled.values());
+        QVERIFY(subject.beginGrassTipDrag(true));
+        subject.updateGrassTipDrag(1.0);
+        subject.setPreviewPose(subject.values());
+        QVERIFY(!subject.grassTipDragActive());
+        QVERIFY(!subject.grassTipDragSettling());
+        QCOMPARE(subject.grassTipDragOffset(), 0.0);
+    }
 }
 
 void ParameterMotionTest::seatedReactionContextSurvivesUserAndLastStopHandoffs() {

@@ -106,6 +106,10 @@ public:
     double grassInteractionTime() const { return motion_.grassInteractionTime(); }
     QPainterPath grassTipHitPath() const;
     bool isGrassTipAt(const QPointF& position) const;
+    // Separate, process-only draft switch; the approved click interaction is
+    // unaffected until this candidate has been reviewed and adopted.
+    void setGrassDragPreviewEnabled(bool enabled);
+    QJsonObject grassDragReviewState() const;
     // Native scene review uses the actual window player and Qt input handlers,
     // with a manual frame clock instead of the desktop's wall clock.
     void prepareLiveInteractionReview(int pixels = 840);
@@ -214,6 +218,7 @@ private:
     void playGrass();
     bool grassInteractionApproved() const;
     bool headPatApproved() const;
+    QJsonObject grassGeometry() const;
     QPixmap idleImage_;
     QPixmap busyImage_;
     QPixmap deleteImage_;
@@ -259,6 +264,12 @@ private:
     bool interactionPreviewEnabled_ = false;
     bool liveInteractionReview_ = false;
     bool grassTouchPressed_ = false;
+    bool grassDragPreviewEnabled_ = false;
+    bool grassDragMoved_ = false;
+    QPointF grassDragPress_;
+    QPointF grassDragNormal_;
+    double grassDragSpan_ = 1.0;
+    QAction* grassDragPreviewAction_ = nullptr;
     bool dragging_ = false;
     int frame_ = 0;
     // Global-cursor memory for the gaze idle timer (see updateInputTransparency):

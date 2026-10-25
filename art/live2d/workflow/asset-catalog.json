@@ -33,8 +33,8 @@
       "sha256": "62667fccbad729ec041684659202f2582578577d88ad8e56c2ed3aa77c578565"
     },
     "CMakeLists.txt": {
-      "bytes": 17550,
-      "sha256": "2aa08c738f39d70576cab09ce08e8e0877ca51f539095702a142020ed0dd3a7b"
+      "bytes": 17610,
+      "sha256": "dff4ef2ab8f46ce2d5688010078f708df47402013db3a81848677e5ea6806f5a"
     },
     "art/3d/integration/replay-smoke-v1.json": {
       "bytes": 731,
@@ -5884,6 +5884,270 @@
       "bytes": 7965,
       "sha256": "22ef2ef2acc0fda2fd0127970ef9bd311f1d4f52ee9b6ec459901e96c3220b3d"
     },
+    "art/live2d/workflow/soft-grass-20261025/assets.log": {
+      "bytes": 79,
+      "sha256": "16ac6aa9f477e9cdee47231866b1aee33bc423c797e2b3ebfd1db663eb2c68f4"
+    },
+    "art/live2d/workflow/soft-grass-20261025/build-final.log": {
+      "bytes": 899,
+      "sha256": "a98a1be01f6530208df1b863f78bcf67a07756a8f7545e727e623f4edd188b3f"
+    },
+    "art/live2d/workflow/soft-grass-20261025/build-motion.log": {
+      "bytes": 1266,
+      "sha256": "9042e4202c07f90802cea578f0a9d00a02fff982ade7278ded26ba63148eba33"
+    },
+    "art/live2d/workflow/soft-grass-20261025/ctest.log": {
+      "bytes": 2560,
+      "sha256": "589bbca031c0c11b69ecf6e31e850d25e9a820edd8031554712a7e207ea38488"
+    },
+    "art/live2d/workflow/soft-grass-20261025/ctest.xml": {
+      "bytes": 6713,
+      "sha256": "371995f667d7870810d86cbb9286fea9937c71380ed5eeeebe5fc21329b4406c"
+    },
+    "art/live2d/workflow/soft-grass-20261025/frame-ledger.json": {
+      "bytes": 507785,
+      "sha256": "4aaa0d0c31d5992bd66339c966f10eb45a19b9a6b81c081417613fe0ece69280"
+    },
+    "art/live2d/workflow/soft-grass-20261025/interruptions.png": {
+      "bytes": 414966,
+      "sha256": "459064c63f0a817211e23345127229a2702d1091e9e0c8ab80ff39f88103679d"
+    },
+    "art/live2d/workflow/soft-grass-20261025/keyframes.png": {
+      "bytes": 885455,
+      "sha256": "e2827f09cefaba369b7791b792f27151aaf6e719fb44e18cbf9739f29e22ba21"
+    },
+    "art/live2d/workflow/soft-grass-20261025/native-check.json": {
+      "bytes": 3084,
+      "sha256": "ec9c266a345622c5c379144fc2ad6ef5eeacec5064403c7cbc27b1e9b8ca85da"
+    },
+    "art/live2d/workflow/soft-grass-20261025/native-traces.zip": {
+      "bytes": 1942698,
+      "sha256": "cda51c0317b3dbdcff02a86758654f92051a30bfec5d73fc0b448d3364f86c54"
+    },
+    "art/live2d/workflow/soft-grass-20261025/pin-proof.json": {
+      "bytes": 28308,
+      "sha256": "b1b11d0f6b2829e76947020b8afbf496407a9f3fef05c75d0d940a7b6a39830f"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-deactivate-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-deactivate-frame-069.png": {
+      "bytes": 282439,
+      "sha256": "f5c1bff1cd5b6517f093b138fd35c028cfdc157bcbb9fc85fecaeee6ef78b383"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-deactivate-frame-080.png": {
+      "bytes": 281799,
+      "sha256": "d3806dc882c7d8edc4e1b47288b36142941546a0b580c627fb0be670485539de"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-deactivate-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-default-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-default-frame-069.png": {
+      "bytes": 280492,
+      "sha256": "b4fd890f68c012515a3dfb3f15d51014e0810f3e1e7d9f476f95443abe30b444"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-default-frame-080.png": {
+      "bytes": 283243,
+      "sha256": "af41db23c85d6bc8b361a2f3a3a459df6ccee670f2585f40ba9f45dde0e4ff2b"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-default-frame-155.png": {
+      "bytes": 283999,
+      "sha256": "86d44913895f5e357acd125652360c7872a77a356c0a41ecc1fe3ef72502a1ea"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-delete-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-delete-frame-069.png": {
+      "bytes": 282662,
+      "sha256": "db95538e09bd227d4321953d116407e8d0dea627ba2f4d305b5de2bbe516c702"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-delete-frame-080.png": {
+      "bytes": 286585,
+      "sha256": "5cd443c27f8037e5054b4f0c5387c031d3c1dfbbeb00c2cfb46f6c96d27b4851"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-delete-frame-155.png": {
+      "bytes": 284271,
+      "sha256": "3b21b024b912014ce39f4c33be377604d7c79fd3f3c8b6ee38ae0f099f44f753"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-disable-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-disable-frame-069.png": {
+      "bytes": 282437,
+      "sha256": "bf9bfa4e0df60f3b6961b6a923f5005f2f5d570cc1279682ad6d8cb1404efe22"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-disable-frame-080.png": {
+      "bytes": 281796,
+      "sha256": "6271a9dc65f3d9b0b89d12f3ecc20fd5e36e9cfadf2d647b63796244f125364a"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-disable-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-down-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-down-frame-069.png": {
+      "bytes": 282443,
+      "sha256": "c33e428089fb954b0f4b382f8b0ab42801bce449eff9de97b6f9ee1dd78cde85"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-down-frame-080.png": {
+      "bytes": 281804,
+      "sha256": "6729a72abd3df648abfa02e67af2ce125482e8403494d237c52fd2991184b24d"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-down-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-hide-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-hide-frame-069.png": {
+      "bytes": 283241,
+      "sha256": "0d924b8473078824d162cbe7851abfd9cfa827798904eef1c9a9cdba2d6e91e2"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-hide-frame-080.png": {
+      "bytes": 287370,
+      "sha256": "992c090966981a904082d94f006f2495d7411100f91c5ef18c3a456e63cf988a"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-hide-frame-155.png": {
+      "bytes": 284621,
+      "sha256": "1530ae25b4b5a069fb6b4f2828bac7f70e278ab7e8384d660c54b511d1b96d9f"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-left-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-left-frame-069.png": {
+      "bytes": 282946,
+      "sha256": "e1f6e32cf5cd66975859a89733bccf2765d52fee35e1163dcb57b7d099df02a4"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-left-frame-080.png": {
+      "bytes": 281795,
+      "sha256": "4e60fdaa81de77b626d76ab1dfc2d848987d653053a63b04f9ad70f75c5f6e92"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-left-frame-155.png": {
+      "bytes": 283551,
+      "sha256": "ecbaaad003fab63d8e2db203d51b8a351d9998148fb81264b599630072839786"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-limit-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-limit-frame-069.png": {
+      "bytes": 282434,
+      "sha256": "7fa548e068076e4f9721ee626f4ef83a42b844fcd57412df908e6214d34764ad"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-limit-frame-080.png": {
+      "bytes": 281792,
+      "sha256": "fb283a91790f78e46731699331b8bef81fb3165cfac77a4f26178c6516009a69"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-limit-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-right-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-right-frame-069.png": {
+      "bytes": 282167,
+      "sha256": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-right-frame-080.png": {
+      "bytes": 281852,
+      "sha256": "4ad5f9757a5a3cdf68d6df5a2f3cc75145faefbc863d07320d4f984dca0b1624"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-right-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-tap-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-tap-frame-069.png": {
+      "bytes": 280576,
+      "sha256": "bffe30d669b8941c887793daf23007290581879ad94a1fb835732f5d90e24c49"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-tap-frame-080.png": {
+      "bytes": 282619,
+      "sha256": "97f7e17867ae33a25cf694582cc88e5ea2d0fd228931363ebae1027f20b71ec6"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-tap-frame-155.png": {
+      "bytes": 284061,
+      "sha256": "3df92edc831f059f400e6655e843c6da55312b031dffffb051380e194d26e096"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-timeout-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-timeout-frame-069.png": {
+      "bytes": 282167,
+      "sha256": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-timeout-frame-080.png": {
+      "bytes": 281460,
+      "sha256": "2bbc0f1af23367aa98c04d3e61a1edb1f5b9985e0d5f411e5cddfc6f0e7c6315"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-timeout-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-ungrab-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-ungrab-frame-069.png": {
+      "bytes": 282439,
+      "sha256": "f5c1bff1cd5b6517f093b138fd35c028cfdc157bcbb9fc85fecaeee6ef78b383"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-ungrab-frame-080.png": {
+      "bytes": 281799,
+      "sha256": "d3806dc882c7d8edc4e1b47288b36142941546a0b580c627fb0be670485539de"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-ungrab-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-up-frame-058.png": {
+      "bytes": 283782,
+      "sha256": "9697fd226b7fa0c019f076f87d57f07aa63fa27da3435fb4544dcfe34f8e1ff8"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-up-frame-069.png": {
+      "bytes": 282521,
+      "sha256": "477923173a3f229a698996c8fdb8dd0c925ac86fcf3ba36b9077d82c9b1d43a3"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-up-frame-080.png": {
+      "bytes": 281820,
+      "sha256": "2c057d48fd89f92ba75f4662de51d9ad145d4d6d3cbdc91206ff4f0aa5061e07"
+    },
+    "art/live2d/workflow/soft-grass-20261025/selected/grass-drag-up-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-20261025/soft-grass.gif": {
+      "bytes": 18036094,
+      "sha256": "2d8e25ebea2e64ee83e218cca95b40669c128a54fec895c12d35cb9441f1cc4f"
+    },
+    "art/live2d/workflow/soft-grass-20261025/verification.json": {
+      "bytes": 12535,
+      "sha256": "d17da651eb6cf8438de7082e5c7cd749cf86dcb0fa9d64ce1226f7479948cc98"
+    },
+    "art/live2d/workflow/soft-grass-20261025/verifier-tests.log": {
+      "bytes": 1378,
+      "sha256": "1c4829b03d2adfa4ec16f6c2c578117886b7bf5bf91d84203ba223030e5c182c"
+    },
     "art/live2d/workflow/standing-rest-20261022/assets-check.log": {
       "bytes": 187,
       "sha256": "c7443cc46b1956605ab5ed7ba6a3f52ae357e44e1aa4c1db545343b02554a5b9"
@@ -6725,12 +6989,12 @@
       "sha256": "61bbdedd104c1acf6bd54eae31b748427eaa973d0734ab32d41e43076cd889dc"
     },
     "src/CubismCanvas.cpp": {
-      "bytes": 74586,
-      "sha256": "811221b6911abf7675e99cd6623f7557e40b54893bcfec87a9c2c7d85ad1bda3"
+      "bytes": 81116,
+      "sha256": "d43781042618f1274410b575b4f2ae2d988a227d36610543095334277cbda44e"
     },
     "src/CubismCanvas.h": {
-      "bytes": 1899,
-      "sha256": "27216d41e9c750badfe2ff7d60d38980df9dfe30c13ef272d906d7d84e2e5329"
+      "bytes": 2187,
+      "sha256": "8158da29ace76f37ec0d4daad5ba195930bb5a34a1dbf59f65b1bb689a630f66"
     },
     "src/CubismMaterialBinding.cpp": {
       "bytes": 6324,
@@ -6767,6 +7031,14 @@
     "src/DesktopDeleteSource.h": {
       "bytes": 2004,
       "sha256": "cb079e881f602ef62858c134416359e1815afe868a9bcc24708515eb6ae29730"
+    },
+    "src/GrassDragInputReview.cpp": {
+      "bytes": 15444,
+      "sha256": "3fe60eb0a5966dfa9d581600c5fd3f802eeda6de5f90eae98bef1c84aff7ec95"
+    },
+    "src/GrassDragInputReview.h": {
+      "bytes": 420,
+      "sha256": "d181553f0a523a77cb222ae8fb1172d57538ca0b62fe66eccd07bc5bc2379b67"
     },
     "src/HeadPatInputReview.cpp": {
       "bytes": 19096,
@@ -6825,12 +7097,12 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 68655,
-      "sha256": "e76fb0cc9e012b83b0ebdbce83455cf41021ffe66d8c9d51359ef929a31a6fd3"
+      "bytes": 70312,
+      "sha256": "f19fb2893926086c04a91b8ce7d3905ad3f24a691404da9b6d62383772f7def4"
     },
     "src/ParameterMotion.h": {
-      "bytes": 19175,
-      "sha256": "811d06f980d4fd7619360e6888ff203577eac117d7a3e7a38b3b5fb341e0b571"
+      "bytes": 19980,
+      "sha256": "7889be63e2737eb7f8599b6fd055045b2130b9a1ac36695c976120e8ae6593f0"
     },
     "src/PetController.cpp": {
       "bytes": 7178,
@@ -6849,12 +7121,12 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 100271,
-      "sha256": "34aa9cfcb0e6001b0fbd6115ce2e304d71aeeed5665a94919812c1982ea48491"
+      "bytes": 105282,
+      "sha256": "1204799aed68a20ae5c00b9409c485e960146aecba7b0c28a684d46bc0e30ec3"
     },
     "src/PetWindow.h": {
-      "bytes": 14230,
-      "sha256": "9bf36b8db3bc6bf96e02cc1f12905bd1898426e4df2be5217a084f64c274df76"
+      "bytes": 14731,
+      "sha256": "e21c8e551ac95f0a70145a70b4c999bca9c562926e37a2836fdbfaf716c380e6"
     },
     "src/QuietPolicy.cpp": {
       "bytes": 1802,
@@ -6921,8 +7193,8 @@
       "sha256": "aae7f180a1d8a238b593e278108a01869287faa6582ce7f82daee087f3c3ac05"
     },
     "src/main.cpp": {
-      "bytes": 61121,
-      "sha256": "8bbd61163625ead747b18aef5236b9720eb7fae3dcbbd36be1622d70f3ff2dd0"
+      "bytes": 61492,
+      "sha256": "d74c9dddea842c7486f6b06e2a962a06b2c0f8ef208388fbcb38644223507645"
     },
     "src/motion/BoxBehavior.cpp": {
       "bytes": 6397,
@@ -7069,8 +7341,8 @@
       "sha256": "c6c7721e819123ab9f60c04c84faa840c898a1521e70295e0aed42f7606055c4"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 126088,
-      "sha256": "10ee7692dd08561e315fd0ee285ebc3be4900fd9385d1840c0cf353fe041e052"
+      "bytes": 138037,
+      "sha256": "5457a0745d3acbb089059cce24386d0c5f59bc72d6d6c181eac57263392472f9"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 14249,
@@ -7147,6 +7419,10 @@
     "tests/test_review_component_candidate.py": {
       "bytes": 10732,
       "sha256": "c0f1a06a6b9bc9e1cb34ccb392900a3fd1929ac8a6ececf970a84e8ccc020e87"
+    },
+    "tests/test_review_grass_drag.py": {
+      "bytes": 6620,
+      "sha256": "e1cf1bac8f1e66d82b09027171a8322ce646e7d94fca3a8644a3bea5263d5e3c"
     },
     "tests/test_review_interactions.py": {
       "bytes": 2710,
@@ -7467,6 +7743,14 @@
     "tools/review_component_candidate.py": {
       "bytes": 19646,
       "sha256": "7fb3f5f379a3f68211a4e4840cf8ccbff79dd41e71468f4acbd473e5924f0874"
+    },
+    "tools/review_grass_drag.py": {
+      "bytes": 11895,
+      "sha256": "f523e488eaa83ff6ed66a826860db8d948814d160e88007e2dcbb49540cabdfb"
+    },
+    "tools/review_grass_pin.py": {
+      "bytes": 13156,
+      "sha256": "4df335291e4d7cb930460d6209a31b62dc1dfdfbeeb647ea4cb6224c9b0939be"
     },
     "tools/review_head_pat_input.py": {
       "bytes": 5682,

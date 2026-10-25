@@ -1,0 +1,897 @@
+{
+  "schema_version": 1,
+  "kind": "formal_grass_flex_pin_probe",
+  "passed": true,
+  "created_utc": "2026-10-25T03:18:23.802071+00:00",
+  "checks": {
+    "formal_moc_hash_matches": true,
+    "native_flex_ranges_match": true,
+    "root_and_mid_inside_material": true,
+    "tip_closest_edge_within_3px": true,
+    "37_lower_stem_vertices_selected": true,
+    "pins_invariant_within_0_002_source_px": true,
+    "root_invariant_within_0_002_source_px": true,
+    "all_other_drawables_exactly_unchanged": true,
+    "positive_swing_moves_screen_right_normal": true,
+    "inputs_unchanged": true
+  },
+  "scope": {
+    "raw_core_only": true,
+    "in_memory_parameter_sweep": true,
+    "rendered_pixels_evaluated": false,
+    "canvas_postprocessing_evaluated": false,
+    "spring_response_evaluated": false,
+    "absolute_palm_contact": "unmeasured",
+    "pointer_routing_evaluated": false,
+    "visual_approval": "pending"
+  },
+  "model": "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json",
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "tool_sha256": "4df335291e4d7cb930460d6209a31b62dc1dfdfbeeb647ea4cb6224c9b0939be",
+  "clip_sha256": "b63774d42a31b1c93cc7a9a598f718e0fe9f379ae9fdc89b2215963a28b6fc9e",
+  "hold_time": 3.6,
+  "held_parameters": {
+    "ParamAngleX": 0,
+    "ParamAngleY": -2,
+    "ParamAngleZ": -5,
+    "ParamBodyAngleX": 4,
+    "ParamBodyAngleY": 6,
+    "ParamBodyAngleZ": -7,
+    "ParamArmLA": -24,
+    "ParamArmRA": 60,
+    "ParamGrassVisible": 1,
+    "ParamGrassReach": 1,
+    "ParamGrassSwing": 0.4,
+    "ParamHandRGrip": 1,
+    "ParamEyeLOpen": 1,
+    "ParamEyeROpen": 1,
+    "ParamEyeBallX": 0,
+    "ParamEyeBallY": 0,
+    "ParamMouthOpenY": 0,
+    "ParamSmileOpen": 0,
+    "ParamEyeSmile": 0.35,
+    "ParamElbowLA": 12,
+    "ParamElbowRA": -20,
+    "ParamWristRA": 20,
+    "ParamMouthForm": 0.25,
+    "ParamCheek": 0.18
+  },
+  "native_flex_ranges": {
+    "ParamGrassSwing": {
+      "min": -1.0,
+      "max": 1.0,
+      "default": 0.0,
+      "type": 0,
+      "default_in_range": true
+    },
+    "ParamGrassTipBend": {
+      "min": -1.0,
+      "max": 1.0,
+      "default": 0.0,
+      "type": 0,
+      "default_in_range": true
+    }
+  },
+  "canvas_pixels_per_unit": 1254.0,
+  "drawable_id": "ArtMeshHandwearR2",
+  "grass_vertices": 878,
+  "other_drawables": 38,
+  "topology_uv_sha256": "0d90b0036e7cf9baf8c6b83078a51a394ba6879577dd2dcad55cd7fe9a3899f1",
+  "topology_indices_sha256": "33d45f6f1617e3f931e88be26d385c7ec29e9bca0f0738460cc98e56e1d9528c",
+  "source_rect": [
+    797.0,
+    494.0,
+    922.0,
+    896.0
+  ],
+  "anchors": {
+    "root": {
+      "indices": [
+        489,
+        491,
+        854
+      ],
+      "weights": [
+        0.06341125725544483,
+        0.23861760477128707,
+        0.697971137973268
+      ],
+      "requested_source": [
+        913.0,
+        852.0
+      ],
+      "resolved_source": [
+        913.0,
+        852.0
+      ],
+      "source_residual_px": 0.0
+    },
+    "mid": {
+      "indices": [
+        370,
+        838,
+        584
+      ],
+      "weights": [
+        0.39019212397834624,
+        0.4891200509500053,
+        0.12068782507164845
+      ],
+      "requested_source": [
+        884.0,
+        669.0
+      ],
+      "resolved_source": [
+        884.0,
+        669.0
+      ],
+      "source_residual_px": 0.0
+    },
+    "tip": {
+      "indices": [
+        7,
+        4,
+        5
+      ],
+      "weights": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "requested_source": [
+        806.0,
+        498.0
+      ],
+      "resolved_source": [
+        806.0,
+        498.0
+      ],
+      "source_residual_px": 0.0
+    }
+  },
+  "pinned_indices": [
+    462,
+    463,
+    464,
+    465,
+    466,
+    467,
+    468,
+    469,
+    470,
+    471,
+    472,
+    473,
+    474,
+    475,
+    476,
+    477,
+    484,
+    485,
+    486,
+    487,
+    488,
+    489,
+    490,
+    491,
+    492,
+    493,
+    494,
+    495,
+    496,
+    497,
+    498,
+    499,
+    854,
+    858,
+    863,
+    865,
+    867
+  ],
+  "pin_selection": {
+    "source_root": [
+      913.0,
+      852.0
+    ],
+    "source_tip": [
+      806.0,
+      498.0
+    ],
+    "min_progress": -0.08,
+    "max_progress": 0.1
+  },
+  "sweep_samples": 81,
+  "samples": [
+    {
+      "swing": -1.0,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 296.6227933333201,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.4370401257805184e-05,
+      "grass_max_source_px": 285.1012252599051,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 274.28871641087915,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 1.1412036879931975e-05,
+      "grass_max_source_px": 268.17751056785386,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 255.14754586176997,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 236.89019006708205,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 229.53266995122212,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 217.99864830595823,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -1.0,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 207.48031053072685,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.4370401257805184e-05,
+      "grass_max_source_px": 240.39541640553125,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00022660454773733272,
+      "root_source_px": 7.52199054103822e-05,
+      "grass_max_source_px": 227.43516789948126,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.0001506518008763549,
+      "root_source_px": 6.473774647020036e-06,
+      "grass_max_source_px": 214.9099024915976,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.0001506518008763549,
+      "root_source_px": 2.8301337921177516e-05,
+      "grass_max_source_px": 207.63635751329923,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.4370401257805184e-05,
+      "grass_max_source_px": 191.5028856320281,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00022423267364501953,
+      "root_source_px": 5.240251423336525e-05,
+      "grass_max_source_px": 171.59819775087078,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.0001506518008763549,
+      "root_source_px": 6.473774647020036e-06,
+      "grass_max_source_px": 163.30895583421082,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.0001501439436130613,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 149.90449060693322,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.75,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.4370401257805184e-05,
+      "grass_max_source_px": 137.14351198714522,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 184.30378085892713,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 2.62278882159569e-05,
+      "grass_max_source_px": 169.78302851566502,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.000187093991269946,
+      "root_source_px": 5.893327207979864e-05,
+      "grass_max_source_px": 155.45867923054604,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.00015044455737129857,
+      "root_source_px": 9.397084195228445e-06,
+      "grass_max_source_px": 146.98302466945805,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 127.66862579912457,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00019056112975017285,
+      "root_source_px": 3.149255695689135e-05,
+      "grass_max_source_px": 106.27982305187227,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.000187093991269946,
+      "root_source_px": 5.893327207979864e-05,
+      "grass_max_source_px": 97.30219455820672,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.217961291387512e-05,
+      "grass_max_source_px": 82.41269799653332,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.5,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 67.66703465665015,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 1.1412036879931975e-05,
+      "grass_max_source_px": 150.68134780481154,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.0001868605613708496,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 135.17264166167647,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.00015340718816847263,
+      "root_source_px": 2.7204885395339072e-05,
+      "grass_max_source_px": 119.75331299255625,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.0001506518008763549,
+      "root_source_px": 6.844741144132536e-06,
+      "grass_max_source_px": 110.56021642170725,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 1.1412036879931975e-05,
+      "grass_max_source_px": 89.36805478640375,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00015302328430202332,
+      "root_source_px": 5.2270975030009354e-05,
+      "grass_max_source_px": 67.42138162650666,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.00015340718816847263,
+      "root_source_px": 2.7204885395339072e-05,
+      "grass_max_source_px": 58.13183775158364,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 43.083027214885426,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": -0.35,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 1.1412036879931975e-05,
+      "grass_max_source_px": 32.79846205209396,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 73.41235934771278,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.4370401257805184e-05,
+      "grass_max_source_px": 55.05924388230331,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 36.706211444787584,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 1.1412036879931975e-05,
+      "grass_max_source_px": 25.694315947781515,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 0.0,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 26.2333188081811,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 37.47624421896595,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 56.214364496352175,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.0,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 74.95242846041295,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 40.27368031189884,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.0001506518008763549,
+      "root_source_px": 5.825461745818209e-05,
+      "grass_max_source_px": 50.37298303131977,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.00019056112975017285,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 63.200003937244546,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.00015302328430202332,
+      "root_source_px": 1.788373435331651e-05,
+      "grass_max_source_px": 71.53649344725599,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 92.00550434522674,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00015807398477102477,
+      "root_source_px": 2.0851266591699346e-05,
+      "grass_max_source_px": 114.37201850128812,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.00019056112975017285,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 123.95904244846722,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00014978013415276463,
+      "root_source_px": 0.0001043842595342223,
+      "grass_max_source_px": 139.93846864042885,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.35,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 155.91834010589994,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 70.04657714791355,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 2.62278882159569e-05,
+      "grass_max_source_px": 85.06530688365208,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.000187093991269946,
+      "root_source_px": 5.893327207979864e-05,
+      "grass_max_source_px": 100.36992345505168,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.00015044455737129857,
+      "root_source_px": 9.397084195228445e-06,
+      "grass_max_source_px": 109.64039590893833,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 131.43648560963146,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00019056112975017285,
+      "root_source_px": 3.149255695689135e-05,
+      "grass_max_source_px": 152.91037134399394,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.000187093991269946,
+      "root_source_px": 5.893327207979864e-05,
+      "grass_max_source_px": 162.15411591217597,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.217961291387512e-05,
+      "grass_max_source_px": 177.60103237050868,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.5,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 193.08823525139402,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 130.35553400808868,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00015327710243409485,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 147.0185427979719,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 2.7204885395339072e-05,
+      "grass_max_source_px": 163.7098137364764,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.00019011684719015873,
+      "root_source_px": 4.877554997914974e-05,
+      "grass_max_source_px": 173.73502951861886,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 197.1502948366913,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.0001494930110524949,
+      "root_source_px": 0.00010442005715405497,
+      "grass_max_source_px": 217.2546386011105,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 2.7204885395339072e-05,
+      "grass_max_source_px": 226.01118266175664,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00011211633682250977,
+      "root_source_px": 2.908528736674898e-05,
+      "grass_max_source_px": 240.79293018705735,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 0.75,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 255.78104035257502,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": -1.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 193.12164787252058,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": -0.75,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.4370401257805184e-05,
+      "grass_max_source_px": 210.17836066315607,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": -0.5,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 227.52601498980954,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": -0.35,
+      "pinned_max_source_px": 0.0001494884490966797,
+      "root_source_px": 1.1412036879931975e-05,
+      "grass_max_source_px": 238.0422358385861,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": 0.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 262.75230399936106,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": 0.35,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 5.467146737900649e-05,
+      "grass_max_source_px": 281.43030460896665,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": 0.5,
+      "pinned_max_source_px": 0.00011250495613966539,
+      "root_source_px": 1.2448829906475112e-05,
+      "grass_max_source_px": 289.79413995180346,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": 0.75,
+      "pinned_max_source_px": 0.00011330227386866636,
+      "root_source_px": 3.082568449086296e-05,
+      "grass_max_source_px": 304.14680082041116,
+      "other_drawables_changed": []
+    },
+    {
+      "swing": 1.0,
+      "tip_bend": 1.0,
+      "pinned_max_source_px": 0.0,
+      "root_source_px": 0.0,
+      "grass_max_source_px": 318.95508741931934,
+      "other_drawables_changed": []
+    }
+  ],
+  "max_pinned_drift_source_px": 0.00022660454773733272,
+  "max_root_drift_source_px": 0.00010442005715405497,
+  "screen_direction": {
+    "coordinate_system": "x right, y down; common positive scale and translation omitted",
+    "center_swing": 0.26,
+    "tip_bend": 0,
+    "swing_difference_epsilon": 0.02,
+    "root_to_tip_right_normal": [
+      0.7633423221779011,
+      -0.6459941943795234
+    ],
+    "mid_to_tip_right_normal": [
+      0.7219224656115505,
+      -0.6919739544559027
+    ],
+    "tip_derivative_source_px_per_swing": [
+      227.38828137516975,
+      -105.63694685697556
+    ],
+    "derivative_along_root_tip_right_normal": 241.8159531225485,
+    "derivative_along_distal_right_normal": 237.254724594805,
+    "positive_screen_right_normal_requires_positive_forcing": true
+  },
+  "input_hashes": {
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_00.png": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_01.png": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_02.png": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_03.png": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.4096\\texture_04.png": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.blink.motion3.json": "399f91b7bfac0666f589ab7c6daace5e33e5c6d6e7c6e7ca4024b6db48a65110",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.cdi3.json": "b11ad69f3de3df80f33efa9fe82172a3052eef639903a3bb6c17d855dea7ff2f",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.idle.motion3.json": "a32ca6a85d2ae68d5b71ba4d7a74db5ce35a5b634882bd0f83ce84363f597722",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.moc3": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.model3.json": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.nod.motion3.json": "bfd9a247d5ec8479145c2dddfd5fdbf03e1c46df8d7460f07badd146c1e19418",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.psd2live.json": "db1b5aad0dc9f5e2c31bddac8278ae596c6283c22991b9a9aba6f7775a42aa54",
+    "E:\\projects\\Desktop-Companion\\assets\\live2d\\whale-girl\\whale-girl-layered-draft.shake.motion3.json": "9714b72b47dba8e33b6b08d0f9e84c77309a6ce6c98d2a3815c3a59d69163b01",
+    "E:\\projects\\Desktop-Companion\\assets\\motions\\grass-touch.motion.json": "b63774d42a31b1c93cc7a9a598f718e0fe9f379ae9fdc89b2215963a28b6fc9e",
+    "E:\\projects\\Desktop-Companion\\build\\Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+    "E:\\projects\\Desktop-Companion\\tools\\review_grass_pin.py": "4df335291e4d7cb930460d6209a31b62dc1dfdfbeeb647ea4cb6224c9b0939be"
+  }
+}

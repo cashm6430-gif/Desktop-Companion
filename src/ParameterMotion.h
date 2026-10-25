@@ -110,6 +110,18 @@ public:
     void lookAtGrassTip(double horizontal);
     double grassInteractionMaxDuration() const;
 
+    // Development candidate: a bounded force on the existing soft-grass
+    // spring, never on the held palm or arm. Callers must explicitly opt in;
+    // approved grass input continues to use respondToGrass(). The offset is
+    // the spring target contribution, not the rendered tip's displacement.
+    bool beginGrassTipDrag(bool allowDraft = false);
+    void updateGrassTipDrag(double normalizedBend);
+    void endGrassTipDrag();
+    void cancelGrassTipDrag();
+    bool grassTipDragActive() const { return grassTipDragActive_; }
+    bool grassTipDragSettling() const { return grassTipDragSettleTime_ > 0.0; }
+    double grassTipDragOffset() const { return grassTipDragOffset_; }
+
     // Scene-move drag reaction (motion card 4). The window layer feeds window
     // velocity; the motion layer adds eye/hair/body lag and a settle nod. Pure
     // overlay: it owns no state transitions and never touches the busy clock.
@@ -353,6 +365,9 @@ private:
     double grassBendVelocity_ = 0.0;
     double grassTip_ = 0.0;
     double grassTipVelocity_ = 0.0;
+    bool grassTipDragActive_ = false;
+    double grassTipDragOffset_ = 0.0;
+    double grassTipDragSettleTime_ = 0.0;
     double previousGripAngle_ = 0.0;
     double previousReach_ = 0.0;
 

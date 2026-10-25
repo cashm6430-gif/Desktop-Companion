@@ -3,6 +3,7 @@
 #include "DesktopDeleteSource.h"
 #include "HeadPatInputReview.h"
 #include "MemoInputReview.h"
+#include "GrassDragInputReview.h"
 #include "MemoStore.h"
 #include "IntegrationStatusModel.h"
 #include "PetController.h"
@@ -132,8 +133,10 @@ int main(int argc, char** argv) {
     startup::trace(QStringLiteral("desk mode probed"));
     const bool memoReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3) == QStringLiteral("memo-recovery");
+    const bool grassDragReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3).startsWith(QStringLiteral("grass-drag-"));
     qint64 memoReviewNowMs = 1000;
-    if (memoReview) {
+    if (memoReview || grassDragReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -147,10 +150,12 @@ int main(int argc, char** argv) {
             || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
             return 2;
         app.setProperty("desktopCompanionReviewSettingsIsolated", true);
-        const QString notePath = QDir(output).filePath(QStringLiteral("memo.json"));
-        app.setProperty("desktopCompanionReviewMemoPath", notePath);
-        MemoStore store(notePath);
-        if (!store.save({QStringLiteral("先喝口水，再继续"), false})) return 2;
+        if (memoReview) {
+            const QString notePath = QDir(output).filePath(QStringLiteral("memo.json"));
+            app.setProperty("desktopCompanionReviewMemoPath", notePath);
+            MemoStore store(notePath);
+            if (!store.save({QStringLiteral("先喝口水，再继续"), false})) return 2;
+        }
     }
     PetController controller(nullptr, memoReview
         ? PetController::NowMs{[&memoReviewNowMs] { return memoReviewNowMs; }} : PetController::NowMs{});
@@ -170,6 +175,7 @@ int main(int argc, char** argv) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         const QString scenario = QString::fromLocal8Bit(argv[3]);
         if (memoReview) return runMemoInputReview(app, controller, window, output, memoReviewNowMs);
+        if (grassDragReview) return runGrassDragInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
             return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {

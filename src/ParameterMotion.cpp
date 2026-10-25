@@ -305,6 +305,7 @@ void ParameterMotion::setState(PetController::State state) {
     }
     if (state_ == state && state != PetController::State::Delete
         && state != PetController::State::Grass) return;
+    cancelGrassTipDrag();
     grassTouch_.reset();
     state_ = state;
     if (state != PetController::State::Idle) interactionSeat_.clear();
@@ -367,7 +368,9 @@ bool ParameterMotion::loadMotionLibrary(const QString& directory, QString* error
     }
     interactionDirectory_ = directory;
     if (!configureInteractions(error)) return false;
-    return grassTouch_.configure(library_, directory, error);
+    if (!grassTouch_.configure(library_, directory, error)) return false;
+    cancelGrassTipDrag();
+    return true;
 }
 
 double ParameterMotion::clipEventTime(const QString& clipId, const QString& event,
@@ -672,6 +675,7 @@ void ParameterMotion::applyInteraction(Parameters& desired) const {
 
 bool ParameterMotion::beginGrassInteraction() {
     if (preview_ || state_ != PetController::State::Grass || !grassTouch_.canBegin()) return false;
+    cancelGrassTipDrag();
     grassTouch_.begin();
     actionTime_ = 0.0;
     finishedPending_ = actionFinishedReported_ = false;
@@ -688,7 +692,9 @@ QString ParameterMotion::grassInteractionPhase() const {
 
 bool ParameterMotion::respondToGrass() {
     if (state_ != PetController::State::Grass) return false;
-    return grassTouch_.respond();
+    const bool accepted = grassTouch_.respond();
+    if (accepted) cancelGrassTipDrag();
+    return accepted;
 }
 
 void ParameterMotion::lookAtGrassTip(double horizontal) {
@@ -697,6 +703,33 @@ void ParameterMotion::lookAtGrassTip(double horizontal) {
 
 double ParameterMotion::grassInteractionMaxDuration() const {
     return grassTouch_.maxDuration();
+}
+
+bool ParameterMotion::beginGrassTipDrag(bool allowDraft) {
+    if (!allowDraft || preview_ || state_ != PetController::State::Grass
+        || !grassTouch_.holding() || grassTipDragActive_) return false;
+    grassTipDragActive_ = true;
+    grassTipDragOffset_ = grassTipDragSettleTime_ = 0.0;
+    return true;
+}
+
+void ParameterMotion::updateGrassTipDrag(double normalizedBend) {
+    if (!grassTipDragActive_ || !grassTouch_.holding() || !qIsFinite(normalizedBend)) return;
+    grassTipDragOffset_ = 0.35 * std::clamp(normalizedBend, -1.0, 1.0);
+}
+
+void ParameterMotion::endGrassTipDrag() {
+    if (!grassTipDragActive_) return;
+    grassTipDragActive_ = false;
+    grassTipDragOffset_ = 0.0;
+    grassTipDragSettleTime_ = grassTouch_.holding() ? 1.2 : 0.0;
+    // Keep the existing spring's positions and velocities. Removing only the
+    // force lets the stem rebound first and its softer tip follow naturally.
+}
+
+void ParameterMotion::cancelGrassTipDrag() {
+    grassTipDragActive_ = false;
+    grassTipDragOffset_ = grassTipDragSettleTime_ = 0.0;
 }
 
 // --- Scene-move drag reaction (motion card 4) -------------------------------
@@ -1076,6 +1109,7 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     cancelInteraction();
+    cancelGrassTipDrag();
     grassTouch_.reset();
     values_ = parameters;
     grassBend_ = parameters.value(QStringLiteral("ParamGrassSwing"));
@@ -1121,6 +1155,8 @@ void ParameterMotion::advance(double seconds) {
     advanceInteraction(seconds);
     bool grassFinished = false;
     grassTouch_.advance(seconds, grassFinished);
+    if (!grassTouch_.holding()) cancelGrassTipDrag();
+    else grassTipDragSettleTime_ = std::max(0.0, grassTipDragSettleTime_ - seconds);
     if (grassFinished) finishedPending_ = actionFinishedReported_ = true;
     drag_.advance(seconds);
     memo_.advance(seconds);
@@ -1382,8 +1418,12 @@ void ParameterMotion::advance(double seconds) {
     previousGripAngle_ = gripAngle;
     previousReach_ = reach;
     const double visible = values_.value(QStringLiteral("ParamGrassVisible"));
-    const double flexTarget = 0.65 * desired.value(QStringLiteral("ParamGrassSwing"))
+    double flexTarget = 0.65 * desired.value(QStringLiteral("ParamGrassSwing"))
         - visible * (0.0045 * gripSpeed + 0.035 * reachSpeed);
+    // Leave the approved path's arithmetic unchanged when no candidate force
+    // is present. The extra force owns no grip, joint, reach or face channel.
+    if (grassTouch_.holding() && grassTipDragOffset_ != 0.0)
+        flexTarget += grassTipDragOffset_;
     updateGrassFlex(seconds, std::clamp(flexTarget, -1.0, 1.0));
 
     // A one-shot action reports completion once it reaches its authored length.

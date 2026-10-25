@@ -28,6 +28,7 @@
 #include <numbers>
 #include <QGuiApplication>
 #include <QInputDialog>
+#include <QJsonArray>
 #include <QMenu>
 #include <QMessageBox>
 #include <QMimeData>
@@ -42,6 +43,7 @@
 #include <QUrl>
 #include <QWheelEvent>
 #include <algorithm>
+#include <cmath>
 #include <functional>
 #include <utility>
 
@@ -566,6 +568,10 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     interactionPreviewAction_ = previewMenu->addAction(QStringLiteral("新互动（待审批）"));
     interactionPreviewAction_->setCheckable(true);
     connect(interactionPreviewAction_, &QAction::toggled, this, &PetWindow::setInteractionPreviewEnabled);
+    grassDragPreviewAction_ = previewMenu->addAction(QStringLiteral("软草穗跟手（待审批）"));
+    grassDragPreviewAction_->setObjectName(QStringLiteral("grassDragPreviewAction"));
+    grassDragPreviewAction_->setCheckable(true);
+    connect(grassDragPreviewAction_, &QAction::toggled, this, &PetWindow::setGrassDragPreviewEnabled);
     if (!grassInteractionApproved()) {
         previewMenu->addAction(QStringLiteral("草穗接招"), this, [this] {
             setInteractionPreviewEnabled(true);
@@ -1672,6 +1678,11 @@ void PetWindow::advanceLiveFrame(double seconds) {
         updatePointerGesture();
     }
     motion_.advance(seconds);
+    // The bounded Hold deadline keeps running even with a captured pointer.
+    // Consume this press until release so a timeout never turns into a window
+    // drag or a head pat; only its force is removed as the phase exits.
+    if (grassTouchPressed_ && motion_.grassInteractionPhase() != QStringLiteral("hold"))
+        motion_.cancelGrassTipDrag();
     if (motion_.consumeActionFinished()) controller_->actionFinished();
     // Sticky note lifecycle: hold the risen note, fold it into a corner badge
     // when the user ignores it for a while, fade the badge once completed.
@@ -1755,6 +1766,53 @@ bool PetWindow::isGrassTipAt(const QPointF& position) const {
     return (grassInteractionApproved() || interactionPreviewEnabled_)
         && motion_.grassInteractionPhase() == QStringLiteral("hold")
         && grassTipHitPath().contains(position);
+}
+
+QJsonObject PetWindow::grassGeometry() const {
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_ && cubismCanvas_->isReady()) {
+        auto geometry = cubismCanvas_->grassGeometry();
+        if (lungeMirrored_ && geometry.value(QStringLiteral("valid")).toBool()) {
+            const auto mirror = [this](QJsonArray point) {
+                point[0] = width() - point[0].toDouble();
+                return point;
+            };
+            for (const auto* name : {"root", "mid", "tip"})
+                geometry[QString::fromLatin1(name)] = mirror(geometry.value(QString::fromLatin1(name)).toArray());
+            QJsonArray pinned;
+            for (const auto& point : geometry.value(QStringLiteral("pinned_vertices")).toArray())
+                pinned.append(mirror(point.toArray()));
+            geometry[QStringLiteral("pinned_vertices")] = pinned;
+        }
+        return geometry;
+    }
+#endif
+    return {{QStringLiteral("valid"), false}};
+}
+
+void PetWindow::setGrassDragPreviewEnabled(bool enabled) {
+    grassDragPreviewEnabled_ = enabled;
+    if (grassDragPreviewAction_ && grassDragPreviewAction_->isChecked() != enabled) {
+        const QSignalBlocker block(grassDragPreviewAction_);
+        grassDragPreviewAction_->setChecked(enabled);
+    }
+    if (!enabled) {
+        motion_.cancelGrassTipDrag();
+        if (grassTouchPressed_) releasePointerGesture();
+    }
+    updateInputTransparency();
+}
+
+QJsonObject PetWindow::grassDragReviewState() const {
+    return {{QStringLiteral("enabled"), grassDragPreviewEnabled_},
+        {QStringLiteral("pressed"), grassTouchPressed_},
+        {QStringLiteral("moved"), grassDragMoved_},
+        {QStringLiteral("active"), motion_.grassTipDragActive()},
+        {QStringLiteral("settling"), motion_.grassTipDragSettling()},
+        {QStringLiteral("offset"), motion_.grassTipDragOffset()},
+        {QStringLiteral("normal"), QJsonArray{grassDragNormal_.x(), grassDragNormal_.y()}},
+        {QStringLiteral("span"), grassDragSpan_},
+        {QStringLiteral("geometry"), grassGeometry()}};
 }
 
 void PetWindow::setInteractionPreviewEnabled(bool enabled) {
@@ -1873,7 +1931,10 @@ void PetWindow::releasePointerGesture() {
         }
     }
     dragging_ = false;
+    if (motion_.grassTipDragActive()) motion_.lookAtGrassTip(0.0);
+    motion_.endGrassTipDrag();
     grassTouchPressed_ = false;
+    grassDragMoved_ = false;
 }
 
 // Motion card 4: after a scene move the window must stay on the current screen.
@@ -1933,6 +1994,26 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
             return;
         }
         releasePointerGesture();
+        if (grassDragPreviewEnabled_ && isGrassTipAt(event->position())) {
+            const auto geometry = grassGeometry();
+            const auto root = geometry.value(QStringLiteral("root")).toArray();
+            const auto tip = geometry.value(QStringLiteral("tip")).toArray();
+            if (geometry.value(QStringLiteral("valid")).toBool() && root.size() == 2 && tip.size() == 2) {
+                const QPointF stem(tip[0].toDouble() - root[0].toDouble(),
+                                   tip[1].toDouble() - root[1].toDouble());
+                const double length = std::hypot(stem.x(), stem.y());
+                if (length > 1.0 && motion_.beginGrassTipDrag(true)) {
+                    grassDragPress_ = event->position();
+                    grassDragNormal_ = QPointF(-stem.y(), stem.x()) / length;
+                    if (grassDragNormal_.x() < 0.0) grassDragNormal_ = -grassDragNormal_;
+                    grassDragSpan_ = (std::max)(12.0, 0.4 * length);
+                    grassTouchPressed_ = true;
+                    updateInputTransparency();
+                    event->accept();
+                    return;
+                }
+            }
+        }
         if (isGrassTipAt(event->position()) && motion_.respondToGrass()) {
             grassTouchPressed_ = true;
             updateInputTransparency();
@@ -1954,6 +2035,24 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
 }
 
 void PetWindow::mouseMoveEvent(QMouseEvent* event) {
+    if (grassTouchPressed_ && motion_.grassTipDragActive()) {
+        if (!(event->buttons() & Qt::LeftButton)) {
+            releasePointerGesture();
+            event->accept();
+            return;
+        }
+        const QPointF delta = event->position() - grassDragPress_;
+        if (std::hypot(delta.x(), delta.y()) >= (std::max)(2.0, width() * 0.012))
+            grassDragMoved_ = true;
+        if (grassDragMoved_) {
+            const double bend = QPointF::dotProduct(delta, grassDragNormal_) / grassDragSpan_;
+            motion_.updateGrassTipDrag(bend);
+            motion_.lookAtGrassTip(std::clamp(delta.x() / grassDragSpan_, -1.0, 1.0));
+        }
+        setCursor(Qt::ClosedHandCursor);
+        event->accept();
+        return;
+    }
     if (motion_.grassInteractionPhase() == QStringLiteral("hold")) {
         const QRectF tip = grassTipHitPath().boundingRect();
         const bool nearby = !tip.isEmpty() && tip.adjusted(-width() * 0.12, -height() * 0.12,
@@ -1992,7 +2091,10 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
 void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         longPressTimer_.stop();
+        const bool tap = grassDragPreviewEnabled_ && grassTouchPressed_
+            && motion_.grassTipDragActive() && !grassDragMoved_;
         releasePointerGesture();
+        if (tap) motion_.respondToGrass();
         updateInputTransparency();
         event->accept();
     }

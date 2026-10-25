@@ -42,6 +42,7 @@
 #include <limits>
 #include <cmath>
 #include <type_traits>
+#include <array>
 
 namespace Csm = Live2D::Cubism::Framework;
 
@@ -125,6 +126,56 @@ bool usesOnlyCompatibleBlendModes(Live2D::Cubism::Framework::CubismModel* model)
     }
     return Live2D::Cubism::Core::csmGetOffscreenCount(native) == 0;
 }
+
+struct GrassMaterialAnchor {
+    std::array<int, 3> indices{};
+    std::array<double, 3> weights{};
+    double sourceResidual = std::numeric_limits<double>::infinity();
+    bool valid = false;
+};
+
+// Locate a source-art point on the material triangles, independent of atlas
+// packing. A nominal tip just outside the fuzzy silhouette snaps to its nearest
+// triangle edge; it is never extrapolated beyond the rendered mesh.
+GrassMaterialAnchor grassMaterialAnchor(const std::vector<QPointF>& material,
+    const unsigned short* indices, int count, const QPointF& target) {
+    GrassMaterialAnchor best;
+    const auto squaredLength = [](QPointF p) { return p.x() * p.x() + p.y() * p.y(); };
+    const auto cross = [](QPointF a, QPointF b) { return a.x() * b.y() - a.y() * b.x(); };
+    for (int i = 0; i + 2 < count; i += 3) {
+        const std::array<int, 3> triangle{indices[i], indices[i + 1], indices[i + 2]};
+        const std::array<QPointF, 3> p{material[triangle[0]], material[triangle[1]], material[triangle[2]]};
+        const double area = cross(p[1] - p[0], p[2] - p[0]);
+        if (std::abs(area) < 1e-12) continue;
+        const double b = cross(target - p[0], p[2] - p[0]) / area;
+        const double c = cross(p[1] - p[0], target - p[0]) / area;
+        std::array<double, 3> weights{1.0 - b - c, b, c};
+        double distance = 0.0;
+        if (*std::min_element(weights.begin(), weights.end()) < 0.0) {
+            distance = std::numeric_limits<double>::infinity();
+            for (int edge = 0; edge < 3; ++edge) {
+                const int next = (edge + 1) % 3;
+                const QPointF delta = p[next] - p[edge];
+                const double length = squaredLength(delta);
+                const QPointF offset = target - p[edge];
+                const double t = length > 0.0 ? std::clamp(
+                    (offset.x() * delta.x() + offset.y() * delta.y()) / length, 0.0, 1.0) : 0.0;
+                const double candidate = squaredLength(p[edge] + t * delta - target);
+                if (candidate < distance) {
+                    distance = candidate;
+                    weights = {0.0, 0.0, 0.0};
+                    weights[edge] = 1.0 - t;
+                    weights[next] = t;
+                }
+            }
+        }
+        if (!best.valid || distance < best.sourceResidual * best.sourceResidual) {
+            best = {triangle, weights, std::sqrt(distance), true};
+            if (distance == 0.0) break;
+        }
+    }
+    return best;
+}
 }
 
 struct CubismCanvas::Impl {
@@ -148,6 +199,9 @@ struct CubismCanvas::Impl {
     int faceMesh = -1;
     int grassMesh = -1;
     float grassTipMinV = 0, grassTipMaxU = 0;
+    std::array<GrassMaterialAnchor, 3> grassAnchors;
+    std::vector<int> grassPinnedVertices;
+    bool grassMaterialContract = false;
     // The bite (gape) art drawable. The exported moc3 lost the switch-opacity
     // keyforms that should tie this mesh's visibility to ParamMouthGape, so
     // the layer rides fully opaque and only MouthOpenY's 25%-sliver closed
@@ -759,6 +813,37 @@ void CubismCanvas::initializeGL() {
             // to this mesh avoids depending on atlas packing coordinates.
             impl_->grassTipMinV = maxV - 0.24f * (maxV - minV);
             impl_->grassTipMaxU = minU + 0.38f * (maxU - minU);
+            // Formal grass art spans source x797..922/y494..896. The UV
+            // rectangle retains this material frame after key deformation.
+            // This probe contract deliberately fails closed for another MOC;
+            // matching vertex counts alone would not prove the material frame.
+            const int vertexCount = model->GetDrawableVertexCount(index);
+            const bool knownGrassMaterial = QCryptographicHash::hash(moc, QCryptographicHash::Sha256).toHex()
+                == QByteArrayLiteral("f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781");
+            if (knownGrassMaterial && vertexCount == 878 && maxU > minU && maxV > minV) {
+                std::vector<QPointF> material;
+                material.reserve(vertexCount);
+                const QPointF root(913.0, 852.0), tip(806.0, 498.0);
+                const QPointF stem = tip - root;
+                const double stemLengthSquared = stem.x() * stem.x() + stem.y() * stem.y();
+                for (int i = 0; i < vertexCount; ++i) {
+                    const QPointF source(797.0 + 125.0 * (uv[i].X - minU) / (maxU - minU),
+                        494.0 + 402.0 * (maxV - uv[i].Y) / (maxV - minV));
+                    material.push_back(source);
+                    const QPointF offset = source - root;
+                    const double progress = (offset.x() * stem.x() + offset.y() * stem.y()) / stemLengthSquared;
+                    if (progress >= -0.08 && progress <= 0.10) impl_->grassPinnedVertices.push_back(i);
+                }
+                const auto* triangles = model->GetDrawableVertexIndices(index);
+                const int triangleCount = model->GetDrawableVertexIndexCount(index);
+                impl_->grassAnchors = {
+                    grassMaterialAnchor(material, triangles, triangleCount, root),
+                    grassMaterialAnchor(material, triangles, triangleCount, QPointF(884.0, 669.0)),
+                    grassMaterialAnchor(material, triangles, triangleCount, tip)};
+                impl_->grassMaterialContract = impl_->grassPinnedVertices.size() == 37
+                    && std::all_of(impl_->grassAnchors.begin(), impl_->grassAnchors.end(),
+                        [](const auto& anchor) { return anchor.valid && anchor.sourceResidual < 3.0; });
+            }
         }
     }
     model->Update();
@@ -805,6 +890,7 @@ void CubismCanvas::resizeGL(int width, int height) {
 }
 
 void CubismCanvas::paintGL() {
+    grassGeometry_ = QJsonObject{{QStringLiteral("valid"), false}};
     if (sampleCount_ < 0) {
         GLint samples = 0;
         glGetIntegerv(GL_SAMPLES, &samples);
@@ -1102,6 +1188,29 @@ void CubismCanvas::paintGL() {
         const auto* vertices = model->GetDrawableVertexPositions(index);
         const auto* uv = model->GetDrawableVertexUvs(index);
         const auto* indices = model->GetDrawableVertexIndices(index);
+        if (impl_->grassMaterialContract) {
+            QJsonArray anchors, residuals, pinned;
+            bool finite = true;
+            for (const auto& anchor : impl_->grassAnchors) {
+                QPointF pixel;
+                for (int j = 0; j < 3; ++j) pixel += anchor.weights[j] * point(vertices[anchor.indices[j]]);
+                finite = finite && std::isfinite(pixel.x()) && std::isfinite(pixel.y());
+                anchors.append(QJsonArray{pixel.x(), pixel.y()});
+                residuals.append(anchor.sourceResidual);
+            }
+            for (int vertex : impl_->grassPinnedVertices) {
+                const QPointF pixel = point(vertices[vertex]);
+                finite = finite && std::isfinite(pixel.x()) && std::isfinite(pixel.y());
+                pinned.append(QJsonArray{pixel.x(), pixel.y()});
+            }
+            if (finite) grassGeometry_ = QJsonObject{
+                {QStringLiteral("valid"), true},
+                {QStringLiteral("drawable_id"), QStringLiteral("ArtMeshHandwearR2")},
+                {QStringLiteral("root"), anchors[0]}, {QStringLiteral("mid"), anchors[1]},
+                {QStringLiteral("tip"), anchors[2]}, {QStringLiteral("pinned_vertices"), pinned},
+                {QStringLiteral("source_rect"), QJsonArray{797, 494, 922, 896}},
+                {QStringLiteral("anchor_source_residual_px"), residuals}};
+        }
         struct HitVertex { QPointF uv, pixel; };
         const auto clip = [](const std::vector<HitVertex>& input, bool vertical, double boundary) {
             std::vector<HitVertex> output;

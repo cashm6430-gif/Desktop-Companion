@@ -27,6 +27,9 @@ public:
     // same grounded transform as the picture, so input follows head/seat motion.
     const QPainterPath& headHitPath() const { return headHitPath_; }
     const QPainterPath& grassTipHitPath() const { return grassTipHitPath_; }
+    // Latest rendered material anchors in logical widget pixels. Read-only
+    // diagnostics for the bounded grass probe; invalid when the prop is hidden.
+    QJsonObject grassGeometry() const { return grassGeometry_; }
     // How far the face moved down this frame (widget pixels) because the head
     // rides the seated collar target. Window-layer art that is glued to the
     // face -- the nap eye mask -- adds this so it sinks with the head.
@@ -50,5 +53,6 @@ private:
     double frameSeconds_ = 0.0;
     QPainterPath headHitPath_;
     QPainterPath grassTipHitPath_;
+    QJsonObject grassGeometry_{{QStringLiteral("valid"), false}};
     double headRideY_ = 0.0;
 };

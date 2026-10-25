@@ -1,0 +1,10 @@
+[1/11] Automatic MOC for target DesktopCompanion
+[2/10] Building CXX object CMakeFiles\MotionClipTest.dir\src\WorkReactionCoordinator.cpp.obj
+[3/10] Linking CXX executable ParameterMotionTest.exe
+[4/10] Building CXX object CMakeFiles\MotionClipTest.dir\src\ParameterMotion.cpp.obj
+[5/10] Building CXX object CMakeFiles\MotionClipTest.dir\tests\MotionClipTest.cpp.obj
+[6/10] Linking CXX executable MotionClipTest.exe
+[7/10] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetWindow.cpp.obj
+[8/10] Linking CXX executable DesktopCompanion.exe
+[9/10] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[10/10] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
