@@ -45,11 +45,17 @@ int runGrassDragInputReview(QApplication& app, PetController& controller,
         QStringLiteral("up"), QStringLiteral("down"), QStringLiteral("limit"),
         QStringLiteral("timeout"), QStringLiteral("delete"), QStringLiteral("ungrab"),
         QStringLiteral("deactivate"), QStringLiteral("hide"), QStringLiteral("disable"),
-        QStringLiteral("tap"), QStringLiteral("default")};
+        QStringLiteral("tap"), QStringLiteral("default"), QStringLiteral("approved")};
     const QDir directory(QFileInfo(output).absoluteFilePath());
     if (!scenario.startsWith(QStringLiteral("grass-drag-")) || !kinds.contains(kind)
         || !directory.exists()) return 2;
-    const bool ordinary = kind == QStringLiteral("default");
+    const bool adopted = window.grassDragReviewState().value(QStringLiteral("approved")).toBool();
+    // The old draft action disappears on adoption. Its historic cancellation
+    // evidence remains readable; current preview-off ownership is reviewed by
+    // the dedicated approved scene instead.
+    if ((adopted && kind == QStringLiteral("disable"))
+        || (!adopted && kind == QStringLiteral("approved"))) return 2;
+    const bool ordinary = !adopted && kind == QStringLiteral("default");
     const bool tap = kind == QStringLiteral("tap");
     const bool timeout = kind == QStringLiteral("timeout");
     const bool interruption = QStringList{QStringLiteral("delete"), QStringLiteral("ungrab"),
@@ -57,7 +63,7 @@ int runGrassDragInputReview(QApplication& app, PetController& controller,
 
     window.prepareLiveInteractionReview(560);
     window.setInteractionPreviewEnabled(false);
-    window.setGrassDragPreviewEnabled(!ordinary);
+    window.setGrassDragPreviewEnabled(!adopted && !ordinary);
     window.move(-10000, -10000);
     window.show();
     QTimer timer, deadline;
@@ -69,7 +75,7 @@ int runGrassDragInputReview(QApplication& app, PetController& controller,
     QJsonArray frames;
     QJsonObject checks;
     int frame = 0;
-    bool finished = false, pressed = false, released = false, interrupted = false;
+    bool finished = false, pressed = false, released = false, interrupted = false, previewOffChecked = false;
     bool sawHold = false, sawActive = false, sawMoved = false, sawRespond = false;
     bool sawTimeout = false, sawSettling = false, sawBusyResume = false;
     double holdStart = -1, clearAfter = -1;
@@ -86,8 +92,9 @@ int runGrassDragInputReview(QApplication& app, PetController& controller,
         file.setDirectWriteFallback(false);
         const auto bytes = QJsonDocument(QJsonObject{
             {QStringLiteral("scenario"), scenario},
-            {QStringLiteral("scope"), QStringLiteral("native_soft_grass_candidate_synthetic_qt_input")},
-            {QStringLiteral("adoption"), QStringLiteral("pending")},
+            {QStringLiteral("scope"), adopted ? QStringLiteral("native_soft_grass_approved_synthetic_qt_input")
+                                              : QStringLiteral("native_soft_grass_candidate_synthetic_qt_input")},
+            {QStringLiteral("adoption"), adopted ? QStringLiteral("approved") : QStringLiteral("pending")},
             {QStringLiteral("passed"), code == 0}, {QStringLiteral("failure"), failure},
             {QStringLiteral("wall_ms"), wall.elapsed()},
             {QStringLiteral("render_backend"), window.renderBackend()},
@@ -131,12 +138,25 @@ int runGrassDragInputReview(QApplication& app, PetController& controller,
         QString event;
         if (!check(QStringLiteral("native_backend"), window.renderBackend() == QStringLiteral("cubism_native"))
             || !check(QStringLiteral("isolated_settings"), app.property("desktopCompanionReviewSettingsIsolated").toBool())) return;
-        if (frame == 0 && !check(QStringLiteral("candidate_opt_in_only"),
-                window.grassDragReviewState().value(QStringLiteral("enabled")).toBool() == !ordinary
-                && !window.interactionPreviewEnabled())) return;
+        if (frame == 0) {
+            const auto initial = window.grassDragReviewState();
+            if (!check(adopted ? QStringLiteral("approved_no_preview_entry") : QStringLiteral("candidate_opt_in_only"),
+                    initial.value(QStringLiteral("enabled")).toBool() == !ordinary
+                    && !window.interactionPreviewEnabled()
+                    && (!adopted || (initial.value(QStringLiteral("approved")).toBool()
+                        && !initial.value(QStringLiteral("preview_enabled")).toBool())))) return;
+        }
         if (frame == 3) {
-            if (!check(QStringLiteral("grass_started"), window.startGrassInteraction())) return;
-            event = QStringLiteral("start_approved_grass");
+            if (kind == QStringLiteral("approved")) {
+                const QPointF body(window.width() * 0.5, window.height() * 0.5);
+                mouse(QEvent::MouseButtonDblClick, body, Qt::LeftButton, Qt::LeftButton);
+                mouse(QEvent::MouseButtonRelease, body, Qt::LeftButton, Qt::NoButton);
+                if (!check(QStringLiteral("grass_started"), window.grassInteractionPhase() == QStringLiteral("enter"))) return;
+                event = QStringLiteral("default_double_click");
+            } else {
+                if (!check(QStringLiteral("grass_started"), window.startGrassInteraction())) return;
+                event = QStringLiteral("start_approved_grass");
+            }
         }
         if (frame == 15) {
             controller.turnStarted(QStringLiteral("grass-drag-fixture"), QStringLiteral("work"));
@@ -184,6 +204,20 @@ int runGrassDragInputReview(QApplication& app, PetController& controller,
             mousePoint = pressPoint + delta * progress;
             mouse(QEvent::MouseMove, mousePoint, Qt::NoButton, Qt::LeftButton);
             if (event.isEmpty()) event = QStringLiteral("qt_tip_pull");
+        }
+        if (kind == QStringLiteral("approved") && pressed && !previewOffChecked && holdAge >= 0.7 - 1e-6) {
+            const double force = window.grassDragReviewState().value(QStringLiteral("offset")).toDouble();
+            window.setInteractionPreviewEnabled(false);
+            window.setGrassDragPreviewEnabled(false);
+            const auto drag = window.grassDragReviewState();
+            if (!check(QStringLiteral("approved_preview_off_keeps_drag"), force > 0.3
+                    && drag.value(QStringLiteral("active")).toBool()
+                    && drag.value(QStringLiteral("pressed")).toBool()
+                    && !drag.value(QStringLiteral("preview_enabled")).toBool()
+                    && !window.interactionPreviewEnabled()
+                    && std::abs(drag.value(QStringLiteral("offset")).toDouble() - force) < 1e-9)) return;
+            previewOffChecked = true;
+            event = QStringLiteral("approved_preview_off_keeps_drag");
         }
         if (pressed && !released && !interrupted && interruption && holdAge >= 0.7 - 1e-6) {
             if (kind == QStringLiteral("delete")) controller.desktopItemDeleted();

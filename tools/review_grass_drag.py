@@ -1,10 +1,10 @@
-"""Capture the opt-in soft grass candidate with isolated synthetic Qt input.
+"""Capture approved or draft soft grass input with isolated synthetic Qt input.
 
 python tools/review_grass_drag.py <fresh-directory> [--scenario right]
 python tools/review_grass_drag.py <existing-directory> --verify-only
 
-No physical pointer, hooks, desktop files or production IPC are used. The
-candidate remains pending approval; a passing capture does not adopt it.
+No physical pointer, hooks, desktop files or production IPC are used. Approval
+is read from the actual window; passing a capture never adopts a draft.
 """
 import argparse
 import json
@@ -16,9 +16,10 @@ import subprocess
 from review_session import ROOT, deployment_snapshot, digest
 
 KINDS = ("right", "left", "up", "down", "limit", "timeout", "delete", "ungrab",
-         "deactivate", "hide", "disable", "tap", "default")
+         "deactivate", "hide", "disable", "tap", "default", "approved")
 SCENARIOS = tuple("grass-drag-" + name for name in KINDS)
 SCOPE = "native_soft_grass_candidate_synthetic_qt_input"
+APPROVED_SCOPE = "native_soft_grass_approved_synthetic_qt_input"
 EXE = ROOT / "build/DesktopCompanion.exe"
 CORE = ROOT / "build/Live2DCubismCore.dll"
 INTERRUPTS = {"delete", "ungrab", "deactivate", "hide", "disable"}
@@ -41,17 +42,24 @@ def check_scene(path):
     path = Path(path)
     data = json.loads(path.read_text(encoding="utf8"))
     scenario = data["scenario"]
-    require(scenario in SCENARIOS and data["scope"] == SCOPE, "Unexpected capture scope")
+    require(scenario in SCENARIOS and data["scope"] in {SCOPE, APPROVED_SCOPE}, "Unexpected capture scope")
     kind = scenario.removeprefix("grass-drag-")
     require(data["passed"] is True and data["failure"] == "", "Native review failed")
-    require(data["adoption"] == "pending", "Candidate adoption must remain pending")
+    adopted = data["adoption"] == "approved"
+    require(data["adoption"] in {"pending", "approved"}
+            and data["scope"] == (APPROVED_SCOPE if adopted else SCOPE), "Approval scope mismatch")
+    require(kind != "approved" or adopted, "Approved entry requires approved runtime evidence")
+    require(not adopted or kind != "disable", "Use approved scene for preview-off ownership")
     require(data["render_backend"] == "cubism_native" and not data["render_error"], "Native renderer error")
     checks = data["checks"]
-    required_checks = {"native_backend", "isolated_settings", "candidate_opt_in_only", "grass_started",
+    required_checks = {"native_backend", "isolated_settings", "grass_started",
         "background_start_keeps_grass", "actual_tip_hit_found", "grass_does_not_drag_window",
         "hold_and_press_seen", "real_turn_finished_idle", "final_tracking_clear",
         "candidate_or_default_entry", "only_taps_respond", "drag_threshold_or_tap",
         "release_rebounds", "timeout_branch", "background_resumes"}
+    required_checks.add("approved_no_preview_entry" if adopted else "candidate_opt_in_only")
+    if kind == "approved":
+        required_checks.add("approved_preview_off_keeps_drag")
     require(required_checks <= checks.keys() and all(value is True for value in checks.values()),
             "Required Native checks failed or missing")
     privacy = data["privacy"]
@@ -73,6 +81,9 @@ def check_scene(path):
         for axis in ("ParamGrassSwing", "ParamGrassTipBend"):
             require(axis in parameters and abs(parameters[axis]) <= 1.000001, "Unbounded soft grass parameter")
         drag = frame["drag"]
+        if adopted:
+            require(drag.get("approved") is True and drag.get("preview_enabled") is False
+                    and drag["enabled"] is True, "Approved entry depended on a draft switch")
         require(finite(drag["offset"]) and abs(drag["offset"]) <= .350001, "Unbounded drag force")
         require(point(drag["normal"]) and finite(drag["span"]), "Invalid drag projection")
         require(all(isinstance(drag[key], bool) for key in
@@ -99,9 +110,13 @@ def check_scene(path):
                 and not frame["pointer"]["preview_enabled"], "Grass input started another gesture")
 
     events = {frame["event"] for frame in frames}
-    require({"start_approved_grass", "real_background_turn_start", "real_background_turn_stop"} <= events,
+    require({"real_background_turn_start", "real_background_turn_stop"} <= events
+            and bool({"start_approved_grass", "default_double_click"} & events),
             "Missing real controller events")
-    taps = kind in {"tap", "default"}
+    if kind == "approved":
+        require({"default_double_click", "approved_preview_off_keeps_drag"} <= events,
+                "Approved normal entry or preview-off event missing")
+    taps = kind == "tap" or (kind == "default" and not adopted)
     require(any(frame["grass_phase"] == "respond" for frame in frames) == taps,
             "Drag replayed the approved click response")
     if kind not in INTERRUPTS:
@@ -117,15 +132,15 @@ def check_scene(path):
         require(cancel is not None, "Missing interruption event")
         require(all(not frame["drag"]["active"] and not frame["drag"]["pressed"]
                     for frame in frames[cancel:]), "Drag replayed after interruption")
-    elif kind not in {"tap", "default", "timeout"}:
+    elif not taps and kind != "timeout":
         require(any(frame["drag"]["settling"] for frame in frames), "Release rebound missing")
-    if kind == "default":
+    if kind == "default" and not adopted:
         require(all(not frame["drag"]["enabled"] and not frame["drag"]["active"] for frame in frames),
                 "Default input enabled candidate")
     elif kind not in {"tap"}:
         active = [f for f in frames if f["drag"]["moved"] and f["drag"]["active"]]
         require(active, "Drag never crossed movement threshold")
-        if kind in {"right", "left", "limit"}:
+        if kind in {"right", "left", "limit", "default", "approved"}:
             sign = -1 if kind == "left" else 1
             require(max(sign * f["drag"]["offset"] for f in active) >= .34,
                     "Full pull did not reach bounded force")
@@ -169,6 +184,17 @@ def main():
     args = parser.parse_args()
     output = args.output.resolve()
     scenarios = ["grass-drag-" + name for name in args.scenario] if args.scenario else SCENARIOS
+    if args.verify_only and not args.scenario:
+        scenarios = [name for name in SCENARIOS if (output / name / "scene.json").is_file()]
+        require(scenarios, "No captured scenes found")
+    if not args.verify_only:
+        motion = json.loads((ROOT / "assets/motions/grass-touch.motion.json").read_text(encoding="utf8"))
+        adopted_asset = motion.get("interaction", {}).get("tipDrag", {}).get("approval") == "approved"
+        if args.scenario and adopted_asset and "disable" in args.scenario:
+            parser.error("The adopted feature has no draft action; use --scenario approved to test preview-off ownership.")
+        if not args.scenario:
+            scenes_to_skip = {"disable"} if adopted_asset else {"approved"}
+            scenarios = ["grass-drag-" + name for name in KINDS if name not in scenes_to_skip]
     if not args.verify_only:
         if output.exists():
             parser.error("Use a fresh output directory to preserve existing evidence.")
@@ -188,7 +214,11 @@ def main():
             (folder / "capture.log").write_bytes(result.stdout + result.stderr)
             require(result.returncode == 0, f"Native capture failed ({scenario}): {result.returncode}")
         scenes[scenario] = check_scene(folder / "scene.json")
-    report = {"passed": True, "scope": SCOPE, "adoption": "pending",
+    approvals = {data["adoption"] for data in scenes.values()}
+    require(len(approvals) == 1, "Mixed approval states in a capture run")
+    adopted = approvals == {"approved"}
+    report = {"passed": True, "scope": APPROVED_SCOPE if adopted else SCOPE,
+              "adoption": "approved" if adopted else "pending",
               "scenarios": [{"scenario": name, "frames": len(data["frames"]), "checks": len(data["checks"]),
                              "scene_sha256": digest(output / name / "scene.json")} for name, data in scenes.items()],
               "pinned_control_comparison": compare_pins(scenes),

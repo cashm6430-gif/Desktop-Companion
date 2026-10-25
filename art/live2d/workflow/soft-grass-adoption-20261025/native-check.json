@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "scope": "native_soft_grass_approved_synthetic_qt_input",
+  "adoption": "approved",
+  "scenarios": [
+    {
+      "scenario": "grass-drag-approved",
+      "frames": 156,
+      "checks": 20,
+      "scene_sha256": "ab8235b17d48a05e32894c1daa72fe50b8b30988142d5e528f0af31439202333"
+    },
+    {
+      "scenario": "grass-drag-right",
+      "frames": 156,
+      "checks": 19,
+      "scene_sha256": "1438f0098333f36d4b7bfd1f1abf1b5d9f3210041283dbb824bd1371c05d767a"
+    },
+    {
+      "scenario": "grass-drag-left",
+      "frames": 156,
+      "checks": 19,
+      "scene_sha256": "be8e31e775f65c249f004629c9b023098883ffa88b4bb0947871055e50ab6862"
+    },
+    {
+      "scenario": "grass-drag-tap",
+      "frames": 156,
+      "checks": 19,
+      "scene_sha256": "7d15a3daf2a679bc698ddb02a270dba23a3717f80c73cdbbd710470db14f40e1"
+    },
+    {
+      "scenario": "grass-drag-delete",
+      "frames": 156,
+      "checks": 18,
+      "scene_sha256": "463abd8641d2335f8cabe7b4a1790ce1aa6988e4353fe4cbe6c4c3538435449b"
+    },
+    {
+      "scenario": "grass-drag-timeout",
+      "frames": 156,
+      "checks": 18,
+      "scene_sha256": "6ab227c998d4c45b577cee1c4629128a82b82b2fb90fb9e79777bd2e94664bb7"
+    }
+  ],
+  "pinned_control_comparison": {
+    "performed": true,
+    "comparisons": 45,
+    "tolerance_px": 0.002
+  },
+  "physical_windows_pointer_routing": "not_exercised",
+  "live_capture_performed": true,
+  "executable_sha256": "0cfe7611aa4e3791a98f0eb7a83661153c1b0a71d3a398bbfbcbc8aa89153b72",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tool_sha256": "f2056db7c9f5680c49997dd4ea3ffe71e041eb29467f9eac79d643daf3dae4dc",
+  "source_deployment_equal": true
+}

@@ -1,0 +1,2195 @@
+{
+  "frames": 312,
+  "all_parameters_equal": 296,
+  "rgba_pixels_equal": 296,
+  "frames_detail": [
+    {
+      "path": "grass-drag-left/frame-000.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-001.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-002.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-003.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-004.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-005.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-006.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-007.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-008.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-009.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-010.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-011.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-012.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-013.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-014.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-015.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-016.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-017.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-018.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-019.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-020.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-021.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-022.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-023.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-024.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-025.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-026.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-027.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-028.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-029.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-030.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-031.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-032.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-033.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-034.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-035.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-036.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-037.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-038.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-039.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-040.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-041.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-042.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-043.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-044.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-045.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-046.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-047.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-048.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-049.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-050.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-051.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-052.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-053.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-054.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-055.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-056.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-057.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-058.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-059.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-060.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-061.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-062.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-063.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-064.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-065.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-066.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-067.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-068.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-069.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-070.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-071.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-072.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-073.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-074.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-075.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-076.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-077.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-078.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-079.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-080.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-081.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-082.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-083.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-084.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-085.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-086.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-087.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-088.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-089.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-090.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-091.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-092.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-093.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-094.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-095.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-096.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-097.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-098.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-099.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-100.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-101.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-102.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-103.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-104.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-105.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-106.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-107.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-108.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-109.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-110.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-111.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-112.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-113.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-114.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-115.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-116.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-117.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-118.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-119.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-120.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-121.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-122.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-123.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-124.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-125.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-126.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-127.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-128.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-129.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-130.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-131.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-132.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-133.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-134.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-135.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-136.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-137.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-138.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-139.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-left/frame-140.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-141.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-142.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-143.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-144.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-145.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-146.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-left/frame-147.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-148.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-149.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-150.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-151.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-152.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-153.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-154.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-left/frame-155.png",
+      "all_parameters_equal": false,
+      "rgba_pixels_equal": false,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-000.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-001.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-002.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-003.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-004.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-005.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-006.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-007.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-008.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-009.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-010.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-011.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-012.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-013.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-014.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-015.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-016.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-017.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-018.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-019.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-020.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-021.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-022.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-023.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-024.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-025.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-026.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-027.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-028.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-029.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-030.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-031.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-032.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-033.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-034.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-035.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-036.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-037.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-038.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-039.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-040.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-041.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-042.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-043.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-044.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-045.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-046.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-047.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-048.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-049.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-050.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-051.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-052.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-053.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-054.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-055.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "enter",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-056.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-057.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-058.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-059.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-060.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-061.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-062.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-063.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-064.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-065.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-066.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-067.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-068.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-069.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-070.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-071.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-072.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-073.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-074.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-075.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-076.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-077.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-078.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-079.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-080.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-081.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-082.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-083.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-084.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-085.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-086.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-087.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-088.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-089.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-090.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-091.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-092.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-093.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-094.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-095.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-096.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-097.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-098.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-099.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-100.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "hold",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-101.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-102.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-103.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-104.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-105.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-106.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-107.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-108.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-109.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-110.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-111.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-112.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-113.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-114.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-115.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "timeout",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-116.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-117.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-118.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-119.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-120.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-121.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-122.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-123.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-124.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-125.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-126.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-127.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-128.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-129.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-130.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-131.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-132.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-133.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-134.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-135.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-136.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-137.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-138.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-139.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "release",
+      "state": 3
+    },
+    {
+      "path": "grass-drag-right/frame-140.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-141.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-142.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-143.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-144.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-145.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-146.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 1
+    },
+    {
+      "path": "grass-drag-right/frame-147.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-148.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-149.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-150.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-151.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-152.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-153.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-154.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    },
+    {
+      "path": "grass-drag-right/frame-155.png",
+      "all_parameters_equal": true,
+      "rgba_pixels_equal": true,
+      "grass_phase": "",
+      "state": 0
+    }
+  ],
+  "grass_activity_frames": 274,
+  "grass_activity_all_parameters_equal": 274,
+  "grass_activity_rgba_pixels_equal": 274,
+  "difference_scope": "16 left-scene frames after Grass has ended differ only in base gaze head/eye channels; the whole 312-frame run is not strictly equal."
+}

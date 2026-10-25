@@ -16,6 +16,7 @@ bool GrassTouchBehavior::configure(const MotionLibrary& library, const QString& 
     if (!clip) {
         reset();
         clip_ = MotionClip{};
+        tipDragApproved_ = false;
         return true;
     }
     QFile file(QDir(directory).filePath(QStringLiteral("grass-touch.motion.json")));
@@ -72,6 +73,9 @@ bool GrassTouchBehavior::configure(const MotionLibrary& library, const QString& 
     timeoutEnd_ = timeoutEnd;
     releaseEnd_ = releaseEnd;
     maxHold_ = maxHold;
+    const auto tipDrag = phase.value(QStringLiteral("tipDrag")).toObject();
+    tipDragApproved_ = tipDrag.value(QStringLiteral("approval")).toString() == QStringLiteral("approved")
+        && tipDrag.value(QStringLiteral("revision")).toDouble(-1.0) == 1.0;
     return true;
 }
 

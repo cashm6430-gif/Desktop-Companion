@@ -6148,6 +6148,98 @@
       "bytes": 1378,
       "sha256": "1c4829b03d2adfa4ec16f6c2c578117886b7bf5bf91d84203ba223030e5c182c"
     },
+    "art/live2d/workflow/soft-grass-adoption-20261025/assets.log": {
+      "bytes": 79,
+      "sha256": "16ac6aa9f477e9cdee47231866b1aee33bc423c797e2b3ebfd1db663eb2c68f4"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/build.log": {
+      "bytes": 2593,
+      "sha256": "86b32ba3a070b5e7a9dcda8d8ff694ae42b4728dc4bce6f9c6933397b94888a7"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/candidate-comparison.json": {
+      "bytes": 57555,
+      "sha256": "a3cd5ec0b7f5692c578ea4a60cefe2a44bda93dc9c6241066e6089638c0179e6"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/contact-sheet.png": {
+      "bytes": 581656,
+      "sha256": "431b58059aa4c68b6df5a9c2ba1982676b79ccd687b27deafc932e7ef8c2a039"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/ctest.log": {
+      "bytes": 326,
+      "sha256": "f805a7fd9263557255ee5ed259ac0dc9655e0c8e30c6344fabe95ac4462be730"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/ctest.xml": {
+      "bytes": 530,
+      "sha256": "a6035146e7295c444ad6f8120ed29d0f1ddb89d6b7c5fe7a87e04ace9261521e"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/frame-ledger.json": {
+      "bytes": 234473,
+      "sha256": "b318a3eaf8f65d548baa96df2abeeefafc330ec364e27a6ffda47f5560ed95ce"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/native-check.json": {
+      "bytes": 1773,
+      "sha256": "3f81fd4bf24d16527ad7cd4dd845cd7a731649986c3d60075334d631653b0e91"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/native-traces.zip": {
+      "bytes": 894217,
+      "sha256": "5f6d0489ccb1e3fd9a9a3f1800695565b343188d1a64869437a323334166466c"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-approved-frame-069.png": {
+      "bytes": 282167,
+      "sha256": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-approved-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-delete-frame-069.png": {
+      "bytes": 282662,
+      "sha256": "db95538e09bd227d4321953d116407e8d0dea627ba2f4d305b5de2bbe516c702"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-delete-frame-155.png": {
+      "bytes": 284271,
+      "sha256": "3b21b024b912014ce39f4c33be377604d7c79fd3f3c8b6ee38ae0f099f44f753"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-left-frame-069.png": {
+      "bytes": 282946,
+      "sha256": "e1f6e32cf5cd66975859a89733bccf2765d52fee35e1163dcb57b7d099df02a4"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-left-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-right-frame-069.png": {
+      "bytes": 282167,
+      "sha256": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-right-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-tap-frame-069.png": {
+      "bytes": 280576,
+      "sha256": "bffe30d669b8941c887793daf23007290581879ad94a1fb835732f5d90e24c49"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-tap-frame-155.png": {
+      "bytes": 284061,
+      "sha256": "3df92edc831f059f400e6655e843c6da55312b031dffffb051380e194d26e096"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-timeout-frame-069.png": {
+      "bytes": 282167,
+      "sha256": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/selected/grass-drag-timeout-frame-155.png": {
+      "bytes": 283541,
+      "sha256": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/verification.json": {
+      "bytes": 6742,
+      "sha256": "7aef6a005885fe636c2965142d375f9cd98f51d5d306c74f567b392f78b03006"
+    },
+    "art/live2d/workflow/soft-grass-adoption-20261025/verifier-tests.log": {
+      "bytes": 1683,
+      "sha256": "33cddd753ff740cc2ebd0a42c365060e7f28938977d6ead4077aa2784b0b5693"
+    },
     "art/live2d/workflow/standing-rest-20261022/assets-check.log": {
       "bytes": 187,
       "sha256": "c7443cc46b1956605ab5ed7ba6a3f52ae357e44e1aa4c1db545343b02554a5b9"
@@ -6773,8 +6865,8 @@
       "sha256": "50ca1bff86d5eac7aba9cbc3425b4dbe5a37bdc04867f578edc063d50d8e9b25"
     },
     "assets/motions/grass-touch.motion.json": {
-      "bytes": 23241,
-      "sha256": "b63774d42a31b1c93cc7a9a598f718e0fe9f379ae9fdc89b2215963a28b6fc9e"
+      "bytes": 23580,
+      "sha256": "dc6cd138014d43b03e85d76526786ae0c039016e773c57c0946873ea2cdd19bc"
     },
     "assets/motions/grass.motion.json": {
       "bytes": 11442,
@@ -7033,8 +7125,8 @@
       "sha256": "cb079e881f602ef62858c134416359e1815afe868a9bcc24708515eb6ae29730"
     },
     "src/GrassDragInputReview.cpp": {
-      "bytes": 15444,
-      "sha256": "3fe60eb0a5966dfa9d581600c5fd3f802eeda6de5f90eae98bef1c84aff7ec95"
+      "bytes": 17940,
+      "sha256": "1c59174af4ae3234120943e5c872256c4a3812d0f665907919383caa5f4f77b9"
     },
     "src/GrassDragInputReview.h": {
       "bytes": 420,
@@ -7097,12 +7189,12 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 70312,
-      "sha256": "f19fb2893926086c04a91b8ce7d3905ad3f24a691404da9b6d62383772f7def4"
+      "bytes": 70341,
+      "sha256": "43999dc3731874c9bfca69526c731cee655b2220fb967fcbae48776ae150824c"
     },
     "src/ParameterMotion.h": {
-      "bytes": 19980,
-      "sha256": "7889be63e2737eb7f8599b6fd055045b2130b9a1ac36695c976120e8ae6593f0"
+      "bytes": 20060,
+      "sha256": "8c17b3a354ffb608d310fb13b2c1180146cfd2de983cb454d16630c672c5d0af"
     },
     "src/PetController.cpp": {
       "bytes": 7178,
@@ -7121,12 +7213,12 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 105282,
-      "sha256": "1204799aed68a20ae5c00b9409c485e960146aecba7b0c28a684d46bc0e30ec3"
+      "bytes": 105771,
+      "sha256": "ff6490c24a763097d4782030e67b102e75b6415adf8039448cd24ac4381cf2d6"
     },
     "src/PetWindow.h": {
-      "bytes": 14731,
-      "sha256": "e21c8e551ac95f0a70145a70b4c999bca9c562926e37a2836fdbfaf716c380e6"
+      "bytes": 14770,
+      "sha256": "4afb52538bc7163fc3a9b58408a73259033d9b0dc8a7b4c4d209b3381df5f74a"
     },
     "src/QuietPolicy.cpp": {
       "bytes": 1802,
@@ -7221,12 +7313,12 @@
       "sha256": "b2543da04d946ca1cb9d8f4eb973d2a19df4e18982fae9336de3638853ef0df9"
     },
     "src/motion/GrassTouchBehavior.cpp": {
-      "bytes": 6500,
-      "sha256": "af907f51200f93c75ae68fcac0a207e357b98fef56975875aa2e28c822740c2a"
+      "bytes": 6792,
+      "sha256": "8c7aedbd7b3e023a32605b38679247619c6b4de8d261b87f418220737c6bd80b"
     },
     "src/motion/GrassTouchBehavior.h": {
-      "bytes": 1954,
-      "sha256": "0358967f64280c4fa7ced401fae1c5a0722bd9632b0b5e3af057041e8e58d2ae"
+      "bytes": 2199,
+      "sha256": "85bd4d6da450592c7a1b27e3cd5db17bd0bfabfe3b59bd5d53d8e386209e5002"
     },
     "src/motion/MemoBehavior.cpp": {
       "bytes": 3863,
@@ -7341,8 +7433,8 @@
       "sha256": "c6c7721e819123ab9f60c04c84faa840c898a1521e70295e0aed42f7606055c4"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 138037,
-      "sha256": "5457a0745d3acbb089059cce24386d0c5f59bc72d6d6c181eac57263392472f9"
+      "bytes": 142244,
+      "sha256": "6ea3ce7b9de67d7f330d27daf3881bfe906a1f93a7e80175f7b3d1a3c685958b"
     },
     "tests/PetControllerTest.cpp": {
       "bytes": 14249,
@@ -7421,8 +7513,8 @@
       "sha256": "c0f1a06a6b9bc9e1cb34ccb392900a3fd1929ac8a6ececf970a84e8ccc020e87"
     },
     "tests/test_review_grass_drag.py": {
-      "bytes": 6620,
-      "sha256": "e1cf1bac8f1e66d82b09027171a8322ce646e7d94fca3a8644a3bea5263d5e3c"
+      "bytes": 7989,
+      "sha256": "fca6edce477489c688932506bdba051e2badb713ada3126e11ef1058c1c89d21"
     },
     "tests/test_review_interactions.py": {
       "bytes": 2710,
@@ -7745,8 +7837,8 @@
       "sha256": "7fb3f5f379a3f68211a4e4840cf8ccbff79dd41e71468f4acbd473e5924f0874"
     },
     "tools/review_grass_drag.py": {
-      "bytes": 11895,
-      "sha256": "f523e488eaa83ff6ed66a826860db8d948814d160e88007e2dcbb49540cabdfb"
+      "bytes": 14042,
+      "sha256": "f2056db7c9f5680c49997dd4ea3ffe71e041eb29467f9eac79d643daf3dae4dc"
     },
     "tools/review_grass_pin.py": {
       "bytes": 13156,

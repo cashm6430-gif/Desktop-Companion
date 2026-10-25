@@ -1,0 +1,25 @@
+[1/27] Automatic MOC for target MotionClipTest
+[2/26] Automatic MOC for target ParameterMotionTest
+[3/25] Automatic MOC for target DesktopCompanion
+[4/25] Building CXX object CMakeFiles\MotionClipTest.dir\src\motion\GrassTouchBehavior.cpp.obj
+[5/25] Building CXX object CMakeFiles\MotionClipTest.dir\src\ParameterMotion.cpp.obj
+[6/25] Building CXX object CMakeFiles\DesktopCompanion.dir\DesktopCompanion_autogen\mocs_compilation.cpp.obj
+[7/25] Building CXX object CMakeFiles\MotionClipTest.dir\tests\MotionClipTest.cpp.obj
+[8/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\HeadPatInputReview.cpp.obj
+[9/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\main.cpp.obj
+[10/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\GrassDragInputReview.cpp.obj
+[11/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\MemoInputReview.cpp.obj
+[12/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\WorkReactionCoordinator.cpp.obj
+[13/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\motion\GrassTouchBehavior.cpp.obj
+[14/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ParameterMotion.cpp.obj
+[15/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetWindow.cpp.obj
+[16/25] Building CXX object CMakeFiles\MotionClipTest.dir\src\WorkReactionCoordinator.cpp.obj
+[17/25] Building CXX object CMakeFiles\DesktopCompanion.dir\src\CubismCanvas.cpp.obj
+[18/25] Linking CXX executable DesktopCompanion.exe
+[19/25] Linking CXX executable MotionClipTest.exe
+[20/25] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+[21/25] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[22/25] Building CXX object CMakeFiles\ParameterMotionTest.dir\tests\ParameterMotionTest.cpp.obj
+[23/25] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\ParameterMotion.cpp.obj
+[24/25] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\motion\GrassTouchBehavior.cpp.obj
+[25/25] Linking CXX executable ParameterMotionTest.exe

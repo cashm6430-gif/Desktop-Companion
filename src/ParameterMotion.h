@@ -110,10 +110,11 @@ public:
     void lookAtGrassTip(double horizontal);
     double grassInteractionMaxDuration() const;
 
-    // Development candidate: a bounded force on the existing soft-grass
-    // spring, never on the held palm or arm. Callers must explicitly opt in;
-    // approved grass input continues to use respondToGrass(). The offset is
+    // A bounded force on the existing soft-grass spring, never on the held
+    // palm or arm. Normal input requires the separate tip-drag approval;
+    // unapproved revisions still need an explicit review call. The offset is
     // the spring target contribution, not the rendered tip's displacement.
+    bool grassTipDragApproved() const { return grassTouch_.tipDragApproved(); }
     bool beginGrassTipDrag(bool allowDraft = false);
     void updateGrassTipDrag(double normalizedBend);
     void endGrassTipDrag();

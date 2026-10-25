@@ -190,6 +190,7 @@ private slots:
     void grassInteractionRootAndSoftTipStayBounded();
     void grassInteractionConfigurationRejectsBadPhasesAndGrip();
     void grassTipDragRequiresExplicitDraftAndFiniteBoundedInput();
+    void grassTipDragApprovalIsSeparateAndPreservesReviewedTrajectory();
     void grassTipDragDisabledAndZeroInputPreserveExactTrajectory();
     void grassTipDragLagsReboundsAndPreservesOtherChannels();
     void grassTipDragKeepsHoldDeadlineAndClearsOnInterruptions();
@@ -428,6 +429,78 @@ void ParameterMotionTest::grassTipDragRequiresExplicitDraftAndFiniteBoundedInput
     QVERIFY(!motion.beginGrassTipDrag(true));
     motion.setPreviewPose(motion.values());
     QVERIFY(!motion.beginGrassTipDrag(true));
+}
+
+void ParameterMotionTest::grassTipDragApprovalIsSeparateAndPreservesReviewedTrajectory() {
+    QTemporaryDir approvedDir, draftDir;
+    QVERIFY(writeStationaryGrassInteractionFixture(approvedDir));
+    QVERIFY(writeStationaryGrassInteractionFixture(draftDir));
+    const auto configureApproval = [&](const QJsonValue& tipDrag) {
+        QFile file(approvedDir.filePath(QStringLiteral("grass-touch.motion.json")));
+        if (!file.open(QIODevice::ReadOnly)) return false;
+        auto root = QJsonDocument::fromJson(file.readAll()).object();
+        file.close();
+        root.insert(QStringLiteral("approval"), QStringLiteral("approved"));
+        auto interaction = root.value(QStringLiteral("interaction")).toObject();
+        if (tipDrag.isUndefined()) interaction.remove(QStringLiteral("tipDrag"));
+        else interaction.insert(QStringLiteral("tipDrag"), tipDrag);
+        root.insert(QStringLiteral("interaction"), interaction);
+        const auto bytes = QJsonDocument(root).toJson();
+        return file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(bytes) == bytes.size();
+    };
+    const auto approved = QJsonObject{{QStringLiteral("approval"), QStringLiteral("approved")},
+                                     {QStringLiteral("revision"), 1}};
+    const QList<QPair<QJsonValue, bool>> cases{
+        {QJsonValue(QJsonValue::Undefined), false},
+        {QJsonObject{{QStringLiteral("revision"), 1}}, false},
+        {QJsonObject{{QStringLiteral("approval"), QStringLiteral("pending")},
+                     {QStringLiteral("revision"), 1}}, false},
+        {QJsonObject{{QStringLiteral("approval"), QStringLiteral("approved")},
+                     {QStringLiteral("revision"), 2}}, false},
+        {QJsonObject{{QStringLiteral("approval"), QStringLiteral("approved")},
+                     {QStringLiteral("revision"), 1.5}}, false},
+        {QJsonObject{{QStringLiteral("approval"), QStringLiteral("approved")}}, false},
+        {approved, true}};
+    for (const auto& entry : cases) {
+        QVERIFY(configureApproval(entry.first));
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(approvedDir.path()));
+        // The old click clip is approved in every case, including the missing
+        // and pending tipDrag records. It cannot grant new input ownership.
+        QCOMPARE(motion.library().clip(QStringLiteral("grass-touch"))->approval(), QStringLiteral("approved"));
+        QCOMPARE(motion.grassTipDragApproved(), entry.second);
+        motion.setState(PetController::State::Grass);
+        QVERIFY(motion.beginGrassInteraction());
+        QVERIFY(!motion.beginGrassTipDrag()); // Approval never bypasses Enter.
+        advanceFrames(motion, 180);
+        QCOMPARE(motion.grassInteractionPhase(), QStringLiteral("hold"));
+        QCOMPARE(motion.beginGrassTipDrag(), entry.second);
+        if (!entry.second) QVERIFY(motion.beginGrassTipDrag(true));
+    }
+    ParameterMotion adopted, reviewed;
+    for (auto* motion : {&adopted, &reviewed}) motion->setProceduralBlink(false);
+    QVERIFY(adopted.loadMotionLibrary(approvedDir.path()));
+    QVERIFY(reviewed.loadMotionLibrary(draftDir.path()));
+    for (auto* motion : {&adopted, &reviewed}) {
+        motion->setState(PetController::State::Grass);
+        QVERIFY(motion->beginGrassInteraction());
+        advanceFrames(*motion, 180);
+    }
+    QVERIFY(adopted.beginGrassTipDrag());
+    QVERIFY(reviewed.beginGrassTipDrag(true));
+    for (int i = 0; i < 300; ++i) {
+        const double input = i < 20 ? 1.0 : -1.0;
+        adopted.updateGrassTipDrag(input);
+        reviewed.updateGrassTipDrag(input);
+        if (i == 40) { adopted.endGrassTipDrag(); reviewed.endGrassTipDrag(); }
+        adopted.advance(0.02);
+        reviewed.advance(0.02);
+        QCOMPARE(adopted.values(), reviewed.values());
+        QCOMPARE(adopted.grassInteractionPhase(), reviewed.grassInteractionPhase());
+    }
+    QVERIFY(configureApproval(QJsonValue(QJsonValue::Undefined)));
+    QVERIFY(adopted.loadMotionLibrary(approvedDir.path()));
+    QVERIFY(!adopted.grassTipDragApproved()); // Successful reload cannot keep stale approval.
 }
 
 void ParameterMotionTest::grassTipDragDisabledAndZeroInputPreserveExactTrajectory() {

@@ -62,6 +62,33 @@ class GrassEvidenceTest(unittest.TestCase):
     def test_complete_default_retains_approved_click(self):
         self.assertEqual(self.verify()["scenario"], "grass-drag-default")
 
+    def make_approved_tap(self):
+        self.data.update(scenario="grass-drag-tap", scope=review.APPROVED_SCOPE, adoption="approved")
+        self.data["checks"].pop("candidate_opt_in_only")
+        self.data["checks"]["approved_no_preview_entry"] = True
+        for frame in self.data["frames"]:
+            drag = frame["drag"]
+            drag.update(approved=True, preview_enabled=False, enabled=True, normal=[1, 0], span=12)
+            if 58 <= frame["frame"] < 63:
+                drag["active"] = True
+                frame["grass_phase"] = "hold"
+        self.data["final_drag"].update(approved=True, preview_enabled=False, enabled=True)
+
+    def test_approved_tap_uses_no_preview_and_responds_on_release(self):
+        self.make_approved_tap()
+        self.assertEqual(self.verify()["adoption"], "approved")
+        self.data["frames"][60]["drag"]["preview_enabled"] = True
+        with self.assertRaisesRegex(ValueError, "draft switch"):
+            self.verify()
+
+    def test_approval_label_requires_runtime_proof(self):
+        self.data.update(scope=review.APPROVED_SCOPE, adoption="approved")
+        with self.assertRaisesRegex(ValueError, "checks failed or missing"):
+            self.verify()
+        self.data["checks"]["approved_no_preview_entry"] = True
+        with self.assertRaisesRegex(ValueError, "draft switch"):
+            self.verify()
+
     def test_renderer_error_or_self_reported_failure_is_rejected(self):
         for field, value in (("render_error", "failed"), ("passed", False), ("adoption", "approved")):
             original = self.data[field]

@@ -39,6 +39,9 @@ public:
     double time() const { return time_; }
     bool holding() const { return phase_ == Phase::Hold; }
     double look() const { return look_; }
+    // The tip-drag interaction has its own approval; approval of the original
+    // click response does not grant new procedural input ownership.
+    bool tipDragApproved() const { return tipDragApproved_; }
 
 private:
     MotionClip clip_;
@@ -54,4 +57,5 @@ private:
     double look_ = 0.0;
     double lookTarget_ = 0.0;
     bool selected_ = false;
+    bool tipDragApproved_ = false;
 };

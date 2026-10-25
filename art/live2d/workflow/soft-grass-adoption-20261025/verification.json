@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "feature": "soft-grass-tip-drag-rev1",
+  "adoption": "approved",
+  "approval_source": "direct user reply in this chat: 通过，正式采用",
+  "parent_commit": "edae4ba",
+  "ordinary_entry_enabled": true,
+  "preview_required": false,
+  "draft_action_removed_for_approved_asset": true,
+  "approval_metadata": {
+    "approval": "approved",
+    "revision": 1,
+    "approvedOn": "2026-10-25",
+    "reviewEvidence": "art/live2d/workflow/soft-grass-20261025/verification.json"
+  },
+  "unchanged": {
+    "keyframes": true,
+    "prior_phase_boundaries": true,
+    "spring_and_force_function_text": [
+      "updateGrassFlex",
+      "advance",
+      "updateGrassTipDrag",
+      "endGrassTipDrag",
+      "cancelGrassTipDrag"
+    ],
+    "target_contribution_limit": 0.35,
+    "maximum_hold_seconds": 3,
+    "moc_atlas_and_other_runtime_assets": true,
+    "formal_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+  },
+  "source_sha256": {
+    "assets/motions/grass-touch.motion.json": "dc6cd138014d43b03e85d76526786ae0c039016e773c57c0946873ea2cdd19bc",
+    "src/GrassDragInputReview.cpp": "1c59174af4ae3234120943e5c872256c4a3812d0f665907919383caa5f4f77b9",
+    "src/ParameterMotion.cpp": "43999dc3731874c9bfca69526c731cee655b2220fb967fcbae48776ae150824c",
+    "src/ParameterMotion.h": "8c17b3a354ffb608d310fb13b2c1180146cfd2de983cb454d16630c672c5d0af",
+    "src/PetWindow.cpp": "ff6490c24a763097d4782030e67b102e75b6415adf8039448cd24ac4381cf2d6",
+    "src/PetWindow.h": "4afb52538bc7163fc3a9b58408a73259033d9b0dc8a7b4c4d209b3381df5f74a",
+    "src/motion/GrassTouchBehavior.cpp": "8c7aedbd7b3e023a32605b38679247619c6b4de8d261b87f418220737c6bd80b",
+    "src/motion/GrassTouchBehavior.h": "85bd4d6da450592c7a1b27e3cd5db17bd0bfabfe3b59bd5d53d8e386209e5002",
+    "tests/ParameterMotionTest.cpp": "6ea3ce7b9de67d7f330d27daf3881bfe906a1f93a7e80175f7b3d1a3c685958b",
+    "tests/test_review_grass_drag.py": "fca6edce477489c688932506bdba051e2badb713ada3126e11ef1058c1c89d21",
+    "tools/review_grass_drag.py": "f2056db7c9f5680c49997dd4ea3ffe71e041eb29467f9eac79d643daf3dae4dc"
+  },
+  "verification": {
+    "release_build": "passed",
+    "targeted_ctest": {
+      "passed": 2,
+      "total": 2,
+      "seconds": 6.37,
+      "names": [
+        "ParameterMotionTest",
+        "MotionClipTest"
+      ]
+    },
+    "full_ctest_rerun": false,
+    "verifier_unit_tests": {
+      "passed": 11,
+      "total": 11
+    },
+    "asset_gate": "passed: 12 Cubism files, 40 parameters, grass-touch",
+    "native_scenarios": 6,
+    "native_frames": 936,
+    "native_pin_comparisons": 45,
+    "native_pin_tolerance_px": 0.002,
+    "approved_entry_and_both_preview_off": "passed",
+    "candidate_left_right_comparison": "candidate-comparison.json",
+    "all_936_native_png_decoded": true,
+    "grass_activity_frames_exactly_matching_candidate": 274,
+    "all_312_comparison_frames_equal": false
+  },
+  "render_executable_sha256": "0cfe7611aa4e3791a98f0eb7a83661153c1b0a71d3a398bbfbcbc8aa89153b72",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "historical_candidate": {
+    "commit": "edae4ba",
+    "verification": "../soft-grass-20261025/verification.json",
+    "kept_pending_historical_record": true,
+    "full_ctest": "22/22 at candidate; not repeated this batch"
+  },
+  "visual_review": {
+    "six_contact_samples_inspected": true,
+    "all_frames_individually_inspected": false,
+    "physical_windows_pointer_routing": "not exercised",
+    "observed": "No new grip, hand or sleeve separation observed in six Native samples. Approved preview-off retains held grass and spring response."
+  },
+  "evidence": {
+    "full_traces": "native-traces.zip",
+    "all_original_frame_hashes": "frame-ledger.json",
+    "selected_original_pngs": 12,
+    "raw_full_capture_local": "E:\\projects\\Desktop-Companion\\.local\\authoring\\soft-grass-adoption-20261025\\native",
+    "all_raw_pngs_in_git": false
+  },
+  "limits": [
+    "Same approved single lateral bend DOF; vertical inputs project onto its normal.",
+    "No new installer/package generated; no push performed.",
+    "16 left-scene frames after Grass has ended differ only in base gaze head/eye channels; the whole 312-frame run is not strictly equal."
+  ],
+  "retained_artifact_sha256": {
+    "assets.log": "16ac6aa9f477e9cdee47231866b1aee33bc423c797e2b3ebfd1db663eb2c68f4",
+    "build.log": "86b32ba3a070b5e7a9dcda8d8ff694ae42b4728dc4bce6f9c6933397b94888a7",
+    "candidate-comparison.json": "a3cd5ec0b7f5692c578ea4a60cefe2a44bda93dc9c6241066e6089638c0179e6",
+    "contact-sheet.png": "431b58059aa4c68b6df5a9c2ba1982676b79ccd687b27deafc932e7ef8c2a039",
+    "ctest.log": "f805a7fd9263557255ee5ed259ac0dc9655e0c8e30c6344fabe95ac4462be730",
+    "ctest.xml": "a6035146e7295c444ad6f8120ed29d0f1ddb89d6b7c5fe7a87e04ace9261521e",
+    "frame-ledger.json": "b318a3eaf8f65d548baa96df2abeeefafc330ec364e27a6ffda47f5560ed95ce",
+    "native-check.json": "3f81fd4bf24d16527ad7cd4dd845cd7a731649986c3d60075334d631653b0e91",
+    "native-traces.zip": "5f6d0489ccb1e3fd9a9a3f1800695565b343188d1a64869437a323334166466c",
+    "selected/grass-drag-approved-frame-069.png": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d",
+    "selected/grass-drag-approved-frame-155.png": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb",
+    "selected/grass-drag-delete-frame-069.png": "db95538e09bd227d4321953d116407e8d0dea627ba2f4d305b5de2bbe516c702",
+    "selected/grass-drag-delete-frame-155.png": "3b21b024b912014ce39f4c33be377604d7c79fd3f3c8b6ee38ae0f099f44f753",
+    "selected/grass-drag-left-frame-069.png": "e1f6e32cf5cd66975859a89733bccf2765d52fee35e1163dcb57b7d099df02a4",
+    "selected/grass-drag-left-frame-155.png": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb",
+    "selected/grass-drag-right-frame-069.png": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d",
+    "selected/grass-drag-right-frame-155.png": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb",
+    "selected/grass-drag-tap-frame-069.png": "bffe30d669b8941c887793daf23007290581879ad94a1fb835732f5d90e24c49",
+    "selected/grass-drag-tap-frame-155.png": "3df92edc831f059f400e6655e843c6da55312b031dffffb051380e194d26e096",
+    "selected/grass-drag-timeout-frame-069.png": "d2198856e74f469d6ecedd7dc112b60f6c1b0dafcb2c247194a7293d6365906d",
+    "selected/grass-drag-timeout-frame-155.png": "98d14dd31aadf9ce8e7d021d8465169c9bd0ea3cc8548bdf763baf124c5e18fb",
+    "verifier-tests.log": "33cddd753ff740cc2ebd0a42c365060e7f28938977d6ead4077aa2784b0b5693"
+  }
+}

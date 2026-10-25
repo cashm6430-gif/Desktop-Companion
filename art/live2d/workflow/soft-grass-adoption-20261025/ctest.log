@@ -1,0 +1,9 @@
+Test project E:/projects/Desktop-Companion/build
+    Start 14: ParameterMotionTest
+1/2 Test #14: ParameterMotionTest ..............   Passed    5.68 sec
+    Start 15: MotionClipTest
+2/2 Test #15: MotionClipTest ...................   Passed    0.64 sec
+
+100% tests passed out of 2
+
+Total Test time (real) =   6.37 sec

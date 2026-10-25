@@ -706,7 +706,7 @@ double ParameterMotion::grassInteractionMaxDuration() const {
 }
 
 bool ParameterMotion::beginGrassTipDrag(bool allowDraft) {
-    if (!allowDraft || preview_ || state_ != PetController::State::Grass
+    if ((!allowDraft && !grassTipDragApproved()) || preview_ || state_ != PetController::State::Grass
         || !grassTouch_.holding() || grassTipDragActive_) return false;
     grassTipDragActive_ = true;
     grassTipDragOffset_ = grassTipDragSettleTime_ = 0.0;

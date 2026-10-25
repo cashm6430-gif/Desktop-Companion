@@ -106,8 +106,8 @@ public:
     double grassInteractionTime() const { return motion_.grassInteractionTime(); }
     QPainterPath grassTipHitPath() const;
     bool isGrassTipAt(const QPointF& position) const;
-    // Separate, process-only draft switch; the approved click interaction is
-    // unaffected until this candidate has been reviewed and adopted.
+    // Process-only switch for unapproved rigs. Approved tip dragging is
+    // available through ordinary grass input independently of this switch.
     void setGrassDragPreviewEnabled(bool enabled);
     QJsonObject grassDragReviewState() const;
     // Native scene review uses the actual window player and Qt input handlers,
@@ -218,6 +218,7 @@ private:
     void playGrass();
     bool grassInteractionApproved() const;
     bool headPatApproved() const;
+    bool grassTipDragEnabled() const;
     QJsonObject grassGeometry() const;
     QPixmap idleImage_;
     QPixmap busyImage_;
