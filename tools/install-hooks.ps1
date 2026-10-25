@@ -1,16 +1,17 @@
 <#
 .SYNOPSIS
   Install (or remove) the Desktop-Companion pet hooks for every supported
-  agent client: Codex, WorkBuddy and Claude.
+  agent client: Codex, WorkBuddy, Claude and OpenCode V2.
 
 .DESCRIPTION
-  All three clients call the SAME helper (DesktopCompanionHook.exe) and pass the
+  The JSON-hook clients call the SAME helper (DesktopCompanionHook.exe) and pass the
   same stdin payload (hook_event_name / session_id), so the only per-client
   differences are where the hooks live and how the command string is written:
 
     Codex      ~/.codex/hooks.json        PowerShell '& ''<exe>''', events incl. Interrupt
     WorkBuddy  ~/.workbuddy/settings.json cmd-quoted "<exe>", {matcher,hooks[]} groups
     Claude     ~/.claude/settings.json    same shape as WorkBuddy, no Interrupt event
+    OpenCode   ~/.config/opencode/plugins/desktop-companion/  V2 event plugin
 
   Only entries whose command references DesktopCompanionHook(.exe) are replaced;
   every other hook is preserved. Each target file is backed up first, and an
@@ -18,16 +19,16 @@
 
 .PARAMETER Clients
   auto (default) installs for every client whose config root exists; codex /
-  workbuddy / claude select one; all selects the three.
+  workbuddy / claude / opencode select one; all selects every supported client.
 
 .PARAMETER TargetPath
-  Override the config path for a single selected client (used by tests).
+  Override the config path, or OpenCode plugin directory, for one client.
 
 .PARAMETER Remove
   Remove the pet hooks instead of installing them.
 #>
 param(
-    [ValidateSet('auto', 'codex', 'workbuddy', 'claude', 'all')]
+    [ValidateSet('auto', 'codex', 'workbuddy', 'claude', 'opencode', 'all')]
     [string]$Clients = 'auto',
     [string]$HelperPath = '',
     [string]$TargetPath,
@@ -70,6 +71,11 @@ function New-ClientSpec {
                Matcher = ''
                Command = $quoted + ' --client claude' }
         }
+        'opencode' {
+            @{ Name = 'opencode'
+               Root = Join-Path $env:USERPROFILE '.config\opencode'
+               Config = Join-Path $env:USERPROFILE '.config\opencode\plugins\desktop-companion' }
+        }
         default { throw "Unknown client '$Name'" }
     }
 }
@@ -79,12 +85,12 @@ $helper = if ($Remove) { [IO.Path]::GetFullPath($HelperPath) }
           else { (Resolve-Path -LiteralPath $HelperPath).Path }
 
 if ($TargetPath -and ($Clients -eq 'auto' -or $Clients -eq 'all')) {
-    throw '-TargetPath requires a single -Clients value (codex|workbuddy|claude).'
+    throw '-TargetPath requires a single -Clients value (codex|workbuddy|claude|opencode).'
 }
 
 switch ($Clients) {
-    'all' { $names = @('codex', 'workbuddy', 'claude') }
-    'auto' { $names = @('codex', 'workbuddy', 'claude') | Where-Object {
+    'all' { $names = @('codex', 'workbuddy', 'claude', 'opencode') }
+    'auto' { $names = @('codex', 'workbuddy', 'claude', 'opencode') | Where-Object {
                  Test-Path -LiteralPath (New-ClientSpec -Name $_ -Helper $helper).Root } }
     default { $names = @($Clients) }
 }
@@ -97,6 +103,10 @@ if (-not $names) {
 foreach ($name in $names) {
     $spec = New-ClientSpec -Name $name -Helper $helper
     $path = if ($TargetPath) { $TargetPath } else { $spec.Config }
+    if ($name -eq 'opencode') {
+        & (Join-Path $PSScriptRoot 'install-opencode-plugin.ps1') -HelperPath $helper -TargetPath $path -Remove:$Remove -DryRun:$DryRun
+        continue
+    }
 
     if (-not (Test-Path -LiteralPath $path)) {
         if ($Remove) { Write-Host "$name : no config at $path, nothing to remove"; continue }

@@ -1,0 +1,18 @@
+{
+  "process": "updated DesktopCompanion launched",
+  "state": "idle",
+  "active_turns": 0,
+  "render_backend": "cubism_native",
+  "render_error": "",
+  "listening": true,
+  "source_ids": [
+    "codex",
+    "workbuddy",
+    "claude",
+    "opencode",
+    "unknown",
+    "manual"
+  ],
+  "source_count": 6,
+  "synthetic_production_events_sent": false
+}

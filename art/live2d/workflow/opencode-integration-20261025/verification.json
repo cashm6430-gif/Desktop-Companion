@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "passed": true,
+  "base_revision": "10796060237be5984a3fc2f7e25a6e8321d4aed3",
+  "scope": "OpenCode desktop 2.1.4 V2 plugin, helper IPC, status panel and lifecycle installer",
+  "official_contract": [
+    "https://dev.opencode.ai/v2/docs/build/plugins/",
+    "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/schema/src/session-event.ts",
+    "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/plugin/src/promise/plugin.ts",
+    "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/plugin/src/promise/adapter.ts",
+    "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/core/src/bus.ts"
+  ],
+  "event_mapping": {
+    "session.execution.started": "UserPromptSubmit / start",
+    "session.execution.succeeded": "Stop / stop",
+    "session.execution.failed": "Stop / stop",
+    "session.execution.interrupted": "Stop / stop",
+    "session.deleted": "SessionEnd / bookkeeping only",
+    "session.moved": "SessionEnd / bookkeeping only; resume on next native execution start",
+    "retry, permission, message and tool events": "no fabricated transition"
+  },
+  "behavior": {
+    "subscription": "one stream per setup context, shared process bridge with per-session owners",
+    "ordering": "data.sessionID and durable.aggregateID/seq; duplicate and older events ignored",
+    "ipc_scope": "opencode client plus bridge-boot UUID/session and explicit execution turn ID",
+    "payload": [
+      "hook_event_name",
+      "session_id",
+      "turn_id"
+    ],
+    "helper_delivery": "opt-in exit status for bytes written, not a controller acknowledgment",
+    "retry": "latest failed transition per session only, 30 second TTL; no obsolete start replay",
+    "stream_disconnect": "SessionEnd for owned work, retry subscription without inventing completion"
+  },
+  "verification": {
+    "release_build": true,
+    "ctest": {
+      "passed": 24,
+      "total": 24,
+      "seconds": 60.29,
+      "skipped": 0
+    },
+    "node_bridge": {
+      "passed": 16,
+      "total": 16,
+      "skipped": 0,
+      "native_chain": "Node bridge -> signed Qt helper -> actual private QLocalServer -> PetController, 1 -> 0"
+    },
+    "installer": "isolated PowerShell 7.6.5 and Windows PowerShell 5.1 install/upgrade/remove, UTF-8, ownership and idempotence",
+    "package_manifest_unit_tests": {
+      "passed": 8,
+      "total": 8
+    },
+    "native_qwidget_preview": "three actual panel screenshots; OpenCode receipt with Codex concurrency, reset and listener failure",
+    "visual_review": "all three panel screenshots inspected; layout and OpenCode row legible",
+    "live_plugin": {
+      "opencode_version": "2.1.4",
+      "action": "installed and configuration reloaded",
+      "match_count": 1,
+      "plugins": [
+        {
+          "id": "desktop-companion",
+          "features": {
+            "server": true
+          },
+          "state": {
+            "status": "active"
+          }
+        }
+      ],
+      "tested_model_prompt": false,
+      "activation": "active after asynchronous reload completed"
+    },
+    "live_pet": {
+      "process": "updated DesktopCompanion launched",
+      "state": "idle",
+      "active_turns": 0,
+      "render_backend": "cubism_native",
+      "render_error": "",
+      "listening": true,
+      "source_ids": [
+        "codex",
+        "workbuddy",
+        "claude",
+        "opencode",
+        "unknown",
+        "manual"
+      ],
+      "source_count": 6,
+      "synthetic_production_events_sent": false
+    },
+    "installed_files_match_sources": true,
+    "installed_manifest": {
+      "owner": "DesktopCompanion",
+      "version": 1,
+      "files": {
+        "index.ts": "c2eb764bc70a8623e160e553fdd8e514b04f7d44ff932168dd4b249a7759c69f",
+        "bridge.mjs": "c435cce699105beac3db42cebd3ede46de037c4969b9d45b132e340c912df774",
+        "package.json": "b133895d3f46475a9124c238f1b16b6999b53086dc5c0ba890ec8d8d91f85cba",
+        "config.json": "10f26840bf75b0a5cf66aa54b4a0e173301c9cf3c461b735688451a5e93434e3"
+      }
+    }
+  },
+  "boundaries": [
+    "No prompt submitted to the live OpenCode client; real model execution event delivery remains user feedback.",
+    "No production IPC lifecycle test events sent; only read-only status queried.",
+    "No existing Busy bootstrap or historical message inspection. Reload/disconnect clears old work and waits for next real start.",
+    "Final owner cleanup discards failed pending sends; process crash or missed final cleanup retains existing expiry/manual-reset fallback.",
+    "No model, atlas or motion asset edits; no new posture or motion approval required.",
+    "No full installer execution or package rebuild; independent-account installation acceptance remains skipped by user decision.",
+    "No push performed."
+  ],
+  "resolved_fixture_issues": [
+    "Four-client receipt assertion corrected from 9 to 10.",
+    "Node native pipe server could not accept Qt client access; replaced with actual Qt QLocalServer/controller fixture."
+  ],
+  "formal_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "runtime_sha256": {
+    "DesktopCompanion.exe": "5eabac44aa602e72c630c21c0800736045f4a95fed492a839201381b882e051f",
+    "DesktopCompanionHook.exe": "50df1cfffc5c1a1944509c997140ffabeedbfedafa4e904a7274bdc4eea1eec6",
+    "OpenCodeIpcFixture.exe": "4ed06592a5b40cb7b4bb774c8e6f6e7a3989ca367a6f8312551886fc7db816ae"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "c5509a8822976f2b91ac75819eec2f3421fcb3ff3807bc2eca8525f0b7e6cf94",
+    "src/hook_main.cpp": "dba9ae0a86a146281b4a6fc34ebb3275b4fa97b8393c797fdb8cd2baf278f307",
+    "src/CodexTurnSource.cpp": "384d27ff5896ad1d418b27b25d531e29306859294b472254ed6127acf30f86c2",
+    "src/IntegrationStatusModel.cpp": "a9f2401dbe2073d95591aba213924634ce62b88524a1481b622404496d450767",
+    "src/IntegrationStatusModel.h": "3289c4bf340e6f33e570687383e8570a74ba172503eb34070299cae2946faf50",
+    "src/IntegrationStatusPanel.cpp": "a597a441c2e9ecd322c0954a0383b2d9792d199f97dec6149db7790a2d0b1ada",
+    "tools/opencode-plugin/index.ts": "c2eb764bc70a8623e160e553fdd8e514b04f7d44ff932168dd4b249a7759c69f",
+    "tools/opencode-plugin/bridge.mjs": "c435cce699105beac3db42cebd3ede46de037c4969b9d45b132e340c912df774",
+    "tools/opencode-plugin/package.json": "b133895d3f46475a9124c238f1b16b6999b53086dc5c0ba890ec8d8d91f85cba",
+    "tools/install-opencode-plugin.ps1": "e295efc2bf6e6ff4d9fde5429cbf4c3c842c68d723c6dec48cf8decb606aa126",
+    "tools/install-hooks.ps1": "670e9ec46d60db57811371191dfc6a41a8923bfa1e6d6dfecd2bee2d3c1e75bb",
+    "tools/package.ps1": "9fbb1ee79a5cb64301f94b317de8f0866694bd11f0b653d944b4cbcf886ff4a8",
+    "tools/review_package.py": "e9598649e6e9e9d91493a4dcd085e392bb961b633db8f23110834c5ba801d798",
+    "tools/status_panel_preview.cpp": "7660ae39694e169f7c2316d7f748cca27a797d4a6df6907975f9c162db6f4c9c",
+    "tools/opencode_ipc_fixture.cpp": "1df4400177cb75458097448df07eabec4ba7e5743530666469ac293d7d966d63",
+    "tests/OpenCodeBridgeTest.mjs": "34a751512ca625aaaa5e70c4a3f34a7f14f8b189e4702867aef2997361356297",
+    "tests/OpenCodePluginInstallTest.ps1": "e3c4c78908ec29f4405adb6390d10d9aec573d3421ceda7ef0c38f9f42d7ee0c",
+    "tests/HookLifecycleTest.cpp": "e2220e1a0d6cc0bdc81e00e3fcfc68a650369cd7fe1ae742479bcb9fda2bb9de",
+    "tests/CodexTurnSourceTest.cpp": "2c703d27b10e8d706a8a98509aa5a5686442db69cac66904818f5cfdb6220182",
+    "tests/IntegrationStatusModelTest.cpp": "bc35f8dbf7e0a0e71e7edaedf5b0077355a976bfe7b4edc6cf83ebb2e12398ee",
+    "tests/IntegrationStatusPanelTest.cpp": "74c1640216a630a501d7abfd448c72f326350b8709b3f9b53c12ebe830e821f3",
+    "installer/DesktopCompanion.iss": "eefb8f12e706345f29337a7169d3b9f4227b18d973dac6a8c376dea7e94c3f75",
+    "installer/portable/install-hooks.cmd": "da0ef28792086bbaaf7172d4c2bb93a0a2b490eb7e9b4bb9659ba753637ac1df",
+    "installer/portable/uninstall-hooks.cmd": "54c0d3461004af53c5dc373e96d8f05bdf4063cda3047989eb6016826f801536"
+  }
+}

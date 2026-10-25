@@ -11,7 +11,8 @@ namespace {
 QString diagnosticClient(const QJsonValue& value) {
     const QString client = value.toString();
     if (client == QStringLiteral("codex") || client == QStringLiteral("workbuddy")
-        || client == QStringLiteral("claude") || client == QStringLiteral("manual"))
+        || client == QStringLiteral("claude") || client == QStringLiteral("opencode")
+        || client == QStringLiteral("manual"))
         return client;
     return QStringLiteral("unknown");
 }

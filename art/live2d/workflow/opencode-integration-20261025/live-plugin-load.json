@@ -1,0 +1,18 @@
+{
+  "opencode_version": "2.1.4",
+  "action": "installed and configuration reloaded",
+  "match_count": 1,
+  "plugins": [
+    {
+      "id": "desktop-companion",
+      "features": {
+        "server": true
+      },
+      "state": {
+        "status": "active"
+      }
+    }
+  ],
+  "tested_model_prompt": false,
+  "activation": "active after asynchronous reload completed"
+}

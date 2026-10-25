@@ -65,15 +65,16 @@ private slots:
         });
 
         const QStringList clients{QStringLiteral("codex"), QStringLiteral("workbuddy"), QStringLiteral("claude"),
-                                  QStringLiteral("manual"), QStringLiteral("unknown"), QStringLiteral("other")};
+                                  QStringLiteral("opencode"), QStringLiteral("manual"),
+                                  QStringLiteral("unknown"), QStringLiteral("other")};
         for (qsizetype index = 0; index < clients.size(); ++index) {
-            expectedClient = index < 4 ? clients[index] : QStringLiteral("unknown");
+            expectedClient = index < 5 ? clients[index] : QStringLiteral("unknown");
             QLocalSocket socket;
             QJsonObject payload = event(QStringLiteral("start"), clients[index]);
             payload.insert(QStringLiteral("prompt"), QStringLiteral("private prompt must not become metadata"));
             QVERIFY(send(socket, name, json(payload)));
             QTRY_COMPARE(metadata.count(), index + 1);
-            QCOMPARE(metadata.last().at(0).toString(), index < 4 ? clients[index] : QStringLiteral("unknown"));
+            QCOMPARE(metadata.last().at(0).toString(), expectedClient);
             QCOMPARE(metadata.last().at(1).toString(), QStringLiteral("start"));
             QTRY_COMPARE(socket.state(), QLocalSocket::UnconnectedState);
         }
@@ -83,16 +84,16 @@ private slots:
         stop.remove(QStringLiteral("turn_id"));
         QLocalSocket legacy;
         QVERIFY(send(legacy, name, json(stop)));
-        QTRY_COMPARE(metadata.count(), 7);
+        QTRY_COMPARE(metadata.count(), clients.size() + 1);
         QCOMPARE(metadata.last().at(0).toString(), QStringLiteral("unknown"));
         QJsonObject ended = event(QStringLiteral("session_end"));
         ended.insert(QStringLiteral("client"), QJsonArray{QStringLiteral("codex")});
         QLocalSocket endSocket;
         QVERIFY(send(endSocket, name, json(ended)));
-        QTRY_COMPARE(metadata.count(), 8);
+        QTRY_COMPARE(metadata.count(), clients.size() + 2);
         QCOMPARE(metadata.last().at(0).toString(), QStringLiteral("unknown"));
         QCOMPARE(metadata.last().at(1).toString(), QStringLiteral("session_end"));
-        QCOMPARE(order.size(), 16);
+        QCOMPARE(order.size(), (clients.size() + 2) * 2);
         QTRY_COMPARE(source.findChildren<QLocalSocket*>().size(), 0);
     }
 

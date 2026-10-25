@@ -156,37 +156,42 @@ private slots:
         QVERIFY(!isPrivateEndpoint(CodexTurnSource::serverName()));
     }
 
-    void sameIdsAcrossThreeClientsStayIndependent() {
+    void sameIdsAcrossFourClientsStayIndependent() {
         Harness harness;
         QVERIFY(harness.start());
         QSignalSpy receipts(&harness.source, &CodexTurnSource::eventReceived);
         QSignalSpy ended(&harness.controller, &PetController::allTurnsStopped);
-        const QStringList clients{QStringLiteral("codex"), QStringLiteral("workbuddy"), QStringLiteral("claude")};
+        const QStringList clients{QStringLiteral("codex"), QStringLiteral("workbuddy"),
+                                  QStringLiteral("claude"), QStringLiteral("opencode")};
         for (int index = 0; index < clients.size(); ++index) {
             QVERIFY(hook(harness, QStringLiteral("UserPromptSubmit"), clients[index]).hookAccepted());
             QTRY_COMPARE(harness.controller.activeTurnCount(), index + 1);
         }
         QCOMPARE(harness.controller.state(), PetController::State::Busy);
         QVERIFY(hook(harness, QStringLiteral("UserPromptSubmit"), clients[0]).hookAccepted());
-        QCOMPARE(harness.controller.activeTurnCount(), 3); // Duplicate exact key.
+        QCOMPARE(harness.controller.activeTurnCount(), 4); // Duplicate exact key.
         QVERIFY(hook(harness, QStringLiteral("Stop"), clients[0]).hookAccepted());
-        QTRY_COMPARE(harness.controller.activeTurnCount(), 2);
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 3);
         QVERIFY(hook(harness, QStringLiteral("Stop"), clients[0]).hookAccepted());
-        QCOMPARE(harness.controller.activeTurnCount(), 2); // Duplicate cannot stop Claude/WorkBuddy.
+        QCOMPARE(harness.controller.activeTurnCount(), 3); // Duplicate cannot stop another client.
         QVERIFY(hook(harness, QStringLiteral("Interrupt"), clients[1]).hookAccepted());
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 2);
+        QVERIFY(hook(harness, QStringLiteral("Stop"), clients[3]).hookAccepted());
         QTRY_COMPARE(harness.controller.activeTurnCount(), 1);
         QCOMPARE(ended.count(), 0);
         QVERIFY(hook(harness, QStringLiteral("SessionEnd"), clients[2]).hookAccepted());
         QTRY_COMPARE(harness.controller.activeTurnCount(), 0);
         QCOMPARE(harness.controller.state(), PetController::State::Idle);
         QCOMPARE(ended.count(), 0); // Cleanup does not invent a real Stop.
-        QCOMPARE(receipts.count(), 8);
+        QCOMPARE(receipts.count(), 10);
         const QJsonObject snapshot = harness.snapshot();
         QCOMPARE(snapshot.value(QStringLiteral("active_turns")).toInt(), 0);
         const QJsonArray rows = snapshot.value(QStringLiteral("clients")).toArray();
         QCOMPARE(rows[0].toObject().value(QStringLiteral("last_event")).toString(), QStringLiteral("stop"));
         QCOMPARE(rows[1].toObject().value(QStringLiteral("last_event")).toString(), QStringLiteral("stop"));
         QCOMPARE(rows[2].toObject().value(QStringLiteral("last_event")).toString(), QStringLiteral("session_end"));
+        QCOMPARE(rows[3].toObject().value(QStringLiteral("id")).toString(), QStringLiteral("opencode"));
+        QCOMPARE(rows[3].toObject().value(QStringLiteral("last_event")).toString(), QStringLiteral("stop"));
         const QByteArray serialized = QJsonDocument(snapshot).toJson();
         QVERIFY(!serialized.contains("same-session"));
         QVERIFY(!serialized.contains("same-turn"));
@@ -200,18 +205,21 @@ private slots:
         QVERIFY(hook(harness, QStringLiteral("UserPromptSubmit"), QStringLiteral("codex"), QStringLiteral("same-session"), QStringLiteral("b")).hookAccepted());
         QVERIFY(hook(harness, QStringLiteral("UserPromptSubmit"), QStringLiteral("claude")).hookAccepted());
         QVERIFY(hook(harness, QStringLiteral("UserPromptSubmit"), QStringLiteral("workbuddy")).hookAccepted());
-        QTRY_COMPARE(harness.controller.activeTurnCount(), 4);
+        QVERIFY(hook(harness, QStringLiteral("UserPromptSubmit"), QStringLiteral("opencode")).hookAccepted());
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 5);
         QVERIFY(hook(harness, QStringLiteral("Stop"), QStringLiteral("codex"), QStringLiteral("same-session"), QString()).hookAccepted());
-        QTRY_COMPARE(harness.controller.activeTurnCount(), 3);
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 4);
         QVERIFY(hook(harness, QStringLiteral("Stop"), QStringLiteral("codex"), QStringLiteral("same-session"), QStringLiteral("b")).hookAccepted());
-        QCOMPARE(harness.controller.activeTurnCount(), 3); // The missing-id stop already removed the latest turn.
+        QCOMPARE(harness.controller.activeTurnCount(), 4); // The missing-id stop already removed the latest turn.
         QVERIFY(hook(harness, QStringLiteral("SessionEnd"), QStringLiteral("codex")).hookAccepted());
-        QTRY_COMPARE(harness.controller.activeTurnCount(), 2);
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 3);
         QVERIFY(hook(harness, QStringLiteral("SessionEnd"), QStringLiteral("codex")).hookAccepted());
-        QCOMPARE(harness.controller.activeTurnCount(), 2);
+        QCOMPARE(harness.controller.activeTurnCount(), 3);
         QVERIFY(hook(harness, QStringLiteral("Stop"), QStringLiteral("claude")).hookAccepted());
-        QTRY_COMPARE(harness.controller.activeTurnCount(), 1);
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 2);
         QVERIFY(hook(harness, QStringLiteral("Stop"), QStringLiteral("workbuddy")).hookAccepted());
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 1);
+        QVERIFY(hook(harness, QStringLiteral("SessionEnd"), QStringLiteral("opencode")).hookAccepted());
         QTRY_COMPARE(harness.controller.activeTurnCount(), 0);
     }
 
@@ -260,6 +268,47 @@ private slots:
         QTRY_COMPARE(harness.controller.activeTurnCount(), 1);
         QVERIFY(hook(harness, QStringLiteral("Interrupt"), QStringLiteral("codex")).hookAccepted());
         QTRY_COMPARE(harness.controller.activeTurnCount(), 0);
+    }
+
+    void deliveryOptInReportsAbsentPetWithoutChangingLegacyJsonContract() {
+        Harness harness;
+        const QByteArray input = QJsonDocument(QJsonObject{
+            {QStringLiteral("hook_event_name"), QStringLiteral("UserPromptSubmit")},
+            {QStringLiteral("session_id"), QStringLiteral("strict-session")},
+            {QStringLiteral("turn_id"), QStringLiteral("strict-turn")}}).toJson(QJsonDocument::Compact) + '\n';
+        const QStringList strictArgs{QStringLiteral("--client"), QStringLiteral("opencode"),
+                                     QStringLiteral("--require-delivery")};
+        const Result offline = run(harness.endpoint, strictArgs, input);
+        QVERIFY(offline.finished && offline.status == QProcess::NormalExit);
+        QCOMPARE(offline.code, 1);
+        QCOMPARE(offline.output.trimmed(), QByteArray("{}"));
+        QVERIFY(offline.error.trimmed().isEmpty());
+        QVERIFY(offline.elapsedMs < 2500);
+        const Result legacy = run(harness.endpoint, {QStringLiteral("--client"), QStringLiteral("opencode")}, input);
+        QVERIFY(legacy.hookAccepted());
+        QVERIFY(harness.start());
+        QCOMPARE(harness.controller.activeTurnCount(), 0); // Neither offline invocation is queued.
+        const Result online = run(harness.endpoint, strictArgs, input, &harness.source);
+        QVERIFY(online.hookAccepted());
+        QTRY_COMPARE(harness.controller.activeTurnCount(), 1);
+        QCOMPARE(harness.snapshot().value(QStringLiteral("last_event")).toObject()
+                     .value(QStringLiteral("client")).toString(), QStringLiteral("opencode"));
+    }
+
+    void deliveryOptInDryRunStaysLocalAndReturnsValidJson() {
+        Harness harness;
+        QVERIFY(harness.start());
+        QSignalSpy receipts(&harness.source, &CodexTurnSource::eventReceived);
+        const QByteArray input = QJsonDocument(QJsonObject{
+            {QStringLiteral("hook_event_name"), QStringLiteral("Stop")},
+            {QStringLiteral("session_id"), QStringLiteral("strict-session")}}).toJson(QJsonDocument::Compact) + '\n';
+        const Result result = run(harness.endpoint,
+            {QStringLiteral("--client"), QStringLiteral("opencode"),
+             QStringLiteral("--require-delivery"), QStringLiteral("--dry-run-hook")}, input);
+        QVERIFY(result.hookAccepted());
+        QTest::qWait(25);
+        QCOMPARE(receipts.count(), 0);
+        QCOMPARE(harness.controller.activeTurnCount(), 0);
     }
 
     void missingTurnIdsAndResetKeepExistingRecoveryContract() {

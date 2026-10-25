@@ -36,6 +36,6 @@ private:
     void record(int clientIndex, const QString& event);
 
     Clock now_;
-    std::array<Receipt, 5> receipts_;
+    std::array<Receipt, 6> receipts_;
     int latestClient_ = -1;
 };

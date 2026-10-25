@@ -55,9 +55,10 @@ void IntegrationStatusModelTest::emptyModelHasFixedSourcesWithoutPresenceClaims(
     QVERIFY(status.value(QStringLiteral("last_event")).toObject().isEmpty());
 
     const auto clients = status.value(QStringLiteral("clients")).toArray();
-    QCOMPARE(clients.size(), 5);
+    QCOMPARE(clients.size(), 6);
     const QStringList expectedIds{QStringLiteral("codex"), QStringLiteral("workbuddy"),
-        QStringLiteral("claude"), QStringLiteral("unknown"), QStringLiteral("manual")};
+        QStringLiteral("claude"), QStringLiteral("opencode"), QStringLiteral("unknown"),
+        QStringLiteral("manual")};
     for (int i = 0; i < clients.size(); ++i) {
         const auto client = clients[i].toObject();
         QCOMPARE(client.keys(), QStringList({QStringLiteral("id"),
@@ -72,7 +73,8 @@ void IntegrationStatusModelTest::sourcesAreWhitelistedAndUnknownSourcesShareOneS
     auto time = utcAt();
     IntegrationStatusModel model(nullptr, [&] { return time; });
     const QStringList ids{QStringLiteral("codex"), QStringLiteral("workbuddy"),
-        QStringLiteral("claude"), QStringLiteral("unknown"), QStringLiteral("manual")};
+        QStringLiteral("claude"), QStringLiteral("opencode"), QStringLiteral("unknown"),
+        QStringLiteral("manual")};
     for (const auto& id : ids) {
         model.observeEvent(id, QStringLiteral("start"));
         const auto status = snapshot(model);
@@ -90,7 +92,9 @@ void IntegrationStatusModelTest::sourcesAreWhitelistedAndUnknownSourcesShareOneS
                  .value(QStringLiteral("last_event")).toString(), QStringLiteral("stop"));
     QCOMPARE(clientReceipt(status, QStringLiteral("codex"))
                  .value(QStringLiteral("last_event")).toString(), QStringLiteral("start"));
-    QCOMPARE(status.value(QStringLiteral("clients")).toArray().size(), 5);
+    QCOMPARE(clientReceipt(status, QStringLiteral("opencode"))
+                 .value(QStringLiteral("last_event")).toString(), QStringLiteral("start"));
+    QCOMPARE(status.value(QStringLiteral("clients")).toArray().size(), 6);
 }
 
 void IntegrationStatusModelTest::onlyRecognizedEventsChangeReceipts() {
@@ -190,12 +194,15 @@ void IntegrationStatusModelTest::resetKeepsClientHistoryWithoutInventingCompleti
     IntegrationStatusModel model(nullptr, [&] { return time; });
     QSignalSpy changed(&model, &IntegrationStatusModel::changed);
     model.observeEvent(QStringLiteral("codex"), QStringLiteral("start"));
+    model.observeEvent(QStringLiteral("opencode"), QStringLiteral("start"));
     const auto before = clientReceipt(snapshot(model), QStringLiteral("codex"));
+    const auto openCodeBefore = clientReceipt(snapshot(model), QStringLiteral("opencode"));
     time = time.addSecs(2);
     model.recordReset();
     auto status = snapshot(model, 0);
-    QCOMPARE(changed.size(), 2);
+    QCOMPARE(changed.size(), 3);
     QCOMPARE(clientReceipt(status, QStringLiteral("codex")), before);
+    QCOMPARE(clientReceipt(status, QStringLiteral("opencode")), openCodeBefore);
     QCOMPARE(status.value(QStringLiteral("last_event")).toObject(),
              (QJsonObject{{QStringLiteral("client"), QStringLiteral("manual")},
                           {QStringLiteral("event"), QStringLiteral("reset")},
@@ -222,7 +229,7 @@ void IntegrationStatusModelTest::manySourcesDoNotGrowStorageOrKeepArbitraryInput
                            i % 2 ? QStringLiteral("stop") : QStringLiteral("start"));
     }
     const auto status = snapshot(model);
-    QCOMPARE(status.value(QStringLiteral("clients")).toArray().size(), 5);
+    QCOMPARE(status.value(QStringLiteral("clients")).toArray().size(), 6);
     QCOMPARE(clientReceipt(status, QStringLiteral("unknown"))
                  .value(QStringLiteral("last_event")).toString(), QStringLiteral("stop"));
     const auto json = QJsonDocument(status).toJson(QJsonDocument::Compact);

@@ -5,7 +5,7 @@
 ; are byte-for-byte the same runtime.
 ;
 ; Per-user install (no admin): {localappdata}\Programs\DesktopCompanion. The
-; "agent hooks" task wires Codex / WorkBuddy / Claude to the bundled hook helper
+; "agent hooks" task wires Codex / WorkBuddy / Claude / OpenCode to the bundled hook helper
 ; at uninstall-safe absolute paths, and uninstall removes those entries again.
 
 #ifndef AppVersion
@@ -44,7 +44,7 @@ UninstallDisplayIcon={app}\{#AppExe}
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "agenthooks"; Description: "Install hooks for AI coding agents (Codex / WorkBuddy / Claude)"; GroupDescription: "Additional:"; Flags: checkedonce
+Name: "agenthooks"; Description: "Install hooks for AI coding agents (Codex / WorkBuddy / Claude / OpenCode)"; GroupDescription: "Additional:"; Flags: checkedonce
 Name: "autostart"; Description: "Start {#AppName} when I sign in"; GroupDescription: "Additional:"; Flags: unchecked
 Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription: "Additional:"; Flags: unchecked
 

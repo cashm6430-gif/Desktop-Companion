@@ -20,15 +20,17 @@
 
 namespace {
 const QStringList clientIds = {QStringLiteral("codex"), QStringLiteral("workbuddy"),
-                               QStringLiteral("claude"), QStringLiteral("unknown"),
+                               QStringLiteral("claude"), QStringLiteral("opencode"),
+                               QStringLiteral("unknown"),
                                QStringLiteral("manual")};
 const QStringList clientNames = {QStringLiteral("Codex"), QStringLiteral("WorkBuddy"),
-                                 QStringLiteral("Claude"), QStringLiteral("未知来源"),
+                                 QStringLiteral("Claude"), QStringLiteral("OpenCode"),
+                                 QStringLiteral("未知来源"),
                                  QStringLiteral("手动操作")};
 
 int clientRow(const QString& id) {
     const auto row = clientIds.indexOf(id);
-    return row < 0 ? 3 : int(row);
+    return row < 0 ? int(clientIds.indexOf(QStringLiteral("unknown"))) : int(row);
 }
 
 QString eventText(const QString& event) {

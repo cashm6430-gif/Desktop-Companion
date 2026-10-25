@@ -40,7 +40,7 @@ void IntegrationStatusPanelTest::emptyReceiptDoesNotClaimClientPresence() {
     IntegrationStatusPanel panel(idleSnapshot, [] {});
     QCOMPARE(panel.isModal(), false);
     auto* table = panel.findChild<QTableWidget*>(QStringLiteral("clientsTable"));
-    QCOMPARE(table->rowCount(), 5);
+    QCOMPARE(table->rowCount(), 6);
     for (int row = 0; row < table->rowCount(); ++row) {
         QCOMPARE(table->item(row, 1)->text(), QStringLiteral("尚未收到"));
         QCOMPARE(table->item(row, 2)->text(), QStringLiteral("—"));
@@ -118,6 +118,9 @@ void IntegrationStatusPanelTest::knownEventsAndLocalReceiptTimes() {
         QJsonObject{{QStringLiteral("id"), QStringLiteral("claude")},
                     {QStringLiteral("last_event"), QStringLiteral("stop")},
                     {QStringLiteral("last_seen"), at}},
+        QJsonObject{{QStringLiteral("id"), QStringLiteral("opencode")},
+                    {QStringLiteral("last_event"), QStringLiteral("start")},
+                    {QStringLiteral("last_seen"), at}},
         QJsonObject{{QStringLiteral("id"), QStringLiteral("unknown")},
                     {QStringLiteral("last_event"), QStringLiteral("session_end")},
                     {QStringLiteral("last_seen"), at}}});
@@ -129,11 +132,20 @@ void IntegrationStatusPanelTest::knownEventsAndLocalReceiptTimes() {
     auto* table = panel.findChild<QTableWidget*>(QStringLiteral("clientsTable"));
     QCOMPARE(table->item(0, 1)->text(), QStringLiteral("收到开始"));
     QCOMPARE(table->item(2, 1)->text(), QStringLiteral("收到停止"));
-    QCOMPARE(table->item(3, 1)->text(), QStringLiteral("收到会话结束"));
+    QCOMPARE(table->item(3, 0)->text(), QStringLiteral("OpenCode"));
+    QCOMPARE(table->item(3, 1)->text(), QStringLiteral("收到开始"));
+    QCOMPARE(table->item(4, 1)->text(), QStringLiteral("收到会话结束"));
     QCOMPARE(table->item(0, 2)->text(), QDateTime::fromString(at, Qt::ISODateWithMs)
                                           .toLocalTime().toString(QStringLiteral("MM-dd HH:mm:ss")));
     QVERIFY(panel.findChild<QLabel*>(QStringLiteral("lastEvent"))->text()
                 .contains(QStringLiteral("未知来源 · 收到会话结束")));
+    snapshot.insert(QStringLiteral("last_event"), QJsonObject{
+        {QStringLiteral("client"), QStringLiteral("opencode")},
+        {QStringLiteral("event"), QStringLiteral("stop")},
+        {QStringLiteral("at"), at}});
+    panel.refresh();
+    QVERIFY(panel.findChild<QLabel*>(QStringLiteral("lastEvent"))->text()
+                .contains(QStringLiteral("OpenCode · 收到停止")));
     QVERIFY(!renderedText(panel).contains(QStringLiteral("成功")));
 }
 

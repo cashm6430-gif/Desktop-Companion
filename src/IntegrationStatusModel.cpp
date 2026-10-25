@@ -6,13 +6,14 @@
 #include <utility>
 
 namespace {
-const std::array<QString, 5> clientIds{
+const std::array<QString, 6> clientIds{
     QStringLiteral("codex"), QStringLiteral("workbuddy"), QStringLiteral("claude"),
-    QStringLiteral("unknown"), QStringLiteral("manual")};
+    QStringLiteral("opencode"), QStringLiteral("unknown"), QStringLiteral("manual")};
+constexpr int unknownClientIndex = 4;
 
 int clientIndex(const QString& client) {
     const auto found = std::find(clientIds.cbegin(), clientIds.cend(), client);
-    return found == clientIds.cend() ? 3 : int(found - clientIds.cbegin());
+    return found == clientIds.cend() ? unknownClientIndex : int(found - clientIds.cbegin());
 }
 
 QString canonicalEvent(const QString& event) {
@@ -45,7 +46,7 @@ void IntegrationStatusModel::observeEvent(const QString& client, const QString& 
 }
 
 void IntegrationStatusModel::recordReset() {
-    record(4, QStringLiteral("reset"));
+    record(clientIndex(QStringLiteral("manual")), QStringLiteral("reset"));
 }
 
 void IntegrationStatusModel::record(int index, const QString& event) {

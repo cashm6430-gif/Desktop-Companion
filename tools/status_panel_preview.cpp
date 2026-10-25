@@ -178,11 +178,11 @@ int main(int argc, char** argv) {
         controller.activeTurnCount() != 1)
         return fail("First real IPC start did not produce exactly one active turn.");
     record(QStringLiteral("codex_start"));
-    if (!request(endpoint, event(QStringLiteral("start"), QStringLiteral("claude"),
+    if (!request(endpoint, event(QStringLiteral("start"), QStringLiteral("opencode"),
                                  QStringLiteral("preview-b"), QStringLiteral("turn-b"))) ||
         controller.activeTurnCount() != 2)
         return fail("Concurrent real IPC starts did not produce exactly two active turns.");
-    record(QStringLiteral("claude_start"));
+    record(QStringLiteral("opencode_start"));
     const auto latestBeforeStatus = status().value(QStringLiteral("last_event"));
     QByteArray response;
     if (!request(endpoint, {{QStringLiteral("event"), QStringLiteral("status")}}, &response))
@@ -202,10 +202,10 @@ int main(int argc, char** argv) {
         controller.activeTurnCount() != 1)
         return fail("Real stop did not leave the other client's active turn intact.");
     record(QStringLiteral("codex_stop"));
-    if (!request(endpoint, event(QStringLiteral("session_end"), QStringLiteral("claude"),
+    if (!request(endpoint, event(QStringLiteral("session_end"), QStringLiteral("opencode"),
                                  QStringLiteral("preview-b"))) || controller.activeTurnCount() != 0)
         return fail("Real session_end did not clear its own final active turn.");
-    record(QStringLiteral("claude_session_end"));
+    record(QStringLiteral("opencode_session_end"));
     if (!request(endpoint, event(QStringLiteral("start"), QStringLiteral("workbuddy"),
                                  QStringLiteral("preview-c"), QStringLiteral("turn-c"))) ||
         controller.activeTurnCount() != 1)

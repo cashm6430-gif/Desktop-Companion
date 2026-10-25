@@ -1,0 +1,39 @@
+[0/1] Re-running CMake...
+-- Conan: Component target declared 'GLEW::glew_s'
+-- Conan: Target declared 'GLEW::GLEW'
+-- Conan: Target declared 'glu::glu'
+-- Conan: Target declared 'opengl::opengl'
+-- Configuring done (0.4s)
+-- Generating done (0.5s)
+-- Build files have been written to: E:/projects/Desktop-Companion/build
+[1/78] Automatic MOC for target DesktopCompanionHook
+[2/76] Automatic MOC for target TrayMenuPreview
+[3/74] Automatic MOC for target PetControllerTest
+[4/72] Automatic MOC for target DesktopCompanion
+[5/70] Automatic MOC for target PetPointerGestureTest
+[6/68] Automatic MOC for target TriggerDirectorTest
+[7/66] Automatic MOC for target QuietPolicyTest
+[8/64] Automatic MOC for target MemoStoreTest
+[9/62] Automatic MOC for target StickyNoteModelTest
+[10/60] Automatic MOC for target CodexTurnSourceTest
+[11/58] Automatic MOC for target HookLifecycleTest
+[12/56] Automatic MOC for target IntegrationStatusModelTest
+[13/54] Automatic MOC for target IntegrationStatusPanelTest
+[14/52] Automatic MOC for target IntegrationStatusPanelPreview
+[15/50] Automatic MOC for target ScreenPlacementTest
+[16/48] Automatic MOC for target CoworkHookSeederTest
+[17/46] Automatic MOC for target OpenCodeIpcFixture
+[18/46] Automatic MOC for target ToonEventBridgeTest
+[19/44] Automatic MOC for target ParameterMotionTest
+[20/42] Automatic MOC for target MotionClipTest
+[21/40] Automatic MOC for target CubismMaterialBindingTest
+[22/38] Automatic MOC for target CubismNeckBindingTest
+[23/36] Automatic MOC for target CubismPostureTransitionTest
+[24/34] Automatic MOC for target CubismMaterialTextureTest
+[25/32] Building CXX object CMakeFiles\OpenCodeIpcFixture.dir\src\CodexTurnSource.cpp.obj
+[26/32] Building CXX object CMakeFiles\OpenCodeIpcFixture.dir\src\PetController.cpp.obj
+[27/32] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[28/32] Building CXX object CMakeFiles\OpenCodeIpcFixture.dir\tools\opencode_ipc_fixture.cpp.obj
+[29/32] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+[30/32] Building CXX object CMakeFiles\OpenCodeIpcFixture.dir\OpenCodeIpcFixture_autogen\mocs_compilation.cpp.obj
+[31/32] Linking CXX executable OpenCodeIpcFixture.exe

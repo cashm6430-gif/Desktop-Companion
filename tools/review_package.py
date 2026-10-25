@@ -27,6 +27,8 @@ REQUIRED = {
     "vcruntime140.dll", "vcruntime140_1.dll", "vcruntime140_threads.dll",
     "install-hooks.cmd", "uninstall-hooks.cmd", "tools/install-hooks.ps1",
     "tools/seed-cowork-hooks.ps1", "tools/hook-config-common.ps1",
+    "tools/install-opencode-plugin.ps1", "tools/opencode-plugin/index.ts",
+    "tools/opencode-plugin/bridge.mjs", "tools/opencode-plugin/package.json",
     "assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
     "assets/live2d/whale-girl/whale-girl-layered-draft.moc3",
     "assets/live2d/whale-girl/whale-girl-layered-draft.psd2live.json",

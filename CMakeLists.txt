@@ -171,6 +171,11 @@ if(BUILD_TESTING)
     target_link_libraries(HookLifecycleTest PRIVATE Qt6::Core Qt6::Gui Qt6::Network Qt6::Test)
     add_dependencies(HookLifecycleTest DesktopCompanionHook)
     add_test(NAME HookLifecycleTest COMMAND HookLifecycleTest)
+    add_executable(OpenCodeIpcFixture tools/opencode_ipc_fixture.cpp
+        src/CodexTurnSource.h src/CodexTurnSource.cpp
+        src/PetController.h src/PetController.cpp)
+    target_include_directories(OpenCodeIpcFixture PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_link_libraries(OpenCodeIpcFixture PRIVATE Qt6::Core Qt6::Gui Qt6::Network)
     add_executable(IntegrationStatusModelTest tests/IntegrationStatusModelTest.cpp
         src/IntegrationStatusModel.h src/IntegrationStatusModel.cpp)
     target_link_libraries(IntegrationStatusModelTest PRIVATE Qt6::Core Qt6::Test)
@@ -280,6 +285,17 @@ if(BUILD_TESTING)
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/HookInstallLifecycleTest.ps1"
             -InstallerPath "${CMAKE_CURRENT_SOURCE_DIR}/tools/install-hooks.ps1"
             -SeedScriptPath "${CMAKE_CURRENT_SOURCE_DIR}/tools/seed-cowork-hooks.ps1")
+        add_test(NAME OpenCodePluginInstallTest COMMAND "${POWERSHELL_EXECUTABLE}"
+            -NoLogo -NoProfile -NonInteractive -File
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/OpenCodePluginInstallTest.ps1"
+            -InstallerPath "${CMAKE_CURRENT_SOURCE_DIR}/tools/install-opencode-plugin.ps1")
+        find_program(NODE_EXECUTABLE NAMES node)
+        if(NODE_EXECUTABLE)
+            add_test(NAME OpenCodeBridgeTest COMMAND "${NODE_EXECUTABLE}" --test
+                "${CMAKE_CURRENT_SOURCE_DIR}/tests/OpenCodeBridgeTest.mjs")
+            set_tests_properties(OpenCodeBridgeTest PROPERTIES
+                ENVIRONMENT "PET_HOOK_HELPER=$<TARGET_FILE:DesktopCompanionHook>;PET_OPENCODE_IPC_FIXTURE=$<TARGET_FILE:OpenCodeIpcFixture>;${PET_TEST_ENV}")
+        endif()
         # The Claude-Desktop script is what the uninstaller runs, so its seed/remove
         # round trip is a shipping contract, not a convenience: "uninstalling leaves
         # no trace" has to keep being true now the pet seeds those files itself.

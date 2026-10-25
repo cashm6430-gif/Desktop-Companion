@@ -28,6 +28,8 @@ int main(int argc, char** argv) {
     // sending synthetic turns to a user's running pet. Production hook
     // commands never pass this flag and keep the existing IPC behavior.
     bool dryRunHook = false;
+    bool requireDelivery = false;
+    bool delivered = false;
     QString client;
     QString endpoint = CodexTurnSource::serverName();
     bool invalidEndpoint = false;
@@ -36,6 +38,7 @@ int main(int argc, char** argv) {
     for (int index = 1; index < arguments.size(); ++index) {
         const QString& argument = arguments[index];
         if (argument == QStringLiteral("--dry-run-hook")) dryRunHook = true;
+        else if (argument == QStringLiteral("--require-delivery")) requireDelivery = true;
         else if (argument == QStringLiteral("--client") && index + 1 < arguments.size()
                  && !arguments[index + 1].startsWith(QStringLiteral("--"))) client = arguments[++index];
         else if (argument == QStringLiteral("--endpoint")) {
@@ -107,9 +110,11 @@ int main(int argc, char** argv) {
                             {QStringLiteral("session_id"), hook.value(QStringLiteral("session_id"))},
                             {QStringLiteral("turn_id"), turn}};
         if (!client.isNull()) message.insert(QStringLiteral("client"), client);
-        if (!dryRunHook) sendMessage(message, endpoint);
+        if (!dryRunHook) delivered = sendMessage(message, endpoint);
     }
     // Valid JSON for Stop/Interrupt; no prompt text or hook output is retained.
     std::cout << "{}" << std::endl;
-    return 0;
+    // Existing hook hosts remain fail-open. The OpenCode bridge opts in so it
+    // can retry an undelivered transition without blocking the agent itself.
+    return requireDelivery && !dryRunHook && !delivered ? 1 : 0;
 }

@@ -123,6 +123,8 @@ New-Item -ItemType Directory -Path (Join-Path $stage 'tools') -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\install-hooks.ps1') -Destination (Join-Path $stage 'tools')
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\seed-cowork-hooks.ps1') -Destination (Join-Path $stage 'tools')
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\hook-config-common.ps1') -Destination (Join-Path $stage 'tools')
+Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\install-opencode-plugin.ps1') -Destination (Join-Path $stage 'tools')
+Copy-Item -LiteralPath (Join-Path $RepoRoot 'tools\opencode-plugin') -Destination (Join-Path $stage 'tools') -Recurse
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'installer\portable\install-hooks.cmd') -Destination $stage
 Copy-Item -LiteralPath (Join-Path $RepoRoot 'installer\portable\uninstall-hooks.cmd') -Destination $stage
 
