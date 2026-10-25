@@ -1,0 +1,45 @@
+[1/89] Automatic MOC for target DesktopCompanionHook
+[2/87] Automatic MOC for target TrayMenuPreview
+[3/85] Automatic MOC for target PetControllerTest
+[4/83] Automatic MOC for target PetPointerGestureTest
+[5/81] Automatic MOC for target TriggerDirectorTest
+[6/79] Automatic MOC for target QuietPolicyTest
+[7/77] Automatic MOC for target MemoStoreTest
+[8/75] Automatic MOC for target StickyNoteModelTest
+[9/73] Automatic MOC for target CodexTurnSourceTest
+[10/71] Automatic MOC for target HookLifecycleTest
+[11/69] Automatic MOC for target IntegrationStatusModelTest
+[12/67] Automatic MOC for target OpenCodeIpcFixture
+[13/65] Automatic MOC for target IntegrationStatusPanelTest
+[14/63] Automatic MOC for target IntegrationStatusPanelPreview
+[15/61] Automatic MOC for target ScreenPlacementTest
+[16/59] Automatic MOC for target CoworkHookSeederTest
+[17/57] Automatic MOC for target ToonEventBridgeTest
+[18/55] Automatic MOC for target CubismMaterialBindingTest
+[19/53] Automatic MOC for target DesktopCompanion
+[20/53] Automatic MOC for target CubismNeckBindingTest
+[21/51] Automatic MOC for target MotionClipTest
+[22/50] Automatic MOC for target ParameterMotionTest
+[23/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\HeadPatInputReview.cpp.obj
+[24/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\MemoInputReview.cpp.obj
+[25/49] Building CXX object CMakeFiles\DesktopCompanion.dir\DesktopCompanion_autogen\mocs_compilation.cpp.obj
+[26/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\main.cpp.obj
+[27/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\WorkReactionCoordinator.cpp.obj
+[28/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\GrassDragInputReview.cpp.obj
+[29/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\WorkPostureReview.cpp.obj
+[30/49] Building CXX object CMakeFiles\DesktopCompanion.dir\src\DragInputReview.cpp.obj
+[31/49] Automatic MOC for target CubismPostureTransitionTest
+[32/47] Automatic MOC for target CubismMaterialTextureTest
+[33/45] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ParameterMotion.cpp.obj
+[34/45] Building CXX object CMakeFiles\DesktopCompanion.dir\src\CubismCanvas.cpp.obj
+[35/45] Building CXX object CMakeFiles\ParameterMotionTest.dir\tests\ParameterMotionTest.cpp.obj
+[36/45] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetWindow.cpp.obj
+[37/45] Linking CXX executable DesktopCompanion.exe
+[38/45] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\ParameterMotion.cpp.obj
+[39/45] Linking CXX executable ParameterMotionTest.exe
+[40/45] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+[41/45] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[42/45] Building CXX object CMakeFiles\MotionClipTest.dir\src\WorkReactionCoordinator.cpp.obj
+[43/45] Building CXX object CMakeFiles\MotionClipTest.dir\src\ParameterMotion.cpp.obj
+[44/45] Building CXX object CMakeFiles\MotionClipTest.dir\tests\MotionClipTest.cpp.obj
+[45/45] Linking CXX executable MotionClipTest.exe

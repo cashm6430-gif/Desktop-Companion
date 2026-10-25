@@ -251,6 +251,7 @@ double ParameterMotion::thoughtBubblePulse(double seconds) {
 }
 
 void ParameterMotion::setState(PetController::State state) {
+    workPosturePreview_ = false;
     preview_ = false;
     sequencePhysics_ = false;
     if ((interaction_ == Interaction::TurnEnded && state != PetController::State::Idle)
@@ -320,7 +321,10 @@ void ParameterMotion::setState(PetController::State state) {
         nextBusyChoice_ = 40.0;
     } else if (state == PetController::State::Busy && !busyChoiceExists_) {
         busyChoiceExists_ = true;
-        laptopBusy_ = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
+        const bool randomLaptop = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
+        // Fixed preferences are applied in advance(), after the previous
+        // foreground owner and posture transition have actually finished.
+        laptopBusy_ = workPosturePreference_ == WorkPosturePreference::Automatic && randomLaptop;
     }
     // Keep current parameter values. The next advance blends from the current pose.
 }
@@ -868,6 +872,7 @@ void ParameterMotion::forceLaptopBusy() {
     setState(PetController::State::Busy);
     busyChoiceExists_ = true;
     laptopBusy_ = true;
+    workPosturePreview_ = true;
     busyTime_ = 0;
     nextBusyChoice_ = 40;
     // This is the explicit capture/review seam: forcing the seated variant
@@ -880,8 +885,55 @@ void ParameterMotion::forceStandingBusy() {
     setState(PetController::State::Busy);
     busyChoiceExists_ = true;
     laptopBusy_ = false;
+    workPosturePreview_ = true;
     busyTime_ = 0;
     nextBusyChoice_ = 40;
+}
+
+void ParameterMotion::setWorkPosturePreference(WorkPosturePreference preference) {
+    switch (preference) {
+    case WorkPosturePreference::Automatic:
+    case WorkPosturePreference::Standing:
+    case WorkPosturePreference::Laptop:
+        workPosturePreference_ = preference;
+        break;
+    default:
+        workPosturePreference_ = WorkPosturePreference::Automatic;
+        break;
+    }
+}
+
+QString ParameterMotion::deskWorkPhase() const {
+    switch (deskPhase_) {
+    case DeskPhase::Hidden: return QStringLiteral("hidden");
+    case DeskPhase::SitDown: return QStringLiteral("sit_down");
+    case DeskPhase::EnterCover: return QStringLiteral("enter_cover");
+    case DeskPhase::Work: return QStringLiteral("work");
+    case DeskPhase::ExitWork: return QStringLiteral("exit_work");
+    case DeskPhase::ExitReveal: return QStringLiteral("exit_reveal");
+    case DeskPhase::SitUp: return QStringLiteral("sit_up");
+    case DeskPhase::ExitCover: return QStringLiteral("exit_cover");
+    }
+    return {};
+}
+
+bool ParameterMotion::canApplyWorkPosturePreference() const {
+    if (preview_ || workPosturePreview_ || state_ != PetController::State::Busy
+        || interactionActive() || dragMotionActive() || memoMotionActive()
+        || sleepMotionActive() || boxPeekActive() || riceBowlActive()
+        || waveActive() || grassTouch_.active()) return false;
+    if (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden && deskPhase_ != DeskPhase::Work)
+        return false;
+    // Work begins before its blended computer/chest have fully arrived.
+    // Wait for that handover too, and never reverse a half-finished ramp.
+    const double laptop = values_.value(QStringLiteral("ParamBusyLaptop"));
+    const double seat = values_.value(QStringLiteral("ParamSitPose"));
+    const double computer = values_.value(QStringLiteral("ParamLaptopVisible"));
+    if (deskWorkMode_ && deskPhase_ == DeskPhase::Work)
+        return deskVisible_ >= 0.995 && laptop >= 0.995 && seat >= 0.995 && computer >= 0.995;
+    const bool standing = laptop <= 0.001 && seat <= 0.001 && computer <= 0.001;
+    const bool seated = !deskWorkMode_ && laptop >= 0.995 && seat >= 0.995 && computer >= 0.995;
+    return standing || seated;
 }
 
 void ParameterMotion::setDeskWorkMode(bool enabled) {
@@ -1148,6 +1200,9 @@ void ParameterMotion::advance(double seconds) {
     // Capture before advanceInteraction() retires the final pause frame. Both
     // work clocks, and hence the choice deadline, exclude the entire pause.
     const bool pauseWorkClock = workPauseActive();
+    // Capture ownership before advancing it: the final authored overlay frame
+    // still belongs to that owner, even when advance retires its state.
+    const bool applyWorkPreference = canApplyWorkPosturePreference();
     const Parameters deskPrevious = deskWorkMode_ ? values_ : Parameters{};
     clock_ += seconds;
     if (interaction_ != Interaction::TurnEnded
@@ -1254,6 +1309,8 @@ void ParameterMotion::advance(double seconds) {
     if (state_ == PetController::State::Idle) workBusyTime_ = 0.0;
     else if (state_ == PetController::State::Busy && !pauseWorkClock) workBusyTime_ += seconds;
     if (state_ == PetController::State::Busy) {
+        if (applyWorkPreference && workPosturePreference_ != WorkPosturePreference::Automatic)
+            laptopBusy_ = workPosturePreference_ == WorkPosturePreference::Laptop && laptopClip_.isValid();
         // Early in a work session she stays on her feet: the seated pose rides
         // on the laptop variant (its loop writes ParamSitPose, and workWanted
         // rides the same flag), so the laptop choice renders as the standing
@@ -1293,7 +1350,12 @@ void ParameterMotion::advance(double seconds) {
         // Choice times coincide with the authored loop seam.
         // A delete/grass interruption pauses this clock and retains the choice.
         if (!pauseWorkClock && busyTime_ >= nextBusyChoice_) {
-            laptopBusy_ = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
+            const bool randomLaptop = laptopClip_.isValid() && busyRandom_.generateDouble() < 0.4;
+            // Keep consuming the same choice schedule in fixed modes. Going
+            // back to Automatic waits for the next seam instead of replaying
+            // missed choices or restarting the forty-second clock.
+            if (workPosturePreference_ == WorkPosturePreference::Automatic || workPosturePreview_)
+                laptopBusy_ = randomLaptop;
             nextBusyChoice_ += 40.0;
         }
         // The flip above takes effect on the seated branch this frame, matching

@@ -1,0 +1,54 @@
+[
+  {
+    "capture": "native",
+    "exit_code": 2,
+    "scene_passed": false,
+    "frame_count": 634,
+    "failure": "wall_time_limit",
+    "wall_ms": 55069,
+    "checks": {
+      "default_automatic": true,
+      "first_laptop_settled": true,
+      "idle_menu_only_saves_preference": true,
+      "idle_never_enters_work_pose": true,
+      "menu_exclusive_and_tracks_preference": true,
+      "menu_idle_snapshot": true,
+      "menu_pending_snapshot": true,
+      "menu_shows_preference_before_pose_recovers": true,
+      "native_backend": true,
+      "only_fixture_turn_controls_busy": true,
+      "preference_preserves_work_clocks": true,
+      "second_laptop_settled": true,
+      "standing_settled_without_reset": true,
+      "ten_second_sit_guard": true
+    }
+  },
+  {
+    "capture": "native-r2",
+    "exit_code": 3221225477,
+    "scene_passed": true,
+    "frame_count": 800,
+    "failure": "",
+    "wall_ms": 72631,
+    "checks": {
+      "default_automatic": true,
+      "first_laptop_settled": true,
+      "idle_menu_only_saves_preference": true,
+      "idle_never_enters_work_pose": true,
+      "menu_exclusive_and_tracks_preference": true,
+      "menu_idle_snapshot": true,
+      "menu_pending_snapshot": true,
+      "menu_shows_preference_before_pose_recovers": true,
+      "native_backend": true,
+      "new_window_restores_preference_without_turn": true,
+      "only_fixture_turn_controls_busy": true,
+      "preference_preserves_work_clocks": true,
+      "second_laptop_settled": true,
+      "stable_string_saved": true,
+      "standing_settled_without_reset": true,
+      "stop_recovers_idle_with_saved_preference": true,
+      "ten_second_sit_guard": true,
+      "unknown_saved_value_falls_back_to_auto": true
+    }
+  }
+]

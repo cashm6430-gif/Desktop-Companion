@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "passed": true,
+  "base_revision": "d452eead3b3502f0baa69de59f692c663ea99465",
+  "scope": "Persistent work-posture preference; existing Native model, desk choreography and approved clips",
+  "behavior": {
+    "menu": "工作与休息 → 工作姿态 → 自动 / 站着陪伴 / 抱电脑",
+    "persistence": "workPosture stable string automatic/standing/laptop; missing or unknown -> automatic",
+    "idle": "save only, no artificial work turn",
+    "fixed": "apply on real Busy after all overlays and stable desk/pose; existing 10s continuous-work guard",
+    "automatic_return": "retain current target until next existing 40s boundary; deadlines/RNG continue in fixed modes",
+    "clocks": "no phase/choice/continuous-work reset by changing preference",
+    "preview": "explicit force preview does not change preference; timer releases override even if other real turns keep Busy"
+  },
+  "verification": {
+    "release_build": true,
+    "ctest": {
+      "passed": 24,
+      "total": 24,
+      "seconds": 66.37,
+      "skipped": 0,
+      "new_parameter_test_methods": 7
+    },
+    "ctest_after_note": "Only review harness timeout and single-process restart fixtures changed after full suite; product/core/test logic unchanged, final app rebuilt and all Native processes exited 0.",
+    "native": {
+      "passed": true,
+      "scope": "native_work_posture_real_qaction_and_fixture_turn",
+      "manual_frames": 800,
+      "sampled_native_frames": 95,
+      "menu_snapshots": 2,
+      "checks": 16,
+      "restart_reviews": [
+        {
+          "scenario": "work-posture-restore",
+          "passed": true,
+          "checks": 6,
+          "report_sha256": "bebe272d3c8c08cdc1c3496e47399ce01058e2de5bcbcebaa83ee81b03515ccd"
+        },
+        {
+          "scenario": "work-posture-invalid",
+          "passed": true,
+          "checks": 6,
+          "report_sha256": "b882d831d65dccc58548949a805b7e16986ef69c757f5bd90bd97290af756591"
+        }
+      ],
+      "restart_frames": 2,
+      "scene_sha256": "a901b65282c0c3a0c733bd58faad3c064c6cf225a5542dc134f35055226e057e",
+      "live_capture_performed": true,
+      "not_exercised": [
+        "physical tray clicks",
+        "production hook delivery"
+      ],
+      "visual_naturalness": "requires_rendered_sample_review",
+      "executable_sha256": "62bb32abf83d707aa56bcb89e514caad2957fb82ff6ff9d9c66a6c1943e62eb1",
+      "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "review_tool_sha256": "a31b25c5028b5af855cac0dcd8097051d05abdd0183a73bdc62cf2b6c78a6c37",
+      "source_deployment_equal": true
+    },
+    "native_total_steps": 802,
+    "native_total_checks": 28,
+    "visual_review": "Twenty selected Native frames and both actual menu snapshots inspected on light composites, including sit/desk transitions; no new visible component gaps in sampled frames. No new motion approval requested.",
+    "signatures": "GUI and helper signed with existing local development certificate; verified separately",
+    "asset_source_and_deployment_equal": true,
+    "model_atlas_motion_edits": false
+  },
+  "resolved_review_issues": [
+    "Initial 55s capture deadline expired at frame 634; all completed behavior checks passed. Raised capture-only budget to 100s.",
+    "Second capture completed 800 frames and 18 checks but returned access violation during teardown after creating multiple PetWindow instances in one process. Cubism global framework ownership is per application; changed restart verification to three fresh single-window processes without modifying production renderer."
+  ],
+  "boundaries": [
+    "Automatic behavior reviewed in diff and existing/default-vs-explicit Automatic tests; no comparison against a historical binary.",
+    "Real tray mouse routing and production hook delivery not exercised in this batch.",
+    "No new poses, amplitudes, axes or clips; all transitions use existing approved material.",
+    "No live settings, installed plugins, desktop files, production IPC lifecycle events or running pet modified for tests.",
+    "No package rebuild, real installation, release or push. Independent-account installation acceptance remains skipped by user decision."
+  ],
+  "formal_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "source_sha256": {
+    "CMakeLists.txt": "c8a7e3184652617a23e97cdc086d92b1f9cb25c14a61d79615fb17da5e3281d1",
+    "src/ParameterMotion.h": "2f141e5d8286a8e369fe5ba34eca9e6b9a656e451fe334db4cca34217614042e",
+    "src/ParameterMotion.cpp": "7ab8ac7c9040241c83a920f051e37645e671e1b5419eed302207d395f3ae48f8",
+    "src/PetWindow.h": "2842757d2a2a2f50b4ae80494acf53a2c6f7d835b6120f09cb5edd18eb27c305",
+    "src/PetWindow.cpp": "dd8eb989d420f9c14cb5f086583db2636f4c6f592bc457f0d923b48f9a120a2f",
+    "src/main.cpp": "5c3c9f18706310a5532d7c3749106e9b87232433ac4560da9ea91eaffb9c9904",
+    "src/WorkPostureReview.h": "f8de039195033dd72b214dbb851d442fe4d72f550207c6800079a2caaeae7415",
+    "src/WorkPostureReview.cpp": "312167067af75d7927ec1bcc625845b6b8dd037f40ac5c75d4b838a7f278862d",
+    "tests/ParameterMotionTest.cpp": "00abed397a4532368fee46e41a0745698ae9e1ce5d4c49dccf4b581dc654064a",
+    "tools/review_work_posture.py": "a31b25c5028b5af855cac0dcd8097051d05abdd0183a73bdc62cf2b6c78a6c37"
+  },
+  "runtime_sha256": {
+    "DesktopCompanion.exe": "62bb32abf83d707aa56bcb89e514caad2957fb82ff6ff9d9c66a6c1943e62eb1",
+    "DesktopCompanionHook.exe": "50df1cfffc5c1a1944509c997140ffabeedbfedafa4e904a7274bdc4eea1eec6",
+    "ParameterMotionTest.exe": "c0734c3853da67ff94a557fbc1e9996a43dfd31732712f71a7bc52d1d2e7ff4b",
+    "Live2DCubismCore.dll": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09"
+  },
+  "reproduce": "python tools/review_work_posture.py <fresh-directory>; wrapper starts primary and two restart processes",
+  "archived": {
+    "selected_native_frames": 20,
+    "full_parameter_ledger": "trace.zip",
+    "full_raw_capture_retained_locally": "E:\\projects\\Desktop-Companion\\.local\\authoring\\work-posture-20261025\\native-r3",
+    "visual_sheet": "posture-sheet.png",
+    "continuous_6s_native_preview": "posture-transition.gif"
+  }
+}

@@ -137,6 +137,13 @@ private slots:
     void grassForwardHoldAndWristGesture();
     void malformedMotionDoesNotReplaceLoadedKeys();
     void laptopSelectionAndInterruptions();
+    void workPosturePreferenceDoesNotStartWorkOrChangeIdle();
+    void workPostureFixedChoicesKeepDelayAndChoiceClock();
+    void workPostureAutomaticResumesAtNextScheduledChoice();
+    void workPostureWaitsForForegroundOwners();
+    void workPostureWaitsForLastPauseFrameAndPostureRamps();
+    void workPostureWaitsForWaveBoxAndForegroundStates();
+    void workPosturePreviewDoesNotChangeSavedPreference();
     void laptopTypingAndShortTaskExit();
     void deskSitPrecedesCoverAndLeavesLast();
     void deskSitWaitsForSustainedWork();
@@ -3005,6 +3012,288 @@ void ParameterMotionTest::workReactionsYieldToForeground() {
             }
         }
     }
+}
+
+void ParameterMotionTest::workPosturePreferenceDoesNotStartWorkOrChangeIdle() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    ParameterMotion subject, reference;
+    for (auto* player : {&subject, &reference}) {
+        QVERIFY(player->loadMotionLibrary(QStringLiteral("assets/motions")));
+        player->setDeskWorkMode(true);
+        player->setProceduralBlink(false);
+        player->setBusyRandomSeed(1234);
+    }
+    QCOMPARE(subject.workPosturePreference(), Preference::Automatic);
+    for (const auto choice : {Preference::Standing, Preference::Laptop, Preference::Automatic}) {
+        const auto before = subject.values();
+        subject.setWorkPosturePreference(choice);
+        QCOMPARE(subject.workPosturePreference(), choice);
+        QCOMPARE(subject.values(), before);
+        for (int frame = 0; frame < 30; ++frame) {
+            subject.advance(0.02);
+            reference.advance(0.02);
+            QCOMPARE(subject.values(), reference.values());
+            QCOMPARE(subject.busyPhaseTime(), 0.0);
+            QCOMPARE(subject.continuousBusyTime(), 0.0);
+            QCOMPARE(subject.nextBusyChoiceTime(), 40.0);
+            QVERIFY(!subject.isLaptopBusy());
+        }
+    }
+    subject.setWorkPosturePreference(static_cast<Preference>(999));
+    QCOMPARE(subject.workPosturePreference(), Preference::Automatic);
+    subject.setState(PetController::State::Busy);
+    reference.setState(PetController::State::Busy);
+    for (int frame = 0; frame < 4200; ++frame) {
+        subject.advance(0.02);
+        reference.advance(0.02);
+        QCOMPARE(subject.values(), reference.values());
+        QCOMPARE(subject.isLaptopBusy(), reference.isLaptopBusy());
+        QCOMPARE(subject.nextBusyChoiceTime(), reference.nextBusyChoiceTime());
+    }
+}
+
+void ParameterMotionTest::workPostureFixedChoicesKeepDelayAndChoiceClock() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    for (const auto preference : {Preference::Standing, Preference::Laptop}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+        motion.setDeskWorkMode(true);
+        motion.setBusyRandomSeed(1234);
+        motion.setWorkPosturePreference(preference);
+        motion.setState(PetController::State::Busy);
+        for (int frame = 0; frame < 475; ++frame) {
+            motion.advance(0.02);
+            QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+            QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+        }
+        for (int frame = 0; frame < 4025; ++frame) motion.advance(0.02);
+        QCOMPARE(motion.isLaptopBusy(), preference == Preference::Laptop);
+        QVERIFY(std::abs(motion.busyPhaseTime() - 90.0) < 1e-8);
+        QVERIFY(std::abs(motion.continuousBusyTime() - 90.0) < 1e-8);
+        QCOMPARE(motion.nextBusyChoiceTime(), 120.0);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")),
+                 preference == Preference::Laptop ? 1.0 : 0.0);
+        const auto before = motion.values();
+        motion.setState(PetController::State::Idle);
+        QCOMPARE(motion.values(), before);
+        QCOMPARE(motion.workPosturePreference(), preference);
+        advanceFrames(motion, 300);
+        QCOMPARE(motion.continuousBusyTime(), 0.0);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0);
+        QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+    }
+    // A fixed laptop preference is safe without the optional laptop clip.
+    ParameterMotion missing;
+    missing.setWorkPosturePreference(Preference::Laptop);
+    missing.setState(PetController::State::Busy);
+    advanceFrames(missing, 2100);
+    QVERIFY(!missing.isLaptopBusy());
+    QCOMPARE(missing.values().value(QStringLiteral("ParamSitPose")), 0.0);
+}
+
+void ParameterMotionTest::workPostureAutomaticResumesAtNextScheduledChoice() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    quint32 seed = 1;
+    for (; seed < 1000; ++seed) {
+        QRandomGenerator random(seed);
+        for (int draw = 0; draw < 4; ++draw) random.generateDouble();
+        if (random.generateDouble() < 0.4) break; // the 160s boundary chooses laptop
+    }
+    QVERIFY(seed < 1000);
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+    motion.setDeskWorkMode(true);
+    motion.setBusyRandomSeed(seed);
+    motion.setWorkPosturePreference(Preference::Standing);
+    motion.setState(PetController::State::Busy);
+    advanceFrames(motion, 6250); // 125s: initial + 40/80/120 choices consumed
+    QCOMPARE(motion.nextBusyChoiceTime(), 160.0);
+    const double phase = motion.busyPhaseTime();
+    const double work = motion.continuousBusyTime();
+    const auto before = motion.values();
+    motion.setWorkPosturePreference(Preference::Automatic);
+    QCOMPARE(motion.values(), before);
+    QCOMPARE(motion.busyPhaseTime(), phase);
+    QCOMPARE(motion.continuousBusyTime(), work);
+    for (int frame = 0; frame < 1749; ++frame) {
+        motion.advance(0.02);
+        QVERIFY(!motion.isLaptopBusy());
+        QCOMPARE(motion.nextBusyChoiceTime(), 160.0);
+    }
+    advanceFrames(motion, 2);
+    QVERIFY(motion.isLaptopBusy());
+    QCOMPARE(motion.nextBusyChoiceTime(), 200.0);
+}
+
+void ParameterMotionTest::workPostureWaitsForForegroundOwners() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    for (const QString& owner : {QStringLiteral("drag"), QStringLiteral("memo"),
+         QStringLiteral("sleep"), QStringLiteral("head-pat"), QStringLiteral("greet"),
+         QStringLiteral("rest"), QStringLiteral("rice")}) {
+        ParameterMotion subject, reference;
+        const bool seated = owner == QStringLiteral("rice");
+        for (auto* player : {&subject, &reference}) {
+            QVERIFY(player->loadMotionLibrary(QStringLiteral("assets/motions")));
+            player->setDeskWorkMode(true);
+            player->setProceduralBlink(false);
+            player->setBusyRandomSeed(1234);
+            player->setWorkPosturePreference(seated ? Preference::Laptop : Preference::Standing);
+            player->setState(PetController::State::Busy);
+            advanceFrames(*player, 650);
+            if (owner == QStringLiteral("drag")) player->beginDragMotion();
+            if (owner == QStringLiteral("memo")) player->beginMemoMotion();
+            if (owner == QStringLiteral("sleep")) player->beginSleepMotion();
+            if (owner == QStringLiteral("head-pat")) QVERIFY(player->beginHeadPat(1.0));
+            if (owner == QStringLiteral("greet")) QVERIFY(player->playGreet());
+            if (owner == QStringLiteral("rest")) QVERIFY(player->playStretch());
+            if (owner == QStringLiteral("rice")) QVERIFY(player->playRiceBowl());
+        }
+        subject.setWorkPosturePreference(seated ? Preference::Standing : Preference::Laptop);
+        for (int frame = 0; frame < 3; ++frame) {
+            subject.advance(0.02);
+            reference.advance(0.02);
+            QCOMPARE(subject.isLaptopBusy(), seated);
+            QCOMPARE(subject.values(), reference.values());
+            QCOMPARE(subject.busyPhaseTime(), reference.busyPhaseTime());
+            QCOMPARE(subject.continuousBusyTime(), reference.continuousBusyTime());
+            QCOMPARE(subject.nextBusyChoiceTime(), reference.nextBusyChoiceTime());
+        }
+        subject.cancelDragMotion();
+        subject.cancelMemoMotion();
+        subject.cancelSleepMotion();
+        subject.cancelInteraction();
+        subject.cancelRiceBowl();
+        advanceFrames(subject, 400);
+        QCOMPARE(subject.isLaptopBusy(), !seated);
+        QCOMPARE(subject.values().value(QStringLiteral("ParamDeskVisible")), seated ? 0.0 : 1.0);
+    }
+}
+
+void ParameterMotionTest::workPostureWaitsForLastPauseFrameAndPostureRamps() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    ParameterMotion rest;
+    QVERIFY(rest.loadMotionLibrary(QStringLiteral("assets/motions")));
+    rest.setDeskWorkMode(true);
+    rest.setWorkPosturePreference(Preference::Standing);
+    rest.setState(PetController::State::Busy);
+    advanceFrames(rest, 650);
+    QVERIFY(rest.playStretch());
+    const double phase = rest.busyPhaseTime();
+    const double work = rest.continuousBusyTime();
+    rest.setWorkPosturePreference(Preference::Laptop);
+    int frames = 0;
+    while (rest.workPauseActive() && frames++ < 200) {
+        rest.advance(0.02);
+        QVERIFY(!rest.isLaptopBusy()); // includes the frame retiring the pause
+        QCOMPARE(rest.busyPhaseTime(), phase);
+        QCOMPARE(rest.continuousBusyTime(), work);
+    }
+    QVERIFY(!rest.workPauseActive());
+    rest.advance(0.02);
+    QVERIFY(rest.isLaptopBusy());
+    QCOMPARE(rest.deskWorkPhase(), QStringLiteral("sit_down"));
+    advanceFrames(rest, 10);
+    rest.setWorkPosturePreference(Preference::Standing);
+    frames = 0;
+    bool changed = false;
+    while (!changed && frames++ < 300) {
+        const QString beforePhase = rest.deskWorkPhase();
+        const auto before = rest.values();
+        rest.advance(0.02);
+        changed = !rest.isLaptopBusy();
+        if (changed) {
+            QCOMPARE(beforePhase, QStringLiteral("work"));
+            QVERIFY(before.value(QStringLiteral("ParamBusyLaptop")) >= 0.995);
+            QVERIFY(before.value(QStringLiteral("ParamLaptopVisible")) >= 0.995);
+            QCOMPARE(before.value(QStringLiteral("ParamSitPose")), 1.0);
+        }
+    }
+    QVERIFY(changed);
+    rest.setWorkPosturePreference(Preference::Laptop); // do not reverse the exit
+    frames = 0;
+    while (rest.deskWorkPhase() != QStringLiteral("hidden") && frames++ < 400) {
+        rest.advance(0.02);
+        QVERIFY(!rest.isLaptopBusy());
+    }
+    QCOMPARE(rest.deskWorkPhase(), QStringLiteral("hidden"));
+    rest.advance(0.02);
+    QVERIFY(rest.isLaptopBusy());
+}
+
+void ParameterMotionTest::workPostureWaitsForWaveBoxAndForegroundStates() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    for (const bool box : {false, true}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+        motion.setDeskWorkMode(true);
+        motion.setWorkPosturePreference(Preference::Laptop);
+        advanceFrames(motion, 50);
+        QVERIFY(box ? motion.playBoxPeek() : motion.playWave());
+        advanceFrames(motion, 15);
+        motion.setState(PetController::State::Busy);
+        QVERIFY(!motion.isLaptopBusy());
+        int frames = 0;
+        while ((box ? motion.boxPeekActive() : motion.waveActive()) && frames++ < 300) {
+            motion.advance(0.02);
+            QVERIFY(!motion.isLaptopBusy());
+        }
+        QVERIFY(frames < 300);
+        motion.advance(0.02);
+        QVERIFY(motion.isLaptopBusy());
+        QCOMPARE(motion.values().value(QStringLiteral("ParamSitPose")), 0.0); // still <10s
+    }
+    for (const auto foreground : {PetController::State::Delete, PetController::State::Grass}) {
+        ParameterMotion motion;
+        QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+        motion.setDeskWorkMode(true);
+        motion.setWorkPosturePreference(Preference::Standing);
+        motion.setState(PetController::State::Busy);
+        advanceFrames(motion, 650);
+        motion.setState(foreground);
+        const double phase = motion.busyPhaseTime();
+        const double work = motion.continuousBusyTime();
+        motion.setWorkPosturePreference(Preference::Laptop);
+        advanceFrames(motion, 25);
+        QVERIFY(!motion.isLaptopBusy());
+        QCOMPARE(motion.busyPhaseTime(), phase);
+        QCOMPARE(motion.continuousBusyTime(), work);
+        motion.setState(PetController::State::Busy);
+        advanceFrames(motion, 200);
+        QVERIFY(motion.isLaptopBusy());
+        QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+    }
+}
+
+void ParameterMotionTest::workPosturePreviewDoesNotChangeSavedPreference() {
+    using Preference = ParameterMotion::WorkPosturePreference;
+    ParameterMotion motion;
+    QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+    motion.setDeskWorkMode(true);
+    motion.setWorkPosturePreference(Preference::Standing);
+    motion.forceLaptopBusy();
+    advanceFrames(motion, 200);
+    QVERIFY(motion.isLaptopBusy());
+    QCOMPARE(motion.workPosturePreference(), Preference::Standing);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 1.0);
+    // The preview turn expires while another real turn leaves the background
+    // Busy, so no stateChanged signal will arrive to release the override.
+    const double phase = motion.busyPhaseTime();
+    const double work = motion.continuousBusyTime();
+    motion.endWorkPosturePreview();
+    QCOMPARE(motion.busyPhaseTime(), phase);
+    QCOMPARE(motion.continuousBusyTime(), work);
+    motion.advance(0.02);
+    QVERIFY(!motion.isLaptopBusy());
+    advanceFrames(motion, 300);
+    QCOMPARE(motion.values().value(QStringLiteral("ParamDeskVisible")), 0.0);
+    motion.setWorkPosturePreference(Preference::Laptop);
+    motion.forceStandingBusy();
+    advanceFrames(motion, 100);
+    QVERIFY(!motion.isLaptopBusy());
+    QCOMPARE(motion.workPosturePreference(), Preference::Laptop);
+    motion.setState(PetController::State::Busy);
+    motion.advance(0.02);
+    QVERIFY(motion.isLaptopBusy());
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

@@ -1,0 +1,53 @@
+Test project E:/projects/Desktop-Companion/build
+      Start  1: PetControllerTest
+ 1/24 Test  #1: PetControllerTest ................   Passed    6.58 sec
+      Start  2: PetPointerGestureTest
+ 2/24 Test  #2: PetPointerGestureTest ............   Passed    0.02 sec
+      Start  3: TriggerDirectorTest
+ 3/24 Test  #3: TriggerDirectorTest ..............   Passed    0.17 sec
+      Start  4: QuietPolicyTest
+ 4/24 Test  #4: QuietPolicyTest ..................   Passed    0.02 sec
+      Start  5: MemoStoreTest
+ 5/24 Test  #5: MemoStoreTest ....................   Passed    0.15 sec
+      Start  6: StickyNoteModelTest
+ 6/24 Test  #6: StickyNoteModelTest ..............   Passed    0.10 sec
+      Start  7: CodexTurnSourceTest
+ 7/24 Test  #7: CodexTurnSourceTest ..............   Passed    2.48 sec
+      Start  8: HookLifecycleTest
+ 8/24 Test  #8: HookLifecycleTest ................   Passed    3.06 sec
+      Start  9: IntegrationStatusModelTest
+ 9/24 Test  #9: IntegrationStatusModelTest .......   Passed    0.04 sec
+      Start 10: IntegrationStatusPanelTest
+10/24 Test #10: IntegrationStatusPanelTest .......   Passed    3.38 sec
+      Start 11: ScreenPlacementTest
+11/24 Test #11: ScreenPlacementTest ..............   Passed    0.25 sec
+      Start 12: CoworkHookSeederTest
+12/24 Test #12: CoworkHookSeederTest .............   Passed    1.14 sec
+      Start 13: ToonEventBridgeTest
+13/24 Test #13: ToonEventBridgeTest ..............   Passed   14.34 sec
+      Start 14: ParameterMotionTest
+14/24 Test #14: ParameterMotionTest ..............   Passed    9.05 sec
+      Start 15: MotionClipTest
+15/24 Test #15: MotionClipTest ...................   Passed    0.72 sec
+      Start 16: CubismMaterialBindingTest
+16/24 Test #16: CubismMaterialBindingTest ........   Passed    0.13 sec
+      Start 17: CubismNeckBindingTest
+17/24 Test #17: CubismNeckBindingTest ............   Passed   11.54 sec
+      Start 18: CubismPostureTransitionTest
+18/24 Test #18: CubismPostureTransitionTest ......   Passed    0.02 sec
+      Start 19: CubismMaterialTextureTest
+19/24 Test #19: CubismMaterialTextureTest ........   Passed    1.69 sec
+      Start 20: CodexHookTest
+20/24 Test #20: CodexHookTest ....................   Passed    2.64 sec
+      Start 21: HookInstallLifecycleTest
+21/24 Test #21: HookInstallLifecycleTest .........   Passed    3.04 sec
+      Start 22: OpenCodePluginInstallTest
+22/24 Test #22: OpenCodePluginInstallTest ........   Passed    2.09 sec
+      Start 23: OpenCodeBridgeTest
+23/24 Test #23: OpenCodeBridgeTest ...............   Passed    1.80 sec
+      Start 24: CoworkSeedScriptTest
+24/24 Test #24: CoworkSeedScriptTest .............   Passed    1.82 sec
+
+100% tests passed out of 24
+
+Total Test time (real) =  66.37 sec

@@ -5,6 +5,7 @@
 #include "MemoInputReview.h"
 #include "GrassDragInputReview.h"
 #include "DragInputReview.h"
+#include "WorkPostureReview.h"
 #include "MemoStore.h"
 #include "IntegrationStatusModel.h"
 #include "PetController.h"
@@ -138,8 +139,13 @@ int main(int argc, char** argv) {
         && arguments.value(3).startsWith(QStringLiteral("grass-drag-"));
     const bool dragInputReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("drag-input-"));
+    const QString workPostureScenario = arguments.value(3);
+    const bool workPostureRestore = workPostureScenario == QStringLiteral("work-posture-restore")
+        || workPostureScenario == QStringLiteral("work-posture-invalid");
+    const bool workPostureReview = command == QStringLiteral("--render-interaction")
+        && (workPostureScenario == QStringLiteral("work-posture-preference") || workPostureRestore);
     qint64 memoReviewNowMs = 1000;
-    if (memoReview || grassDragReview || dragInputReview) {
+    if (memoReview || grassDragReview || dragInputReview || workPostureReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -147,12 +153,40 @@ int main(int argc, char** argv) {
         QSettings::setDefaultFormat(QSettings::IniFormat);
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QDir(output).filePath(QStringLiteral("settings")));
         QSettings::setPath(QSettings::IniFormat, QSettings::SystemScope, QDir(output).filePath(QStringLiteral("system-settings")));
-        const QSettings probe(QSettings::defaultFormat(), QSettings::UserScope,
+        QSettings probe(QSettings::defaultFormat(), QSettings::UserScope,
             QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
         if (probe.format() != QSettings::IniFormat
             || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
             return 2;
         app.setProperty("desktopCompanionReviewSettingsIsolated", true);
+        if (workPostureRestore) {
+            // Only copy a completed review's explicitly supplied fixture INI.
+            // This never imports the live registry profile into a capture.
+            const QFileInfo source(arguments.value(4));
+            QDir sourceScene = source.absoluteDir();
+            if (!source.isFile() || source.size() > 1024 * 1024
+                || source.fileName() != QStringLiteral("WhaleGirl.ini")
+                || !sourceScene.cdUp() || sourceScene.dirName() != QStringLiteral("settings")
+                || !sourceScene.cdUp()) return 2;
+            QFile receipt(sourceScene.filePath(QStringLiteral("scene.json")));
+            if (!receipt.open(QIODevice::ReadOnly)) return 2;
+            const auto recorded = QJsonDocument::fromJson(receipt.readAll()).object();
+            if (!recorded.value(QStringLiteral("passed")).toBool()
+                || recorded.value(QStringLiteral("scenario")).toString() != QStringLiteral("work-posture-preference")
+                || source.canonicalFilePath() != QDir(sourceScene.canonicalPath())
+                    .filePath(QStringLiteral("settings/DesktopCompanion/WhaleGirl.ini"))
+                || QFileInfo(recorded.value(QStringLiteral("persistence")).toObject()
+                    .value(QStringLiteral("settings_file")).toString()).canonicalFilePath() != source.canonicalFilePath()
+                || !QDir().mkpath(QFileInfo(probe.fileName()).absolutePath())
+                || !QFile::copy(source.canonicalFilePath(), probe.fileName())) return 2;
+            probe.sync();
+            if (workPostureScenario == QStringLiteral("work-posture-invalid")) {
+                probe.setValue(QStringLiteral("workPosture"), QStringLiteral("future-or-corrupt-value"));
+                probe.sync();
+            }
+            if (probe.status() != QSettings::NoError) return 2;
+            app.setProperty("desktopCompanionWorkPostureSourceSettings", source.canonicalFilePath());
+        }
         if (memoReview) {
             const QString notePath = QDir(output).filePath(QStringLiteral("memo.json"));
             app.setProperty("desktopCompanionReviewMemoPath", notePath);
@@ -180,6 +214,7 @@ int main(int argc, char** argv) {
         if (memoReview) return runMemoInputReview(app, controller, window, output, memoReviewNowMs);
         if (grassDragReview) return runGrassDragInputReview(app, controller, window, output, scenario);
         if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
+        if (workPostureReview) return runWorkPostureReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
             return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {

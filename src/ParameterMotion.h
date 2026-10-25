@@ -34,6 +34,7 @@
 class ParameterMotion final {
 public:
     using Parameters = QHash<QString, double>;
+    enum class WorkPosturePreference { Automatic, Standing, Laptop };
 
     ParameterMotion();
 
@@ -223,6 +224,11 @@ public:
     double waveWrist() const { return wave_.wrist(); }
 
     void setBusyRandomSeed(quint32 seed) { busyRandom_.seed(seed); }
+    // A saved preference, not a command to start work. Fixed choices take
+    // effect only in real Busy, after foreground owners and posture ramps
+    // finish; the existing sustained-work delay still guards the laptop.
+    void setWorkPosturePreference(WorkPosturePreference preference);
+    WorkPosturePreference workPosturePreference() const { return workPosturePreference_; }
     // Test seam: freeze the procedural blink (the eyes stay as authored). The
     // blink is a cosmetic overlay orthogonal to authored eye keys, so a test
     // that asserts an authored eye-open at a fixed frame turns it off so a
@@ -232,12 +238,16 @@ public:
     // Same, but pins the standing variant so the busy curve can be reviewed
     // without depending on the 40% random laptop choice.
     void forceStandingBusy();
+    // A preview turn may finish while another real turn keeps Busy unchanged.
+    // Its owner must release the override even without a stateChanged signal.
+    void endWorkPosturePreview() { workPosturePreview_ = false; }
     bool isLaptopBusy() const { return laptopBusy_; }
     // Read-only review trace for pause/variant timing; these clocks resume from
     // the same phase after an interaction and never queue a replacement beat.
     double busyPhaseTime() const { return busyTime_; }
     double nextBusyChoiceTime() const { return nextBusyChoice_; }
     double continuousBusyTime() const { return workBusyTime_; }
+    QString deskWorkPhase() const;
     // Enable only for a model with an opaque ParamDeskVisible cover. The desk
     // covers before laptop posture changes and leaves after recovery. Disabled
     // by default; preview/sequence poses keep their explicitly supplied values.
@@ -284,6 +294,7 @@ private:
     void applyInteraction(Parameters& desired) const;
     void captureInteractionSeat();
     void advanceDeskWork(double seconds, const Parameters& previous);
+    bool canApplyWorkPosturePreference() const;
     // True while a higher-priority behaviour owns the face, so the presence gaze
     // must not add to it: a delete, a grass hold, a memo gaze, a drag, the nap,
     // the box, the rice bowl, the wave, or any short reaction (head pat,
@@ -360,6 +371,10 @@ private:
     QRandomGenerator busyRandom_{QRandomGenerator::securelySeeded()};
     bool busyChoiceExists_ = false;
     bool laptopBusy_ = false;
+    WorkPosturePreference workPosturePreference_ = WorkPosturePreference::Automatic;
+    // Explicit developer previews may pin a variant without changing the
+    // saved user choice. Any ordinary state handoff resumes the live policy.
+    bool workPosturePreview_ = false;
     double busyTime_ = 0.0;
     double nextBusyChoice_ = 40.0;
     bool preview_ = false;

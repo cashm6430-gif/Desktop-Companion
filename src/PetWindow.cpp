@@ -87,6 +87,20 @@ private:
 #endif
 
 namespace {
+QString workPostureKey(ParameterMotion::WorkPosturePreference preference) {
+    switch (preference) {
+    case ParameterMotion::WorkPosturePreference::Standing: return QStringLiteral("standing");
+    case ParameterMotion::WorkPosturePreference::Laptop: return QStringLiteral("laptop");
+    default: return QStringLiteral("automatic");
+    }
+}
+
+ParameterMotion::WorkPosturePreference workPostureFromKey(const QString& key) {
+    if (key == QStringLiteral("standing")) return ParameterMotion::WorkPosturePreference::Standing;
+    if (key == QStringLiteral("laptop")) return ParameterMotion::WorkPosturePreference::Laptop;
+    return ParameterMotion::WorkPosturePreference::Automatic;
+}
+
 QString imagePath(const char* name) {
     return QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("assets/") + QLatin1String(name));
 }
@@ -536,6 +550,11 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     director_.setFrequency(static_cast<TriggerDirector::Frequency>(
         settings.value(QStringLiteral("spontaneousFrequency"),
                        int(TriggerDirector::Frequency::Normal)).toInt()));
+    // Review commands use explicit poses or their own isolated preferences.
+    // A saved live choice must not change legacy approval/capture trajectories.
+    if (!review || qApp->property("desktopCompanionReviewSettingsIsolated").toBool())
+        motion_.setWorkPosturePreference(workPostureFromKey(
+            settings.value(QStringLiteral("workPosture"), QStringLiteral("automatic")).toString()));
 
     tray_.setIcon(QIcon(idleImage_.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     tray_.setToolTip(windowTitle());
@@ -547,6 +566,32 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     trayMenu_.addSeparator();
     auto* lookMenu = trayMenu_.addMenu(QStringLiteral("互动"));
     auto* workMenu = trayMenu_.addMenu(QStringLiteral("工作与休息"));
+    workPostureMenu_ = workMenu->addMenu(QStringLiteral("工作姿态"));
+    workPostureMenu_->setObjectName(QStringLiteral("workPostureMenu"));
+    auto* postureGroup = new QActionGroup(workPostureMenu_);
+    const std::array postureChoices{
+        std::pair{ParameterMotion::WorkPosturePreference::Automatic, QStringLiteral("自动")},
+        std::pair{ParameterMotion::WorkPosturePreference::Standing, QStringLiteral("站着陪伴")},
+        std::pair{ParameterMotion::WorkPosturePreference::Laptop, QStringLiteral("抱电脑")},
+    };
+    for (const auto& [preference, label] : postureChoices) {
+        auto* action = workPostureMenu_->addAction(label);
+        const QString key = workPostureKey(preference);
+        action->setObjectName(QStringLiteral("workPosture")
+            + key.left(1).toUpper() + key.mid(1));
+        action->setData(key);
+        action->setCheckable(true);
+        action->setChecked(motion_.workPosturePreference() == preference);
+        postureGroup->addAction(action);
+        connect(action, &QAction::triggered, this, [this, preference] {
+            setWorkPosturePreference(preference);
+        });
+    }
+    connect(workPostureMenu_, &QMenu::aboutToShow, this, [this] {
+        const QString key = workPostureKey(motion_.workPosturePreference());
+        for (auto* action : workPostureMenu_->actions())
+            action->setChecked(action->data().toString() == key);
+    });
     integrationStatusAction_ = workMenu->addAction(QStringLiteral("联动状态…"), this, [this] {
         if (!integrationStatusProvider_) return;
         if (!integrationStatusPanel_)
@@ -769,6 +814,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     laptopPreviewTimer_.setSingleShot(true);
     connect(&laptopPreviewTimer_, &QTimer::timeout, this, [this] {
         controller_->turnStopped(QStringLiteral("local-preview"), QStringLiteral("laptop"));
+        // Other real turns can keep Busy without emitting stateChanged.
+        motion_.endWorkPosturePreview();
     });
     previewMenu->addAction(QStringLiteral("抱电脑工作"), this, [this] {
         if (controller_->state() == PetController::State::Delete
@@ -825,6 +872,30 @@ void PetWindow::setFrameInterval(int ms) {
     QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
         QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
     settings.setValue(QStringLiteral("frameIntervalMs"), frameIntervalMs_);
+}
+
+void PetWindow::setWorkPosturePreference(ParameterMotion::WorkPosturePreference preference) {
+    // Normalize unknown values, and store a stable key independent of enum order.
+    const QString key = workPostureKey(preference);
+    motion_.setWorkPosturePreference(workPostureFromKey(key));
+    QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+        QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+    settings.setValue(QStringLiteral("workPosture"), key);
+    if (workPostureMenu_)
+        for (auto* action : workPostureMenu_->actions())
+            action->setChecked(action->data().toString() == key);
+}
+
+QJsonObject PetWindow::workPostureReviewState() const {
+    return {{QStringLiteral("preference"), workPostureKey(motion_.workPosturePreference())},
+        {QStringLiteral("laptop_selected"), motion_.isLaptopBusy()},
+        {QStringLiteral("busy_time"), motion_.busyPhaseTime()},
+        {QStringLiteral("continuous_busy_time"), motion_.continuousBusyTime()},
+        {QStringLiteral("next_choice_time"), motion_.nextBusyChoiceTime()},
+        {QStringLiteral("desk_phase"), motion_.deskWorkPhase()},
+        {QStringLiteral("desk_visible"), motion_.values().value(QStringLiteral("ParamDeskVisible"))},
+        {QStringLiteral("controller_state"), int(controller_->state())},
+        {QStringLiteral("active_turns"), controller_->activeTurnCount()}};
 }
 
 void PetWindow::toggleVisibility() {

@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "scope": "native_work_posture_real_qaction_and_fixture_turn",
+  "manual_frames": 800,
+  "sampled_native_frames": 95,
+  "menu_snapshots": 2,
+  "checks": 16,
+  "restart_reviews": [
+    {
+      "scenario": "work-posture-restore",
+      "passed": true,
+      "checks": 6,
+      "report_sha256": "bebe272d3c8c08cdc1c3496e47399ce01058e2de5bcbcebaa83ee81b03515ccd"
+    },
+    {
+      "scenario": "work-posture-invalid",
+      "passed": true,
+      "checks": 6,
+      "report_sha256": "b882d831d65dccc58548949a805b7e16986ef69c757f5bd90bd97290af756591"
+    }
+  ],
+  "restart_frames": 2,
+  "scene_sha256": "a901b65282c0c3a0c733bd58faad3c064c6cf225a5542dc134f35055226e057e",
+  "live_capture_performed": true,
+  "not_exercised": [
+    "physical tray clicks",
+    "production hook delivery"
+  ],
+  "visual_naturalness": "requires_rendered_sample_review",
+  "executable_sha256": "62bb32abf83d707aa56bcb89e514caad2957fb82ff6ff9d9c66a6c1943e62eb1",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tool_sha256": "a31b25c5028b5af855cac0dcd8097051d05abdd0183a73bdc62cf2b6c78a6c37",
+  "source_deployment_equal": true
+}

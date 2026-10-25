@@ -124,6 +124,12 @@ public:
     bool discardMemo();
     void setAutomaticWorkNotesEnabled(bool enabled);
     QJsonObject memoReviewState() const;
+    // Ordinary user preference; never starts a work turn or forces a pose.
+    void setWorkPosturePreference(ParameterMotion::WorkPosturePreference preference);
+    ParameterMotion::WorkPosturePreference workPosturePreference() const {
+        return motion_.workPosturePreference();
+    }
+    QJsonObject workPostureReviewState() const;
 
 protected:
     bool event(QEvent* event) override;
@@ -245,6 +251,7 @@ private:
     // actually registered (see the constructor).
     QAction* toggleVisibilityAction_ = nullptr;
     QAction* integrationStatusAction_ = nullptr;
+    QMenu* workPostureMenu_ = nullptr;
     IntegrationStatusPanel* integrationStatusPanel_ = nullptr;
     std::function<QJsonObject()> integrationStatusProvider_;
     std::function<void()> integrationResetBusy_;

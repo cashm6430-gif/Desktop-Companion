@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Win32-ninja"
+	tests="24"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="DESKTOP-QR2EAAK"
+	time="66"
+	timestamp="2026-10-25T19:29:54"
+	>
+	<testcase name="PetControllerTest" classname="PetControllerTest" time="6.57938" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="PetPointerGestureTest" classname="PetPointerGestureTest" time="0.0216118" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="TriggerDirectorTest" classname="TriggerDirectorTest" time="0.166904" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="QuietPolicyTest" classname="QuietPolicyTest" time="0.0194016" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="MemoStoreTest" classname="MemoStoreTest" time="0.152941" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="StickyNoteModelTest" classname="StickyNoteModelTest" time="0.0998485" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CodexTurnSourceTest" classname="CodexTurnSourceTest" time="2.48485" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="HookLifecycleTest" classname="HookLifecycleTest" time="3.06377" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="IntegrationStatusModelTest" classname="IntegrationStatusModelTest" time="0.0405452" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="IntegrationStatusPanelTest" classname="IntegrationStatusPanelTest" time="3.37942" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ScreenPlacementTest" classname="ScreenPlacementTest" time="0.252288" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CoworkHookSeederTest" classname="CoworkHookSeederTest" time="1.1396" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ToonEventBridgeTest" classname="ToonEventBridgeTest" time="14.3372" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="ParameterMotionTest" classname="ParameterMotionTest" time="9.04701" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="MotionClipTest" classname="MotionClipTest" time="0.724115" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialBindingTest" classname="CubismMaterialBindingTest" time="0.1337" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismNeckBindingTest" classname="CubismNeckBindingTest" time="11.5437" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismPostureTransitionTest" classname="CubismPostureTransitionTest" time="0.0237847" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CubismMaterialTextureTest" classname="CubismMaterialTextureTest" time="1.68794" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="CodexHookTest" classname="CodexHookTest" time="2.64326" status="run">
+		<properties/>
+		<system-out>Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-4b10caad-af19-4c5f-a407-6ad4a7540d2f.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+UserPromptSubmit : exit 0, valid JSON
+Stop : exit 0, valid JSON
+Interrupt : exit 0, valid JSON
+SessionEnd : exit 0, valid JSON
+Installed pet hooks for workbuddy in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-workbuddy-17e89c05-ace6-4fb4-898a-28539ac7ed23.json (UserPromptSubmit, Stop, SessionEnd)
+Installed pet hooks for claude in C:\Users\Administrator\AppData\Local\Temp\pet-hooks-test-claude-48876b5a-42b4-4772-a988-2dcaa26e7905.json (UserPromptSubmit, Stop, SessionEnd)
+</system-out>
+	</testcase>
+	<testcase name="HookInstallLifecycleTest" classname="HookInstallLifecycleTest" time="3.04316" status="run">
+		<properties/>
+		<system-out>Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hook-lifecycle-bc9dbd4f453d40f4babfca5e2dbd5d99\codex.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hook-lifecycle-bc9dbd4f453d40f4babfca5e2dbd5d99\codex.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+Removed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hook-lifecycle-bc9dbd4f453d40f4babfca5e2dbd5d99\codex.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hook-lifecycle-bc9dbd4f453d40f4babfca5e2dbd5d99\codex-empty.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+Removed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hook-lifecycle-bc9dbd4f453d40f4babfca5e2dbd5d99\codex-empty.json (UserPromptSubmit, Stop, Interrupt, SessionEnd)
+Installed pet hooks for codex in C:\Users\Administrator\AppData\Local\Temp\pet-hook-li...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="OpenCodePluginInstallTest" classname="OpenCodePluginInstallTest" time="2.09426" status="run">
+		<properties/>
+		<system-out>Install (dry-run) OpenCode plugin -&gt; C:\Users\Administrator\AppData\Local\Temp\pet-opencode-install-1cf0f208cf3e49bc9e2e8669e33da4d4\global config 鲸鱼娘\plugins\desktop-companion; helper C:\Users\Administrator\AppData\Local\Temp\pet-opencode-install-1cf0f208cf3e49bc9e2e8669e33da4d4\portable author's 鲸鱼娘\DesktopCompanionHook.exe
+Installed OpenCode V2 plugin in C:\Users\Administrator\AppData\Local\Temp\pet-opencode-install-1cf0f208cf3e49bc9e2e8669e33da4d4\global config 鲸鱼娘\plugins\desktop-companion
+Installed OpenCode V2 plugin in C:\Users\Administrator\AppData\Local\Temp\pet-opencode-install-1cf0f208cf3e49bc9e2e8669e33da4d4\global config 鲸鱼娘\plugins\desktop-companion
+Installed OpenCode V2 plugin in C:\Users\Administrator\AppData\Local\Temp\pet-opencode-install-1cf0f208cf3e49bc9e2e8669e33da4d4\global config 鲸鱼娘\plugins\desktop-companion
+Installed OpenCode V2 plugin in C:\Users\Administrator\AppData\Local\Temp\pet-opencode-install-1cf0f208cf3e49bc9e2e8669e33da4d4\global config 鲸鱼...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="OpenCodeBridgeTest" classname="OpenCodeBridgeTest" time="1.79753" status="run">
+		<properties/>
+		<system-out>✔ one execution starts once; duplicate, old and repeated terminal receipts cannot replay work (3.407ms)
+✔ all terminal outcomes stop busy without inventing a success payload (0.9461ms)
+✔ session deletion and relocation clean up an active turn (0.3964ms)
+✔ multiple sessions and owners preserve independent busy work (0.3925ms)
+✔ queued callbacks drain in order and callbacks after release do not restart work (1.0212ms)
+✔ unrecognized events and invalid identifiers or sequence metadata do not reach helper (0.3825ms)
+✔ only identifiers leave the bridge even when events contain private prompt/error/tool data (0.2913ms)
+✔ missing pet is fail-open, retries only latest transition and never replays obsolete starts (0.4806ms)
+✔ failed transition expires after 30 seconds and retries do not extend its lifetime (0.3ms)
+✔ retry keeps pending sessions independent and cleanup replaces an undelivered start (0.4766ms)
+✔ stream suspension cleans its work but keeps owner reusable and shared streams active (0...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="CoworkSeedScriptTest" classname="CoworkSeedScriptTest" time="1.81874" status="run">
+		<properties/>
+		<system-out>WARNING: Leaving config alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-f26e219ed8df4a6799b5e2d5d26048c0\Claude-3p\local-agent-mode-sessions\acct\00000000\s3\.claude\settings.json (Conversion from JSON failed with error: Invalid character after parsing property name. Expected ':' but got: j. Path '', line 1, position 6.)
+WARNING: Leaving config alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-f26e219ed8df4a6799b5e2d5d26048c0\Claude-3p\local-agent-mode-sessions\acct\00000000\s4\.claude\settings.json (Hook event Stop contains an invalid group: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-f26e219ed8df4a6799b5e2d5d26048c0\Claude-3p\local-agent-mode-sessions\acct\00000000\s4\.claude\settings.json)
+Updated 2 Claude session config(s), skipped 2 invalid config(s).
+WARNING: Leaving config alone: C:\Users\Administrator\AppData\Local\Temp\pet-cowork-seed-f26e219ed8df4a6799b5e2d5d26048c0\Claude-3p\local-agent-mode-sessions\acct\00000000\s3\.claude\settings.json (Conversion fr...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>
