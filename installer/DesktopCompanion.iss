@@ -9,7 +9,7 @@
 ; at uninstall-safe absolute paths, and uninstall removes those entries again.
 
 #ifndef AppVersion
-  #define AppVersion "0.1.0"
+  #define AppVersion "1.1.0"
 #endif
 #ifndef StageDir
   #define StageDir "..\build\package\DesktopCompanion"

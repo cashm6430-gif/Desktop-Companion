@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(DesktopCompanion VERSION 0.1.0 LANGUAGES CXX)
+project(DesktopCompanion VERSION 1.1.0 LANGUAGES CXX)
 
 # Some Chinese MSVC installations report a mojibake /showIncludes prefix to
 # CMake. Ninja then records zero header dependencies and reuses stale objects.
