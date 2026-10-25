@@ -159,6 +159,10 @@ private slots:
     void workPauseInterruptionsDoNotReplay();
     void standingRestRejectsReservedAxesAndUnsafeSway();
     void dragMotionFollowsAndSettlesWithoutSway();
+    void dragInputExpiresWithoutImaginaryTravel();
+    void dragMeasuredPathRejectsInvalidSamplesAndTriggersOnce();
+    void dragReleaseEyesStayContinuousAndVerticalTailCompletes();
+    void dragInputTimingIsStableAndInterruptionsDoNotReplay();
     void memoGazeFollowsNoteRise();
     void boxPeekSinksPeeksAndPopsInOrder();
     void riceBowlSniffsSmilesAndLeaves();
@@ -851,7 +855,7 @@ void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
     // Sustained rightward drag (short of the curious look-back threshold):
     // the eyes follow, hair and body lag opposite.
     for (int i = 0; i < 18; ++i) {
-        motion.updateDragMotion(600.0, 0.0);
+        motion.updateDragMotion(600.0, 0.0, 20.0);
         motion.advance(1.0 / 30.0);
     }
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeBallX")) > 0.5);
@@ -861,7 +865,7 @@ void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
     // the eyes come off the motion toward the user with a soft smile.
     const double eyeDuringFollow = motion.values().value(QStringLiteral("ParamEyeBallX"));
     for (int i = 0; i < 10; ++i) {
-        motion.updateDragMotion(600.0, 0.0);
+        motion.updateDragMotion(600.0, 0.0, 20.0);
         motion.advance(1.0 / 30.0);
     }
     QVERIFY(motion.values().value(QStringLiteral("ParamEyeSmile")) > 0.3);
@@ -886,6 +890,229 @@ void ParameterMotionTest::dragMotionFollowsAndSettlesWithoutSway() {
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.05);
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamHairFront"))) < 0.05);
     QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamBodyAngleX"))) < 0.5);
+}
+
+void ParameterMotionTest::dragInputExpiresWithoutImaginaryTravel() {
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    ParameterMotion motion, background;
+    QVERIFY(motion.loadMotionLibrary(dir.path()));
+    QVERIFY(background.loadMotionLibrary(dir.path()));
+    motion.setProceduralBlink(false);
+    background.setProceduralBlink(false);
+    motion.beginDragMotion();
+    for (int i = 0; i < 18; ++i) {
+        motion.updateDragMotion(600.0, -200.0, 10.0);
+        motion.advance(1.0 / 60.0);
+        background.advance(1.0 / 60.0);
+    }
+    QCOMPARE(motion.dragTravelledDistance(), 180.0);
+    QVERIFY(!motion.dragCuriousTriggered());
+    QVERIFY(motion.values().value(QStringLiteral("ParamBodyAngleX")) < -2.0);
+    // Still holding, but no new pointer sample: the old speed must neither
+    // earn a long-drag reaction nor keep the pet leaning indefinitely.
+    for (int i = 0; i < 60; ++i) {
+        motion.advance(1.0 / 60.0);
+        background.advance(1.0 / 60.0);
+    }
+    QVERIFY(motion.dragFollowing());
+    QVERIFY(motion.dragInputAge() >= 1.0);
+    QCOMPARE(motion.dragTravelledDistance(), 180.0);
+    QVERIFY(!motion.dragCuriousTriggered());
+    QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamEyeBallX"))) < 0.02);
+    QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamHairFront"))) < 0.04);
+    QVERIFY(qAbs(motion.values().value(QStringLiteral("ParamBodyAngleX"))
+                 - background.values().value(QStringLiteral("ParamBodyAngleX"))) < 0.15);
+    for (int i = 0; i < 300; ++i) motion.advance(1.0 / 60.0);
+    QCOMPARE(motion.dragTravelledDistance(), 180.0);
+    QVERIFY(!motion.dragCuriousTriggered());
+    motion.cancelDragMotion();
+    QVERIFY(!motion.dragMotionActive());
+    QCOMPARE(motion.dragInputAge(), 0.0);
+    QCOMPARE(motion.dragTravelledDistance(), 0.0);
+}
+
+void ParameterMotionTest::dragMeasuredPathRejectsInvalidSamplesAndTriggersOnce() {
+    DragBehavior drag;
+    drag.begin();
+    drag.update(600.0, 100.0, 100.0);
+    drag.advance(0.05);
+    const double nan = std::numeric_limits<double>::quiet_NaN();
+    const double inf = std::numeric_limits<double>::infinity();
+    for (const auto& bad : QList<QList<double>>{{nan, 0, 50}, {0, inf, 50},
+                                               {0, 0, nan}, {0, 0, inf}, {0, 0, -1}}) {
+        drag.update(bad[0], bad[1], bad[2]);
+        QCOMPARE(drag.inputAge(), 0.05); // Rejected input does not refresh a stale sample.
+        QCOMPARE(drag.travelledDistance(), 100.0);
+    }
+    drag.advance(nan);
+    drag.advance(inf);
+    drag.advance(-1.0);
+    QCOMPARE(drag.inputAge(), 0.05);
+    drag.update(0, 0, 300.0);
+    QCOMPARE(drag.travelledDistance(), 400.0);
+    QVERIFY(!drag.curiousTriggered());
+    drag.advance(2.0);
+    QCOMPARE(drag.travelledDistance(), 400.0);
+    QVERIFY(!drag.curiousTriggered());
+    drag.update(0, 0, 1.0);
+    QVERIFY(drag.curiousTriggered());
+    drag.advance(0.05);
+    DragBehavior::Parameters pose;
+    drag.apply(pose);
+    QCOMPARE(pose.value(QStringLiteral("ParamEyeBallX")), 0.0);
+    QCOMPARE(pose.value(QStringLiteral("ParamEyeBallY")), 0.1);
+    QVERIFY(pose.value(QStringLiteral("ParamEyeSmile")) >= 0.35);
+    // Real additional movement after the look-back has elapsed cannot start
+    // another one within the same drag.
+    drag.advance(0.7);
+    drag.update(0, 0, 500.0);
+    drag.advance(0.05);
+    pose.clear();
+    drag.apply(pose);
+    QCOMPARE(drag.travelledDistance(), 901.0);
+    QCOMPARE(pose.value(QStringLiteral("ParamEyeSmile")), 0.0);
+    drag.update(std::numeric_limits<double>::max(), 0, std::numeric_limits<double>::max());
+    drag.update(0, 0, std::numeric_limits<double>::max());
+    QVERIFY(qIsFinite(drag.travelledDistance()));
+    drag.advance(0.05);
+    pose.clear();
+    drag.apply(pose);
+    for (double value : pose) QVERIFY(qIsFinite(value));
+    drag.cancel();
+    drag.begin();
+    QCOMPARE(drag.travelledDistance(), 0.0);
+    QCOMPARE(drag.inputAge(), 0.0);
+    QVERIFY(!drag.curiousTriggered());
+}
+
+void ParameterMotionTest::dragReleaseEyesStayContinuousAndVerticalTailCompletes() {
+    const QString x = QStringLiteral("ParamEyeBallX"), y = QStringLiteral("ParamEyeBallY");
+    const DragBehavior::Parameters background{{x, 0.22}, {y, -0.08}};
+    for (const bool releaseDuringCurious : {false, true}) {
+        DragBehavior drag;
+        drag.begin();
+        DragBehavior::Parameters before;
+        for (int i = 0; i < 20; ++i) {
+            drag.update(600.0, 300.0, 5.0);
+            drag.advance(1.0 / 60.0);
+            before = background;
+            drag.apply(before);
+        }
+        if (releaseDuringCurious) {
+            drag.update(600.0, 300.0, 401.0);
+            drag.advance(1.0 / 60.0);
+            before = background;
+            drag.apply(before);
+            QCOMPARE(before.value(x), 0.0);
+            QCOMPARE(before.value(y), 0.1);
+        } else QVERIFY(before.value(x) > 0.7);
+        drag.end();
+        auto released = background;
+        drag.apply(released);
+        // No time has passed: release must not replace the visible look with
+        // either neutral eyes or an old pre-curious direction.
+        QCOMPARE(released.value(x), before.value(x));
+        QCOMPARE(released.value(y), before.value(y));
+        double previousX = qAbs(released.value(x) - background.value(x));
+        double previousY = qAbs(released.value(y) - background.value(y));
+        for (int i = 0; i < 180; ++i) {
+            drag.advance(1.0 / 60.0);
+            released = background;
+            drag.apply(released);
+            const double dx = qAbs(released.value(x) - background.value(x));
+            const double dy = qAbs(released.value(y) - background.value(y));
+            QVERIFY(dx <= previousX + 1e-12);
+            QVERIFY(dy <= previousY + 1e-12);
+            if (releaseDuringCurious) QVERIFY(released.value(x) <= background.value(x));
+            previousX = dx; previousY = dy;
+        }
+        QVERIFY(!drag.active());
+        QCOMPARE(released.value(x), background.value(x));
+        QCOMPARE(released.value(y), background.value(y));
+    }
+
+    DragBehavior vertical;
+    vertical.begin();
+    DragBehavior::Parameters pose;
+    for (int i = 0; i < 20; ++i) {
+        vertical.update(0, 900.0, 5.0);
+        vertical.advance(1.0 / 60.0);
+        pose.clear(); vertical.apply(pose);
+    }
+    QVERIFY(pose.value(y) > 0.2);
+    vertical.end();
+    for (int i = 0; i < 42; ++i) vertical.advance(1.0 / 60.0);
+    QVERIFY(vertical.active()); // The 0.7 s nod ending must not truncate the vertical eye tail.
+    pose.clear(); vertical.apply(pose);
+    QVERIFY(pose.value(y) > 0.02);
+    for (int i = 0; i < 120; ++i) vertical.advance(1.0 / 60.0);
+    QVERIFY(!vertical.active());
+    pose.clear(); vertical.apply(pose);
+    QCOMPARE(pose.value(y), 0.0);
+}
+
+void ParameterMotionTest::dragInputTimingIsStableAndInterruptionsDoNotReplay() {
+    QList<DragBehavior::Parameters> samples;
+    for (int rate : {10, 30, 60, 120}) {
+        DragBehavior drag;
+        drag.begin();
+        drag.update(600.0, 450.0, 37.0);
+        drag.advance(1.0 / rate);
+        DragBehavior::Parameters first;
+        drag.apply(first);
+        QVERIFY(first.value(QStringLiteral("ParamEyeBallX")) > 0.0);
+        if (rate == 10) {
+            // A fresh sample still gets the whole first 0.1 s frame. Only
+            // subsequent frames have a zero input target.
+            QVERIFY(first.value(QStringLiteral("ParamEyeBallX")) > 0.3);
+            drag.advance(0.1);
+            DragBehavior::Parameters expired;
+            drag.apply(expired);
+            QVERIFY(expired.value(QStringLiteral("ParamEyeBallX")) < first.value(QStringLiteral("ParamEyeBallX")));
+            for (int i = 2; i < rate * 8 / 10; ++i) drag.advance(1.0 / rate);
+        } else {
+            for (int i = 1; i < rate * 8 / 10; ++i) drag.advance(1.0 / rate);
+        }
+        DragBehavior::Parameters after;
+        drag.apply(after);
+        QCOMPARE(drag.travelledDistance(), 37.0);
+        QVERIFY(!drag.curiousTriggered());
+        QVERIFY(qAbs(drag.inputAge() - 0.8) < 1e-9);
+        samples.append(after);
+    }
+    for (const auto& sample : samples)
+        for (auto it = sample.cbegin(); it != sample.cend(); ++it)
+            QVERIFY(qAbs(it.value() - samples.front().value(it.key())) < 1e-9);
+
+    QTemporaryDir dir;
+    QVERIFY(writeReactionFixture(dir));
+    for (const auto state : {PetController::State::Delete, PetController::State::Grass}) {
+        ParameterMotion subject, control;
+        for (auto* player : {&subject, &control}) {
+            QVERIFY(player->loadMotionLibrary(dir.path()));
+            player->setProceduralBlink(false);
+            player->beginDragMotion();
+            player->updateDragMotion(600.0, 100.0, 80.0);
+            player->advance(0.05);
+            player->setState(state);
+            QVERIFY(!player->dragMotionActive());
+            QCOMPARE(player->dragInputAge(), 0.0);
+            QCOMPARE(player->dragTravelledDistance(), 0.0);
+        }
+        for (int i = 0; i < 60; ++i) {
+            subject.updateDragMotion(600.0, 100.0, 50.0); // Stale input after ownership loss cannot replay.
+            subject.advance(1.0 / 60.0);
+            control.advance(1.0 / 60.0);
+            QCOMPARE(subject.values(), control.values());
+            QVERIFY(!subject.dragMotionActive());
+            QVERIFY(!subject.dragCuriousTriggered());
+        }
+        subject.beginDragMotion();
+        QVERIFY(subject.dragFollowing());
+        QCOMPARE(subject.dragTravelledDistance(), 0.0);
+        QVERIFY(!subject.dragCuriousTriggered());
+    }
 }
 
 void ParameterMotionTest::memoGazeFollowsNoteRise() {

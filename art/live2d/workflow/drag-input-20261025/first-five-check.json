@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "scope": "native_drag_stop_and_release_synthetic_qt_input",
+  "scenarios": [
+    {
+      "scenario": "drag-input-idle",
+      "frames": 120,
+      "checks": 13,
+      "scene_sha256": "47f374350d7567cfd968605f28ef4f59617a0bbe4acb286f30228824d655cb75"
+    },
+    {
+      "scenario": "drag-input-busy",
+      "frames": 120,
+      "checks": 14,
+      "scene_sha256": "1cd877f40f67c7d199005a5ced556188366542d6ccfacda48db504696c037c94"
+    },
+    {
+      "scenario": "drag-input-delete",
+      "frames": 120,
+      "checks": 14,
+      "scene_sha256": "55973dd8a9aa41e833697d8e01d985f5c13ed2e7bdafc8597186eeb6bf162d18"
+    },
+    {
+      "scenario": "drag-input-grass",
+      "frames": 120,
+      "checks": 14,
+      "scene_sha256": "ad76c68ee47336f661f2a653a0ba994a59c30147bfdbd965ebab9c4d0ed5db75"
+    },
+    {
+      "scenario": "drag-input-ungrab",
+      "frames": 120,
+      "checks": 13,
+      "scene_sha256": "2310527aaaed20180e451e1eab55c904a4d632de5a2d6921229322e57780d0fb"
+    }
+  ],
+  "live_capture_performed": true,
+  "physical_windows_pointer_routing": "not_exercised",
+  "visual_naturalness": "requires_rendered_sample_review",
+  "executable_sha256": "d67986262e841f854713a83918712ec9846180900d6635c479382429c44abe90",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tool_sha256": "82758541d3af3290a76fd7d1b64c0256979695619611234232df98cb708a2ec4",
+  "source_deployment_equal": true
+}

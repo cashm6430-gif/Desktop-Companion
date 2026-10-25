@@ -110,6 +110,7 @@ public:
     // available through ordinary grass input independently of this switch.
     void setGrassDragPreviewEnabled(bool enabled);
     QJsonObject grassDragReviewState() const;
+    QJsonObject dragReviewState() const;
     // Native scene review uses the actual window player and Qt input handlers,
     // with a manual frame clock instead of the desktop's wall clock.
     void prepareLiveInteractionReview(int pixels = 840);
@@ -255,7 +256,9 @@ private:
     PetController* controller_;
     QPoint dragOffset_;
     QPoint gestureWindowOrigin_;
+    QPointF gesturePressGlobal_;
     QPointF dragLastGlobal_;   // scene-move drag reaction input (motion card 4)
+    bool dragHasSample_ = false;
     QPointF dragVelocity_;
     QElapsedTimer dragClock_;
     PetPointerGesture pointerGesture_;

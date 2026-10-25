@@ -1,0 +1,54 @@
+[0/1] Re-running CMake...
+-- Conan: Component target declared 'GLEW::glew_s'
+-- Conan: Target declared 'GLEW::GLEW'
+-- Conan: Target declared 'glu::glu'
+-- Conan: Target declared 'opengl::opengl'
+-- Configuring done (0.4s)
+-- Generating done (0.5s)
+-- Build files have been written to: E:/projects/Desktop-Companion/build
+[1/89] Automatic MOC for target DesktopCompanionHook
+[2/87] Automatic MOC for target TrayMenuPreview
+[3/85] Automatic MOC for target PetControllerTest
+[4/83] Automatic MOC for target PetPointerGestureTest
+[5/81] Automatic MOC for target TriggerDirectorTest
+[6/79] Automatic MOC for target QuietPolicyTest
+[7/77] Automatic MOC for target MemoStoreTest
+[8/75] Automatic MOC for target StickyNoteModelTest
+[9/73] Automatic MOC for target CodexTurnSourceTest
+[10/71] Automatic MOC for target HookLifecycleTest
+[11/69] Automatic MOC for target IntegrationStatusModelTest
+[12/67] Automatic MOC for target IntegrationStatusPanelTest
+[13/65] Automatic MOC for target IntegrationStatusPanelPreview
+[14/63] Automatic MOC for target ScreenPlacementTest
+[15/61] Automatic MOC for target CoworkHookSeederTest
+[16/59] Automatic MOC for target ToonEventBridgeTest
+[17/57] Automatic MOC for target DesktopCompanion
+[18/57] Automatic MOC for target CubismMaterialBindingTest
+[19/55] Automatic MOC for target MotionClipTest
+[20/54] Automatic MOC for target ParameterMotionTest
+[21/53] Building CXX object CMakeFiles\DesktopCompanion.dir\DesktopCompanion_autogen\mocs_compilation.cpp.obj
+[22/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\MemoInputReview.cpp.obj
+[23/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\HeadPatInputReview.cpp.obj
+[24/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\main.cpp.obj
+[25/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\WorkReactionCoordinator.cpp.obj
+[26/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\DragInputReview.cpp.obj
+[27/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\GrassDragInputReview.cpp.obj
+[28/53] Building CXX object CMakeFiles\DesktopCompanion.dir\src\ParameterMotion.cpp.obj
+[29/53] Automatic MOC for target CubismNeckBindingTest
+[30/51] Automatic MOC for target CubismPostureTransitionTest
+[31/49] Automatic MOC for target CubismMaterialTextureTest
+[32/47] Building CXX object CMakeFiles\DesktopCompanion.dir\src\motion\DragBehavior.cpp.obj
+[33/47] Building CXX object CMakeFiles\DesktopCompanion.dir\src\CubismCanvas.cpp.obj
+[34/47] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\ParameterMotion.cpp.obj
+[35/47] Building CXX object CMakeFiles\DesktopCompanion.dir\src\PetWindow.cpp.obj
+[36/47] Linking CXX executable DesktopCompanion.exe
+[37/47] Building CXX object CMakeFiles\ParameterMotionTest.dir\tests\ParameterMotionTest.cpp.obj
+[38/47] Building CXX object CMakeFiles\ParameterMotionTest.dir\src\motion\DragBehavior.cpp.obj
+[39/47] Building CXX object CMakeFiles\MotionClipTest.dir\src\motion\DragBehavior.cpp.obj
+[40/47] Linking CXX executable ParameterMotionTest.exe
+[41/47] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/assets E:/projects/Desktop-Companion/build/assets"
+[42/47] C:\Windows\system32\cmd.exe /C "cd /D E:\projects\Desktop-Companion\build && D:\tool\Cmake\bin\cmake.exe -E copy_if_different E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Core/dll/windows/x86_64/Live2DCubismCore.dll E:/projects/Desktop-Companion/build/Live2DCubismCore.dll && D:\tool\Cmake\bin\cmake.exe -E copy_directory E:/projects/Desktop-Companion/CubismSdkForNative-5-r.5/Framework/src/Rendering/OpenGL/Shaders/Standard E:/projects/Desktop-Companion/build/FrameworkShaders"
+[43/47] Building CXX object CMakeFiles\MotionClipTest.dir\src\WorkReactionCoordinator.cpp.obj
+[44/47] Building CXX object CMakeFiles\MotionClipTest.dir\tests\MotionClipTest.cpp.obj
+[45/47] Building CXX object CMakeFiles\MotionClipTest.dir\src\ParameterMotion.cpp.obj
+[46/47] Linking CXX executable MotionClipTest.exe

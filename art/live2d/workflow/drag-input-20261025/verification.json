@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "feature": "drag-input-freshness-and-release-fix",
+  "parent_commit": "b34e6dd",
+  "changes": [
+    "Expire Follow targets after0.10s without new samples, using existing smoothing.",
+    "Accumulate only measured global-pointer path, including first recognized move and positions at0,0.",
+    "Drop stale window velocity low-pass on resume.",
+    "Carry the last applied eye contribution into existing0.45s release decay, including curious release and vertical tail."
+  ],
+  "runtime_assets_unchanged": true,
+  "no_new_art_or_motion_clip": true,
+  "preserved": {
+    "existing_parameter_limits": true,
+    "follow_time_constants": true,
+    "nod_seconds": 0.7,
+    "release_smile_seconds": 0.5,
+    "maximum_settle_seconds": 2.5,
+    "curious_path_threshold_px": 400
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "b50ade37fd23cd962c283a80f56678bc79279dc89d3b245b2dabbfb8538fe63b",
+    "src/DragInputReview.cpp": "c5d7a23e90e9a35e7b6b5529ace9871ba820f5c0c142e4b371b895558aa5561e",
+    "src/DragInputReview.h": "fd9c70a82f26af11c5c9be4ee59949cd35a486fc12bc6352c61fe87f9626b9e9",
+    "src/ParameterMotion.cpp": "cf5661599d3372ceab01e7825bab9e93f83c8a5fd7dab9f2def6f97acec071a3",
+    "src/ParameterMotion.h": "415668457698cd42228db8701dc802687aa8398ee1601fb24377306398a87896",
+    "src/PetWindow.cpp": "1cd08d6fea5d54a6316516150ded3f7b890176bf687014d63d885beb03b8cab6",
+    "src/PetWindow.h": "375883a3b0476c039ed5dfdaea1f4fa8fc3d20cec744b191062e113f604de942",
+    "src/main.cpp": "3263a31462fa7ea2a9b4850db0523eed8a2c9a2748bfe768ddcaaa27872b9482",
+    "src/motion/DragBehavior.cpp": "10bacd93ba8521cc00a09fa0675173a2e7bafcf4c9b2901de71138469b2524dd",
+    "src/motion/DragBehavior.h": "1a5f249cb920fc9c4cb4397ff4aae29c009c0ac357c1d97a500a12d9bc3d3129",
+    "tests/ParameterMotionTest.cpp": "87c2f17b8b41e8deed437fb9efb100c9f36604ec232bf28eb357aaca723192b5",
+    "tools/review_drag_input.py": "0d14be7ed0205fcb01d0a8af216108da33744f0c996d90576bf2fe3650fdf70b"
+  },
+  "formal_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+  "verification": {
+    "release_build": "passed",
+    "targeted_ctest": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 7.12,
+      "names": [
+        "PetPointerGestureTest",
+        "ParameterMotionTest",
+        "MotionClipTest"
+      ]
+    },
+    "full_ctest_rerun": false,
+    "new_test_slots": 4,
+    "input_timing_rates_hz": [
+      10,
+      30,
+      60,
+      120
+    ],
+    "native_scenarios": 6,
+    "native_frames": 720,
+    "all_native_png_decoded": true,
+    "pause_scenarios_actual_path_px": 160,
+    "pause_idle_does_not_invent_long_drag": true,
+    "seated_work_props_preserved": true,
+    "immediate_release_with_residual_eye": "passed"
+  },
+  "captures": [
+    {
+      "phase": "first_five",
+      "passed": true,
+      "scope": "native_drag_stop_and_release_synthetic_qt_input",
+      "scenarios": [
+        {
+          "scenario": "drag-input-idle",
+          "frames": 120,
+          "checks": 13,
+          "scene_sha256": "47f374350d7567cfd968605f28ef4f59617a0bbe4acb286f30228824d655cb75"
+        },
+        {
+          "scenario": "drag-input-busy",
+          "frames": 120,
+          "checks": 14,
+          "scene_sha256": "1cd877f40f67c7d199005a5ced556188366542d6ccfacda48db504696c037c94"
+        },
+        {
+          "scenario": "drag-input-delete",
+          "frames": 120,
+          "checks": 14,
+          "scene_sha256": "55973dd8a9aa41e833697d8e01d985f5c13ed2e7bdafc8597186eeb6bf162d18"
+        },
+        {
+          "scenario": "drag-input-grass",
+          "frames": 120,
+          "checks": 14,
+          "scene_sha256": "ad76c68ee47336f661f2a653a0ba994a59c30147bfdbd965ebab9c4d0ed5db75"
+        },
+        {
+          "scenario": "drag-input-ungrab",
+          "frames": 120,
+          "checks": 13,
+          "scene_sha256": "2310527aaaed20180e451e1eab55c904a4d632de5a2d6921229322e57780d0fb"
+        }
+      ],
+      "live_capture_performed": true,
+      "physical_windows_pointer_routing": "not_exercised",
+      "visual_naturalness": "requires_rendered_sample_review",
+      "executable_sha256": "d67986262e841f854713a83918712ec9846180900d6635c479382429c44abe90",
+      "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "review_tool_sha256": "82758541d3af3290a76fd7d1b64c0256979695619611234232df98cb708a2ec4",
+      "source_deployment_equal": true
+    },
+    {
+      "phase": "immediate_release",
+      "passed": true,
+      "scope": "native_drag_stop_and_release_synthetic_qt_input",
+      "scenarios": [
+        {
+          "scenario": "drag-input-release",
+          "frames": 120,
+          "checks": 10,
+          "scene_sha256": "2113dfd783e9210c23313a8b2f5492d1cc8a1f0e2dabdce5d4d0c3cff5084022"
+        }
+      ],
+      "live_capture_performed": true,
+      "physical_windows_pointer_routing": "not_exercised",
+      "visual_naturalness": "requires_rendered_sample_review",
+      "executable_sha256": "0adf24d70339dc802b0d86ed51bc5ecec9a3e78bd28258daa726a8b887704fe8",
+      "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+      "review_tool_sha256": "0d14be7ed0205fcb01d0a8af216108da33744f0c996d90576bf2fe3650fdf70b",
+      "source_deployment_equal": true
+    }
+  ],
+  "capture_build_scope": "First five scenes used initial executable; only review harness extended and app rebuilt for the immediate-release scene. Motion/UI source unchanged between captures; tests ran on that same product behavior.",
+  "visual_review": {
+    "contact_samples_inspected": 12,
+    "immediate_release_samples_inspected": 6,
+    "all720_frames_individually_inspected": false,
+    "physical_windows_pointer_routing": "not exercised",
+    "observed": "No new head/torso/sleeve gaps observed in these samples; stationary hold returns toward neutral and seated desk/laptop remain present."
+  },
+  "evidence": {
+    "full_traces": "native-traces.zip",
+    "all_raw_frame_hashes": "frame-ledger.json",
+    "selected_raw_png_count": 18,
+    "continuous_review": "drag-stop.gif",
+    "raw_capture_local": "E:\\projects\\Desktop-Companion\\.local\\authoring\\drag-input-20261025",
+    "all_raw_pngs_in_git": false,
+    "replay": "python tools/review_drag_input.py <fresh-directory>"
+  },
+  "package_rebuilt": false,
+  "pushed": false,
+  "retained_artifact_sha256": {
+    "build-initial.log": "d5ff67550e220f2fc5daed734eac2366f5c73eb3bf816701b7abc873c7dff36d",
+    "build-release-fixture.log": "d2356da08fcc3f4b63ebc8a314a45668a2f927b2c5ad799eec60120e5efda78a",
+    "contact-sheet.png": "8c95264de8727e4cf1aa283ec722259216302ff0c285b859e5c1b9ffcbfd159c",
+    "ctest.log": "943be1bd1d80c401a8df7431fee7cb0774f66c85e9d5de14e057f055a06b86d2",
+    "ctest.xml": "f8ccaaeb710b86060d8985c4dc2d0439f7507a6f5bfb5060454b413a943c9d7f",
+    "drag-stop.gif": "60bc8214843b3ec8b2666738067aa73f288eea9c12e525231138f01c6eb461fb",
+    "first-five-check.json": "d4723cc6aea1094ec4ae2f592078e2347bfae5f3ed78b8955464e7608035e703",
+    "frame-ledger.json": "87fd883d560b66b8a1b4d39a82e846a81fafbef137a429b0819a01c2debc9b47",
+    "immediate-release-check.json": "9bf81dc627685c2cd009f0f2011f6228ca8c07fbd7bc04ebc8335b8aacaac9b3",
+    "native-traces.zip": "14da08adbdb2087c546e59ba9004fa918316186573d606dfe14be55604955f15",
+    "release-eyes.png": "7dad89b9dedd505ac2ad82279c2b7ceaa5a0f1b8e4cda2109893e47880dcd7dc",
+    "review-tool-first.py": "82758541d3af3290a76fd7d1b64c0256979695619611234232df98cb708a2ec4",
+    "selected/drag-input-busy-frame-012.png": "ac4506eb07ba5aae5e1243ea1e8ad3582d551e20aafa6d5d3c80fd2f9ad286b7",
+    "selected/drag-input-busy-frame-039.png": "b928dc4d9f07b025c3f46791082b55400685695e844b729377ad899a3a866d99",
+    "selected/drag-input-busy-frame-070.png": "b47f91c157e75d6fdce076b2dbbee2aaabe195a038bc51fb34540217cb743887",
+    "selected/drag-input-delete-frame-012.png": "e5cafb7dc5562e3edec0c12a9b42d58da91d1fbeb0ea996e77be9e1b1fe16a50",
+    "selected/drag-input-delete-frame-039.png": "77f4414bc00a074d89a12a9b2e74b65b8da47369759f676270b2c38e87428511",
+    "selected/drag-input-delete-frame-070.png": "0fbf727f4668c48de02d653a04d18442bb296f2f26f4418c298cf4c719539e37",
+    "selected/drag-input-grass-frame-012.png": "ebc9cc2e1265ebdb7712d7d9e2a6f73e30b87634c863f70e4fff0f7cecf3274a",
+    "selected/drag-input-grass-frame-039.png": "fb07fa45099d6305dfe1f3e3a7d67eb75ad9f4cbc428a23e8c537e73853a3197",
+    "selected/drag-input-grass-frame-070.png": "bd0f824c61128085eeb54733e7dd8fff6c2b64c60b6d176d6f641eafaabc1b67",
+    "selected/drag-input-idle-frame-012.png": "3b4c001ac429ac11188bf8a1e8cf88dbd5732c64ab20de5ae53de1c22d47510a",
+    "selected/drag-input-idle-frame-039.png": "0aea4a1dec29490883bf92df59c54d7b40d2321c93c51bbf23f86993fb010612",
+    "selected/drag-input-idle-frame-070.png": "447a291975f5b2fb0a5dddf87c99aa14f3c7d930e08cd9cf7ef6263ee3fcbf92",
+    "selected/drag-input-release-frame-012.png": "50fecafa1adba431c2ce70840ee6a886c07cef155c16f867aabdde4cc99c840b",
+    "selected/drag-input-release-frame-039.png": "0421521df1bda411c27daa21a4d3a03309ff081553416d75e43679f300ae0d99",
+    "selected/drag-input-release-frame-070.png": "91227dce5ffda2c1faa95adbe68ee8e32bae35677eb21e6cd8921bb6c5669363",
+    "selected/drag-input-ungrab-frame-012.png": "864610871c0d798ff4283b17b555740a8a3811904bfb3e8dbc3078babfec0039",
+    "selected/drag-input-ungrab-frame-039.png": "fa3e47b41c05e483db5bc019531cddcc12d5e976661250a62ff978f30ad731d6",
+    "selected/drag-input-ungrab-frame-070.png": "447a291975f5b2fb0a5dddf87c99aa14f3c7d930e08cd9cf7ef6263ee3fcbf92"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scope": "native_drag_stop_and_release_synthetic_qt_input",
+  "scenarios": [
+    {
+      "scenario": "drag-input-release",
+      "frames": 120,
+      "checks": 10,
+      "scene_sha256": "2113dfd783e9210c23313a8b2f5492d1cc8a1f0e2dabdce5d4d0c3cff5084022"
+    }
+  ],
+  "live_capture_performed": true,
+  "physical_windows_pointer_routing": "not_exercised",
+  "visual_naturalness": "requires_rendered_sample_review",
+  "executable_sha256": "0adf24d70339dc802b0d86ed51bc5ecec9a3e78bd28258daa726a8b887704fe8",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tool_sha256": "0d14be7ed0205fcb01d0a8af216108da33744f0c996d90576bf2fe3650fdf70b",
+  "source_deployment_equal": true
+}

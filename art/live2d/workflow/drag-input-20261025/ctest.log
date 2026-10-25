@@ -1,0 +1,11 @@
+Test project E:/projects/Desktop-Companion/build
+    Start  2: PetPointerGestureTest
+1/3 Test  #2: PetPointerGestureTest ............   Passed    0.05 sec
+    Start 14: ParameterMotionTest
+2/3 Test #14: ParameterMotionTest ..............   Passed    6.30 sec
+    Start 15: MotionClipTest
+3/3 Test #15: MotionClipTest ...................   Passed    0.71 sec
+
+100% tests passed out of 3
+
+Total Test time (real) =   7.12 sec

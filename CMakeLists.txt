@@ -38,6 +38,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/HeadPatInputReview.h src/HeadPatInputReview.cpp
     src/MemoInputReview.h src/MemoInputReview.cpp
     src/GrassDragInputReview.h src/GrassDragInputReview.cpp
+    src/DragInputReview.h src/DragInputReview.cpp
     src/MemoStore.h src/MemoStore.cpp
     src/StickyNoteModel.h src/StickyNoteModel.cpp
     src/MotionClip.h src/MotionClip.cpp

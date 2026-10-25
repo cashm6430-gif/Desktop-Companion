@@ -4,6 +4,7 @@
 #include "HeadPatInputReview.h"
 #include "MemoInputReview.h"
 #include "GrassDragInputReview.h"
+#include "DragInputReview.h"
 #include "MemoStore.h"
 #include "IntegrationStatusModel.h"
 #include "PetController.h"
@@ -135,8 +136,10 @@ int main(int argc, char** argv) {
         && arguments.value(3) == QStringLiteral("memo-recovery");
     const bool grassDragReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("grass-drag-"));
+    const bool dragInputReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3).startsWith(QStringLiteral("drag-input-"));
     qint64 memoReviewNowMs = 1000;
-    if (memoReview || grassDragReview) {
+    if (memoReview || grassDragReview || dragInputReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -176,6 +179,7 @@ int main(int argc, char** argv) {
         const QString scenario = QString::fromLocal8Bit(argv[3]);
         if (memoReview) return runMemoInputReview(app, controller, window, output, memoReviewNowMs);
         if (grassDragReview) return runGrassDragInputReview(app, controller, window, output, scenario);
+        if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
             return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {

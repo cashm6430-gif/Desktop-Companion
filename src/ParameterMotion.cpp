@@ -756,7 +756,9 @@ void ParameterMotion::beginDragMotion() {
     if (workPauseActive()) cancelInteraction();
     drag_.begin();
 }
-void ParameterMotion::updateDragMotion(double vx, double vy) { drag_.update(vx, vy); }
+void ParameterMotion::updateDragMotion(double vx, double vy, double travelledPixels) {
+    drag_.update(vx, vy, travelledPixels);
+}
 void ParameterMotion::endDragMotion() { drag_.end(); }
 void ParameterMotion::cancelDragMotion() { drag_.cancel(); }
 

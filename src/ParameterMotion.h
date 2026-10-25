@@ -127,10 +127,14 @@ public:
     // velocity; the motion layer adds eye/hair/body lag and a settle nod. Pure
     // overlay: it owns no state transitions and never touches the busy clock.
     void beginDragMotion();
-    void updateDragMotion(double vx, double vy);
+    void updateDragMotion(double vx, double vy, double travelledPixels = 0.0);
     void endDragMotion();
     void cancelDragMotion();
     bool dragMotionActive() const { return drag_.active(); }
+    bool dragFollowing() const { return drag_.following(); }
+    double dragInputAge() const { return drag_.inputAge(); }
+    double dragTravelledDistance() const { return drag_.travelledDistance(); }
+    bool dragCuriousTriggered() const { return drag_.curiousTriggered(); }
 
     // Presence gaze (interaction-first r1). The window layer feeds the
     // normalised cursor each frame; the base face layer always follows it with

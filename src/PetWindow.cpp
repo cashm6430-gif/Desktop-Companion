@@ -1870,6 +1870,15 @@ bool PetWindow::isHeadAt(const QPointF& position) const {
     return false;
 }
 
+QJsonObject PetWindow::dragReviewState() const {
+    auto state = pointerReviewState();
+    state[QStringLiteral("following")] = motion_.dragFollowing();
+    state[QStringLiteral("input_age")] = motion_.dragInputAge();
+    state[QStringLiteral("travelled")] = motion_.dragTravelledDistance();
+    state[QStringLiteral("curious_triggered")] = motion_.dragCuriousTriggered();
+    return state;
+}
+
 bool PetWindow::event(QEvent* event) {
     if (event->type() == QEvent::UngrabMouse || event->type() == QEvent::WindowDeactivate)
         releasePointerGesture();
@@ -1916,6 +1925,7 @@ void PetWindow::updatePointerGesture() {
         longPressTimer_.stop();
         if (!dragging_) {
             dragging_ = true;
+            dragHasSample_ = false;
             dragLastGlobal_ = QPointF();
             dragVelocity_ = QPointF();
             dragClock_.start();
@@ -1940,6 +1950,7 @@ void PetWindow::releasePointerGesture() {
         }
     }
     dragging_ = false;
+    dragHasSample_ = false;
     if (motion_.grassTipDragActive()) motion_.lookAtGrassTip(0.0);
     motion_.endGrassTipDrag();
     grassTouchPressed_ = false;
@@ -2030,6 +2041,7 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
             return;
         }
         gestureWindowOrigin_ = pos();
+        gesturePressGlobal_ = event->globalPosition();
         dragOffset_ = event->globalPosition().toPoint() - pos();
         const bool allowPat = (headPatApproved() || interactionPreviewEnabled_) && motion_.canBeginHeadPat()
             && renderBackend() == QStringLiteral("cubism_native")
@@ -2084,13 +2096,18 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
             // The bowl slides off too: a dragged desk pet cannot enjoy dinner.
             if (motion_.riceBowlActive()) motion_.exitRiceBowl();
             const QPointF global = event->globalPosition();
-            if (!dragLastGlobal_.isNull()) {
+            const QPointF delta = global - (dragHasSample_ ? dragLastGlobal_ : gesturePressGlobal_);
+            if (dragHasSample_) {
                 const double dt = (std::max)(dragClock_.restart() / 1000.0, 1.0 / 240.0);
-                const QPointF inst = (global - dragLastGlobal_) / dt;
+                // After a pause the old low-pass value is stale as well; do
+                // not reintroduce it on the next real sample.
+                if (dt >= 0.10 || motion_.dragInputAge() >= 0.10) dragVelocity_ = QPointF();
+                const QPointF inst = delta / dt;
                 dragVelocity_ += (inst - dragVelocity_) * 0.45;
-                motion_.updateDragMotion(dragVelocity_.x(), dragVelocity_.y());
             }
+            motion_.updateDragMotion(dragVelocity_.x(), dragVelocity_.y(), std::hypot(delta.x(), delta.y()));
             dragLastGlobal_ = global;
+            dragHasSample_ = true;
             move(event->globalPosition().toPoint() - dragOffset_);
         }
         event->accept();
