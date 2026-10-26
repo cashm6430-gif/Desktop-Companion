@@ -244,6 +244,110 @@ private slots:
         QVERIFY(source.isListening());
         QVERIFY(source.error().isEmpty());
     }
+
+    void permissionSnapshotsCarryOnlyBoundedOpenCodeIdentifiers() {
+        CodexTurnSource source;
+        const QString name = endpoint();
+        QVERIFY(source.start(name));
+        QSignalSpy snapshots(&source, &CodexTurnSource::permissionSnapshot);
+        QSignalSpy metadata(&source, &CodexTurnSource::eventReceived);
+        QSignalSpy started(&source, &CodexTurnSource::turnStarted);
+        QSignalSpy stopped(&source, &CodexTurnSource::turnStopped);
+        QStringList order;
+        connect(&source, &CodexTurnSource::permissionSnapshot, this,
+                [&](const QString&, const QString&, const QStringList&) { order.append(QStringLiteral("snapshot")); });
+        connect(&source, &CodexTurnSource::eventReceived, this,
+                [&](const QString&, const QString&) { order.append(QStringLiteral("receipt")); });
+        QJsonObject payload = event(QStringLiteral("permission_state"), QStringLiteral("opencode"));
+        const QString session = QString(293, QLatin1Char('s')); // Includes bridge scope prefix.
+        payload.insert(QStringLiteral("session_id"), session);
+        payload.insert(QStringLiteral("request_ids"), QJsonArray{QStringLiteral("request-鲸鱼"), QString(256, QLatin1Char('x'))});
+        payload.insert(QStringLiteral("permission"), QStringLiteral("PRIVATE_PERMISSION_TEXT"));
+        payload.insert(QStringLiteral("path"), QStringLiteral("PRIVATE_FILE_PATH"));
+        QLocalSocket populated;
+        QVERIFY(send(populated, name, json(payload)));
+        QTRY_COMPARE(snapshots.size(), 1);
+        QCOMPARE(snapshots.first().at(0).toString(), QString::fromUtf8(
+            QJsonDocument(QJsonArray{QStringLiteral("opencode"), session}).toJson(QJsonDocument::Compact)));
+        QCOMPARE(snapshots.first().at(1).toString(), QStringLiteral("private-turn"));
+        QCOMPARE(snapshots.first().at(2).toStringList(), QStringList({QStringLiteral("request-鲸鱼"), QString(256, QLatin1Char('x'))}));
+        QCOMPARE(metadata.first().at(0).toString(), QStringLiteral("opencode"));
+        QCOMPARE(metadata.first().at(1).toString(), QStringLiteral("permission_state"));
+        QCOMPARE(order, QStringList({QStringLiteral("snapshot"), QStringLiteral("receipt")}));
+
+        payload.insert(QStringLiteral("request_ids"), QJsonArray{});
+        QLocalSocket cleared;
+        QVERIFY(send(cleared, name, json(payload)));
+        QTRY_COMPARE(snapshots.size(), 2);
+        QVERIFY(snapshots.last().at(2).toStringList().isEmpty());
+        QCOMPARE(started.size(), 0);
+        QCOMPARE(stopped.size(), 0);
+        QTRY_COMPARE(source.findChildren<QLocalSocket*>().size(), 0);
+    }
+
+    void invalidPermissionSnapshotsNeverBecomePartialOrEmptyUpdates() {
+        CodexTurnSource source;
+        const QString name = endpoint();
+        QVERIFY(source.start(name));
+        QSignalSpy snapshots(&source, &CodexTurnSource::permissionSnapshot);
+        QSignalSpy metadata(&source, &CodexTurnSource::eventReceived);
+        QJsonObject valid = event(QStringLiteral("permission_state"), QStringLiteral("opencode"));
+        valid.insert(QStringLiteral("request_ids"), QJsonArray{QStringLiteral("valid")});
+        QList<QJsonObject> invalid;
+        for (const QString& client : {QString(), QStringLiteral("codex"), QStringLiteral("claude"),
+                                     QStringLiteral("manual"), QStringLiteral("unrecognized")}) {
+            auto payload = valid;
+            payload.insert(QStringLiteral("client"), client);
+            invalid.append(payload);
+        }
+        auto payload = valid;
+        payload.remove(QStringLiteral("request_ids"));
+        invalid.append(payload);
+        for (const QJsonValue& requests : {QJsonValue(QJsonValue::Null), QJsonValue(QStringLiteral("valid")),
+                QJsonValue(QJsonObject{}), QJsonValue(QJsonArray{QStringLiteral("valid"), 42}),
+                QJsonValue(QJsonArray{QStringLiteral("valid"), QStringLiteral(" ")}),
+                QJsonValue(QJsonArray{QStringLiteral("valid"), QString(257, QLatin1Char('x'))}),
+                QJsonValue(QJsonArray{QStringLiteral("valid"), QString(QChar::Null)}),
+                QJsonValue(QJsonArray{QStringLiteral("valid"), QStringLiteral("valid")})}) {
+            payload = valid;
+            payload.insert(QStringLiteral("request_ids"), requests);
+            invalid.append(payload);
+        }
+        QJsonArray tooMany;
+        for (int i = 0; i < 33; ++i) tooMany.append(QString::number(i));
+        payload = valid;
+        payload.insert(QStringLiteral("request_ids"), tooMany);
+        invalid.append(payload);
+        for (const QString& field : {QStringLiteral("session_id"), QStringLiteral("turn_id")}) {
+            for (const QString& id : {QStringLiteral(" "), QString(QChar::Null),
+                    QString(field == QStringLiteral("session_id") ? 1025 : 257, QLatin1Char('x'))}) {
+                payload = valid;
+                payload.insert(field, id);
+                invalid.append(payload);
+            }
+            payload = valid;
+            payload.remove(field);
+            invalid.append(payload);
+        }
+        for (const QJsonObject& request : invalid) {
+            QLocalSocket socket;
+            QVERIFY(send(socket, name, json(request)));
+            QTRY_COMPARE(socket.state(), QLocalSocket::UnconnectedState);
+        }
+        QCOMPARE(snapshots.size(), 0);
+        QCOMPARE(metadata.size(), 0);
+        // The field limits do not replace the 4096-byte complete wire limit.
+        QJsonArray boundedButOversized;
+        for (int i = 0; i < 32; ++i) boundedButOversized.append(QString(200, QLatin1Char('x')) + QString::number(i));
+        payload = valid;
+        payload.insert(QStringLiteral("request_ids"), boundedButOversized);
+        QVERIFY(json(payload).size() > 4096);
+        QLocalSocket oversized;
+        QVERIFY(send(oversized, name, json(payload)));
+        QTRY_COMPARE(oversized.state(), QLocalSocket::UnconnectedState);
+        QCOMPARE(snapshots.size(), 0);
+        QCOMPARE(metadata.size(), 0);
+    }
 };
 
 QTEST_GUILESS_MAIN(CodexTurnSourceTest)

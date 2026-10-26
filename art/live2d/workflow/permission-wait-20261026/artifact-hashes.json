@@ -1,0 +1,46 @@
+{
+  "capture-inputs.json": {
+    "bytes": 698,
+    "sha256": "9a294d1d0cbf92f849a9dfe529e63786b92c3f4ad0350e8d8f9c485d75b98113"
+  },
+  "cue-check.json": {
+    "bytes": 1769,
+    "sha256": "7ff0dedcdcf557563dca69d34ae0752ca114c9ca9ae575311ada8be878a1dc6b"
+  },
+  "dark-details.png": {
+    "bytes": 1488229,
+    "sha256": "5414a7f005f71303e9b8a2e399f1b9c98ed50861e14b40fef51883426edff655"
+  },
+  "key-poses.png": {
+    "bytes": 799443,
+    "sha256": "95580b7eeb2d1421ec09cda912ed514c75609316c37fc250138a6d2b1c498741"
+  },
+  "native-traces.zip": {
+    "bytes": 112567,
+    "sha256": "d6c7f76a399ab143e1319c271bdf22d8b9b604fe6fff6200d12dcb8ace5153a3"
+  },
+  "opencode-contract.json": {
+    "bytes": 4497,
+    "sha256": "8226e93c60507514fc90241d91344222d7be4bb222533b1ce857e748bb7d3122"
+  },
+  "panel-permissions.png": {
+    "bytes": 42749,
+    "sha256": "3bcd9bf763adf96cd65de4761e4c075bbdf8887eb71c64b869218ef379ca16b3"
+  },
+  "permission-cue.gif": {
+    "bytes": 4691259,
+    "sha256": "3c232f35b347d5a4d4ba224d5bbfe22d405f864a397230e2c77509a3e8a2be02"
+  },
+  "status-panel-check.json": {
+    "bytes": 16538,
+    "sha256": "bf24698f01042b583fb8f903f964031248e5488f14dbae0ca45bb49a14d8add0"
+  },
+  "test-logs.zip": {
+    "bytes": 4578,
+    "sha256": "45e7be7a58361d98cc6299214478af839b95c35ba97a0ec782ccf5935755fd68"
+  },
+  "verification.json": {
+    "bytes": 4473,
+    "sha256": "2f7acfd6973bb01eae0ce7c343b6305b90c5460b60cfe0eed2816a7150b57c1c"
+  }
+}

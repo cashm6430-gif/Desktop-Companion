@@ -7,6 +7,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -55,6 +56,16 @@ bool writeStandingRestFixture(const QTemporaryDir& dir, const QString& approval 
     const QByteArray json = QJsonDocument(root).toJson();
     QFile file(dir.filePath(QStringLiteral("busy-rest.motion.json")));
     return file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(json) == json.size();
+}
+
+bool writePermissionCueFixture(const QTemporaryDir& dir, const QString& approval) {
+    QFile source(QStringLiteral("assets/motions/permission-cue.motion.json"));
+    if (!source.open(QIODevice::ReadOnly)) return false;
+    auto root = QJsonDocument::fromJson(source.readAll()).object();
+    root.insert(QStringLiteral("approval"), approval);
+    const QByteArray json = QJsonDocument(root).toJson();
+    QFile target(dir.filePath(QStringLiteral("permission-cue.motion.json")));
+    return target.open(QIODevice::WriteOnly | QIODevice::Truncate) && target.write(json) == json.size();
 }
 
 void advanceFrames(ParameterMotion& motion, int frames) {
@@ -165,6 +176,10 @@ private slots:
     void workPauseRefusesExistingOverlayWithoutPreempting();
     void workPauseInterruptionsDoNotReplay();
     void standingRestRejectsReservedAxesAndUnsafeSway();
+    void permissionCueRequiresApprovalAndSettledPosture();
+    void permissionCueFreezesClocksAndContactPose();
+    void permissionCueRefusesOwnersAndYieldsWithoutReplay();
+    void permissionCueRejectsReservedChannelsAndUnsafeHead();
     void dragMotionFollowsAndSettlesWithoutSway();
     void dragInputExpiresWithoutImaginaryTravel();
     void dragMeasuredPathRejectsInvalidSamplesAndTriggersOnce();
@@ -3294,6 +3309,232 @@ void ParameterMotionTest::workPosturePreviewDoesNotChangeSavedPreference() {
     motion.setState(PetController::State::Busy);
     motion.advance(0.02);
     QVERIFY(motion.isLaptopBusy());
+}
+
+void ParameterMotionTest::permissionCueRequiresApprovalAndSettledPosture() {
+    ParameterMotion motion;
+    QVERIFY(!motion.playPermissionCue(true)); // absence is harmless
+    QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+    motion.setDeskWorkMode(true);
+    QVERIFY(!motion.playPermissionCue(true)); // review cannot invent a Busy state
+    motion.forceStandingBusy();
+    advanceFrames(motion, 50);
+    const auto before = motion.values();
+    QVERIFY(!motion.playPermissionCue()); // pending must never leak into an ordinary entry
+    QCOMPARE(motion.values(), before);
+    QVERIFY(motion.playPermissionCue(true));
+    QCOMPARE(motion.interactionId(), QStringLiteral("permission-cue"));
+    QVERIFY(motion.permissionCueActive());
+    QVERIFY(!motion.workPauseActive()); // this short cue does not assert a blocked execution
+    QVERIFY(!motion.playPermissionCue(true));
+    QVERIFY(motion.cancelPendingInteraction()); // closing draft preview cancels it
+    QVERIFY(!motion.interactionActive());
+
+    motion.forceLaptopBusy();
+    QVERIFY(!motion.playPermissionCue(true));
+    advanceFrames(motion, 20);
+    QVERIFY(!motion.playPermissionCue(true)); // sitting/cover transition still owns the pose
+    advanceFrames(motion, 180);
+    QVERIFY(motion.playPermissionCue(true));
+    motion.cancelInteraction();
+    motion.forceStandingBusy();
+    QVERIFY(!motion.playPermissionCue(true)); // desk exit is not stable standing
+    advanceFrames(motion, 220);
+    QVERIFY(motion.playPermissionCue(true));
+    motion.cancelInteraction();
+
+    // The data gate also works after a future adoption. Approval alone cannot
+    // bypass the posture gate, and preview-off leaves an approved clip alive.
+    QTemporaryDir approved;
+    QVERIFY(writePermissionCueFixture(approved, QStringLiteral("approved")));
+    // Reload retains the other library clips; their phase readers must still
+    // find the authored configuration in the new fixture directory.
+    for (const QString& id : {QStringLiteral("head-pat"), QStringLiteral("grass-touch")}) {
+        const QString name = id + QStringLiteral(".motion.json");
+        QVERIFY(QFile::copy(QStringLiteral("assets/motions/") + name, approved.filePath(name)));
+    }
+    QString error;
+    QVERIFY2(motion.loadMotionLibrary(approved.path(), &error), qPrintable(error));
+    QVERIFY(motion.playPermissionCue());
+    QVERIFY(!motion.cancelPendingInteraction());
+    QVERIFY(motion.permissionCueActive());
+    motion.cancelInteraction();
+
+    ParameterMotion delayed;
+    QVERIFY(delayed.loadMotionLibrary(QStringLiteral("assets/motions")));
+    delayed.setDeskWorkMode(true);
+    delayed.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Laptop);
+    delayed.setState(PetController::State::Busy);
+    advanceFrames(delayed, 100);
+    QVERIFY(delayed.isLaptopBusy());
+    QVERIFY(!delayed.playPermissionCue(true)); // ten-second sustained-work protection remains
+    advanceFrames(delayed, 650);
+    QVERIFY(delayed.playPermissionCue(true));
+}
+
+void ParameterMotionTest::permissionCueFreezesClocksAndContactPose() {
+    for (const bool seated : {false, true}) {
+        for (const bool desk : {false, true}) {
+            ParameterMotion motion;
+            QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+            motion.setDeskWorkMode(desk);
+            motion.setProceduralBlink(false);
+            if (seated) motion.forceLaptopBusy();
+            else motion.forceStandingBusy();
+            advanceFrames(motion, 1999); // one frame before the forty-second choice
+            const auto contact = motion.values();
+            const double phase = motion.busyPhaseTime();
+            const double work = motion.continuousBusyTime();
+            const double choice = motion.nextBusyChoiceTime();
+            const QString deskPhase = motion.deskWorkPhase();
+            QVERIFY(phase < choice && choice - phase < 0.03);
+            QVERIFY(motion.playPermissionCue(true));
+            int frames = 0;
+            double minimumEyes = 1.0;
+            while (motion.permissionCueActive() && frames++ < 145) {
+                motion.advance(0.02);
+                QCOMPARE(motion.busyPhaseTime(), phase);
+                QCOMPARE(motion.continuousBusyTime(), work);
+                QCOMPARE(motion.nextBusyChoiceTime(), choice);
+                QCOMPARE(motion.isLaptopBusy(), seated);
+                QCOMPARE(motion.deskWorkPhase(), deskPhase);
+                if (!motion.permissionCueActive()) continue;
+                for (const QString& id : {QStringLiteral("ParamBusyLaptop"), QStringLiteral("ParamSitPose"),
+                     QStringLiteral("ParamLaptopVisible"), QStringLiteral("ParamLaptopRock"),
+                     QStringLiteral("ParamBusyTypingL"), QStringLiteral("ParamBusyTypingR"),
+                     QStringLiteral("ParamArmLA"), QStringLiteral("ParamArmRA"),
+                     QStringLiteral("ParamElbowLA"), QStringLiteral("ParamElbowRA"),
+                     QStringLiteral("ParamWristRA"), QStringLiteral("ParamDeskVisible")})
+                    QCOMPARE(motion.values().value(id), contact.value(id));
+                minimumEyes = std::min(minimumEyes, motion.values().value(QStringLiteral("ParamEyeLOpen")));
+                if (motion.interactionTime() > 1.1 && motion.interactionTime() < 1.8) {
+                    QVERIFY(std::abs(motion.values().value(QStringLiteral("ParamAngleZ"))) < 0.02);
+                    QVERIFY(motion.values().value(QStringLiteral("ParamMouthOpenY")) < 0.001);
+                    QVERIFY(motion.bubblePulse() < 0.001);
+                }
+            }
+            QVERIFY(!motion.interactionActive());
+            QVERIFY(frames >= 139 && frames <= 141);
+            QVERIFY(minimumEyes < 0.2); // the authored slow blink is visible
+            advanceFrames(motion, 2);
+            QVERIFY(motion.busyPhaseTime() > phase);
+            QVERIFY(motion.continuousBusyTime() > work);
+            QCOMPARE(motion.nextBusyChoiceTime(), choice + 40.0);
+            QVERIFY(!motion.interactionActive()); // no queued cue after resumption
+        }
+    }
+}
+
+void ParameterMotionTest::permissionCueRefusesOwnersAndYieldsWithoutReplay() {
+    for (const bool seated : {false, true}) {
+        for (const QString& owner : {QStringLiteral("drag"), QStringLiteral("memo"),
+             QStringLiteral("sleep"), QStringLiteral("pat"), QStringLiteral("greet"),
+             QStringLiteral("rest"), QStringLiteral("rice")}) {
+            if (!seated && owner == QStringLiteral("rice")) continue;
+            ParameterMotion motion;
+            QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+            motion.setDeskWorkMode(true);
+            if (seated) motion.forceLaptopBusy();
+            else motion.forceStandingBusy();
+            advanceFrames(motion, 200);
+            if (owner == QStringLiteral("drag")) motion.beginDragMotion();
+            if (owner == QStringLiteral("memo")) motion.beginMemoMotion();
+            if (owner == QStringLiteral("sleep")) motion.beginSleepMotion();
+            if (owner == QStringLiteral("pat")) QVERIFY(motion.beginHeadPat());
+            if (owner == QStringLiteral("greet")) QVERIFY(motion.playGreet());
+            if (owner == QStringLiteral("rest")) QVERIFY(motion.playStretch());
+            if (owner == QStringLiteral("rice")) QVERIFY(motion.playRiceBowl());
+            const QString interaction = motion.interactionId();
+            QVERIFY2(!motion.playPermissionCue(true), qPrintable(owner));
+            QCOMPARE(motion.interactionId(), interaction);
+            if (owner == QStringLiteral("drag")) QVERIFY(motion.dragMotionActive());
+            if (owner == QStringLiteral("memo")) QVERIFY(motion.memoMotionActive());
+            if (owner == QStringLiteral("sleep")) QVERIFY(motion.sleepMotionActive());
+            if (owner == QStringLiteral("rice")) QVERIFY(motion.riceBowlActive());
+        }
+        for (const QString& event : {QStringLiteral("stop"), QStringLiteral("delete"),
+             QStringLiteral("grass"), QStringLiteral("drag"), QStringLiteral("pat"),
+             QStringLiteral("memo"), QStringLiteral("memo-celebrate"),
+             QStringLiteral("sleep"), QStringLiteral("preview-off")}) {
+            ParameterMotion motion;
+            QVERIFY(motion.loadMotionLibrary(QStringLiteral("assets/motions")));
+            motion.setDeskWorkMode(true);
+            if (seated) motion.forceLaptopBusy();
+            else motion.forceStandingBusy();
+            advanceFrames(motion, 200);
+            QVERIFY(motion.playPermissionCue(true));
+            advanceFrames(motion, 40); // interrupt after eyes/head have taken ownership
+            if (event == QStringLiteral("stop")) motion.setState(PetController::State::Idle);
+            if (event == QStringLiteral("delete")) motion.setState(PetController::State::Delete);
+            if (event == QStringLiteral("grass")) motion.setState(PetController::State::Grass);
+            if (event == QStringLiteral("drag")) motion.beginDragMotion();
+            if (event == QStringLiteral("pat")) QVERIFY(motion.beginHeadPat(-1.0));
+            if (event == QStringLiteral("memo")) motion.beginMemoMotion();
+            if (event == QStringLiteral("memo-celebrate")) motion.beginMemoCelebrate();
+            if (event == QStringLiteral("sleep")) motion.beginSleepMotion();
+            if (event == QStringLiteral("preview-off")) QVERIFY(motion.cancelPendingInteraction());
+            QVERIFY2(!motion.permissionCueActive(), qPrintable(event));
+            if (event == QStringLiteral("pat")) QCOMPARE(motion.interactionId(), QStringLiteral("head-pat"));
+            motion.cancelDragMotion();
+            motion.cancelMemoMotion();
+            motion.cancelSleepMotion();
+            motion.cancelInteraction();
+            motion.setState(PetController::State::Busy);
+            advanceFrames(motion, 200);
+            QVERIFY(!motion.interactionActive());
+        }
+    }
+}
+
+void ParameterMotionTest::permissionCueRejectsReservedChannelsAndUnsafeHead() {
+    for (const auto& illegal : {qMakePair(QStringLiteral("ParamArmRA"), 1.0),
+         qMakePair(QStringLiteral("ParamSitPose"), 1.0), qMakePair(QStringLiteral("ParamBusyTypingL"), 0.0),
+         qMakePair(QStringLiteral("ParamBodyAngleX"), 1.0), qMakePair(QStringLiteral("ParamShiftX"), 1.0),
+         qMakePair(QStringLiteral("ParamAngleZ"), 0.1), qMakePair(QStringLiteral("ParamAngleY"), 4.1)}) {
+        QTemporaryDir dir;
+        QVERIFY(writePermissionCueFixture(dir, QStringLiteral("pending")));
+        QFile file(dir.filePath(QStringLiteral("permission-cue.motion.json")));
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        auto root = QJsonDocument::fromJson(file.readAll()).object();
+        file.close();
+        auto keys = root.value(QStringLiteral("keyframes")).toArray();
+        auto key = keys.at(4).toObject();
+        auto parameters = key.value(QStringLiteral("parameters")).toObject();
+        parameters.insert(illegal.first, illegal.second); // a later key must not bypass ownership
+        key.insert(QStringLiteral("parameters"), parameters);
+        keys[4] = key;
+        root.insert(QStringLiteral("keyframes"), keys);
+        QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Truncate));
+        const auto json = QJsonDocument(root).toJson();
+        QCOMPARE(file.write(json), qint64(json.size()));
+        file.close();
+        ParameterMotion motion;
+        QString error;
+        QVERIFY2(!motion.loadMotionLibrary(dir.path(), &error), qPrintable(illegal.first));
+        QVERIFY(!error.isEmpty());
+    }
+    for (const QString& invalid : {QStringLiteral("duration"), QStringLiteral("loop"),
+         QStringLiteral("mode"), QStringLiteral("channels")}) {
+        QTemporaryDir dir;
+        QVERIFY(writePermissionCueFixture(dir, QStringLiteral("pending")));
+        QFile file(dir.filePath(QStringLiteral("permission-cue.motion.json")));
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        auto root = QJsonDocument::fromJson(file.readAll()).object();
+        file.close();
+        if (invalid == QStringLiteral("duration")) root.insert(invalid, 3.0);
+        if (invalid == QStringLiteral("loop")) root.insert(invalid, true);
+        if (invalid == QStringLiteral("mode")) root.insert(invalid, QStringLiteral("additive"));
+        if (invalid == QStringLiteral("channels")) root.insert(invalid, QJsonObject{
+            {QStringLiteral("ParamAngleY"), QJsonObject{{QStringLiteral("amplitude"), 1.0}}}});
+        QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Truncate));
+        const auto json = QJsonDocument(root).toJson();
+        QCOMPARE(file.write(json), qint64(json.size()));
+        file.close();
+        ParameterMotion motion;
+        QString error;
+        QVERIFY2(!motion.loadMotionLibrary(dir.path(), &error), qPrintable(invalid));
+        QVERIFY(!error.isEmpty());
+    }
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

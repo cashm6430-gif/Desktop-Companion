@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "audited_date": "2026-10-26",
+  "installed_cli_version": "2.1.4",
+  "official_tag": "v2.1.4",
+  "sources": [
+    {
+      "package_file": "schema/src/permission.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/schema/src/permission.ts",
+      "bytes": 2282,
+      "sha256": "45b63a6d9f7619d9285663111f26a9a939d64683cac3272881e6dd196409bc1d",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "schema/src/event.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/schema/src/event.ts",
+      "bytes": 7025,
+      "sha256": "f39ab332fe69fcb85adeda95bcf4af608e13fc7e32d9dca5887fc35c51390fa9",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "core/src/permission.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/core/src/permission.ts",
+      "bytes": 13008,
+      "sha256": "92286b2a5f7106afffeaf57efbb77c5ce01faec0265efcbdccf2c0227058dc1c",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "core/src/bus.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/core/src/bus.ts",
+      "bytes": 40598,
+      "sha256": "2498d2675c99cf74c5e2b3dd6789e09f15bfdac3e7cfabfa0c43a2e9e7ca132c",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "core/src/plugin/host.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/core/src/plugin/host.ts",
+      "bytes": 26876,
+      "sha256": "b507bd6f4da778d5bf8fe73bb639fa03db1833c01020f53b489cebf7b3c021b0",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "core/src/session/execution.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/core/src/session/execution.ts",
+      "bytes": 8760,
+      "sha256": "5750af42c82f68bd9a898901b0aa58a4a1322467d319b4fc19119fee74d67d7b",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "plugin/src/promise/adapter.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/plugin/src/promise/adapter.ts",
+      "bytes": 30676,
+      "sha256": "3e20a2fb996e88c1914cabc133903482d0f5e421a2bdc0b61c8ce68c71ea63a0",
+      "cache_in_repository": false
+    },
+    {
+      "package_file": "protocol/src/groups/event.ts",
+      "url": "https://raw.githubusercontent.com/anomalyco/opencode/v2.1.4/packages/protocol/src/groups/event.ts",
+      "bytes": 2831,
+      "sha256": "41619314a6fbe0be35f898cd80fa14be8cf43d21bad97e735ff4364f2e637bb9",
+      "cache_in_repository": false
+    }
+  ],
+  "contract": {
+    "asked": {
+      "type": "permission.asked",
+      "session": "data.sessionID",
+      "request": "data.id",
+      "durability": "ephemeral",
+      "event_identity": "id",
+      "event_time": "created"
+    },
+    "replied": {
+      "type": "permission.replied",
+      "session": "data.sessionID",
+      "request": "data.requestID",
+      "reply": [
+        "once",
+        "always",
+        "reject"
+      ],
+      "durability": "ephemeral"
+    },
+    "permission_meaning": "At least one pending approval exists; not evidence that every tool or session is stopped.",
+    "cancellation": "Permission.assert ensuring deletes pending without publishing Replied; prune only previously observed IDs with session permission.list. Never bootstrap historical waits.",
+    "batch_reply": "reject publishes reject for all remaining pending requests in that session; always may publish always for each request covered by the newly saved rule.",
+    "cleanup": "terminal, session move/deletion, final observer disconnect and bridge unload clear local waiting as bookkeeping, not success.",
+    "stream": "Location-scoped plugin stream includes permission ServerDefinitions; volatile and no replay on disconnect.",
+    "privacy": "Only lifecycle identifiers and <=32 request IDs per session snapshot leave plugin; never forward action/resources/metadata/message."
+  },
+  "live_client_modified": true,
+  "model_prompt_sent": false,
+  "credentials_read": false,
+  "notes": "Source files are exact official tag downloads. Installed version and embedded permission event strings were verified; compiled binary is not claimed byte-identical to a source checkout. Managed plugin files subsequently upgraded and hashes verified; no real model task was sent."
+}

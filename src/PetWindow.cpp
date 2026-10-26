@@ -630,6 +630,12 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         setInteractionPreviewEnabled(true);
         motion_.playTurnEnded();
     });
+    auto* permissionCue = previewMenu->addAction(QStringLiteral("审批请求轻提示（待审批，仅忙碌）"), this, [this] {
+        if (controller_->state() != PetController::State::Busy) return;
+        setInteractionPreviewEnabled(true);
+        motion_.playPermissionCue(true);
+    });
+    permissionCue->setObjectName(QStringLiteral("permissionCuePreviewAction"));
     const auto* standingRestClip = motion_.library().clip(QStringLiteral("busy-rest"));
     if (!standingRestClip || standingRestClip->approval() != QStringLiteral("approved")) {
         previewMenu->addAction(QStringLiteral("站姿歇一下（待审批，仅站姿忙碌）"), this, [this] {

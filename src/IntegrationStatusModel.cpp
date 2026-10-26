@@ -20,6 +20,7 @@ QString canonicalEvent(const QString& event) {
     if (event == QStringLiteral("start")) return QStringLiteral("start");
     if (event == QStringLiteral("stop")) return QStringLiteral("stop");
     if (event == QStringLiteral("session_end")) return QStringLiteral("session_end");
+    if (event == QStringLiteral("permission_state")) return QStringLiteral("permission_state");
     return {};
 }
 
@@ -57,7 +58,8 @@ void IntegrationStatusModel::record(int index, const QString& event) {
 }
 
 QJsonObject IntegrationStatusModel::snapshot(bool listening, const QString& listenerError,
-                                           int activeTurns, const QString& state) const {
+                                           int activeTurns, const QString& state,
+                                           int pendingPermissions, int permissionTurns) const {
     QJsonArray clients;
     for (int i = 0; i < int(receipts_.size()); ++i) {
         const auto& receipt = receipts_[i];
@@ -77,6 +79,8 @@ QJsonObject IntegrationStatusModel::snapshot(bool listening, const QString& list
     return {{QStringLiteral("listening"), listening},
             {QStringLiteral("listener_error"), listenerError},
             {QStringLiteral("active_turns"), std::max(0, activeTurns)},
+            {QStringLiteral("pending_permissions"), std::max(0, pendingPermissions)},
+            {QStringLiteral("permission_turns"), std::clamp(permissionTurns, 0, std::max(0, activeTurns))},
             {QStringLiteral("pet_state"), publicState(state)},
             {QStringLiteral("last_event"), latest},
             {QStringLiteral("clients"), clients}};

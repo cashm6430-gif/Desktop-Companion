@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scenarios": [
+    {
+      "scenario": "standing",
+      "frames": 75,
+      "candidate_frames": 42,
+      "scene_sha256": "399b7afa6fe4c612e5ed6dbfce934e627e74f69eb901f91817e5fea57fff8efe",
+      "passed": true
+    },
+    {
+      "scenario": "laptop",
+      "frames": 75,
+      "candidate_frames": 42,
+      "scene_sha256": "113c5dbab438e82a334e34376f284760ff5cc9c2da9178c3bc276d72ec60b5d4",
+      "passed": true
+    },
+    {
+      "scenario": "stop",
+      "frames": 75,
+      "candidate_frames": 12,
+      "scene_sha256": "b7772b046d8f6bfc8fec28bbec7c6862290f2210b19daa6033a949a070527b76",
+      "passed": true
+    },
+    {
+      "scenario": "delete",
+      "frames": 75,
+      "candidate_frames": 12,
+      "scene_sha256": "f8e3ed98e7ada06261e7753d80b9b317fa161831831214eb7a7c2619c3a64530",
+      "passed": true
+    },
+    {
+      "scenario": "drag",
+      "frames": 75,
+      "candidate_frames": 12,
+      "scene_sha256": "0437ce36c026b94d7735be9417e0b154d952d3a9d81fe2b3a33c2994bae01d6b",
+      "passed": true
+    },
+    {
+      "scenario": "preview-off",
+      "frames": 75,
+      "candidate_frames": 12,
+      "scene_sha256": "48bcc1bd7abddda1286828f3c5895c7e2c08159b35c13ada944f4922ede5404d",
+      "passed": true
+    }
+  ],
+  "scope": "pending real ParameterMotion player and Native R19 continuous frames",
+  "approval": "pending",
+  "visual_approval": "pending",
+  "automatic_entry_enabled": false,
+  "privacy": {
+    "isolated_settings": true,
+    "fixture_only": true,
+    "default_endpoint_used": false,
+    "real_hooks_used": false,
+    "desktop_files_changed": false
+  },
+  "clip_sha256": "6f2e54de0632c3abf419f8b8f70bbb655f74dba553d1385e6dd32b70bf57214a"
+}

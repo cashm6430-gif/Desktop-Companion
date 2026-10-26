@@ -3,6 +3,8 @@
 #include <QCoreApplication>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QSet>
 #include <QLocalSocket>
 #include <QDateTime>
 #include <QElapsedTimer>
@@ -95,6 +97,37 @@ int main(int argc, char** argv) {
     if (name == QStringLiteral("UserPromptSubmit")) action = QStringLiteral("start");
     else if (name == QStringLiteral("Stop") || name == QStringLiteral("Interrupt")) action = QStringLiteral("stop");
     else if (name == QStringLiteral("SessionEnd")) action = QStringLiteral("session_end");
+    else if (name == QStringLiteral("PermissionSnapshot") && client == QStringLiteral("opencode")) {
+        const QString session = hook.value(QStringLiteral("session_id")).toString();
+        const QString turn = hook.value(QStringLiteral("turn_id")).toString();
+        bool valid = !session.trimmed().isEmpty() && session.size() <= 1024
+            && !session.contains(QChar::Null) && !turn.trimmed().isEmpty()
+            && turn.size() <= 256 && !turn.contains(QChar::Null)
+            && hook.value(QStringLiteral("request_ids")).isArray();
+        QJsonArray requests;
+        QSet<QString> unique;
+        const QJsonArray source = hook.value(QStringLiteral("request_ids")).toArray();
+        valid = valid && source.size() <= 32;
+        for (const QJsonValue& request : source) {
+            const QString id = request.toString();
+            if (!request.isString() || id.trimmed().isEmpty()
+                || id.size() > 256 || id.contains(QChar::Null)
+                || unique.contains(id)) { valid = false; break; }
+            unique.insert(id);
+            requests.append(id);
+        }
+        if (valid) {
+            // A separate full snapshot is observational; it never synthesizes
+            // a start or sends the actual permission prompt/tool payload.
+            const QJsonObject message{{QStringLiteral("event"), QStringLiteral("permission_state")},
+                {QStringLiteral("client"), client}, {QStringLiteral("session_id"), session},
+                {QStringLiteral("turn_id"), turn}, {QStringLiteral("request_ids"), requests}};
+            // The receiver's limit covers UTF-8 bytes plus the newline, even
+            // when every individual identifier is inside its own bound.
+            if (QJsonDocument(message).toJson(QJsonDocument::Compact).size() <= 4095
+                && !dryRunHook) delivered = sendMessage(message, endpoint);
+        }
+    }
     if (!action.isEmpty()) {
         // Hook payloads carry session_id but (except for SessionStart) no
         // turn_id; PetController requires both, so synthesize one turn id per

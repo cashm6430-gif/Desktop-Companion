@@ -37,6 +37,7 @@ private:
     QLabel* listener_ = nullptr;
     QLabel* listenerError_ = nullptr;
     QLabel* activeTurns_ = nullptr;
+    QLabel* pendingPermissions_ = nullptr;
     QLabel* petState_ = nullptr;
     QLabel* lastEvent_ = nullptr;
     QTableWidget* clients_ = nullptr;

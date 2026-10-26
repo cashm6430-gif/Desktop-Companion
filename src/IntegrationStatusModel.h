@@ -22,7 +22,8 @@ public:
     void recordReset();
     // Counts and pet state always come from the controller at read time.
     QJsonObject snapshot(bool listening, const QString& listenerError,
-                         int activeTurns, const QString& state) const;
+                         int activeTurns, const QString& state,
+                         int pendingPermissions = 0, int permissionTurns = 0) const;
 
 signals:
     void changed();

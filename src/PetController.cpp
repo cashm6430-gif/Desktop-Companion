@@ -60,10 +60,12 @@ void PetController::turnStarted(const QString& sessionId, const QString& turnId)
 
 void PetController::turnStopped(const QString& sessionId, const QString& turnId) {
     qint64 endedStartedMs = -1;
+    bool permissionsChanged = false;
     const QString exactKey = sessionId + QChar::Null + turnId;
     if (activeTurns_.contains(exactKey)) {
         endedStartedMs = activeTurns_.value(exactKey);
         activeTurns_.remove(exactKey);
+        permissionsChanged = permissions_.remove(exactKey) > 0;
     }
     bool removed = endedStartedMs >= 0;
     if (!removed && turnId.isEmpty()) {
@@ -81,11 +83,13 @@ void PetController::turnStopped(const QString& sessionId, const QString& turnId)
         }
         if (!latest.isEmpty()) {
             activeTurns_.remove(latest);
+            permissionsChanged = permissions_.remove(latest) > 0;
             endedStartedMs = latestMs;
             removed = true;
         }
     }
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
+    if (permissionsChanged) emit permissionStateChanged();
     if (removed) {
         if (activeTurns_.isEmpty()) emit allTurnsStopped();
         emit turnEnded(sessionId, qMax<qint64>(0, nowMs_() - endedStartedMs));
@@ -95,11 +99,39 @@ void PetController::turnStopped(const QString& sessionId, const QString& turnId)
 void PetController::sessionEnded(const QString& sessionId) {
     if (sessionId.isEmpty()) return;
     const QString prefix = sessionId + QChar::Null;
+    bool permissionsChanged = false;
     for (auto it = activeTurns_.begin(); it != activeTurns_.end();) {
-        if (it.key().startsWith(prefix)) it = activeTurns_.erase(it);
+        if (it.key().startsWith(prefix)) {
+            permissionsChanged = permissions_.remove(it.key()) > 0 || permissionsChanged;
+            it = activeTurns_.erase(it);
+        }
         else ++it;
     }
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
+    if (permissionsChanged) emit permissionStateChanged();
+}
+
+int PetController::pendingPermissionCount() const {
+    int total = 0;
+    for (const auto& requests : permissions_) total += requests.size();
+    return total;
+}
+
+void PetController::applyPermissionSnapshot(const QString& sessionId, const QString& turnId,
+                                          const QStringList& requestIds) {
+    if (sessionId.isEmpty() || turnId.isEmpty() || requestIds.size() > 32) return;
+    const QString key = sessionId + QChar::Null + turnId;
+    if (!activeTurns_.contains(key)) return;
+    QSet<QString> requests;
+    for (const QString& id : requestIds) {
+        if (id.trimmed().isEmpty() || id.size() > 256 || id.contains(QChar::Null)
+            || requests.contains(id)) return;
+        requests.insert(id);
+    }
+    if (permissions_.value(key) == requests) return;
+    if (requests.isEmpty()) permissions_.remove(key);
+    else permissions_.insert(key, requests);
+    emit permissionStateChanged();
 }
 
 void PetController::desktopItemDeleted(const QString& path, const QPointF& iconPos, const QIcon& icon) {
@@ -151,7 +183,10 @@ void PetController::playInteractiveGrass(double maximumSeconds) {
 
 void PetController::resetBusy() {
     activeTurns_.clear();
+    const bool permissionsChanged = !permissions_.isEmpty();
+    permissions_.clear();
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
+    if (permissionsChanged) emit permissionStateChanged();
 }
 
 void PetController::expireOldTurns() {
@@ -161,9 +196,14 @@ void PetController::expireOldTurns() {
     // real agent task, short enough to self-heal. The tray has a manual reset too.
     constexpr qint64 maxAgeMs = 4LL * 60 * 60 * 1000;
     const qint64 now = nowMs_();
+    bool permissionsChanged = false;
     for (auto it = activeTurns_.begin(); it != activeTurns_.end();) {
-        if (now - it.value() > maxAgeMs) it = activeTurns_.erase(it);
+        if (now - it.value() > maxAgeMs) {
+            permissionsChanged = permissions_.remove(it.key()) > 0 || permissionsChanged;
+            it = activeTurns_.erase(it);
+        }
         else ++it;
     }
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
+    if (permissionsChanged) emit permissionStateChanged();
 }

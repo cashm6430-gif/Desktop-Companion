@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QLocalSocket>
+#include <QSet>
 #include <QDebug>
 
 namespace {
@@ -74,7 +75,9 @@ void CodexTurnSource::acceptConnections() {
                 finish();
                 return;
             }
+            const bool permissionState = event == QStringLiteral("permission_state");
             if (event != QStringLiteral("start") && event != QStringLiteral("stop")
+                && !permissionState
                 && event != QStringLiteral("session_end")) { finish(); return; }
             const QString session = data.value(QStringLiteral("session_id")).toString();
             const QString turn = data.value(QStringLiteral("turn_id")).toString();
@@ -82,10 +85,32 @@ void CodexTurnSource::acceptConnections() {
                 || (data.contains(QStringLiteral("turn_id")) && !data.value(QStringLiteral("turn_id")).isString())
                 || (event == QStringLiteral("start") && turn.trimmed().isEmpty())) { finish(); return; }
             const QString client = diagnosticClient(data.value(QStringLiteral("client")));
+            QStringList requestIds;
+            if (permissionState) {
+                // Only the audited OpenCode adapter supplies this contract.
+                // Reject the complete snapshot on any malformed member: a
+                // partial set would incorrectly resolve omitted requests.
+                if (client != QStringLiteral("opencode") || turn.trimmed().isEmpty()
+                    || session.size() > 1024 || session.contains(QChar::Null)
+                    || turn.size() > 256 || turn.contains(QChar::Null)
+                    || !data.value(QStringLiteral("request_ids")).isArray()) { finish(); return; }
+                const QJsonArray requests = data.value(QStringLiteral("request_ids")).toArray();
+                if (requests.size() > 32) { finish(); return; }
+                QSet<QString> unique;
+                for (const QJsonValue& request : requests) {
+                    const QString id = request.toString();
+                    if (!request.isString() || id.trimmed().isEmpty()
+                        || id.size() > 256 || id.contains(QChar::Null)
+                        || unique.contains(id)) { finish(); return; }
+                    unique.insert(id);
+                    requestIds.append(id);
+                }
+            }
             const QString scopedSession = controllerSession(client, session);
             if (event == QStringLiteral("start")) emit turnStarted(scopedSession, turn);
             else if (event == QStringLiteral("stop")) emit turnStopped(scopedSession, turn);
             else if (event == QStringLiteral("session_end")) emit sessionEnded(scopedSession);
+            else if (permissionState) emit permissionSnapshot(scopedSession, turn, requestIds);
             emit eventReceived(client, event);
             finish();
         };

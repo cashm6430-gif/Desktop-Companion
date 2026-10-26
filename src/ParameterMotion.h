@@ -73,6 +73,10 @@ public:
     // standing rest without changing posture. Unapproved clips require an
     // explicit review call; automatic and ordinary menu calls never allow them.
     bool playStretch(bool allowDraft = false);
+    // A bounded permission-request cue, not a claim that all work is blocked.
+    // Drafts are explicit review only; never inferred from elapsed Busy time.
+    bool playPermissionCue(bool allowDraft = false);
+    bool permissionCueActive() const { return interaction_ == Interaction::PermissionCue; }
     // True while the stretch-and-peek pause is playing. A click during the
     // peek is "caught you": pokeStretch skips to the recovery beat instead of
     // starting a head pat.
@@ -323,13 +327,14 @@ private:
 
     bool actionFinishedReported_ = false;
 
-    enum class Interaction { None, TurnEnded, HeadPat, Stretch, Rest, Greet, Cheer };
+    enum class Interaction { None, TurnEnded, HeadPat, Stretch, Rest, Greet, Cheer, PermissionCue };
     MotionClip turnEndedClip_;
     MotionClip headPatClip_;
     MotionClip stretchClip_;
     MotionClip restClip_;
     MotionClip greetClip_;
     MotionClip cheerClip_;
+    MotionClip permissionCueClip_;
     QString interactionDirectory_;
     Interaction interaction_ = Interaction::None;
     double interactionTime_ = 0.0;

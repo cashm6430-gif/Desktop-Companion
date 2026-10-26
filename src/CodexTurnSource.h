@@ -3,6 +3,7 @@
 #include <QLocalServer>
 #include <QJsonObject>
 #include <QObject>
+#include <QStringList>
 #include <functional>
 
 class CodexTurnSource final : public QObject {
@@ -21,6 +22,10 @@ signals:
     void turnStarted(const QString& sessionId, const QString& turnId);
     void turnStopped(const QString& sessionId, const QString& turnId);
     void sessionEnded(const QString& sessionId);
+    // A complete, bounded permission-request set for an observed OpenCode
+    // turn. It is independent of work lifecycle and carries no permission text.
+    void permissionSnapshot(const QString& sessionId, const QString& turnId,
+                            const QStringList& requestIds);
     // Diagnostic metadata only. Emitted after the matching controller signal;
     // identifiers and prompt contents never leave the protocol handler here.
     void eventReceived(const QString& client, const QString& event);

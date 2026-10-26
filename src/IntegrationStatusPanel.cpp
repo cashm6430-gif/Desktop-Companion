@@ -37,6 +37,7 @@ QString eventText(const QString& event) {
     if (event == QStringLiteral("start")) return QStringLiteral("收到开始");
     if (event == QStringLiteral("stop")) return QStringLiteral("收到停止");
     if (event == QStringLiteral("session_end")) return QStringLiteral("收到会话结束");
+    if (event == QStringLiteral("permission_state")) return QStringLiteral("审批状态更新");
     if (event == QStringLiteral("reset") || event == QStringLiteral("manual_reset"))
         return QStringLiteral("手动复位");
     return QStringLiteral("收到事件");
@@ -109,6 +110,9 @@ IntegrationStatusPanel::IntegrationStatusPanel(SnapshotProvider provider,
     summary->addWidget(plainLabel(QStringLiteral("桌宠状态"), this), 2, 0);
     petState_ = plainLabel({}, this, QStringLiteral("petState"));
     summary->addWidget(petState_, 2, 1);
+    summary->addWidget(plainLabel(QStringLiteral("待审批请求"), this), 3, 0);
+    pendingPermissions_ = plainLabel({}, this, QStringLiteral("pendingPermissions"));
+    summary->addWidget(pendingPermissions_, 3, 1);
     summary->setColumnStretch(1, 1);
     layout->addLayout(summary);
     listenerError_ = plainLabel(QStringLiteral("接收器启动失败；请检查是否已有桌宠实例运行。"), this,
@@ -138,7 +142,7 @@ IntegrationStatusPanel::IntegrationStatusPanel(SnapshotProvider provider,
     lastEvent_ = plainLabel({}, this, QStringLiteral("lastEvent"));
     layout->addWidget(lastEvent_);
     layout->addWidget(plainLabel(
-        QStringLiteral("hook 按事件短连接；最近收到不代表客户端仍在线。旧 hooks 可能显示未知来源。"),
+        QStringLiteral("hook 按事件短连接；最近收到不代表客户端仍在线。待审批仅统计已接入的真实请求，同一回合的其他工具仍可能工作。旧 hooks 可能显示未知来源。"),
         this, QStringLiteral("statusNote")));
 
     resetButton_ = new QPushButton(QStringLiteral("结束忙碌（复位）"), this);
@@ -174,6 +178,9 @@ void IntegrationStatusPanel::refresh() {
                               !snapshot.value(QStringLiteral("listener_error")).toString().isEmpty());
     const auto count = std::max(0, snapshot.value(QStringLiteral("active_turns")).toInt());
     activeTurns_->setText(QString::number(count));
+    const auto permissions = std::max(0, snapshot.value(QStringLiteral("pending_permissions")).toInt());
+    const auto permissionTurns = std::clamp(snapshot.value(QStringLiteral("permission_turns")).toInt(), 0, count);
+    pendingPermissions_->setText(QStringLiteral("%1 条（涉及 %2 个活跃回合）").arg(permissions).arg(permissionTurns));
     resetButton_->setEnabled(count > 0 && bool(resetBusy_));
     petState_->setText(stateText(snapshot.value(QStringLiteral("pet_state")).toString()));
 

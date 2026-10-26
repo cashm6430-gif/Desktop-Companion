@@ -25,7 +25,170 @@ private slots:
     void interactiveGrassBoundsBadDurations();
     void manualClockDisablesWallClockFallback();
     void reenabledFallbackOnlyStartsWithFutureAction();
+    void permissionSnapshotsReplaceWithoutChangingWork();
+    void permissionCleanupFollowsExactRemovedTurns();
+    void malformedAndOrphanPermissionSnapshotsAreIgnored();
+    void permissionSnapshotsDoNotRenewExpiry();
+    void foregroundActionsKeepPermissionFacts();
 };
+
+void PetControllerTest::permissionSnapshotsReplaceWithoutChangingWork() {
+    qint64 now = 1000;
+    PetController controller(nullptr, [&] { return now; });
+    QSignalSpy changed(&controller, &PetController::permissionStateChanged);
+    QSignalSpy states(&controller, &PetController::stateChanged);
+    QSignalSpy ended(&controller, &PetController::turnEnded);
+    QSignalSpy stopped(&controller, &PetController::allTurnsStopped);
+    controller.turnStarted("session", "turn");
+    QCOMPARE(states.size(), 1);
+    now = 21000;
+    controller.applyPermissionSnapshot("session", "turn", {"first", "second"});
+    QCOMPARE(controller.pendingPermissionCount(), 2);
+    QCOMPARE(controller.permissionTurnCount(), 1);
+    QCOMPARE(controller.activeTurnCount(), 1);
+    QCOMPARE(controller.state(), PetController::State::Busy);
+    QCOMPARE(changed.size(), 1);
+    controller.applyPermissionSnapshot("session", "turn", {"second", "first"});
+    QCOMPARE(changed.size(), 1); // Set order and redelivery do not make a new fact.
+    controller.applyPermissionSnapshot("session", "turn", {"second", "third"});
+    QCOMPARE(controller.pendingPermissionCount(), 2);
+    QCOMPARE(changed.size(), 2);
+    controller.applyPermissionSnapshot("session", "turn", {});
+    QCOMPARE(controller.pendingPermissionCount(), 0);
+    QCOMPARE(controller.permissionTurnCount(), 0);
+    QCOMPARE(changed.size(), 3);
+    controller.applyPermissionSnapshot("session", "turn", {});
+    QCOMPARE(changed.size(), 3);
+    QCOMPARE(states.size(), 1);
+    QCOMPARE(ended.size(), 0);
+    QCOMPARE(stopped.size(), 0);
+    now = 41000;
+    controller.turnStopped("session", "turn");
+    QCOMPARE(ended.size(), 1);
+    QCOMPARE(ended.first().at(1).toLongLong(), qint64(40000));
+}
+
+void PetControllerTest::permissionCleanupFollowsExactRemovedTurns() {
+    qint64 now = 100;
+    PetController controller(nullptr, [&] { return now; });
+    QSignalSpy changed(&controller, &PetController::permissionStateChanged);
+    QSignalSpy ended(&controller, &PetController::turnEnded);
+    QSignalSpy stopped(&controller, &PetController::allTurnsStopped);
+    controller.turnStarted("opencode-same", "first");
+    controller.applyPermissionSnapshot("opencode-same", "first", {"shared-id", "other"});
+    now = 200;
+    controller.turnStarted("opencode-same", "latest");
+    controller.applyPermissionSnapshot("opencode-same", "latest", {"shared-id"});
+    now = 300;
+    controller.turnStarted("other-source-same", "latest");
+    controller.applyPermissionSnapshot("other-source-same", "latest", {"shared-id"});
+    QCOMPARE(controller.pendingPermissionCount(), 4);
+    QCOMPARE(controller.permissionTurnCount(), 3);
+    controller.turnStopped("opencode-same", QString());
+    QCOMPARE(controller.pendingPermissionCount(), 3);
+    QCOMPARE(controller.permissionTurnCount(), 2);
+    QCOMPARE(controller.activeTurnCount(), 2);
+    QCOMPARE(changed.size(), 4);
+    controller.turnStopped("opencode-same", "latest");
+    QCOMPARE(changed.size(), 4);
+    QCOMPARE(ended.size(), 1);
+    controller.sessionEnded("opencode-same");
+    QCOMPARE(controller.pendingPermissionCount(), 1);
+    QCOMPARE(controller.permissionTurnCount(), 1);
+    QCOMPARE(controller.activeTurnCount(), 1);
+    QCOMPARE(changed.size(), 5);
+    QCOMPARE(ended.size(), 1); // Cleanup is bookkeeping, not a successful stop.
+    QCOMPARE(stopped.size(), 0);
+    controller.resetBusy();
+    QCOMPARE(controller.pendingPermissionCount(), 0);
+    QCOMPARE(controller.permissionTurnCount(), 0);
+    QCOMPARE(controller.activeTurnCount(), 0);
+    QCOMPARE(changed.size(), 6);
+    QCOMPARE(ended.size(), 1);
+    QCOMPARE(stopped.size(), 0);
+    controller.resetBusy();
+    QCOMPARE(changed.size(), 6);
+}
+
+void PetControllerTest::malformedAndOrphanPermissionSnapshotsAreIgnored() {
+    PetController controller;
+    QSignalSpy changed(&controller, &PetController::permissionStateChanged);
+    controller.applyPermissionSnapshot("session", "turn", {"orphan"});
+    QCOMPARE(controller.activeTurnCount(), 0);
+    QCOMPARE(controller.state(), PetController::State::Idle);
+    QCOMPARE(changed.size(), 0);
+    controller.turnStarted("session", "turn");
+    controller.applyPermissionSnapshot("session", "turn", {"kept"});
+    controller.applyPermissionSnapshot("session", "other-turn", {});
+    controller.applyPermissionSnapshot("other-session", "turn", {});
+    QStringList tooMany;
+    for (int i = 0; i < 33; ++i) tooMany.append(QString::number(i));
+    for (const QStringList& requests : {QStringList{"valid", " "},
+            QStringList{"valid", QString(257, QLatin1Char('x'))},
+            QStringList{"valid", QString(1, QChar::Null)},
+            QStringList{"valid", "valid"}, tooMany})
+        controller.applyPermissionSnapshot("session", "turn", requests);
+    QCOMPARE(controller.pendingPermissionCount(), 1);
+    QCOMPARE(changed.size(), 1);
+    controller.turnStopped("session", "turn");
+    QCOMPARE(controller.pendingPermissionCount(), 0);
+    QCOMPARE(changed.size(), 2);
+    controller.applyPermissionSnapshot("session", "turn", {"late-request"});
+    QCOMPARE(controller.pendingPermissionCount(), 0);
+    QCOMPARE(changed.size(), 2);
+}
+
+void PetControllerTest::permissionSnapshotsDoNotRenewExpiry() {
+    constexpr qint64 hour = 60 * 60 * 1000;
+    qint64 now = 1000;
+    const qint64 oldestStart = now;
+    PetController controller(nullptr, [&] { return now; });
+    QSignalSpy changed(&controller, &PetController::permissionStateChanged);
+    QSignalSpy stopped(&controller, &PetController::allTurnsStopped);
+    QSignalSpy ended(&controller, &PetController::turnEnded);
+    controller.turnStarted("old", "turn");
+    now += 2 * hour;
+    const qint64 newerStart = now;
+    controller.turnStarted("new", "turn");
+    now = oldestStart + 4 * hour + 1;
+    controller.applyPermissionSnapshot("old", "turn", {"recent-request"});
+    controller.applyPermissionSnapshot("new", "turn", {"newer-request"});
+    QVERIFY(QMetaObject::invokeMethod(&controller, "expireOldTurns", Qt::DirectConnection));
+    QCOMPARE(controller.activeTurnCount(), 1);
+    QCOMPARE(controller.pendingPermissionCount(), 1);
+    QCOMPARE(controller.permissionTurnCount(), 1);
+    QCOMPARE(controller.state(), PetController::State::Busy);
+    QCOMPARE(changed.size(), 3);
+    now = newerStart + 4 * hour + 1;
+    QVERIFY(QMetaObject::invokeMethod(&controller, "expireOldTurns", Qt::DirectConnection));
+    QCOMPARE(controller.activeTurnCount(), 0);
+    QCOMPARE(controller.pendingPermissionCount(), 0);
+    QCOMPARE(controller.permissionTurnCount(), 0);
+    QCOMPARE(controller.state(), PetController::State::Idle);
+    QCOMPARE(changed.size(), 4);
+    QCOMPARE(stopped.size(), 0);
+    QCOMPARE(ended.size(), 0);
+}
+
+void PetControllerTest::foregroundActionsKeepPermissionFacts() {
+    PetController controller;
+    controller.setActionFallbackEnabled(false);
+    QSignalSpy stopped(&controller, &PetController::allTurnsStopped);
+    controller.turnStarted("session", "turn");
+    controller.playGrass();
+    controller.applyPermissionSnapshot("session", "turn", {"request"});
+    QCOMPARE(controller.state(), PetController::State::Grass);
+    QCOMPARE(controller.pendingPermissionCount(), 1);
+    QCOMPARE(controller.activeTurnCount(), 1);
+    controller.desktopItemDeleted();
+    QCOMPARE(controller.state(), PetController::State::Delete);
+    controller.applyPermissionSnapshot("session", "turn", {});
+    QCOMPARE(controller.state(), PetController::State::Delete);
+    QCOMPARE(controller.activeTurnCount(), 1);
+    QCOMPARE(stopped.size(), 0);
+    controller.actionFinished();
+    QCOMPARE(controller.state(), PetController::State::Busy);
+}
 
 void PetControllerTest::concurrentTurns() {
     PetController controller;

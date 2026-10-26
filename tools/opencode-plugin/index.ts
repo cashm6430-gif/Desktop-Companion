@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { createBridge, helperTransport, observe } from "./bridge.mjs";
 
-const registry = Symbol.for("desktop-companion.opencode.v2.bridge.1");
+const registry = Symbol.for("desktop-companion.opencode.v2.bridge.2");
 
 // OpenCode 2.1.4 Plugin.define is an identity function. A plain definition keeps
 // this local plugin dependency-free; OpenCode supplies the setup context.

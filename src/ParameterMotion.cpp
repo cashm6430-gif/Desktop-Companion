@@ -190,6 +190,46 @@ bool validateStandingRest(const MotionClip& clip, QString* error) {
     return true;
 }
 
+// This finite cue acknowledges one permission request. It cannot declare that
+// parallel tools or other executions have stopped. Its clip owns only a small
+// expressive head/face layer; contact/posture channels are held by the player.
+bool validatePermissionCue(const MotionClip& clip, QString* error) {
+    if (!clip.isValid()) return true;
+    if (clip.isAdditive() || clip.isLoop() || clip.duration() > 2.8) {
+        if (error) *error = QStringLiteral("Permission cue must be an absolute one-shot of at most 2.8s");
+        return false;
+    }
+    const QSet<QString> allowed{
+        angleX, angleY, angleZ, leftEye, rightEye, mouth, cheek,
+        QStringLiteral("ParamEyeSmile"), QStringLiteral("ParamEyeBallX"),
+        QStringLiteral("ParamEyeBallY"), QStringLiteral("ParamMouthForm"),
+        QStringLiteral("ParamSmileOpen"), QStringLiteral("ParamMouthGape")
+    };
+    auto times = clip.authoredTimes();
+    times.append(0.0);
+    times.append(clip.duration());
+    for (double time : times) {
+        const auto pose = clip.sample(time);
+        if (!pose.contains(angleZ) || pose.value(angleZ) != 0.0
+            || std::abs(pose.value(angleX)) > 4.0 || std::abs(pose.value(angleY)) > 4.0) {
+            if (error) *error = QStringLiteral("Permission cue requires AngleZ=0 and head X/Y within +/-4");
+            return false;
+        }
+        for (auto it = pose.cbegin(); it != pose.cend(); ++it) {
+            if (!allowed.contains(it.key())) {
+                if (error) *error = QStringLiteral("Permission cue cannot own parameter %1").arg(it.key());
+                return false;
+            }
+        }
+    }
+    // Sampled endpoints cannot bound a procedural sine/pulse between them.
+    if (!clip.channels().isEmpty() || !clip.pulses().isEmpty()) {
+        if (error) *error = QStringLiteral("Permission cue requires explicit bounded keys or constants");
+        return false;
+    }
+    return true;
+}
+
 // A seated work cycle only reads correctly when every key is a seated pose.
 bool validateSeated(const MotionClip& clip, QString* error) {
     for (const auto& key : clip.keys()) {
@@ -255,7 +295,7 @@ void ParameterMotion::setState(PetController::State state) {
     preview_ = false;
     sequencePhysics_ = false;
     if ((interaction_ == Interaction::TurnEnded && state != PetController::State::Idle)
-        || (workPauseActive() && state != PetController::State::Busy)
+        || ((workPauseActive() || permissionCueActive()) && state != PetController::State::Busy)
         || ((interaction_ == Interaction::Greet || interaction_ == Interaction::Cheer)
             && (state == PetController::State::Delete || state == PetController::State::Grass))
         || (interaction_ == Interaction::HeadPat
@@ -390,12 +430,14 @@ bool ParameterMotion::configureInteractions(QString* error) {
     const MotionClip* rest = library_.clip(QStringLiteral("busy-rest"));
     const MotionClip* greet = library_.clip(QStringLiteral("greet"));
     const MotionClip* cheer = library_.clip(QStringLiteral("cheer"));
+    const MotionClip* permission = library_.clip(QStringLiteral("permission-cue"));
     if (turnEnded && !validateReaction(*turnEnded, error)) return false;
     if (headPat && !validateReaction(*headPat, error)) return false;
     if (stretch && !validateStretch(*stretch, error)) return false;
     if (rest && !validateStandingRest(*rest, error)) return false;
     if (greet && !validateReaction(*greet, error)) return false;
     if (cheer && !validateReaction(*cheer, error)) return false;
+    if (permission && !validatePermissionCue(*permission, error)) return false;
     double enterEnd = 0.8;
     double holdEnd = 1.6;
     if (headPat) {
@@ -421,6 +463,7 @@ bool ParameterMotion::configureInteractions(QString* error) {
     restClip_ = rest ? *rest : MotionClip{};
     greetClip_ = greet ? *greet : MotionClip{};
     cheerClip_ = cheer ? *cheer : MotionClip{};
+    permissionCueClip_ = permission ? *permission : MotionClip{};
     headPatEnterEnd_ = enterEnd;
     headPatHoldEnd_ = holdEnd;
     return true;
@@ -438,6 +481,7 @@ QString ParameterMotion::interactionId() const {
     case Interaction::Rest: return QStringLiteral("busy-rest");
     case Interaction::Greet: return QStringLiteral("greet");
     case Interaction::Cheer: return QStringLiteral("cheer");
+    case Interaction::PermissionCue: return QStringLiteral("permission-cue");
     default: return {};
     }
 }
@@ -544,6 +588,34 @@ bool ParameterMotion::playStretch(bool allowDraft) {
     return true;
 }
 
+bool ParameterMotion::playPermissionCue(bool allowDraft) {
+    if (state_ != PetController::State::Busy || preview_ || interactionActive()
+        || dragMotionActive() || memoMotionActive() || sleepMotionActive()
+        || boxPeekActive() || riceBowlActive() || waveActive() || grassTouch_.active()) return false;
+    if (!permissionCueClip_.isValid()
+        || (!allowDraft && permissionCueClip_.approval() != QStringLiteral("approved"))) return false;
+    if (laptopBusy_) {
+        if (workBusyTime_ < kDeskSitDelay
+            || values_.value(QStringLiteral("ParamBusyLaptop")) < 0.995
+            || values_.value(QStringLiteral("ParamSitPose")) < 0.995
+            || values_.value(QStringLiteral("ParamLaptopVisible")) < 0.995
+            || (deskWorkMode_ && (deskPhase_ != DeskPhase::Work || deskVisible_ < 0.995))) return false;
+    } else if (values_.value(QStringLiteral("ParamBusyLaptop")) > 0.001
+        || values_.value(QStringLiteral("ParamSitPose")) > 0.001
+        || values_.value(QStringLiteral("ParamLaptopVisible")) > 0.001
+        || values_.value(deskVisible) > 0.001
+        || (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden)) return false;
+    interaction_ = Interaction::PermissionCue;
+    interactionTime_ = interactionElapsed_ = 0.0;
+    // Freeze the current contact pose rather than authoring a second set of
+    // laptop/hands. Typing holds at its current phase for this bounded beat.
+    interactionSeat_.clear();
+    for (const QString& id : deskPostureChannels())
+        interactionSeat_.insert(id, values_.value(id));
+    if (deskWorkMode_) interactionSeat_.insert(deskVisible, deskVisible_);
+    return true;
+}
+
 void ParameterMotion::pokeStretch() {
     if (interaction_ != Interaction::Stretch) return;
     // "Caught you": jump to the middle of the clip, which the authored card
@@ -618,8 +690,9 @@ void ParameterMotion::advanceInteraction(double seconds) {
         }
         return;
     }
-    if (interaction_ == Interaction::Greet || interaction_ == Interaction::Cheer) {
-        const MotionClip& clip = interaction_ == Interaction::Greet ? greetClip_ : cheerClip_;
+    if (interaction_ == Interaction::Greet || interaction_ == Interaction::Cheer || permissionCueActive()) {
+        const MotionClip& clip = permissionCueActive() ? permissionCueClip_
+            : interaction_ == Interaction::Greet ? greetClip_ : cheerClip_;
         interactionTime_ += seconds;
         if (interactionTime_ >= clip.duration()) cancelInteraction();
         return;
@@ -653,13 +726,19 @@ void ParameterMotion::applyInteraction(Parameters& desired) const {
         : interaction_ == Interaction::Stretch ? stretchClip_
         : interaction_ == Interaction::Rest ? restClip_
         : interaction_ == Interaction::Greet ? greetClip_
-        : interaction_ == Interaction::Cheer ? cheerClip_ : headPatClip_;
+        : interaction_ == Interaction::Cheer ? cheerClip_
+        : permissionCueActive() ? permissionCueClip_ : headPatClip_;
     const auto pose = clip.sample(interactionTime_);
-    const double restWeight = restActive()
+    const bool blendToBackground = restActive() || permissionCueActive();
+    const double restWeight = blendToBackground
         ? smooth(std::min(interactionTime_ / 0.2, (clip.duration() - interactionTime_) / 0.4)) : 1.0;
     for (auto it = pose.cbegin(); it != pose.cend(); ++it) {
         const double base = desired.value(it.key());
-        desired[it.key()] = restActive() ? base + (it.value() - base) * restWeight : it.value();
+        desired[it.key()] = blendToBackground ? base + (it.value() - base) * restWeight : it.value();
+    }
+    if (permissionCueActive()) {
+        for (auto it = interactionSeat_.cbegin(); it != interactionSeat_.cend(); ++it)
+            desired[it.key()] = it.value();
     }
     if (state_ == PetController::State::Idle && !interactionSeat_.isEmpty()) {
         for (auto it = interactionSeat_.cbegin(); it != interactionSeat_.cend(); ++it)
@@ -757,7 +836,7 @@ bool ParameterMotion::gazeSuppressed() const {
 }
 
 void ParameterMotion::beginDragMotion() {
-    if (workPauseActive()) cancelInteraction();
+    if (workPauseActive() || permissionCueActive()) cancelInteraction();
     drag_.begin();
 }
 void ParameterMotion::updateDragMotion(double vx, double vy, double travelledPixels) {
@@ -771,11 +850,11 @@ void ParameterMotion::cancelDragMotion() { drag_.cancel(); }
 // State and gaze physics live in motion/MemoBehavior.
 
 void ParameterMotion::beginMemoMotion() {
-    if (workPauseActive()) cancelInteraction();
+    if (workPauseActive() || permissionCueActive()) cancelInteraction();
     memo_.begin();
 }
 void ParameterMotion::beginMemoCelebrate() {
-    if (workPauseActive()) cancelInteraction();
+    if (workPauseActive() || permissionCueActive()) cancelInteraction();
     memo_.beginCelebrate();
 }
 void ParameterMotion::cancelMemoMotion() { memo_.cancel(); }
@@ -827,7 +906,7 @@ bool ParameterMotion::playWave() {
 // it logs coordinator-side context (state, busy variant, wake reason).
 
 void ParameterMotion::beginSleepMotion() {
-    if (workPauseActive()) cancelInteraction();
+    if (workPauseActive() || permissionCueActive()) cancelInteraction();
     sleepTrace(QStringLiteral("begin (state=%1 laptop=%2)")
         .arg(int(state_)).arg(laptopBusy_));
     sleep_.begin();
@@ -1199,7 +1278,7 @@ void ParameterMotion::advance(double seconds) {
     seconds = std::min(seconds, 0.1); // Avoid a leap after suspend or debugger pause.
     // Capture before advanceInteraction() retires the final pause frame. Both
     // work clocks, and hence the choice deadline, exclude the entire pause.
-    const bool pauseWorkClock = workPauseActive();
+    const bool pauseWorkClock = workPauseActive() || permissionCueActive();
     // Capture ownership before advancing it: the final authored overlay frame
     // still belongs to that owner, even when advance retires its state.
     const bool applyWorkPreference = canApplyWorkPosturePreference();
@@ -1421,6 +1500,7 @@ void ParameterMotion::advance(double seconds) {
     // variant already tells its story with the laptop, and a delete swing is
     // over before a bubble could read as a thought.
     const bool thinking = state_ == PetController::State::Busy && !laptopBusy_ && !restActive()
+        && !permissionCueActive()
         && busyStandClip_.isValid();
     const double bubble = thinking ? thoughtBubblePulse(busyTime_) : 0.0;
     // One short filter, so leaving the state retracts the bubble instead of

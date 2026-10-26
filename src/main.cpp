@@ -144,8 +144,10 @@ int main(int argc, char** argv) {
         || workPostureScenario == QStringLiteral("work-posture-invalid");
     const bool workPostureReview = command == QStringLiteral("--render-interaction")
         && (workPostureScenario == QStringLiteral("work-posture-preference") || workPostureRestore);
+    const bool permissionCueReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3).startsWith(QStringLiteral("permission-cue-"));
     qint64 memoReviewNowMs = 1000;
-    if (memoReview || grassDragReview || dragInputReview || workPostureReview) {
+    if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -159,6 +161,8 @@ int main(int argc, char** argv) {
             || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
             return 2;
         app.setProperty("desktopCompanionReviewSettingsIsolated", true);
+        if (permissionCueReview)
+            app.setProperty("desktopCompanionReviewMemoPath", QDir(output).filePath(QStringLiteral("memo.json")));
         if (workPostureRestore) {
             // Only copy a completed review's explicitly supplied fixture INI.
             // This never imports the live registry profile into a capture.
@@ -543,7 +547,10 @@ int main(int argc, char** argv) {
             QStringLiteral("stretch-stop"), QStringLiteral("stretch-delete"),
             QStringLiteral("stretch-drag"), QStringLiteral("stretch-pat"),
             QStringLiteral("stretch-preview-off"),
-            QStringLiteral("desk-delete")};
+            QStringLiteral("desk-delete"),
+            QStringLiteral("permission-cue-standing"), QStringLiteral("permission-cue-laptop"),
+            QStringLiteral("permission-cue-stop"), QStringLiteral("permission-cue-delete"),
+            QStringLiteral("permission-cue-drag"), QStringLiteral("permission-cue-preview-off")};
         if (!scenarios.contains(scenario) || !QDir().mkpath(output)) return 2;
         const bool deskDelete = scenario == QStringLiteral("desk-delete");
         if (deskDelete && !qApp->property("desktopCompanionDeskWorkMode").toBool()) return 2;
@@ -556,16 +563,17 @@ int main(int argc, char** argv) {
         }
         const bool glance = scenario.startsWith(QStringLiteral("turn-ended"));
         const bool workPause = scenario.startsWith(QStringLiteral("stretch-"));
+        const bool permissionCue = scenario.startsWith(QStringLiteral("permission-cue-"));
         const bool laptop = deskDelete || scenario == QStringLiteral("turn-ended-laptop")
             || scenario.startsWith(QStringLiteral("head-pat-busy"))
-            || scenario == QStringLiteral("stretch-laptop");
+            || scenario == QStringLiteral("stretch-laptop") || scenario == QStringLiteral("permission-cue-laptop");
         const bool fixedPatDirection = scenario.endsWith(QStringLiteral("-left"))
             || scenario.endsWith(QStringLiteral("-right"));
         const double patDirection = scenario.endsWith(QStringLiteral("-left")) ? -1.0 : 1.0;
         const bool interrupted = scenario.endsWith(QStringLiteral("interrupt"));
         sampler.setBusyRandomSeed(20261002);
         if (laptop) sampler.forceLaptopBusy();
-        else if (glance || workPause) sampler.forceStandingBusy();
+        else if (glance || workPause || permissionCue) sampler.forceStandingBusy();
         for (int i = 0; i < 90; ++i) sampler.advance(1.0 / 30.0);
         window.setPreviewPose(sampler.values());
         window.move(-10000, -10000);
@@ -574,7 +582,7 @@ int main(int argc, char** argv) {
         int frame = 0;
         bool started = false, released = false, cancelled = false;
         bool defaultPauseAccepted = false;
-        PetController::State reviewState = laptop || glance || workPause
+        PetController::State reviewState = laptop || glance || workPause || permissionCue
             ? PetController::State::Busy : PetController::State::Idle;
         QJsonArray trace;
         QTimer timer;
@@ -588,6 +596,10 @@ int main(int argc, char** argv) {
                     sampler.setState(PetController::State::Delete);
                     reviewState = PetController::State::Delete;
                     event = QStringLiteral("delete_from_desk");
+                } else if (permissionCue) {
+                    defaultPauseAccepted = sampler.playPermissionCue();
+                    if (defaultPauseAccepted || !sampler.playPermissionCue(true)) { app.exit(2); return; }
+                    event = QStringLiteral("explicit_pending_permission_cue");
                 } else if (workPause) {
                     defaultPauseAccepted = sampler.playStretch();
                     if (!defaultPauseAccepted && !sampler.playStretch(true)) { app.exit(2); return; }
@@ -602,6 +614,30 @@ int main(int argc, char** argv) {
                     if (!sampler.beginHeadPat(patDirection)) { app.exit(2); return; }
                     event = QStringLiteral("head_pat_begin");
                 }
+            }
+            if (permissionCue && scenario != QStringLiteral("permission-cue-standing")
+                && scenario != QStringLiteral("permission-cue-laptop") && !cancelled && time >= 1.2) {
+                cancelled = true;
+                if (scenario == QStringLiteral("permission-cue-stop")) {
+                    sampler.setState(PetController::State::Idle);
+                    reviewState = PetController::State::Idle;
+                    event = QStringLiteral("stop_to_idle");
+                } else if (scenario == QStringLiteral("permission-cue-delete")) {
+                    sampler.setState(PetController::State::Delete);
+                    reviewState = PetController::State::Delete;
+                    event = QStringLiteral("delete_interrupt");
+                } else if (scenario == QStringLiteral("permission-cue-drag")) {
+                    sampler.beginDragMotion();
+                    sampler.updateDragMotion(120.0, -20.0);
+                    event = QStringLiteral("drag_interrupt");
+                } else {
+                    if (!sampler.cancelPendingInteraction()) { app.exit(2); return; }
+                    event = QStringLiteral("preview_disabled");
+                }
+            }
+            if (permissionCue && cancelled && !released && time >= 1.8) {
+                released = true;
+                if (scenario == QStringLiteral("permission-cue-drag")) sampler.endDragMotion();
             }
             if (workPause && scenario != QStringLiteral("stretch-standing")
                 && scenario != QStringLiteral("stretch-laptop") && !cancelled && time >= 1.2) {
@@ -638,16 +674,16 @@ int main(int argc, char** argv) {
                 if (glance) sampler.forceStandingBusy();
                 event = glance ? QStringLiteral("new_turn_started") : QStringLiteral("delete_interrupt");
             }
-            if (!deskDelete && !workPause && !glance && !interrupted && !released && time >= 2.4) {
+            if (!deskDelete && !workPause && !permissionCue && !glance && !interrupted && !released && time >= 2.4) {
                 released = true;
                 sampler.endHeadPat();
                 event = QStringLiteral("head_pat_release");
             }
-            if (!deskDelete && !workPause && !glance && started && !released && !cancelled)
+            if (!deskDelete && !workPause && !permissionCue && !glance && started && !released && !cancelled)
                 sampler.updateHeadPat(fixedPatDirection ? patDirection : std::cos((time - 0.4) * 2.0));
             if (sampler.consumeActionFinished()) {
-                sampler.setState(deskDelete || workPause ? PetController::State::Busy : PetController::State::Idle);
-                reviewState = deskDelete || workPause ? PetController::State::Busy : PetController::State::Idle;
+                sampler.setState(deskDelete || workPause || permissionCue ? PetController::State::Busy : PetController::State::Idle);
+                reviewState = deskDelete || workPause || permissionCue ? PetController::State::Busy : PetController::State::Idle;
                 if (deskDelete) {
                     sampler.forceLaptopBusy();
                     event = QStringLiteral("delete_finished_resume_busy");
@@ -1019,6 +1055,8 @@ int main(int argc, char** argv) {
                      &controller, &PetController::turnStopped);
     QObject::connect(&codexSource, &CodexTurnSource::sessionEnded,
                      &controller, &PetController::sessionEnded);
+    QObject::connect(&codexSource, &CodexTurnSource::permissionSnapshot,
+                     &controller, &PetController::applyPermissionSnapshot);
     QObject::connect(&codexSource, &CodexTurnSource::eventReceived,
                      &integrationStatus, &IntegrationStatusModel::observeEvent);
     const auto petState = [&controller] {
@@ -1033,7 +1071,8 @@ int main(int argc, char** argv) {
     };
     const auto integrationSnapshot = [&] {
         return integrationStatus.snapshot(codexSource.isListening(), codexSource.error(),
-                                          controller.activeTurnCount(), petState());
+                                          controller.activeTurnCount(), petState(),
+                                          controller.pendingPermissionCount(), controller.permissionTurnCount());
     };
     const auto resetBusy = [&] {
         controller.resetBusy();

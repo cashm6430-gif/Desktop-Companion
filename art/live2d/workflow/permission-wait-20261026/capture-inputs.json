@@ -1,0 +1,9 @@
+{
+  "src/ParameterMotion.cpp": "540bc9605eb6c6477e9c3ea4679619b799adeef39d88ba6ffe588cbb43cb6145",
+  "src/ParameterMotion.h": "38829e823a16ede74314c36ae93987f433b58e6c8ea65461b3a317a6fbb1a03a",
+  "src/PetWindow.cpp": "0374e041a2eec3a4a69f5c6818cd63b41c6dc36c2d8be4d18a26cb678a60a9a3",
+  "src/main.cpp": "ebb2e3dfebd01b2d971662e79526fce0a6276a79c52022a09d76769b39b02043",
+  "assets/motions/permission-cue.motion.json": "6f2e54de0632c3abf419f8b8f70bbb655f74dba553d1385e6dd32b70bf57214a",
+  "tools/review_permission_cue.py": "ef7fd9cc9da93be37c4b083a51e6234f7a55cb18b6c5f0b6ac09dffbbef8ec46",
+  "build/DesktopCompanion.exe": "15aa8fe1360d06d6ffb12a7572ea158710f986efc2474ec7518488a9010b0ebb"
+}

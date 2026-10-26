@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "base_commit": "67c39ef6f50e9bdd744e32527696ab82ad0def1a",
+  "scope": "OpenCode pending approval facts and pending finite permission cue",
+  "release_build": "passed",
+  "ctest": {
+    "passed": 24,
+    "total": 24,
+    "seconds": 72.41
+  },
+  "node_bridge": {
+    "passed": 32,
+    "total": 32,
+    "skipped": 0,
+    "includes_actual_helper_and_private_qt_ipc": true
+  },
+  "asset_validation": {
+    "cubism_files": 12,
+    "parameters": 41,
+    "authored_motions": 13,
+    "passed": true
+  },
+  "native": {
+    "scenarios": 6,
+    "frames": 450,
+    "numeric_checks": "passed",
+    "visual_checks": "Fixed samples on light/dark backgrounds and enlarged neck/sleeve/laptop contacts; no new breaks observed. Not every frame manually reviewed.",
+    "raw_png_frames_in_git": false,
+    "reproduce": "python tools/review_permission_cue.py <fresh-directory>"
+  },
+  "adoption": {
+    "clip": "permission-cue",
+    "revision": 1,
+    "approval": "pending",
+    "automatic_entry_enabled": false
+  },
+  "live": {
+    "managed_opencode_plugin_upgraded": true,
+    "installed_hashes_match_source": true,
+    "client_reload_executed": false,
+    "model_prompt_sent": false,
+    "default_endpoint_test_used": false,
+    "app_launched": false,
+    "installer_executed": false
+  },
+  "render_assets": {
+    "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "moc_atlas_binding_changed": false
+  },
+  "limits": [
+    "Only observed executions; no history bootstrap.",
+    "At most 32 tracked permission IDs per execution; complete IPC message <=4096 UTF-8 bytes.",
+    "A permission request does not imply all parallel tools are stopped.",
+    "No real model turn, physical tray routing, or installation acceptance executed."
+  ],
+  "input_sha256": {
+    "assets/motions/permission-cue.motion.json": "6f2e54de0632c3abf419f8b8f70bbb655f74dba553d1385e6dd32b70bf57214a",
+    "src/CodexTurnSource.cpp": "0d4ed3942231447142de0fa6c599a7c57b6bbf8a1755c7e6e2861716a1bdfbe7",
+    "src/CodexTurnSource.h": "54b189232cadaf85733fce63de1a73f813ee75f72343c04ffc7a8d9af1cab3a8",
+    "src/IntegrationStatusModel.cpp": "de0f76523e08e98dab5582ec2c87ce327e1e006ea2eff9b7006f7a3e4a6197ed",
+    "src/IntegrationStatusModel.h": "dc069fbb357e6fc44373ce623c6ed25af3ee92cff5be3e99dd9fb7f2490368a6",
+    "src/IntegrationStatusPanel.cpp": "c62364a8c7e76412123dd277a970bedf17191f281db7b1994332427243a3870f",
+    "src/IntegrationStatusPanel.h": "0bd92ae991d685608a25163e4149b9a5059ddd0711a822525010299d09cfb04c",
+    "src/ParameterMotion.cpp": "540bc9605eb6c6477e9c3ea4679619b799adeef39d88ba6ffe588cbb43cb6145",
+    "src/ParameterMotion.h": "38829e823a16ede74314c36ae93987f433b58e6c8ea65461b3a317a6fbb1a03a",
+    "src/PetController.cpp": "2c2c266bc69ee73e1a56dd246b61f9b99e9e8ca4a60382b9c33a85458321a85d",
+    "src/PetController.h": "e774eeff29a73db47646e3375680fd92b134beefc342f52bc28bd81ae2168f92",
+    "src/PetWindow.cpp": "0374e041a2eec3a4a69f5c6818cd63b41c6dc36c2d8be4d18a26cb678a60a9a3",
+    "src/hook_main.cpp": "62f8de982d9c4991c74abc94bdbf109b6e36659e0e2376b75b2413278cfab82f",
+    "src/main.cpp": "ebb2e3dfebd01b2d971662e79526fce0a6276a79c52022a09d76769b39b02043",
+    "tests/CodexTurnSourceTest.cpp": "77ea82f79f2a7ad72cf9d2ef575780cf929fdd83462bb3a10491f42834a3dc31",
+    "tests/IntegrationStatusModelTest.cpp": "d1b633ffc2ecb07621d4769739ecf87705ae1a0b31547cd338c1a7bba403a8d5",
+    "tests/IntegrationStatusPanelTest.cpp": "433504ad41541186fb67dd462be198f59175179351773060d054c7391f7ce401",
+    "tests/OpenCodeBridgeTest.mjs": "85db629275bcf049d203c1882490a5902403c180d6ace2a4f0e600a42a1c9f34",
+    "tests/ParameterMotionTest.cpp": "0082735ea9fcef90e1303596313827742212d2508e4182468edb15d61dc3cee7",
+    "tests/PetControllerTest.cpp": "76bcfe6745f1bce2cbc63390619ea47d237a274eb6ab7082162a1644b2d59f32",
+    "tools/opencode-plugin/bridge.mjs": "d850bc6d2f0e81f2bc543792cdaa8899b9a7a988f675198ba8bdf6ca7c63c564",
+    "tools/opencode-plugin/index.ts": "e0ee5a9914907df3598c7fe96204438180a0a1a9f0811d6ccce0291de1e798a4",
+    "tools/opencode_ipc_fixture.cpp": "7d2a034a9501262191534f97154a2a4e90f82d28457a79b81890b7478a98b8da",
+    "tools/review_permission_cue.py": "ef7fd9cc9da93be37c4b083a51e6234f7a55cb18b6c5f0b6ac09dffbbef8ec46",
+    "tools/status_panel_preview.cpp": "8701323d6f322f4c4f98ed41f0f841983d02350fe56245ea9cf5bd123e7f01a9"
+  }
+}

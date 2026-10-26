@@ -7,6 +7,7 @@
 #include <QIcon>
 #include <QObject>
 #include <QPointF>
+#include <QSet>
 #include <QTimer>
 #include <functional>
 
@@ -26,6 +27,8 @@ public:
     explicit PetController(QObject* parent = nullptr, NowMs nowMs = {});
     State state() const { return state_; }
     int activeTurnCount() const { return activeTurns_.size(); }
+    int pendingPermissionCount() const;
+    int permissionTurnCount() const { return permissions_.size(); }
     // The file the pet was last fed by drag-and-drop, empty before the first
     // drop. The eat clip itself does not know the file; this is for the
     // window-layer prop (the rolled-up document) to draw what was dropped.
@@ -42,6 +45,10 @@ public slots:
     void turnStarted(const QString& sessionId, const QString& turnId);
     void turnStopped(const QString& sessionId, const QString& turnId);
     void sessionEnded(const QString& sessionId);
+    // Replace only a known exact turn's request set. This does not create or
+    // stop work, refresh its clock, or imply parallel tools have stopped.
+    void applyPermissionSnapshot(const QString& sessionId, const QString& turnId,
+                                 const QStringList& requestIds);
     // Desktop deletion, carrying what the pre-delete snapshot knew about the
     // file: its path, the icon-grid position (logical global coordinates) and
     // the icon it had while it existed. All three are optional -- the tray
@@ -65,6 +72,7 @@ public slots:
 
 signals:
     void stateChanged(PetController::State state);
+    void permissionStateChanged();
     // A newly tracked real turn, after insertion and before any background
     // state change. Delete/Grass can keep Busy hidden while work still starts.
     // Repeated starts for an already active key do not emit another beginning.
@@ -84,13 +92,16 @@ signals:
     // already on the pet), `icon` the icon to show while eating it.
     void eatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon);
 
+private slots:
+    void expireOldTurns();
+
 private:
     void setState(State state);
     void restoreBackgroundState();
     void triggerEat(const QString& file, const QPointF& sourcePos, const QIcon& icon);
-    void expireOldTurns();
     int durationMs(State state) const;
     QHash<QString, qint64> activeTurns_;
+    QHash<QString, QSet<QString>> permissions_;
     NowMs nowMs_;
     State state_ = State::Idle;
     QTimer actionTimer_;

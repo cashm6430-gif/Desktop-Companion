@@ -34,6 +34,7 @@ private slots:
     void concurrentTurnsRefreshAndReset();
     void knownEventsAndLocalReceiptTimes();
     void hiddenAndClosedPanelStopPollingAndReopen();
+    void permissionsDoNotImplyAllWorkStopped();
 };
 
 void IntegrationStatusPanelTest::emptyReceiptDoesNotClaimClientPresence() {
@@ -147,6 +148,30 @@ void IntegrationStatusPanelTest::knownEventsAndLocalReceiptTimes() {
     QVERIFY(panel.findChild<QLabel*>(QStringLiteral("lastEvent"))->text()
                 .contains(QStringLiteral("OpenCode · 收到停止")));
     QVERIFY(!renderedText(panel).contains(QStringLiteral("成功")));
+}
+
+void IntegrationStatusPanelTest::permissionsDoNotImplyAllWorkStopped() {
+    auto snapshot = idleSnapshot();
+    snapshot.insert(QStringLiteral("active_turns"), 3);
+    snapshot.insert(QStringLiteral("pet_state"), QStringLiteral("busy"));
+    snapshot.insert(QStringLiteral("pending_permissions"), 4);
+    snapshot.insert(QStringLiteral("permission_turns"), 2);
+    snapshot.insert(QStringLiteral("last_event"), QJsonObject{
+        {QStringLiteral("client"), QStringLiteral("opencode")},
+        {QStringLiteral("event"), QStringLiteral("permission_state")},
+        {QStringLiteral("at"), QStringLiteral("2026-10-26T02:00:00Z")}});
+    IntegrationStatusPanel panel([&] { return snapshot; }, [] {});
+    auto* permissions = panel.findChild<QLabel*>(QStringLiteral("pendingPermissions"));
+    QCOMPARE(permissions->text(), QStringLiteral("4 条（涉及 2 个活跃回合）"));
+    QCOMPARE(panel.findChild<QLabel*>(QStringLiteral("activeTurns"))->text(), QStringLiteral("3"));
+    QCOMPARE(panel.findChild<QLabel*>(QStringLiteral("petState"))->text(), QStringLiteral("忙碌"));
+    QVERIFY(renderedText(panel).contains(QStringLiteral("审批状态更新")));
+    QVERIFY(renderedText(panel).contains(QStringLiteral("其他工具仍可能工作")));
+    snapshot.insert(QStringLiteral("pending_permissions"), 0);
+    snapshot.insert(QStringLiteral("permission_turns"), 0);
+    panel.refresh();
+    QCOMPARE(permissions->text(), QStringLiteral("0 条（涉及 0 个活跃回合）"));
+    QCOMPARE(panel.findChild<QLabel*>(QStringLiteral("activeTurns"))->text(), QStringLiteral("3"));
 }
 
 void IntegrationStatusPanelTest::hiddenAndClosedPanelStopPollingAndReopen() {

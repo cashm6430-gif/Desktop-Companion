@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "approval": "pending",
+  "conceptApproval": "pending",
+  "revision": 1,
+  "modelVersion": "whale-girl-R19-f6929a38",
+  "duration": 2.8,
+  "loop": false,
+  "interpolation": "smoothstep",
+  "mode": "absolute",
+  "blendSeconds": 0.12,
+  "concept": "审批请求短提示：停键半拍、眼先看用户、头晚跟、闭口慢眨，再续回工作。它不代表全部执行已阻塞。",
+  "conceptSource": "Obsidian 桌宠项目-工作陪伴设计.md 动作卡 E",
+  "directorNotes": [
+    "0-.2s 短暂定住当前工作细动与接触姿态，不切换站坐或家具。",
+    ".2-.55s 眼先看用户；.55-1s 头晚半拍轻抬，AngleZ 恒 0，AngleX/Y 最大 3。",
+    "1-1.8s 闭口浅笑与一次慢眨；1.8-2.8s 收回视线，淡回暂停的工作相位。",
+    "最多 2.8s，仅显式开发预览可播。不可据单个 permission 请求演成整个 execution 或其他会话都停工。"
+  ],
+  "reviewNotes": {
+    "status": "Draft rev1; no key-pose or continuous Native preview approval yet.",
+    "ownership": "Head/face only; no torso, arm, shift, seat, typing or prop curves. Player holds the current desk contact channels for the bounded beat.",
+    "runtime": "Explicit allowDraft preview only; settled Busy standing or seated, no existing foreground owner. Not connected to real permission events.",
+    "interrupts": "Idle/Delete/Grass/drag/pat/memo/sleep or closing draft preview cancels without replay."
+  },
+  "constants": {
+    "ParamAngleZ": 0,
+    "ParamMouthOpenY": 0,
+    "ParamSmileOpen": 0,
+    "ParamMouthGape": 0
+  },
+  "keyframes": [
+    {
+      "time": 0,
+      "label": "先定住原工作姿态",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.12,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      }
+    },
+    {
+      "time": 0.2,
+      "label": "停键半拍，尚未抬头",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.12,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      }
+    },
+    {
+      "time": 0.55,
+      "label": "眼先看向用户",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.18,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 0.04,
+        "ParamMouthForm": 0.03,
+        "ParamCheek": 0.01
+      }
+    },
+    {
+      "time": 1,
+      "label": "头晚半拍轻抬，闭口浅笑",
+      "parameters": {
+        "ParamAngleX": -3,
+        "ParamAngleY": 3,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.18,
+        "ParamEyeLOpen": 0.94,
+        "ParamEyeROpen": 0.94,
+        "ParamEyeSmile": 0.14,
+        "ParamMouthForm": 0.1,
+        "ParamCheek": 0.05
+      }
+    },
+    {
+      "time": 1.25,
+      "label": "慢眨落下",
+      "parameters": {
+        "ParamAngleX": -3,
+        "ParamAngleY": 3,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.16,
+        "ParamEyeLOpen": 0.08,
+        "ParamEyeROpen": 0.08,
+        "ParamEyeSmile": 0.18,
+        "ParamMouthForm": 0.1,
+        "ParamCheek": 0.05
+      }
+    },
+    {
+      "time": 1.55,
+      "label": "慢眨回开",
+      "parameters": {
+        "ParamAngleX": -2.5,
+        "ParamAngleY": 2.5,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.14,
+        "ParamEyeLOpen": 0.65,
+        "ParamEyeROpen": 0.65,
+        "ParamEyeSmile": 0.16,
+        "ParamMouthForm": 0.09,
+        "ParamCheek": 0.04
+      }
+    },
+    {
+      "time": 1.8,
+      "label": "轻提示结束，不继续催促",
+      "parameters": {
+        "ParamAngleX": -2,
+        "ParamAngleY": 2,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": 0.1,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 0.1,
+        "ParamMouthForm": 0.06,
+        "ParamCheek": 0.03
+      }
+    },
+    {
+      "time": 2.25,
+      "label": "收回视线，缓缓回正",
+      "parameters": {
+        "ParamAngleX": -0.8,
+        "ParamAngleY": 0.8,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.02,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 0.04,
+        "ParamMouthForm": 0.02,
+        "ParamCheek": 0.01
+      }
+    },
+    {
+      "time": 2.8,
+      "label": "归还原工作相位",
+      "parameters": {
+        "ParamAngleX": 0,
+        "ParamAngleY": 0,
+        "ParamEyeBallX": 0,
+        "ParamEyeBallY": -0.12,
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1,
+        "ParamEyeSmile": 0,
+        "ParamMouthForm": 0,
+        "ParamCheek": 0
+      }
+    }
+  ]
+}

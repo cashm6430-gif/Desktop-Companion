@@ -41,6 +41,8 @@ void connectProjection(CodexTurnSource& source, PetController& controller,
                      &controller, &PetController::turnStopped);
     QObject::connect(&source, &CodexTurnSource::sessionEnded,
                      &controller, &PetController::sessionEnded);
+    QObject::connect(&source, &CodexTurnSource::permissionSnapshot,
+                     &controller, &PetController::applyPermissionSnapshot);
     QObject::connect(&source, &CodexTurnSource::eventReceived,
                      &model, &IntegrationStatusModel::observeEvent);
 }
@@ -152,7 +154,8 @@ int main(int argc, char** argv) {
     connectProjection(source, controller, model);
     const auto status = [&] {
         return model.snapshot(source.isListening(), source.error(),
-                              controller.activeTurnCount(), stateName(controller));
+                              controller.activeTurnCount(), stateName(controller),
+                              controller.pendingPermissionCount(), controller.permissionTurnCount());
     };
     source.setStatusProvider([&] {
         return QJsonObject{{QStringLiteral("state"), stateName(controller)},
@@ -196,6 +199,25 @@ int main(int argc, char** argv) {
     const auto* activeLabel = panel.findChild<QLabel*>(QStringLiteral("activeTurns"));
     if (!activeLabel || activeLabel->text() != QStringLiteral("2"))
         return fail("Panel active-turn label did not show the real count of two.");
+
+    auto permissions = event(QStringLiteral("permission_state"), QStringLiteral("opencode"),
+                             QStringLiteral("preview-b"), QStringLiteral("turn-b"));
+    permissions.insert(QStringLiteral("request_ids"), QJsonArray{QStringLiteral("fixture-request-a"),
+                                                                 QStringLiteral("fixture-request-b")});
+    if (!request(endpoint, permissions) || controller.pendingPermissionCount() != 2
+        || controller.permissionTurnCount() != 1 || controller.activeTurnCount() != 2)
+        return fail("Permission IPC changed work accounting or failed to track exact requests.");
+    record(QStringLiteral("opencode_two_permissions"));
+    if (!capture(panel, output.filePath(QStringLiteral("panel-permissions.png"))))
+        return fail("Could not capture pending permission counts.");
+    const auto* permissionLabel = panel.findChild<QLabel*>(QStringLiteral("pendingPermissions"));
+    if (!permissionLabel || permissionLabel->text() != QStringLiteral("2 条（涉及 1 个活跃回合）"))
+        return fail("Permission panel disagreed with the controller facts.");
+    permissions.insert(QStringLiteral("request_ids"), QJsonArray{});
+    if (!request(endpoint, permissions) || controller.pendingPermissionCount() != 0
+        || controller.activeTurnCount() != 2)
+        return fail("Resolved permission did not preserve concurrent work.");
+    record(QStringLiteral("opencode_permissions_cleared"));
 
     if (!request(endpoint, event(QStringLiteral("stop"), QStringLiteral("codex"),
                                  QStringLiteral("preview-a"), QStringLiteral("turn-a"))) ||
@@ -255,6 +277,7 @@ int main(int argc, char** argv) {
         {QStringLiteral("status_query_preserved_history"), true},
         {QStringLiteral("reset_button_calls"), resetCalls},
         {QStringLiteral("images"), QJsonArray{QStringLiteral("panel-listening.png"),
+            QStringLiteral("panel-permissions.png"),
             QStringLiteral("panel-reset.png"), QStringLiteral("panel-listener-failed.png")}},
         {QStringLiteral("trace"), trace}};
     if (!writeJson(output.filePath(QStringLiteral("status-panel-check.json")), report))

@@ -37,6 +37,7 @@ private slots:
     void countsAndStateComeFromCurrentControllerSnapshot();
     void resetKeepsClientHistoryWithoutInventingCompletion();
     void manySourcesDoNotGrowStorageOrKeepArbitraryInput();
+    void permissionSummaryUsesFactsWithoutExposingRequests();
 };
 
 void IntegrationStatusModelTest::emptyModelHasFixedSourcesWithoutPresenceClaims() {
@@ -46,6 +47,7 @@ void IntegrationStatusModelTest::emptyModelHasFixedSourcesWithoutPresenceClaims(
     QCOMPARE(status.keys(), QStringList({QStringLiteral("active_turns"),
         QStringLiteral("clients"), QStringLiteral("last_event"),
         QStringLiteral("listener_error"), QStringLiteral("listening"),
+        QStringLiteral("pending_permissions"), QStringLiteral("permission_turns"),
         QStringLiteral("pet_state")}));
     QVERIFY(!status.value(QStringLiteral("listening")).toBool());
     QCOMPARE(status.value(QStringLiteral("listener_error")).toString(),
@@ -240,6 +242,26 @@ void IntegrationStatusModelTest::manySourcesDoNotGrowStorageOrKeepArbitraryInput
     QVERIFY(!json.contains("prompt"));
     QVERIFY(!json.contains("path"));
     QVERIFY(!json.contains("payload"));
+}
+
+void IntegrationStatusModelTest::permissionSummaryUsesFactsWithoutExposingRequests() {
+    IntegrationStatusModel model;
+    model.observeEvent(QStringLiteral("opencode"), QStringLiteral("permission_state"));
+    const auto status = model.snapshot(true, {}, 3, QStringLiteral("busy"), 4, 2);
+    QCOMPARE(status.value(QStringLiteral("active_turns")).toInt(), 3);
+    QCOMPARE(status.value(QStringLiteral("pending_permissions")).toInt(), 4);
+    QCOMPARE(status.value(QStringLiteral("permission_turns")).toInt(), 2);
+    QCOMPARE(status.value(QStringLiteral("pet_state")).toString(), QStringLiteral("busy"));
+    QCOMPARE(status.value(QStringLiteral("last_event")).toObject()
+        .value(QStringLiteral("event")).toString(), QStringLiteral("permission_state"));
+    const auto empty = model.snapshot(true, {}, 1, QStringLiteral("busy"), -1, 10);
+    QCOMPARE(empty.value(QStringLiteral("pending_permissions")).toInt(), 0);
+    QCOMPARE(empty.value(QStringLiteral("permission_turns")).toInt(), 1);
+    const auto bytes = QJsonDocument(status).toJson();
+    QVERIFY(!bytes.contains("request_ids"));
+    QVERIFY(!bytes.contains("session_id"));
+    QVERIFY(!bytes.contains("prompt"));
+    QVERIFY(!bytes.contains("success"));
 }
 
 QTEST_APPLESS_MAIN(IntegrationStatusModelTest)

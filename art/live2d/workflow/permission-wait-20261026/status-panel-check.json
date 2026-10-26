@@ -1,0 +1,492 @@
+{
+    "default_endpoint_used": false,
+    "failure_trigger": "invalid isolated endpoint length",
+    "images": [
+        "panel-listening.png",
+        "panel-permissions.png",
+        "panel-reset.png",
+        "panel-listener-failed.png"
+    ],
+    "passed": true,
+    "physical_tray_routing_tested": false,
+    "reset_button_calls": 1,
+    "schema": 1,
+    "scope": "isolated real IPC/controller/model and QWidget button",
+    "status_query_preserved_history": true,
+    "trace": [
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "idle"
+            },
+            "step": "initial"
+        },
+        {
+            "snapshot": {
+                "active_turns": 1,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:43.963Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:43.963Z",
+                    "client": "codex",
+                    "event": "start"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "busy"
+            },
+            "step": "codex_start"
+        },
+        {
+            "snapshot": {
+                "active_turns": 2,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:43.963Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:43.963Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:43.963Z",
+                    "client": "opencode",
+                    "event": "start"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "busy"
+            },
+            "step": "opencode_start"
+        },
+        {
+            "snapshot": {
+                "active_turns": 2,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:43.963Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "permission_state",
+                        "last_seen": "2026-10-26T11:45:44.263Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:44.263Z",
+                    "client": "opencode",
+                    "event": "permission_state"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 2,
+                "permission_turns": 1,
+                "pet_state": "busy"
+            },
+            "step": "opencode_two_permissions"
+        },
+        {
+            "snapshot": {
+                "active_turns": 2,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:43.963Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "permission_state",
+                        "last_seen": "2026-10-26T11:45:44.326Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:44.326Z",
+                    "client": "opencode",
+                    "event": "permission_state"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "busy"
+            },
+            "step": "opencode_permissions_cleared"
+        },
+        {
+            "snapshot": {
+                "active_turns": 1,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "permission_state",
+                        "last_seen": "2026-10-26T11:45:44.326Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:44.327Z",
+                    "client": "codex",
+                    "event": "stop"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "busy"
+            },
+            "step": "codex_stop"
+        },
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "session_end",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:44.327Z",
+                    "client": "opencode",
+                    "event": "session_end"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "idle"
+            },
+            "step": "opencode_session_end"
+        },
+        {
+            "snapshot": {
+                "active_turns": 1,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:44.328Z"
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "session_end",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:44.328Z",
+                    "client": "workbuddy",
+                    "event": "start"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "busy"
+            },
+            "step": "workbuddy_start_before_reset"
+        },
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "stop",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "start",
+                        "last_seen": "2026-10-26T11:45:44.328Z"
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "session_end",
+                        "last_seen": "2026-10-26T11:45:44.327Z"
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "reset",
+                        "last_seen": "2026-10-26T11:45:44.329Z"
+                    }
+                ],
+                "last_event": {
+                    "at": "2026-10-26T11:45:44.329Z",
+                    "client": "manual",
+                    "event": "reset"
+                },
+                "listener_error": "",
+                "listening": true,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "idle"
+            },
+            "step": "panel_button_reset"
+        },
+        {
+            "snapshot": {
+                "active_turns": 0,
+                "clients": [
+                    {
+                        "id": "codex",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "workbuddy",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "claude",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "opencode",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "unknown",
+                        "last_event": "",
+                        "last_seen": ""
+                    },
+                    {
+                        "id": "manual",
+                        "last_event": "",
+                        "last_seen": ""
+                    }
+                ],
+                "last_event": {
+                },
+                "listener_error": "QLocalServerPrivate::addListener: 系统找不到指定的路径。",
+                "listening": false,
+                "pending_permissions": 0,
+                "permission_turns": 0,
+                "pet_state": "idle"
+            },
+            "step": "listener_failed"
+        }
+    ]
+}
