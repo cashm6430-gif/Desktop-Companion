@@ -98,4 +98,27 @@ inline Layout layout(edge_dock::Edge edge, const QRectF& screen, double size,
     result.valid = true;
     return result;
 }
+
+// Candidate entry: move and turn around a visible point on the face rather
+// than hiding the entire character before turning. Keep the previously
+// reviewed endpoints exactly; the earlier layout remains available for audit.
+inline Layout continuousLayout(edge_dock::Edge edge, const QRectF& screen, double size,
+                               const QPointF& initialOrigin, double progress) {
+    if (!std::isfinite(progress)) return {};
+    const Layout first = layout(edge, screen, size, initialOrigin, 0.0);
+    const Layout last = layout(edge, screen, size, initialOrigin, 1.0);
+    if (!first.valid || !last.valid) return {};
+    const double t = ease(progress);
+    const QPointF face(size * 0.5, size * 0.4);
+    const QPointF anchor = mix(first.modelToScreen.map(face), last.modelToScreen.map(face), t);
+    Layout result;
+    result.screen = screen;
+    result.size = size;
+    result.angle = last.angle * t;
+    result.modelToScreen.translate(anchor.x(), anchor.y());
+    result.modelToScreen.rotate(result.angle);
+    result.modelToScreen.translate(-face.x(), -face.y());
+    result.valid = true;
+    return result;
+}
 } // namespace edge_hide

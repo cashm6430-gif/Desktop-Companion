@@ -1,0 +1,47 @@
+{
+  "scope": "isolated Qt virtual screen, real live Cubism, synthetic mouse and fixture events",
+  "candidate": "continuous-entry",
+  "approval": "pending",
+  "scenarios": {
+    "left": {
+      "checks": 22,
+      "frames": 75
+    },
+    "right": {
+      "checks": 22,
+      "frames": 75
+    },
+    "top": {
+      "checks": 22,
+      "frames": 75
+    },
+    "bottom": {
+      "checks": 22,
+      "frames": 75
+    }
+  },
+  "preview_sha256": "220d1c09e9c98fd3bceec8977857775da270be06ec06b6b49705ca5d55596d44",
+  "head_detail_sha256": "312c7e42a5b8bcaa468596d4eccb389ce7c4e0ecd4ae59d56874b3a0b4eb9440",
+  "scene_traces_sha256": "c0e8b36783269274fda06357c6a6d20be217adc1392aeaf83639311fd080c057",
+  "limitations": [
+    "ordinary entry disabled",
+    "no physical mouse or real multi-monitor window",
+    "deletion gate is a fixture, not a production source",
+    "fixtures use direct controller events, not a real agent or hook",
+    "Cubism physics is evaluated before frame rotation; rotated gravity is unverified"
+  ],
+  "entry_native_rig_detail_sha256": "102f6ef620cd14911feeaa2d39e428d67de5da509458f10fa4303b9482819f1c",
+  "inputs": {
+    "executable_sha256": "d52df170b34c5d72d8301c1b59f151910ff752e2b939e1eb8292f1107a6a4e5e",
+    "model_and_texture_sha256": {
+      "whale-girl-layered-draft.model3.json": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+      "whale-girl-layered-draft.moc3": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+      "whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+      "whale-girl-layered-draft.4096/texture_00.png": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58",
+      "whale-girl-layered-draft.4096/texture_01.png": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+      "whale-girl-layered-draft.4096/texture_02.png": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e",
+      "whale-girl-layered-draft.4096/texture_03.png": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+      "whale-girl-layered-draft.4096/texture_04.png": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    }
+  }
+}

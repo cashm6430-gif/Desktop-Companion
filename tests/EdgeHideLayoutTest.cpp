@@ -72,6 +72,29 @@ private slots:
             }
         }
     }
+    void continuousCandidatePreservesEndpointsAndVisibleFace() {
+        const QString path = QDir(QCoreApplication::applicationDirPath()).filePath(
+            QStringLiteral("../art/live2d/workflow/edge-hide-concept-20261028/neutral-native.png"));
+        const QImage image(path);
+        QVERIFY2(!image.isNull(), qPrintable(path));
+        const QPointF face(size * 0.5, size * 0.4);
+        for (const auto edge : edges()) {
+            for (const double t : {0.0, 1.0}) {
+                const auto oldPose = edge_hide::layout(edge, screen, size, start(edge), t);
+                const auto newPose = edge_hide::continuousLayout(edge, screen, size, start(edge), t);
+                for (const QPointF p : {QPointF(0, 0), face, QPointF(size, size)})
+                    QVERIFY(QLineF(oldPose.modelToScreen.map(p), newPose.modelToScreen.map(p)).length() < 1e-7);
+            }
+            QPointF previous;
+            for (int i = 0; i <= 1000; ++i) {
+                const auto pose = edge_hide::continuousLayout(edge, screen, size, start(edge), i / 1000.0);
+                const QPointF point = pose.modelToScreen.map(face);
+                QVERIFY(pose.headHit(point, image));
+                if (i) QVERIFY(QLineF(previous, point).length() < 2);
+                previous = point;
+            }
+        }
+    }
     void invalidInputsDoNotCreateLayout() {
         QVERIFY(!edge_hide::layout(edge_dock::Edge::None, screen, size, {}, 0).valid);
         QVERIFY(!edge_hide::layout(edge_dock::Edge::Left, {}, size, {}, 0).valid);

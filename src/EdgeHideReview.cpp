@@ -22,14 +22,15 @@
 namespace {
 class PreviewSurface final : public QWidget {
 public:
-    explicit PreviewSurface(edge_dock::Edge edge) : edge_(edge) {
+    PreviewSurface(edge_dock::Edge edge, bool continuous) : edge_(edge), continuous_(continuous) {
         setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
         setFixedSize(560, 560);
         setMouseTracking(true);
         start_ = {180, 180};
     }
     edge_hide::Layout pose() const {
-        auto result = edge_hide::layout(edge_, screen_, 200, start_, progress_);
+        auto result = continuous_ ? edge_hide::continuousLayout(edge_, screen_, 200, start_, progress_)
+                                  : edge_hide::layout(edge_, screen_, 200, start_, progress_);
         if (pressed_ && hiddenPress_) {
             // While captured, the exact point pressed on the head stays under
             // the pointer as the model turns back toward upright.
@@ -132,6 +133,7 @@ protected:
     }
 private:
     edge_dock::Edge edge_;
+    bool continuous_ = false;
     const QRectF screen_{20, 20, 520, 520};
     QPointF start_;
     QPointF startAtPress_;
@@ -151,7 +153,9 @@ private:
 
 int runEdgeHideReview(QApplication& app, PetController& controller, PetWindow& window,
                       const QString& output, const QString& scenario) {
-    const QString side = scenario.mid(QStringLiteral("edge-hide-").size());
+    QString side = scenario.mid(QStringLiteral("edge-hide-").size());
+    const bool continuous = side.startsWith(QStringLiteral("continuous-"));
+    if (continuous) side.remove(0, QStringLiteral("continuous-").size());
     const auto edge = side == QStringLiteral("left") ? edge_dock::Edge::Left
         : side == QStringLiteral("right") ? edge_dock::Edge::Right
         : side == QStringLiteral("top") ? edge_dock::Edge::Top
@@ -160,7 +164,7 @@ int runEdgeHideReview(QApplication& app, PetController& controller, PetWindow& w
     if (edge == edge_dock::Edge::None || !directory.exists()) return 2;
     window.prepareLiveInteractionReview(560);
     window.move(-10000, -10000);
-    PreviewSurface view(edge);
+    PreviewSurface view(edge, continuous);
     view.move(-10000, -10000);
     view.show();
     int eaten = 0;
@@ -307,9 +311,34 @@ int runEdgeHideReview(QApplication& app, PetController& controller, PetWindow& w
                 && std::abs(referenceGaze.y() + 0.3) < 1e-8)) return;
         const QPointF gaze = view.cursorSeen() ? pose.gaze(view.cursor()) : QPointF();
         window.setEdgeReviewGaze(gaze.x(), gaze.y());
+        double rigX = 0, rigZ = 0;
+        if (continuous && frame > 12 && frame < 32) {
+            const double envelope = std::sin(3.141592653589793 * (frame - 12) / 20.0);
+            rigX = 1.5 * envelope;
+            rigZ = (edge == edge_dock::Edge::Right ? -1.0 : edge == edge_dock::Edge::Left ? 1.0 : 0.0) * envelope;
+        }
+        if (continuous) {
+            if (!check(QStringLiteral("rig_entry_parameters_bounded"), std::abs(rigX) <= 1.5 && std::abs(rigZ) <= 1.0
+                    && window.modelParameterRanges().contains(QStringLiteral("ParamBodyAngleX"))
+                    && window.modelParameterRanges().contains(QStringLiteral("ParamBodyAngleZ")))) return;
+            window.setEdgeReviewBodyOffsets(rigX, rigZ);
+        }
         const QImage native = window.advanceEdgeReviewFrame(0.05);
         if (!check(QStringLiteral("native_frame"), !native.isNull())) return;
+        if (continuous && frame == 22) {
+            const auto state = window.edgeReviewState();
+            if (!check(QStringLiteral("rig_offsets_reached_cubism"),
+                    std::abs(state.value(QStringLiteral("applied_body_x")).toDouble() - rigX) < 0.001
+                    && std::abs(state.value(QStringLiteral("applied_body_z")).toDouble() - rigZ) < 0.001)) return;
+        }
+        if (continuous && frame >= 12 && frame <= 32
+            && !check(QStringLiteral("continuous_head_visible"), pose.headHit(
+                pose.modelToScreen.map(QPointF(100, 80)), native))) return;
         view.setFrame(native);
+        if (continuous && (frame == 16 || frame == 22 || frame == 28)
+            && !native.save(directory.filePath(QStringLiteral("native-%1.png").arg(frame, 3, 10, QChar('0'))))) {
+            finish(2, QStringLiteral("native_detail_save")); return;
+        }
         const QString name = QStringLiteral("frame-%1.png").arg(frame, 3, 10, QChar('0'));
         if (!view.grab().save(directory.filePath(name))) { finish(2, QStringLiteral("frame_save")); return; }
         const auto params = window.motionParameters();
@@ -317,6 +346,7 @@ int runEdgeHideReview(QApplication& app, PetController& controller, PetWindow& w
             {QStringLiteral("event"), event}, {QStringLiteral("progress"), view.progress()},
             {QStringLiteral("angle"), pose.angle}, {QStringLiteral("gaze_x"), gaze.x()},
             {QStringLiteral("gaze_y"), gaze.y()}, {QStringLiteral("eye_x"), params.value(QStringLiteral("ParamEyeBallX"))},
+            {QStringLiteral("entry_body_x_offset"), rigX}, {QStringLiteral("entry_body_z_offset"), rigZ},
             {QStringLiteral("pressed"), view.pressed()}, {QStringLiteral("state"), window.edgeReviewState()}});
         if (++frame == 75) finish(0);
     });

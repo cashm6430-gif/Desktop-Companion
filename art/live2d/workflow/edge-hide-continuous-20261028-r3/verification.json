@@ -1,0 +1,62 @@
+{
+  "scope": "isolated Qt virtual screen, real live Cubism, synthetic mouse and fixture events",
+  "candidate": "continuous-entry",
+  "approval": "pending",
+  "scenarios": {
+    "left": {
+      "checks": 23,
+      "frames": 75
+    },
+    "right": {
+      "checks": 23,
+      "frames": 75
+    },
+    "top": {
+      "checks": 23,
+      "frames": 75
+    },
+    "bottom": {
+      "checks": 23,
+      "frames": 75
+    }
+  },
+  "preview_sha256": "220d1c09e9c98fd3bceec8977857775da270be06ec06b6b49705ca5d55596d44",
+  "head_detail_sha256": "312c7e42a5b8bcaa468596d4eccb389ce7c4e0ecd4ae59d56874b3a0b4eb9440",
+  "scene_traces_sha256": "d0b84d9e8ed7b6ce58d1321c05902e2147a2448d409fc48f0e9336d8f00e94c4",
+  "limitations": [
+    "ordinary entry disabled",
+    "no physical mouse or real multi-monitor window",
+    "deletion gate is a fixture, not a production source",
+    "fixtures use direct controller events, not a real agent or hook",
+    "Cubism physics is evaluated before frame rotation; rotated gravity is unverified"
+  ],
+  "entry_native_rig_detail_sha256": "102f6ef620cd14911feeaa2d39e428d67de5da509458f10fa4303b9482819f1c",
+  "inputs": {
+    "executable_sha256": "367fcdd530142b321d829771536d425dd18d57cc50e6c9415651d826fff49955",
+    "model_and_texture_sha256": {
+      "whale-girl-layered-draft.model3.json": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+      "whale-girl-layered-draft.moc3": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+      "whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+      "whale-girl-layered-draft.4096/texture_00.png": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58",
+      "whale-girl-layered-draft.4096/texture_01.png": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+      "whale-girl-layered-draft.4096/texture_02.png": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e",
+      "whale-girl-layered-draft.4096/texture_03.png": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+      "whale-girl-layered-draft.4096/texture_04.png": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    }
+  },
+  "full_ctest": {
+    "passed": "26/26",
+    "seconds": 69.21,
+    "log": "full-test-log.zip",
+    "sha256": "ca85acbbd53fe98cf993a03cad8486694d610c170fbe073818987f72ce8d5088"
+  },
+  "visibility": {
+    "file": "entry-visibility.json",
+    "sha256": "e85755f228cd4c53c5d6ccf3ff9d278e8f3a3dd3690e9a81e36097e8ecac2f53",
+    "longest_zero_seconds": 0.0,
+    "sampling": "21 entry frames at 0.05 seconds; pixel heuristic, not semantic detection"
+  },
+  "displayed_candidate": "edge-hide-continuous-20261028-r2; preview GIF byte-identical",
+  "native_body_offset_check": "at frame 22 read back from Cubism before physics, x=1.5 and z=1/-1/0/0",
+  "visual_review": "12 uncropped Native keyframes inspected for neck and sleeve gaps; not a full frame-by-frame review"
+}

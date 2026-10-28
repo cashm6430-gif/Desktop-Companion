@@ -118,6 +118,7 @@ public:
     // Isolated edge review only: never enabled by the ordinary desktop path.
     bool setEdgeReviewSuppressed(bool enabled);
     void setEdgeReviewGaze(double x, double y);
+    void setEdgeReviewBodyOffsets(double x, double z);
     QJsonObject edgeReviewState() const;
     QImage advanceEdgeReviewFrame(double seconds);
     // The tray and isolated Native review share these note operations. User

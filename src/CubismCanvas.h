@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QOpenGLWidget>
 #include <QPainterPath>
+#include <QPointF>
 #include <QString>
 #include <memory>
 
@@ -18,6 +19,9 @@ public:
     QString error() const { return error_; }
     int sampleCount() const { return sampleCount_; }
     void advance(double seconds);
+    // Isolated edge candidate only. The caller must enforce the review guard.
+    void setEdgeReviewBodyOffsets(double x, double z) { edgeReviewBodyX_ = x; edgeReviewBodyZ_ = z; }
+    QPointF edgeReviewAppliedBodyOffsets() const { return edgeReviewApplied_; }
     // Parameter id -> {min, max, default} straight out of the MOC3. Name lists
     // (the CDI3, the PSD2Live metadata) do not carry limits, and an authored
     // curve can only be judged against the range the rig actually accepts.
@@ -51,6 +55,9 @@ private:
     QString error_;
     int sampleCount_ = -1;
     double frameSeconds_ = 0.0;
+    double edgeReviewBodyX_ = 0.0;
+    double edgeReviewBodyZ_ = 0.0;
+    QPointF edgeReviewApplied_;
     QPainterPath headHitPath_;
     QPainterPath grassTipHitPath_;
     QJsonObject grassGeometry_{{QStringLiteral("valid"), false}};

@@ -22,8 +22,10 @@ def main():
     parser.add_argument('capture_root', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('--run', action='store_true', help='run four isolated Native scenarios first')
+    parser.add_argument('--continuous', action='store_true', help='review the continuous-entry candidate')
     parser.add_argument('--executable', type=Path, default=Path('build/DesktopCompanion.exe'))
     args = parser.parse_args()
+    prefix = 'edge-hide-continuous-' if args.continuous else 'edge-hide-'
     # Never overwrite earlier approval evidence. A fresh capture and output
     # directory are both required for a new run.
     args.output.mkdir(parents=True, exist_ok=False)
@@ -33,7 +35,7 @@ def main():
         for side in ('left', 'right', 'top', 'bottom'):
             print(f'Capturing {side}...', flush=True)
             result = subprocess.run([str(exe), '--render-interaction',
-                                     str((args.capture_root / side).resolve()), 'edge-hide-' + side],
+                                     str((args.capture_root / side).resolve()), prefix + side],
                                     capture_output=True, text=True, timeout=110)
             if result.returncode:
                 raise RuntimeError(f'{side} failed ({result.returncode}): {result.stderr[-2000:]}')
@@ -45,11 +47,15 @@ def main():
                 'gaze_reaches_native_model', 'short_pull_returns_to_hidden', 'lost_capture_restores_hidden', 'head_press_accepted',
                 'drag_keeps_grabbed_head_under_pointer', 'drag_restored',
                 'preview_gate_left', 'no_old_event_replayed', 'inverse_gaze_transform', 'native_frame'}
+    if args.continuous:
+        required.add('continuous_head_visible')
+        required.add('rig_entry_parameters_bounded')
+        required.add('rig_offsets_reached_cubism')
     scenes = {}
     for side, _ in sides:
         folder = args.capture_root / side
         data = json.loads((folder / 'scene.json').read_text(encoding='utf-8'))
-        if (not data.get('passed') or data.get('scenario') != 'edge-hide-' + side
+        if (not data.get('passed') or data.get('scenario') != prefix + side
                 or data.get('scope') != 'isolated_qt_virtual_screen_live_cubism_synthetic_pointer'
                 or data.get('render_backend') != 'cubism_native' or data.get('frame_count') != 75
                 or not all(data.get('checks', {}).get(k) is True for k in required)):
@@ -60,6 +66,8 @@ def main():
             raise ValueError(f'Incomplete or reordered frame trace: {side}')
         if not all((folder / f'frame-{i:03}.png').is_file() for i in range(75)):
             raise ValueError(f'Missing captured frames: {side}')
+        if args.continuous and not all((folder / f'native-{i:03}.png').is_file() for i in (16, 22, 28)):
+            raise ValueError(f'Missing Native rig detail: {side}')
         scenes[side] = data
     font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc', 17)
     frames = []
@@ -90,11 +98,29 @@ def main():
         draw.text((x, y), name, font=font, fill='#253543')
     detail_path = args.output / 'edge-hide-head-detail.png'
     detail.save(detail_path)
+    rig_detail_path = None
+    if args.continuous:
+        rig_detail = Image.new('RGB', (930, 1290), '#f7f9fb')
+        rig_draw = ImageDraw.Draw(rig_detail)
+        rig_draw.text((10, 8), '进入过程：实时模型未裁切帧（原始朝向）', font=font, fill='#253543')
+        for row, (side, name) in enumerate(sides):
+            y = 35 + row * 310
+            for col, index in enumerate((16, 22, 28)):
+                x = 10 + col * 310
+                rig_draw.text((x, y), f'{name} · {index}', font=font, fill='#253543')
+                image = Image.open(args.capture_root / side / f'native-{index:03}.png').convert('RGBA')
+                image = image.resize((280, 280), Image.Resampling.LANCZOS)
+                back = Image.new('RGBA', (280, 280), '#dfe7ef')
+                back.alpha_composite(image)
+                rig_detail.paste(back.convert('RGB'), (x, y + 23))
+        rig_detail_path = args.output / 'entry-native-rig-detail.png'
+        rig_detail.save(rig_detail_path)
     with ZipFile(args.output / 'scene-traces.zip', 'w', ZIP_DEFLATED) as archive:
         for side, _ in sides:
             archive.write(args.capture_root / side / 'scene.json', side + '/scene.json')
     check = {
         'scope': 'isolated Qt virtual screen, real live Cubism, synthetic mouse and fixture events',
+        'candidate': 'continuous-entry' if args.continuous else 'original-entry',
         'approval': 'pending',
         'scenarios': {s: {'checks': len(scenes[s]['checks']), 'frames': scenes[s]['frame_count']} for s, _ in sides},
         'preview_sha256': digest(preview),
@@ -105,6 +131,8 @@ def main():
                         'fixtures use direct controller events, not a real agent or hook',
                         'Cubism physics is evaluated before frame rotation; rotated gravity is unverified'],
     }
+    if rig_detail_path:
+        check['entry_native_rig_detail_sha256'] = digest(rig_detail_path)
     if args.run:
         exe = args.executable.resolve(strict=True)
         model = exe.parent / 'assets/live2d/whale-girl'

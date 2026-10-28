@@ -977,6 +977,20 @@ void CubismCanvas::paintGL() {
             value = value >= 0.5f ? 1.0f : 0.0f;
         model->SetParameterValue(*index, value);
     }
+    // Bounded, process-isolated candidate offsets are applied to real Cubism
+    // parameters before physics. Ordinary rendering keeps both at zero.
+    edgeReviewApplied_ = QPointF();
+    for (const auto& entry : {std::pair{QStringLiteral("ParamBodyAngleX"), edgeReviewBodyX_},
+                              std::pair{QStringLiteral("ParamBodyAngleZ"), edgeReviewBodyZ_}}) {
+        if (entry.second == 0.0) continue;
+        const auto index = impl_->parameterIndices.constFind(entry.first);
+        if (index != impl_->parameterIndices.cend()) {
+            model->SetParameterValue(*index, static_cast<float>(motion_->values().value(entry.first) + entry.second));
+            const double applied = model->GetParameterValue(*index) - motion_->values().value(entry.first);
+            if (entry.first == QStringLiteral("ParamBodyAngleX")) edgeReviewApplied_.setX(applied);
+            else edgeReviewApplied_.setY(applied);
+        }
+    }
     if (impl_->authoredSitPose) {
         if (impl_->skirtSpreadParameter >= 0)
             model->SetParameterValue(impl_->skirtSpreadParameter,

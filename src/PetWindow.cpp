@@ -1822,6 +1822,9 @@ bool PetWindow::setEdgeReviewSuppressed(bool enabled) {
         edgeReviewSuppressed_ = true;
     } else {
         edgeReviewSuppressed_ = false;
+#ifdef HAVE_CUBISM
+        if (cubismCanvas_) cubismCanvas_->setEdgeReviewBodyOffsets(0.0, 0.0);
+#endif
         setState(controller_->state());
     }
     return true;
@@ -1832,13 +1835,32 @@ void PetWindow::setEdgeReviewGaze(double x, double y) {
         motion_.setGazeTarget(x, y, false, true);
 }
 
+void PetWindow::setEdgeReviewBodyOffsets(double x, double z) {
+#ifdef HAVE_CUBISM
+    if (liveInteractionReview_ && edgeReviewSuppressed_ && cubismCanvas_
+        && qApp->property("desktopCompanionReviewSettingsIsolated").toBool()
+        && std::isfinite(x) && std::isfinite(z))
+        cubismCanvas_->setEdgeReviewBodyOffsets(std::clamp(x, -1.5, 1.5), std::clamp(z, -1.0, 1.0));
+#else
+    Q_UNUSED(x); Q_UNUSED(z);
+#endif
+}
+
 QJsonObject PetWindow::edgeReviewState() const {
-    return {{QStringLiteral("suppressed"), edgeReviewSuppressed_},
+    QJsonObject state{{QStringLiteral("suppressed"), edgeReviewSuppressed_},
         {QStringLiteral("permission_cue"), motion_.permissionCueActive()},
         {QStringLiteral("interaction"), motion_.interactionActive()},
         {QStringLiteral("controller_state"), int(controller_->state())},
         {QStringLiteral("active_turns"), controller_->activeTurnCount()},
         {QStringLiteral("pending_permissions"), controller_->pendingPermissionCount()}};
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) {
+        const auto applied = cubismCanvas_->edgeReviewAppliedBodyOffsets();
+        state.insert(QStringLiteral("applied_body_x"), applied.x());
+        state.insert(QStringLiteral("applied_body_z"), applied.y());
+    }
+#endif
+    return state;
 }
 
 QImage PetWindow::advanceEdgeReviewFrame(double seconds) {

@@ -24,6 +24,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('capture_root', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--continuous', action='store_true', help='audit the continuous-entry candidate')
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(f'Refusing to overwrite {args.output}')
@@ -37,7 +38,8 @@ def main():
     for side in ('left', 'right', 'top', 'bottom'):
         folder = args.capture_root / side
         scene = json.loads((folder / 'scene.json').read_text(encoding='utf8'))
-        if (not scene.get('passed') or scene.get('scenario') != 'edge-hide-' + side
+        prefix = 'edge-hide-continuous-' if args.continuous else 'edge-hide-'
+        if (not scene.get('passed') or scene.get('scenario') != prefix + side
                 or scene.get('scope') != 'isolated_qt_virtual_screen_live_cubism_synthetic_pointer'
                 or scene.get('frame_count') != 75):
             raise ValueError(f'Invalid scene: {side}')
