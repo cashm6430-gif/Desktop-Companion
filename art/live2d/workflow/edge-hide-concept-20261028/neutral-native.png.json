@@ -1,0 +1,17 @@
+{
+    "adoption": "not_requested",
+    "desk_work_mode": true,
+    "frame_saved": true,
+    "isolated_model_override": false,
+    "model_manifest_path": "E:/projects/Desktop-Companion/build/assets/live2d/whale-girl/whale-girl-layered-draft.model3.json",
+    "physics_evaluated": false,
+    "raw_export_only": false,
+    "render_backend": "cubism_native",
+    "render_error": "",
+    "requested_parameters": {
+        "ParamEyeLOpen": 1,
+        "ParamEyeROpen": 1
+    },
+    "runtime_patches_applied": true,
+    "scope": "static_requested_pose_native_capture"
+}

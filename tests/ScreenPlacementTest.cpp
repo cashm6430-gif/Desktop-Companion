@@ -1,6 +1,7 @@
 #include <QtTest>
 
 #include "../src/ScreenPlacement.h"
+#include "../src/EdgeDockGeometry.h"
 
 // The pet draws window-layer art (the thought bubble, the sticky note) inside
 // the rendered frame, in the right third of the widget. These tests pin the one
@@ -103,6 +104,53 @@ private slots:
         const QPoint position(700, 400);
         QCOMPARE(pet_placement::clampToScreen(QRect(), QSize(280, 280), position), position);
         QCOMPARE(pet_placement::clampToScreen(QRect(0, 0, 1920, 1040), QSize(), position), position);
+    }
+
+    void edgeDockRecognizesFourOuterEdges()
+    {
+        using edge_dock::Edge;
+        const QRect full(0, 0, 1920, 1080), available = machineScreen();
+        const QList<QRect> screens{full};
+        const auto at = [&](QRect window, QPoint cursor) {
+            return edge_dock::outerEdgeAtRelease(window, cursor, full, available, screens, 24);
+        };
+        QCOMPARE(at(QRect(0, 300, 280, 280), QPoint(100, 400)), Edge::Left);
+        QCOMPARE(at(QRect(1640, 300, 280, 280), QPoint(1800, 400)), Edge::Right);
+        QCOMPARE(at(QRect(300, 0, 280, 280), QPoint(400, 100)), Edge::Top);
+        QCOMPARE(at(QRect(300, 760, 280, 280), QPoint(400, 900)), Edge::Bottom);
+        QCOMPARE(at(QRect(300, 300, 280, 280), QPoint(400, 400)), Edge::None);
+        QCOMPARE(at(QRect(0, 0, 280, 280), QPoint(100, 100)), Edge::Left);
+        QCOMPARE(at(QRect(24, 300, 280, 280), QPoint(100, 400)), Edge::Left);
+        QCOMPARE(at(QRect(25, 300, 280, 280), QPoint(100, 400)), Edge::None);
+        QCOMPARE(at(QRect(-100, 300, 280, 280), QPoint(100, 400)), Edge::Left);
+    }
+
+    void edgeDockRejectsOnlySeamsAtTheReleasePosition()
+    {
+        using edge_dock::Edge;
+        const QRect full(0, 0, 1920, 1080), available = machineScreen();
+        const QRect neighbour(1920, 0, 1280, 700);
+        const QList<QRect> screens{full, neighbour};
+        const QRect window(1640, 350, 280, 280);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(window, QPoint(1800, 400), full, available, screens, 24), Edge::None);
+        const QRect lowerWindow(1640, 720, 280, 280);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(lowerWindow, QPoint(1800, 800), full, available, screens, 24), Edge::Right);
+        const QRect negative(-1280, 0, 1280, 1024);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(QRect(-1280, 300, 280, 280), QPoint(-1200, 400),
+                 negative, negative, {negative, full}, 24), Edge::Left);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(QRect(-280, 300, 280, 280), QPoint(-100, 400),
+                 negative, negative, {negative, full}, 24), Edge::None);
+    }
+
+    void edgeDockRejectsInvalidAndUnrelatedGeometry()
+    {
+        using edge_dock::Edge;
+        const QRect full(0, 0, 1920, 1080), available = machineScreen();
+        const QRect window(0, 300, 280, 280);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(window, QPoint(-1, 400), full, available, {full}, 24), Edge::None);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(window, QPoint(100, 400), full, available, {full}, -1), Edge::None);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(QRect(-500, 300, 200, 200), QPoint(100, 400), full, available, {full}, 24), Edge::None);
+        QCOMPARE(edge_dock::outerEdgeAtRelease(window, QPoint(100, 400), full, QRect(-1, 0, 1920, 1040), {full}, 24), Edge::None);
     }
 };
 

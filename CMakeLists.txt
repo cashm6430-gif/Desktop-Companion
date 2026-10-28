@@ -197,7 +197,7 @@ if(BUILD_TESTING)
     # No assets, no widget: the placement contract is pure arithmetic, so this
     # one runs anywhere and is the guard against the thought bubble being parked
     # off-screen again by a partial screen overhang.
-    add_executable(ScreenPlacementTest tests/ScreenPlacementTest.cpp src/ScreenPlacement.h)
+    add_executable(ScreenPlacementTest tests/ScreenPlacementTest.cpp src/ScreenPlacement.h src/EdgeDockGeometry.h)
     target_link_libraries(ScreenPlacementTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME ScreenPlacementTest COMMAND ScreenPlacementTest)
     # The Claude-Desktop session seeding runs inside the pet, so its merge rules

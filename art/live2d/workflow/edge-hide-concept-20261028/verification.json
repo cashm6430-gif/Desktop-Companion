@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-28",
+  "approval": {
+    "orientation": "accepted_by_user",
+    "motion": "pending",
+    "runtime": "not_implemented"
+  },
+  "scope": "Native R19 idle frames, software clipping/rotation mock, and isolated screen geometry test",
+  "evidence": {
+    "concept_manifest": "concept.json",
+    "static": "four-edge-static-concept.png",
+    "idle": "four-edge-idle-concept.gif",
+    "transition": "four-edge-transition-experiment.gif",
+    "idle_capture_report": "idle-capture.json",
+    "native_manifest_sha256": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+    "native_moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+  },
+  "checks": {
+    "release_build_and_114_object_dependency_records": "pass",
+    "screen_placement_ctest": "1/1 pass, includes four edges, thresholds, seam, taskbar, negative coordinates, invalid inputs",
+    "three_composites_regenerated_sha256": "identical"
+  },
+  "limitations": [
+    "preview is not a real window, mouse gesture, mouse gaze, event gate or authored motion",
+    "native idle source frames were captured in build and are not committed; output GIF and frame hashes are retained",
+    "geometry helper is not wired to the app",
+    "not a full test suite run",
+    "multi-monitor, DPI, screen changes and physical mouse not tested"
+  ]
+}
