@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "date_completed": "2026-10-28",
+  "approval_date": "2026-10-26",
+  "base_commit": "596558c1c5adc1f0aa04391c3f7e4e27e3e2b1df",
+  "scope": "approved finite permission cue, automatic request nomination and interruption",
+  "approval": {
+    "user_reply": "通过，正式采用",
+    "clip": "permission-cue",
+    "revision": 1,
+    "choreography_unchanged_from_candidate": true
+  },
+  "build": {
+    "clean_build": "passed",
+    "dependency_records": "valid for main, hook lifecycle and toon tests",
+    "incremental_workflow": "tools/build-release.ps1",
+    "development_signatures": "valid locally",
+    "initial_incremental_issue": "stale header dependencies caused three failed tests; clean rebuild and final suite passed"
+  },
+  "ctest": {
+    "passed": 24,
+    "total": 24,
+    "seconds": 74.24,
+    "includes": [
+      "permission nomination/reentrancy",
+      "quiet policy and no replay",
+      "multiple clients and cleanup",
+      "real helper private IPC"
+    ]
+  },
+  "asset_validation": {
+    "cubism_files": 12,
+    "parameters": 41,
+    "authored_motions": 13,
+    "passed": true
+  },
+  "native": {
+    "scenarios": [
+      "standing",
+      "laptop"
+    ],
+    "frames_per_scenario": 840,
+    "checks_per_scenario": 22,
+    "private_ipc_controller_and_real_window": true,
+    "passed": true,
+    "visual_checks": "Fixed samples checked; no newly visible neck, sleeve or laptop separation. Not every frame manually inspected.",
+    "raw_png_frames_in_git": false,
+    "reproduce": "python tools/review_permission_adoption.py <fresh-directory>",
+    "existing_review_tool": {
+      "approval": "approved",
+      "scenarios": 6,
+      "frames": 450,
+      "passed": true,
+      "reproduce": "python tools/review_permission_cue.py <fresh-directory> --approval approved"
+    }
+  },
+  "behavior": {
+    "automatic_entry_enabled": true,
+    "once_per_request": true,
+    "quiet_and_refusal_replay": false,
+    "bound_request_resolution_cancels_own_cue": true,
+    "new_turn_interrupts_own_cue": true,
+    "approved_cue_survives_preview_off": true,
+    "request_history_limit_per_turn": 256
+  },
+  "privacy": {
+    "private_endpoint_only_during_review": true,
+    "real_agent_prompt_sent": false,
+    "physical_mouse_tested": false,
+    "installation_acceptance_executed": false
+  },
+  "render_assets": {
+    "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+    "moc_atlas_binding_changed": false
+  },
+  "limits": [
+    "OpenCode 2.1.4 only tracks already-observed executions; pre-existing tasks are not inferred.",
+    "An approval request does not mean every parallel tool is stopped.",
+    "The desktop application was not exercised with a real model approval request."
+  ],
+  "input_sha256": {
+    "CMakeLists.txt": "f8e0a02b74e4b01c9504f7c13a763d62a8e1b016e7c4d93da39ddf64aa226bca",
+    "assets/motions/permission-cue.motion.json": "40957f5d09102e790008eb9213b742f0a84fc86595eb19861702a785902f505c",
+    "src/ParameterMotion.cpp": "748bc8c93f740306ab74f21bc274466b52a46aaa0fe1e369b11de1804ff489be",
+    "src/ParameterMotion.h": "8a05c225d0aabc736309192619e1f8239e46a4a2f230e2740c5bdab7b513074d",
+    "src/PermissionAdoptionReview.cpp": "747e8b937a845cb5d9afe4015400413e91eac6e6107286da3f4c90fdc645fc15",
+    "src/PermissionAdoptionReview.h": "bf2aba7b2a8f8954b16f3cf471bc2de513dba7d25779c24bae7e45ef326f5a87",
+    "src/PetController.cpp": "c15ebe8dae05b0e01e05297222dfb0b3f139a371cfeaae2051df99b38b50270f",
+    "src/PetController.h": "c54f135607a9d43dc3f606b1e7ea4bea2cc80638ca5c0eff15613bb72ebb15f6",
+    "src/PetWindow.cpp": "7dca5cb419463528e5321edae706f2b8f760eb7c916749ded1aa165e545701aa",
+    "src/WorkReactionCoordinator.cpp": "6874fd8280ab6d0605a525e19eb9e045db60c0e66f8818f80955235b70d03eb2",
+    "src/WorkReactionCoordinator.h": "58e7ef19fb4672e6394dafdd8146d2345a7ecc78efb68c3a045d4d6d9efdadad",
+    "src/main.cpp": "ccc5cbf66cfa9884ddc916bd6e20f95fe02dd820407828016cf4cb79c7636478",
+    "tests/MotionClipTest.cpp": "8702949ecd9f1cfcabe3f6ee1800b0ab50e4624d89eeed7ed85867355ebf160a",
+    "tests/ParameterMotionTest.cpp": "5202619ec420216f5b92bb0af2b49933c3f44814a3984df14332c47c3c69641a",
+    "tests/PetControllerTest.cpp": "21410da7ec6ee95ef7f958750c218c3bceb9c779ac2b5e3341779c3e882c7008",
+    "tools/build-release.ps1": "991a38420ce5b3c3a6014bf235f5fe5b0dd5226849574c4d55afbb885af7c852",
+    "tools/review_permission_adoption.py": "104883c79be2e9e7c5880e25088cde48c2a3f6135b07590dbbee6eb4be86de03",
+    "tools/review_permission_cue.py": "784da161d33b3bf347c85136818edb539543705d73676ee19103d055da49620e"
+  }
+}

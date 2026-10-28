@@ -6,6 +6,7 @@
 #include "GrassDragInputReview.h"
 #include "DragInputReview.h"
 #include "WorkPostureReview.h"
+#include "PermissionAdoptionReview.h"
 #include "MemoStore.h"
 #include "IntegrationStatusModel.h"
 #include "PetController.h"
@@ -146,8 +147,10 @@ int main(int argc, char** argv) {
         && (workPostureScenario == QStringLiteral("work-posture-preference") || workPostureRestore);
     const bool permissionCueReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("permission-cue-"));
+    const bool permissionAdoptionReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3).startsWith(QStringLiteral("permission-adoption-"));
     qint64 memoReviewNowMs = 1000;
-    if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview) {
+    if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview || permissionAdoptionReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -161,7 +164,7 @@ int main(int argc, char** argv) {
             || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
             return 2;
         app.setProperty("desktopCompanionReviewSettingsIsolated", true);
-        if (permissionCueReview)
+        if (permissionCueReview || permissionAdoptionReview)
             app.setProperty("desktopCompanionReviewMemoPath", QDir(output).filePath(QStringLiteral("memo.json")));
         if (workPostureRestore) {
             // Only copy a completed review's explicitly supplied fixture INI.
@@ -219,6 +222,7 @@ int main(int argc, char** argv) {
         if (grassDragReview) return runGrassDragInputReview(app, controller, window, output, scenario);
         if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
         if (workPostureReview) return runWorkPostureReview(app, controller, window, output, scenario);
+        if (permissionAdoptionReview) return runPermissionAdoptionReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
             return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {
@@ -564,6 +568,9 @@ int main(int argc, char** argv) {
         const bool glance = scenario.startsWith(QStringLiteral("turn-ended"));
         const bool workPause = scenario.startsWith(QStringLiteral("stretch-"));
         const bool permissionCue = scenario.startsWith(QStringLiteral("permission-cue-"));
+        const auto* permissionClip = sampler.library().clip(QStringLiteral("permission-cue"));
+        const bool permissionCueApproved = permissionClip
+            && permissionClip->approval() == QStringLiteral("approved");
         const bool laptop = deskDelete || scenario == QStringLiteral("turn-ended-laptop")
             || scenario.startsWith(QStringLiteral("head-pat-busy"))
             || scenario == QStringLiteral("stretch-laptop") || scenario == QStringLiteral("permission-cue-laptop");
@@ -598,8 +605,9 @@ int main(int argc, char** argv) {
                     event = QStringLiteral("delete_from_desk");
                 } else if (permissionCue) {
                     defaultPauseAccepted = sampler.playPermissionCue();
-                    if (defaultPauseAccepted || !sampler.playPermissionCue(true)) { app.exit(2); return; }
-                    event = QStringLiteral("explicit_pending_permission_cue");
+                    if (!defaultPauseAccepted && !sampler.playPermissionCue(true)) { app.exit(2); return; }
+                    event = defaultPauseAccepted ? QStringLiteral("approved_permission_cue")
+                                                 : QStringLiteral("explicit_pending_permission_cue");
                 } else if (workPause) {
                     defaultPauseAccepted = sampler.playStretch();
                     if (!defaultPauseAccepted && !sampler.playStretch(true)) { app.exit(2); return; }
@@ -631,8 +639,10 @@ int main(int argc, char** argv) {
                     sampler.updateDragMotion(120.0, -20.0);
                     event = QStringLiteral("drag_interrupt");
                 } else {
-                    if (!sampler.cancelPendingInteraction()) { app.exit(2); return; }
-                    event = QStringLiteral("preview_disabled");
+                    const bool cancelledDraft = sampler.cancelPendingInteraction();
+                    if (cancelledDraft == permissionCueApproved) { app.exit(2); return; }
+                    event = cancelledDraft ? QStringLiteral("preview_disabled")
+                                           : QStringLiteral("preview_disabled_approved_retained");
                 }
             }
             if (permissionCue && cancelled && !released && time >= 1.8) {
@@ -713,6 +723,7 @@ int main(int argc, char** argv) {
                 if (!evidence.open(QIODevice::WriteOnly)) { app.exit(1); return; }
                 evidence.write(QJsonDocument(QJsonObject{{QStringLiteral("scenario"), scenario},
                     {QStringLiteral("capture"), captureContext(window)},
+                    {QStringLiteral("permission_cue_approval"), permissionClip ? permissionClip->approval() : QString()},
                     {QStringLiteral("scope"), QStringLiteral("real_interaction_player_and_native_model")},
                     {QStringLiteral("frames"), trace}}).toJson());
                 app.exit(0);

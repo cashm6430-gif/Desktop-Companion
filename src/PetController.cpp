@@ -54,6 +54,7 @@ void PetController::turnStarted(const QString& sessionId, const QString& turnId)
     const QString key = sessionId + QChar::Null + turnId;
     const bool newlyTracked = !activeTurns_.contains(key);
     activeTurns_.insert(key, nowMs_());
+    if (newlyTracked) activeTurnGenerations_.insert(key, ++nextTurnGeneration_);
     if (newlyTracked) emit turnBegan(sessionId, turnId);
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
 }
@@ -65,7 +66,9 @@ void PetController::turnStopped(const QString& sessionId, const QString& turnId)
     if (activeTurns_.contains(exactKey)) {
         endedStartedMs = activeTurns_.value(exactKey);
         activeTurns_.remove(exactKey);
-        permissionsChanged = permissions_.remove(exactKey) > 0;
+        activeTurnGenerations_.remove(exactKey);
+        permissionsChanged = permissions_.remove(exactKey);
+        permissionNominations_.remove(exactKey);
     }
     bool removed = endedStartedMs >= 0;
     if (!removed && turnId.isEmpty()) {
@@ -83,7 +86,9 @@ void PetController::turnStopped(const QString& sessionId, const QString& turnId)
         }
         if (!latest.isEmpty()) {
             activeTurns_.remove(latest);
-            permissionsChanged = permissions_.remove(latest) > 0;
+            activeTurnGenerations_.remove(latest);
+            permissionsChanged = permissions_.remove(latest);
+            permissionNominations_.remove(latest);
             endedStartedMs = latestMs;
             removed = true;
         }
@@ -102,7 +107,9 @@ void PetController::sessionEnded(const QString& sessionId) {
     bool permissionsChanged = false;
     for (auto it = activeTurns_.begin(); it != activeTurns_.end();) {
         if (it.key().startsWith(prefix)) {
-            permissionsChanged = permissions_.remove(it.key()) > 0 || permissionsChanged;
+            permissionsChanged = permissions_.remove(it.key()) || permissionsChanged;
+            permissionNominations_.remove(it.key());
+            activeTurnGenerations_.remove(it.key());
             it = activeTurns_.erase(it);
         }
         else ++it;
@@ -117,11 +124,20 @@ int PetController::pendingPermissionCount() const {
     return total;
 }
 
+bool PetController::hasPendingPermission(const QString& sessionId, const QString& turnId,
+                                         const QString& requestId) const {
+    const QString key = sessionId + QChar::Null + turnId;
+    const auto requests = permissions_.constFind(key);
+    return activeTurns_.contains(key) && requests != permissions_.cend()
+        && requests->contains(requestId);
+}
+
 void PetController::applyPermissionSnapshot(const QString& sessionId, const QString& turnId,
                                           const QStringList& requestIds) {
     if (sessionId.isEmpty() || turnId.isEmpty() || requestIds.size() > 32) return;
     const QString key = sessionId + QChar::Null + turnId;
     if (!activeTurns_.contains(key)) return;
+    const quint64 generation = activeTurnGenerations_.value(key);
     QSet<QString> requests;
     for (const QString& id : requestIds) {
         if (id.trimmed().isEmpty() || id.size() > 256 || id.contains(QChar::Null)
@@ -131,7 +147,23 @@ void PetController::applyPermissionSnapshot(const QString& sessionId, const QStr
     if (permissions_.value(key) == requests) return;
     if (requests.isEmpty()) permissions_.remove(key);
     else permissions_.insert(key, requests);
+    QStringList fresh;
+    auto& nominated = permissionNominations_[key];
+    constexpr qsizetype maximumNominations = 256;
+    for (const QString& id : requestIds) {
+        if (nominated.contains(id) || nominated.size() >= maximumNominations) continue;
+        nominated.insert(id);
+        fresh.append(id);
+    }
     emit permissionStateChanged();
+    for (const QString& id : fresh) {
+        // A synchronous fact observer may resolve or clean up the turn.
+        // A recreated turn can reuse all three identifiers, but must never
+        // receive the old invocation's remaining nominations.
+        if (activeTurnGenerations_.value(key) != generation) break;
+        if (hasPendingPermission(sessionId, turnId, id))
+            emit permissionRequested(sessionId, turnId, id);
+    }
 }
 
 void PetController::desktopItemDeleted(const QString& path, const QPointF& iconPos, const QIcon& icon) {
@@ -183,8 +215,10 @@ void PetController::playInteractiveGrass(double maximumSeconds) {
 
 void PetController::resetBusy() {
     activeTurns_.clear();
+    activeTurnGenerations_.clear(); // The monotonic serial deliberately survives reset.
     const bool permissionsChanged = !permissions_.isEmpty();
     permissions_.clear();
+    permissionNominations_.clear();
     if (state_ != State::Delete && state_ != State::Grass) restoreBackgroundState();
     if (permissionsChanged) emit permissionStateChanged();
 }
@@ -199,7 +233,9 @@ void PetController::expireOldTurns() {
     bool permissionsChanged = false;
     for (auto it = activeTurns_.begin(); it != activeTurns_.end();) {
         if (now - it.value() > maxAgeMs) {
-            permissionsChanged = permissions_.remove(it.key()) > 0 || permissionsChanged;
+            permissionsChanged = permissions_.remove(it.key()) || permissionsChanged;
+            permissionNominations_.remove(it.key());
+            activeTurnGenerations_.remove(it.key());
             it = activeTurns_.erase(it);
         }
         else ++it;

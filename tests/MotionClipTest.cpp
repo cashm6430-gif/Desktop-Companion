@@ -5,6 +5,9 @@
 #include "../src/WorkReactionCoordinator.h"
 
 #include <QFile>
+#include <QDir>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QtMath>
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
@@ -46,6 +49,11 @@ private slots:
     void quietWorkPreservesForegroundAndManualReactions();
     void quietPolicyLetsRunningReactionsFinish();
     void absentQuietPredicateAllowsWorkReactions();
+    void permissionRequestsNominateApprovedCueOnceAndTrackItsOwner();
+    void permissionQuietAndRefusedRequestsNeverQueue();
+    void permissionCleanupAndNewTurnsCancelOnlyOwnedCue();
+    void permissionResolutionDoesNotCancelManualOrOtherReactions();
+    void permissionPendingClipCannotEnterAutomaticPath();
 };
 
 namespace {
@@ -94,6 +102,16 @@ struct WorkHarness {
     int returns() const {
         return std::count_if(attempts.cbegin(), attempts.cend(), [](const WorkAttempt& attempt) {
             return attempt.id == QStringLiteral("turn-ended");
+        });
+    }
+    int permissionAttempts() const {
+        return std::count_if(attempts.cbegin(), attempts.cend(), [](const WorkAttempt& attempt) {
+            return attempt.id == QStringLiteral("permission-cue");
+        });
+    }
+    int permissionStarts() const {
+        return std::count_if(attempts.cbegin(), attempts.cend(), [](const WorkAttempt& attempt) {
+            return attempt.id == QStringLiteral("permission-cue") && attempt.started;
         });
     }
 };
@@ -941,6 +959,205 @@ void MotionClipTest::absentQuietPredicateAllowsWorkReactions() {
     controller.turnStopped(QStringLiteral("a"), QStringLiteral("one"));
     QCOMPARE(motion.interactionId(), QStringLiteral("turn-ended"));
     QCOMPARE(notes, QList<qint64>{WorkReactionCoordinator::kMinimumNoteMs});
+}
+
+void MotionClipTest::permissionRequestsNominateApprovedCueOnceAndTrackItsOwner() {
+    for (const bool seated : {false, true}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.motion.setWorkPosturePreference(seated ? ParameterMotion::WorkPosturePreference::Laptop
+                                                    : ParameterMotion::WorkPosturePreference::Standing);
+        work.controller.turnStarted("opencode", "execution");
+        work.advance(seated ? 16.0 : 3.0);
+        const double phase = work.motion.busyPhaseTime();
+        const double continuous = work.motion.continuousBusyTime();
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"first", "second"});
+        QCOMPARE(work.permissionAttempts(), 2);
+        QCOMPARE(work.permissionStarts(), 1); // One screen owner, not a queue of two cues.
+        QVERIFY(work.motion.permissionCueActive());
+        work.advance(0.4);
+        QCOMPARE(work.motion.busyPhaseTime(), phase);
+        QCOMPARE(work.motion.continuousBusyTime(), continuous);
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"first"});
+        QVERIFY(work.motion.permissionCueActive()); // An unbound request was resolved.
+        work.controller.applyPermissionSnapshot("opencode", "execution", {});
+        QVERIFY(!work.motion.permissionCueActive());
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+        QCOMPARE(work.controller.state(), PetController::State::Busy);
+        QVERIFY(work.notes.isEmpty());
+        QCOMPARE(work.returns(), 0);
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"first", "second"});
+        QCOMPARE(work.permissionAttempts(), 2); // Neither handled ID gets another nomination.
+        QVERIFY(!work.motion.permissionCueActive());
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"first", "second", "third"});
+        QCOMPARE(work.permissionStarts(), 2);
+        QVERIFY(work.motion.permissionCueActive());
+        work.advance(3.2);
+        QVERIFY(!work.motion.permissionCueActive());
+        QVERIFY(work.motion.busyPhaseTime() > phase);
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"third", "second", "first"});
+        QCOMPARE(work.permissionAttempts(), 3);
+        QVERIFY(!work.motion.permissionCueActive());
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+    }
+}
+
+void MotionClipTest::permissionQuietAndRefusedRequestsNeverQueue() {
+    for (const QString& owner : {QStringLiteral("quiet"), QStringLiteral("head-pat"),
+         QStringLiteral("drag"), QStringLiteral("delete"), QStringLiteral("grass"),
+         QStringLiteral("transition")}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.motion.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Standing);
+        work.controller.turnStarted("opencode", "execution");
+        work.advance(3.0);
+        if (owner == QStringLiteral("quiet")) work.automaticAllowed = false;
+        if (owner == QStringLiteral("head-pat")) QVERIFY(work.motion.beginHeadPat());
+        if (owner == QStringLiteral("drag")) work.motion.beginDragMotion();
+        if (owner == QStringLiteral("delete")) work.controller.desktopItemDeleted();
+        if (owner == QStringLiteral("grass")) work.controller.playGrass();
+        if (owner == QStringLiteral("transition")) {
+            work.motion.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Laptop);
+            work.advance(0.02); // Laptop target selected, sustained-work sit protection still active.
+        }
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"consumed"});
+        QCOMPARE(work.permissionAttempts(), 1);
+        QCOMPARE(work.permissionStarts(), 0);
+        QCOMPARE(work.attempts.last().reason, owner == QStringLiteral("quiet")
+            ? QStringLiteral("quiet_policy")
+            : owner == QStringLiteral("delete") || owner == QStringLiteral("grass")
+                ? QStringLiteral("activity_owns_stage") : QStringLiteral("motion_gate_refused"));
+        if (owner == QStringLiteral("head-pat"))
+            QCOMPARE(work.motion.interactionId(), QStringLiteral("head-pat"));
+        work.automaticAllowed = true;
+        work.motion.cancelInteraction();
+        work.motion.cancelDragMotion();
+        work.controller.actionFinished();
+        work.advance(16.0);
+        QVERIFY2(!work.motion.permissionCueActive(), qPrintable(owner));
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"consumed"});
+        work.controller.applyPermissionSnapshot("opencode", "execution", {});
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"consumed"});
+        QCOMPARE(work.permissionAttempts(), 1);
+        QVERIFY(!work.motion.permissionCueActive());
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"fresh"});
+        QCOMPARE(work.permissionStarts(), 1); // Only a genuinely new request can try again.
+        QCOMPARE(work.controller.activeTurnCount(), 1);
+    }
+    WorkHarness running;
+    QVERIFY(running.load());
+    running.motion.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Standing);
+    running.controller.turnStarted("a", "one");
+    running.advance(3.0);
+    running.controller.applyPermissionSnapshot("a", "one", {"already-playing"});
+    QVERIFY(running.motion.permissionCueActive());
+    running.automaticAllowed = false;
+    running.advance(0.3);
+    QVERIFY(running.motion.permissionCueActive()); // Quiet only guards new nominations.
+    running.advance(3.0);
+    QVERIFY(!running.motion.permissionCueActive());
+    QCOMPARE(running.permissionStarts(), 1);
+}
+
+void MotionClipTest::permissionCleanupAndNewTurnsCancelOnlyOwnedCue() {
+    for (const QString& event : {QStringLiteral("stop"), QStringLiteral("session"),
+         QStringLiteral("reset"), QStringLiteral("expiry"), QStringLiteral("new-turn"),
+         QStringLiteral("delete"), QStringLiteral("grass")}) {
+        WorkHarness work;
+        QVERIFY(work.load());
+        work.motion.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Standing);
+        work.controller.turnStarted("opencode", "execution");
+        work.controller.turnStarted("other-source", "parallel");
+        work.advance(3.0);
+        work.controller.applyPermissionSnapshot("opencode", "execution", {"bound"});
+        QVERIFY(work.motion.permissionCueActive());
+        work.advance(0.3);
+        if (event == QStringLiteral("stop")) work.controller.turnStopped("opencode", "execution");
+        if (event == QStringLiteral("session")) work.controller.sessionEnded("opencode");
+        if (event == QStringLiteral("reset")) work.controller.resetBusy();
+        if (event == QStringLiteral("expiry")) {
+            work.now += 4LL * 60 * 60 * 1000 + 1;
+            QVERIFY(QMetaObject::invokeMethod(&work.controller, "expireOldTurns", Qt::DirectConnection));
+        }
+        if (event == QStringLiteral("new-turn")) work.controller.turnStarted("third-source", "fresh");
+        if (event == QStringLiteral("delete")) work.controller.desktopItemDeleted();
+        if (event == QStringLiteral("grass")) work.controller.playGrass();
+        QVERIFY2(!work.motion.permissionCueActive(), qPrintable(event));
+        if (event == QStringLiteral("stop") || event == QStringLiteral("session")) {
+            QCOMPARE(work.controller.activeTurnCount(), 1);
+            QCOMPARE(work.controller.state(), PetController::State::Busy);
+            QCOMPARE(work.controller.pendingPermissionCount(), 0);
+        } else if (event == QStringLiteral("new-turn")) {
+            QCOMPARE(work.controller.activeTurnCount(), 3);
+            QCOMPARE(work.controller.pendingPermissionCount(), 1); // New work does not resolve approval.
+        } else if (event == QStringLiteral("reset") || event == QStringLiteral("expiry")) {
+            QCOMPARE(work.controller.activeTurnCount(), 0);
+            QCOMPARE(work.controller.pendingPermissionCount(), 0);
+        } else {
+            QCOMPARE(work.controller.activeTurnCount(), 2);
+            QCOMPARE(work.controller.pendingPermissionCount(), 1);
+        }
+        work.controller.actionFinished();
+        work.advance(4.0);
+        QVERIFY(!work.motion.permissionCueActive());
+        QCOMPARE(work.permissionStarts(), 1);
+        QCOMPARE(work.returns(), 0); // Concurrent stop or bookkeeping is never all-done.
+    }
+}
+
+void MotionClipTest::permissionResolutionDoesNotCancelManualOrOtherReactions() {
+    WorkHarness work;
+    QVERIFY(work.load());
+    work.motion.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Standing);
+    work.controller.turnStarted("opencode", "execution");
+    work.advance(3.0);
+    work.controller.applyPermissionSnapshot("opencode", "execution", {"bound"});
+    const quint64 automaticSerial = work.motion.permissionCueSerial();
+    QVERIFY(automaticSerial > 0);
+    work.advance(3.0);
+    QVERIFY(!work.motion.permissionCueActive());
+    QVERIFY(work.motion.playPermissionCue()); // Explicit ordinary/manual preview is a new player instance.
+    QVERIFY(work.motion.permissionCueSerial() != automaticSerial);
+    work.controller.applyPermissionSnapshot("opencode", "execution", {});
+    QVERIFY(work.motion.permissionCueActive()); // Old binding cannot cancel this manual instance.
+    work.advance(3.0);
+    work.controller.applyPermissionSnapshot("opencode", "execution", {"next"});
+    QVERIFY(work.motion.permissionCueActive());
+    QVERIFY(work.motion.beginHeadPat());
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("head-pat"));
+    work.controller.applyPermissionSnapshot("opencode", "execution", {});
+    QCOMPARE(work.motion.interactionId(), QStringLiteral("head-pat"));
+}
+
+void MotionClipTest::permissionPendingClipCannotEnterAutomaticPath() {
+    QTemporaryDir draft;
+    QVERIFY(draft.isValid());
+    const QDir source(QStringLiteral("assets/motions"));
+    for (const QString& name : source.entryList({QStringLiteral("*.motion.json")}, QDir::Files))
+        QVERIFY(QFile::copy(source.filePath(name), draft.filePath(name)));
+    const QString path = draft.filePath(QStringLiteral("permission-cue.motion.json"));
+    QFile file(path);
+    QVERIFY(file.open(QIODevice::ReadOnly));
+    auto data = QJsonDocument::fromJson(file.readAll()).object();
+    file.close();
+    data.insert(QStringLiteral("approval"), QStringLiteral("pending"));
+    data.insert(QStringLiteral("conceptApproval"), QStringLiteral("pending"));
+    QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Truncate));
+    file.write(QJsonDocument(data).toJson());
+    file.close();
+    WorkHarness work;
+    QVERIFY(work.load());
+    QString error;
+    QVERIFY2(work.motion.loadMotionLibrary(draft.path(), &error), qPrintable(error));
+    work.motion.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Standing);
+    work.controller.turnStarted("a", "one");
+    work.advance(3.0);
+    work.controller.applyPermissionSnapshot("a", "one", {"pending-clip"});
+    QCOMPARE(work.permissionAttempts(), 1);
+    QCOMPARE(work.permissionStarts(), 0);
+    QVERIFY(!work.motion.permissionCueActive());
+    QCOMPARE(work.controller.pendingPermissionCount(), 1);
+    QCOMPARE(work.controller.activeTurnCount(), 1);
 }
 
 QTEST_GUILESS_MAIN(MotionClipTest)

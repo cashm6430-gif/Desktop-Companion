@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "scope": "approved automatic permission cue adoption",
+  "approval": "approved",
+  "unchanged_from_approved_rev1": true,
+  "scenarios": [
+    {
+      "kind": "standing",
+      "frames": 840,
+      "checks": 22,
+      "automatic_starts": [
+        300,
+        360,
+        480,
+        560,
+        620
+      ],
+      "passed": true
+    },
+    {
+      "kind": "laptop",
+      "frames": 840,
+      "checks": 22,
+      "automatic_starts": [
+        300,
+        360,
+        480,
+        560,
+        620
+      ],
+      "passed": true
+    }
+  ],
+  "real_model_task_executed": false,
+  "physical_mouse_tray_tested": false
+}

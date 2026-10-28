@@ -15,6 +15,9 @@ WorkReactionCoordinator::WorkReactionCoordinator(
             [this](PetController::State state) { this->applyState(state); });
     connect(controller_, &PetController::turnBegan, this,
             [this](const QString&, const QString&) {
+        // A fresh real task supersedes this request's old automatic cue. It
+        // does not clear another turn's permission facts or other reactions.
+        cancelOwnedPermissionCue();
         if (controller_->state() != PetController::State::Delete
             && controller_->state() != PetController::State::Grass) return;
         // A foreground action can hide the entire Busy entry. Consume a quiet
@@ -37,6 +40,12 @@ WorkReactionCoordinator::WorkReactionCoordinator(
         }
         durationNote_(workedMs);
     });
+    connect(controller_, &PetController::permissionStateChanged, this,
+            [this] { permissionStateChanged(); });
+    connect(controller_, &PetController::permissionRequested, this,
+            [this](const QString& session, const QString& turn, const QString& request) {
+        permissionRequested(session, turn, request);
+    });
 }
 
 void WorkReactionCoordinator::applyState(PetController::State state) {
@@ -44,6 +53,7 @@ void WorkReactionCoordinator::applyState(PetController::State state) {
     // old return-gaze before this session's greeting is offered.
     if (stateSink_) stateSink_(state);
     else motion_->setState(state);
+    if (state != PetController::State::Busy) cancelOwnedPermissionCue();
 
     if (state == PetController::State::Idle) {
         greeted_ = false;
@@ -59,6 +69,47 @@ void WorkReactionCoordinator::applyState(PetController::State state) {
         report(QStringLiteral("greet"), started,
                started ? QStringLiteral("started") : QStringLiteral("motion_gate_refused"));
     }
+}
+
+void WorkReactionCoordinator::permissionRequested(const QString& sessionId, const QString& turnId,
+                                                   const QString& requestId) {
+    // The controller consumes each admission before emitting this signal.
+    // Refusal is final: no timer, idle transition, or quiet-policy release
+    // may replay a request that the user may already have handled.
+    if (!controller_->hasPendingPermission(sessionId, turnId, requestId)) return;
+    if (controller_->state() != PetController::State::Busy) {
+        report(QStringLiteral("permission-cue"), false, QStringLiteral("activity_owns_stage"));
+        return;
+    }
+    if (!allowAutomatic()) {
+        report(QStringLiteral("permission-cue"), false, QStringLiteral("quiet_policy"));
+        return;
+    }
+    const bool started = motion_->playPermissionCue();
+    if (started) {
+        permissionSession_ = sessionId;
+        permissionTurn_ = turnId;
+        permissionRequest_ = requestId;
+        permissionCueSerial_ = motion_->permissionCueSerial();
+    }
+    report(QStringLiteral("permission-cue"), started,
+           started ? QStringLiteral("started") : QStringLiteral("motion_gate_refused"));
+}
+
+void WorkReactionCoordinator::permissionStateChanged() {
+    if (!permissionCueSerial_) return;
+    if (!controller_->hasPendingPermission(permissionSession_, permissionTurn_, permissionRequest_))
+        cancelOwnedPermissionCue();
+}
+
+void WorkReactionCoordinator::cancelOwnedPermissionCue() {
+    if (permissionCueSerial_ && motion_->permissionCueActive()
+        && motion_->permissionCueSerial() == permissionCueSerial_)
+        motion_->cancelInteraction();
+    permissionCueSerial_ = 0;
+    permissionSession_.clear();
+    permissionTurn_.clear();
+    permissionRequest_.clear();
 }
 
 void WorkReactionCoordinator::returnGaze() {

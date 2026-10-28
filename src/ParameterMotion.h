@@ -77,6 +77,7 @@ public:
     // Drafts are explicit review only; never inferred from elapsed Busy time.
     bool playPermissionCue(bool allowDraft = false);
     bool permissionCueActive() const { return interaction_ == Interaction::PermissionCue; }
+    quint64 permissionCueSerial() const { return permissionCueSerial_; }
     // True while the stretch-and-peek pause is playing. A click during the
     // peek is "caught you": pokeStretch skips to the recovery beat instead of
     // starting a head pat.
@@ -335,6 +336,7 @@ private:
     MotionClip greetClip_;
     MotionClip cheerClip_;
     MotionClip permissionCueClip_;
+    quint64 permissionCueSerial_ = 0;
     QString interactionDirectory_;
     Interaction interaction_ = Interaction::None;
     double interactionTime_ = 0.0;

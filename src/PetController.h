@@ -29,6 +29,8 @@ public:
     int activeTurnCount() const { return activeTurns_.size(); }
     int pendingPermissionCount() const;
     int permissionTurnCount() const { return permissions_.size(); }
+    bool hasPendingPermission(const QString& sessionId, const QString& turnId,
+                              const QString& requestId) const;
     // The file the pet was last fed by drag-and-drop, empty before the first
     // drop. The eat clip itself does not know the file; this is for the
     // window-layer prop (the rolled-up document) to draw what was dropped.
@@ -73,6 +75,10 @@ public slots:
 signals:
     void stateChanged(PetController::State state);
     void permissionStateChanged();
+    // Emitted once per newly observed request in a live turn, after the full
+    // request set is committed. A refused/quiet reaction is never queued.
+    void permissionRequested(const QString& sessionId, const QString& turnId,
+                             const QString& requestId);
     // A newly tracked real turn, after insertion and before any background
     // state change. Delete/Grass can keep Busy hidden while work still starts.
     // Repeated starts for an already active key do not emit another beginning.
@@ -101,7 +107,12 @@ private:
     void triggerEat(const QString& file, const QPointF& sourcePos, const QIcon& icon);
     int durationMs(State state) const;
     QHash<QString, qint64> activeTurns_;
+    QHash<QString, quint64> activeTurnGenerations_;
+    quint64 nextTurnGeneration_ = 0;
     QHash<QString, QSet<QString>> permissions_;
+    // Keep historical admission bounded without evicting old IDs into a
+    // replay window. A saturated live turn remains factual but stops cues.
+    QHash<QString, QSet<QString>> permissionNominations_;
     NowMs nowMs_;
     State state_ = State::Idle;
     QTimer actionTimer_;

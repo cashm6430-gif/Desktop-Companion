@@ -33,8 +33,8 @@
       "sha256": "62667fccbad729ec041684659202f2582578577d88ad8e56c2ed3aa77c578565"
     },
     "CMakeLists.txt": {
-      "bytes": 18844,
-      "sha256": "cfdafe1d86ce8248fd13f1c94f86eeb58e018a806c1c237a7bf6908c75492482"
+      "bytes": 18912,
+      "sha256": "f8e0a02b74e4b01c9504f7c13a763d62a8e1b016e7c4d93da39ddf64aa226bca"
     },
     "art/3d/integration/replay-smoke-v1.json": {
       "bytes": 731,
@@ -6008,6 +6008,46 @@
       "bytes": 15668,
       "sha256": "dec97e8845e34bef0b92db2eef2aae95148610daa0fa6972f2fba0b8c305f9ef"
     },
+    "art/live2d/workflow/permission-adoption-20261026/adoption-check.json": {
+      "bytes": 677,
+      "sha256": "63bd7350d6853920e6fabe5cb651e90b558424330c0cb796ed6a175abe60a64a"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/approved-automatic.gif": {
+      "bytes": 2038478,
+      "sha256": "24ac7af405f062eed0b296c5cf3d1a535ea436d075cce98c041a2a2f31688f04"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/approved-key-poses.png": {
+      "bytes": 786496,
+      "sha256": "30bbefaa8bec156e40847607bb681f1a9988ec10175985ea86d8a3ee9aae90f8"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/approved-legacy-check.json": {
+      "bytes": 1772,
+      "sha256": "bd25a59da7ddbc1a07fd9ccb52abc492ed2786b256d7635329081423b5eff060"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/approved-legacy-traces.zip": {
+      "bytes": 111460,
+      "sha256": "4a230b531338d566d1c652cd8e34d70b28a6a23171da32560186015399aaecea"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/artifact-hashes.json": {
+      "bytes": 1247,
+      "sha256": "adff92848d0ba4adb68239f1c0fe3a585a017a7c3d6ba601a1a80d2ac68b48c4"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/capture-inputs.json": {
+      "bytes": 1210,
+      "sha256": "73a125fd329dbc9bead886b2f20f17e1f91ebf43f8aab32449f70f93be582b28"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/native-traces.zip": {
+      "bytes": 400585,
+      "sha256": "daae98ab6999a2f9400bde4a35d21ae071df6bc32e0c1b9b837c9381b63c77a1"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/test-logs.zip": {
+      "bytes": 7275,
+      "sha256": "f65fc60a2879aef003a399579faf983e956898dd0c2182aeffdb705fc3119b89"
+    },
+    "art/live2d/workflow/permission-adoption-20261026/verification.json": {
+      "bytes": 4689,
+      "sha256": "164a241b9f1a0bd136354051b69ad186c58ca288a2082d843cc64c51e53cf100"
+    },
     "art/live2d/workflow/permission-wait-20261026/artifact-hashes.json": {
       "bytes": 1496,
       "sha256": "9b8bb00af84c3ad7f9e2515b61f74649d7de09d65f15d69e6223001ed4e1244f"
@@ -7245,8 +7285,8 @@
       "sha256": "6434f85ce39f70978e65097af3d9bca230f40ab5d0b907975f70607c68a880ef"
     },
     "assets/motions/permission-cue.motion.json": {
-      "bytes": 4851,
-      "sha256": "6f2e54de0632c3abf419f8b8f70bbb655f74dba553d1385e6dd32b70bf57214a"
+      "bytes": 5065,
+      "sha256": "40957f5d09102e790008eb9213b742f0a84fc86595eb19861702a785902f505c"
     },
     "assets/motions/turn-ended.motion.json": {
       "bytes": 12721,
@@ -7561,20 +7601,28 @@
       "sha256": "f921b622288f468a2dcdd6606e10ebd20ecb1e869c8ab429fc0a85c7070221b8"
     },
     "src/ParameterMotion.cpp": {
-      "bytes": 78312,
-      "sha256": "540bc9605eb6c6477e9c3ea4679619b799adeef39d88ba6ffe588cbb43cb6145"
+      "bytes": 78340,
+      "sha256": "748bc8c93f740306ab74f21bc274466b52a46aaa0fe1e369b11de1804ff489be"
     },
     "src/ParameterMotion.h": {
-      "bytes": 21760,
-      "sha256": "38829e823a16ede74314c36ae93987f433b58e6c8ea65461b3a317a6fbb1a03a"
+      "bytes": 21871,
+      "sha256": "8a05c225d0aabc736309192619e1f8239e46a4a2f230e2740c5bdab7b513074d"
+    },
+    "src/PermissionAdoptionReview.cpp": {
+      "bytes": 13170,
+      "sha256": "747e8b937a845cb5d9afe4015400413e91eac6e6107286da3f4c90fdc645fc15"
+    },
+    "src/PermissionAdoptionReview.h": {
+      "bytes": 267,
+      "sha256": "bf2aba7b2a8f8954b16f3cf471bc2de513dba7d25779c24bae7e45ef326f5a87"
     },
     "src/PetController.cpp": {
-      "bytes": 8952,
-      "sha256": "2c2c266bc69ee73e1a56dd246b61f9b99e9e8ca4a60382b9c33a85458321a85d"
+      "bytes": 10811,
+      "sha256": "c15ebe8dae05b0e01e05297222dfb0b3f139a371cfeaae2051df99b38b50270f"
     },
     "src/PetController.h": {
-      "bytes": 5798,
-      "sha256": "e774eeff29a73db47646e3375680fd92b134beefc342f52bc28bd81ae2168f92"
+      "bytes": 6534,
+      "sha256": "c54f135607a9d43dc3f606b1e7ea4bea2cc80638ca5c0eff15613bb72ebb15f6"
     },
     "src/PetPointerGesture.cpp": {
       "bytes": 2535,
@@ -7585,8 +7633,8 @@
       "sha256": "f7aa177966972981945c645a3b9cd9d10d54ffc31173e8f5e0c302a4914f4c95"
     },
     "src/PetWindow.cpp": {
-      "bytes": 111067,
-      "sha256": "0374e041a2eec3a4a69f5c6818cd63b41c6dc36c2d8be4d18a26cb678a60a9a3"
+      "bytes": 111506,
+      "sha256": "7dca5cb419463528e5321edae706f2b8f760eb7c916749ded1aa165e545701aa"
     },
     "src/PetWindow.h": {
       "bytes": 15255,
@@ -7653,20 +7701,20 @@
       "sha256": "f8de039195033dd72b214dbb851d442fe4d72f550207c6800079a2caaeae7415"
     },
     "src/WorkReactionCoordinator.cpp": {
-      "bytes": 3863,
-      "sha256": "9228b4bfd46575ba7a0f0328969c55be45ff1faae3e724465dda0fcd30d9ab2a"
+      "bytes": 6259,
+      "sha256": "6874fd8280ab6d0605a525e19eb9e045db60c0e66f8818f80955235b70d03eb2"
     },
     "src/WorkReactionCoordinator.h": {
-      "bytes": 1456,
-      "sha256": "4c2fee21d88f456f95174b5b48aaa300f4ddcb425122bc447bbe5e2ae65bd1ae"
+      "bytes": 1793,
+      "sha256": "58e7ef19fb4672e6394dafdd8146d2345a7ecc78efb68c3a045d4d6d9efdadad"
     },
     "src/hook_main.cpp": {
       "bytes": 7948,
       "sha256": "62f8de982d9c4991c74abc94bdbf109b6e36659e0e2376b75b2413278cfab82f"
     },
     "src/main.cpp": {
-      "bytes": 67281,
-      "sha256": "ebb2e3dfebd01b2d971662e79526fce0a6276a79c52022a09d76769b39b02043"
+      "bytes": 68345,
+      "sha256": "ccc5cbf66cfa9884ddc916bd6e20f95fe02dd820407828016cf4cb79c7636478"
     },
     "src/motion/BoxBehavior.cpp": {
       "bytes": 6397,
@@ -7809,8 +7857,8 @@
       "sha256": "f52537575a5ed265077961f1465418b2faed6405c02c1d5a7fac9928b4e84229"
     },
     "tests/MotionClipTest.cpp": {
-      "bytes": 46756,
-      "sha256": "c6c7721e819123ab9f60c04c84faa840c898a1521e70295e0aed42f7606055c4"
+      "bytes": 59082,
+      "sha256": "8702949ecd9f1cfcabe3f6ee1800b0ab50e4624d89eeed7ed85867355ebf160a"
     },
     "tests/OpenCodeBridgeTest.mjs": {
       "bytes": 31697,
@@ -7821,12 +7869,12 @@
       "sha256": "e3c4c78908ec29f4405adb6390d10d9aec573d3421ceda7ef0c38f9f42d7ee0c"
     },
     "tests/ParameterMotionTest.cpp": {
-      "bytes": 179892,
-      "sha256": "0082735ea9fcef90e1303596313827742212d2508e4182468edb15d61dc3cee7"
+      "bytes": 179661,
+      "sha256": "5202619ec420216f5b92bb0af2b49933c3f44814a3984df14332c47c3c69641a"
     },
     "tests/PetControllerTest.cpp": {
-      "bytes": 22156,
-      "sha256": "76bcfe6745f1bce2cbc63390619ea47d237a274eb6ab7082162a1644b2d59f32"
+      "bytes": 28452,
+      "sha256": "21410da7ec6ee95ef7f958750c218c3bceb9c779ac2b5e3341779c3e882c7008"
     },
     "tests/PetPointerGestureTest.cpp": {
       "bytes": 6085,
@@ -7975,6 +8023,10 @@
     "tools/audit_live2d_tiles.py": {
       "bytes": 4773,
       "sha256": "15a0f5fb100f6b34966b874c2db2134823f3892e47f0dacaecce63ee1c6056e1"
+    },
+    "tools/build-release.ps1": {
+      "bytes": 3549,
+      "sha256": "991a38420ce5b3c3a6014bf235f5fe5b0dd5226849574c4d55afbb885af7c852"
     },
     "tools/build.cmd": {
       "bytes": 1138,
@@ -8288,9 +8340,13 @@
       "bytes": 10262,
       "sha256": "e9598649e6e9e9d91493a4dcd085e392bb961b633db8f23110834c5ba801d798"
     },
+    "tools/review_permission_adoption.py": {
+      "bytes": 7569,
+      "sha256": "104883c79be2e9e7c5880e25088cde48c2a3f6135b07590dbbee6eb4be86de03"
+    },
     "tools/review_permission_cue.py": {
-      "bytes": 7907,
-      "sha256": "ef7fd9cc9da93be37c4b083a51e6234f7a55cb18b6c5f0b6ac09dffbbef8ec46"
+      "bytes": 9554,
+      "sha256": "784da161d33b3bf347c85136818edb539543705d73676ee19103d055da49620e"
     },
     "tools/review_report.py": {
       "bytes": 14508,

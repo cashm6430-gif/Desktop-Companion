@@ -30,7 +30,123 @@ private slots:
     void malformedAndOrphanPermissionSnapshotsAreIgnored();
     void permissionSnapshotsDoNotRenewExpiry();
     void foregroundActionsKeepPermissionFacts();
+    void permissionAdmissionsAreOncePerLiveTurnAndFollowCommittedFacts();
+    void permissionAdmissionHistoryIsBoundedWithoutReplayingOldIds();
+    void permissionReentrantTurnReplacementRejectsOldNominations();
+    void permissionReentrantUnrelatedTurnsDoNotDiscardNominations();
 };
+
+void PetControllerTest::permissionReentrantTurnReplacementRejectsOldNominations() {
+    for (const QString& cleanup : {QStringLiteral("stop"), QStringLiteral("session"),
+         QStringLiteral("reset"), QStringLiteral("expiry")}) {
+        qint64 now = 1000;
+        PetController controller(nullptr, [&] { return now; });
+        controller.turnStarted("session", "turn");
+        QSignalSpy requested(&controller, &PetController::permissionRequested);
+        bool replaced = false;
+        connect(&controller, &PetController::permissionStateChanged, this, [&] {
+            if (replaced) return;
+            replaced = true;
+            if (cleanup == QStringLiteral("stop")) controller.turnStopped("session", "turn");
+            if (cleanup == QStringLiteral("session")) controller.sessionEnded("session");
+            if (cleanup == QStringLiteral("reset")) controller.resetBusy();
+            if (cleanup == QStringLiteral("expiry")) {
+                now += 4LL * 60 * 60 * 1000 + 1;
+                QVERIFY(QMetaObject::invokeMethod(&controller, "expireOldTurns", Qt::DirectConnection));
+            }
+            controller.turnStarted("session", "turn");
+            controller.applyPermissionSnapshot("session", "turn", {"same-a", "same-b"});
+        });
+        controller.applyPermissionSnapshot("session", "turn", {"same-a", "same-b"});
+        QVERIFY2(replaced, qPrintable(cleanup));
+        QCOMPARE(requested.size(), 2); // Only the recreated turn's inner snapshot nominates.
+        QCOMPARE(requested.at(0).at(2).toString(), QStringLiteral("same-a"));
+        QCOMPARE(requested.at(1).at(2).toString(), QStringLiteral("same-b"));
+        QCOMPARE(controller.activeTurnCount(), 1);
+        QCOMPARE(controller.pendingPermissionCount(), 2);
+    }
+}
+
+void PetControllerTest::permissionReentrantUnrelatedTurnsDoNotDiscardNominations() {
+    PetController controller;
+    controller.turnStarted("session", "turn");
+    QSignalSpy requested(&controller, &PetController::permissionRequested);
+    bool observed = false;
+    connect(&controller, &PetController::permissionStateChanged, this, [&] {
+        if (observed) return;
+        observed = true;
+        controller.turnStarted("session", "turn"); // Duplicate is not a new generation.
+        controller.turnStarted("unrelated", "turn");
+        controller.applyPermissionSnapshot("unrelated", "turn", {"other"});
+    });
+    controller.applyPermissionSnapshot("session", "turn", {"first", "second"});
+    QCOMPARE(requested.size(), 3);
+    QCOMPARE(requested.at(0).at(0).toString(), QStringLiteral("unrelated"));
+    QCOMPARE(requested.at(1).at(0).toString(), QStringLiteral("session"));
+    QCOMPARE(requested.at(2).at(0).toString(), QStringLiteral("session"));
+    QCOMPARE(controller.activeTurnCount(), 2);
+    QCOMPARE(controller.pendingPermissionCount(), 3);
+}
+
+void PetControllerTest::permissionAdmissionsAreOncePerLiveTurnAndFollowCommittedFacts() {
+    PetController controller;
+    QSignalSpy requested(&controller, &PetController::permissionRequested);
+    QSignalSpy changed(&controller, &PetController::permissionStateChanged);
+    controller.turnStarted("session", "one");
+    controller.turnStarted("session", "two");
+    QStringList order;
+    connect(&controller, &PetController::permissionStateChanged, this,
+        [&] { order.append("facts"); });
+    connect(&controller, &PetController::permissionRequested, this,
+        [&](const QString& session, const QString& turn, const QString& request) {
+            QVERIFY(controller.hasPendingPermission(session, turn, request));
+            order.append(request);
+        });
+    controller.applyPermissionSnapshot("session", "one", {"a", "b"});
+    QCOMPARE(requested.size(), 2);
+    QCOMPARE(order, QStringList({"facts", "a", "b"}));
+    controller.applyPermissionSnapshot("session", "one", {"b", "a"});
+    QCOMPARE(requested.size(), 2);
+    controller.applyPermissionSnapshot("session", "one", {});
+    controller.applyPermissionSnapshot("session", "one", {"a", "c"});
+    QCOMPARE(requested.size(), 3); // Clear/retry of a cannot replay its cue.
+    QCOMPARE(requested.last().at(2).toString(), QStringLiteral("c"));
+    controller.applyPermissionSnapshot("session", "two", {"a"});
+    QCOMPARE(requested.size(), 4); // A different live turn owns its own ID.
+    QVERIFY(controller.hasPendingPermission("session", "two", "a"));
+    QVERIFY(!controller.hasPendingPermission("unknown", "two", "a"));
+    controller.turnStopped("session", "one");
+    QVERIFY(!controller.hasPendingPermission("session", "one", "a"));
+    controller.turnStarted("session", "one");
+    controller.applyPermissionSnapshot("session", "one", {"a"});
+    QCOMPARE(requested.size(), 5); // A real new turn re-arms the bounded ledger.
+    QCOMPARE(controller.activeTurnCount(), 2);
+    QCOMPARE(controller.pendingPermissionCount(), 2);
+    QVERIFY(changed.size() >= 4);
+}
+
+void PetControllerTest::permissionAdmissionHistoryIsBoundedWithoutReplayingOldIds() {
+    PetController controller;
+    QSignalSpy requested(&controller, &PetController::permissionRequested);
+    controller.turnStarted("session", "turn");
+    for (int i = 0; i < 270; ++i) {
+        const QString id = QStringLiteral("request-%1").arg(i);
+        controller.applyPermissionSnapshot("session", "turn", {id});
+        QCOMPARE(controller.pendingPermissionCount(), 1);
+        QVERIFY(controller.hasPendingPermission("session", "turn", id));
+    }
+    QCOMPARE(requested.size(), 256);
+    controller.applyPermissionSnapshot("session", "turn", {"request-0"});
+    QCOMPARE(requested.size(), 256); // Saturation never evicts an ID into replay.
+    controller.resetBusy();
+    controller.turnStarted("session", "turn");
+    controller.applyPermissionSnapshot("session", "turn", {"request-0"});
+    QCOMPARE(requested.size(), 257);
+    controller.sessionEnded("session");
+    controller.turnStarted("session", "turn");
+    controller.applyPermissionSnapshot("session", "turn", {"request-0"});
+    QCOMPARE(requested.size(), 258);
+}
 
 void PetControllerTest::permissionSnapshotsReplaceWithoutChangingWork() {
     qint64 now = 1000;

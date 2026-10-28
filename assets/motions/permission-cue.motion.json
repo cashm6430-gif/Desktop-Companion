@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "approval": "pending",
-  "conceptApproval": "pending",
+  "approval": "approved",
+  "conceptApproval": "approved",
   "revision": 1,
   "modelVersion": "whale-girl-R19-f6929a38",
   "duration": 2.8,
@@ -15,13 +15,13 @@
     "0-.2s 短暂定住当前工作细动与接触姿态，不切换站坐或家具。",
     ".2-.55s 眼先看用户；.55-1s 头晚半拍轻抬，AngleZ 恒 0，AngleX/Y 最大 3。",
     "1-1.8s 闭口浅笑与一次慢眨；1.8-2.8s 收回视线，淡回暂停的工作相位。",
-    "最多 2.8s，仅显式开发预览可播。不可据单个 permission 请求演成整个 execution 或其他会话都停工。"
+    "最多 2.8s，已批准；真实新增审批请求一次提名，安静或门控拒绝不补播。不可据单个 permission 请求演成整个 execution 或其他会话都停工。"
   ],
   "reviewNotes": {
-    "status": "Draft rev1; no key-pose or continuous Native preview approval yet.",
+    "status": "User approved rev1 standing and laptop Native preview on 2026-10-26: 通过，正式采用. Choreography unchanged.",
     "ownership": "Head/face only; no torso, arm, shift, seat, typing or prop curves. Player holds the current desk contact channels for the bounded beat.",
-    "runtime": "Explicit allowDraft preview only; settled Busy standing or seated, no existing foreground owner. Not connected to real permission events.",
-    "interrupts": "Idle/Delete/Grass/drag/pat/memo/sleep or closing draft preview cancels without replay."
+    "runtime": "Approved ordinary entry; one nomination per newly observed permission request, settled Busy standing or seated, no foreground owner, obey automatic quiet policy. Refused cues are not queued.",
+    "interrupts": "Resolved bound request, new turn, Idle/Delete/Grass/drag/pat/memo/sleep cancel without replay. Closing draft preview retains the approved cue."
   },
   "constants": {
     "ParamAngleZ": 0,

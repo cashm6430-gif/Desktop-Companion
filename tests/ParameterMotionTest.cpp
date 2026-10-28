@@ -3319,16 +3319,14 @@ void ParameterMotionTest::permissionCueRequiresApprovalAndSettledPosture() {
     QVERIFY(!motion.playPermissionCue(true)); // review cannot invent a Busy state
     motion.forceStandingBusy();
     advanceFrames(motion, 50);
-    const auto before = motion.values();
-    QVERIFY(!motion.playPermissionCue()); // pending must never leak into an ordinary entry
-    QCOMPARE(motion.values(), before);
-    QVERIFY(motion.playPermissionCue(true));
+    QVERIFY(motion.playPermissionCue()); // adopted asset uses the ordinary entry
     QCOMPARE(motion.interactionId(), QStringLiteral("permission-cue"));
     QVERIFY(motion.permissionCueActive());
     QVERIFY(!motion.workPauseActive()); // this short cue does not assert a blocked execution
     QVERIFY(!motion.playPermissionCue(true));
-    QVERIFY(motion.cancelPendingInteraction()); // closing draft preview cancels it
-    QVERIFY(!motion.interactionActive());
+    QVERIFY(!motion.cancelPendingInteraction()); // closing previews preserves the approved clip
+    QVERIFY(motion.permissionCueActive());
+    motion.cancelInteraction();
 
     motion.forceLaptopBusy();
     QVERIFY(!motion.playPermissionCue(true));
@@ -3343,22 +3341,20 @@ void ParameterMotionTest::permissionCueRequiresApprovalAndSettledPosture() {
     QVERIFY(motion.playPermissionCue(true));
     motion.cancelInteraction();
 
-    // The data gate also works after a future adoption. Approval alone cannot
-    // bypass the posture gate, and preview-off leaves an approved clip alive.
-    QTemporaryDir approved;
-    QVERIFY(writePermissionCueFixture(approved, QStringLiteral("approved")));
-    // Reload retains the other library clips; their phase readers must still
-    // find the authored configuration in the new fixture directory.
-    for (const QString& id : {QStringLiteral("head-pat"), QStringLiteral("grass-touch")}) {
-        const QString name = id + QStringLiteral(".motion.json");
-        QVERIFY(QFile::copy(QStringLiteral("assets/motions/") + name, approved.filePath(name)));
-    }
+    // Preserve the draft gate independently of the production asset's adoption.
+    QTemporaryDir pending;
+    QVERIFY(writePermissionCueFixture(pending, QStringLiteral("pending")));
+    ParameterMotion draft;
     QString error;
-    QVERIFY2(motion.loadMotionLibrary(approved.path(), &error), qPrintable(error));
-    QVERIFY(motion.playPermissionCue());
-    QVERIFY(!motion.cancelPendingInteraction());
-    QVERIFY(motion.permissionCueActive());
-    motion.cancelInteraction();
+    QVERIFY2(draft.loadMotionLibrary(pending.path(), &error), qPrintable(error));
+    draft.forceStandingBusy();
+    advanceFrames(draft, 50);
+    const auto beforeDraft = draft.values();
+    QVERIFY(!draft.playPermissionCue());
+    QCOMPARE(draft.values(), beforeDraft);
+    QVERIFY(draft.playPermissionCue(true));
+    QVERIFY(draft.cancelPendingInteraction());
+    QVERIFY(!draft.interactionActive());
 
     ParameterMotion delayed;
     QVERIFY(delayed.loadMotionLibrary(QStringLiteral("assets/motions")));
@@ -3472,7 +3468,11 @@ void ParameterMotionTest::permissionCueRefusesOwnersAndYieldsWithoutReplay() {
             if (event == QStringLiteral("memo")) motion.beginMemoMotion();
             if (event == QStringLiteral("memo-celebrate")) motion.beginMemoCelebrate();
             if (event == QStringLiteral("sleep")) motion.beginSleepMotion();
-            if (event == QStringLiteral("preview-off")) QVERIFY(motion.cancelPendingInteraction());
+            if (event == QStringLiteral("preview-off")) {
+                QVERIFY(!motion.cancelPendingInteraction());
+                QVERIFY(motion.permissionCueActive());
+                advanceFrames(motion, 110); // approved cue finishes on its own authored deadline
+            }
             QVERIFY2(!motion.permissionCueActive(), qPrintable(event));
             if (event == QStringLiteral("pat")) QCOMPARE(motion.interactionId(), QStringLiteral("head-pat"));
             motion.cancelDragMotion();

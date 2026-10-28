@@ -630,10 +630,14 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         setInteractionPreviewEnabled(true);
         motion_.playTurnEnded();
     });
-    auto* permissionCue = previewMenu->addAction(QStringLiteral("审批请求轻提示（待审批，仅忙碌）"), this, [this] {
+    const auto* permissionClip = motion_.library().clip(QStringLiteral("permission-cue"));
+    const bool permissionApproved = permissionClip && permissionClip->approval() == QStringLiteral("approved");
+    auto* permissionCue = previewMenu->addAction(permissionApproved
+        ? QStringLiteral("审批请求轻提示（仅忙碌）")
+        : QStringLiteral("审批请求轻提示（待审批，仅忙碌）"), this, [this, permissionApproved] {
         if (controller_->state() != PetController::State::Busy) return;
-        setInteractionPreviewEnabled(true);
-        motion_.playPermissionCue(true);
+        if (!permissionApproved) setInteractionPreviewEnabled(true);
+        motion_.playPermissionCue(!permissionApproved);
     });
     permissionCue->setObjectName(QStringLiteral("permissionCuePreviewAction"));
     const auto* standingRestClip = motion_.library().clip(QStringLiteral("busy-rest"));
@@ -956,8 +960,9 @@ void PetWindow::updateFullscreenPresence() {
 bool PetWindow::allowAutomaticReactions() const {
     // Scripted captures replay their explicit events independently of the
     // user's night setting and current foreground app. Their director is off.
-    return qApp->property("desktopCompanionReviewCapture").toBool()
-        || !quietPolicy_.suppressAutomatic();
+    if (qApp->property("desktopCompanionReviewCapture").toBool())
+        return !qApp->property("desktopCompanionReviewSuppressAutomatic").toBool();
+    return !quietPolicy_.suppressAutomatic();
 }
 
 void PetWindow::setState(PetController::State state) {

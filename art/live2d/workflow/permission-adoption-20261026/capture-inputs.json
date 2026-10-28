@@ -1,0 +1,14 @@
+{
+  "src/PermissionAdoptionReview.cpp": "747e8b937a845cb5d9afe4015400413e91eac6e6107286da3f4c90fdc645fc15",
+  "src/WorkReactionCoordinator.cpp": "6874fd8280ab6d0605a525e19eb9e045db60c0e66f8818f80955235b70d03eb2",
+  "src/WorkReactionCoordinator.h": "58e7ef19fb4672e6394dafdd8146d2345a7ecc78efb68c3a045d4d6d9efdadad",
+  "src/PetController.cpp": "c15ebe8dae05b0e01e05297222dfb0b3f139a371cfeaae2051df99b38b50270f",
+  "src/PetController.h": "c54f135607a9d43dc3f606b1e7ea4bea2cc80638ca5c0eff15613bb72ebb15f6",
+  "src/ParameterMotion.cpp": "748bc8c93f740306ab74f21bc274466b52a46aaa0fe1e369b11de1804ff489be",
+  "src/ParameterMotion.h": "8a05c225d0aabc736309192619e1f8239e46a4a2f230e2740c5bdab7b513074d",
+  "src/main.cpp": "ccc5cbf66cfa9884ddc916bd6e20f95fe02dd820407828016cf4cb79c7636478",
+  "src/PetWindow.cpp": "7dca5cb419463528e5321edae706f2b8f760eb7c916749ded1aa165e545701aa",
+  "assets/motions/permission-cue.motion.json": "40957f5d09102e790008eb9213b742f0a84fc86595eb19861702a785902f505c",
+  "tools/review_permission_adoption.py": "104883c79be2e9e7c5880e25088cde48c2a3f6135b07590dbbee6eb4be86de03",
+  "build/DesktopCompanion.exe": "7af25d1bd1a5f537ced0b7e962ba3df6c1e8a493002bfec1273dbbe4db8bf640"
+}

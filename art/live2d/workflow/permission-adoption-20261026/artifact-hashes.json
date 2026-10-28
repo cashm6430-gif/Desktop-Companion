@@ -1,0 +1,38 @@
+{
+  "adoption-check.json": {
+    "bytes": 677,
+    "sha256": "63bd7350d6853920e6fabe5cb651e90b558424330c0cb796ed6a175abe60a64a"
+  },
+  "approved-automatic.gif": {
+    "bytes": 2038478,
+    "sha256": "24ac7af405f062eed0b296c5cf3d1a535ea436d075cce98c041a2a2f31688f04"
+  },
+  "approved-key-poses.png": {
+    "bytes": 786496,
+    "sha256": "30bbefaa8bec156e40847607bb681f1a9988ec10175985ea86d8a3ee9aae90f8"
+  },
+  "approved-legacy-check.json": {
+    "bytes": 1772,
+    "sha256": "bd25a59da7ddbc1a07fd9ccb52abc492ed2786b256d7635329081423b5eff060"
+  },
+  "approved-legacy-traces.zip": {
+    "bytes": 111460,
+    "sha256": "4a230b531338d566d1c652cd8e34d70b28a6a23171da32560186015399aaecea"
+  },
+  "capture-inputs.json": {
+    "bytes": 1210,
+    "sha256": "73a125fd329dbc9bead886b2f20f17e1f91ebf43f8aab32449f70f93be582b28"
+  },
+  "native-traces.zip": {
+    "bytes": 400585,
+    "sha256": "daae98ab6999a2f9400bde4a35d21ae071df6bc32e0c1b9b837c9381b63c77a1"
+  },
+  "test-logs.zip": {
+    "bytes": 7275,
+    "sha256": "f65fc60a2879aef003a399579faf983e956898dd0c2182aeffdb705fc3119b89"
+  },
+  "verification.json": {
+    "bytes": 4689,
+    "sha256": "164a241b9f1a0bd136354051b69ad186c58ca288a2082d843cc64c51e53cf100"
+  }
+}

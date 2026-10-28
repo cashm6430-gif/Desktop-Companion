@@ -606,6 +606,7 @@ bool ParameterMotion::playPermissionCue(bool allowDraft) {
         || values_.value(deskVisible) > 0.001
         || (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden)) return false;
     interaction_ = Interaction::PermissionCue;
+    ++permissionCueSerial_;
     interactionTime_ = interactionElapsed_ = 0.0;
     // Freeze the current contact pose rather than authoring a second set of
     // laptop/hands. Typing holds at its current phase for this bounded beat.

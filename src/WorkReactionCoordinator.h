@@ -28,6 +28,10 @@ public:
 private:
     void applyState(PetController::State state);
     void returnGaze();
+    void permissionRequested(const QString& sessionId, const QString& turnId,
+                             const QString& requestId);
+    void permissionStateChanged();
+    void cancelOwnedPermissionCue();
     void report(const QString& id, bool started, const QString& reason);
     bool allowAutomatic() const;
 
@@ -38,4 +42,8 @@ private:
     ObserveAttempt observe_;
     AllowAutomatic allowAutomatic_;
     bool greeted_ = false;
+    QString permissionSession_;
+    QString permissionTurn_;
+    QString permissionRequest_;
+    quint64 permissionCueSerial_ = 0;
 };
