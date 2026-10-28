@@ -1,0 +1,52 @@
+{
+  "scope": "isolated Qt virtual screen, real live Cubism, synthetic mouse and fixture events",
+  "approval": "pending",
+  "scenarios": {
+    "left": {
+      "checks": 20,
+      "frames": 75
+    },
+    "right": {
+      "checks": 20,
+      "frames": 75
+    },
+    "top": {
+      "checks": 20,
+      "frames": 75
+    },
+    "bottom": {
+      "checks": 20,
+      "frames": 75
+    }
+  },
+  "preview_sha256": "cbeba33631bb3f235538761bd8e8357c34955e06ba546a9c2f42e33a9fb611b0",
+  "scene_traces_sha256": "5bf430e9cdcfb8c16288254477c375798fbe3c907fc49c9b66afa4857b593ab6",
+  "limitations": [
+    "ordinary entry disabled",
+    "no physical mouse or real multi-monitor window",
+    "deletion gate is a fixture, not a production source",
+    "fixtures use direct controller events, not a real agent or hook",
+    "Cubism physics is evaluated before frame rotation; rotated gravity is unverified"
+  ],
+  "inputs": {
+    "executable_sha256": "040e49341dc9d6975a79ace84a067cfd3e8bb204a737dd8339016e91126fb64b",
+    "model_and_texture_sha256": {
+      "whale-girl-layered-draft.model3.json": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+      "whale-girl-layered-draft.moc3": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+      "whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14",
+      "whale-girl-layered-draft.4096/texture_00.png": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58",
+      "whale-girl-layered-draft.4096/texture_01.png": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+      "whale-girl-layered-draft.4096/texture_02.png": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e",
+      "whale-girl-layered-draft.4096/texture_03.png": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+      "whale-girl-layered-draft.4096/texture_04.png": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20"
+    }
+  },
+  "head_detail_sha256": "4fcdad20292bd59e12983119df7cfe6e7451195879f7803399ee86d898bbea89",
+  "recomposition": "GIF and head-detail hashes identical on recomposition; existing evidence is not overwritten",
+  "full_ctest": {
+    "passed": "26/26",
+    "seconds": 68.94,
+    "log": "full-test-log.zip",
+    "sha256": "c622cc2ebdfbda380f93f4a0376ccd918d9569115e5e1a13155dc39543abfcca"
+  }
+}

@@ -1,4 +1,5 @@
 #include "CodexTurnSource.h"
+#include "EdgeHideReview.h"
 #include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
 #include "HeadPatInputReview.h"
@@ -149,8 +150,10 @@ int main(int argc, char** argv) {
         && arguments.value(3).startsWith(QStringLiteral("permission-cue-"));
     const bool permissionAdoptionReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("permission-adoption-"));
+    const bool edgeHideReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3).startsWith(QStringLiteral("edge-hide-"));
     qint64 memoReviewNowMs = 1000;
-    if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview || permissionAdoptionReview) {
+    if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview || permissionAdoptionReview || edgeHideReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -164,7 +167,7 @@ int main(int argc, char** argv) {
             || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
             return 2;
         app.setProperty("desktopCompanionReviewSettingsIsolated", true);
-        if (permissionCueReview || permissionAdoptionReview)
+        if (permissionCueReview || permissionAdoptionReview || edgeHideReview)
             app.setProperty("desktopCompanionReviewMemoPath", QDir(output).filePath(QStringLiteral("memo.json")));
         if (workPostureRestore) {
             // Only copy a completed review's explicitly supplied fixture INI.
@@ -223,6 +226,7 @@ int main(int argc, char** argv) {
         if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
         if (workPostureReview) return runWorkPostureReview(app, controller, window, output, scenario);
         if (permissionAdoptionReview) return runPermissionAdoptionReview(app, controller, window, output, scenario);
+        if (edgeHideReview) return runEdgeHideReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
             return runHeadPatInputReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("grass-"))) {

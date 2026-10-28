@@ -958,6 +958,7 @@ void PetWindow::updateFullscreenPresence() {
 }
 
 bool PetWindow::allowAutomaticReactions() const {
+    if (edgeReviewSuppressed_) return false;
     // Scripted captures replay their explicit events independently of the
     // user's night setting and current foreground app. Their director is off.
     if (qApp->property("desktopCompanionReviewCapture").toBool())
@@ -966,6 +967,7 @@ bool PetWindow::allowAutomaticReactions() const {
 }
 
 void PetWindow::setState(PetController::State state) {
+    if (edgeReviewSuppressed_) return;
     if (state == PetController::State::Delete || state == PetController::State::Grass) {
         releasePointerGesture();
         if (memo_->visual() == StickyNoteModel::Visual::Bubble) {
@@ -1806,6 +1808,46 @@ void PetWindow::prepareLiveInteractionReview(int pixels) {
 bool PetWindow::renderLiveInteractionFrame(double seconds, const QString& path) {
     advanceLiveFrame(seconds);
     return renderBackend() == QStringLiteral("cubism_native") && saveRenderFrame(path);
+}
+
+bool PetWindow::setEdgeReviewSuppressed(bool enabled) {
+    if (!liveInteractionReview_ || !qApp->property("desktopCompanionReviewSettingsIsolated").toBool()) return false;
+    if (edgeReviewSuppressed_ == enabled) return true;
+    if (enabled) {
+        if (memo_->visual() == StickyNoteModel::Visual::Bubble && !foldMemo()) return false;
+        motion_.cancelInteraction();
+        motion_.cancelDragMotion();
+        motion_.cancelSleepMotion();
+        motion_.setState(PetController::State::Idle);
+        edgeReviewSuppressed_ = true;
+    } else {
+        edgeReviewSuppressed_ = false;
+        setState(controller_->state());
+    }
+    return true;
+}
+
+void PetWindow::setEdgeReviewGaze(double x, double y) {
+    if (liveInteractionReview_ && edgeReviewSuppressed_)
+        motion_.setGazeTarget(x, y, false, true);
+}
+
+QJsonObject PetWindow::edgeReviewState() const {
+    return {{QStringLiteral("suppressed"), edgeReviewSuppressed_},
+        {QStringLiteral("permission_cue"), motion_.permissionCueActive()},
+        {QStringLiteral("interaction"), motion_.interactionActive()},
+        {QStringLiteral("controller_state"), int(controller_->state())},
+        {QStringLiteral("active_turns"), controller_->activeTurnCount()},
+        {QStringLiteral("pending_permissions"), controller_->pendingPermissionCount()}};
+}
+
+QImage PetWindow::advanceEdgeReviewFrame(double seconds) {
+    if (!liveInteractionReview_ || renderBackend() != QStringLiteral("cubism_native")) return {};
+    advanceLiveFrame(seconds);
+#ifdef HAVE_CUBISM
+    if (edgeReviewSuppressed_) return cubismFrame_;
+#endif
+    return composedFrame();
 }
 
 bool PetWindow::startGrassInteraction() {

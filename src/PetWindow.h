@@ -115,6 +115,11 @@ public:
     // with a manual frame clock instead of the desktop's wall clock.
     void prepareLiveInteractionReview(int pixels = 840);
     bool renderLiveInteractionFrame(double seconds, const QString& path);
+    // Isolated edge review only: never enabled by the ordinary desktop path.
+    bool setEdgeReviewSuppressed(bool enabled);
+    void setEdgeReviewGaze(double x, double y);
+    QJsonObject edgeReviewState() const;
+    QImage advanceEdgeReviewFrame(double seconds);
     // The tray and isolated Native review share these note operations. User
     // text is saved before display; automatic duration notes remain in memory.
     bool setUserMemo(const QString& text);
@@ -274,6 +279,7 @@ private:
     bool patAttempted_ = false;
     bool interactionPreviewEnabled_ = false;
     bool liveInteractionReview_ = false;
+    bool edgeReviewSuppressed_ = false;
     bool grassTouchPressed_ = false;
     bool grassDragPreviewEnabled_ = false;
     bool grassDragMoved_ = false;

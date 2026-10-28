@@ -41,6 +41,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/DragInputReview.h src/DragInputReview.cpp
     src/WorkPostureReview.h src/WorkPostureReview.cpp
     src/PermissionAdoptionReview.h src/PermissionAdoptionReview.cpp
+    src/EdgeHideReview.h src/EdgeHideReview.cpp src/EdgeHideLayout.h src/EdgeDockGeometry.h
     src/MemoStore.h src/MemoStore.cpp
     src/StickyNoteModel.h src/StickyNoteModel.cpp
     src/MotionClip.h src/MotionClip.cpp
@@ -200,6 +201,9 @@ if(BUILD_TESTING)
     add_executable(ScreenPlacementTest tests/ScreenPlacementTest.cpp src/ScreenPlacement.h src/EdgeDockGeometry.h)
     target_link_libraries(ScreenPlacementTest PRIVATE Qt6::Core Qt6::Test)
     add_test(NAME ScreenPlacementTest COMMAND ScreenPlacementTest)
+    add_executable(EdgeHideLayoutTest tests/EdgeHideLayoutTest.cpp src/EdgeDockGeometry.h src/EdgeHideLayout.h)
+    target_link_libraries(EdgeHideLayoutTest PRIVATE Qt6::Gui Qt6::Test)
+    add_test(NAME EdgeHideLayoutTest COMMAND EdgeHideLayoutTest)
     # The Claude-Desktop session seeding runs inside the pet, so its merge rules
     # (preserve everything else, never rewrite what we cannot parse, no BOM) are
     # pinned here rather than by driving the app.
