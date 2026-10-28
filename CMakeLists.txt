@@ -277,6 +277,9 @@ if(BUILD_TESTING)
     endif()
     if(WIN32)
         find_program(POWERSHELL_EXECUTABLE NAMES pwsh REQUIRED)
+        add_test(NAME NinjaDependencyCheckTest COMMAND "${POWERSHELL_EXECUTABLE}"
+            -NoLogo -NoProfile -NonInteractive -File
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/NinjaDependencyCheckTest.ps1")
         add_test(NAME CodexHookTest COMMAND "${POWERSHELL_EXECUTABLE}"
             -NoLogo -NoProfile -NonInteractive -File
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/CodexHookTest.ps1"

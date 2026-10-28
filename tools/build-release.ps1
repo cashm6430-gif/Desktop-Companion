@@ -36,26 +36,42 @@ if ($Clean) { $buildArgs += '--clean-first' }
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 # A missing header dependency can leave a caller compiled with an old class
-# layout even when the linked implementation was rebuilt. Fail loudly before
-# an invalid binary is used; -Clean regenerates the dependency records.
+# layout. Check every project source object, not just a few known casualties.
+# Generated Qt resource and empty moc sources can legitimately have no headers.
+. (Join-Path $PSScriptRoot 'ninja-dependency-check.ps1')
 $ninjaEntry = Select-String -LiteralPath $cache -Pattern '^CMAKE_MAKE_PROGRAM:FILEPATH=(.+)$' | Select-Object -First 1
-if ($ninjaEntry -and $ninjaEntry.Matches[0].Groups[1].Value -match 'ninja(\.exe)?$') {
-    $ninja = $ninjaEntry.Matches[0].Groups[1].Value
-    $objects = @('CMakeFiles/DesktopCompanion.dir/src/main.cpp.obj',
-        'CMakeFiles/HookLifecycleTest.dir/tests/HookLifecycleTest.cpp.obj',
-        'CMakeFiles/ToonEventBridgeTest.dir/tests/ToonEventBridgeTest.cpp.obj')
-    Push-Location $build
-    try {
-        foreach ($object in $objects) {
-            if (-not (Test-Path -LiteralPath $object -PathType Leaf)) { continue }
-            $deps = (& $ninja -t deps $object) -join "`n"
-            if ($LASTEXITCODE -ne 0 -or $deps -notmatch '#deps\s+[1-9][0-9]*' -or
-                $deps -notmatch '(?m)PetController\.h\s*$' -or $deps -match '\(STALE\)') {
-                throw "Missing or stale Ninja header dependencies for $object; rebuild with -Clean."
-            }
-        }
-    } finally { Pop-Location }
+if (-not $ninjaEntry -or $ninjaEntry.Matches[0].Groups[1].Value -notmatch 'ninja(\.exe)?$') {
+    throw 'This build entry point requires the Ninja generator for dependency verification.'
 }
+$ninja = $ninjaEntry.Matches[0].Groups[1].Value
+$requiredHeaders = @{
+    'CMakeFiles/DesktopCompanion.dir/src/main.cpp.obj' = 'PetController.h'
+    'CMakeFiles/HookLifecycleTest.dir/tests/HookLifecycleTest.cpp.obj' = 'PetController.h'
+    'CMakeFiles/ToonEventBridgeTest.dir/tests/ToonEventBridgeTest.cpp.obj' = 'PetController.h'
+}
+Push-Location $build
+try {
+    $targetLines = @(& $ninja -t targets all)
+    if ($LASTEXITCODE -ne 0) { throw 'Could not enumerate Ninja targets.' }
+    $objects = @($targetLines | ForEach-Object {
+        if ($_ -match '^(CMakeFiles/[^:]+\.dir/(?:src|tests|tools)/[^:]+\.cpp\.obj): CXX_COMPILER') { $Matches[1] }
+    })
+    if ($objects.Count -eq 0 -or $objects -notcontains 'CMakeFiles/DesktopCompanion.dir/src/main.cpp.obj') {
+        throw 'No expected project C++ objects were found in the Ninja build.'
+    }
+    foreach ($object in $objects) {
+        if (-not (Test-Path -LiteralPath $object -PathType Leaf)) { throw "Missing built object: $object" }
+    }
+    # Chunk arguments to avoid Windows command-line limits as the project grows.
+    for ($offset = 0; $offset -lt $objects.Count; $offset += 24) {
+        $last = [Math]::Min($offset + 23, $objects.Count - 1)
+        $chunk = @($objects[$offset..$last])
+        $deps = @(& $ninja -t deps @chunk)
+        if ($LASTEXITCODE -ne 0) { throw 'Could not read Ninja dependency records.' }
+        Assert-NinjaDependencyRecords -Objects $chunk -Lines $deps -RequiredHeaders $requiredHeaders
+    }
+    Write-Host "[build] Verified Ninja dependencies for $($objects.Count) project C++ objects."
+} finally { Pop-Location }
 if ($Test) {
     $ctest = Join-Path (Split-Path -Parent $CMake) 'ctest.exe'
     & $ctest --test-dir $build --output-on-failure
