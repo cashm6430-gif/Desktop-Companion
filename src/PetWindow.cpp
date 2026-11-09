@@ -607,13 +607,6 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     integrationStatusAction_->setEnabled(false);
     auto* settingMenu = trayMenu_.addMenu(QStringLiteral("设置"));
     auto* previewMenu = trayMenu_.addMenu(QStringLiteral("预览（开发用）"));
-    auto* edgeDockPreview = previewMenu->addAction(QStringLiteral("屏幕边缘半隐藏（开发预览）"));
-    edgeDockPreview->setObjectName(QStringLiteral("edgeDockPreviewAction"));
-    edgeDockPreview->setCheckable(true);
-    connect(edgeDockPreview, &QAction::toggled, this, [this](bool enabled) {
-        edgeDockPreviewEnabled_ = enabled;
-        if (!enabled && edgeDock_.active()) restoreFromEdgeDock(edgeDockNormalOrigin_);
-    });
     previewMenu->addAction(QStringLiteral("模拟文件删除"), this, [this] {
         controller_->desktopItemDeleted();
     });
@@ -1049,9 +1042,16 @@ QImage PetWindow::edgeDockFrame() const {
 }
 
 bool PetWindow::setEdgeDockScreenForReview(const QRect& screen) {
-    if (!liveInteractionReview_ || !screen.isValid()
+    if (!liveInteractionReview_
         || !qApp->property("desktopCompanionReviewSettingsIsolated").toBool()) return false;
+    // An empty fixture screen turns off the isolated replay. The normal
+    // application has no entry point while the feature is on hold.
+    if (edgeDock_.active()) {
+        if (screen.isValid()) return false;
+        restoreFromEdgeDock(edgeDockNormalOrigin_);
+    }
     edgeDockFixtureScreen_ = screen;
+    edgeDockPreviewEnabled_ = screen.isValid();
     return true;
 }
 

@@ -82,8 +82,9 @@ def main():
         raise ValueError('Deployed model differs from repository assets')
     report = {
         'scope': 'real PetWindow and Cubism; virtual monitor and synthetic events',
-        'entry_motion': 'approved continuous four-edge entry',
+        'entry_motion': 'previous continuous four-edge candidate (on hold)',
         'default_enabled': False,
+        'normal_entry_available': False,
         'scenarios': {side: {'checks': len(scene['checks']), 'frames': len(scene['frames'])}
                       for side, scene in scenes.items()},
         'limitations': ['no physical mouse or mixed-DPI display', 'events injected directly into the controller'],

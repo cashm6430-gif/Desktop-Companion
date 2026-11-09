@@ -3,7 +3,6 @@
 #include "PetController.h"
 #include "PetWindow.h"
 
-#include <QAction>
 #include <QApplication>
 #include <QDir>
 #include <QElapsedTimer>
@@ -26,9 +25,6 @@ int runEdgeDockWindowReview(QApplication& app, PetController& controller,
     const QDir directory(output);
     if (outward.isNull() || !directory.exists()) return 2;
     window.prepareLiveInteractionReview(size);
-    if (!window.setEdgeDockScreenForReview(screen)) return 2;
-    auto* preview = window.findChild<QAction*>(QStringLiteral("edgeDockPreviewAction"));
-    if (!preview || preview->isChecked()) return 2;
 
     const QPoint edgeOrigin(outward.x() < 0 ? screen.left()
             : outward.x() > 0 ? screen.right() + 1 - size : screen.center().x() - size / 2,
@@ -101,7 +97,7 @@ int runEdgeDockWindowReview(QApplication& app, PetController& controller,
         if (frame == 1) {
             dragToEdge();
             if (!check(QStringLiteral("default_off"), phase() == Phase::Normal && window.pos() != origin)) return;
-            preview->setChecked(true);
+            if (!check(QStringLiteral("enable_isolated_fixture"), window.setEdgeDockScreenForReview(screen))) return;
             window.move(origin);
             if (!check(QStringLiteral("create_memo"), window.setUserMemo(QStringLiteral("edge fixture")))) return;
             memoHash = window.memoReviewState().value(QStringLiteral("text_sha256")).toString();
@@ -165,11 +161,11 @@ int runEdgeDockWindowReview(QApplication& app, PetController& controller,
             }
         }
         if (frame == 34) {
-            // Releasing the tray gate while docked is another way to recover.
+            // Tearing down the isolated fixture while docked must recover.
             dragToEdge();
             if (!check(QStringLiteral("busy_can_dock"), phase() == Phase::Entering)) return;
-            preview->setChecked(false);
-            if (!check(QStringLiteral("tray_disable_recovers"), phase() == Phase::Normal
+            if (!check(QStringLiteral("fixture_disable_recovers"), window.setEdgeDockScreenForReview({})
+                    && phase() == Phase::Normal
                     && window.size() == QSize(size, size) && screen.contains(window.geometry()) && window.acceptDrops())) return;
         }
         if (frame == 35) {
