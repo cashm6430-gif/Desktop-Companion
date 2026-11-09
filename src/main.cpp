@@ -3,6 +3,7 @@
 #include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
 #include "DeskPeekReview.h"
+#include "VisibilityReview.h"
 #include "HeadPatInputReview.h"
 #include "MemoInputReview.h"
 #include "GrassDragInputReview.h"
@@ -153,13 +154,16 @@ int main(int argc, char** argv) {
         && arguments.value(3).startsWith(QStringLiteral("permission-adoption-"));
     const bool deskPeekReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("desk-peek-"));
+    const bool visibilityReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3) == QStringLiteral("visibility");
     const bool edgeHideReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("edge-hide-"));
     const bool edgeDockWindowReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("edge-dock-window-"));
-    qint64 memoReviewNowMs = 1000;
+    qint64 reviewNowMs = 1000;
     if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview
-        || permissionAdoptionReview || deskPeekReview || edgeHideReview || edgeDockWindowReview) {
+        || permissionAdoptionReview || deskPeekReview || edgeHideReview || edgeDockWindowReview
+        || visibilityReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -173,7 +177,8 @@ int main(int argc, char** argv) {
             || !QDir::fromNativeSeparators(probe.fileName()).startsWith(QDir::fromNativeSeparators(output) + QLatin1Char('/')))
             return 2;
         app.setProperty("desktopCompanionReviewSettingsIsolated", true);
-        if (permissionCueReview || permissionAdoptionReview || edgeHideReview || edgeDockWindowReview)
+        if (permissionCueReview || permissionAdoptionReview || edgeHideReview || edgeDockWindowReview
+            || visibilityReview)
             app.setProperty("desktopCompanionReviewMemoPath", QDir(output).filePath(QStringLiteral("memo.json")));
         if (workPostureRestore) {
             // Only copy a completed review's explicitly supplied fixture INI.
@@ -210,8 +215,8 @@ int main(int argc, char** argv) {
             if (!store.save({QStringLiteral("先喝口水，再继续"), false})) return 2;
         }
     }
-    PetController controller(nullptr, memoReview
-        ? PetController::NowMs{[&memoReviewNowMs] { return memoReviewNowMs; }} : PetController::NowMs{});
+    PetController controller(nullptr, memoReview || visibilityReview
+        ? PetController::NowMs{[&reviewNowMs] { return reviewNowMs; }} : PetController::NowMs{});
     PetWindow window(&controller);
     startup::trace(QStringLiteral("window constructed"));
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &window, &PetWindow::shutdown);
@@ -227,7 +232,8 @@ int main(int argc, char** argv) {
     if (argc >= 4 && QString::fromLocal8Bit(argv[1]) == QStringLiteral("--render-interaction")) {
         const QString output = QString::fromLocal8Bit(argv[2]);
         const QString scenario = QString::fromLocal8Bit(argv[3]);
-        if (memoReview) return runMemoInputReview(app, controller, window, output, memoReviewNowMs);
+        if (memoReview) return runMemoInputReview(app, controller, window, output, reviewNowMs);
+        if (visibilityReview) return runVisibilityReview(app, controller, window, output, reviewNowMs);
         if (grassDragReview) return runGrassDragInputReview(app, controller, window, output, scenario);
         if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
         if (workPostureReview) return runWorkPostureReview(app, controller, window, output, scenario);

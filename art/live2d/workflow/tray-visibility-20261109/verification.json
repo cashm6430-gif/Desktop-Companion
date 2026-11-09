@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-09",
+  "previous_runtime": "e1eca62",
+  "scope": "Native Cubism Qt window; real hide/show and scheduler entry, fixture Agent and desktop notifications, isolated settings and note storage. No live hooks or desktop changes.",
+  "reproduction": "build/DesktopCompanion.exe --render-interaction build/<new-directory> visibility",
+  "before": {
+    "passed": false,
+    "reproduced_failures": [
+      "hidden_delete_has_no_action_or_flight",
+      "hidden_manual_note_is_saved_folded",
+      "hidden_permission_is_counted_without_cue",
+      "hidden_start_updates_busy_without_greeting",
+      "hidden_stop_updates_idle_without_return_or_note",
+      "hide_clears_delete_and_flight_but_not_work",
+      "show_does_not_restore_flight"
+    ]
+  },
+  "after": {
+    "passed": true,
+    "checks": {
+      "brief_hide_resets_idle_even_between_ticks": true,
+      "fixture_note_removed": true,
+      "fresh_visible_idle_can_start_peek": true,
+      "fresh_visible_permission_plays": true,
+      "hidden_delete_has_no_action_or_flight": true,
+      "hidden_frame_timer_stops": true,
+      "hidden_manual_note_is_saved_folded": true,
+      "hidden_permission_is_counted_without_cue": true,
+      "hidden_start_updates_busy_without_greeting": true,
+      "hidden_stop_updates_idle_without_return_or_note": true,
+      "hide_clears_delete_and_flight_but_not_work": true,
+      "show_does_not_restore_flight": true,
+      "show_frame_timer_resumes": true,
+      "show_keeps_busy_and_does_not_replay_permission": true,
+      "visible_delete_starts_action_and_flight": true,
+      "visible_native_window": true
+    }
+  },
+  "desk_peek_adoption": {
+    "passed": true,
+    "checks": 19,
+    "frames": 188
+  },
+  "memo_recovery": {
+    "passed": true,
+    "checks": 41,
+    "frames": 108
+  },
+  "release_build": {
+    "ninja_dependency_records": 120,
+    "signature": "Valid",
+    "ctest_passed": 26,
+    "ctest_total": 26,
+    "ctest_seconds": 69.2
+  },
+  "runtime_assets_changed": false,
+  "moc_sha256": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781"
+}

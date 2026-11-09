@@ -191,6 +191,7 @@ private:
     bool startDeskPeek();
     void tickSpontaneousScenes();
     friend int runDeskPeekAdoptionReview(QApplication&, PetController&, PetWindow&, const QString&);
+    friend int runVisibilityReview(QApplication&, PetController&, PetWindow&, const QString&, qint64&);
     void showMenu(const QPoint& globalPos);
     // The fed-file prop: the icon of the dropped file rides the window layer
     // (same reasoning as the bubble -- it is UI, not a MOC3 drawable), drifting

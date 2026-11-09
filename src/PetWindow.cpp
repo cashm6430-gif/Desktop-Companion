@@ -265,6 +265,7 @@ public:
                               | Qt::WindowTransparentForInput) {
         setAttribute(Qt::WA_TranslucentBackground);
         setAttribute(Qt::WA_ShowWithoutActivating);
+        setObjectName(QStringLiteral("deleteIconFlight"));
         setFixedSize(96, 96);
         tick_.setInterval(16);
         connect(&tick_, &QTimer::timeout, this, [this] {
@@ -437,6 +438,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     frameTimer_.setInterval(frameIntervalMs_);
     frameClock_.start();
     deleteOverlay_ = new DeleteOverlay(this);
+    controller_->setDesktopDeletionSuppressed(true); // Enabled when the window is shown.
     // Desktop deletions carry the file's snapshot (path, icon-grid position,
     // icon); drops arrive here too, through the shared triggerEat entry.
     connect(controller_, &PetController::eatTriggered,
@@ -956,7 +958,7 @@ void PetWindow::restoreFromEdgeDock(const QPointF& origin) {
     const int modelSize = edgeDockModelSize_;
     edgeDock_.reset();
     edgeDockScreen_.clear();
-    controller_->setDesktopDeletionSuppressed(false);
+    controller_->setDesktopDeletionSuppressed(!isVisible());
     setAcceptDrops(true);
     unsetCursor();
 #ifdef HAVE_CUBISM
@@ -1043,7 +1045,7 @@ void PetWindow::updateFullscreenPresence() {
 }
 
 bool PetWindow::allowAutomaticReactions() const {
-    if (edgeReviewSuppressed_ || edgeDock_.active()) return false;
+    if (!isVisible() || edgeReviewSuppressed_ || edgeDock_.active()) return false;
     // Scripted captures replay their explicit events independently of the
     // user's night setting and current foreground app. Their director is off.
     if (qApp->property("desktopCompanionReviewCapture").toBool())
@@ -1054,11 +1056,11 @@ bool PetWindow::allowAutomaticReactions() const {
 void PetWindow::tickSpontaneousScenes() {
     director_.tick(1.0, controller_->state() == PetController::State::Idle,
                    controller_->state() == PetController::State::Busy,
-                   isVisible() && allowAutomaticReactions());
+                   allowAutomaticReactions());
 }
 
 bool PetWindow::startDeskPeek() {
-    if (!isVisible() || !allowAutomaticReactions() || renderBackend() != QStringLiteral("cubism_native")
+    if (!allowAutomaticReactions() || renderBackend() != QStringLiteral("cubism_native")
         || pointerGesture_.mode() != PetPointerGesture::Mode::None
         || trayMenu_.isVisible() || QApplication::activeModalWidget()
         || memo_->visual() == StickyNoteModel::Visual::Bubble
@@ -1340,7 +1342,7 @@ void PetWindow::drawMemoNote(QPainter& painter, const QSize& size) const {
 }
 
 bool PetWindow::canPresentMemo() const {
-    return canShowAutomaticMemo() && !motion_.interactionActive()
+    return isVisible() && canShowAutomaticMemo() && !motion_.interactionActive()
         && pointerGesture_.mode() == PetPointerGesture::Mode::None;
 }
 
@@ -2176,11 +2178,20 @@ bool PetWindow::event(QEvent* event) {
     }
     if (event->type() == QEvent::Hide) {
         if (edgeDock_.active()) restoreFromEdgeDock(edgeDockNormalOrigin_);
+        controller_->setDesktopDeletionSuppressed(true);
+        // A hide/show between timer ticks still interrupts continuous eligibility.
+        director_.tick(0.0, false, false, false);
         releasePointerGesture();
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
         motion_.cancelDeskPeek(false);
-        if (motion_.grassInteractionActive()) controller_->actionFinished();
+        // The flying icon is a separate tool window. Stop it explicitly and
+        // retire the visual action without touching active Agent turns.
+        if (deleteOverlay_) deleteOverlay_->stop();
+        fedIcon_ = QPixmap();
+        fedClock_.invalidate();
+        if (controller_->state() == PetController::State::Delete || motion_.grassInteractionActive())
+            controller_->actionFinished();
         // Low power: nothing needs rendering while the pet is hidden. Only
         // record the pause if WE stopped it, so a review-driven stop is never
         // restarted behind the reviewer's back.
@@ -2189,6 +2200,7 @@ bool PetWindow::event(QEvent* event) {
             framePausedForHide_ = true;
         }
     } else if (event->type() == QEvent::Show) {
+        controller_->setDesktopDeletionSuppressed(edgeDock_.active());
         if (framePausedForHide_) {
             frameClock_.restart();   // avoid one huge dt after the pause
             frameTimer_.start();
