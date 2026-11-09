@@ -469,11 +469,8 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         return motion_.playStretch();
     });
     director_.setStartRice([this] { return startRiceBowl(); });
-    connect(&spontaneousTimer_, &QTimer::timeout, this, [this] {
-        director_.tick(1.0, controller_->state() == PetController::State::Idle,
-                       controller_->state() == PetController::State::Busy,
-                       allowAutomaticReactions());
-    });
+    director_.setStartDeskPeek([this] { return startDeskPeek(); });
+    connect(&spontaneousTimer_, &QTimer::timeout, this, &PetWindow::tickSpontaneousScenes);
     spontaneousTimer_.start(1000);
 
     // Poll once per second even while hidden; real turn state keeps updating.
@@ -1054,6 +1051,21 @@ bool PetWindow::allowAutomaticReactions() const {
     return !quietPolicy_.suppressAutomatic();
 }
 
+void PetWindow::tickSpontaneousScenes() {
+    director_.tick(1.0, controller_->state() == PetController::State::Idle,
+                   controller_->state() == PetController::State::Busy,
+                   isVisible() && allowAutomaticReactions());
+}
+
+bool PetWindow::startDeskPeek() {
+    if (!isVisible() || !allowAutomaticReactions() || renderBackend() != QStringLiteral("cubism_native")
+        || pointerGesture_.mode() != PetPointerGesture::Mode::None
+        || trayMenu_.isVisible() || QApplication::activeModalWidget()
+        || memo_->visual() == StickyNoteModel::Visual::Bubble
+        || memo_->visual() == StickyNoteModel::Visual::Done) return false;
+    return motion_.playDeskPeek(deskPeekCursorX_);
+}
+
 void PetWindow::setState(PetController::State state) {
     if (edgeReviewSuppressed_ || edgeDock_.active()) return;
     if (state == PetController::State::Delete || state == PetController::State::Grass) {
@@ -1112,6 +1124,7 @@ void PetWindow::updateInputTransparency() {
     const HWND window = reinterpret_cast<HWND>(winId());
     POINT cursor{};
     RECT bounds{};
+    deskPeekCursorX_ = 0.0;
     const BOOL cursorOk = GetCursorPos(&cursor);
     const BOOL boundsOk = GetWindowRect(window, &bounds);
     if (!boundsOk) return;
@@ -1136,6 +1149,7 @@ void PetWindow::updateInputTransparency() {
         const double cx = 0.5 * (bounds.left + bounds.right);
         const double cy = 0.5 * (bounds.top + bounds.bottom);
         const double nx = (cursor.x - cx) / (0.5 * windowWidth);
+        deskPeekCursorX_ = nx;
         const double ny = (cursor.y - cy) / (0.5 * windowHeight);
         const bool nearCursor = qAbs(nx) <= 1.2 && qAbs(ny) <= 1.2;
         const bool cursorActive = !cursorSeen_
@@ -1865,6 +1879,10 @@ bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameter
 }
 
 void PetWindow::advanceLiveFrame(double seconds) {
+    if (motion_.deskPeekActive() && (!allowAutomaticReactions()
+        || director_.frequency() == TriggerDirector::Frequency::Off || trayMenu_.isVisible()
+        || QApplication::activeModalWidget() || pointerGesture_.mode() != PetPointerGesture::Mode::None))
+        motion_.cancelDeskPeek();
     if (edgeDock_.active() && !edgeDockFixtureScreen_.isValid()
         && (!edgeDockScreen_ || edgeDockScreen_->geometry() != edgeDockScreenGeometry_
             || edgeDockScreen_->availableGeometry() != edgeDock_.screen().toAlignedRect())) {
@@ -2161,6 +2179,7 @@ bool PetWindow::event(QEvent* event) {
         releasePointerGesture();
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
+        motion_.cancelDeskPeek(false);
         if (motion_.grassInteractionActive()) controller_->actionFinished();
         // Low power: nothing needs rendering while the pet is hidden. Only
         // record the pause if WE stopped it, so a review-driven stop is never

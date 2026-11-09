@@ -33,6 +33,7 @@ class CubismCanvas;
 // PetWindow.cpp; only the pointer lives here.
 class DeleteOverlay;
 class QAction;
+class QApplication;
 // System-wide hotkeys (RegisterHotKey); defined in PetWindow.cpp.
 class GlobalHotkeys;
 class IntegrationStatusPanel;
@@ -187,6 +188,9 @@ private:
     void onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon);
     void setInteractionMask(const QPixmap& artwork);
     void updateInputTransparency();
+    bool startDeskPeek();
+    void tickSpontaneousScenes();
+    friend int runDeskPeekAdoptionReview(QApplication&, PetController&, PetWindow&, const QString&);
     void showMenu(const QPoint& globalPos);
     // The fed-file prop: the icon of the dropped file rides the window layer
     // (same reasoning as the bubble -- it is UI, not a MOC3 drawable), drifting
@@ -312,6 +316,7 @@ private:
     // last read position, and whether the cursor has been read at least once.
     QPoint lastCursor_;
     bool cursorSeen_ = false;
+    double deskPeekCursorX_ = 0.0; // a centred or unavailable target refuses a peek
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
     QPixmap wrapProp_;

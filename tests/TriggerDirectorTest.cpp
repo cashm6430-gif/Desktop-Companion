@@ -26,6 +26,7 @@ private slots:
     void quietGateRestartsEligibility();
     void quietTimeStillAdvancesCooldowns();
     void offFrequencyRetainsItsExistingEligibilitySemantics();
+    void deskPeekRequiresIdleAndSharesTheSceneSpacing();
 
 private:
     // Drives `seconds` of one-second ticks. `idle`/`busy` select the state
@@ -326,5 +327,33 @@ void TriggerDirectorTest::offFrequencyRetainsItsExistingEligibilitySemantics() {
     director.tick(1.0, true, false);
     QCOMPARE(boxes, 1); // frequency Off still accrues due, unlike quiet policy
 }
+void TriggerDirectorTest::deskPeekRequiresIdleAndSharesTheSceneSpacing() {
+    TriggerDirector director;
+    director.setChanceScale(1000.0);
+    director.setStartDeskPeek([] { return true; });
+    director.setStartWave([] { return true; });
+    director.setStartBox([] { return true; });
+    run(director, 1000.0, false, true);
+    QCOMPARE(director.startedCount(), 1); // launch wave only
+    run(director, 359.0, true, false);
+    QCOMPARE(director.startedCount(), 1);
+    run(director, 1.0, true, false);
+    QCOMPARE(director.lastStarted(), QStringLiteral("desk-peek"));
+    QCOMPARE(director.startedCount(), 2);
+
+    // A separate idle stretch avoids the wave's due time while testing the
+    // peek's own 15-minute cooldown, including time spent in quiet mode.
+    director.tick(540.0, true, false, false);
+    run(director, 359.0, true, false);
+    QCOMPARE(director.startedCount(), 2);
+    run(director, 1.0, true, false);
+    QCOMPARE(director.lastStarted(), QStringLiteral("desk-peek"));
+    QCOMPARE(director.startedCount(), 3);
+    run(director, 299.0, true, false); // box is due, but the peek used the shared slot
+    QCOMPARE(director.startedCount(), 3);
+    run(director, 1.0, true, false);
+    QCOMPARE(director.lastStarted(), QStringLiteral("box"));
+}
+
 QTEST_MAIN(TriggerDirectorTest)
 #include "TriggerDirectorTest.moc"

@@ -23,6 +23,7 @@ TriggerDirector::TriggerDirector() {
     box_ = {nullptr, "box", 480.0, 1200.0, 0.02, false, -1e9, -1e9};     // 8 min due, 20 min cooldown
     wave_ = {nullptr, "wave", 720.0, 1800.0, 0.015, false, -1e9, -1e9};  // 12 min due, 30 min cooldown
     nap_ = {nullptr, "nap", 1800.0, 3600.0, 0.03, false, -1e9, -1e9};    // 30 min due, 60 min cooldown
+    deskPeek_ = {nullptr, "desk-peek", 360.0, 900.0, 0.012, false, -1e9, -1e9}; // 6 min / 15 min
     // Working-busy scenes: the desk break choreography.
     stretch_ = {nullptr, "stretch", 1500.0, 1500.0, 0.02, true, -1e9, -1e9}; // 25 min / 25 min
     rice_ = {nullptr, "rice", 2700.0, 2700.0, 0.02, true, -1e9, -1e9};       // 45 min / 45 min
@@ -121,5 +122,6 @@ void TriggerDirector::tick(double dt, bool idle, bool busy, bool allowAutomatic)
         if (eligible(nap_, clock_) && hit(nap_)) { nominate(nap_, clock_); return; }
         if (eligible(box_, clock_) && hit(box_)) { nominate(box_, clock_); return; }
         if (eligible(wave_, clock_) && hit(wave_)) { nominate(wave_, clock_); return; }
+        if (eligible(deskPeek_, clock_) && hit(deskPeek_)) { nominate(deskPeek_, clock_); return; }
     }
 }

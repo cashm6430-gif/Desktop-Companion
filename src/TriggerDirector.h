@@ -6,8 +6,8 @@
 
 // Spontaneous-scene scheduler (trigger system r1). Watches how long the pet
 // has been standing idle or working busy and occasionally nominates one of
-// the fun scenes that otherwise only exist as tray-menu entries: the box
-// peek, the wave hello, the nap, the seated stretch and the rice bowl.
+// the fun scenes: the box peek, wave hello, nap, seated stretch, rice bowl
+// and a brief sideways desk peek.
 //
 // The director only nominates. Every start callback routes through the
 // ParameterMotion/PetWindow gates, which stay the final authority: a refused
@@ -46,14 +46,13 @@ public:
 
     TriggerDirector();
 
-    // The five start hooks. PetWindow wires them to the same code paths the
-    // tray menu uses, so a spontaneous scene is indistinguishable from a
-    // manual one (gating, state handling, logging all shared).
+    // PetWindow wires these to the gated scene start paths.
     void setStartBox(StartFn fn) { box_.start = std::move(fn); }
     void setStartWave(StartFn fn) { wave_.start = std::move(fn); }
     void setStartNap(StartFn fn) { nap_.start = std::move(fn); }
     void setStartStretch(StartFn fn) { stretch_.start = std::move(fn); }
     void setStartRice(StartFn fn) { rice_.start = std::move(fn); }
+    void setStartDeskPeek(StartFn fn) { deskPeek_.start = std::move(fn); }
 
     void setFrequency(Frequency f) { frequency_ = f; }
     Frequency frequency() const { return frequency_; }
@@ -86,6 +85,7 @@ private:
     Scene nap_;
     Scene stretch_;
     Scene rice_;
+    Scene deskPeek_;
 
     Frequency frequency_ = Frequency::Normal;
     double clock_ = 0.0;          // running seconds since construction

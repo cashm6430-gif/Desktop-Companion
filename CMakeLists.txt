@@ -55,6 +55,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/IntegrationStatusPanel.h src/IntegrationStatusPanel.cpp
     src/PetPointerGesture.h src/PetPointerGesture.cpp
     src/ParameterMotion.h src/ParameterMotion.cpp
+    src/motion/DeskPeekPose.h
     src/motion/MotionMath.h
     src/motion/MotionParameterIds.h
     src/motion/SleepTrace.h

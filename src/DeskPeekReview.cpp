@@ -2,8 +2,8 @@
 
 #include "MotionClip.h"
 #include "PetWindow.h"
+#include "motion/DeskPeekPose.h"
 #include "motion/MotionMath.h"
-#include "motion/MotionParameterIds.h"
 
 #include <QApplication>
 #include <QDir>
@@ -11,44 +11,17 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QSaveFile>
 #include <QTimer>
 #include <cmath>
 
 namespace {
-const QString eyeX = QStringLiteral("ParamEyeBallX");
-const QString eyeY = QStringLiteral("ParamEyeBallY");
-const QString eyeSmile = QStringLiteral("ParamEyeSmile");
-const QString mouthForm = QStringLiteral("ParamMouthForm");
-
 QJsonObject parametersJson(const ParameterMotion::Parameters& values) {
     QJsonObject result;
     for (auto it = values.cbegin(); it != values.cend(); ++it) result.insert(it.key(), it.value());
     return result;
 }
 
-// The authored curve represents looking to screen right. Only the face and
-// upper-body lean may be layered onto the existing scene. A seated pet keeps
-// her entire torso and hand/keyboard pose from the ordinary work player.
-void applyPeek(ParameterMotion::Parameters& pose, const MotionClip::Parameters& deltas,
-               double side, double weight, bool seated) {
-    using namespace motion;
-    const auto add = [&](const QString& axis, double scale = 1.0) {
-        pose[axis] += deltas.value(axis) * scale * weight;
-    };
-    add(eyeX, side);
-    add(eyeY, seated ? 1.0 : 0.32);
-    add(angleX, side * (seated ? 0.65 : 1.0));
-    add(angleY, seated ? 1.0 : 0.35);
-    add(angleZ, side * (seated ? 0.8 : 1.0));
-    if (!seated) {
-        add(bodyX, side);
-        add(bodyZ, side);
-    }
-    add(eyeSmile);
-    add(mouthForm);
-    add(cheek);
-    for (const auto& axis : {leftEye, rightEye}) pose[axis] *= 1.0 + deltas.value(axis) * weight;
-}
 }
 
 int runDeskPeekReview(QApplication& app, PetWindow& window, const QString& output,
@@ -122,7 +95,7 @@ int runDeskPeekReview(QApplication& app, PetWindow& window, const QString& outpu
             : yielding ? 1.0 - motion::smooth((frame - interrupt + 1) * step / handoff) : 1.0;
         base.advance(step);
         auto pose = base.values();
-        if (weight > 0.0) applyPeek(pose, clip.sample(sampled), side, weight, seated);
+        if (weight > 0.0) motion::applyDeskPeekPose(pose, clip.sample(sampled), side, weight, seated);
         const QString file = QStringLiteral("frame-%1.png").arg(frame, 3, 10, QLatin1Char('0'));
         if (window.renderBackend() != QStringLiteral("cubism_native")
             || !window.renderSequenceFrame(pose, step, destination.filePath(file), base.bubblePulse())) {
@@ -146,5 +119,114 @@ int runDeskPeekReview(QApplication& app, PetWindow& window, const QString& outpu
         app.exit(receipt.open(QIODevice::WriteOnly) && receipt.write(report.toJson()) > 0 ? 0 : 1);
     });
     QTimer::singleShot(1000, &timer, [&] { timer.start(); });
+    return app.exec();
+}
+
+int runDeskPeekAdoptionReview(QApplication& app, PetController& controller, PetWindow& window,
+                              const QString& output) {
+    if (!app.property("desktopCompanionReviewSettingsIsolated").toBool()) return 2;
+    window.prepareLiveInteractionReview(420);
+    const QDir dir(output);
+    QTimer::singleShot(1500, &app, [&] {
+        auto& motion = window.motion_;
+        auto& director = window.director_;
+        director.setFrequency(TriggerDirector::Frequency::Normal);
+        director.setChanceScale(1000.0);
+        window.setInteractionPreviewEnabled(false);
+        // Inject only clock and pointer direction. All nominations use the
+        // real timer callback, window gate and approved player.
+        const auto tick = [&](int count, double x) {
+            window.deskPeekCursorX_ = x;
+            while (count-- > 0) window.tickSpontaneousScenes();
+        };
+        const auto quiet = [&](bool on) { app.setProperty("desktopCompanionReviewSuppressAutomatic", on); };
+        const auto clearIdle = [&] { quiet(true); tick(1, 0); quiet(false); };
+        const auto value = [&](const char* id) { return motion.values().value(QString::fromLatin1(id)); };
+        QJsonObject checks;
+        const auto check = [&](const char* id, bool passed) { checks.insert(QString::fromLatin1(id), passed); };
+        check("native_backend", window.renderBackend() == QStringLiteral("cubism_native"));
+        quiet(true);
+        tick(450, -2.0);
+        check("quiet_drops_nomination", director.attemptCount() == 0 && !motion.deskPeekActive());
+        quiet(false);
+        tick(359, -2.0);
+        check("fresh_idle_after_quiet", !motion.deskPeekActive() && director.startedCount() == 0);
+        check("memo_visible", window.setUserMemo(QStringLiteral("fixture note")));
+        tick(1, -2.0);
+        check("visible_memo_owns_stage", !motion.deskPeekActive() && director.attemptCount() == 1);
+        check("fold_note", window.foldMemo());
+        tick(1, -2.0);
+        check("rejected_nomination_not_queued", director.attemptCount() == 1 && !motion.deskPeekActive());
+        clearIdle();
+        tick(360, 0.05);
+        check("ambiguous_direction_refused", director.attemptCount() == 2 && !motion.deskPeekActive());
+        clearIdle();
+        director.setFrequency(TriggerDirector::Frequency::Off);
+        tick(365, -2.0);
+        check("frequency_off", director.attemptCount() == 2 && !motion.deskPeekActive());
+        director.setFrequency(TriggerDirector::Frequency::Normal);
+        clearIdle();
+
+        tick(360, -2.0);
+        check("approved_normal_entry", motion.deskPeekActive() && director.startedCount() == 1
+              && director.lastStarted() == QStringLiteral("desk-peek") && !window.interactionPreviewEnabled());
+        QJsonArray frames;
+        constexpr double dt = 1.0 / 30.0;
+        bool rendered = true;
+        bool protectedPose = true;
+        double minimumEye = 1.0;
+        const auto sample = [&](const QString& side, int i) {
+            if (i % 2 == 0) {
+                const QString file = QStringLiteral("%1-%2.png").arg(side).arg(i / 2, 3, 10, QLatin1Char('0'));
+                rendered &= window.renderLiveInteractionFrame(dt, dir.filePath(file));
+            } else window.advanceLiveFrame(dt);
+            frames.append(QJsonObject{{QStringLiteral("side"), side}, {QStringLiteral("frame"), i},
+                {QStringLiteral("active"), motion.deskPeekActive()},
+                {QStringLiteral("eye_x"), value("ParamEyeBallX")}, {QStringLiteral("eye_open"), value("ParamEyeLOpen")},
+                {QStringLiteral("head_x"), value("ParamAngleX")}, {QStringLiteral("body_z"), value("ParamBodyAngleZ")},
+                {QStringLiteral("state"), int(controller.state())}});
+        };
+        for (int i = 0; i < 112; ++i) {
+            // A direction sample on the other side cannot reverse the current animation.
+            if (i == 18) window.deskPeekCursorX_ = 2.0;
+            sample(QStringLiteral("left"), i);
+            protectedPose &= value("ParamSitPose") == 0.0 && value("ParamLaptopVisible") == 0.0
+                && value("ParamDeskVisible") == 0.0 && value("ParamArmLA") == 0.0 && value("ParamArmRA") == 0.0;
+            if (i == 34) check("left_kept_after_mouse_change", value("ParamBodyAngleZ") < -2.5);
+            if (motion.deskPeekActive()) minimumEye = std::min(minimumEye, value("ParamEyeLOpen"));
+        }
+        check("slow_blink_closes", minimumEye < 0.05);
+        check("returns_to_idle", !motion.deskPeekActive() && value("ParamBodyAngleZ") == 0.0
+              && controller.state() == PetController::State::Idle && protectedPose);
+
+        // Clear continuous idle without rewinding time or the per-scene cooldown.
+        quiet(true); tick(899, 2.0); quiet(false);
+        tick(360, 2.0);
+        check("right_side_eligible_after_cooldown", motion.deskPeekActive() && director.startedCount() == 2);
+        for (int i = 0; i < 76; ++i) {
+            if (i == 35) {
+                check("right_peak", value("ParamBodyAngleZ") > 2.5);
+                controller.turnStarted(QStringLiteral("desk-peek-review"), QStringLiteral("fixture"));
+                check("agent_preempts_peek", !motion.deskPeekActive()
+                      && controller.state() == PetController::State::Busy);
+            }
+            sample(QStringLiteral("right"), i);
+        }
+        check("busy_no_peek", !motion.playDeskPeek(2.0) && !motion.deskPeekActive());
+        controller.turnStopped(QStringLiteral("desk-peek-review"), QStringLiteral("fixture"));
+        window.advanceLiveFrame(dt);
+        check("no_replay_when_turn_ends", !motion.deskPeekActive());
+        check("native_frames_saved", rendered);
+        bool passed = true;
+        for (auto it = checks.constBegin(); it != checks.constEnd(); ++it) passed &= it.value().toBool();
+        const QJsonObject report{{QStringLiteral("scenario"), QStringLiteral("desk-peek-adoption")},
+            {QStringLiteral("passed"), passed}, {QStringLiteral("approval"), QStringLiteral("approved")},
+            {QStringLiteral("scope"), QStringLiteral("normal_scheduler_window_and_native_motion; isolated settings and fixture input")},
+            {QStringLiteral("checks"), checks}, {QStringLiteral("frames"), frames}};
+        QSaveFile receipt(dir.filePath(QStringLiteral("scene.json")));
+        const auto bytes = QJsonDocument(report).toJson();
+        const bool saved = receipt.open(QIODevice::WriteOnly) && receipt.write(bytes) == bytes.size() && receipt.commit();
+        app.exit(saved && passed ? 0 : 1);
+    });
     return app.exec();
 }

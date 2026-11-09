@@ -180,6 +180,7 @@ private slots:
     void permissionCueFreezesClocksAndContactPose();
     void permissionCueRefusesOwnersAndYieldsWithoutReplay();
     void permissionCueRejectsReservedChannelsAndUnsafeHead();
+    void deskPeekRequiresApprovalAndLeavesNoPoseBehind();
     void dragMotionFollowsAndSettlesWithoutSway();
     void dragInputExpiresWithoutImaginaryTravel();
     void dragMeasuredPathRejectsInvalidSamplesAndTriggersOnce();
@@ -3535,6 +3536,46 @@ void ParameterMotionTest::permissionCueRejectsReservedChannelsAndUnsafeHead() {
         QVERIFY2(!motion.loadMotionLibrary(dir.path(), &error), qPrintable(invalid));
         QVERIFY(!error.isEmpty());
     }
+}
+
+void ParameterMotionTest::deskPeekRequiresApprovalAndLeavesNoPoseBehind() {
+    const QString folder = QStringLiteral("assets/motions");
+    QString error;
+    ParameterMotion peek, baseline;
+    QVERIFY2(peek.loadMotionLibrary(folder, &error), qPrintable(error));
+    QVERIFY2(baseline.loadMotionLibrary(folder, &error), qPrintable(error));
+    peek.setProceduralBlink(false);
+    baseline.setProceduralBlink(false);
+    QVERIFY(!peek.playDeskPeek(0.1));
+    QVERIFY(peek.playDeskPeek(-1.0));
+    for (int i = 0; i < 70; ++i) {
+        peek.advance(.02);
+        baseline.advance(.02);
+    }
+    QVERIFY(peek.values().value(QStringLiteral("ParamBodyAngleZ")) < -2.0);
+    for (auto id : {"ParamArmLA", "ParamArmRA", "ParamSitPose", "ParamLaptopVisible", "ParamBreath"})
+        QCOMPARE(peek.values().value(QString::fromLatin1(id)), baseline.values().value(QString::fromLatin1(id)));
+    peek.beginDragMotion();
+    baseline.beginDragMotion();
+    advanceFrames(peek, 7);
+    advanceFrames(baseline, 7);
+    QVERIFY(!peek.deskPeekActive());
+    QCOMPARE(peek.values(), baseline.values()); // release did not feed the next base pose
+    QVERIFY(!peek.playDeskPeek(1.0));
+
+    QTemporaryDir draft;
+    QVERIFY(draft.isValid());
+    QFile live(folder + QStringLiteral("/desk-peek.motion.json"));
+    QVERIFY(live.open(QIODevice::ReadOnly));
+    auto json = QJsonDocument::fromJson(live.readAll()).object();
+    json.insert(QStringLiteral("approval"), QStringLiteral("pending"));
+    QFile draftClip(draft.filePath(QStringLiteral("desk-peek.motion.json")));
+    QVERIFY(draftClip.open(QIODevice::WriteOnly));
+    QVERIFY(draftClip.write(QJsonDocument(json).toJson()) > 0);
+    draftClip.close();
+    ParameterMotion unapproved;
+    QVERIFY2(unapproved.loadMotionLibrary(draft.path(), &error), qPrintable(error));
+    QVERIFY(!unapproved.playDeskPeek(1.0));
 }
 
 QTEST_GUILESS_MAIN(ParameterMotionTest)

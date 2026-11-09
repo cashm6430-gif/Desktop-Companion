@@ -1,5 +1,6 @@
 #include "ParameterMotion.h"
 
+#include "motion/DeskPeekPose.h"
 #include "motion/MotionMath.h"
 #include "motion/MotionParameterIds.h"
 #include "motion/SleepTrace.h"
@@ -291,6 +292,7 @@ double ParameterMotion::thoughtBubblePulse(double seconds) {
 }
 
 void ParameterMotion::setState(PetController::State state) {
+    if (state != PetController::State::Idle) cancelDeskPeek();
     workPosturePreview_ = false;
     preview_ = false;
     sequencePhysics_ = false;
@@ -431,6 +433,7 @@ bool ParameterMotion::configureInteractions(QString* error) {
     const MotionClip* greet = library_.clip(QStringLiteral("greet"));
     const MotionClip* cheer = library_.clip(QStringLiteral("cheer"));
     const MotionClip* permission = library_.clip(QStringLiteral("permission-cue"));
+    const MotionClip* deskPeek = library_.clip(QStringLiteral("desk-peek"));
     if (turnEnded && !validateReaction(*turnEnded, error)) return false;
     if (headPat && !validateReaction(*headPat, error)) return false;
     if (stretch && !validateStretch(*stretch, error)) return false;
@@ -438,6 +441,10 @@ bool ParameterMotion::configureInteractions(QString* error) {
     if (greet && !validateReaction(*greet, error)) return false;
     if (cheer && !validateReaction(*cheer, error)) return false;
     if (permission && !validatePermissionCue(*permission, error)) return false;
+    if (deskPeek && (!deskPeek->isAdditive() || deskPeek->isLoop() || deskPeek->duration() > 3.1)) {
+        if (error) *error = QStringLiteral("Desk peek must be an additive one-shot of at most 3.1s");
+        return false;
+    }
     double enterEnd = 0.8;
     double holdEnd = 1.6;
     if (headPat) {
@@ -464,6 +471,8 @@ bool ParameterMotion::configureInteractions(QString* error) {
     greetClip_ = greet ? *greet : MotionClip{};
     cheerClip_ = cheer ? *cheer : MotionClip{};
     permissionCueClip_ = permission ? *permission : MotionClip{};
+    cancelDeskPeek(false);
+    deskPeekClip_ = deskPeek ? *deskPeek : MotionClip{};
     headPatEnterEnd_ = enterEnd;
     headPatHoldEnd_ = holdEnd;
     return true;
@@ -822,6 +831,48 @@ void ParameterMotion::cancelGrassTipDrag() {
 
 void ParameterMotion::setGazeTarget(double nx, double ny, bool nearCursor, bool cursorActive) {
     gaze_.setTarget(nx, ny, nearCursor, cursorActive);
+}
+
+bool ParameterMotion::playDeskPeek(double cursorX) {
+    if (state_ != PetController::State::Idle || preview_ || gazeSuppressed()
+        || deskPeekTime_ >= 0.0 || !deskPeekClip_.isValid()
+        || deskPeekClip_.approval() != QStringLiteral("approved")
+        || !qIsFinite(cursorX) || std::abs(cursorX) < 0.18
+        || (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden)
+        || values_.value(deskVisible) > 0.001
+        || values_.value(QStringLiteral("ParamSitPose")) > 0.001
+        || values_.value(QStringLiteral("ParamBusyLaptop")) > 0.001
+        || values_.value(QStringLiteral("ParamLaptopVisible")) > 0.001) return false;
+    // Capture the side once. Moving the mouse cannot restart or flip the beat.
+    deskPeekSide_ = cursorX < 0.0 ? -1.0 : 1.0;
+    deskPeekTime_ = 0.0;
+    return true;
+}
+
+void ParameterMotion::cancelDeskPeek(bool fade) {
+    if (fade) {
+        if (deskPeekActive()) deskPeekFade_ = 0.0;
+        return;
+    }
+    deskPeekTime_ = deskPeekFade_ = -1.0;
+    deskPeekOutput_.clear();
+}
+
+void ParameterMotion::advanceDeskPeek(double seconds) {
+    if (deskPeekTime_ < 0.0) return;
+    double weight = 1.0;
+    if (deskPeekFade_ >= 0.0) {
+        deskPeekFade_ += seconds;
+        weight = 1.0 - smooth(deskPeekFade_ / 0.13);
+    } else {
+        deskPeekTime_ += seconds;
+    }
+    if (weight <= 0.0 || deskPeekTime_ >= deskPeekClip_.duration()) {
+        cancelDeskPeek(false);
+        return;
+    }
+    deskPeekOutput_ = values_;
+    applyDeskPeekPose(deskPeekOutput_, deskPeekClip_.sample(deskPeekTime_), deskPeekSide_, weight, false);
 }
 
 bool ParameterMotion::gazeSuppressed() const {
@@ -1243,18 +1294,19 @@ ParameterMotion::Parameters ParameterMotion::grassPose(double seconds) const {
 
 void ParameterMotion::setPreviewPose(const Parameters& parameters) {
     cancelInteraction();
+    values_ = parameters;
+    cancelDeskPeek(false);
     cancelGrassTipDrag();
     grassTouch_.reset();
-    values_ = parameters;
-    grassBend_ = parameters.value(QStringLiteral("ParamGrassSwing"));
-    grassTip_ = grassBend_ + parameters.value(QStringLiteral("ParamGrassTipBend")) / 0.85;
+    grassBend_ = values_.value(QStringLiteral("ParamGrassSwing"));
+    grassTip_ = grassBend_ + values_.value(QStringLiteral("ParamGrassTipBend")) / 0.85;
     grassBendVelocity_ = grassTipVelocity_ = 0.0;
-    previousReach_ = parameters.value(QStringLiteral("ParamGrassReach"));
-    previousGripAngle_ = -parameters.value(rightArm)
-        - parameters.value(QStringLiteral("ParamElbowRA"))
-        - parameters.value(QStringLiteral("ParamWristRA")) + 30.0 * previousReach_;
-    leftEyeExpression_ = parameters.value(leftEye, 1.0);
-    rightEyeExpression_ = parameters.value(rightEye, 1.0);
+    previousReach_ = values_.value(QStringLiteral("ParamGrassReach"));
+    previousGripAngle_ = -values_.value(rightArm)
+        - values_.value(QStringLiteral("ParamElbowRA"))
+        - values_.value(QStringLiteral("ParamWristRA")) + 30.0 * previousReach_;
+    leftEyeExpression_ = values_.value(leftEye, 1.0);
+    rightEyeExpression_ = values_.value(rightEye, 1.0);
     preview_ = true;
     sequencePhysics_ = false;
 }
@@ -1277,6 +1329,7 @@ void ParameterMotion::advance(double seconds) {
     if (preview_) return;
     if (!qIsFinite(seconds) || seconds <= 0.0) return;
     seconds = std::min(seconds, 0.1); // Avoid a leap after suspend or debugger pause.
+    if (deskPeekActive() && (state_ != PetController::State::Idle || gazeSuppressed())) cancelDeskPeek();
     // Capture before advanceInteraction() retires the final pause frame. Both
     // work clocks, and hence the choice deadline, exclude the entire pause.
     const bool pauseWorkClock = workPauseActive() || permissionCueActive();
@@ -1522,7 +1575,7 @@ void ParameterMotion::advance(double seconds) {
             nextBlinkAt_ = blinkStart_ + (doubleBlink ? kBlinkDoubleGap : gap);
         }
         const double blinkPhase = blinkClock_ - blinkStart_;
-        if (blinkPhase >= 0.0 && blinkPhase < kBlinkLen)
+        if (!deskPeekActive() && blinkPhase >= 0.0 && blinkPhase < kBlinkLen)
             eye = 1.0 - pulse(blinkPhase, 0.0, kBlinkClose, kBlinkLen);
     }
     // Time-based exponential blending is stable at both 30 and 60 Hz.
@@ -1570,6 +1623,7 @@ void ParameterMotion::advance(double seconds) {
     if (grassTouch_.holding() && grassTipDragOffset_ != 0.0)
         flexTarget += grassTipDragOffset_;
     updateGrassFlex(seconds, std::clamp(flexTarget, -1.0, 1.0));
+    advanceDeskPeek(seconds);
 
     // A one-shot action reports completion once it reaches its authored length.
     if (!actionFinishedReported_ && (state_ == PetController::State::Delete

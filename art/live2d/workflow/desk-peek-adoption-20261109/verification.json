@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "passed": true,
+  "approval": "approved",
+  "revision": 1,
+  "runtime_entry": "stable standing idle, ordinary spontaneous director",
+  "seated_entry": "isolated preview only",
+  "approved_curve_matches_candidate": true,
+  "approved_clip_matches_deployment": true,
+  "build": {
+    "configuration": "Release",
+    "ninja_object_dependencies_verified": 119,
+    "authenticode": "Valid"
+  },
+  "ctest": {
+    "passed": 26,
+    "total": 26,
+    "time_seconds": 71.0,
+    "junit_sha256": "2a8c6ddd62fb1e67ed210164f0d644dd1b844484d66f4d18012556bfd9fd47e3"
+  },
+  "native": {
+    "scope": "normal_scheduler_window_and_native_motion; isolated settings and fixture input",
+    "steps": 188,
+    "images": 94,
+    "checks": {
+      "agent_preempts_peek": true,
+      "ambiguous_direction_refused": true,
+      "approved_normal_entry": true,
+      "busy_no_peek": true,
+      "fold_note": true,
+      "frequency_off": true,
+      "fresh_idle_after_quiet": true,
+      "left_kept_after_mouse_change": true,
+      "memo_visible": true,
+      "native_backend": true,
+      "native_frames_saved": true,
+      "no_replay_when_turn_ends": true,
+      "quiet_drops_nomination": true,
+      "rejected_nomination_not_queued": true,
+      "returns_to_idle": true,
+      "right_peak": true,
+      "right_side_eligible_after_cooldown": true,
+      "slow_blink_closes": true,
+      "visible_memo_owns_stage": true
+    },
+    "trace_sha256": "9a9e98111bd68777af7773ec5a600e27232a0147bf391fb424ee6f19344dd6b6",
+    "physical_input_or_real_hooks_tested": false
+  },
+  "reproduce": "build/DesktopCompanion.exe --render-interaction build/<fresh-directory> desk-peek-adoption",
+  "inputs_sha256": {
+    "art/live2d/workflow/desk-peek-20261109/desk-peek.motion.json": "434df399bf94cc8d422f6020a438db2b65f7af5afc00585d3adb520e5e56196a",
+    "assets/motions/desk-peek.motion.json": "d16c1f18ca2a2305e47279f083a8d439f7ba1442a2bcda6cfd38cf20c80ad14c",
+    "build/DesktopCompanion.exe": "992bee6af910f141a94ed2e292d5b9393a5aa3bfd58a4970ee2f28e012c51443",
+    "src/DeskPeekReview.cpp": "bab317b52fb7b3f8ac929f54fc6c4392fc99147d7357ee1e71037524193257bc",
+    "src/ParameterMotion.cpp": "c4b294464c87cac7f6cacd5cc2abb2578fd196bc8ea4e9897848476ec92aa734",
+    "src/PetWindow.cpp": "174a4873a6773e8acee7518122a11dd61877d99d4e485e4793e403115e251344",
+    "src/TriggerDirector.cpp": "8d1d607a843d06aa5bed2ebd00e9ae0948c4c9b7f15cf0d66841e33bce775153",
+    "src/motion/DeskPeekPose.h": "9aadb60a12ead50bf9a0d3959cd81e2ddd71e64ede03322a9b8ac65d5686426e"
+  },
+  "artifacts_sha256": {
+    "standing-peak.png": "222a81307c0236db6bfcba8493f07be8fe60245c3a585c1cd1fb2999ee8c88cf"
+  }
+}

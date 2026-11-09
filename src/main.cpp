@@ -232,7 +232,11 @@ int main(int argc, char** argv) {
         if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
         if (workPostureReview) return runWorkPostureReview(app, controller, window, output, scenario);
         if (permissionAdoptionReview) return runPermissionAdoptionReview(app, controller, window, output, scenario);
-        if (deskPeekReview) return runDeskPeekReview(app, window, output, scenario, arguments.value(4));
+        if (deskPeekReview) {
+            if (scenario == QStringLiteral("desk-peek-adoption"))
+                return runDeskPeekAdoptionReview(app, controller, window, output);
+            return runDeskPeekReview(app, window, output, scenario, arguments.value(4));
+        }
         if (edgeHideReview) return runEdgeHideReview(app, controller, window, output, scenario);
         if (edgeDockWindowReview) return runEdgeDockWindowReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))

@@ -77,6 +77,11 @@ public:
     // A bounded permission-request cue, not a claim that all work is blocked.
     // Drafts are explicit review only; never inferred from elapsed Busy time.
     bool playPermissionCue(bool allowDraft = false);
+    // A standing-only, low-priority additive beat. Higher-priority owners
+    // can start normally; the peek releases its last pose without replay.
+    bool playDeskPeek(double cursorX);
+    bool deskPeekActive() const { return deskPeekTime_ >= 0.0 && deskPeekFade_ < 0.0; }
+    void cancelDeskPeek(bool fade = true);
     bool permissionCueActive() const { return interaction_ == Interaction::PermissionCue; }
     quint64 permissionCueSerial() const { return permissionCueSerial_; }
     // True while the stretch-and-peek pause is playing. A click during the
@@ -261,8 +266,12 @@ public:
     void setPreviewPose(const Parameters& parameters);
     bool isPreview() const { return preview_; }
     bool frozenPhysics() const { return preview_ && !sequencePhysics_; }
-    void setSequencePose(const Parameters& parameters) { values_ = parameters; preview_ = true; sequencePhysics_ = true; }
-    const Parameters& values() const { return values_; }
+    void setSequencePose(const Parameters& parameters) {
+        values_ = parameters;
+        cancelDeskPeek(false);
+        preview_ = true; sequencePhysics_ = true;
+    }
+    const Parameters& values() const { return deskPeekOutput_.isEmpty() ? values_ : deskPeekOutput_; }
     // Comic "?" bubble next to the head while the pet is thinking. It is
     // presentation, not a MOC3 parameter: the window layer paints it, so it
     // cannot travel inside the parameter map. The player still owns its timing,
@@ -272,6 +281,7 @@ public:
     double bubblePulse() const { return bubblePulse_; }
 
 private:
+    void advanceDeskPeek(double seconds);
     // Blend time used for every parameter that no clip overrides.
     static constexpr double kDefaultBlend = 0.12;
     // Procedural blink (see advance()). Intervals are jittered so the rhythm
@@ -337,6 +347,11 @@ private:
     MotionClip greetClip_;
     MotionClip cheerClip_;
     MotionClip permissionCueClip_;
+    MotionClip deskPeekClip_;
+    Parameters deskPeekOutput_;
+    double deskPeekTime_ = -1.0;
+    double deskPeekFade_ = -1.0;
+    double deskPeekSide_ = 1.0;
     quint64 permissionCueSerial_ = 0;
     QString interactionDirectory_;
     Interaction interaction_ = Interaction::None;
