@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "frames": 108,
+  "checks": 41,
+  "scope": "native_window_memo_actions_synthetic_qt_badge_click_and_real_controller_events",
+  "privacy": {
+    "default_endpoint_used": false,
+    "desktop_files_changed": false,
+    "fixture_only": true,
+    "isolated_settings": true,
+    "isolated_store": true,
+    "raw_text_in_trace": false,
+    "real_hooks_used": false
+  },
+  "scene_sha256": "232bb0ba34e6daaa49cafe32debf5f7374dfd5bdab289dceea28d2495743f26f",
+  "executable_sha256": "2635e7c1431041ea1a20d0ded44c4a627aa1ce8f00bc1dd2d33971e7616e555b",
+  "core_sha256": "d883c00d114fdf6cef61f439feb23e02d000fdf683e092803010470b80dfaf09",
+  "review_tool_sha256": "fa0a83fb564dc253abcaeb9b971518017b7e5ef02905dcc438e6fd0ff086e688",
+  "live_capture_performed": true,
+  "source_deployment_equal": true,
+  "visual_samples": {
+    "native_capture": [
+      "expanded user note",
+      "collapsed user badge",
+      "duration badge",
+      "completion fade"
+    ],
+    "qt_composited_sample": [
+      "seated duration card",
+      "180 px and 560 px long-note wrapping"
+    ]
+  },
+  "focused_ctest": [
+    "MemoStoreTest",
+    "StickyNoteModelTest"
+  ]
+}

@@ -198,8 +198,8 @@ private:
     void updatePointerGesture();
     void releasePointerGesture();
     void constrainPositionToScreen();
-    // Sticky note (motion card 5). The note is window-layer art anchored to
-    // the desk edge; the motion layer carries only the gaze. The note is
+    // Sticky note (motion card 5). The note is window-layer art; the
+    // motion layer carries only the gaze. The note is
     // painted into the composed frame, so the per-pixel input mask picks it up
     // and clicks land exactly on the paper.
     void editStickyNote();
@@ -210,7 +210,7 @@ private:
     void recordWorkDuration(qint64 workedMs);
     bool handleMemoPress(const QPointF& localPos, const QPoint& globalPos);
     void drawMemoNote(QPainter& painter, const QSize& size) const;
-    QRectF memoBubbleRect(const QSizeF& size, double rise) const;
+    QString memoPreviewText() const;
     QRectF memoBadgeRect(const QSizeF& size) const;
     double memoEnvelope() const;
     // Eye-mask nap (motion card 8, reworked per feedback: no pillow prop).

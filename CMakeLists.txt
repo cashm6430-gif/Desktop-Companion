@@ -68,6 +68,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/motion/GrassTouchBehavior.h src/motion/GrassTouchBehavior.cpp
     src/overlay/FrameOverlay.h
     src/overlay/FrameComposer.h src/overlay/FrameComposer.cpp
+    src/overlay/MemoOverlay.h src/overlay/MemoOverlay.cpp
     src/PetWindow.h src/PetWindow.cpp
     src/TrayMenuStyle.h
     resources/peticons.qrc

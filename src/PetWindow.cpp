@@ -10,6 +10,7 @@
 #include "MemoStore.h"
 #include "StickyNoteModel.h"
 #include "overlay/FrameOverlay.h"
+#include "overlay/MemoOverlay.h"
 
 #include <QApplication>
 #include <QAction>
@@ -144,47 +145,6 @@ bool foregroundCoversScreen(HWND self) {
 constexpr double kBubbleCenterX = 0.765;
 constexpr double kBubbleCenterY = 0.145;
 constexpr double kBubbleRadius = 0.084;
-
-// --------------------------------------------------------- sticky note paper
-// Motion card 5: the note is window-layer art, same reasoning as the bubble.
-// One painter for the full note and the corner badge so both read as the
-// same object. Geometry is a fraction of the widget, like the bubble's.
-void paintStickyPaper(QPainter& painter, const QRectF& rect, const QString& text) {
-    painter.save();
-    painter.setRenderHint(QPainter::Antialiasing);
-    // Soft drop shadow lifts the paper off the scene.
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(0, 0, 0, 36));
-    painter.drawRoundedRect(rect.translated(2, 3), 4, 4);
-    // Paper with a folded top-right corner (a dog-ear).
-    const qreal fold = qMin(rect.width(), rect.height()) * 0.30;
-    painter.setPen(QPen(QColor(0xE8, 0xD4, 0x4D), 1.2));
-    painter.setBrush(QColor(0xFF, 0xF6, 0xA8));
-    painter.drawPolygon(QPolygonF{rect.topLeft(),
-                                  QPointF(rect.right() - fold, rect.top()),
-                                  QPointF(rect.right(), rect.top() + fold),
-                                  rect.bottomRight(),
-                                  rect.bottomLeft()});
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(0xEA, 0xD9, 0x7A));
-    painter.drawPolygon(QPolygonF{QPointF(rect.right() - fold, rect.top()),
-                                  QPointF(rect.right(), rect.top() + fold),
-                                  QPointF(rect.right() - fold, rect.top() + fold)});
-    if (!text.isEmpty()) {
-        const QRectF textRect = rect.adjusted(rect.width() * 0.08, rect.height() * 0.10,
-                                              -rect.width() * 0.08, -rect.height() * 0.08);
-        QFont font(QStringLiteral("Microsoft YaHei"));
-        font.setPixelSize(std::clamp(int(rect.height() * 0.20), 10, 18));
-        painter.setFont(font);
-        painter.setPen(QColor(0x4A, 0x42, 0x34));
-        painter.setClipRect(textRect);
-        // The paper is a compact summary; the edit dialog keeps the full text.
-        const QString summary = QFontMetrics(font).elidedText(
-            text.simplified(), Qt::ElideRight, int(textRect.width()));
-        painter.drawText(textRect, Qt::AlignLeft | Qt::AlignTop | Qt::TextSingleLine, summary);
-    }
-    painter.restore();
-}
 
 // The comic-thought cloud shared by the "?" and the sleep "z Z Z" bubbles:
 // trailing bubbles down towards the head, then a lobe-union cloud body (drawn
@@ -1327,47 +1287,40 @@ double PetWindow::memoEnvelope() const {
     return memo_->riseSeen() ? 1.0 : 0.0;
 }
 
-QRectF PetWindow::memoBubbleRect(const QSizeF& s, double rise) const {
-    const bool desk = motion_.values().value(QStringLiteral("ParamDeskVisible")) > 0.5;
-    const double w = s.width() * 0.42;
-    const double h = s.height() * 0.15;
-    const double cx = s.width() * (desk ? 0.68 : 0.76);
-    // Rises from the desk edge to about half a head high; without the desk it
-    // floats up from the side of the body -- no special hand prop, per the card.
-    const double cy = s.height() * ((desk ? 0.52 : 0.55) - rise * (desk ? 0.22 : 0.21));
-    return QRectF(cx - w / 2.0, cy - h / 2.0, w, h);
+QString PetWindow::memoPreviewText() const {
+    if (memo_->hasUserNote()) return memo_->text();
+    const qint64 seconds = memo_->workedMs() / 1000;
+    const QString duration = seconds < 60 ? QStringLiteral("%1 秒").arg(seconds)
+        : QStringLiteral("%1 分 %2 秒").arg(seconds / 60).arg(seconds % 60, 2, 10, QLatin1Char('0'));
+    return memo_->workCount() > 1
+        ? QStringLiteral("%1 回合 · %2").arg(memo_->workCount()).arg(duration) : duration;
 }
 
 QRectF PetWindow::memoBadgeRect(const QSizeF& s) const {
     const bool desk = motion_.values().value(QStringLiteral("ParamDeskVisible")) > 0.5;
-    const double w = s.width() * 0.10;
-    return QRectF(s.width() * (desk ? 0.82 : 0.84), s.height() * (desk ? 0.50 : 0.56), w, w * 0.9);
+    return memo_overlay::badgeRect(s, desk);
 }
 
 void PetWindow::drawMemoNote(QPainter& painter, const QSize& size) const {
     const QSizeF s(size);
+    using memo_overlay::Mark;
+    const auto mark = memo_->hasUserNote() ? Mark::Note : Mark::Duration;
     if (memo_->visual() == StickyNoteModel::Visual::Bubble) {
         const double rise = memoEnvelope();
         if (rise <= 0.001) return;
-        const QRectF rect = memoBubbleRect(s, rise);
+        const QString text = memoPreviewText();
         painter.save();
-        painter.setOpacity(std::clamp(rise * 3.0, 0.0, 1.0));
-        // The paper scales in with the rise; a slight tilt keeps it handmade.
-        painter.translate(rect.center());
-        painter.rotate(-3.0);
-        painter.scale(0.7 + 0.3 * rise, 0.7 + 0.3 * rise);
-        painter.translate(-rect.center());
-        paintStickyPaper(painter, rect, memo_->text());
+        painter.setOpacity(rise);
+        memo_overlay::drawCard(painter, s, memo_overlay::cardRect(s, rise, text), text, mark);
         painter.restore();
     } else if (memo_->visual() == StickyNoteModel::Visual::Badge) {
-        paintStickyPaper(painter, memoBadgeRect(s),
-            memo_->hasUserNote() ? QStringLiteral("…") : QStringLiteral("时"));
+        memo_overlay::drawBadge(painter, memoBadgeRect(s), mark);
     } else if (memo_->visual() == StickyNoteModel::Visual::Done) {
         const double t = memo_->visualAge();
         if (t >= 0.8) return;
         painter.save();
         painter.setOpacity(1.0 - t / 0.8);
-        paintStickyPaper(painter, memoBadgeRect(s), QString());
+        memo_overlay::drawBadge(painter, memoBadgeRect(s), Mark::Done);
         painter.restore();
     }
 }
@@ -1513,8 +1466,9 @@ QJsonObject PetWindow::memoReviewState() const {
 bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos) {
     const QSizeF s(size());
     if (memo_->visual() == StickyNoteModel::Visual::Bubble && memoEnvelope() > 0.9
-        && memoBubbleRect(s, 1.0).contains(localPos)) {
+        && memo_overlay::cardRect(s, memoEnvelope(), memoPreviewText()).contains(localPos)) {
         QMenu menu(this);
+        menu.setStyleSheet(tray_style::menuStyleSheet());
         QAction* edit = memo_->hasUserNote() ? menu.addAction(QStringLiteral("查看 / 修改便笺…")) : nullptr;
         QAction* view = memo_->hasUserNote() ? nullptr : menu.addAction(QStringLiteral("查看回合耗时…"));
         QAction* done = memo_->hasUserNote() ? menu.addAction(QStringLiteral("完成了")) : nullptr;
