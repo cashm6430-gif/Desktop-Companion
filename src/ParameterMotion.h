@@ -79,8 +79,10 @@ public:
     bool playPermissionCue(bool allowDraft = false);
     // A standing-only, low-priority additive beat. Higher-priority owners
     // can start normally; the peek releases its last pose without replay.
+    bool canPlayDeskPeek() const;
     bool playDeskPeek(double cursorX);
-    bool deskPeekActive() const { return deskPeekTime_ >= 0.0 && deskPeekFade_ < 0.0; }
+    bool deskPeekInFlight() const { return deskPeekTime_ >= 0.0; }
+    bool deskPeekActive() const { return deskPeekInFlight() && deskPeekFade_ < 0.0; }
     void cancelDeskPeek(bool fade = true);
     bool permissionCueActive() const { return interaction_ == Interaction::PermissionCue; }
     quint64 permissionCueSerial() const { return permissionCueSerial_; }

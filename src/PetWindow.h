@@ -188,9 +188,11 @@ private:
     void onEatTriggered(const QString& file, const QPointF& sourcePos, const QIcon& icon);
     void setInteractionMask(const QPixmap& artwork);
     void updateInputTransparency();
-    bool startDeskPeek();
+    bool deskPeekStageAvailable() const;
+    bool startDeskPeek(double direction, bool manual);
     void tickSpontaneousScenes();
     friend int runDeskPeekAdoptionReview(QApplication&, PetController&, PetWindow&, const QString&);
+    friend int runDeskPeekManualReview(QApplication&, PetController&, PetWindow&, const QString&);
     friend int runVisibilityReview(QApplication&, PetController&, PetWindow&, const QString&, qint64&);
     void showMenu(const QPoint& globalPos);
     // The fed-file prop: the icon of the dropped file rides the window layer
@@ -318,6 +320,7 @@ private:
     QPoint lastCursor_;
     bool cursorSeen_ = false;
     double deskPeekCursorX_ = 0.0; // a centred or unavailable target refuses a peek
+    bool deskPeekPreviewRunning_ = false;
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
     QPixmap wrapProp_;

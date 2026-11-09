@@ -241,6 +241,8 @@ int main(int argc, char** argv) {
         if (deskPeekReview) {
             if (scenario == QStringLiteral("desk-peek-adoption"))
                 return runDeskPeekAdoptionReview(app, controller, window, output);
+            if (scenario == QStringLiteral("desk-peek-manual"))
+                return runDeskPeekManualReview(app, controller, window, output);
             return runDeskPeekReview(app, window, output, scenario, arguments.value(4));
         }
         if (edgeHideReview) return runEdgeHideReview(app, controller, window, output, scenario);

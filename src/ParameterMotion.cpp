@@ -833,16 +833,19 @@ void ParameterMotion::setGazeTarget(double nx, double ny, bool nearCursor, bool 
     gaze_.setTarget(nx, ny, nearCursor, cursorActive);
 }
 
+bool ParameterMotion::canPlayDeskPeek() const {
+    return state_ == PetController::State::Idle && !preview_ && !gazeSuppressed()
+        && !deskPeekInFlight() && deskPeekClip_.isValid()
+        && deskPeekClip_.approval() == QStringLiteral("approved")
+        && (!deskWorkMode_ || deskPhase_ == DeskPhase::Hidden)
+        && values_.value(deskVisible) <= 0.001
+        && values_.value(QStringLiteral("ParamSitPose")) <= 0.001
+        && values_.value(QStringLiteral("ParamBusyLaptop")) <= 0.001
+        && values_.value(QStringLiteral("ParamLaptopVisible")) <= 0.001;
+}
+
 bool ParameterMotion::playDeskPeek(double cursorX) {
-    if (state_ != PetController::State::Idle || preview_ || gazeSuppressed()
-        || deskPeekTime_ >= 0.0 || !deskPeekClip_.isValid()
-        || deskPeekClip_.approval() != QStringLiteral("approved")
-        || !qIsFinite(cursorX) || std::abs(cursorX) < 0.18
-        || (deskWorkMode_ && deskPhase_ != DeskPhase::Hidden)
-        || values_.value(deskVisible) > 0.001
-        || values_.value(QStringLiteral("ParamSitPose")) > 0.001
-        || values_.value(QStringLiteral("ParamBusyLaptop")) > 0.001
-        || values_.value(QStringLiteral("ParamLaptopVisible")) > 0.001) return false;
+    if (!canPlayDeskPeek() || !qIsFinite(cursorX) || std::abs(cursorX) < 0.18) return false;
     // Capture the side once. Moving the mouse cannot restart or flip the beat.
     deskPeekSide_ = cursorX < 0.0 ? -1.0 : 1.0;
     deskPeekTime_ = 0.0;

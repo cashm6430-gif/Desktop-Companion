@@ -67,8 +67,11 @@ public:
     // Advance by dt seconds with the current controller state. At most one
     // nomination per tick. A quiet-policy veto consumes the launch greeting
     // and resets continuous eligibility time, so nothing queues for recovery.
-    // The running clock still advances (including cooldowns/backoff).
-    void tick(double dt, bool idle, bool busy, bool allowAutomatic = true);
+    // The running clock still advances (including cooldowns/backoff). A
+    // manual preview can hold nominations without resetting eligibility or
+    // recording a refused scene.
+    void tick(double dt, bool idle, bool busy, bool allowAutomatic = true,
+              bool holdNominations = false);
 
     // Trace/test observations.
     int startedCount() const { return startedCount_; }

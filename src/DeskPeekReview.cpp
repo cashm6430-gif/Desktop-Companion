@@ -5,12 +5,15 @@
 #include "motion/DeskPeekPose.h"
 #include "motion/MotionMath.h"
 
+#include <QAction>
 #include <QApplication>
 #include <QDir>
+#include <QEventLoop>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QKeyEvent>
 #include <QSaveFile>
 #include <QTimer>
 #include <cmath>
@@ -227,6 +230,163 @@ int runDeskPeekAdoptionReview(QApplication& app, PetController& controller, PetW
         const auto bytes = QJsonDocument(report).toJson();
         const bool saved = receipt.open(QIODevice::WriteOnly) && receipt.write(bytes) == bytes.size() && receipt.commit();
         app.exit(saved && passed ? 0 : 1);
+    });
+    return app.exec();
+}
+
+int runDeskPeekManualReview(QApplication& app, PetController& controller, PetWindow& window,
+                            const QString& output) {
+    if (!app.property("desktopCompanionReviewSettingsIsolated").toBool()) return 2;
+    window.prepareLiveInteractionReview(280);
+    window.setWorkPosturePreference(ParameterMotion::WorkPosturePreference::Standing);
+    const QDir dir(output);
+    QTimer::singleShot(1000, &app, [&] {
+        using State = PetController::State;
+        using Frequency = TriggerDirector::Frequency;
+        auto& director = window.director_;
+        auto& motion = window.motion_;
+        QJsonObject checks;
+        QJsonObject peaks;
+        const auto check = [&](const char* id, bool passed) { checks.insert(QString::fromLatin1(id), passed); };
+        const auto finish = [&] {
+            bool passed = true;
+            for (const auto& result : checks) passed &= result.toBool();
+            const QJsonObject report{{QStringLiteral("scenario"), QStringLiteral("desk-peek-manual")},
+                {QStringLiteral("passed"), passed},
+                {QStringLiteral("scope"), QStringLiteral("isolated_native_window_with_qt_menu_actions_and_fixture_events")},
+                {QStringLiteral("checks"), checks}, {QStringLiteral("peaks"), peaks}};
+            QSaveFile receipt(dir.filePath(QStringLiteral("scene.json")));
+            const auto bytes = QJsonDocument(report).toJson();
+            const bool saved = receipt.open(QIODevice::WriteOnly) && receipt.write(bytes) == bytes.size()
+                && receipt.commit();
+            app.exit(saved && passed ? 0 : 1);
+        };
+        auto* menu = window.findChild<QMenu*>(QStringLiteral("deskPeekPreviewMenu"));
+        QAction* left = nullptr;
+        QAction* right = nullptr;
+        if (menu) {
+            for (auto* action : menu->actions()) {
+                if (action->objectName() == QStringLiteral("deskPeekPreviewLeft")) left = action;
+                if (action->objectName() == QStringLiteral("deskPeekPreviewRight")) right = action;
+            }
+        }
+        check("native_window", window.isVisible() && window.renderBackend() == QStringLiteral("cubism_native"));
+        check("has_two_preview_actions", left && right);
+        if (!left || !right) { finish(); return; }
+        // Drive the real menu and action signals without popping a menu on the
+        // user's desktop. The start is deferred until after the menu dismisses.
+        const auto actionsAvailable = [&](bool available) {
+            return QMetaObject::invokeMethod(menu, "aboutToShow", Qt::DirectConnection)
+                && left->isEnabled() == available && right->isEnabled() == available;
+        };
+        const auto drainAction = [] {
+            QEventLoop loop;
+            QTimer::singleShot(1, &loop, &QEventLoop::quit);
+            loop.exec();
+        };
+        const auto trigger = [&](QAction* action) { action->trigger(); drainAction(); };
+        const auto quiet = [&](bool on) { app.setProperty("desktopCompanionReviewSuppressAutomatic", on); };
+        const auto settle = [&] {
+            for (int i = 0; i < 112; ++i) window.advanceLiveFrame(1.0 / 30.0);
+        };
+        const auto capturePeak = [&](const QString& side, double oppositeCursor) {
+            for (int i = 0; i < 34; ++i) {
+                window.deskPeekCursorX_ = oppositeCursor;
+                window.advanceLiveFrame(1.0 / 30.0);
+            }
+            const double bodyZ = motion.values().value(QStringLiteral("ParamBodyAngleZ"));
+            const QString file = side + QStringLiteral("-peak.png");
+            const bool saved = window.saveRenderFrame(dir.filePath(file));
+            peaks.insert(side, QJsonObject{{QStringLiteral("body_z"), bodyZ}, {QStringLiteral("file"), file},
+                {QStringLiteral("saved"), saved}});
+            return saved && bodyZ * oppositeCursor < -5.0;
+        };
+        const int attempts = director.attemptCount();
+        const int starts = director.startedCount();
+        const double clock = director.runningSeconds();
+
+        director.setFrequency(Frequency::Off);
+        check("left_and_right_enabled_in_standing_idle", actionsAvailable(true));
+        window.deskPeekCursorX_ = 2.0;
+        // Exercise the QWidget popup selection too. It remains invisible to
+        // the user, since Qt can clamp arbitrary offscreen popup positions.
+        menu->setAttribute(Qt::WA_DontShowOnScreen);
+        menu->popup(window.pos());
+        menu->setActiveAction(left);
+        const bool popupSelected = menu->isVisible() && menu->activeAction() == left;
+        QKeyEvent enter(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier);
+        QApplication::sendEvent(menu, &enter);
+        check("qt_popup_selection_dismisses_menu", popupSelected && !menu->isVisible());
+        if (menu->isVisible()) menu->hide();
+        drainAction();
+        check("left_starts_with_automatic_off", motion.deskPeekActive());
+        check("left_peak_ignores_right_cursor", capturePeak(QStringLiteral("left"), 2.0));
+        settle();
+        check("left_returns_to_standing_idle", !motion.deskPeekInFlight() && controller.state() == State::Idle);
+
+        director.setFrequency(Frequency::Normal);
+        quiet(true);
+        check("directions_remain_available_while_quiet", actionsAvailable(true));
+        window.deskPeekCursorX_ = -2.0;
+        trigger(right);
+        check("right_starts_while_quiet", motion.deskPeekActive());
+        check("right_peak_ignores_left_cursor", capturePeak(QStringLiteral("right"), -2.0));
+        settle();
+        check("right_returns_to_standing_idle", !motion.deskPeekInFlight() && controller.state() == State::Idle);
+        check("manual_playback_never_records_an_attempt", director.attemptCount() == attempts
+              && director.startedCount() == starts && director.runningSeconds() == clock);
+
+        const QString session = QStringLiteral("desk-peek-manual-review");
+        const QString turn = QStringLiteral("fixture");
+        check("stale_selection_was_enabled", actionsAvailable(true));
+        left->trigger();
+        controller.turnStarted(session, turn);
+        drainAction();
+        check("selection_rechecks_after_work_begins", controller.state() == State::Busy && !motion.deskPeekInFlight());
+        check("busy_disables_both_directions", actionsAvailable(false));
+        controller.sessionEnded(session);
+        window.pointerGesture_.press(QPointF(120, 160), false);
+        window.pointerGesture_.move(QPointF(145, 160));
+        check("drag_disables_both_directions", window.pointerGesture_.mode() == PetPointerGesture::Mode::Drag
+              && actionsAvailable(false));
+        window.pointerGesture_.release();
+        check("expanded_memo_disables_both_directions", window.setUserMemo(QStringLiteral("fixture note"))
+              && window.memoReviewState().value(QStringLiteral("visual")).toString() == QStringLiteral("bubble")
+              && actionsAvailable(false));
+        check("folded_memo_releases_preview_gate", window.foldMemo() && actionsAvailable(true));
+        check("fixture_memo_removed", window.discardMemo());
+
+        // A due auto tick advances the clock, but must not record a refusal
+        // while the user owns the stage. The next eligible tick can still play.
+        window.tickSpontaneousScenes(); // quiet consumes the launch greeting
+        quiet(false);
+        director.setChanceScale(1000.0);
+        for (int i = 0; i < 359; ++i) window.tickSpontaneousScenes();
+        check("automatic_not_due_at_359_seconds", director.attemptCount() == attempts && !motion.deskPeekInFlight());
+        trigger(left);
+        const double beforeDueTick = director.runningSeconds();
+        window.deskPeekCursorX_ = 2.0;
+        window.tickSpontaneousScenes();
+        check("due_tick_holds_nomination_without_pausing_clock", director.runningSeconds() == beforeDueTick + 1.0
+              && director.attemptCount() == attempts && director.startedCount() == starts && motion.deskPeekActive());
+        settle();
+        window.deskPeekCursorX_ = 2.0;
+        window.tickSpontaneousScenes();
+        check("automatic_plays_without_manual_cooldown_or_backoff", director.attemptCount() == attempts + 1
+              && director.startedCount() == starts + 1 && director.lastStarted() == QStringLiteral("desk-peek")
+              && motion.deskPeekActive());
+        settle();
+
+        const bool enabled = actionsAvailable(true);
+        trigger(right);
+        check("manual_can_play_during_automatic_cooldown", enabled && motion.deskPeekActive());
+        controller.turnStarted(session, turn);
+        check("new_work_preempts_manual_preview", controller.state() == State::Busy && !motion.deskPeekActive());
+        settle();
+        controller.sessionEnded(session);
+        check("work_end_does_not_replay_manual_preview", controller.state() == State::Idle && !motion.deskPeekInFlight()
+              && director.attemptCount() == attempts + 1 && director.startedCount() == starts + 1);
+        finish();
     });
     return app.exec();
 }

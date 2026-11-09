@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-09",
+  "scenario": "desk-peek-manual",
+  "passed": true,
+  "scope": "Cubism Native Qt menu popup and QAction selection, fixture clock/input/work events, isolated settings; no real hooks or physical tray input.",
+  "reproduction": "build/DesktopCompanion.exe --render-interaction build/<new-directory> desk-peek-manual",
+  "manual_checks": {
+    "automatic_not_due_at_359_seconds": true,
+    "automatic_plays_without_manual_cooldown_or_backoff": true,
+    "busy_disables_both_directions": true,
+    "directions_remain_available_while_quiet": true,
+    "drag_disables_both_directions": true,
+    "due_tick_holds_nomination_without_pausing_clock": true,
+    "expanded_memo_disables_both_directions": true,
+    "fixture_memo_removed": true,
+    "folded_memo_releases_preview_gate": true,
+    "has_two_preview_actions": true,
+    "left_and_right_enabled_in_standing_idle": true,
+    "left_peak_ignores_right_cursor": true,
+    "left_returns_to_standing_idle": true,
+    "left_starts_with_automatic_off": true,
+    "manual_can_play_during_automatic_cooldown": true,
+    "manual_playback_never_records_an_attempt": true,
+    "native_window": true,
+    "new_work_preempts_manual_preview": true,
+    "qt_popup_selection_dismisses_menu": true,
+    "right_peak_ignores_left_cursor": true,
+    "right_returns_to_standing_idle": true,
+    "right_starts_while_quiet": true,
+    "selection_rechecks_after_work_begins": true,
+    "stale_selection_was_enabled": true,
+    "work_end_does_not_replay_manual_preview": true
+  },
+  "peak_captures": {
+    "left": {
+      "body_z": -2.7918675098185703,
+      "file": "left-peak.png",
+      "saved": true
+    },
+    "right": {
+      "body_z": 2.7918675098185703,
+      "file": "right-peak.png",
+      "saved": true
+    }
+  },
+  "automatic_desk_peek": {
+    "passed": true,
+    "checks": 19,
+    "frames": 188
+  },
+  "visibility": {
+    "passed": true,
+    "checks": 16
+  },
+  "release": {
+    "signature": "Valid",
+    "ninja_dependency_records": 120,
+    "ctest_passed": 26,
+    "ctest_total": 26,
+    "ctest_seconds": 73.91
+  },
+  "runtime_assets_changed": false,
+  "approved_clip_sha256": "d16c1f18ca2a2305e47279f083a8d439f7ba1442a2bcda6cfd38cf20c80ad14c"
+}

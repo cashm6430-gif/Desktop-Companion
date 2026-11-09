@@ -65,7 +65,8 @@ void TriggerDirector::nominate(Scene& scene, double now) {
     }
 }
 
-void TriggerDirector::tick(double dt, bool idle, bool busy, bool allowAutomatic) {
+void TriggerDirector::tick(double dt, bool idle, bool busy, bool allowAutomatic,
+                           bool holdNominations) {
     clock_ += dt;
     if (!allowAutomatic) {
         startupDone_ = true;
@@ -76,6 +77,10 @@ void TriggerDirector::tick(double dt, bool idle, bool busy, bool allowAutomatic)
     idleSeconds_ = idle ? idleSeconds_ + dt : 0.0;
     busySeconds_ = busy ? busySeconds_ + dt : 0.0;
     if (frequency_ == Frequency::Off) return;
+    if (holdNominations) {
+        if (clock_ >= kStartupGiveUp) startupDone_ = true;
+        return;
+    }
 
     // The once-per-launch greeting: wave shortly after the window appears.
     // It obeys the frequency switch and the quiet gate above (a fresh launch

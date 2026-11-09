@@ -471,7 +471,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         return motion_.playStretch();
     });
     director_.setStartRice([this] { return startRiceBowl(); });
-    director_.setStartDeskPeek([this] { return startDeskPeek(); });
+    director_.setStartDeskPeek([this] { return startDeskPeek(deskPeekCursorX_, /*manual=*/false); });
     connect(&spontaneousTimer_, &QTimer::timeout, this, &PetWindow::tickSpontaneousScenes);
     spontaneousTimer_.start(1000);
 
@@ -566,6 +566,23 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     integrationStatusAction_->setEnabled(false);
     auto* settingMenu = trayMenu_.addMenu(QStringLiteral("设置"));
     auto* previewMenu = trayMenu_.addMenu(QStringLiteral("预览（开发用）"));
+    auto* deskPeekMenu = previewMenu->addMenu(QStringLiteral("桌边探头（仅空闲站姿）"));
+    deskPeekMenu->setObjectName(QStringLiteral("deskPeekPreviewMenu"));
+    const auto addDeskPeekDirection = [this, deskPeekMenu](const QString& title, const QString& id,
+                                                         double direction) {
+        auto* action = deskPeekMenu->addAction(title, this, [this, direction] {
+            // Recheck after the context menu has dismissed its popups.
+            QTimer::singleShot(0, this, [this, direction] { startDeskPeek(direction, /*manual=*/true); });
+        });
+        action->setObjectName(id);
+    };
+    addDeskPeekDirection(QStringLiteral("向左"), QStringLiteral("deskPeekPreviewLeft"), -1.0);
+    addDeskPeekDirection(QStringLiteral("向右"), QStringLiteral("deskPeekPreviewRight"), 1.0);
+    connect(deskPeekMenu, &QMenu::aboutToShow, this, [this, deskPeekMenu] {
+        const bool available = deskPeekStageAvailable() && motion_.canPlayDeskPeek()
+            && renderBackend() == QStringLiteral("cubism_native");
+        for (auto* action : deskPeekMenu->actions()) action->setEnabled(available);
+    });
     previewMenu->addAction(QStringLiteral("模拟文件删除"), this, [this] {
         controller_->desktopItemDeleted();
     });
@@ -1054,18 +1071,25 @@ bool PetWindow::allowAutomaticReactions() const {
 }
 
 void PetWindow::tickSpontaneousScenes() {
+    const bool manualPreviewOwnsStage = deskPeekPreviewRunning_ && motion_.deskPeekInFlight();
     director_.tick(1.0, controller_->state() == PetController::State::Idle,
                    controller_->state() == PetController::State::Busy,
-                   allowAutomaticReactions());
+                   allowAutomaticReactions(), manualPreviewOwnsStage);
 }
 
-bool PetWindow::startDeskPeek() {
-    if (!allowAutomaticReactions() || renderBackend() != QStringLiteral("cubism_native")
-        || pointerGesture_.mode() != PetPointerGesture::Mode::None
-        || trayMenu_.isVisible() || QApplication::activeModalWidget()
-        || memo_->visual() == StickyNoteModel::Visual::Bubble
-        || memo_->visual() == StickyNoteModel::Visual::Done) return false;
-    return motion_.playDeskPeek(deskPeekCursorX_);
+bool PetWindow::deskPeekStageAvailable() const {
+    return isVisible() && !edgeReviewSuppressed_ && !edgeDock_.active()
+        && pointerGesture_.mode() == PetPointerGesture::Mode::None
+        && !QApplication::activeModalWidget()
+        && memo_->visual() != StickyNoteModel::Visual::Bubble
+        && memo_->visual() != StickyNoteModel::Visual::Done;
+}
+
+bool PetWindow::startDeskPeek(double direction, bool manual) {
+    if ((!manual && !allowAutomaticReactions()) || !deskPeekStageAvailable() || trayMenu_.isVisible()
+        || renderBackend() != QStringLiteral("cubism_native") || !motion_.playDeskPeek(direction)) return false;
+    deskPeekPreviewRunning_ = manual;
+    return true;
 }
 
 void PetWindow::setState(PetController::State state) {
@@ -1881,9 +1905,9 @@ bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameter
 }
 
 void PetWindow::advanceLiveFrame(double seconds) {
-    if (motion_.deskPeekActive() && (!allowAutomaticReactions()
-        || director_.frequency() == TriggerDirector::Frequency::Off || trayMenu_.isVisible()
-        || QApplication::activeModalWidget() || pointerGesture_.mode() != PetPointerGesture::Mode::None))
+    if (motion_.deskPeekActive() && (!deskPeekStageAvailable() || trayMenu_.isVisible()
+        || (!deskPeekPreviewRunning_ && (!allowAutomaticReactions()
+            || director_.frequency() == TriggerDirector::Frequency::Off))))
         motion_.cancelDeskPeek();
     if (edgeDock_.active() && !edgeDockFixtureScreen_.isValid()
         && (!edgeDockScreen_ || edgeDockScreen_->geometry() != edgeDockScreenGeometry_
@@ -1908,6 +1932,7 @@ void PetWindow::advanceLiveFrame(double seconds) {
         updatePointerGesture();
     }
     motion_.advance(seconds);
+    if (!motion_.deskPeekInFlight()) deskPeekPreviewRunning_ = false;
     // The bounded Hold deadline keeps running even with a captured pointer.
     // Consume this press until release so a timeout never turns into a window
     // drag or a head pat; only its force is removed as the phase exits.
@@ -2185,6 +2210,7 @@ bool PetWindow::event(QEvent* event) {
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
         motion_.cancelDeskPeek(false);
+        deskPeekPreviewRunning_ = false;
         // The flying icon is a separate tool window. Stop it explicitly and
         // retire the visual action without touching active Agent turns.
         if (deleteOverlay_) deleteOverlay_->stop();
