@@ -5,6 +5,7 @@
 #include "PetPointerGesture.h"
 #include "TriggerDirector.h"
 #include "QuietPolicy.h"
+#include "EdgeDockSession.h"
 #include "overlay/FrameComposer.h"
 
 #include <QElapsedTimer>
@@ -15,6 +16,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QPoint>
+#include <QPointer>
 #include <QSystemTrayIcon>
 #include <QTimer>
 #include <QWidget>
@@ -36,6 +38,7 @@ class GlobalHotkeys;
 class IntegrationStatusPanel;
 class MemoStore;
 class StickyNoteModel;
+class QScreen;
 
 class PetWindow final : public QWidget {
     Q_OBJECT
@@ -121,6 +124,9 @@ public:
     void setEdgeReviewBodyOffsets(double x, double z);
     QJsonObject edgeReviewState() const;
     QImage advanceEdgeReviewFrame(double seconds);
+    // Isolated actual-window fixture; not available on the ordinary path.
+    bool setEdgeDockScreenForReview(const QRect& screen);
+    QJsonObject edgeDockReviewState() const;
     // The tray and isolated Native review share these note operations. User
     // text is saved before display; automatic duration notes remain in memory.
     bool setUserMemo(const QString& text);
@@ -225,6 +231,11 @@ private:
     // Live scale (wheel) + edge snap (drag release); both in the .cpp.
     void setRenderSize(int px);
     void snapToEdges();
+    bool beginEdgeDock(edge_dock::Edge edge, const QRect& screen, QScreen* owner);
+    void updateEdgeDockWindow();
+    void restoreFromEdgeDock(const QPointF& origin);
+    void cancelEdgeDockDrag();
+    QImage edgeDockFrame() const;
     bool allowAutomaticReactions() const;
     // Foreground awareness feeds the same policy as snooze and local night.
     void updateFullscreenPresence();
@@ -281,6 +292,13 @@ private:
     bool interactionPreviewEnabled_ = false;
     bool liveInteractionReview_ = false;
     bool edgeReviewSuppressed_ = false;
+    bool edgeDockPreviewEnabled_ = false;
+    QRect edgeDockFixtureScreen_;
+    EdgeDockSession edgeDock_;
+    QPointer<QScreen> edgeDockScreen_;
+    QRect edgeDockScreenGeometry_;
+    int edgeDockModelSize_ = 0;
+    QPointF edgeDockNormalOrigin_;
     bool grassTouchPressed_ = false;
     bool grassDragPreviewEnabled_ = false;
     bool grassDragMoved_ = false;

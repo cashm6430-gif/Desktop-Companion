@@ -34,7 +34,26 @@ private slots:
     void permissionAdmissionHistoryIsBoundedWithoutReplayingOldIds();
     void permissionReentrantTurnReplacementRejectsOldNominations();
     void permissionReentrantUnrelatedTurnsDoNotDiscardNominations();
+    void suppressedDesktopDeletionKeepsWorkFactsAndDoesNotReplay();
 };
+
+void PetControllerTest::suppressedDesktopDeletionKeepsWorkFactsAndDoesNotReplay() {
+    PetController controller;
+    QSignalSpy eaten(&controller, &PetController::eatTriggered);
+    controller.turnStarted("agent", "turn");
+    controller.setDesktopDeletionSuppressed(true);
+    controller.desktopItemDeleted("fixture");
+    controller.applyPermissionSnapshot("agent", "turn", {"request"});
+    QCOMPARE(eaten.size(), 0);
+    QCOMPARE(controller.state(), PetController::State::Busy);
+    QCOMPARE(controller.activeTurnCount(), 1);
+    QCOMPARE(controller.pendingPermissionCount(), 1);
+    controller.setDesktopDeletionSuppressed(false);
+    QCOMPARE(eaten.size(), 0);
+    controller.desktopItemDeleted("new-fixture");
+    QCOMPARE(eaten.size(), 1);
+    QCOMPARE(controller.activeTurnCount(), 1);
+}
 
 void PetControllerTest::permissionReentrantTurnReplacementRejectsOldNominations() {
     for (const QString& cleanup : {QStringLiteral("stop"), QStringLiteral("session"),

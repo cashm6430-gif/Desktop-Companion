@@ -4,6 +4,7 @@
 #include <QLineF>
 
 #include "../src/EdgeHideLayout.h"
+#include "../src/EdgeDockSession.h"
 
 class EdgeHideLayoutTest : public QObject {
     Q_OBJECT
@@ -100,6 +101,42 @@ private slots:
         QVERIFY(!edge_hide::layout(edge_dock::Edge::Left, {}, size, {}, 0).valid);
         QVERIFY(!edge_hide::layout(edge_dock::Edge::Left, screen, 0, {}, 0).valid);
         QVERIFY(!edge_hide::layout(edge_dock::Edge::Left, screen, size, {}, qQNaN()).valid);
+    }
+    void sessionEntryAndHeadDrag() {
+        const QString path = QDir(QCoreApplication::applicationDirPath()).filePath(
+            QStringLiteral("../art/live2d/workflow/edge-hide-concept-20261028/neutral-native.png"));
+        const QImage image(path);
+        QVERIFY(!image.isNull());
+        for (const auto edge : edges()) {
+            EdgeDockSession session;
+            QVERIFY(session.begin(edge, screen, size, start(edge)));
+            for (int i = 0; i < 20; ++i) {
+                session.advance(0.05);
+                QVERIFY(!session.windowGeometry().isEmpty());
+                QVERIFY(screen.toAlignedRect().contains(session.windowGeometry()));
+            }
+            QCOMPARE(session.phase(), EdgeDockSession::Phase::Hidden);
+            const QPointF head = session.layout().modelToScreen.map(QPointF(size * 0.5, size * 0.4));
+            QVERIFY(session.press(head, image));
+            QPointF direction;
+            switch (edge) {
+            case edge_dock::Edge::Left: direction = {1, 0}; break;
+            case edge_dock::Edge::Right: direction = {-1, 0}; break;
+            case edge_dock::Edge::Top: direction = {0, 1}; break;
+            case edge_dock::Edge::Bottom: direction = {0, -1}; break;
+            default: break;
+            }
+            session.drag(head + direction * 20);
+            QVERIFY(QLineF(session.layout().modelToScreen.map(QPointF(size * 0.5, size * 0.4)), head + direction * 20).length() < 1e-7);
+            session.cancelDrag();
+            QCOMPARE(session.phase(), EdgeDockSession::Phase::Hidden);
+            QVERIFY(session.press(head, image));
+            session.drag(head + direction * (size * 0.4));
+            QPointF restored;
+            QVERIFY(session.release(&restored));
+            session.reset();
+            QVERIFY(!session.active());
+        }
     }
 };
 

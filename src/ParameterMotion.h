@@ -39,6 +39,7 @@ public:
     ParameterMotion();
 
     void setState(PetController::State state);
+    PetController::State state() const { return state_; }
     void advance(double seconds);
     bool loadGrassMotion(const QString& path, QString* error = nullptr);
     Parameters grassPose(double seconds) const;

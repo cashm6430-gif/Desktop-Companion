@@ -1,0 +1,48 @@
+{
+  "scope": "real PetWindow and Cubism; virtual monitor and synthetic events",
+  "entry_motion": "approved continuous four-edge entry",
+  "default_enabled": false,
+  "scenarios": {
+    "left": {
+      "checks": 18,
+      "frames": 35
+    },
+    "right": {
+      "checks": 18,
+      "frames": 35
+    },
+    "top": {
+      "checks": 18,
+      "frames": 35
+    },
+    "bottom": {
+      "checks": 18,
+      "frames": 35
+    }
+  },
+  "limitations": [
+    "no physical mouse or mixed-DPI display",
+    "events injected directly into the controller"
+  ],
+  "inputs": {
+    "executable_sha256": "620f12ac8d5b0382e7c870c009bff88309b45da71369d8c339214fd55397c2f4",
+    "model_and_texture_sha256": {
+      "neck-component/neck-surface.moc3": "1314f45f6a18c58f8844099977dfcb468307ad239c754c9504e07119b42d5bc8",
+      "neck-component/neck-surface.model3.json": "c9b87b3aa0933d2d7e0995b37b0d95310fe0502d87285addfc66a4a95e9e558d",
+      "neck-component/texture_0.png": "28b517563f07be60b0bc44b1a716c0ca1b825968e27b594f25c4e67de8d70e47",
+      "whale-girl-layered-draft.4096/texture_00.png": "1c9a57dcddbf049f86837c514002d9b8fae1f206db66ec4c762d1de572f55a58",
+      "whale-girl-layered-draft.4096/texture_01.png": "753907adef18a37461fd992b27617e131042b4070ff61f923e7c653c2edb9f70",
+      "whale-girl-layered-draft.4096/texture_02.png": "99fb8da4b1fb32ca2347ba8bf8d5ecb3e8526471dadd4e0fda3029b09cf7ce4e",
+      "whale-girl-layered-draft.4096/texture_03.png": "6cd40f9920c9381db14d45afd6bb93b48cb296e45478286cb432cb31205eb38e",
+      "whale-girl-layered-draft.4096/texture_04.png": "39cffd0d010810167fca7a5fdbd710aaac4e0d4889ceee7bd6f3b8669076ad20",
+      "whale-girl-layered-draft.moc3": "f6929a38ae8f3b460d69666afd3f10f1af67172abec051eb6265b7f5c16fc781",
+      "whale-girl-layered-draft.model3.json": "1bee3254bedf06fc8c4436f9fbbf9ee0c7610c82decb47fa13b39584358220ac",
+      "whale-girl-layered-draft.physics3.json": "3ecf3dd44c55bbae30295d2ebb7a05213660f35c90b15ba1be57f4092d563f14"
+    }
+  },
+  "outputs": {
+    "edge-dock-window.gif": "1c91c330dd1607a2296a8c22e2f4990ae58d5bbb2ffa18d030c205847dbf8f3e",
+    "edge-dock-heads.png": "4fcfa26cbfc29f6580248afddf1eb6e2af7df5a687e75e778e386ff8141c029b",
+    "scene-traces.zip": "78399e1a8b31c6fdf3ed3149e5c3c86c20f3ec8a31cb206d27b516aa053ce952"
+  }
+}

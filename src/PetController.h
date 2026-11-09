@@ -31,6 +31,8 @@ public:
     int permissionTurnCount() const { return permissions_.size(); }
     bool hasPendingPermission(const QString& sessionId, const QString& turnId,
                               const QString& requestId) const;
+    // Only desktop deletion reactions are discarded; work facts stay live.
+    void setDesktopDeletionSuppressed(bool suppressed) { desktopDeletionSuppressed_ = suppressed; }
     // The file the pet was last fed by drag-and-drop, empty before the first
     // drop. The eat clip itself does not know the file; this is for the
     // window-layer prop (the rolled-up document) to draw what was dropped.
@@ -119,6 +121,7 @@ private:
     QTimer expiryTimer_;
     QElapsedTimer deleteClock_;
     bool actionFallbackEnabled_ = true;
+    bool desktopDeletionSuppressed_ = false;
     QString lastFedFile_;
     double deleteDuration_ = MotionLibrary::kDeleteDuration;
     double grassDuration_ = MotionLibrary::kGrassFallback;

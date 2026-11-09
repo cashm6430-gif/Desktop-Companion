@@ -16,6 +16,7 @@
 #include <QActionGroup>
 #include <QAbstractNativeEventFilter>
 #include <QContextMenuEvent>
+#include <QCursor>
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QDragEnterEvent>
@@ -606,6 +607,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     integrationStatusAction_->setEnabled(false);
     auto* settingMenu = trayMenu_.addMenu(QStringLiteral("设置"));
     auto* previewMenu = trayMenu_.addMenu(QStringLiteral("预览（开发用）"));
+    auto* edgeDockPreview = previewMenu->addAction(QStringLiteral("屏幕边缘半隐藏（开发预览）"));
+    edgeDockPreview->setObjectName(QStringLiteral("edgeDockPreviewAction"));
+    edgeDockPreview->setCheckable(true);
+    connect(edgeDockPreview, &QAction::toggled, this, [this](bool enabled) {
+        edgeDockPreviewEnabled_ = enabled;
+        if (!enabled && edgeDock_.active()) restoreFromEdgeDock(edgeDockNormalOrigin_);
+    });
     previewMenu->addAction(QStringLiteral("模拟文件删除"), this, [this] {
         controller_->desktopItemDeleted();
     });
@@ -626,7 +634,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         });
     }
     previewMenu->addAction(QStringLiteral("收工回望"), this, [this] {
-        if (controller_->state() != PetController::State::Idle) return;
+        if (edgeDock_.active() || controller_->state() != PetController::State::Idle) return;
         setInteractionPreviewEnabled(true);
         motion_.playTurnEnded();
     });
@@ -635,7 +643,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     auto* permissionCue = previewMenu->addAction(permissionApproved
         ? QStringLiteral("审批请求轻提示（仅忙碌）")
         : QStringLiteral("审批请求轻提示（待审批，仅忙碌）"), this, [this, permissionApproved] {
-        if (controller_->state() != PetController::State::Busy) return;
+        if (edgeDock_.active() || controller_->state() != PetController::State::Busy) return;
         if (!permissionApproved) setInteractionPreviewEnabled(true);
         motion_.playPermissionCue(!permissionApproved);
     });
@@ -643,13 +651,13 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     const auto* standingRestClip = motion_.library().clip(QStringLiteral("busy-rest"));
     if (!standingRestClip || standingRestClip->approval() != QStringLiteral("approved")) {
         previewMenu->addAction(QStringLiteral("站姿歇一下（待审批，仅站姿忙碌）"), this, [this] {
-            if (controller_->state() != PetController::State::Busy || motion_.isLaptopBusy()) return;
+            if (edgeDock_.active() || controller_->state() != PetController::State::Busy || motion_.isLaptopBusy()) return;
             setInteractionPreviewEnabled(true);
             motion_.playStretch(true);
         });
     }
     workMenu->addAction(QStringLiteral("歇一下"), this, [this] {
-        if (controller_->state() != PetController::State::Busy) return;
+        if (edgeDock_.active() || controller_->state() != PetController::State::Busy) return;
         motion_.playStretch();
     });
     lookMenu->addAction(QStringLiteral("眯一会儿（眼罩）"), this, [this] {
@@ -694,6 +702,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
                                                    : QStringLiteral("躲一下"));
     });
     QAction* riceAction = lookMenu->addAction(QStringLiteral("来碗饭香"), this, [this] {
+        if (edgeDock_.active()) return;
         // Toggle: the same entry starts the break and sends the bowl away.
         if (motion_.riceBowlActive()) motion_.exitRiceBowl();
         else if (controller_->state() == PetController::State::Busy) motion_.playRiceBowl();
@@ -703,7 +712,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
                                                      : QStringLiteral("来碗饭香"));
     });
     QAction* waveAction = lookMenu->addAction(QStringLiteral("打个招呼（挥手）"), this, [this] {
-        motion_.playWave();
+        if (!edgeDock_.active()) motion_.playWave();
     });
     connect(&trayMenu_, &QMenu::aboutToShow, this, [this, waveAction] {
         // Standing idle only: seated typing keeps the hands on the keys.
@@ -817,7 +826,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         if (mayWave) startWave();
     });
     previewMenu->addAction(QStringLiteral("摸头"), this, [this] {
-        if (motion_.sleepMotionActive()) return;
+        if (edgeDock_.active() || motion_.sleepMotionActive()) return;
         setInteractionPreviewEnabled(true);
         if (motion_.beginHeadPat(1.0)) patPreviewTimer_.start(1600);
     });
@@ -828,7 +837,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         motion_.endWorkPosturePreview();
     });
     previewMenu->addAction(QStringLiteral("抱电脑工作"), this, [this] {
-        if (controller_->state() == PetController::State::Delete
+        if (edgeDock_.active() || controller_->state() == PetController::State::Delete
             || controller_->state() == PetController::State::Grass) return;
         // A preview turn participates in the same concurrent-turn accounting.
         controller_->turnStarted(QStringLiteral("local-preview"), QStringLiteral("laptop"));
@@ -918,6 +927,7 @@ void PetWindow::toggleVisibility() {
 }
 
 void PetWindow::setRenderSize(int px) {
+    if (edgeDock_.active()) restoreFromEdgeDock(edgeDockNormalOrigin_);
     renderSize_ = std::clamp(px, 180, 560);
     setFixedSize(renderSize_, renderSize_);
 #ifdef HAVE_CUBISM
@@ -944,7 +954,125 @@ void PetWindow::snapToEdges() {
     if (QPoint(x, y) != pos()) move(x, y);
 }
 
+bool PetWindow::beginEdgeDock(edge_dock::Edge edge, const QRect& screen, QScreen* owner) {
+    if (edgeDock_.active() || !edgeDockPreviewEnabled_ || renderBackend() != QStringLiteral("cubism_native")
+        || controller_->state() == PetController::State::Delete
+        || controller_->state() == PetController::State::Grass || width() != height()) return false;
+    const int modelSize = width();
+    const QPoint normal = pet_placement::clampToScreen(screen, QSize(modelSize, modelSize), pos());
+    if (!screen.contains(QRect(normal, QSize(modelSize, modelSize)))) return false;
+    if (memo_->visual() == StickyNoteModel::Visual::Bubble && !foldMemo()) return false;
+    if (!edgeDock_.begin(edge, QRectF(screen), modelSize, QPointF(normal))) return false;
+    edgeDockModelSize_ = modelSize;
+    edgeDockNormalOrigin_ = QPointF(normal);
+    edgeDockScreen_ = owner;
+    edgeDockScreenGeometry_ = owner ? owner->geometry() : QRect();
+    controller_->setDesktopDeletionSuppressed(true);
+    setAcceptDrops(false);
+    motion_.cancelInteraction();
+    motion_.cancelDragMotion();
+    patPreviewTimer_.stop();
+    motion_.cancelSleepMotion();
+    motion_.cancelMemoMotion();
+    motion_.cancelBoxPeek();
+    motion_.cancelRiceBowl();
+    motion_.cancelWave();
+    motion_.setState(PetController::State::Idle);
+    lungeMirrored_ = false;
+    if (deleteOverlay_) deleteOverlay_->stop();
+    updateEdgeDockWindow();
+    updateInputTransparency();
+    return true;
+}
+
+void PetWindow::updateEdgeDockWindow() {
+    if (!edgeDock_.active()) return;
+    const QRect area = edgeDock_.windowGeometry();
+    if (!area.isValid() || area.isEmpty()) { restoreFromEdgeDock(edgeDockNormalOrigin_); return; }
+    if (size() != area.size()) setFixedSize(area.size());
+    if (pos() != area.topLeft()) move(area.topLeft());
+    update();
+}
+
+void PetWindow::restoreFromEdgeDock(const QPointF& origin) {
+    if (!edgeDock_.active()) return;
+    QRect available = edgeDock_.screen().toAlignedRect();
+    if (!edgeDockFixtureScreen_.isValid() && (!edgeDockScreen_ || edgeDockScreen_->availableGeometry() != available
+                              || edgeDockScreen_->geometry() != edgeDockScreenGeometry_)) {
+        const QScreen* replacement = QGuiApplication::screenAt(origin.toPoint());
+        if (!replacement) replacement = QGuiApplication::primaryScreen();
+        if (replacement) available = replacement->availableGeometry();
+    }
+    const int modelSize = edgeDockModelSize_;
+    edgeDock_.reset();
+    edgeDockScreen_.clear();
+    controller_->setDesktopDeletionSuppressed(false);
+    setAcceptDrops(true);
+    unsetCursor();
+#ifdef HAVE_CUBISM
+    if (cubismCanvas_) cubismCanvas_->setEdgeReviewBodyOffsets(0, 0);
+#endif
+    setFixedSize(modelSize, modelSize);
+    move(pet_placement::clampToScreen(available, QSize(modelSize, modelSize), origin.toPoint()));
+    setState(controller_->state()); // Restore current truth without replaying a greeting.
+    if (!liveInteractionReview_) {
+        QSettings settings(QSettings::defaultFormat(), QSettings::UserScope,
+            QStringLiteral("DesktopCompanion"), QStringLiteral("WhaleGirl"));
+        settings.setValue(QStringLiteral("position"), pos());
+    }
+}
+
+void PetWindow::cancelEdgeDockDrag() {
+    if (edgeDock_.phase() != EdgeDockSession::Phase::Dragging) return;
+    edgeDock_.cancelDrag();
+    unsetCursor();
+    updateEdgeDockWindow();
+}
+
+QImage PetWindow::edgeDockFrame() const {
+#ifdef HAVE_CUBISM
+    if (!edgeDock_.active() || cubismFrame_.isNull() || size().isEmpty()) return {};
+    const auto pose = edgeDock_.layout();
+    if (!pose.valid) return {};
+    QImage result(size(), QImage::Format_ARGB32_Premultiplied);
+    result.fill(Qt::transparent);
+    QPainter painter(&result);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    const auto& transform = pose.modelToScreen;
+    painter.setWorldTransform(QTransform(transform.m11(), transform.m12(), transform.m21(), transform.m22(),
+        transform.dx() - pos().x(), transform.dy() - pos().y()));
+    painter.drawImage(QRectF(0, 0, edgeDockModelSize_, edgeDockModelSize_), cubismFrame_);
+    return result;
+#else
+    return {};
+#endif
+}
+
+bool PetWindow::setEdgeDockScreenForReview(const QRect& screen) {
+    if (!liveInteractionReview_ || !screen.isValid()
+        || !qApp->property("desktopCompanionReviewSettingsIsolated").toBool()) return false;
+    edgeDockFixtureScreen_ = screen;
+    return true;
+}
+
+QJsonObject PetWindow::edgeDockReviewState() const {
+    const double size = edgeDock_.modelSize();
+    const QPointF face = edgeDock_.layout().modelToScreen.map(QPointF(size * 0.5, size * 0.4));
+    return {{QStringLiteral("enabled"), edgeDockPreviewEnabled_},
+        {QStringLiteral("active"), edgeDock_.active()},
+        {QStringLiteral("phase"), int(edgeDock_.phase())},
+        {QStringLiteral("progress"), edgeDock_.progress()},
+        {QStringLiteral("window_x"), x()}, {QStringLiteral("window_y"), y()},
+        {QStringLiteral("window_width"), width()}, {QStringLiteral("window_height"), height()},
+        {QStringLiteral("face_x"), face.x()}, {QStringLiteral("face_y"), face.y()},
+        {QStringLiteral("drop_enabled"), acceptDrops()},
+        {QStringLiteral("motion_state"), int(motion_.state())},
+        {QStringLiteral("active_turns"), controller_->activeTurnCount()},
+        {QStringLiteral("pending_permissions"), controller_->pendingPermissionCount()}};
+}
+
 void PetWindow::wheelEvent(QWheelEvent* event) {
+    if (edgeDock_.active()) { event->accept(); return; }
     const int notches = event->angleDelta().y() / 120;   // 120 = one wheel step
     if (notches == 0) { QWidget::wheelEvent(event); return; }
     setRenderSize(renderSize_ + notches * 24);
@@ -958,7 +1086,7 @@ void PetWindow::updateFullscreenPresence() {
 }
 
 bool PetWindow::allowAutomaticReactions() const {
-    if (edgeReviewSuppressed_) return false;
+    if (edgeReviewSuppressed_ || edgeDock_.active()) return false;
     // Scripted captures replay their explicit events independently of the
     // user's night setting and current foreground app. Their director is off.
     if (qApp->property("desktopCompanionReviewCapture").toBool())
@@ -967,7 +1095,7 @@ bool PetWindow::allowAutomaticReactions() const {
 }
 
 void PetWindow::setState(PetController::State state) {
-    if (edgeReviewSuppressed_) return;
+    if (edgeReviewSuppressed_ || edgeDock_.active()) return;
     if (state == PetController::State::Delete || state == PetController::State::Grass) {
         releasePointerGesture();
         if (memo_->visual() == StickyNoteModel::Visual::Bubble) {
@@ -1036,7 +1164,15 @@ void PetWindow::updateInputTransparency() {
     // now only adds the look-at-you smile, and cursor MOVEMENT -- not distance
     // -- drives the idle timer, so she stops watching only once the mouse has
     // gone quiet (see GazeBehavior).
-    if (cursorOk) {
+    if (cursorOk && edgeDock_.active()) {
+        const QPoint logical = QCursor::pos();
+        const QPointF gaze = edgeDock_.layout().gaze(QPointF(logical));
+        const bool cursorActive = !cursorSeen_
+            || (qAbs(logical.x() - lastCursor_.x()) + qAbs(logical.y() - lastCursor_.y())) > 2;
+        lastCursor_ = logical;
+        cursorSeen_ = true;
+        motion_.setGazeTarget(gaze.x(), gaze.y(), false, cursorActive);
+    } else if (cursorOk) {
         const double cx = 0.5 * (bounds.left + bounds.right);
         const double cy = 0.5 * (bounds.top + bounds.bottom);
         const double nx = (cursor.x - cx) / (0.5 * windowWidth);
@@ -1051,10 +1187,17 @@ void PetWindow::updateInputTransparency() {
     const int x = (cursor.x - bounds.left) * hitCoverage_.width() / windowWidth;
     const int y = (cursor.y - bounds.top) * hitCoverage_.height() / windowHeight;
     const bool buttonHeld = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-    const bool interactive = ((pointerGesture_.mode() != PetPointerGesture::Mode::None || grassTouchPressed_) && buttonHeld)
+    bool interactive = ((pointerGesture_.mode() != PetPointerGesture::Mode::None || grassTouchPressed_) && buttonHeld)
         || (cursorOk && !hitCoverage_.isNull()
         && x >= 0 && y >= 0 && x < hitCoverage_.width() && y < hitCoverage_.height()
         && hitCoverage_.constScanLine(y)[x] >= 16);
+#ifdef HAVE_CUBISM
+    if (edgeDock_.active()) {
+        interactive = edgeDock_.phase() == EdgeDockSession::Phase::Dragging
+            || (cursorOk && edgeDock_.phase() == EdgeDockSession::Phase::Hidden
+                && edgeDock_.layout().headHit(QCursor::pos(), cubismFrame_));
+    }
+#endif
     const LONG_PTR style = GetWindowLongPtr(window, GWL_EXSTYLE);
     const LONG_PTR desired = interactive ? (style & ~WS_EX_TRANSPARENT)
                                          : (style | WS_EX_TRANSPARENT);
@@ -1097,6 +1240,10 @@ void PetWindow::paintEvent(QPaintEvent*) {
         // outright, which is what the translucent widget wants.
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.fillRect(rect(), Qt::transparent);
+        if (edgeDock_.active()) {
+            painter.drawImage(QPoint(0, 0), edgeDockFrame());
+            return;
+        }
         const QImage frame = composedFrame();
         if (!frame.isNull()) painter.drawImage(rect(), frame);
         // The prop and the bubble are ordinary overlays: back to SourceOver or
@@ -1231,7 +1378,7 @@ bool PetWindow::canPresentMemo() const {
 }
 
 bool PetWindow::canShowAutomaticMemo() const {
-    return (controller_->state() == PetController::State::Idle
+    return !edgeDock_.active() && (controller_->state() == PetController::State::Idle
             || controller_->state() == PetController::State::Busy)
         && !motion_.sleepMotionActive() && !motion_.dragMotionActive()
         && !motion_.boxPeekActive() && !motion_.riceBowlActive()
@@ -1392,6 +1539,7 @@ bool PetWindow::handleMemoPress(const QPointF& localPos, const QPoint& globalPos
 // --- Box hide-and-seek (optional fun scene r1) --------------------------------
 
 bool PetWindow::startBoxPeek() {
+    if (edgeDock_.active()) return false;
     if (renderBackend() != QStringLiteral("cubism_native")) return false;
     if (!motion_.playBoxPeek()) return false;
     updateInputTransparency();
@@ -1399,6 +1547,7 @@ bool PetWindow::startBoxPeek() {
 }
 
 bool PetWindow::startRiceBowl() {
+    if (edgeDock_.active()) return false;
     if (renderBackend() != QStringLiteral("cubism_native")) return false;
     if (!motion_.playRiceBowl()) return false;
     riceDelightClock_.restart();
@@ -1407,6 +1556,7 @@ bool PetWindow::startRiceBowl() {
 }
 
 bool PetWindow::startWave() {
+    if (edgeDock_.active()) return false;
     if (renderBackend() != QStringLiteral("cubism_native")) return false;
     if (!motion_.playWave()) return false;
     updateInputTransparency();
@@ -1665,6 +1815,7 @@ void PetWindow::drawSleepMask(QPainter& painter, const QSize& size) const {
 }
 
 bool PetWindow::startNap() {
+    if (edgeDock_.active()) return false;
     if (motion_.sleepMotionActive()
         || controller_->state() == PetController::State::Delete
         || controller_->state() == PetController::State::Grass) return false;
@@ -1721,6 +1872,7 @@ void PetWindow::onEatTriggered(const QString& file, const QPointF& sourcePos, co
 
 bool PetWindow::saveRenderFrame(const QString& path) {
 #ifdef HAVE_CUBISM
+    if (edgeDock_.active()) return edgeDockFrame().save(path);
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
         if (motion_.frozenPhysics()) {
             // A pose capture must read this pose, even when the normal frame
@@ -1759,6 +1911,24 @@ bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameter
 }
 
 void PetWindow::advanceLiveFrame(double seconds) {
+    if (edgeDock_.active() && !edgeDockFixtureScreen_.isValid()
+        && (!edgeDockScreen_ || edgeDockScreen_->geometry() != edgeDockScreenGeometry_
+            || edgeDockScreen_->availableGeometry() != edgeDock_.screen().toAlignedRect())) {
+        restoreFromEdgeDock(edgeDockNormalOrigin_);
+    }
+    if (edgeDock_.active()) {
+        edgeDock_.advance(seconds);
+#ifdef HAVE_CUBISM
+        if (cubismCanvas_) {
+            const double p = edgeDock_.phase() == EdgeDockSession::Phase::Entering ? edgeDock_.progress() : 0.0;
+            const double envelope = std::sin(3.141592653589793 * p);
+            const auto edge = edgeDock_.edge();
+            const double side = edge == edge_dock::Edge::Left ? 1.0 : edge == edge_dock::Edge::Right ? -1.0 : 0.0;
+            cubismCanvas_->setEdgeReviewBodyOffsets(1.5 * envelope, side * envelope);
+        }
+#endif
+        updateEdgeDockWindow();
+    }
     if (pointerGesture_.mode() != PetPointerGesture::Mode::None) {
         pointerGesture_.advance(seconds);
         updatePointerGesture();
@@ -1784,7 +1954,7 @@ void PetWindow::advanceLiveFrame(double seconds) {
     if (cubismCanvas_ && cubismCanvas_->isReady()) {
         cubismCanvas_->advance(seconds);
         cubismFrame_ = cubismCanvas_->grabFramebuffer();
-        if (!cubismFrame_.isNull())
+        if (!edgeDock_.active() && !cubismFrame_.isNull())
             setInteractionMask(QPixmap::fromImage(composedFrame()));
     }
 #endif
@@ -1873,6 +2043,7 @@ QImage PetWindow::advanceEdgeReviewFrame(double seconds) {
 }
 
 bool PetWindow::startGrassInteraction() {
+    if (edgeDock_.active()) return false;
     if ((!grassInteractionApproved() && !interactionPreviewEnabled_) || renderBackend() != QStringLiteral("cubism_native")
         || controller_->state() == PetController::State::Delete) return false;
     controller_->playInteractiveGrass(motion_.grassInteractionMaxDuration() + 1.0);
@@ -1882,6 +2053,7 @@ bool PetWindow::startGrassInteraction() {
 }
 
 void PetWindow::playGrass() {
+    if (edgeDock_.active()) return;
     if ((grassInteractionApproved() || interactionPreviewEnabled_) && startGrassInteraction()) return;
     controller_->playGrass();
 }
@@ -2026,9 +2198,12 @@ QJsonObject PetWindow::dragReviewState() const {
 }
 
 bool PetWindow::event(QEvent* event) {
-    if (event->type() == QEvent::UngrabMouse || event->type() == QEvent::WindowDeactivate)
-        releasePointerGesture();
+    if (event->type() == QEvent::UngrabMouse || event->type() == QEvent::WindowDeactivate) {
+        if (edgeDock_.active()) cancelEdgeDockDrag();
+        else releasePointerGesture();
+    }
     if (event->type() == QEvent::Hide) {
+        if (edgeDock_.active()) restoreFromEdgeDock(edgeDockNormalOrigin_);
         releasePointerGesture();
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
@@ -2118,6 +2293,16 @@ void PetWindow::constrainPositionToScreen() {
 }
 
 void PetWindow::mousePressEvent(QMouseEvent* event) {
+    if (edgeDock_.active()) {
+#ifdef HAVE_CUBISM
+        if (event->button() == Qt::LeftButton && edgeDock_.press(event->globalPosition(), cubismFrame_)) {
+            setCursor(Qt::ClosedHandCursor);
+            updateInputTransparency();
+        }
+#endif
+        event->accept();
+        return;
+    }
     if (event->button() == Qt::LeftButton) {
         // Waking is deliberate: only a touch on the head -- the mask sits on
         // the face, so touching it is touching her head -- wakes the nap.
@@ -2202,6 +2387,16 @@ void PetWindow::mousePressEvent(QMouseEvent* event) {
 }
 
 void PetWindow::mouseMoveEvent(QMouseEvent* event) {
+    if (edgeDock_.active()) {
+        if (edgeDock_.phase() == EdgeDockSession::Phase::Dragging) {
+            if (event->buttons() & Qt::LeftButton) {
+                edgeDock_.drag(event->globalPosition());
+                updateEdgeDockWindow();
+            } else cancelEdgeDockDrag();
+        }
+        event->accept();
+        return;
+    }
     if (grassTouchPressed_ && motion_.grassTipDragActive()) {
         if (!(event->buttons() & Qt::LeftButton)) {
             releasePointerGesture();
@@ -2261,11 +2456,39 @@ void PetWindow::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
+    if (edgeDock_.active()) {
+        if (event->button() == Qt::LeftButton && edgeDock_.phase() == EdgeDockSession::Phase::Dragging) {
+            edgeDock_.drag(event->globalPosition());
+            QPointF origin;
+            if (edgeDock_.release(&origin)) restoreFromEdgeDock(origin);
+            else { unsetCursor(); updateEdgeDockWindow(); }
+            updateInputTransparency();
+        }
+        event->accept();
+        return;
+    }
     if (event->button() == Qt::LeftButton) {
         longPressTimer_.stop();
         const bool tap = grassTipDragEnabled() && grassTouchPressed_
             && motion_.grassTipDragActive() && !grassDragMoved_;
+        auto edge = edge_dock::Edge::None;
+        QScreen* owner = nullptr;
+        QRect available;
+        if (dragging_ && edgeDockPreviewEnabled_) {
+            const QPoint cursor = event->globalPosition().toPoint();
+            if (edgeDockFixtureScreen_.isValid()) {
+                available = edgeDockFixtureScreen_;
+                edge = edge_dock::outerEdgeAtRelease(geometry(), cursor, available, available, {available}, 24);
+            } else if (!liveInteractionReview_ && (owner = QGuiApplication::screenAt(cursor))) {
+                QList<QRect> screens;
+                for (const auto* monitor : QGuiApplication::screens()) screens.append(monitor->geometry());
+                available = owner->availableGeometry();
+                edge = edge_dock::outerEdgeAtRelease(geometry(), cursor, owner->geometry(),
+                    available, screens, 24);
+            }
+        }
         releasePointerGesture();
+        if (edge != edge_dock::Edge::None) beginEdgeDock(edge, available, owner);
         if (tap) motion_.respondToGrass();
         updateInputTransparency();
         event->accept();
@@ -2273,6 +2496,7 @@ void PetWindow::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void PetWindow::mouseDoubleClickEvent(QMouseEvent* event) {
+    if (edgeDock_.active()) { event->accept(); return; }
     if (event->button() == Qt::LeftButton) {
         if (motion_.grassInteractionActive()) {
             event->accept();
@@ -2291,20 +2515,24 @@ void PetWindow::mouseDoubleClickEvent(QMouseEvent* event) {
 }
 
 void PetWindow::contextMenuEvent(QContextMenuEvent* event) {
+    if (edgeDock_.active()) { event->accept(); return; }
     showMenu(event->globalPos());
 }
 
 void PetWindow::dragEnterEvent(QDragEnterEvent* event) {
+    if (edgeDock_.active()) { event->ignore(); return; }
     if (event->mimeData()->hasUrls()) event->acceptProposedAction();
 }
 
 void PetWindow::dragMoveEvent(QDragMoveEvent* event) {
+    if (edgeDock_.active()) { event->ignore(); return; }
     // Kept in sync with dragEnterEvent so the accepted cursor follows the
     // pointer across the character while the drag is in flight.
     if (event->mimeData()->hasUrls()) event->acceptProposedAction();
 }
 
 void PetWindow::dropEvent(QDropEvent* event) {
+    if (edgeDock_.active()) { event->ignore(); return; }
     QStringList paths;
     const auto urls = event->mimeData()->urls();
     for (const QUrl& url : urls) {

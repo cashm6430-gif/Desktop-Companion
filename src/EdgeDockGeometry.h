@@ -27,9 +27,9 @@ inline Edge outerEdgeAtRelease(const QRect& window, const QPoint& cursor,
         {Edge::Bottom, available.bottom() - window.bottom(), QPoint(cursor.x(), screen.bottom() + 1)}
     };
     Edge best = Edge::None;
-    int bestDistance = std::numeric_limits<int>::max();
+    int bestDistance = (std::numeric_limits<int>::max)();
     for (const auto& candidate : candidates) {
-        const int distance = std::max(0, candidate.distance);
+        const int distance = (std::max)(0, candidate.distance);
         if (distance > tolerance || distance >= bestDistance) continue;
         bool neighbour = false;
         for (const auto& other : screens) {

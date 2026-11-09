@@ -167,6 +167,7 @@ void PetController::applyPermissionSnapshot(const QString& sessionId, const QStr
 }
 
 void PetController::desktopItemDeleted(const QString& path, const QPointF& iconPos, const QIcon& icon) {
+    if (desktopDeletionSuppressed_) return;
     triggerEat(path, iconPos, icon);
 }
 
