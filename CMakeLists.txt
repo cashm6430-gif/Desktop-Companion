@@ -41,6 +41,7 @@ qt_add_executable(DesktopCompanion WIN32
     src/DragInputReview.h src/DragInputReview.cpp
     src/WorkPostureReview.h src/WorkPostureReview.cpp
     src/PermissionAdoptionReview.h src/PermissionAdoptionReview.cpp
+    src/DeskPeekReview.h src/DeskPeekReview.cpp
     src/EdgeHideReview.h src/EdgeHideReview.cpp src/EdgeHideLayout.h src/EdgeDockGeometry.h
     src/EdgeDockSession.h src/EdgeDockWindowReview.cpp
     src/MemoStore.h src/MemoStore.cpp

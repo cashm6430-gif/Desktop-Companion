@@ -2,6 +2,7 @@
 #include "EdgeHideReview.h"
 #include "CoworkHookSeeder.h"
 #include "DesktopDeleteSource.h"
+#include "DeskPeekReview.h"
 #include "HeadPatInputReview.h"
 #include "MemoInputReview.h"
 #include "GrassDragInputReview.h"
@@ -150,13 +151,15 @@ int main(int argc, char** argv) {
         && arguments.value(3).startsWith(QStringLiteral("permission-cue-"));
     const bool permissionAdoptionReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("permission-adoption-"));
+    const bool deskPeekReview = command == QStringLiteral("--render-interaction")
+        && arguments.value(3).startsWith(QStringLiteral("desk-peek-"));
     const bool edgeHideReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("edge-hide-"));
     const bool edgeDockWindowReview = command == QStringLiteral("--render-interaction")
         && arguments.value(3).startsWith(QStringLiteral("edge-dock-window-"));
     qint64 memoReviewNowMs = 1000;
     if (memoReview || grassDragReview || dragInputReview || workPostureReview || permissionCueReview
-        || permissionAdoptionReview || edgeHideReview || edgeDockWindowReview) {
+        || permissionAdoptionReview || deskPeekReview || edgeHideReview || edgeDockWindowReview) {
         const QString output = QFileInfo(arguments.value(2)).absoluteFilePath();
         if (arguments.value(2).isEmpty() || QFileInfo::exists(output) || !QDir().mkpath(output)) return 2;
         // Explicit process-local paths: neither settings nor the user note are
@@ -229,6 +232,7 @@ int main(int argc, char** argv) {
         if (dragInputReview) return runDragInputReview(app, controller, window, output, scenario);
         if (workPostureReview) return runWorkPostureReview(app, controller, window, output, scenario);
         if (permissionAdoptionReview) return runPermissionAdoptionReview(app, controller, window, output, scenario);
+        if (deskPeekReview) return runDeskPeekReview(app, window, output, scenario, arguments.value(4));
         if (edgeHideReview) return runEdgeHideReview(app, controller, window, output, scenario);
         if (edgeDockWindowReview) return runEdgeDockWindowReview(app, controller, window, output, scenario);
         if (scenario.startsWith(QStringLiteral("head-pat-input-")))
