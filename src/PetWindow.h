@@ -320,7 +320,7 @@ private:
     QPoint lastCursor_;
     bool cursorSeen_ = false;
     double deskPeekCursorX_ = 0.0; // a centred or unavailable target refuses a peek
-    bool deskPeekPreviewRunning_ = false;
+    bool deskPeekManualRunning_ = false;
     QElapsedTimer fedClock_;
     QPixmap fedIcon_;
     QPixmap wrapProp_;

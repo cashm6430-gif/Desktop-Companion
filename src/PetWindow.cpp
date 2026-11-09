@@ -525,6 +525,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     toggleVisibilityAction_ = trayMenu_.addAction(QStringLiteral("显示 / 隐藏"), this, [this] { toggleVisibility(); });
     trayMenu_.addSeparator();
     auto* lookMenu = trayMenu_.addMenu(QStringLiteral("互动"));
+    lookMenu->setObjectName(QStringLiteral("interactionMenu"));
     auto* workMenu = trayMenu_.addMenu(QStringLiteral("工作与休息"));
     workPostureMenu_ = workMenu->addMenu(QStringLiteral("工作姿态"));
     workPostureMenu_->setObjectName(QStringLiteral("workPostureMenu"));
@@ -566,23 +567,7 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
     integrationStatusAction_->setEnabled(false);
     auto* settingMenu = trayMenu_.addMenu(QStringLiteral("设置"));
     auto* previewMenu = trayMenu_.addMenu(QStringLiteral("预览（开发用）"));
-    auto* deskPeekMenu = previewMenu->addMenu(QStringLiteral("桌边探头（仅空闲站姿）"));
-    deskPeekMenu->setObjectName(QStringLiteral("deskPeekPreviewMenu"));
-    const auto addDeskPeekDirection = [this, deskPeekMenu](const QString& title, const QString& id,
-                                                         double direction) {
-        auto* action = deskPeekMenu->addAction(title, this, [this, direction] {
-            // Recheck after the context menu has dismissed its popups.
-            QTimer::singleShot(0, this, [this, direction] { startDeskPeek(direction, /*manual=*/true); });
-        });
-        action->setObjectName(id);
-    };
-    addDeskPeekDirection(QStringLiteral("向左"), QStringLiteral("deskPeekPreviewLeft"), -1.0);
-    addDeskPeekDirection(QStringLiteral("向右"), QStringLiteral("deskPeekPreviewRight"), 1.0);
-    connect(deskPeekMenu, &QMenu::aboutToShow, this, [this, deskPeekMenu] {
-        const bool available = deskPeekStageAvailable() && motion_.canPlayDeskPeek()
-            && renderBackend() == QStringLiteral("cubism_native");
-        for (auto* action : deskPeekMenu->actions()) action->setEnabled(available);
-    });
+    previewMenu->setObjectName(QStringLiteral("developerPreviewMenu"));
     previewMenu->addAction(QStringLiteral("模拟文件删除"), this, [this] {
         controller_->desktopItemDeleted();
     });
@@ -687,6 +672,23 @@ PetWindow::PetWindow(PetController* controller, QWidget* parent)
         // Standing idle only: seated typing keeps the hands on the keys.
         waveAction->setEnabled(controller_->state() == PetController::State::Idle
                                && !motion_.waveActive());
+    });
+    auto* deskPeekMenu = lookMenu->addMenu(QStringLiteral("桌边探头（仅空闲站姿）"));
+    deskPeekMenu->setObjectName(QStringLiteral("deskPeekMenu"));
+    const auto addDeskPeekDirection = [this, deskPeekMenu](const QString& title, const QString& id,
+                                                         double direction) {
+        auto* action = deskPeekMenu->addAction(title, this, [this, direction] {
+            // Recheck after the context menu has dismissed its popups.
+            QTimer::singleShot(0, this, [this, direction] { startDeskPeek(direction, /*manual=*/true); });
+        });
+        action->setObjectName(id);
+    };
+    addDeskPeekDirection(QStringLiteral("向左"), QStringLiteral("deskPeekLeft"), -1.0);
+    addDeskPeekDirection(QStringLiteral("向右"), QStringLiteral("deskPeekRight"), 1.0);
+    connect(deskPeekMenu, &QMenu::aboutToShow, this, [this, deskPeekMenu] {
+        const bool available = deskPeekStageAvailable() && motion_.canPlayDeskPeek()
+            && renderBackend() == QStringLiteral("cubism_native");
+        for (auto* action : deskPeekMenu->actions()) action->setEnabled(available);
     });
     // Manual un-stick: a work turn only ends on Stop/SessionEnd, so a client
     // that dies hard (crashed terminal, taskkill) can leave the pet "busy" and
@@ -1071,10 +1073,10 @@ bool PetWindow::allowAutomaticReactions() const {
 }
 
 void PetWindow::tickSpontaneousScenes() {
-    const bool manualPreviewOwnsStage = deskPeekPreviewRunning_ && motion_.deskPeekInFlight();
+    const bool manualPeekOwnsStage = deskPeekManualRunning_ && motion_.deskPeekInFlight();
     director_.tick(1.0, controller_->state() == PetController::State::Idle,
                    controller_->state() == PetController::State::Busy,
-                   allowAutomaticReactions(), manualPreviewOwnsStage);
+                   allowAutomaticReactions(), manualPeekOwnsStage);
 }
 
 bool PetWindow::deskPeekStageAvailable() const {
@@ -1088,7 +1090,7 @@ bool PetWindow::deskPeekStageAvailable() const {
 bool PetWindow::startDeskPeek(double direction, bool manual) {
     if ((!manual && !allowAutomaticReactions()) || !deskPeekStageAvailable() || trayMenu_.isVisible()
         || renderBackend() != QStringLiteral("cubism_native") || !motion_.playDeskPeek(direction)) return false;
-    deskPeekPreviewRunning_ = manual;
+    deskPeekManualRunning_ = manual;
     return true;
 }
 
@@ -1906,7 +1908,7 @@ bool PetWindow::renderSequenceFrame(const ParameterMotion::Parameters& parameter
 
 void PetWindow::advanceLiveFrame(double seconds) {
     if (motion_.deskPeekActive() && (!deskPeekStageAvailable() || trayMenu_.isVisible()
-        || (!deskPeekPreviewRunning_ && (!allowAutomaticReactions()
+        || (!deskPeekManualRunning_ && (!allowAutomaticReactions()
             || director_.frequency() == TriggerDirector::Frequency::Off))))
         motion_.cancelDeskPeek();
     if (edgeDock_.active() && !edgeDockFixtureScreen_.isValid()
@@ -1932,7 +1934,7 @@ void PetWindow::advanceLiveFrame(double seconds) {
         updatePointerGesture();
     }
     motion_.advance(seconds);
-    if (!motion_.deskPeekInFlight()) deskPeekPreviewRunning_ = false;
+    if (!motion_.deskPeekInFlight()) deskPeekManualRunning_ = false;
     // The bounded Hold deadline keeps running even with a captured pointer.
     // Consume this press until release so a timeout never turns into a window
     // drag or a head pat; only its force is removed as the phase exits.
@@ -2210,7 +2212,7 @@ bool PetWindow::event(QEvent* event) {
         patPreviewTimer_.stop();
         motion_.cancelInteraction();
         motion_.cancelDeskPeek(false);
-        deskPeekPreviewRunning_ = false;
+        deskPeekManualRunning_ = false;
         // The flying icon is a separate tool window. Stop it explicitly and
         // retire the visual action without touching active Agent turns.
         if (deleteOverlay_) deleteOverlay_->stop();

@@ -261,18 +261,26 @@ int runDeskPeekManualReview(QApplication& app, PetController& controller, PetWin
                 && receipt.commit();
             app.exit(saved && passed ? 0 : 1);
         };
-        auto* menu = window.findChild<QMenu*>(QStringLiteral("deskPeekPreviewMenu"));
+        auto* interactions = window.trayMenu_.findChild<QMenu*>(QStringLiteral("interactionMenu"));
+        auto* previews = window.trayMenu_.findChild<QMenu*>(QStringLiteral("developerPreviewMenu"));
+        auto* menu = window.findChild<QMenu*>(QStringLiteral("deskPeekMenu"));
         QAction* left = nullptr;
         QAction* right = nullptr;
         if (menu) {
             for (auto* action : menu->actions()) {
-                if (action->objectName() == QStringLiteral("deskPeekPreviewLeft")) left = action;
-                if (action->objectName() == QStringLiteral("deskPeekPreviewRight")) right = action;
+                if (action->objectName() == QStringLiteral("deskPeekLeft")) left = action;
+                if (action->objectName() == QStringLiteral("deskPeekRight")) right = action;
             }
         }
         check("native_window", window.isVisible() && window.renderBackend() == QStringLiteral("cubism_native"));
-        check("has_two_preview_actions", left && right);
-        if (!left || !right) { finish(); return; }
+        check("has_two_manual_actions", left && right);
+        check("ordinary_tray_interaction", interactions && menu
+              && window.trayMenu_.actions().contains(interactions->menuAction())
+              && interactions->actions().contains(menu->menuAction()));
+        check("no_developer_preview_entry", previews && menu
+              && !previews->actions().contains(menu->menuAction())
+              && !previews->findChild<QMenu*>(QStringLiteral("deskPeekPreviewMenu")));
+        if (!interactions || !left || !right) { finish(); return; }
         // Drive the real menu and action signals without popping a menu on the
         // user's desktop. The start is deferred until after the menu dismisses.
         const auto actionsAvailable = [&](bool available) {
@@ -308,18 +316,34 @@ int runDeskPeekManualReview(QApplication& app, PetController& controller, PetWin
         director.setFrequency(Frequency::Off);
         check("left_and_right_enabled_in_standing_idle", actionsAvailable(true));
         window.deskPeekCursorX_ = 2.0;
-        // Exercise the QWidget popup selection too. It remains invisible to
-        // the user, since Qt can clamp arbitrary offscreen popup positions.
+        // Navigate the normal tray hierarchy without showing a popup on the user's desktop.
+        auto& tray = window.trayMenu_;
+        tray.setAttribute(Qt::WA_DontShowOnScreen);
+        interactions->setAttribute(Qt::WA_DontShowOnScreen);
         menu->setAttribute(Qt::WA_DontShowOnScreen);
-        menu->popup(window.pos());
+        const auto openSubmenu = [](QMenu& parent, QMenu& child) {
+            parent.setActiveAction(child.menuAction());
+            if (!child.isVisible()) {
+                QKeyEvent rightArrow(QEvent::KeyPress, Qt::Key_Right, Qt::NoModifier);
+                QApplication::sendEvent(&parent, &rightArrow);
+            }
+            return parent.isVisible() && child.isVisible();
+        };
+        tray.popup(window.pos());
+        const bool opened = openSubmenu(tray, *interactions) && openSubmenu(*interactions, *menu);
+        check("qt_tray_opens_nested_interaction", opened);
         menu->setActiveAction(left);
-        const bool popupSelected = menu->isVisible() && menu->activeAction() == left;
+        const bool popupSelected = opened && menu->activeAction() == left;
         QKeyEvent enter(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier);
         QApplication::sendEvent(menu, &enter);
-        check("qt_popup_selection_dismisses_menu", popupSelected && !menu->isVisible());
+        check("qt_selection_dismisses_tray_hierarchy", popupSelected && !menu->isVisible()
+              && !interactions->isVisible() && !tray.isVisible());
         if (menu->isVisible()) menu->hide();
+        if (interactions->isVisible()) interactions->hide();
+        if (tray.isVisible()) tray.hide();
         drainAction();
-        check("left_starts_with_automatic_off", motion.deskPeekActive());
+        check("left_starts_with_automatic_and_preview_off", motion.deskPeekActive()
+              && !window.interactionPreviewEnabled());
         check("left_peak_ignores_right_cursor", capturePeak(QStringLiteral("left"), 2.0));
         settle();
         check("left_returns_to_standing_idle", !motion.deskPeekInFlight() && controller.state() == State::Idle);
@@ -353,7 +377,7 @@ int runDeskPeekManualReview(QApplication& app, PetController& controller, PetWin
         check("expanded_memo_disables_both_directions", window.setUserMemo(QStringLiteral("fixture note"))
               && window.memoReviewState().value(QStringLiteral("visual")).toString() == QStringLiteral("bubble")
               && actionsAvailable(false));
-        check("folded_memo_releases_preview_gate", window.foldMemo() && actionsAvailable(true));
+        check("folded_memo_releases_manual_gate", window.foldMemo() && actionsAvailable(true));
         check("fixture_memo_removed", window.discardMemo());
 
         // A due auto tick advances the clock, but must not record a refusal
@@ -381,10 +405,10 @@ int runDeskPeekManualReview(QApplication& app, PetController& controller, PetWin
         trigger(right);
         check("manual_can_play_during_automatic_cooldown", enabled && motion.deskPeekActive());
         controller.turnStarted(session, turn);
-        check("new_work_preempts_manual_preview", controller.state() == State::Busy && !motion.deskPeekActive());
+        check("new_work_preempts_manual_peek", controller.state() == State::Busy && !motion.deskPeekActive());
         settle();
         controller.sessionEnded(session);
-        check("work_end_does_not_replay_manual_preview", controller.state() == State::Idle && !motion.deskPeekInFlight()
+        check("work_end_does_not_replay_manual_peek", controller.state() == State::Idle && !motion.deskPeekInFlight()
               && director.attemptCount() == attempts + 1 && director.startedCount() == starts + 1);
         finish();
     });

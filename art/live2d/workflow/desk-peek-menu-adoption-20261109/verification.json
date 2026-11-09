@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-09",
+  "action": "desk-peek",
+  "approval": "User accepted the left/right standing trial for normal use.",
+  "menu": [
+    "互动",
+    "桌边探头（仅空闲站姿）",
+    [
+      "向左",
+      "向右"
+    ]
+  ],
+  "scope": "Isolated Cubism Native window with the complete Qt tray menu hierarchy and synthetic input, clocks and work events. No physical tray input or live hooks.",
+  "reproduction": "build/DesktopCompanion.exe --render-interaction build/<new-directory> desk-peek-manual",
+  "manual": {
+    "passed": true,
+    "check_count": 28,
+    "checks": {
+      "automatic_not_due_at_359_seconds": true,
+      "automatic_plays_without_manual_cooldown_or_backoff": true,
+      "busy_disables_both_directions": true,
+      "directions_remain_available_while_quiet": true,
+      "drag_disables_both_directions": true,
+      "due_tick_holds_nomination_without_pausing_clock": true,
+      "expanded_memo_disables_both_directions": true,
+      "fixture_memo_removed": true,
+      "folded_memo_releases_manual_gate": true,
+      "has_two_manual_actions": true,
+      "left_and_right_enabled_in_standing_idle": true,
+      "left_peak_ignores_right_cursor": true,
+      "left_returns_to_standing_idle": true,
+      "left_starts_with_automatic_and_preview_off": true,
+      "manual_can_play_during_automatic_cooldown": true,
+      "manual_playback_never_records_an_attempt": true,
+      "native_window": true,
+      "new_work_preempts_manual_peek": true,
+      "no_developer_preview_entry": true,
+      "ordinary_tray_interaction": true,
+      "qt_selection_dismisses_tray_hierarchy": true,
+      "qt_tray_opens_nested_interaction": true,
+      "right_peak_ignores_left_cursor": true,
+      "right_returns_to_standing_idle": true,
+      "right_starts_while_quiet": true,
+      "selection_rechecks_after_work_begins": true,
+      "stale_selection_was_enabled": true,
+      "work_end_does_not_replay_manual_peek": true
+    },
+    "peaks": {
+      "left": {
+        "body_z": -2.7918675098185703,
+        "file": "left-peak.png",
+        "saved": true
+      },
+      "right": {
+        "body_z": 2.7918675098185703,
+        "file": "right-peak.png",
+        "saved": true
+      }
+    }
+  },
+  "automatic": {
+    "passed": true,
+    "check_count": 19,
+    "frames": 188
+  },
+  "visibility": {
+    "passed": true,
+    "check_count": 16
+  },
+  "release": {
+    "ctest_passed": 26,
+    "ctest_total": 26,
+    "ctest_seconds": 70.97,
+    "ninja_dependency_records": 120,
+    "local_signature": "Valid"
+  },
+  "runtime_assets_changed": false,
+  "approved_clip_sha256": "d16c1f18ca2a2305e47279f083a8d439f7ba1442a2bcda6cfd38cf20c80ad14c"
+}
