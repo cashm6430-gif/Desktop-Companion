@@ -18,15 +18,15 @@
 
 ### 特性
 
-- **表情与互动**：通用注视（眼球+头随光标）、变化眨眼（含双眨）、挥手、摸头、拖拽随动与贴边吸附。
-- **道具场景**：可轻拨并柔软回弹的狗尾巴草、纸箱躲猫猫、可保存的用户便笺、来碗饭香、眼罩小睡。
+- **表情与互动**：通用注视（眼球+头随光标）、变化眨眼（含双眨）、挥手、摸头、拖拽随动与贴边吸附；空闲站姿会低频桌边探头，也可在托盘「互动」中指定左右。
+- **道具场景**：可轻拨并柔软回弹的狗尾巴草、纸箱躲猫猫、可保存和折叠的浅蓝便笺、来碗饭香、眼罩小睡。
 - **工作陪伴**：可选自动、站着陪伴或抱电脑，重启记住选择；持续工作约 10 秒后才允许入座，中途「歇一下」，收工中性「回望」。自动便笺只记录回合耗时，停止不代表成功。
-- **AI 助手联动**：Codex / Claude / WorkBuddy hooks 与 OpenCode V2 插件，真实工作回合驱动状态；联动面板可查看来源、活跃回合并本地复位。
+- **AI 助手联动**：Codex / Claude / WorkBuddy hooks 与 OpenCode V2 插件，真实工作回合驱动状态；联动面板可查看来源和活跃回合并本地复位；OpenCode 有新的审批请求时会短暂抬眼。
 - **桌面体验**：透明无边框、逐像素点穿、不抢焦点；托盘菜单、全局热键 **Ctrl+Alt+H**、滚轮缩放、性能档位（省电/标准/流畅）及临时、夜间、全屏安静策略。
 
 ### 安装（Windows）
 
-1. 下载 **`DesktopCompanion-1.1.0-setup.exe`** 并运行；**免管理员**（装到当前用户目录）。
+1. 下载 **`DesktopCompanion-1.2.0-setup.exe`** 并运行；**免管理员**（装到当前用户目录）。
 2. 安装向导里可选：**接入 AI 助手钩子**（默认勾选）、**开机自启**、**桌面快捷方式**。
 3. 装完她就会出现在桌角。**右键托盘图标**打开菜单。
 
@@ -66,7 +66,7 @@ tools\build.cmd
 :: 受限终端里改用（手工拼 MSVC 环境，只做增量构建 + ctest）
 tools\dev.cmd
 :: 打包（portable zip；装了 Inno Setup 6 还会出 setup.exe）
-powershell -ExecutionPolicy Bypass -File tools\package.ps1 -Version 1.1.0
+powershell -ExecutionPolicy Bypass -File tools\package.ps1 -Version 1.2.0
 ```
 
 ### 目录结构
@@ -98,15 +98,15 @@ And she **works alongside you**: hooked to your AI coding agent (**Codex / Claud
 
 ### Features
 
-- **Face & interaction** — gaze (eyes + head follow the cursor), varied blinks (incl. double), wave, head-pat, drag-with-lag and edge snapping.
-- **Prop scenes** — a foxtail with gentle tip dragging and spring-back, box peek-a-boo, saved user notes, rice bowl, eye-mask nap.
+- **Face & interaction** — gaze (eyes + head follow the cursor), varied blinks (incl. double), wave, head-pat, drag-with-lag and edge snapping. She occasionally peeks to one side while standing idle; the tray interaction menu lets you choose either side.
+- **Prop scenes** — a foxtail with gentle tip dragging and spring-back, box peek-a-boo, compact blue sticky notes with saved user content, rice bowl, eye-mask nap.
 - **Work companion** — choose automatic, standing or laptop work; the preference survives restart and retains the ~10 s sit delay. She can take a short break and glance back when a turn ends. Automatic notes record elapsed time; stopping does not prove success.
-- **Agent hooks** — Codex / Claude / WorkBuddy hooks and an OpenCode V2 plugin drive her state from real work turns. A status panel shows sources and active turns, with a local reset.
+- **Agent hooks** — Codex / Claude / WorkBuddy hooks and an OpenCode V2 plugin drive her state from real work turns. A status panel shows sources and active turns, with a local reset. A new OpenCode approval request can prompt a brief glance.
 - **Desktop feel** — transparent frameless window, per-pixel click-through, never steals focus; tray menu, global hotkey **Ctrl+Alt+H**, wheel zoom, performance tiers, and temporary/night/fullscreen quiet settings.
 
 ### Install (Windows)
 
-1. Download **`DesktopCompanion-1.1.0-setup.exe`** and run it — **no admin needed** (per-user install).
+1. Download **`DesktopCompanion-1.2.0-setup.exe`** and run it — **no admin needed** (per-user install).
 2. Optional steps in the wizard: **install AI-agent hooks** (on by default), **start at login**, **desktop shortcut**.
 3. She shows up in a corner of your desktop. **Right-click the tray icon** for the menu.
 
@@ -143,7 +143,7 @@ Restart OpenCode after installing or upgrading its plugin, then start a new task
 ```bat
 tools\build.cmd                                   :: official (conan + configure + windeployqt + ctest)
 tools\dev.cmd                                     :: restricted-terminal build + ctest
-powershell -File tools\package.ps1 -Version 1.1.0 :: portable zip, and setup.exe if Inno Setup 6 is installed
+powershell -File tools\package.ps1 -Version 1.2.0 :: portable zip, and setup.exe if Inno Setup 6 is installed
 ```
 
 ### Layout
